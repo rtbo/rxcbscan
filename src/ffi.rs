@@ -1,26 +1,20 @@
 use crate::output::Output;
-use crate::xcbgen::{Enum, XcbGen};
+use crate::xcbgen::{XcbEmit};
 use std::io::{self, Write};
 
-pub struct FfiXcbGen {
+pub struct FfiXcbEmit {
     out: Output,
 }
 
-impl FfiXcbGen {
-    pub fn new(out: Output) -> FfiXcbGen {
-        FfiXcbGen { out: out }
+impl FfiXcbEmit {
+    pub fn new(out: Output) -> FfiXcbEmit {
+        FfiXcbEmit { out: out }
     }
 }
 
-impl XcbGen for FfiXcbGen {
+impl XcbEmit for FfiXcbEmit {
     fn emit_xidtype(&mut self, name: &str) -> io::Result<()> {
-        writeln!(&mut self.out, "pub type {} = u32;", type_name(name))
-    }
-    fn emit_typedef(&mut self, oldname: &str, newname: &str) -> io::Result<()> {
-        Ok(())
-    }
-    fn emit_enum(&mut self, enm: &Enum) -> io::Result<()> {
-        Ok(())
+        writeln!(&mut self.out, " pub type {}   = u32;", type_name(name))
     }
 }
 

@@ -1,29 +1,19 @@
 use crate::output::Output;
-use crate::xcbgen::{Enum, XcbGen};
-use std::io::{self, Write};
+use crate::xcbgen::XcbEmit;
+use std::io::{self};
 
-pub struct RustXcbGen {
+pub struct RustXcbEmit {
     out: Output,
 }
 
-impl RustXcbGen {
-    pub fn new(out: Output) -> RustXcbGen {
-        RustXcbGen { out: out }
+impl RustXcbEmit {
+    pub fn new(out: Output) -> RustXcbEmit {
+        RustXcbEmit { out }
     }
 }
 
-impl XcbGen for RustXcbGen {
+impl XcbEmit for RustXcbEmit {
     fn emit_xidtype(&mut self, name: &str) -> io::Result<()> {
         Ok(())
     }
-    fn emit_typedef(&mut self, oldname: &str, newname: &str) -> io::Result<()> {
-        Ok(())
-    }
-    fn emit_enum(&mut self, enm: &Enum) -> io::Result<()> {
-        Ok(())
-    }
-}
-
-fn type_name(typ: &str) -> String {
-    return format!("xcb_{}_t", typ);
 }

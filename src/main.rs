@@ -9,10 +9,10 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
-use ffi::FfiXcbGen;
+use ffi::FfiXcbEmit;
 use output::Output;
-use rust::RustXcbGen;
-use xcbgen::XcbGen;
+use rust::RustXcbEmit;
+use xcbgen::{XcbEmit, XcbGen};
 
 fn main() {
     let root = env::var("CARGO_MANIFEST_DIR").unwrap_or(".".to_string());
@@ -41,20 +41,18 @@ fn main() {
         let ffi_file = out_dir.join("ffi").join(&xcb_mod).with_extension("rs");
         let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
 
-        let mut gens: Vec<Box<dyn XcbGen>> = Vec::new();
+        if ref_mtime > optional_mtime(&ffi_file, 0) || ref_mtime > optional_mtime(&rs_file, 0) {
+            let ffi = {
+                let output = Output::new(&rustfmt, &ffi_file).expect("cannot create FFI output");
+                FfiXcbEmit::new(output)
+            };
 
-        if ref_mtime > optional_mtime(&ffi_file, 0) {
-            let output = Output::new(&rustfmt, &ffi_file).expect("cannot create FFI output");
-            let xcbgen = FfiXcbGen::new(output);
-            gens.push(Box::new(xcbgen));
+            let rs = {
+                let output = Output::new(&rustfmt, &rs_file).expect("cannot create Rust output");
+                RustXcbEmit::new(output)
+            };
+            xcb_gen(&xml_file, (ffi, rs)).expect("could not generate XCB code");
         }
-        if ref_mtime > optional_mtime(&rs_file, 0) {
-            let output = Output::new(&rustfmt, &ffi_file).expect("cannot create FFI output");
-            let xcbgen = RustXcbGen::new(output);
-            gens.push(Box::new(xcbgen));
-        }
-
-        xcb_gen(&xml_file, gens);
     }
 
     #[cfg(target_os = "freebsd")]
@@ -99,18 +97,10 @@ where
     })
 }
 
-fn xcb_gen(xml_file: &Path, mut gens: Vec<Box<dyn XcbGen>>) -> bool {
-    if gens.len() == 0 {
-        return true;
-    }
+fn xcb_gen(xml_file: &Path, emit: (FfiXcbEmit, RustXcbEmit)) -> io::Result<()> {
+    let mut gen = XcbGen::new(emit);
 
-    for gen in gens.iter_mut() {
-        gen.emit_xidtype("WINDOW");
-    }
+    gen.emit_xidtype("WINDOW")?;
 
-    for gen in gens.iter_mut() {
-        gen.emit_xidtype("PIXMAP");
-    }
-
-    true
+    Ok(())
 }
