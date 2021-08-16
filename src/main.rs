@@ -1,0 +1,116 @@
+mod ffi;
+mod output;
+mod rust;
+mod xcbgen;
+
+use std::cmp;
+use std::env;
+use std::fs;
+use std::io;
+use std::path::{Path, PathBuf};
+
+use ffi::FfiXcbGen;
+use output::Output;
+use rust::RustXcbGen;
+use xcbgen::XcbGen;
+
+fn main() {
+    let root = env::var("CARGO_MANIFEST_DIR").unwrap_or(".".to_string());
+    let xml_dir = Path::new(&root).join("xml");
+    // let src_dir = Path::new(&root).join("src");
+    let out_dir = env::var("OUT_DIR").unwrap_or("./gen/current".to_string());
+    let out_dir = Path::new(&out_dir);
+
+    let ref_mtime = ["main.rs", "xcbgen.rs", "ffi.rs", "rust.rs"]
+        .iter()
+        .map(|f| Path::new(&root).join("src").join(f))
+        .map(|p| mtime(&p).expect(&format!("cannot get modification time of {}", p.display())))
+        .fold(std::i64::MIN, |a, b| a.max(b));
+
+    let rustfmt = env::var("XCB_RUSTFMT").ok().and_then(|var| {
+        if var == "1" || var == "y" || var == "Y" {
+            find_exe("rustfmt")
+        } else {
+            None
+        }
+    });
+
+    for xml_file in iter_xml(&xml_dir) {
+        let ref_mtime = cmp::max(ref_mtime, mtime(&xml_file).unwrap());
+        let xcb_mod = xml_file.file_stem().unwrap();
+        let ffi_file = out_dir.join("ffi").join(&xcb_mod).with_extension("rs");
+        let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
+
+        let mut gens: Vec<Box<dyn XcbGen>> = Vec::new();
+
+        if ref_mtime > optional_mtime(&ffi_file, 0) {
+            let output = Output::new(&rustfmt, &ffi_file).expect("cannot create FFI output");
+            let xcbgen = FfiXcbGen::new(output);
+            gens.push(Box::new(xcbgen));
+        }
+        if ref_mtime > optional_mtime(&rs_file, 0) {
+            let output = Output::new(&rustfmt, &ffi_file).expect("cannot create FFI output");
+            let xcbgen = RustXcbGen::new(output);
+            gens.push(Box::new(xcbgen));
+        }
+
+        xcb_gen(&xml_file, gens);
+    }
+
+    #[cfg(target_os = "freebsd")]
+    println!("cargo:rustc-link-search=/usr/local/lib");
+}
+
+#[cfg(target_family = "unix")]
+fn mtime<P: AsRef<Path>>(path: P) -> io::Result<i64> {
+    use std::os::unix::fs::MetadataExt;
+    fs::metadata(path).map(|m| m.mtime())
+}
+
+#[cfg(target_family = "windows")]
+fn mtime<P: AsRef<Path>>(path: P) -> io::Result<i64> {
+    use std::os::windows::fs::MetadataExt;
+    fs::metadata(path).map(|m| m.last_write_time() as i64)
+}
+
+fn iter_xml(xml_dir: &Path) -> impl Iterator<Item = PathBuf> {
+    fs::read_dir(xml_dir).unwrap().map(|e| e.unwrap().path())
+}
+
+fn optional_mtime(path: &Path, default: i64) -> i64 {
+    mtime(path).unwrap_or(default)
+}
+
+fn find_exe<P>(exe_name: P) -> Option<PathBuf>
+where
+    P: AsRef<Path>,
+{
+    env::var_os("PATH").and_then(|paths| {
+        env::split_paths(&paths)
+            .filter_map(|dir| {
+                let full_path = dir.join(&exe_name);
+                if full_path.is_file() {
+                    Some(full_path)
+                } else {
+                    None
+                }
+            })
+            .next()
+    })
+}
+
+fn xcb_gen(xml_file: &Path, mut gens: Vec<Box<dyn XcbGen>>) -> bool {
+    if gens.len() == 0 {
+        return true;
+    }
+
+    for gen in gens.iter_mut() {
+        gen.emit_xidtype("WINDOW");
+    }
+
+    for gen in gens.iter_mut() {
+        gen.emit_xidtype("PIXMAP");
+    }
+
+    true
+}
