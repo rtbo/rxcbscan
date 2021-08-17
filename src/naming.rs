@@ -23,4 +23,24 @@ impl Naming {
 
         format!("xcb_{}{}_t", m.to_lowercase(), typ.to_lowercase())
     }
+
+    pub fn rust_type(&self, typ: &str) -> String {
+        capitalize(typ)
+    }
 }
+
+fn capitalize(s: &str) -> String {
+    let mut c = s.chars();
+    match c.next() {
+        None => String::new(),
+        Some(f) => f.to_uppercase().collect::<String>() + &c.as_str().to_lowercase(),
+    }
+}
+
+// fn upper_first(s: &str) -> String {
+//     let mut c = s.chars();
+//     match c.next() {
+//         None => String::new(),
+//         Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
+//     }
+// }
