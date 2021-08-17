@@ -3,6 +3,7 @@ use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command, Stdio};
 
+#[derive(Debug)]
 pub enum Output {
     Fmt(Child),
     Direct(File),
@@ -25,13 +26,6 @@ impl Output {
 
             None => Output::Direct(output),
         })
-    }
-
-    pub fn wait(self) -> io::Result<()> {
-        match self {
-            Output::Fmt(child) => child.wait_with_output().map(|_| ()),
-            _ => Ok(()),
-        }
     }
 }
 

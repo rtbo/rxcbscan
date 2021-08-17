@@ -2,6 +2,7 @@ mod ffi;
 mod output;
 mod rust;
 mod xcbgen;
+mod naming;
 
 use std::cmp;
 use std::env;
@@ -9,10 +10,8 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
-use ffi::FfiXcbEmit;
 use output::Output;
-use rust::RustXcbEmit;
-use xcbgen::{XcbEmit, XcbGen};
+use xcbgen::{XcbGen};
 
 fn main() {
     let root = env::var("CARGO_MANIFEST_DIR").unwrap_or(".".to_string());
@@ -42,16 +41,11 @@ fn main() {
         let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
 
         if ref_mtime > optional_mtime(&ffi_file, 0) || ref_mtime > optional_mtime(&rs_file, 0) {
-            let ffi = {
-                let output = Output::new(&rustfmt, &ffi_file).expect("cannot create FFI output");
-                FfiXcbEmit::new(output)
-            };
+            let ffi = Output::new(&rustfmt, &ffi_file).expect("cannot create FFI output");
+            let rs = Output::new(&rustfmt, &rs_file).expect("cannot create Rust output");
 
-            let rs = {
-                let output = Output::new(&rustfmt, &rs_file).expect("cannot create Rust output");
-                RustXcbEmit::new(output)
-            };
-            xcb_gen(&xml_file, (ffi, rs)).expect("could not generate XCB code");
+            let gen = XcbGen::new(xcb_mod.to_str().unwrap(), ffi, rs);
+            gen.xcb_gen(&xml_file).expect("could not generate XCB code");
         }
     }
 
@@ -95,12 +89,4 @@ where
             })
             .next()
     })
-}
-
-fn xcb_gen(xml_file: &Path, emit: (FfiXcbEmit, RustXcbEmit)) -> io::Result<()> {
-    let mut gen = XcbGen::new(emit);
-
-    gen.emit_xidtype("WINDOW")?;
-
-    Ok(())
 }
