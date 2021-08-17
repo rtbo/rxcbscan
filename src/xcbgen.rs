@@ -28,15 +28,11 @@ use std::str;
 //     items: Vec<EnumItem>,
 // }
 
-pub trait XcbEmit {
-    fn emit_proloque(&mut self) -> io::Result<()>;
-    fn emit_xidtype(&mut self, name: &str) -> io::Result<()>;
-}
-
 #[derive(Debug)]
 pub struct XcbGen {
     ffi: FfiXcbEmit,
     rust: RustXcbEmit,
+    xcb_mod: String,
 }
 
 impl XcbGen {
@@ -45,14 +41,18 @@ impl XcbGen {
 
         let ffi = FfiXcbEmit::new(naming.clone(), ffi);
         let rust = RustXcbEmit::new(naming, rust);
-        XcbGen { ffi, rust }
+        XcbGen {
+            ffi,
+            rust,
+            xcb_mod: xcb_mod.into(),
+        }
     }
 
     pub fn xcb_gen(mut self, xml_file: &Path) -> io::Result<()> {
         let xml = XmlReader::from_file(xml_file).unwrap();
         let parser = XcbParser {
             xml,
-            buf: Vec::new(),
+            buf: Vec::with_capacity(8 * 1024),
         };
 
         self.ffi.emit_proloque()?;
@@ -81,7 +81,7 @@ impl XcbGen {
 // }
 #[derive(Debug)]
 pub enum Event {
-    // Import(String),
+    Import(String),
     XidType(String),
     Ignore,
 }
@@ -92,7 +92,29 @@ struct XcbParser<B: BufRead> {
 }
 
 impl<B: BufRead> XcbParser<B> {
-    // fn xidtype(&mut self) -> Option<String>
+    fn parse_import(&mut self) -> Option<String> {
+        let mut s = None;
+        loop {
+            match self.xml.read_event(&mut self.buf) {
+                Ok(XmlEv::Text(e)) => {
+                    s = Some(e.unescape_and_decode(&self.xml).unwrap());
+                }
+                Ok(XmlEv::End(ref e)) => match e.name() {
+                    b"import" => break,
+                    _ => {
+                        s = None;
+                        break;
+                    }
+                },
+                Err(_) => {
+                    s = None;
+                    break;
+                },
+                _ => {},
+            }
+        }
+        s
+    }
 }
 
 impl<B: BufRead> Iterator for XcbParser<B> {
@@ -113,6 +135,7 @@ impl<B: BufRead> Iterator for XcbParser<B> {
                             .expect("can't escape argument"),
                     ))
                 }
+                b"import" => self.parse_import().map(|s| Event::Import(s)),
                 _ => Some(Event::Ignore),
             },
 

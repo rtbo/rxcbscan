@@ -1,8 +1,8 @@
 mod ffi;
+mod naming;
 mod output;
 mod rust;
 mod xcbgen;
-mod naming;
 
 use std::cmp;
 use std::env;
@@ -11,7 +11,26 @@ use std::io;
 use std::path::{Path, PathBuf};
 
 use output::Output;
-use xcbgen::{XcbGen};
+use xcbgen::XcbGen;
+
+fn xcb_mod_map(name: &str) -> &str {
+    match name {
+        "bigreq" => "big_requests",
+        "ge" => "genericevent",
+        _ => name,
+    }
+}
+
+fn is_always(name: &str) -> bool {
+    match name {
+        "xproto" | "big_requests" | "xc_misc" => true,
+        _ => false,
+    }
+}
+
+fn has_feature(name: &str) -> bool {
+    env::var(format!("CARGO_FEATURE_{}", name.to_ascii_uppercase())).is_ok()
+}
 
 fn main() {
     let root = env::var("CARGO_MANIFEST_DIR").unwrap_or(".".to_string());
@@ -20,7 +39,7 @@ fn main() {
     let out_dir = env::var("OUT_DIR").unwrap_or("./gen/current".to_string());
     let out_dir = Path::new(&out_dir);
 
-    let ref_mtime = ["main.rs", "xcbgen.rs", "ffi.rs", "rust.rs"]
+    let ref_mtime = ["main.rs", "xcbgen.rs", "ffi.rs", "rust.rs", "naming.rs", "output.rs"]
         .iter()
         .map(|f| Path::new(&root).join("src").join(f))
         .map(|p| mtime(&p).expect(&format!("cannot get modification time of {}", p.display())))
@@ -35,8 +54,15 @@ fn main() {
     });
 
     for xml_file in iter_xml(&xml_dir) {
-        let ref_mtime = cmp::max(ref_mtime, mtime(&xml_file).unwrap());
         let xcb_mod = xml_file.file_stem().unwrap();
+        let xcb_mod = xcb_mod.to_str().unwrap();
+        let xcb_mod = xcb_mod_map(xcb_mod);
+
+        if !is_always(&xcb_mod) && !has_feature(&xcb_mod) {
+            // continue;
+        }
+
+        let ref_mtime = cmp::max(ref_mtime, mtime(&xml_file).unwrap());
         let ffi_file = out_dir.join("ffi").join(&xcb_mod).with_extension("rs");
         let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
 
@@ -44,7 +70,7 @@ fn main() {
             let ffi = Output::new(&rustfmt, &ffi_file).expect("cannot create FFI output");
             let rs = Output::new(&rustfmt, &rs_file).expect("cannot create Rust output");
 
-            let gen = XcbGen::new(xcb_mod.to_str().unwrap(), ffi, rs);
+            let gen = XcbGen::new(xcb_mod, ffi, rs);
             gen.xcb_gen(&xml_file).expect("could not generate XCB code");
         }
     }
