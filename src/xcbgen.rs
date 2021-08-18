@@ -50,18 +50,36 @@ impl XcbGen {
 
     pub fn xcb_gen(mut self, xml_file: &Path) -> io::Result<()> {
         let xml = XmlReader::from_file(xml_file).unwrap();
-        let parser = XcbParser {
+
+        let mut parser = XcbParser {
             xml,
             buf: Vec::with_capacity(8 * 1024),
         };
 
-        self.ffi.emit_proloque()?;
-        self.rust.emit_proloque()?;
+        let mut imports = Vec::new();
+        let mut fst: Option<Event> = None;
 
-        for ev in parser {
+        for e in &mut parser {
+            match e {
+                Event::Ignore => {}
+                Event::Import(imp) => imports.push(imp),
+                _ => {
+                    fst = Some(e);
+                    break;
+                }
+            }
+        }
+
+        self.ffi.prologue(&imports)?;
+        self.rust.prologue(&imports)?;
+
+        for ev in fst.into_iter().chain(&mut parser) {
             self.ffi.event(&ev)?;
             self.rust.event(&ev)?;
         }
+
+        self.ffi.epilogue()?;
+        self.rust.epilogue()?;
 
         Ok(())
     }
@@ -109,21 +127,22 @@ impl<B: BufRead> XcbParser<B> {
                 Err(_) => {
                     s = None;
                     break;
-                },
-                _ => {},
+                }
+                _ => {}
             }
         }
         s
     }
 }
 
-impl<B: BufRead> Iterator for XcbParser<B> {
+impl<B: BufRead> Iterator for &mut XcbParser<B> {
     type Item = Event;
 
     fn next(&mut self) -> Option<Self::Item> {
         self.buf.clear();
         match self.xml.read_event(&mut self.buf) {
             Ok(XmlEv::Empty(ref e) | XmlEv::Start(ref e)) => match e.name() {
+                b"import" => self.parse_import().map(|s| Event::Import(s)),
                 b"xidtype" => {
                     let name = e
                         .attributes()
@@ -135,7 +154,6 @@ impl<B: BufRead> Iterator for XcbParser<B> {
                             .expect("can't escape argument"),
                     ))
                 }
-                b"import" => self.parse_import().map(|s| Event::Import(s)),
                 _ => Some(Event::Ignore),
             },
 
