@@ -10,8 +10,11 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
+use codegen::CodeGen;
+use ffi::FfiXcbEmit;
 use output::Output;
-use xcbgen::XcbGen;
+use rust::RustXcbEmit;
+use xcbgen::{Event, XcbGenResult, XcbParser};
 
 fn xcb_mod_map(name: &str) -> &str {
     match name {
@@ -76,18 +79,8 @@ fn main() {
         let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
 
         if ref_mtime > optional_mtime(&ffi_file, 0) || ref_mtime > optional_mtime(&rs_file, 0) {
-            let ffi = Output::new(&rustfmt, &ffi_file).expect(&format!(
-                "cannot create FFI output file: {}",
-                ffi_file.display()
-            ));
-            let rs = Output::new(&rustfmt, &rs_file).expect(&format!(
-                "cannot create Rust output file: {}",
-                rs_file.display()
-            ));
-
-            let gen = XcbGen::new(xcb_mod, ffi, rs);
-            gen.xcb_gen(&xml_file).expect(&format!(
-                "could not generate XCB code for {}",
+            drive_xcb_gen(&xml_file, &xcb_mod, &rustfmt, &ffi_file, &rs_file).expect(&format!(
+                "Error during processing of {}",
                 xml_file.display()
             ));
         }
@@ -139,4 +132,59 @@ where
             })
             .next()
     })
+}
+
+fn drive_xcb_gen(
+    xml_file: &Path,
+    xcb_mod: &str,
+    rustfmt: &Option<PathBuf>,
+    ffi_file: &Path,
+    rs_file: &Path,
+) -> XcbGenResult<()> {
+    let ffi = Output::new(&rustfmt, &ffi_file).expect(&format!(
+        "cannot create FFI output file: {}",
+        ffi_file.display()
+    ));
+    let rs = Output::new(&rustfmt, &rs_file).expect(&format!(
+        "cannot create Rust output file: {}",
+        rs_file.display()
+    ));
+    let mut ffi = FfiXcbEmit::new(ffi);
+    let mut rs = RustXcbEmit::new(rs);
+
+    let mut cg = CodeGen::new(&xcb_mod);
+
+    let mut parser = XcbParser::from_file(&xml_file);
+
+    let mut imports = Vec::new();
+    let mut fst: Option<XcbGenResult<Event>> = None;
+
+    for e in &mut parser {
+        match e? {
+            Event::Ignore => {}
+            Event::Import(imp) => imports.push(imp),
+            ev => {
+                fst = Some(Ok(ev));
+                break;
+            }
+        }
+    }
+
+    ffi.prologue(&imports)?;
+    rs.prologue(&mut cg, &imports)?;
+
+    for ev in fst.into_iter().chain(&mut parser) {
+        match ev {
+            Ok(ev) => {
+                ffi.event(&mut cg, &ev)?;
+                rs.event(&mut cg, &ev)?;
+            }
+            Err(ev) => Err(ev)?,
+        }
+    }
+
+    ffi.epilogue()?;
+    rs.epilogue()?;
+
+    Ok(())
 }

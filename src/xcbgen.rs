@@ -1,11 +1,8 @@
-use crate::codegen::CodeGen;
-use crate::ffi::FfiXcbEmit;
-use crate::output::Output;
-use crate::rust::RustXcbEmit;
 use quick_xml::events::attributes::Attributes;
 use quick_xml::events::{BytesStart, Event as XmlEv};
 use quick_xml::Reader as XmlReader;
-use std::io::{self, BufRead};
+use std::io::{self, BufRead, BufReader};
+use std::fs::File;
 use std::path::Path;
 use std::str::{self, Utf8Error};
 // pub struct TypAnnot {
@@ -55,72 +52,6 @@ impl From<quick_xml::Error> for XcbGenError {
 
 pub type XcbGenResult<T> = Result<T, XcbGenError>;
 
-#[derive(Debug)]
-pub struct XcbGen {
-    ffi: FfiXcbEmit,
-    rust: RustXcbEmit,
-    xcb_mod: String,
-}
-
-impl XcbGen {
-    pub fn new(xcb_mod: &str, ffi: Output, rust: Output) -> XcbGen {
-
-        let ffi = FfiXcbEmit::new(ffi);
-        let rust = RustXcbEmit::new(rust);
-        XcbGen {
-            ffi,
-            rust,
-            xcb_mod: xcb_mod.into(),
-        }
-    }
-
-    pub fn xcb_gen(mut self, xml_file: &Path) -> XcbGenResult<()> {
-        println!("parsing {}", &xml_file.display());
-
-        let mut cg = CodeGen::new(&self.xcb_mod);
-
-        let mut xml = XmlReader::from_file(xml_file).unwrap();
-        xml.trim_text(true);
-
-        let mut parser = XcbParser {
-            xml,
-            buf: Vec::with_capacity(8 * 1024),
-        };
-
-        let mut imports = Vec::new();
-        let mut fst: Option<XcbGenResult<Event>> = None;
-
-        for e in &mut parser {
-            match e? {
-                Event::Ignore => {}
-                Event::Import(imp) => imports.push(imp),
-                ev => {
-                    fst = Some(Ok(ev));
-                    break;
-                }
-            }
-        }
-
-        self.ffi.prologue(&imports)?;
-        self.rust.prologue(&mut cg, &imports)?;
-
-        for ev in fst.into_iter().chain(&mut parser) {
-            match ev {
-                Ok(ev) => {
-                    self.ffi.event(&mut cg, &ev)?;
-                    self.rust.event(&mut cg, &ev)?;
-                }
-                Err(ev) => Err(ev)?,
-            }
-        }
-
-        self.ffi.epilogue()?;
-        self.rust.epilogue()?;
-
-        Ok(())
-    }
-}
-
 #[derive(Debug, Clone)]
 pub struct DocField {
     name: String,
@@ -153,12 +84,27 @@ pub enum Event {
     Ignore,
 }
 
-struct XcbParser<B: BufRead> {
+pub struct XcbParser<B: BufRead> {
     xml: XmlReader<B>,
     buf: Vec<u8>,
 }
 
+impl XcbParser<BufReader<File>> {
+
+    pub fn from_file(xml_file: &Path) -> Self {
+        let mut xml = XmlReader::from_file(xml_file).unwrap();
+        xml.trim_text(true);
+
+        XcbParser {
+            xml,
+            buf: Vec::with_capacity(8 * 1024),
+        }
+    }
+
+}
+
 impl<B: BufRead> XcbParser<B> {
+
     fn expect_text(&mut self) -> XcbGenResult<String> {
         match self.xml.read_event(&mut self.buf) {
             Ok(XmlEv::Text(e) | XmlEv::CData(e)) => {
@@ -267,7 +213,7 @@ impl<B: BufRead> XcbParser<B> {
                         let (tag, value) = self.expect_text_element()?;
                         if tag != b"bit" && tag != b"value" {
                             return Err(XcbGenError::Parse(format!(
-                                "expected <bit> or <value> for enum {}, got {}",
+                                "expected <bit> or <value> for enum {}, got <{}>",
                                 name,
                                 str::from_utf8(&tag)?
                             )));
