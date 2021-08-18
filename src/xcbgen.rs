@@ -82,7 +82,8 @@ impl XcbGen {
     }
 
     pub fn xcb_gen(mut self, xml_file: &Path) -> XcbGenResult<()> {
-        let xml = XmlReader::from_file(xml_file).unwrap();
+        let mut xml = XmlReader::from_file(xml_file).unwrap();
+        xml.trim_text(true);
 
         let mut parser = XcbParser {
             xml,
