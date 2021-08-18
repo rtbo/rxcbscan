@@ -1,17 +1,17 @@
-use crate::codegen::{self as cg, Naming};
+use crate::codegen::CodeGen;
 use crate::output::Output;
 use crate::xcbgen::Event;
 use std::io::{self, Write};
 
 #[derive(Debug)]
 pub struct RustXcbEmit {
-    naming: Naming,
+    codegen: CodeGen,
     out: Output,
 }
 
 impl RustXcbEmit {
-    pub fn new(naming: Naming, out: Output) -> RustXcbEmit {
-        RustXcbEmit { naming, out }
+    pub fn new(codegen: CodeGen, out: Output) -> RustXcbEmit {
+        RustXcbEmit { codegen, out }
     }
 
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
@@ -28,7 +28,7 @@ impl RustXcbEmit {
             writeln!(&mut self.out, "use {};", imp)?;
         }
         writeln!(&mut self.out, "use ffi::base::*;")?;
-        writeln!(&mut self.out, "use ffi::{}::*;", self.naming.xcb_mod())?;
+        writeln!(&mut self.out, "use ffi::{}::*;", self.codegen.xcb_mod())?;
         for imp in imports.iter() {
             writeln!(&mut self.out, "use ffi::{}::*;", imp)?;
         }
@@ -45,10 +45,11 @@ impl RustXcbEmit {
         match ev {
             Event::XidType(name) => {
                 writeln!(&mut self.out, "")?;
-                cg::type_alias(
+                writeln!(
                     &mut self.out,
-                    &self.naming.rust_type(&name),
-                    &self.naming.ffi_type(&name),
+                    "pub type {} = {};",
+                    self.codegen.rust_type(&name),
+                    self.codegen.ffi_type(&name)
                 )?;
             }
             _ => {}

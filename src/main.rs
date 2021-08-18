@@ -35,7 +35,7 @@ fn has_feature(name: &str) -> bool {
 fn main() {
     let root = env::var("CARGO_MANIFEST_DIR").unwrap_or(".".to_string());
     let xml_dir = Path::new(&root).join("xml");
-    // let src_dir = Path::new(&root).join("src");
+    // let src_dir = Path::new(&root).join("build");
     let out_dir = env::var("OUT_DIR").unwrap_or("./gen/current".to_string());
     let out_dir = Path::new(&out_dir);
 
@@ -50,7 +50,7 @@ fn main() {
 
     let ref_mtime = src_files
         .iter()
-        .map(|f| Path::new(&root).join("src").join(f))
+        .map(|f| Path::new(&root).join("build").join(f))
         .map(|p| mtime(&p).expect(&format!("cannot get modification time of {}", p.display())))
         .fold(std::i64::MIN, |a, b| a.max(b));
 
