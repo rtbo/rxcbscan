@@ -39,7 +39,16 @@ fn main() {
     let out_dir = env::var("OUT_DIR").unwrap_or("./gen/current".to_string());
     let out_dir = Path::new(&out_dir);
 
-    let ref_mtime = ["main.rs", "xcbgen.rs", "ffi.rs", "rust.rs", "naming.rs", "output.rs"]
+    let src_files = [
+        "main.rs",
+        "xcbgen.rs",
+        "ffi.rs",
+        "rust.rs",
+        "naming.rs",
+        "output.rs",
+    ];
+
+    let ref_mtime = src_files
         .iter()
         .map(|f| Path::new(&root).join("src").join(f))
         .map(|p| mtime(&p).expect(&format!("cannot get modification time of {}", p.display())))
