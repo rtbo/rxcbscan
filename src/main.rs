@@ -2,7 +2,7 @@ mod codegen;
 mod ffi;
 mod output;
 mod rust;
-mod xcbgen;
+mod parse;
 
 use std::cmp;
 use std::env;
@@ -14,7 +14,7 @@ use codegen::CodeGen;
 use ffi::FfiXcbEmit;
 use output::Output;
 use rust::RustXcbEmit;
-use xcbgen::{Event, XcbGenResult, XcbParser};
+use parse::{Event, Result, Parser};
 
 fn xcb_mod_map(name: &str) -> &str {
     match name {
@@ -44,7 +44,7 @@ fn main() {
 
     let src_files = [
         "main.rs",
-        "xcbgen.rs",
+        "parse.rs",
         "ffi.rs",
         "rust.rs",
         "codegen.rs",
@@ -140,7 +140,7 @@ fn drive_xcb_gen(
     rustfmt: &Option<PathBuf>,
     ffi_file: &Path,
     rs_file: &Path,
-) -> XcbGenResult<()> {
+) -> Result<()> {
     let ffi = Output::new(&rustfmt, &ffi_file).expect(&format!(
         "cannot create FFI output file: {}",
         ffi_file.display()
@@ -154,10 +154,10 @@ fn drive_xcb_gen(
 
     let mut cg = CodeGen::new(&xcb_mod);
 
-    let mut parser = XcbParser::from_file(&xml_file);
+    let mut parser = Parser::from_file(&xml_file);
 
     let mut imports = Vec::new();
-    let mut fst: Option<XcbGenResult<Event>> = None;
+    let mut fst: Option<Result<Event>> = None;
 
     for e in &mut parser {
         match e? {

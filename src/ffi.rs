@@ -1,6 +1,6 @@
 use crate::codegen::CodeGen;
 use crate::output::Output;
-use crate::xcbgen::Event;
+use crate::parse::Event;
 use std::io::{self, Cursor, Write};
 
 #[derive(Debug)]

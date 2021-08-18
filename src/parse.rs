@@ -5,6 +5,7 @@ use std::io::{self, BufRead, BufReader};
 use std::fs::File;
 use std::path::Path;
 use std::str::{self, Utf8Error};
+use std::result;
 // pub struct TypAnnot {
 //     name: String,
 //     borrow: bool,
@@ -21,36 +22,36 @@ use std::str::{self, Utf8Error};
 // }
 
 #[derive(Debug)]
-pub enum XcbGenError {
+pub enum Error {
     IO(io::Error),
     Xml(quick_xml::Error),
     Utf8(Utf8Error),
     Parse(String),
 }
 
-impl From<io::Error> for XcbGenError {
+impl From<io::Error> for Error {
     fn from(err: io::Error) -> Self {
-        XcbGenError::IO(err)
+        Error::IO(err)
     }
 }
 
-impl From<Utf8Error> for XcbGenError {
+impl From<Utf8Error> for Error {
     fn from(err: Utf8Error) -> Self {
-        XcbGenError::Utf8(err)
+        Error::Utf8(err)
     }
 }
 
-impl From<quick_xml::Error> for XcbGenError {
+impl From<quick_xml::Error> for Error {
     fn from(err: quick_xml::Error) -> Self {
         match err {
-            quick_xml::Error::Io(e) => XcbGenError::IO(e),
-            quick_xml::Error::Utf8(e) => XcbGenError::Utf8(e),
-            e => XcbGenError::Xml(e),
+            quick_xml::Error::Io(e) => Error::IO(e),
+            quick_xml::Error::Utf8(e) => Error::Utf8(e),
+            e => Error::Xml(e),
         }
     }
 }
 
-pub type XcbGenResult<T> = Result<T, XcbGenError>;
+pub type Result<T> = result::Result<T, Error>;
 
 #[derive(Debug, Clone)]
 pub struct DocField {
@@ -84,18 +85,18 @@ pub enum Event {
     Ignore,
 }
 
-pub struct XcbParser<B: BufRead> {
+pub struct Parser<B: BufRead> {
     xml: XmlReader<B>,
     buf: Vec<u8>,
 }
 
-impl XcbParser<BufReader<File>> {
+impl Parser<BufReader<File>> {
 
     pub fn from_file(xml_file: &Path) -> Self {
         let mut xml = XmlReader::from_file(xml_file).unwrap();
         xml.trim_text(true);
 
-        XcbParser {
+        Parser {
             xml,
             buf: Vec::with_capacity(8 * 1024),
         }
@@ -103,33 +104,33 @@ impl XcbParser<BufReader<File>> {
 
 }
 
-impl<B: BufRead> XcbParser<B> {
+impl<B: BufRead> Parser<B> {
 
-    fn expect_text(&mut self) -> XcbGenResult<String> {
+    fn expect_text(&mut self) -> Result<String> {
         match self.xml.read_event(&mut self.buf) {
             Ok(XmlEv::Text(e) | XmlEv::CData(e)) => {
                 let txt = e.unescaped()?;
                 Ok(str::from_utf8(&txt)?.into())
             }
-            Ok(ev) => Err(XcbGenError::Parse(format!("expected text, found {:?}", ev))),
+            Ok(ev) => Err(Error::Parse(format!("expected text, found {:?}", ev))),
             Err(e) => Err(e)?,
         }
     }
 
-    // fn expect_start_tag(&mut self, tag: &[u8]) -> XcbGenResult<()> {
+    // fn expect_start_tag(&mut self, tag: &[u8]) -> Result<()> {
     //     match self.xml.read_event(&mut self.buf) {
     //         Ok(XmlEv::Start(e) | XmlEv::Empty(e)) => {
     //             if e.name() == tag {
     //                 Ok(())
     //             } else {
-    //                 Err(XcbGenError::Parse(format!(
+    //                 Err(Error::Parse(format!(
     //                     "expected <{}>, got <{}>",
     //                     str::from_utf8(tag).unwrap(),
     //                     str::from_utf8(e.name())?
     //                 )))
     //             }
     //         }
-    //         Ok(ev) => Err(XcbGenError::Parse(format!(
+    //         Ok(ev) => Err(Error::Parse(format!(
     //             "expected <{}>, found {:?}",
     //             str::from_utf8(tag).unwrap(),
     //             ev
@@ -138,10 +139,10 @@ impl<B: BufRead> XcbParser<B> {
     //     }
     // }
 
-    fn expect_start(&mut self) -> XcbGenResult<Vec<u8>> {
+    fn expect_start(&mut self) -> Result<Vec<u8>> {
         match self.xml.read_event(&mut self.buf) {
             Ok(XmlEv::Start(e) | XmlEv::Empty(e)) => Ok(Vec::from(e.name())),
-            Ok(ev) => Err(XcbGenError::Parse(format!(
+            Ok(ev) => Err(Error::Parse(format!(
                 "expected start tag, found {:?}",
                 ev
             ))),
@@ -149,14 +150,14 @@ impl<B: BufRead> XcbParser<B> {
         }
     }
 
-    fn expect_close_tag(&mut self, tag: &[u8]) -> XcbGenResult<()> {
+    fn expect_close_tag(&mut self, tag: &[u8]) -> Result<()> {
         loop {
             match self.xml.read_event(&mut self.buf) {
                 Ok(XmlEv::End(e)) => {
                     if e.name() == tag {
                         return Ok(());
                     } else {
-                        return Err(XcbGenError::Parse(format!(
+                        return Err(Error::Parse(format!(
                             "expected </{}>, got </{}>",
                             str::from_utf8(tag).unwrap(),
                             str::from_utf8(e.name())?
@@ -165,7 +166,7 @@ impl<B: BufRead> XcbParser<B> {
                 }
                 Ok(XmlEv::Comment(_)) => {}
                 Ok(ev) => {
-                    return Err(XcbGenError::Parse(format!(
+                    return Err(Error::Parse(format!(
                         "expected </{}>, found {:?}",
                         str::from_utf8(tag).unwrap(),
                         ev
@@ -176,21 +177,21 @@ impl<B: BufRead> XcbParser<B> {
         }
     }
 
-    fn expect_text_element(&mut self) -> XcbGenResult<(Vec<u8>, String)> {
+    fn expect_text_element(&mut self) -> Result<(Vec<u8>, String)> {
         let tag = self.expect_start()?;
         let txt = self.expect_text()?;
         self.expect_close_tag(&tag)?;
         Ok((tag, txt))
     }
 
-    // fn expect_text_element_with_tag(&mut self, tag: &[u8]) -> XcbGenResult<String> {
+    // fn expect_text_element_with_tag(&mut self, tag: &[u8]) -> Result<String> {
     //     self.expect_start_tag(tag)?;
     //     let txt = self.expect_text()?;
     //     self.expect_close_tag(tag)?;
     //     Ok(txt)
     // }
 
-    fn parse_import(&mut self) -> XcbGenResult<String> {
+    fn parse_import(&mut self) -> Result<String> {
         let imp = self.expect_text()?;
         self.expect_close_tag(b"import")?;
         Ok(imp)
@@ -199,7 +200,7 @@ impl<B: BufRead> XcbParser<B> {
     fn parse_enum(
         &mut self,
         start: BytesStart,
-    ) -> XcbGenResult<(String, bool, Vec<EnumItem>, Option<Doc>)> {
+    ) -> Result<(String, bool, Vec<EnumItem>, Option<Doc>)> {
         let name = expect_attribute(start.attributes(), b"name")?;
         let mut items = Vec::new();
         let mut bitset = false;
@@ -212,14 +213,14 @@ impl<B: BufRead> XcbParser<B> {
                         let name = expect_attribute(e.attributes(), b"name")?;
                         let (tag, value) = self.expect_text_element()?;
                         if tag != b"bit" && tag != b"value" {
-                            return Err(XcbGenError::Parse(format!(
+                            return Err(Error::Parse(format!(
                                 "expected <bit> or <value> for enum {}, got <{}>",
                                 name,
                                 str::from_utf8(&tag)?
                             )));
                         }
                         let value: u32 = value.parse().map_err(|e| {
-                            XcbGenError::Parse(format!(
+                            Error::Parse(format!(
                                 "failed to parse {} of enum {}: {}",
                                 str::from_utf8(&tag).unwrap(),
                                 name,
@@ -237,7 +238,7 @@ impl<B: BufRead> XcbParser<B> {
                         doc = Some(self.parse_doc()?);
                     }
                     tag => {
-                        return Err(XcbGenError::Parse(format!(
+                        return Err(Error::Parse(format!(
                             "Unexpected tag in enum: {}",
                             str::from_utf8(tag)?
                         )));
@@ -247,7 +248,7 @@ impl<B: BufRead> XcbParser<B> {
                     b"enum" => break,
                     b"item" => continue,
                     tag => {
-                        return Err(XcbGenError::Parse(format!(
+                        return Err(Error::Parse(format!(
                             "Unexpected </{}> in enum {}",
                             str::from_utf8(tag)?,
                             name,
@@ -256,7 +257,7 @@ impl<B: BufRead> XcbParser<B> {
                 },
                 Ok(XmlEv::Comment(_)) => {}
                 Ok(ev) => {
-                    return Err(XcbGenError::Parse(format!(
+                    return Err(Error::Parse(format!(
                         "unexpected XML in enum: {:?}",
                         ev
                     )));
@@ -268,7 +269,7 @@ impl<B: BufRead> XcbParser<B> {
         Ok((name, bitset, items, doc))
     }
 
-    fn parse_doc(&mut self) -> XcbGenResult<Doc> {
+    fn parse_doc(&mut self) -> Result<Doc> {
         let mut brief = String::new();
         let mut text = String::new();
         let mut fields = Vec::new();
@@ -308,8 +309,8 @@ impl<B: BufRead> XcbParser<B> {
     }
 }
 
-impl<B: BufRead> Iterator for &mut XcbParser<B> {
-    type Item = XcbGenResult<Event>;
+impl<B: BufRead> Iterator for &mut Parser<B> {
+    type Item = Result<Event>;
 
     fn next(&mut self) -> Option<Self::Item> {
         self.buf.clear();
@@ -341,7 +342,7 @@ impl<B: BufRead> Iterator for &mut XcbParser<B> {
     }
 }
 
-fn expect_attribute(attrs: Attributes, name: &[u8]) -> XcbGenResult<String> {
+fn expect_attribute(attrs: Attributes, name: &[u8]) -> Result<String> {
     for attr in attrs {
         match attr {
             Ok(attr) => {
@@ -353,7 +354,7 @@ fn expect_attribute(attrs: Attributes, name: &[u8]) -> XcbGenResult<String> {
             Err(err) => Err(err)?,
         }
     }
-    Err(XcbGenError::Parse(format!(
+    Err(Error::Parse(format!(
         "could not find expected attribute: {}",
         str::from_utf8(name).unwrap()
     )))
