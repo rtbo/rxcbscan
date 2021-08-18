@@ -15,11 +15,11 @@ sed -i 's/\"src\"/\"build\"/g' ../rust-xcb/build/main.rs
 MSG="$1"
 
 if [ -n "$MSG" ]; then
-    git add src/*
+    git add -A src/*
     git commit -m "$MSG"
 
     pushd ../rust-xcb
-        git add build/*
+        git add -A build/*
         git commit -m "$MSG"
     popd
 fi
