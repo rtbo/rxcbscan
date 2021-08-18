@@ -1,3 +1,6 @@
+use crate::output::Output;
+use std::io::{self, Write};
+
 #[derive(Debug, Clone)]
 pub struct Naming {
     xcb_mod: String,
@@ -44,3 +47,7 @@ fn capitalize(s: &str) -> String {
 //         Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
 //     }
 // }
+
+pub fn type_alias(out: &mut Output, new_type: &str, old_type: &str) -> io::Result<()> {
+    writeln!(out, "pub type {} = {};", new_type, old_type)
+}

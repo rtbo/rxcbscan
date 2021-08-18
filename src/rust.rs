@@ -1,4 +1,4 @@
-use crate::codegen::Naming;
+use crate::codegen::{self as cg, Naming};
 use crate::output::Output;
 use crate::xcbgen::Event;
 use std::io::{self, Write};
@@ -45,11 +45,10 @@ impl RustXcbEmit {
         match ev {
             Event::XidType(name) => {
                 writeln!(&mut self.out, "")?;
-                writeln!(
+                cg::type_alias(
                     &mut self.out,
-                    "pub type {} = {};",
-                    self.naming.rust_type(&name),
-                    self.naming.ffi_type(&name)
+                    &self.naming.rust_type(&name),
+                    &self.naming.ffi_type(&name),
                 )?;
             }
             _ => {}

@@ -1,4 +1,4 @@
-use crate::codegen::Naming;
+use crate::codegen::{self as cg, Naming};
 use crate::output::Output;
 use crate::xcbgen::Event;
 use std::io::{self, Write};
@@ -39,10 +39,9 @@ impl FfiXcbEmit {
         match ev {
             Event::XidType(name) => {
                 writeln!(&mut self.out, "")?;
-                writeln!(
+                cg::type_alias(
                     &mut self.out,
-                    "pub type {} = u32;",
-                    self.naming.ffi_type(&name)
+                    &self.naming.ffi_type(&name), "u32"
                 )?;
             }
             _ => {}
