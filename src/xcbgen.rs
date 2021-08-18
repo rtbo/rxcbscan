@@ -139,7 +139,10 @@ struct XcbParser<B: BufRead> {
 impl<B: BufRead> XcbParser<B> {
     fn expect_text(&mut self) -> XcbGenResult<String> {
         match self.xml.read_event(&mut self.buf) {
-            Ok(XmlEv::Text(e)) => Ok(e.unescape_and_decode(&self.xml)?),
+            Ok(XmlEv::Text(e)) => {
+                let txt = e.unescaped()?;
+                Ok(str::from_utf8(&txt)?.into())
+            }
             Ok(ev) => Err(XcbGenError::Parse(format!("expected text, found {:?}", ev))),
             Err(e) => Err(e)?,
         }
@@ -203,7 +206,7 @@ fn expect_attribute(attrs: Attributes, name: &[u8]) -> XcbGenResult<String> {
             Ok(attr) => {
                 if attr.key == name {
                     let val = attr.unescaped_value()?;
-                    return Ok(str::from_utf8(&val)?.to_string());
+                    return Ok(str::from_utf8(&val)?.into());
                 }
             }
             Err(err) => Err(err)?,
