@@ -92,7 +92,13 @@ fn mtime<P: AsRef<Path>>(path: P) -> io::Result<i64> {
 }
 
 fn iter_xml(xml_dir: &Path) -> impl Iterator<Item = PathBuf> {
-    fs::read_dir(xml_dir).unwrap().map(|e| e.unwrap().path())
+    fs::read_dir(xml_dir)
+        .unwrap()
+        .map(|e| e.unwrap().path())
+        .filter(|p| match p.extension() {
+            Some(e) => e == "xml",
+            _ => false,
+        })
 }
 
 fn optional_mtime(path: &Path, default: i64) -> i64 {
