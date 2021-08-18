@@ -1,11 +1,11 @@
 #[derive(Debug, Clone)]
-pub struct CodeGen {
+pub struct Naming {
     xcb_mod: String,
 }
 
-impl CodeGen {
-    pub fn new(xcb_mod: &str) -> CodeGen {
-        CodeGen {
+impl Naming {
+    pub fn new(xcb_mod: &str) -> Naming {
+        Naming {
             xcb_mod: xcb_mod.to_owned(),
         }
     }

@@ -1,4 +1,4 @@
-use crate::codegen::CodeGen;
+use crate::codegen::Naming;
 use crate::ffi::FfiXcbEmit;
 use crate::output::Output;
 use crate::rust::RustXcbEmit;
@@ -64,10 +64,10 @@ pub struct XcbGen {
 
 impl XcbGen {
     pub fn new(xcb_mod: &str, ffi: Output, rust: Output) -> XcbGen {
-        let codegen = CodeGen::new(xcb_mod);
+        let naming = Naming::new(xcb_mod);
 
-        let ffi = FfiXcbEmit::new(codegen.clone(), ffi);
-        let rust = RustXcbEmit::new(codegen, rust);
+        let ffi = FfiXcbEmit::new(naming.clone(), ffi);
+        let rust = RustXcbEmit::new(naming, rust);
         XcbGen {
             ffi,
             rust,

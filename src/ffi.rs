@@ -1,17 +1,17 @@
-use crate::codegen::CodeGen;
+use crate::codegen::Naming;
 use crate::output::Output;
 use crate::xcbgen::Event;
 use std::io::{self, Write};
 
 #[derive(Debug)]
 pub struct FfiXcbEmit {
-    codegen: CodeGen,
+    naming: Naming,
     out: Output,
 }
 
 impl FfiXcbEmit {
-    pub fn new(codegen: CodeGen, out: Output) -> FfiXcbEmit {
-        FfiXcbEmit { codegen, out }
+    pub fn new(naming: Naming, out: Output) -> FfiXcbEmit {
+        FfiXcbEmit { naming, out }
     }
 
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
@@ -42,7 +42,7 @@ impl FfiXcbEmit {
                 writeln!(
                     &mut self.out,
                     "pub type {} = u32;",
-                    self.codegen.ffi_type(&name)
+                    self.naming.ffi_type(&name)
                 )?;
             }
             _ => {}
