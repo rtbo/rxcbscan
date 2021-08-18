@@ -127,15 +127,15 @@ pub struct DocField {
 
 #[derive(Debug, Clone)]
 pub struct Doc {
-    brief: String,
-    text: String,
-    fields: Vec<DocField>,
+    pub brief: String,
+    pub text: String,
+    pub fields: Vec<DocField>,
 }
 
 #[derive(Debug, Clone)]
 pub struct EnumItem {
-    name: String,
-    value: u32,
+    pub name: String,
+    pub value: u32,
 }
 
 #[derive(Debug, Clone)]

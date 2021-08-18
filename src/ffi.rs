@@ -20,29 +20,28 @@ impl FfiXcbEmit {
     }
 
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
-        writeln!(
-            &mut self.out,
-            "use libc::{{c_char, c_int, c_uint, c_void}};"
-        )?;
-        writeln!(&mut self.out, "use std;")?;
-        writeln!(&mut self.out)?;
-        writeln!(&mut self.out, "use ffi::base::*;")?;
+        let out = &mut self.out;
+        writeln!(out, "use libc::{{c_char, c_int, c_uint, c_void}};")?;
+        writeln!(out, "use std;")?;
+        writeln!(out)?;
+        writeln!(out, "use ffi::base::*;")?;
         for imp in imports.iter() {
-            writeln!(&mut self.out, "use ffi::{}::*;", imp)?;
+            writeln!(out, "use ffi::{}::*;", imp)?;
         }
-        writeln!(&mut self.out)?;
+        writeln!(out)?;
         Ok(())
     }
 
     pub fn epilogue(&mut self) -> io::Result<()> {
+        let out = &mut self.out;
         // write out all the external functions
-        writeln!(&mut self.out).unwrap();
-        writeln!(&mut self.out, "extern {{")?;
+        writeln!(out).unwrap();
+        writeln!(out, "extern {{")?;
 
-        self.out.write(self.ext_fn_out.get_ref())?;
+        out.write(self.ext_fn_out.get_ref())?;
 
-        writeln!(&mut self.out).unwrap();
-        writeln!(&mut self.out, "}} // extern")?;
+        writeln!(out).unwrap();
+        writeln!(out, "}} // extern")?;
         Ok(())
     }
 
@@ -53,6 +52,31 @@ impl FfiXcbEmit {
                     .emit_type_alias(&mut self.out, &self.cg.ffi_type_name(name), "u32")?;
 
                 self.emit_iterator(name)?;
+            }
+            Event::Enum {
+                name,
+                bitset,
+                items,
+                ..
+            } => {
+                let out = &mut self.out;
+                writeln!(out)?;
+                let typ = self.cg.ffi_type_name(name);
+                writeln!(out, "pub type {} = u32;", typ)?;
+                for item in items {
+                    let val = if *bitset {
+                        format!("0x{:02X}", item.value)
+                    } else {
+                        format!("{}", item.value)
+                    };
+                    writeln!(
+                        out,
+                        "const {}: {} = {};",
+                        self.cg.ffi_enum_item_name(name, &item.name),
+                        typ,
+                        val
+                    )?;
+                }
             }
             _ => {}
         }

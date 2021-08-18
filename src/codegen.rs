@@ -33,15 +33,25 @@ impl CodeGen {
         format!(
             "xcb_{}{}_t",
             self.xcb_mod_prefix,
-            typ.to_ascii_lowercase()
+            tit_split(typ).to_ascii_lowercase()
         )
+    }
+
+    pub fn ffi_enum_item_name(&self, name: &str, item: &str) -> String {
+        format!(
+            "XCB_{}{}_{}",
+            &self.xcb_mod_prefix,
+            tit_split(name),
+            tit_split(item)
+        )
+        .to_ascii_uppercase()
     }
 
     pub fn ffi_iterator_name(&self, typ: &str) -> String {
         format!(
             "xcb_{}{}_iterator_t",
             self.xcb_mod_prefix,
-            typ.to_ascii_lowercase()
+            tit_split(typ).to_ascii_lowercase()
         )
     }
 
@@ -49,7 +59,7 @@ impl CodeGen {
         format!(
             "xcb_{}{}_next",
             self.xcb_mod_prefix,
-            typ.to_ascii_lowercase()
+            tit_split(typ).to_ascii_lowercase()
         )
     }
 
@@ -57,7 +67,7 @@ impl CodeGen {
         format!(
             "xcb_{}{}_end",
             self.xcb_mod_prefix,
-            typ.to_ascii_lowercase()
+            tit_split(typ).to_ascii_lowercase()
         )
     }
 
@@ -65,12 +75,16 @@ impl CodeGen {
         capitalize(typ)
     }
 
-    pub fn emit_type_alias(&self, out: &mut Output, new_typ: &str, old_typ: &str)-> io::Result<()> {
+    pub fn emit_type_alias(
+        &self,
+        out: &mut Output,
+        new_typ: &str,
+        old_typ: &str,
+    ) -> io::Result<()> {
         writeln!(out)?;
         writeln!(out, "pub type {} = {};", new_typ, old_typ)?;
         Ok(())
     }
-
 }
 
 fn capitalize(s: &str) -> String {
@@ -88,3 +102,25 @@ fn capitalize(s: &str) -> String {
 //         Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
 //     }
 // }
+
+// assert!(tit_split("SomeString") == "Some_String")
+// assert!(tit_split("WINDOW") == "WINDOW")
+fn tit_split(name: &str) -> String {
+    if name.len() == 0 {
+        return String::new();
+    }
+    let all_upper = name.chars().all(|c| c.is_ascii_uppercase());
+    if all_upper {
+        return name.into();
+    }
+    let mut res = String::new();
+    let mut ch = name.chars();
+    res.push(ch.next().unwrap());
+    for c in ch {
+        if c.is_ascii_uppercase() {
+            res.push('_');
+        }
+        res.push(c);
+    }
+    res
+}
