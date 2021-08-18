@@ -1,5 +1,5 @@
+mod codegen;
 mod ffi;
-mod naming;
 mod output;
 mod rust;
 mod xcbgen;
@@ -44,7 +44,7 @@ fn main() {
         "xcbgen.rs",
         "ffi.rs",
         "rust.rs",
-        "naming.rs",
+        "codegen.rs",
         "output.rs",
     ];
 

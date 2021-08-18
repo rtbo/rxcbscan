@@ -1,5 +1,5 @@
+use crate::codegen::CodeGen;
 use crate::ffi::FfiXcbEmit;
-use crate::naming::Naming;
 use crate::output::Output;
 use crate::rust::RustXcbEmit;
 use quick_xml::events::attributes::Attributes;
@@ -70,10 +70,10 @@ pub struct XcbGen {
 
 impl XcbGen {
     pub fn new(xcb_mod: &str, ffi: Output, rust: Output) -> XcbGen {
-        let naming = Naming::new(xcb_mod);
+        let codegen = CodeGen::new(xcb_mod);
 
-        let ffi = FfiXcbEmit::new(naming.clone(), ffi);
-        let rust = RustXcbEmit::new(naming, rust);
+        let ffi = FfiXcbEmit::new(codegen.clone(), ffi);
+        let rust = RustXcbEmit::new(codegen, rust);
         XcbGen {
             ffi,
             rust,
