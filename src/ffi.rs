@@ -2,12 +2,14 @@ use crate::codegen::CodeGen;
 use crate::output::Output;
 use crate::xcbgen::Event;
 use std::io::{self, Cursor, Write};
+use std::collections::HashSet;
 
 #[derive(Debug)]
 pub struct FfiXcbEmit {
     cg: CodeGen,
     out: Output,                 // direct output
     ext_fn_out: Cursor<Vec<u8>>, // all the extern functions are grouped
+    typ_reg: HashSet<String>,        // types registered
 }
 
 impl FfiXcbEmit {
@@ -16,6 +18,7 @@ impl FfiXcbEmit {
             cg,
             out,
             ext_fn_out: Cursor::new(Vec::new()),
+            typ_reg: HashSet::new(),
         }
     }
 
@@ -48,10 +51,12 @@ impl FfiXcbEmit {
     pub fn event(&mut self, ev: &Event) -> io::Result<()> {
         match ev {
             Event::XidType(name) => {
+                let typ = self.cg.ffi_type_name(name);
                 self.cg
-                    .emit_type_alias(&mut self.out, &self.cg.ffi_type_name(name), "u32")?;
+                    .emit_type_alias(&mut self.out, &typ, "u32")?;
 
                 self.emit_iterator(name)?;
+                self.typ_reg.insert(typ);
             }
             Event::Enum {
                 name,
@@ -62,6 +67,13 @@ impl FfiXcbEmit {
                 let out = &mut self.out;
                 writeln!(out)?;
                 let typ = self.cg.ffi_type_name(name);
+                let typ = if self.typ_reg.contains(&typ) {
+                    self.cg.ffi_type_name(&(name.to_owned() + "_enum"))
+                }
+                else {
+                    typ
+                };
+
                 writeln!(out, "pub type {} = u32;", typ)?;
                 for item in items {
                     let val = if *bitset {
@@ -77,6 +89,7 @@ impl FfiXcbEmit {
                         val
                     )?;
                 }
+                self.typ_reg.insert(typ);
             }
             _ => {}
         }

@@ -109,7 +109,7 @@ fn tit_split(name: &str) -> String {
     if name.len() == 0 {
         return String::new();
     }
-    let all_upper = name.chars().all(|c| c.is_ascii_uppercase());
+    let all_upper = !name.chars().any(|c| c.is_ascii_lowercase());
     if all_upper {
         return name.into();
     }
@@ -117,7 +117,7 @@ fn tit_split(name: &str) -> String {
     let mut ch = name.chars();
     res.push(ch.next().unwrap());
     for c in ch {
-        if c.is_ascii_uppercase() {
+        if c.is_ascii_uppercase() || c.is_ascii_digit() {
             res.push('_');
         }
         res.push(c);
