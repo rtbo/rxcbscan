@@ -3,7 +3,7 @@ use crate::ffi::FfiXcbEmit;
 use crate::output::Output;
 use crate::rust::RustXcbEmit;
 use quick_xml::events::attributes::Attributes;
-use quick_xml::events::Event as XmlEv;
+use quick_xml::events::{BytesStart, Event as XmlEv};
 use quick_xml::Reader as XmlReader;
 use std::io::{self, BufRead};
 use std::path::Path;
@@ -18,12 +18,6 @@ use std::str::{self, Utf8Error};
 //     name: String,
 //     typ: TypAnnot,
 // }
-
-// pub struct EnumItem {
-//     name: String,
-//     value: u32,
-// }
-
 // pub struct Enum {
 //     name: String,
 //     items: Vec<EnumItem>,
@@ -82,6 +76,7 @@ impl XcbGen {
     }
 
     pub fn xcb_gen(mut self, xml_file: &Path) -> XcbGenResult<()> {
+        println!("parsing {}", &xml_file.display());
         let mut xml = XmlReader::from_file(xml_file).unwrap();
         xml.trim_text(true);
 
@@ -124,10 +119,35 @@ impl XcbGen {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
+pub struct DocField {
+    name: String,
+    text: String,
+}
+
+#[derive(Debug, Clone)]
+pub struct Doc {
+    brief: String,
+    text: String,
+    fields: Vec<DocField>,
+}
+
+#[derive(Debug, Clone)]
+pub struct EnumItem {
+    name: String,
+    value: u32,
+}
+
+#[derive(Debug, Clone)]
 pub enum Event {
     Import(String),
     XidType(String),
+    Enum {
+        name: String,
+        bitset: bool,
+        items: Vec<EnumItem>,
+        doc: Option<Doc>,
+    },
     Ignore,
 }
 
@@ -139,7 +159,7 @@ struct XcbParser<B: BufRead> {
 impl<B: BufRead> XcbParser<B> {
     fn expect_text(&mut self) -> XcbGenResult<String> {
         match self.xml.read_event(&mut self.buf) {
-            Ok(XmlEv::Text(e)) => {
+            Ok(XmlEv::Text(e) | XmlEv::CData(e)) => {
                 let txt = e.unescaped()?;
                 Ok(str::from_utf8(&txt)?.into())
             }
@@ -148,32 +168,195 @@ impl<B: BufRead> XcbParser<B> {
         }
     }
 
-    fn expect_close_tag(&mut self, tag: &[u8]) -> XcbGenResult<()> {
+    // fn expect_start_tag(&mut self, tag: &[u8]) -> XcbGenResult<()> {
+    //     match self.xml.read_event(&mut self.buf) {
+    //         Ok(XmlEv::Start(e) | XmlEv::Empty(e)) => {
+    //             if e.name() == tag {
+    //                 Ok(())
+    //             } else {
+    //                 Err(XcbGenError::Parse(format!(
+    //                     "expected <{}>, got <{}>",
+    //                     str::from_utf8(tag).unwrap(),
+    //                     str::from_utf8(e.name())?
+    //                 )))
+    //             }
+    //         }
+    //         Ok(ev) => Err(XcbGenError::Parse(format!(
+    //             "expected <{}>, found {:?}",
+    //             str::from_utf8(tag).unwrap(),
+    //             ev
+    //         ))),
+    //         Err(e) => Err(e)?,
+    //     }
+    // }
+
+    fn expect_start(&mut self) -> XcbGenResult<Vec<u8>> {
         match self.xml.read_event(&mut self.buf) {
-            Ok(XmlEv::End(e)) => {
-                if e.name() == tag {
-                    Ok(())
-                } else {
-                    Err(XcbGenError::Parse(format!(
-                        "expected </{}>, got </{}>",
-                        str::from_utf8(tag).unwrap(),
-                        str::from_utf8(e.name())?
-                    )))
-                }
-            }
+            Ok(XmlEv::Start(e) | XmlEv::Empty(e)) => Ok(Vec::from(e.name())),
             Ok(ev) => Err(XcbGenError::Parse(format!(
-                "expected </{}>, found {:?}",
-                str::from_utf8(tag).unwrap(),
+                "expected start tag, found {:?}",
                 ev
             ))),
             Err(e) => Err(e)?,
         }
     }
 
+    fn expect_close_tag(&mut self, tag: &[u8]) -> XcbGenResult<()> {
+        loop {
+            match self.xml.read_event(&mut self.buf) {
+                Ok(XmlEv::End(e)) => {
+                    if e.name() == tag {
+                        return Ok(());
+                    } else {
+                        return Err(XcbGenError::Parse(format!(
+                            "expected </{}>, got </{}>",
+                            str::from_utf8(tag).unwrap(),
+                            str::from_utf8(e.name())?
+                        )));
+                    }
+                }
+                Ok(XmlEv::Comment(_)) => {}
+                Ok(ev) => {
+                    return Err(XcbGenError::Parse(format!(
+                        "expected </{}>, found {:?}",
+                        str::from_utf8(tag).unwrap(),
+                        ev
+                    )))
+                }
+                Err(e) => Err(e)?,
+            }
+        }
+    }
+
+    fn expect_text_element(&mut self) -> XcbGenResult<(Vec<u8>, String)> {
+        let tag = self.expect_start()?;
+        let txt = self.expect_text()?;
+        self.expect_close_tag(&tag)?;
+        Ok((tag, txt))
+    }
+
+    // fn expect_text_element_with_tag(&mut self, tag: &[u8]) -> XcbGenResult<String> {
+    //     self.expect_start_tag(tag)?;
+    //     let txt = self.expect_text()?;
+    //     self.expect_close_tag(tag)?;
+    //     Ok(txt)
+    // }
+
     fn parse_import(&mut self) -> XcbGenResult<String> {
         let imp = self.expect_text()?;
         self.expect_close_tag(b"import")?;
         Ok(imp)
+    }
+
+    fn parse_enum(
+        &mut self,
+        start: BytesStart,
+    ) -> XcbGenResult<(String, bool, Vec<EnumItem>, Option<Doc>)> {
+        let name = expect_attribute(start.attributes(), b"name")?;
+        let mut items = Vec::new();
+        let mut bitset = false;
+        let mut doc = None;
+
+        loop {
+            match self.xml.read_event(&mut self.buf) {
+                Ok(XmlEv::Empty(ref e) | XmlEv::Start(ref e)) => match e.name() {
+                    b"item" => {
+                        let name = expect_attribute(e.attributes(), b"name")?;
+                        let (tag, value) = self.expect_text_element()?;
+                        if tag != b"bit" && tag != b"value" {
+                            return Err(XcbGenError::Parse(format!(
+                                "expected <bit> or <value> for enum {}, got {}",
+                                name,
+                                str::from_utf8(&tag)?
+                            )));
+                        }
+                        let value: u32 = value.parse().map_err(|e| {
+                            XcbGenError::Parse(format!(
+                                "failed to parse {} of enum {}: {}",
+                                str::from_utf8(&tag).unwrap(),
+                                name,
+                                e
+                            ))
+                        })?;
+                        let is_bit = tag == b"bit";
+                        if is_bit {
+                            bitset = true;
+                        }
+                        let value = if is_bit { 1 << value } else { value };
+                        items.push(EnumItem { name, value });
+                    }
+                    b"doc" => {
+                        doc = Some(self.parse_doc()?);
+                    }
+                    tag => {
+                        return Err(XcbGenError::Parse(format!(
+                            "Unexpected tag in enum: {}",
+                            str::from_utf8(tag)?
+                        )));
+                    }
+                },
+                Ok(XmlEv::End(ref e)) => match e.name() {
+                    b"enum" => break,
+                    b"item" => continue,
+                    tag => {
+                        return Err(XcbGenError::Parse(format!(
+                            "Unexpected </{}> in enum {}",
+                            str::from_utf8(tag)?,
+                            name,
+                        )))
+                    }
+                },
+                Ok(XmlEv::Comment(_)) => {}
+                Ok(ev) => {
+                    return Err(XcbGenError::Parse(format!(
+                        "unexpected XML in enum: {:?}",
+                        ev
+                    )));
+                }
+                Err(err) => Err(err)?,
+            }
+        }
+
+        Ok((name, bitset, items, doc))
+    }
+
+    fn parse_doc(&mut self) -> XcbGenResult<Doc> {
+        let mut brief = String::new();
+        let mut text = String::new();
+        let mut fields = Vec::new();
+
+        loop {
+            match self.xml.read_event(&mut self.buf) {
+                Ok(XmlEv::Start(ref e)) => match e.name() {
+                    b"brief" => {
+                        brief = self.expect_text()?;
+                    }
+                    b"field" => {
+                        let name = expect_attribute(e.attributes(), b"name")?;
+                        let text = self.expect_text()?;
+                        fields.push(DocField { name, text });
+                    }
+                    _ => {}
+                },
+                Ok(XmlEv::Text(txt) | XmlEv::CData(txt)) => {
+                    let txt = txt.unescaped()?;
+                    text.push_str(str::from_utf8(&txt)?);
+                }
+                Ok(XmlEv::End(ref e)) => {
+                    if e.name() == b"doc" {
+                        break;
+                    }
+                }
+                Ok(_) => {}
+                Err(err) => Err(err)?,
+            }
+        }
+
+        Ok(Doc {
+            brief,
+            text,
+            fields,
+        })
     }
 }
 
@@ -189,6 +372,16 @@ impl<B: BufRead> Iterator for &mut XcbParser<B> {
                     let attrs = e.attributes();
                     let typres = expect_attribute(attrs, b"name");
                     Some(typres.map(|v| Event::XidType(v)))
+                }
+                b"enum" => {
+                    let start = e.to_owned();
+                    let enumres = self.parse_enum(start);
+                    Some(enumres.map(|(name, bitset, items, doc)| Event::Enum {
+                        name,
+                        bitset,
+                        items,
+                        doc,
+                    }))
                 }
                 _ => Some(Ok(Event::Ignore)),
             },
