@@ -1,10 +1,12 @@
 use crate::output::Output;
+use std::collections::HashSet;
 use std::io::{self, Write};
 
 #[derive(Debug, Clone)]
 pub struct CodeGen {
     xcb_mod: String,
     xcb_mod_prefix: String,
+    typ_reg: HashSet<String>, // types registered
 }
 
 impl CodeGen {
@@ -18,6 +20,7 @@ impl CodeGen {
         CodeGen {
             xcb_mod: xcb_mod.to_owned(),
             xcb_mod_prefix: mp,
+            typ_reg: HashSet::new(),
         }
     }
 
@@ -25,16 +28,27 @@ impl CodeGen {
         &self.xcb_mod
     }
 
+    pub fn reg_type(&mut self, typ: String) {
+        self.typ_reg.insert(typ);
+    }
+
     // pub fn xcb_mod_prefix(&self) -> &str {
     //     &self.xcb_mod_prefix
     // }
 
-    pub fn ffi_type_name(&self, typ: &str) -> String {
-        format!(
-            "xcb_{}{}_t",
-            self.xcb_mod_prefix,
-            tit_split(typ).to_ascii_lowercase()
-        )
+    pub fn ffi_type_name(&mut self, typ: &str) -> String {
+        let typ = tit_split(typ).to_ascii_lowercase();
+        format!("xcb_{}{}_t", self.xcb_mod_prefix, typ)
+    }
+
+    pub fn ffi_enum_type_name(&mut self, typ: &str) -> String {
+        let typ = tit_split(typ).to_ascii_lowercase();
+        let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, typ);
+        if self.typ_reg.contains(&try1) {
+            format!("xcb_{}{}_enum_t", self.xcb_mod_prefix, typ)
+        } else {
+            try1
+        }
     }
 
     pub fn ffi_enum_item_name(&self, name: &str, item: &str) -> String {

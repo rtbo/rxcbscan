@@ -64,10 +64,9 @@ pub struct XcbGen {
 
 impl XcbGen {
     pub fn new(xcb_mod: &str, ffi: Output, rust: Output) -> XcbGen {
-        let codegen = CodeGen::new(xcb_mod);
 
-        let ffi = FfiXcbEmit::new(codegen.clone(), ffi);
-        let rust = RustXcbEmit::new(codegen, rust);
+        let ffi = FfiXcbEmit::new(ffi);
+        let rust = RustXcbEmit::new(rust);
         XcbGen {
             ffi,
             rust,
@@ -77,6 +76,9 @@ impl XcbGen {
 
     pub fn xcb_gen(mut self, xml_file: &Path) -> XcbGenResult<()> {
         println!("parsing {}", &xml_file.display());
+
+        let mut cg = CodeGen::new(&self.xcb_mod);
+
         let mut xml = XmlReader::from_file(xml_file).unwrap();
         xml.trim_text(true);
 
@@ -100,13 +102,13 @@ impl XcbGen {
         }
 
         self.ffi.prologue(&imports)?;
-        self.rust.prologue(&imports)?;
+        self.rust.prologue(&mut cg, &imports)?;
 
         for ev in fst.into_iter().chain(&mut parser) {
             match ev {
                 Ok(ev) => {
-                    self.ffi.event(&ev)?;
-                    self.rust.event(&ev)?;
+                    self.ffi.event(&mut cg, &ev)?;
+                    self.rust.event(&mut cg, &ev)?;
                 }
                 Err(ev) => Err(ev)?,
             }

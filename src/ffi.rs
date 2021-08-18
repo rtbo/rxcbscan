@@ -2,23 +2,18 @@ use crate::codegen::CodeGen;
 use crate::output::Output;
 use crate::xcbgen::Event;
 use std::io::{self, Cursor, Write};
-use std::collections::HashSet;
 
 #[derive(Debug)]
 pub struct FfiXcbEmit {
-    cg: CodeGen,
     out: Output,                 // direct output
-    ext_fn_out: Cursor<Vec<u8>>, // all the extern functions are grouped
-    typ_reg: HashSet<String>,        // types registered
+    ext_fn_out: Cursor<Vec<u8>>, // all the extern functions are grouped at the end and emitted at once
 }
 
 impl FfiXcbEmit {
-    pub fn new(cg: CodeGen, out: Output) -> FfiXcbEmit {
+    pub fn new(out: Output) -> FfiXcbEmit {
         FfiXcbEmit {
-            cg,
             out,
             ext_fn_out: Cursor::new(Vec::new()),
-            typ_reg: HashSet::new(),
         }
     }
 
@@ -48,15 +43,14 @@ impl FfiXcbEmit {
         Ok(())
     }
 
-    pub fn event(&mut self, ev: &Event) -> io::Result<()> {
+    pub fn event(&mut self, cg: &mut CodeGen, ev: &Event) -> io::Result<()> {
         match ev {
             Event::XidType(name) => {
-                let typ = self.cg.ffi_type_name(name);
-                self.cg
-                    .emit_type_alias(&mut self.out, &typ, "u32")?;
+                let typ = cg.ffi_type_name(name);
+                cg.emit_type_alias(&mut self.out, &typ, "u32")?;
 
-                self.emit_iterator(name)?;
-                self.typ_reg.insert(typ);
+                self.emit_iterator(cg, name)?;
+                cg.reg_type(typ);
             }
             Event::Enum {
                 name,
@@ -66,42 +60,36 @@ impl FfiXcbEmit {
             } => {
                 let out = &mut self.out;
                 writeln!(out)?;
-                let typ = self.cg.ffi_type_name(name);
-                let typ = if self.typ_reg.contains(&typ) {
-                    self.cg.ffi_type_name(&(name.to_owned() + "_enum"))
-                }
-                else {
-                    typ
-                };
+                let typ = cg.ffi_enum_type_name(name);
 
                 writeln!(out, "pub type {} = u32;", typ)?;
                 for item in items {
                     let val = if *bitset {
                         format!("0x{:02X}", item.value)
                     } else {
-                        format!("{}", item.value)
+                        item.value.to_string()
                     };
                     writeln!(
                         out,
                         "const {}: {} = {};",
-                        self.cg.ffi_enum_item_name(name, &item.name),
+                        cg.ffi_enum_item_name(name, &item.name),
                         typ,
                         val
                     )?;
                 }
-                self.typ_reg.insert(typ);
+                cg.reg_type(typ)
             }
             _ => {}
         }
         Ok(())
     }
 
-    fn emit_iterator(&mut self, typ: &str) -> io::Result<()> {
+    fn emit_iterator(&mut self, cg: &mut CodeGen, typ: &str) -> io::Result<()> {
         let out = &mut self.out;
         let typ = typ.to_ascii_lowercase();
-        let it_typ = self.cg.ffi_iterator_name(&typ);
-        let it_next = self.cg.ffi_iterator_next_fn_name(&typ);
-        let it_end = self.cg.ffi_iterator_end_fn_name(&typ);
+        let it_typ = cg.ffi_iterator_name(&typ);
+        let it_next = cg.ffi_iterator_next_fn_name(&typ);
+        let it_end = cg.ffi_iterator_end_fn_name(&typ);
 
         writeln!(out)?;
         writeln!(out, "#[repr(C)]")?;
