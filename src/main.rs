@@ -50,7 +50,7 @@ fn main() {
 
     let ref_mtime = src_files
         .iter()
-        .map(|f| Path::new(&root).join("build").join(f))
+        .map(|f| Path::new(&root).join("src").join(f))
         .map(|p| mtime(&p).expect(&format!("cannot get modification time of {}", p.display())))
         .fold(std::i64::MIN, |a, b| a.max(b));
 
