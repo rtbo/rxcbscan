@@ -76,11 +76,20 @@ fn main() {
         let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
 
         if ref_mtime > optional_mtime(&ffi_file, 0) || ref_mtime > optional_mtime(&rs_file, 0) {
-            let ffi = Output::new(&rustfmt, &ffi_file).expect("cannot create FFI output");
-            let rs = Output::new(&rustfmt, &rs_file).expect("cannot create Rust output");
+            let ffi = Output::new(&rustfmt, &ffi_file).expect(&format!(
+                "cannot create FFI output file: {}",
+                ffi_file.display()
+            ));
+            let rs = Output::new(&rustfmt, &rs_file).expect(&format!(
+                "cannot create Rust output file: {}",
+                rs_file.display()
+            ));
 
             let gen = XcbGen::new(xcb_mod, ffi, rs);
-            gen.xcb_gen(&xml_file).expect("could not generate XCB code");
+            gen.xcb_gen(&xml_file).expect(&format!(
+                "could not generate XCB code for {}",
+                xml_file.display()
+            ));
         }
     }
 
