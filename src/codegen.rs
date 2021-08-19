@@ -108,6 +108,18 @@ impl CodeGen {
 
     pub fn event(&mut self, ev: &Event) -> parse::Result<()> {
         match ev {
+            Event::Typedef { oldname, newname } => {
+                let ffi_old_typ = ffi_type_name(&self.xcb_mod_prefix, oldname);
+                let ffi_new_typ = ffi_type_name(&self.xcb_mod_prefix, newname);
+
+                emit_type_alias(&mut self.ffi, &ffi_new_typ, &ffi_old_typ)?;
+                self.emit_ffi_iterator(newname)?;
+
+                let rs_new_typ = rust_type_name(newname);
+                emit_type_alias(&mut self.rs, &rs_new_typ, &ffi_new_typ)?;
+
+                self.reg_type(ffi_new_typ);
+            }
             Event::XidType(name) => {
                 let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
                 emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
@@ -266,8 +278,18 @@ fn tit_cap(name: &str) -> String {
 }
 
 fn ffi_type_name(xcb_mod_prefix: &str, typ: &str) -> String {
-    let typ = tit_split(typ).to_ascii_lowercase();
-    format!("xcb_{}{}_t", xcb_mod_prefix, typ)
+    match typ {
+        "CARD8" => "u8".into(),
+        "CARD16" => "u16".into(),
+        "CARD32" => "u32".into(),
+        "INT8" => "i8".into(),
+        "INT16" => "i16".into(),
+        "INT32" => "i32".into(),
+        typ => {
+            let typ = tit_split(typ).to_ascii_lowercase();
+            format!("xcb_{}{}_t", xcb_mod_prefix, typ)
+        }
+    }
 }
 
 fn ffi_enum_item_name(xcb_mod_prefix: &str, name: &str, item: &str) -> String {

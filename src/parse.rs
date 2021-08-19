@@ -1,4 +1,4 @@
-use quick_xml::events::attributes::Attributes;
+use quick_xml::events::attributes::{Attribute, Attributes};
 use quick_xml::events::{BytesStart, Event as XmlEv};
 use quick_xml::Reader as XmlReader;
 use std::fs::File;
@@ -76,6 +76,10 @@ pub struct EnumItem {
 #[derive(Debug, Clone)]
 pub enum Event {
     Import(String),
+    Typedef {
+        oldname: String,
+        newname: String,
+    },
     XidType(String),
     Enum {
         name: String,
@@ -324,6 +328,35 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
         match self.xml.read_event(&mut self.buf) {
             Ok(XmlEv::Empty(ref e) | XmlEv::Start(ref e)) => match e.name() {
                 b"import" => Some(self.parse_import().map(|s| Event::Import(s))),
+                b"typedef" => {
+                    let mut oldname: Option<String> = None;
+                    let mut newname: Option<String> = None;
+                    for attr in e.attributes() {
+                        if let Ok(attr) = attr {
+                            let valres = attr_value(&attr);
+                            if let Err(err) = valres {
+                                return Some(Err(err));
+                            }
+                            match attr.key {
+                                b"oldname" => {
+                                    oldname = Some(valres.unwrap());
+                                }
+                                b"newname" => {
+                                    newname = Some(valres.unwrap());
+                                }
+                                _ => {},
+                            }
+                        }
+                    }
+                    match (oldname, newname) {
+                        (Some(oldname), Some(newname)) => {
+                            Some(Ok(Event::Typedef { oldname, newname }))
+                        }
+                        _ => Some(Err(Error::Parse(
+                            "typedef without newname and/or oldname".into(),
+                        ))),
+                    }
+                }
                 b"xidtype" => {
                     let attrs = e.attributes();
                     let typres = expect_attribute(attrs, b"name");
@@ -349,13 +382,17 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
     }
 }
 
+fn attr_value(attr: &Attribute) -> Result<String> {
+    let val = attr.unescaped_value()?;
+    Ok(str::from_utf8(&val)?.into())
+}
+
 fn expect_attribute(attrs: Attributes, name: &[u8]) -> Result<String> {
     for attr in attrs {
         match attr {
             Ok(attr) => {
                 if attr.key == name {
-                    let val = attr.unescaped_value()?;
-                    return Ok(str::from_utf8(&val)?.into());
+                    return attr_value(&attr);
                 }
             }
             Err(err) => Err(err)?,
