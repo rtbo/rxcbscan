@@ -6,20 +6,6 @@ use std::io::{self, BufRead, BufReader};
 use std::path::Path;
 use std::result;
 use std::str::{self, Utf8Error};
-// pub struct TypAnnot {
-//     name: String,
-//     borrow: bool,
-//     mutable: bool,
-// }
-
-// pub struct Field {
-//     name: String,
-//     typ: TypAnnot,
-// }
-// pub struct Enum {
-//     name: String,
-//     items: Vec<EnumItem>,
-// }
 
 #[derive(Debug)]
 pub enum Error {
@@ -74,6 +60,13 @@ pub struct EnumItem {
 }
 
 #[derive(Debug, Clone)]
+pub struct StructField {
+    pub id: String,
+    pub name: String,
+    pub typ: String,
+}
+
+#[derive(Debug, Clone)]
 pub enum Event {
     Import(String),
     Typedef {
@@ -85,6 +78,11 @@ pub enum Event {
         name: String,
         bitset: bool,
         items: Vec<EnumItem>,
+        doc: Option<Doc>,
+    },
+    Struct {
+        name: String,
+        fields: Vec<StructField>,
         doc: Option<Doc>,
     },
     Ignore,
@@ -280,6 +278,53 @@ impl<B: BufRead> Parser<B> {
         Ok((name, bitset, items, doc))
     }
 
+    fn parse_struct(&mut self) -> Result<(Vec<StructField>, Option<Doc>)> {
+        let mut fields = Vec::new();
+        let mut doc = None;
+
+        loop {
+            match self.xml.read_event(&mut self.buf) {
+                Ok(XmlEv::Start(ref e)) => match e.name() {
+                    b"field" => {
+                        let mut typ: Option<String> = None;
+                        let mut nam: Option<String> = None;
+                        for attr in e.attributes() {
+                           if let Ok(attr) = attr {
+                               let val = attr_value(&attr)?;
+                               match attr.key {
+                                   b"type" => typ = Some(val),
+                                   b"name" => nam = Some(val),
+                                   _ => {}
+                               }
+                           }
+                        }
+                        if let (Some(typ), Some(name)) = (typ, nam) {
+                            fields.push(StructField{id: name.clone(), name: name, typ})
+                        }
+                    },
+                    b"doc" => {
+                        doc = Some(self.parse_doc()?);
+                    }
+                    b"struct" => {
+                        return Err(Error::Parse("Unexpected inner struct".into()));
+                    }
+                    _ => {},
+                },
+                Ok(XmlEv::End(ref e)) => match e.name() {
+                    b"struct" => break,
+                    _ => {},
+                },
+                Ok(XmlEv::Comment(_)) => {}
+                Ok(ev) => {
+                    return Err(Error::Parse(format!("unexpected XML in struct: {:?}", ev)));
+                }
+                Err(err) => return Err(err.into()),
+            }
+        }
+
+        Ok((fields, doc))
+    }
+
     fn parse_doc(&mut self) -> Result<Doc> {
         let mut brief = String::new();
         let mut text = String::new();
@@ -371,6 +416,14 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                         items,
                         doc,
                     }))
+                }
+                b"struct" => {
+                    let nameres = expect_attribute(e.attributes(), b"name");
+                    if let Err(err) = nameres {
+                        return Some(Err(err))
+                    }
+                    let structres = self.parse_struct();
+                    Some(Err(Error::Parse("not implemented".into())))
                 }
                 _ => Some(Ok(Event::Ignore)),
             },
