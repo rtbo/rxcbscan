@@ -7,10 +7,11 @@ use std::io::{self, Cursor, Write};
 pub struct CodeGen {
     xcb_mod: String,
     xcb_mod_prefix: String,
-    typ_reg: HashSet<String>, // types registered
     ffi: Output,
     rs: Output,
-    ffi_ext_fn: Cursor<Vec<u8>>,
+    ffi_typ_reg: HashSet<String>, // types registered in the FFI module
+    rs_typ_reg: HashSet<String>, // types registered in the Rust module
+    ffi_ext_fn: Cursor<Vec<u8>>, // all FFI functions are extern and grouped at the end
 }
 
 impl CodeGen {
@@ -24,7 +25,8 @@ impl CodeGen {
         CodeGen {
             xcb_mod: xcb_mod.to_owned(),
             xcb_mod_prefix: mp,
-            typ_reg: HashSet::new(),
+            ffi_typ_reg: HashSet::new(),
+            rs_typ_reg: HashSet::new(),
             ffi,
             rs,
             ffi_ext_fn: Cursor::new(Vec::new()),
@@ -35,8 +37,12 @@ impl CodeGen {
     //     &self.xcb_mod
     // }
 
-    fn reg_type(&mut self, typ: String) {
-        self.typ_reg.insert(typ);
+    fn reg_ffi_type(&mut self, typ: String) {
+        self.ffi_typ_reg.insert(typ);
+    }
+
+    fn reg_rs_type(&mut self, typ: String) {
+        self.rs_typ_reg.insert(typ);
     }
 
     // pub fn xcb_mod_prefix(&self) -> &str {
@@ -46,7 +52,7 @@ impl CodeGen {
     fn ffi_enum_type_name(&mut self, typ: &str) -> String {
         let typ = tit_split(typ).to_ascii_lowercase();
         let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, typ);
-        if self.typ_reg.contains(&try1) {
+        if self.ffi_typ_reg.contains(&try1) {
             format!("xcb_{}{}_enum_t", self.xcb_mod_prefix, typ)
         } else {
             try1
@@ -55,7 +61,7 @@ impl CodeGen {
 
     fn rs_enum_type_name(&mut self, typ: &str) -> String {
         let try1 = rust_type_name(&typ);
-        if self.typ_reg.contains(&try1) {
+        if self.rs_typ_reg.contains(&try1) {
             format!("{}Enum", &try1)
         } else {
             try1
@@ -118,7 +124,8 @@ impl CodeGen {
                 let rs_new_typ = rust_type_name(newname);
                 emit_type_alias(&mut self.rs, &rs_new_typ, &ffi_new_typ)?;
 
-                self.reg_type(ffi_new_typ);
+                self.reg_ffi_type(ffi_new_typ);
+                self.reg_rs_type(rs_new_typ);
             }
             Event::XidType(name) => {
                 let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
@@ -128,8 +135,8 @@ impl CodeGen {
                 let rs_typ = rust_type_name(name);
                 emit_type_alias(&mut self.rs, &rs_typ, &ffi_typ)?;
 
-                self.reg_type(ffi_typ);
-                self.reg_type(rs_typ);
+                self.reg_ffi_type(ffi_typ);
+                self.reg_rs_type(rs_typ);
             }
             Event::Enum {
                 name, items, doc, ..
@@ -149,7 +156,7 @@ impl CodeGen {
                     }),
                     &doc,
                 )?;
-                self.reg_type(typ);
+                self.reg_ffi_type(typ);
 
                 let typ = self.rs_enum_type_name(name);
                 emit_enum(
@@ -162,7 +169,7 @@ impl CodeGen {
                     }),
                     &doc,
                 )?;
-                self.reg_type(typ);
+                self.reg_rs_type(typ);
             }
             _ => {}
         }
