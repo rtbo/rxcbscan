@@ -35,7 +35,7 @@ impl CodeGen {
     //     &self.xcb_mod
     // }
 
-    pub fn reg_type(&mut self, typ: String) {
+    fn reg_type(&mut self, typ: String) {
         self.typ_reg.insert(typ);
     }
 
@@ -43,12 +43,7 @@ impl CodeGen {
     //     &self.xcb_mod_prefix
     // }
 
-    pub fn ffi_type_name(&mut self, typ: &str) -> String {
-        let typ = tit_split(typ).to_ascii_lowercase();
-        format!("xcb_{}{}_t", self.xcb_mod_prefix, typ)
-    }
-
-    pub fn ffi_enum_type_name(&mut self, typ: &str) -> String {
+    fn ffi_enum_type_name(&mut self, typ: &str) -> String {
         let typ = tit_split(typ).to_ascii_lowercase();
         let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, typ);
         if self.typ_reg.contains(&try1) {
@@ -56,44 +51,6 @@ impl CodeGen {
         } else {
             try1
         }
-    }
-
-    pub fn ffi_enum_item_name(&self, name: &str, item: &str) -> String {
-        format!(
-            "XCB_{}{}_{}",
-            &self.xcb_mod_prefix,
-            tit_split(name),
-            tit_split(item)
-        )
-        .to_ascii_uppercase()
-    }
-
-    pub fn ffi_iterator_name(&self, typ: &str) -> String {
-        format!(
-            "xcb_{}{}_iterator_t",
-            self.xcb_mod_prefix,
-            tit_split(typ).to_ascii_lowercase()
-        )
-    }
-
-    pub fn ffi_iterator_next_fn_name(&self, typ: &str) -> String {
-        format!(
-            "xcb_{}{}_next",
-            self.xcb_mod_prefix,
-            tit_split(typ).to_ascii_lowercase()
-        )
-    }
-
-    pub fn ffi_iterator_end_fn_name(&self, typ: &str) -> String {
-        format!(
-            "xcb_{}{}_end",
-            self.xcb_mod_prefix,
-            tit_split(typ).to_ascii_lowercase()
-        )
-    }
-
-    pub fn rust_type_name(&self, typ: &str) -> String {
-        capitalize(typ)
     }
 
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
@@ -143,21 +100,43 @@ impl CodeGen {
     pub fn event(&mut self, ev: &Event) -> parse::Result<()> {
         match ev {
             Event::XidType(name) => {
-                let typ = self.ffi_type_name(name);
+                let typ = ffi_type_name(&self.xcb_mod_prefix, name);
                 emit_type_alias(&mut self.ffi, &typ, "u32")?;
 
                 self.emit_ffi_iterator(name)?;
                 self.reg_type(typ);
 
-                let typ = self.rust_type_name(name);
-                let ffi_typ = self.ffi_type_name(name);
+                let typ = rust_type_name(name);
+                let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
                 emit_type_alias(&mut self.rs, &typ, &ffi_typ)?;
                 self.reg_type(typ);
             }
             Event::Enum { name, items, .. } => {
-                let typ = self.ffi_enum_type_name(name);
+                // make owned string to pass into the closure
+                // otherwise borrow checker complains
+                let xcb_mod_prefix = self.xcb_mod_prefix.to_string();
 
-                self.emit_ffi_enum(&typ, &name, &items)?;
+                let typ = self.ffi_enum_type_name(name);
+                emit_enum(
+                    &mut self.ffi,
+                    &typ,
+                    items.iter().map(|it| EnumItem {
+                        name: ffi_enum_item_name(&xcb_mod_prefix, name, &it.name),
+                        value: it.value,
+                    }),
+                )?;
+
+                let typ = rust_type_name(name);
+                emit_enum(
+                    &mut self.rs,
+                    &typ,
+                    items.iter().map(|it| EnumItem {
+                        name: rust_enum_item_name(name, &it.name),
+                        value: it.value,
+                    }),
+                )?;
+
+                //self.emit_ffi_enum(&typ, &name, &items)?;
 
                 self.reg_type(typ)
             }
@@ -168,9 +147,9 @@ impl CodeGen {
 
     fn emit_ffi_iterator(&mut self, typ: &str) -> io::Result<()> {
         let typ = typ.to_ascii_lowercase();
-        let it_typ = self.ffi_iterator_name(&typ);
-        let it_next = self.ffi_iterator_next_fn_name(&typ);
-        let it_end = self.ffi_iterator_end_fn_name(&typ);
+        let it_typ = ffi_iterator_name(&self.xcb_mod_prefix, &typ);
+        let it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &typ);
+        let it_end = ffi_iterator_end_fn_name(&self.xcb_mod_prefix, &typ);
 
         let out = &mut self.ffi;
 
@@ -194,26 +173,15 @@ impl CodeGen {
         .unwrap();
         Ok(())
     }
-
-    fn emit_ffi_enum(&mut self, typ: &str, name: &str, items: &[EnumItem]) -> io::Result<()> {
-        writeln!(&mut self.ffi)?;
-        writeln!(&mut self.ffi, "pub type {} = u32;", typ)?;
-        for item in items {
-            let val = format!("0x{:02x}", item.value);
-            let name = self.ffi_enum_item_name(name, &item.name);
-            writeln!(&mut self.ffi, "pub const {}: {} = {};", name, typ, val)?;
-        }
-        Ok(())
-    }
 }
 
-fn capitalize(s: &str) -> String {
-    let mut c = s.chars();
-    match c.next() {
-        None => String::new(),
-        Some(f) => f.to_uppercase().collect::<String>() + &c.as_str().to_lowercase(),
-    }
-}
+// fn capitalize(s: &str) -> String {
+//     let mut c = s.chars();
+//     match c.next() {
+//         None => String::new(),
+//         Some(f) => f.to_uppercase().collect::<String>() + &c.as_str().to_lowercase(),
+//     }
+// }
 
 // fn upper_first(s: &str) -> String {
 //     let mut c = s.chars();
@@ -222,7 +190,6 @@ fn capitalize(s: &str) -> String {
 //         Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
 //     }
 // }
-
 /// insert a underscore before each uppercase/digit preceded or follwed by lowercase
 /// do not apply to the first char
 /// assert!(tit_split("SomeString") == "Some_String")
@@ -257,8 +224,96 @@ fn tit_split(name: &str) -> String {
     res
 }
 
+/// capitalize each substring beginning by uppercase
+/// said otherwise: every upper preceded by another upper is turned to lower
+/// assert!(tit_cap("SomeString") == "SomeString")
+/// assert!(tit_cap("WINDOW") == "Window")
+fn tit_cap(name: &str) -> String {
+    if name.len() <= 1 {
+        return name.into();
+    }
+
+    let is_high = |c: char| c.is_ascii_uppercase();
+
+    let mut res = String::new();
+    let mut ch = name.chars();
+    let mut prev = ch.next().unwrap();
+    res.push(prev);
+
+    for c in ch {
+        if is_high(c) && is_high(prev) {
+            res.push(c.to_ascii_lowercase())
+        } else {
+            res.push(c)
+        }
+        prev = c;
+    }
+
+    res
+}
+
+fn ffi_type_name(xcb_mod_prefix: &str, typ: &str) -> String {
+    let typ = tit_split(typ).to_ascii_lowercase();
+    format!("xcb_{}{}_t", xcb_mod_prefix, typ)
+}
+
+fn ffi_enum_item_name(xcb_mod_prefix: &str, name: &str, item: &str) -> String {
+    format!(
+        "XCB_{}{}_{}",
+        xcb_mod_prefix,
+        tit_split(name),
+        tit_split(item)
+    )
+    .to_ascii_uppercase()
+}
+
+fn rust_enum_item_name(name: &str, item: &str) -> String {
+    format!("{}_{}", tit_split(name), tit_split(item)).to_ascii_uppercase()
+}
+
+fn ffi_iterator_name(xcb_mod_prefix: &str, typ: &str) -> String {
+    format!(
+        "xcb_{}{}_iterator_t",
+        xcb_mod_prefix,
+        tit_split(typ).to_ascii_lowercase()
+    )
+}
+
+fn ffi_iterator_next_fn_name(xcb_mod_prefix: &str, typ: &str) -> String {
+    format!(
+        "xcb_{}{}_next",
+        xcb_mod_prefix,
+        tit_split(typ).to_ascii_lowercase()
+    )
+}
+
+fn ffi_iterator_end_fn_name(xcb_mod_prefix: &str, typ: &str) -> String {
+    format!(
+        "xcb_{}{}_end",
+        xcb_mod_prefix,
+        tit_split(typ).to_ascii_lowercase()
+    )
+}
+
+fn rust_type_name(typ: &str) -> String {
+    tit_cap(typ)
+}
+
 fn emit_type_alias(out: &mut Output, new_typ: &str, old_typ: &str) -> io::Result<()> {
     writeln!(out)?;
     writeln!(out, "pub type {} = {};", new_typ, old_typ)?;
+    Ok(())
+}
+
+fn emit_enum<Items>(out: &mut Output, typ: &str, items: Items) -> io::Result<()>
+where
+    Items: Iterator<Item = EnumItem>,
+{
+    writeln!(out)?;
+    writeln!(out, "pub type {} = u32;", typ)?;
+    for item in items {
+        let val = format!("0x{:02x}", item.value);
+        writeln!(out, "pub const {}: {} = {};", item.name, typ, val)?;
+    }
     Ok(())
 }
