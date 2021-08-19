@@ -1,11 +1,11 @@
 use quick_xml::events::attributes::Attributes;
 use quick_xml::events::{BytesStart, Event as XmlEv};
 use quick_xml::Reader as XmlReader;
-use std::io::{self, BufRead, BufReader};
 use std::fs::File;
+use std::io::{self, BufRead, BufReader};
 use std::path::Path;
-use std::str::{self, Utf8Error};
 use std::result;
+use std::str::{self, Utf8Error};
 // pub struct TypAnnot {
 //     name: String,
 //     borrow: bool,
@@ -55,8 +55,8 @@ pub type Result<T> = result::Result<T, Error>;
 
 #[derive(Debug, Clone)]
 pub struct DocField {
-    name: String,
-    text: String,
+    pub name: String,
+    pub text: String,
 }
 
 #[derive(Debug, Clone)]
@@ -68,6 +68,7 @@ pub struct Doc {
 
 #[derive(Debug, Clone)]
 pub struct EnumItem {
+    pub id: String,
     pub name: String,
     pub value: u32,
 }
@@ -91,7 +92,6 @@ pub struct Parser<B: BufRead> {
 }
 
 impl Parser<BufReader<File>> {
-
     pub fn from_file(xml_file: &Path) -> Self {
         let mut xml = XmlReader::from_file(xml_file).unwrap();
         xml.trim_text(true);
@@ -101,16 +101,25 @@ impl Parser<BufReader<File>> {
             buf: Vec::with_capacity(8 * 1024),
         }
     }
-
 }
 
 impl<B: BufRead> Parser<B> {
-
     fn expect_text(&mut self) -> Result<String> {
         match self.xml.read_event(&mut self.buf) {
             Ok(XmlEv::Text(e) | XmlEv::CData(e)) => {
                 let txt = e.unescaped()?;
                 Ok(str::from_utf8(&txt)?.into())
+            }
+            Ok(ev) => Err(Error::Parse(format!("expected text, found {:?}", ev))),
+            Err(e) => Err(e)?,
+        }
+    }
+
+    fn expect_text_trim(&mut self) -> Result<String> {
+        match self.xml.read_event(&mut self.buf) {
+            Ok(XmlEv::Text(e) | XmlEv::CData(e)) => {
+                let txt = e.unescaped()?;
+                Ok(str::from_utf8(&txt)?.trim().into())
             }
             Ok(ev) => Err(Error::Parse(format!("expected text, found {:?}", ev))),
             Err(e) => Err(e)?,
@@ -142,10 +151,7 @@ impl<B: BufRead> Parser<B> {
     fn expect_start(&mut self) -> Result<Vec<u8>> {
         match self.xml.read_event(&mut self.buf) {
             Ok(XmlEv::Start(e) | XmlEv::Empty(e)) => Ok(Vec::from(e.name())),
-            Ok(ev) => Err(Error::Parse(format!(
-                "expected start tag, found {:?}",
-                ev
-            ))),
+            Ok(ev) => Err(Error::Parse(format!("expected start tag, found {:?}", ev))),
             Err(e) => Err(e)?,
         }
     }
@@ -232,7 +238,11 @@ impl<B: BufRead> Parser<B> {
                             bitset = true;
                         }
                         let value = if is_bit { 1 << value } else { value };
-                        items.push(EnumItem { name, value });
+                        items.push(EnumItem {
+                            id: name.clone(),
+                            name,
+                            value,
+                        });
                     }
                     b"doc" => {
                         doc = Some(self.parse_doc()?);
@@ -257,10 +267,7 @@ impl<B: BufRead> Parser<B> {
                 },
                 Ok(XmlEv::Comment(_)) => {}
                 Ok(ev) => {
-                    return Err(Error::Parse(format!(
-                        "unexpected XML in enum: {:?}",
-                        ev
-                    )));
+                    return Err(Error::Parse(format!("unexpected XML in enum: {:?}", ev)));
                 }
                 Err(err) => Err(err)?,
             }
@@ -278,11 +285,11 @@ impl<B: BufRead> Parser<B> {
             match self.xml.read_event(&mut self.buf) {
                 Ok(XmlEv::Start(ref e)) => match e.name() {
                     b"brief" => {
-                        brief = self.expect_text()?;
+                        brief = self.expect_text_trim()?;
                     }
                     b"field" => {
                         let name = expect_attribute(e.attributes(), b"name")?;
-                        let text = self.expect_text()?;
+                        let text = self.expect_text_trim()?;
                         fields.push(DocField { name, text });
                     }
                     _ => {}
@@ -303,7 +310,7 @@ impl<B: BufRead> Parser<B> {
 
         Ok(Doc {
             brief,
-            text,
+            text: text.trim().into(),
             fields,
         })
     }

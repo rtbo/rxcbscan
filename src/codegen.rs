@@ -1,5 +1,5 @@
 use crate::output::Output;
-use crate::parse::{self, EnumItem, Event};
+use crate::parse::{self, Doc, EnumItem, Event};
 use std::collections::HashSet;
 use std::io::{self, Cursor, Write};
 
@@ -53,6 +53,15 @@ impl CodeGen {
         }
     }
 
+    fn rs_enum_type_name(&mut self, typ: &str) -> String {
+        let try1 = rust_type_name(&typ);
+        if self.typ_reg.contains(&try1) {
+            format!("{}Enum", &try1)
+        } else {
+            try1
+        }
+    }
+
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
         let out = &mut self.ffi;
         writeln!(out, "use libc::{{c_char, c_int, c_uint, c_void}};")?;
@@ -90,7 +99,7 @@ impl CodeGen {
         writeln!(out).unwrap();
         writeln!(out, "extern {{")?;
 
-        out.write(self.ffi_ext_fn.get_ref())?;
+        out.write_all(self.ffi_ext_fn.get_ref())?;
 
         writeln!(out).unwrap();
         writeln!(out, "}} // extern")?;
@@ -100,18 +109,19 @@ impl CodeGen {
     pub fn event(&mut self, ev: &Event) -> parse::Result<()> {
         match ev {
             Event::XidType(name) => {
-                let typ = ffi_type_name(&self.xcb_mod_prefix, name);
-                emit_type_alias(&mut self.ffi, &typ, "u32")?;
-
-                self.emit_ffi_iterator(name)?;
-                self.reg_type(typ);
-
-                let typ = rust_type_name(name);
                 let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
-                emit_type_alias(&mut self.rs, &typ, &ffi_typ)?;
-                self.reg_type(typ);
+                emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
+                self.emit_ffi_iterator(name)?;
+
+                let rs_typ = rust_type_name(name);
+                emit_type_alias(&mut self.rs, &rs_typ, &ffi_typ)?;
+
+                self.reg_type(ffi_typ);
+                self.reg_type(rs_typ);
             }
-            Event::Enum { name, items, .. } => {
+            Event::Enum {
+                name, items, doc, ..
+            } => {
                 // make owned string to pass into the closure
                 // otherwise borrow checker complains
                 let xcb_mod_prefix = self.xcb_mod_prefix.to_string();
@@ -121,24 +131,26 @@ impl CodeGen {
                     &mut self.ffi,
                     &typ,
                     items.iter().map(|it| EnumItem {
+                        id: it.id.clone(),
                         name: ffi_enum_item_name(&xcb_mod_prefix, name, &it.name),
                         value: it.value,
                     }),
+                    &doc,
                 )?;
+                self.reg_type(typ);
 
-                let typ = rust_type_name(name);
+                let typ = self.rs_enum_type_name(name);
                 emit_enum(
                     &mut self.rs,
                     &typ,
                     items.iter().map(|it| EnumItem {
+                        id: it.id.clone(),
                         name: rust_enum_item_name(name, &it.name),
                         value: it.value,
                     }),
+                    &doc,
                 )?;
-
-                //self.emit_ffi_enum(&typ, &name, &items)?;
-
-                self.reg_type(typ)
+                self.reg_type(typ);
             }
             _ => {}
         }
@@ -190,6 +202,7 @@ impl CodeGen {
 //         Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
 //     }
 // }
+
 /// insert a underscore before each uppercase/digit preceded or follwed by lowercase
 /// do not apply to the first char
 /// assert!(tit_split("SomeString") == "Some_String")
@@ -305,13 +318,47 @@ fn emit_type_alias(out: &mut Output, new_typ: &str, old_typ: &str) -> io::Result
     Ok(())
 }
 
-fn emit_enum<Items>(out: &mut Output, typ: &str, items: Items) -> io::Result<()>
+fn emit_doc_str(out: &mut Output, docstr: &str) -> io::Result<()> {
+    if !docstr.is_empty() {
+        let strvec: Vec<String> = docstr.split('\n').map(|l| "/// ".to_owned() + l).collect();
+        let mut docstr = strvec.join("\n");
+        docstr.push('\n');
+        out.write_all(docstr.as_bytes())
+    } else {
+        Ok(())
+    }
+}
+
+fn emit_doc_text(out: &mut Output, doc: &Option<Doc>) -> io::Result<()> {
+    if let Some(doc) = doc {
+        if !doc.brief.is_empty() {
+            emit_doc_str(out, &doc.brief)?;
+        }
+        if !doc.text.is_empty() {
+            emit_doc_str(out, &doc.text)?;
+        }
+    }
+    Ok(())
+}
+
+fn emit_doc_field(out: &mut Output, doc: &Option<Doc>, field: &str) -> io::Result<()> {
+    if let Some(doc) = doc {
+        if let Some(f) = doc.fields.iter().find(|f| f.name == field) {
+            emit_doc_str(out, &f.text)?;
+        }
+    }
+    Ok(())
+}
+
+fn emit_enum<Items>(out: &mut Output, typ: &str, items: Items, doc: &Option<Doc>) -> io::Result<()>
 where
     Items: Iterator<Item = EnumItem>,
 {
     writeln!(out)?;
+    emit_doc_text(out, doc)?;
     writeln!(out, "pub type {} = u32;", typ)?;
     for item in items {
+        emit_doc_field(out, doc, &item.id)?;
         let val = format!("0x{:02x}", item.value);
         writeln!(out, "pub const {}: {} = {};", item.name, typ, val)?;
     }
