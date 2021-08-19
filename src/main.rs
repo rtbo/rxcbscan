@@ -1,7 +1,5 @@
 mod codegen;
-mod ffi;
 mod output;
-mod rust;
 mod parse;
 
 use std::cmp;
@@ -11,9 +9,7 @@ use std::io;
 use std::path::{Path, PathBuf};
 
 use codegen::CodeGen;
-use ffi::FfiXcbEmit;
 use output::Output;
-use rust::RustXcbEmit;
 use parse::{Event, Result, Parser};
 
 fn xcb_mod_map(name: &str) -> &str {
@@ -45,8 +41,6 @@ fn main() {
     let src_files = [
         "main.rs",
         "parse.rs",
-        "ffi.rs",
-        "rust.rs",
         "codegen.rs",
         "output.rs",
     ];
@@ -149,10 +143,8 @@ fn drive_xcb_gen(
         "cannot create Rust output file: {}",
         rs_file.display()
     ));
-    let mut ffi = FfiXcbEmit::new(ffi);
-    let mut rs = RustXcbEmit::new(rs);
 
-    let mut cg = CodeGen::new(&xcb_mod);
+    let mut cg = CodeGen::new(&xcb_mod, ffi, rs);
 
     let mut parser = Parser::from_file(&xml_file);
 
@@ -170,21 +162,18 @@ fn drive_xcb_gen(
         }
     }
 
-    ffi.prologue(&imports)?;
-    rs.prologue(&mut cg, &imports)?;
+    cg.prologue(&imports)?;
 
     for ev in fst.into_iter().chain(&mut parser) {
         match ev {
             Ok(ev) => {
-                ffi.event(&mut cg, &ev)?;
-                rs.event(&mut cg, &ev)?;
+                cg.event(&ev)?;
             }
             Err(ev) => Err(ev)?,
         }
     }
 
-    ffi.epilogue()?;
-    rs.epilogue()?;
+    cg.epilogue()?;
 
     Ok(())
 }
