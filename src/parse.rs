@@ -1,11 +1,12 @@
 use quick_xml::events::attributes::{Attribute, Attributes};
 use quick_xml::events::{BytesStart, Event as XmlEv};
 use quick_xml::Reader as XmlReader;
+use std::fmt::Display;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader};
 use std::path::Path;
 use std::result;
-use std::str::{self, Utf8Error};
+use std::str::{self, FromStr, Utf8Error};
 
 #[derive(Debug)]
 pub enum Error {
@@ -46,6 +47,20 @@ pub struct DocField {
 }
 
 #[derive(Debug, Clone)]
+pub enum Expr<T>
+where
+    T: FromStr,
+    T: Clone,
+{
+    FieldRef(String),
+    ParamRef(String),
+    Value(T),
+    Op(String, Box<Expr<T>>, Box<Expr<T>>),
+    Unop(String, Box<Expr<T>>),
+    Popcount(Box<Expr<T>>),
+}
+
+#[derive(Debug, Clone)]
 pub struct Doc {
     pub brief: String,
     pub text: String,
@@ -60,10 +75,21 @@ pub struct EnumItem {
 }
 
 #[derive(Debug, Clone)]
-pub struct StructField {
-    pub id: String,
-    pub name: String,
-    pub typ: String,
+pub enum StructField {
+    Field {
+        id: String,
+        name: String,
+        typ: String,
+        enu: Option<String>,
+    },
+    List {
+        id: String,
+        name: String,
+        typ: String,
+        len_expr: Expr<usize>,
+    },
+    Pad(usize),
+    AlignPad(usize),
 }
 
 #[derive(Debug, Clone)]
@@ -128,28 +154,6 @@ impl<B: BufRead> Parser<B> {
         }
     }
 
-    // fn expect_start_tag(&mut self, tag: &[u8]) -> Result<()> {
-    //     match self.xml.read_event(&mut self.buf) {
-    //         Ok(XmlEv::Start(e) | XmlEv::Empty(e)) => {
-    //             if e.name() == tag {
-    //                 Ok(())
-    //             } else {
-    //                 Err(Error::Parse(format!(
-    //                     "expected <{}>, got <{}>",
-    //                     str::from_utf8(tag).unwrap(),
-    //                     str::from_utf8(e.name())?
-    //                 )))
-    //             }
-    //         }
-    //         Ok(ev) => Err(Error::Parse(format!(
-    //             "expected <{}>, found {:?}",
-    //             str::from_utf8(tag).unwrap(),
-    //             ev
-    //         ))),
-    //         Err(e) => Err(e)?,
-    //     }
-    // }
-
     fn expect_start(&mut self) -> Result<Vec<u8>> {
         match self.xml.read_event(&mut self.buf) {
             Ok(XmlEv::Start(e) | XmlEv::Empty(e)) => Ok(Vec::from(e.name())),
@@ -192,12 +196,131 @@ impl<B: BufRead> Parser<B> {
         Ok((tag, txt))
     }
 
+    // fn expect_start_tag(&mut self, tag: &[u8]) -> Result<()> {
+    //     match self.xml.read_event(&mut self.buf) {
+    //         Ok(XmlEv::Start(e) | XmlEv::Empty(e)) => {
+    //             if e.name() == tag {
+    //                 Ok(())
+    //             } else {
+    //                 Err(Error::Parse(format!(
+    //                     "expected <{}>, got <{}>",
+    //                     str::from_utf8(tag).unwrap(),
+    //                     str::from_utf8(e.name())?
+    //                 )))
+    //             }
+    //         }
+    //         Ok(ev) => Err(Error::Parse(format!(
+    //             "expected <{}>, found {:?}",
+    //             str::from_utf8(tag).unwrap(),
+    //             ev
+    //         ))),
+    //         Err(e) => Err(e)?,
+    //     }
+    // }
+
     // fn expect_text_element_with_tag(&mut self, tag: &[u8]) -> Result<String> {
     //     self.expect_start_tag(tag)?;
     //     let txt = self.expect_text()?;
     //     self.expect_close_tag(tag)?;
     //     Ok(txt)
     // }
+
+    fn parse_doc(&mut self) -> Result<Doc> {
+        let mut brief = String::new();
+        let mut text = String::new();
+        let mut fields = Vec::new();
+
+        loop {
+            match self.xml.read_event(&mut self.buf) {
+                Ok(XmlEv::Start(ref e)) => match e.name() {
+                    b"brief" => {
+                        brief = self.expect_text_trim()?;
+                    }
+                    b"field" => {
+                        let name = expect_attribute(e.attributes(), b"name")?;
+                        let text = self.expect_text_trim()?;
+                        fields.push(DocField { name, text });
+                    }
+                    _ => {}
+                },
+                Ok(XmlEv::Text(txt) | XmlEv::CData(txt)) => {
+                    let txt = txt.unescaped()?;
+                    text.push_str(str::from_utf8(&txt)?);
+                }
+                Ok(XmlEv::End(ref e)) => {
+                    if e.name() == b"doc" {
+                        break;
+                    }
+                }
+                Ok(_) => {}
+                Err(err) => Err(err)?,
+            }
+        }
+
+        Ok(Doc {
+            brief,
+            text: text.trim().into(),
+            fields,
+        })
+    }
+
+    fn parse_expr<T>(&mut self) -> Result<Expr<T>>
+    where
+        T: FromStr,
+        <T as FromStr>::Err: Display,
+        T: Clone,
+    {
+        match self.xml.read_event(&mut self.buf) {
+            Ok(XmlEv::Start(ref e)) => match e.name() {
+                b"fieldref" => {
+                    let fr = self.expect_text_trim()?;
+                    self.expect_close_tag(b"fieldref")?;
+                    Ok(Expr::FieldRef(fr))
+                }
+                b"paramref" => {
+                    let pr = self.expect_text_trim()?;
+                    self.expect_close_tag(b"paramref")?;
+                    Ok(Expr::ParamRef(pr))
+                }
+                b"value" => {
+                    let val = self.expect_text_trim()?;
+                    self.expect_close_tag(b"value")?;
+                    let val: T = val.parse().map_err(|e| {
+                        Error::Parse(format!("could not parse expr <value> tag: {}", e))
+                    })?;
+                    Ok(Expr::Value(val))
+                }
+                b"op" => {
+                    let op = expect_attribute(e.attributes(), b"op")?;
+                    let lhs = self.parse_expr::<T>()?;
+                    let rhs = self.parse_expr::<T>()?;
+                    self.expect_close_tag(b"op")?;
+                    Ok(Expr::Op(op, Box::new(lhs), Box::new(rhs)))
+                }
+                b"unop" => {
+                    let unop = expect_attribute(e.attributes(), b"op")?;
+                    let expr = self.parse_expr::<T>()?;
+                    self.expect_close_tag(b"unop")?;
+                    Ok(Expr::Unop(unop, Box::new(expr)))
+                }
+                b"popcount" => {
+                    let expr = self.parse_expr::<T>()?;
+                    self.expect_close_tag(b"popcount")?;
+                    Ok(Expr::Popcount(Box::new(expr)))
+                }
+                tag => Err(Error::Parse(format!(
+                    "Unexpected <{}> in expression",
+                    str::from_utf8(tag)?
+                ))),
+            },
+            Ok(XmlEv::Comment(_)) => self.parse_expr::<T>(), // in case of comment, we just parse the next one
+            Ok(ev) => Err(Error::Parse(format!(
+                "Unexpected XML while parsing expression: {:?}",
+                ev
+            ))),
+            Err(err) => Err(err.into()),
+        }
+    }
 
     fn parse_import(&mut self) -> Result<String> {
         let imp = self.expect_text()?;
@@ -281,38 +404,94 @@ impl<B: BufRead> Parser<B> {
     fn parse_struct(&mut self) -> Result<(Vec<StructField>, Option<Doc>)> {
         let mut fields = Vec::new();
         let mut doc = None;
+        let mut had_list = false;
 
         loop {
             match self.xml.read_event(&mut self.buf) {
-                Ok(XmlEv::Start(ref e)) => match e.name() {
+                Ok(XmlEv::Start(ref e) | XmlEv::Empty(ref e)) => match e.name() {
                     b"field" => {
-                        let mut typ: Option<String> = None;
-                        let mut nam: Option<String> = None;
-                        for attr in e.attributes() {
-                           if let Ok(attr) = attr {
-                               let val = attr_value(&attr)?;
-                               match attr.key {
-                                   b"type" => typ = Some(val),
-                                   b"name" => nam = Some(val),
-                                   _ => {}
-                               }
-                           }
-                        }
+                        let names: [&[u8]; 3] = [b"type", b"name", b"enum"];
+                        let mut vals: [Option<String>; 3] = [None, None, None];
+                        get_attributes(e.attributes(), &names, &mut vals)?;
+                        let [typ, nam, enu] = vals;
+
                         if let (Some(typ), Some(name)) = (typ, nam) {
-                            fields.push(StructField{id: name.clone(), name: name, typ})
+                            fields.push(StructField::Field {
+                                id: name.clone(),
+                                name: name,
+                                typ: typ,
+                                enu: enu,
+                            })
+                        } else {
+                            return Err(Error::Parse(
+                                "struct field without type and/or name".into(),
+                            ));
                         }
-                    },
+                    }
+                    b"pad" => {
+                        let names: [&[u8]; 2] = [b"bytes", b"align"];
+                        let mut vals: [Option<String>; 2] = [None, None];
+                        get_attributes(e.attributes(), &names, &mut vals)?;
+                        let [bytes, align] = vals;
+                        if bytes.is_some() && align.is_some() {
+                            return Err(Error::Parse(
+                                "<pad> with both align and bytes attr".into(),
+                            ));
+                        }
+                        if let Some(bytes) = bytes {
+                            let val: usize = bytes.parse().map_err(|e| {
+                                Error::Parse(format!("failed to parse pad bytes of struct: {}", e))
+                            })?;
+                            fields.push(StructField::Pad(val));
+                        } else if let Some(align) = align {
+                            if !had_list {
+                                return Err(Error::Parse(
+                                    "alignment pad only expected after list field".into(),
+                                ));
+                            }
+                            let val: usize = align.parse().map_err(|e| {
+                                Error::Parse(format!("failed to parse pad bytes of struct: {}", e))
+                            })?;
+                            fields.push(StructField::AlignPad(val));
+                        } else {
+                            return Err(Error::Parse(
+                                "<pad> with neither align and bytes attr".into(),
+                            ));
+                        }
+                    }
+                    b"list" => {
+                        let names: [&[u8]; 2] = [b"type", b"name"];
+                        let mut vals: [Option<String>; 2] = [None, None];
+                        get_attributes(e.attributes(), &names, &mut vals)?;
+                        let [typ, nam] = vals;
+                        if let (Some(typ), Some(name)) = (typ, nam) {
+                            let len_expr = self.parse_expr::<usize>()?;
+                            fields.push(StructField::List {
+                                id: name.clone(),
+                                name,
+                                typ,
+                                len_expr,
+                            });
+                            had_list = true;
+                        } else {
+                            return Err(Error::Parse(
+                                "<list> tag without type and/or name attribute".into(),
+                            ));
+                        }
+                    }
                     b"doc" => {
                         doc = Some(self.parse_doc()?);
                     }
-                    b"struct" => {
-                        return Err(Error::Parse("Unexpected inner struct".into()));
+                    tag => {
+                        return Err(Error::Parse(format!(
+                            "Unexpected <{}> in struct",
+                            str::from_utf8(tag)?
+                        )))
                     }
-                    _ => {},
                 },
                 Ok(XmlEv::End(ref e)) => match e.name() {
                     b"struct" => break,
-                    _ => {},
+                    _ => {}
                 },
                 Ok(XmlEv::Comment(_)) => {}
                 Ok(ev) => {
@@ -323,45 +502,6 @@ impl<B: BufRead> Parser<B> {
         }
 
         Ok((fields, doc))
-    }
-
-    fn parse_doc(&mut self) -> Result<Doc> {
-        let mut brief = String::new();
-        let mut text = String::new();
-        let mut fields = Vec::new();
-
-        loop {
-            match self.xml.read_event(&mut self.buf) {
-                Ok(XmlEv::Start(ref e)) => match e.name() {
-                    b"brief" => {
-                        brief = self.expect_text_trim()?;
-                    }
-                    b"field" => {
-                        let name = expect_attribute(e.attributes(), b"name")?;
-                        let text = self.expect_text_trim()?;
-                        fields.push(DocField { name, text });
-                    }
-                    _ => {}
-                },
-                Ok(XmlEv::Text(txt) | XmlEv::CData(txt)) => {
-                    let txt = txt.unescaped()?;
-                    text.push_str(str::from_utf8(&txt)?);
-                }
-                Ok(XmlEv::End(ref e)) => {
-                    if e.name() == b"doc" {
-                        break;
-                    }
-                }
-                Ok(_) => {}
-                Err(err) => Err(err)?,
-            }
-        }
-
-        Ok(Doc {
-            brief,
-            text: text.trim().into(),
-            fields,
-        })
     }
 }
 
@@ -389,7 +529,7 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                                 b"newname" => {
                                     newname = Some(valres.unwrap());
                                 }
-                                _ => {},
+                                _ => {}
                             }
                         }
                     }
@@ -420,10 +560,14 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                 b"struct" => {
                     let nameres = expect_attribute(e.attributes(), b"name");
                     if let Err(err) = nameres {
-                        return Some(Err(err))
+                        return Some(Err(err));
                     }
                     let structres = self.parse_struct();
-                    Some(Err(Error::Parse("not implemented".into())))
+                    Some(structres.map(|(fields, doc)| Event::Struct {
+                        name: nameres.unwrap(),
+                        fields,
+                        doc,
+                    }))
                 }
                 _ => Some(Ok(Event::Ignore)),
             },
@@ -455,4 +599,21 @@ fn expect_attribute(attrs: Attributes, name: &[u8]) -> Result<String> {
         "could not find expected attribute: {}",
         str::from_utf8(name).unwrap()
     )))
+}
+
+fn get_attributes(attrs: Attributes, names: &[&[u8]], output: &mut [Option<String>]) -> Result<()> {
+    assert_eq!(names.len(), output.len());
+    for attr in attrs {
+        match attr {
+            Ok(attr) => {
+                for (i, nam) in names.iter().enumerate() {
+                    if attr.key == *nam {
+                        output[i] = Some(attr_value(&attr)?);
+                    }
+                }
+            }
+            Err(err) => return Err(err.into()),
+        }
+    }
+    Ok(())
 }
