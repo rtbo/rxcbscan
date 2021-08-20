@@ -1,3 +1,4 @@
+mod ast;
 mod codegen;
 mod output;
 mod parse;
@@ -8,9 +9,10 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
+use ast::Event;
 use codegen::CodeGen;
 use output::Output;
-use parse::{Event, Result, Parser};
+use parse::{Result, Parser};
 
 fn xcb_mod_map(name: &str) -> &str {
     match name {

@@ -1,7 +1,8 @@
-use crate::output::Output;
-use crate::parse::{self, Doc, EnumItem, Event};
 use std::collections::HashSet;
 use std::io::{self, Cursor, Write};
+
+use crate::ast::{Doc, EnumItem, Event};
+use crate::output::Output;
 
 #[derive(Debug)]
 pub struct CodeGen {
@@ -10,8 +11,8 @@ pub struct CodeGen {
     ffi: Output,
     rs: Output,
     ffi_typ_reg: HashSet<String>, // types registered in the FFI module
-    rs_typ_reg: HashSet<String>, // types registered in the Rust module
-    ffi_ext_fn: Cursor<Vec<u8>>, // all FFI functions are extern and grouped at the end
+    rs_typ_reg: HashSet<String>,  // types registered in the Rust module
+    ffi_ext_fn: Cursor<Vec<u8>>,  // all FFI functions are extern and grouped at the end
 }
 
 impl CodeGen {
@@ -112,7 +113,7 @@ impl CodeGen {
         Ok(())
     }
 
-    pub fn event(&mut self, ev: &Event) -> parse::Result<()> {
+    pub fn event(&mut self, ev: &Event) -> io::Result<()> {
         match ev {
             Event::Typedef { oldname, newname } => {
                 let ffi_old_typ = ffi_type_name(&self.xcb_mod_prefix, oldname);
