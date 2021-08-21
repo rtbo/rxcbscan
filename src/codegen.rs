@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 use std::io::{self, Cursor, Write};
 
-use crate::ast::{Doc, EnumItem, Event};
+use crate::ast::{Doc, EnumItem, Event, StructField};
 use crate::output::Output;
 
 #[derive(Debug)]
@@ -12,7 +12,11 @@ pub struct CodeGen {
     rs: Output,
     ffi_typ_reg: HashSet<String>, // types registered in the FFI module
     rs_typ_reg: HashSet<String>,  // types registered in the Rust module
-    ffi_ext_fn: Cursor<Vec<u8>>,  // all FFI functions are extern and grouped at the end
+
+    // additional output buffers that make a second group of declaration/functions
+    // they are appended to the output at the end
+    ffi_buf: Cursor<Vec<u8>>,
+    rs_buf: Cursor<Vec<u8>>,
 }
 
 impl CodeGen {
@@ -30,7 +34,8 @@ impl CodeGen {
             rs_typ_reg: HashSet::new(),
             ffi,
             rs,
-            ffi_ext_fn: Cursor::new(Vec::new()),
+            ffi_buf: Cursor::new(Vec::new()),
+            rs_buf: Cursor::new(Vec::new()),
         }
     }
 
@@ -106,10 +111,13 @@ impl CodeGen {
         writeln!(out).unwrap();
         writeln!(out, "extern {{")?;
 
-        out.write_all(self.ffi_ext_fn.get_ref())?;
+        out.write_all(self.ffi_buf.get_ref())?;
 
         writeln!(out).unwrap();
         writeln!(out, "}} // extern")?;
+
+        let out = &mut self.rs;
+        out.write_all(self.rs_buf.get_ref())?;
         Ok(())
     }
 
@@ -120,7 +128,7 @@ impl CodeGen {
                 let ffi_new_typ = ffi_type_name(&self.xcb_mod_prefix, newname);
 
                 emit_type_alias(&mut self.ffi, &ffi_new_typ, &ffi_old_typ)?;
-                self.emit_ffi_iterator(newname)?;
+                self.emit_ffi_iterator(newname, &ffi_new_typ)?;
 
                 let rs_new_typ = rust_type_name(newname);
                 emit_type_alias(&mut self.rs, &rs_new_typ, &ffi_new_typ)?;
@@ -131,7 +139,7 @@ impl CodeGen {
             Event::XidType(name) => {
                 let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
                 emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
-                self.emit_ffi_iterator(name)?;
+                self.emit_ffi_iterator(name, &ffi_typ)?;
 
                 let rs_typ = rust_type_name(name);
                 emit_type_alias(&mut self.rs, &rs_typ, &ffi_typ)?;
@@ -172,16 +180,25 @@ impl CodeGen {
                 )?;
                 self.reg_rs_type(typ);
             }
+            Event::Struct { name, fields, doc } => {
+                let ffi_typ = self.emit_ffi_struct(&name, &fields, &doc)?;
+                let ffi_it_typ = self.emit_ffi_iterator(&name, &ffi_typ)?;
+
+                let rs_typ = self.emit_rs_struct(&ffi_typ, &name, &fields, &doc)?;
+                self.emit_rs_iterator(&name, &rs_typ, &ffi_it_typ)?;
+
+                self.reg_ffi_type(ffi_typ);
+                self.reg_rs_type(rs_typ);
+            }
             _ => {}
         }
         Ok(())
     }
 
-    fn emit_ffi_iterator(&mut self, typ: &str) -> io::Result<()> {
-        let typ = typ.to_ascii_lowercase();
-        let it_typ = ffi_iterator_name(&self.xcb_mod_prefix, &typ);
-        let it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &typ);
-        let it_end = ffi_iterator_end_fn_name(&self.xcb_mod_prefix, &typ);
+    fn emit_ffi_iterator(&mut self, name: &str, typ: &str) -> io::Result<String> {
+        let it_typ = ffi_iterator_name(&self.xcb_mod_prefix, &name);
+        let it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &name);
+        let it_end = ffi_iterator_end_fn_name(&self.xcb_mod_prefix, &name);
 
         let out = &mut self.ffi;
 
@@ -189,12 +206,12 @@ impl CodeGen {
         writeln!(out, "#[repr(C)]")?;
         writeln!(out, "#[derive(Debug)]")?;
         writeln!(out, "pub struct {} {{", &it_typ)?;
-        writeln!(out, "    pub data:  *mut xcb_{}_t,", &typ)?;
+        writeln!(out, "    pub data:  *mut {},", &typ)?;
         writeln!(out, "    pub rem:   c_int,")?;
         writeln!(out, "    pub index: c_int,")?;
         writeln!(out, "}}")?;
 
-        let out = &mut self.ffi_ext_fn;
+        let out = &mut self.ffi_buf;
         writeln!(out).unwrap();
         writeln!(out, "pub fn {}(i: *mut {});", &it_next, &it_typ).unwrap();
         writeln!(
@@ -203,7 +220,189 @@ impl CodeGen {
             &it_end, &it_typ
         )
         .unwrap();
+        Ok(it_typ)
+    }
+
+    fn emit_rs_iterator(&mut self, name: &str, typ: &str, ffi_it_typ: &str) -> io::Result<()> {
+        let it_typ = format!("{}Iterator", &typ);
+        let ffi_it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &name);
+
+        let out = &mut self.rs_buf;
+
+        writeln!(out)?;
+        writeln!(out, "pub type {} = {};", &it_typ, &ffi_it_typ)?;
+        writeln!(out)?;
+        writeln!(out, "impl Iterator for {} {{", &it_typ)?;
+        writeln!(out, "    type Item = {};", &typ)?;
+        writeln!(out, "    fn next(&mut self) -> std::option::Option<{}> {{", &typ)?;
+        writeln!(out, "        if self.rem == 0 {{")?;
+        writeln!(out, "            None")?;
+        writeln!(out, "        }} else {{")?;
+        writeln!(out, "            unsafe {{")?;
+        writeln!(out, "                let iter = self as *mut {};", &ffi_it_typ)?;
+        writeln!(out, "                let data = (*iter).data;")?;
+        writeln!(out, "                {}(iter);", &ffi_it_next)?;
+        writeln!(out, "                Some(std::mem::transmute(*data))")?;
+        writeln!(out, "            }}")?;
+        writeln!(out, "        }}")?;
+        writeln!(out, "    }}")?;
+        writeln!(out, "}}")?;
+
+        // pub type FormatIterator = xcb_format_iterator_t;
+
+        // impl Iterator for FormatIterator {
+        //     type Item = Format;
+        //     fn next(&mut self) -> std::option::Option<Format> {
+        //         if self.rem == 0 {
+        //             None
+        //         } else {
+        //             unsafe {
+        //                 let iter = self as *mut xcb_format_iterator_t;
+        //                 let data = (*iter).data;
+        //                 xcb_format_next(iter);
+        //                 Some(std::mem::transmute(*data))
+        //             }
+        //         }
+        //     }
+        // }
         Ok(())
+    }
+
+    fn emit_ffi_struct(
+        &mut self,
+        name: &str,
+        fields: &[StructField],
+        doc: &Option<Doc>,
+    ) -> io::Result<String> {
+        let out = &mut self.ffi;
+        let typ = ffi_type_name(&self.xcb_mod_prefix, &name);
+
+        writeln!(out)?;
+        emit_doc_text(out, &doc)?;
+        writeln!(out, "#[repr(C)]")?;
+        writeln!(out, "pub struct {} {{", &typ)?;
+
+        let mut padnum = 0;
+
+        for f in fields.iter() {
+            match f {
+                StructField::Field { name, typ, .. } => {
+                    emit_doc_field(out, &doc, &name)?;
+                    writeln!(
+                        out,
+                        "    pub {}: {},",
+                        symbol(&name),
+                        ffi_field_type_name(&self.xcb_mod_prefix, &typ)
+                    )?;
+                }
+                StructField::Pad(sz) => {
+                    let padtyp = match sz {
+                        1 => "u8".into(),
+                        x => format!("[u8; {}]", x),
+                    };
+                    writeln!(out, "    pub pad{}: {},", padnum, padtyp)?;
+                    padnum += 1;
+                }
+                _ => {}
+            }
+        }
+        writeln!(out, "}}")?;
+
+        Ok(typ)
+    }
+
+    fn emit_rs_struct(
+        &mut self,
+        ffi_typ: &str,
+        name: &str,
+        fields: &[StructField],
+        doc: &Option<Doc>,
+    ) -> io::Result<String> {
+        let out = &mut self.rs_buf;
+
+        let typ = rust_type_name(&name);
+
+        // emitting struct
+        writeln!(out)?;
+        emit_doc_text(out, &doc)?;
+        writeln!(out, "#[derive(Copy, Clone)]")?;
+        writeln!(out, "pub struct {} {{", &typ)?;
+        writeln!(out, "    pub base: {},", &ffi_typ)?;
+        writeln!(out, "}}")?;
+
+        // emitting struct impl
+        writeln!(out)?;
+        writeln!(out, "impl {} {{", &typ)?;
+        writeln!(out, "    #[allow(unused_unsafe)]")?;
+
+        // emitting ctor
+        write!(out, "    pub fn new(")?;
+        for f in fields.iter() {
+            match f {
+                StructField::Field { name, typ, .. } => {
+                    write!(out, "{}: {},", symbol(&name), rust_field_type_name(&typ))?;
+                }
+                _ => {}
+            }
+        }
+        writeln!(out, ") -> {} {{", &typ)?;
+        writeln!(out, "        unsafe {{")?;
+        writeln!(out, "            {} {{", &typ)?;
+        writeln!(out, "                base: {} {{", &ffi_typ)?;
+        let mut padnum = 0;
+        for f in fields.iter() {
+            match f {
+                StructField::Field { name, typ, .. } => {
+                    let name = symbol(name);
+                    if typ == "BOOL" {
+                        writeln!(out, "                    {}: {} != 0,", &name, &name)?;
+                    } else {
+                        writeln!(out, "                    {}: {},", &name, &name)?;
+                    }
+                }
+                StructField::Pad(sz) => {
+                    let val = if *sz == 1 {
+                        "0".into()
+                    } else {
+                        format!("[0; {}]", sz)
+                    };
+                    writeln!(out, "                pad{}: {},", padnum, val)?;
+                    padnum += 1;
+                }
+                _ => {}
+            }
+        }
+        writeln!(out, "                }}")?;
+        writeln!(out, "            }}")?;
+        writeln!(out, "        }}")?;
+        writeln!(out, "    }}")?;
+
+        // emitting accessors
+        for f in fields.iter() {
+            match f {
+                StructField::Field { name, typ, .. } => {
+                    emit_doc_field(out, &doc, &name)?;
+                    let name = symbol(name);
+                    writeln!(
+                        out,
+                        "    pub fn {}(&self) -> {} {{",
+                        &name,
+                        rust_field_type_name(&typ)
+                    )?;
+                    if typ == "BOOL" {
+                        writeln!(out, "        self.base.{} != 0", &name)?;
+                    } else {
+                        writeln!(out, "        unsafe {{ self.base.{} }}", &name)?;
+                    }
+                    writeln!(out, "    }}")?;
+                }
+                _ => {}
+            }
+        }
+
+        writeln!(out, "}}")?;
+
+        Ok(typ)
     }
 }
 
@@ -266,7 +465,7 @@ fn tit_cap(name: &str) -> String {
         return name.into();
     }
 
-    let is_high = |c: char| c.is_ascii_uppercase();
+    let is_high = |c: char| c.is_ascii_uppercase() | c.is_ascii_digit();
 
     let mut res = String::new();
     let mut ch = name.chars();
@@ -285,6 +484,34 @@ fn tit_cap(name: &str) -> String {
     res
 }
 
+fn symbol(name: &str) -> &str {
+    match name {
+        "type" => "type_",
+        "str" => "str_",
+        "match" => "match_",
+        "new" => "new_",
+        s => s,
+    }
+}
+
+fn extract_module(typ: &str) -> (Option<&str>, &str) {
+    let len = typ.len();
+    let colon = typ.as_bytes().iter().position(|b| *b == b':');
+    if let Some(colon) = colon {
+        (Some(&typ[0..colon]), &typ[colon + 1..len])
+    } else {
+        (None, typ)
+    }
+}
+
+fn qualified_name(module: &Option<&str>, name: &str) -> String {
+    if let Some(module) = module {
+        format!("{}::{}", module, &name)
+    } else {
+        name.into()
+    }
+}
+
 fn ffi_type_name(xcb_mod_prefix: &str, typ: &str) -> String {
     match typ {
         "CARD8" => "u8".into(),
@@ -293,11 +520,22 @@ fn ffi_type_name(xcb_mod_prefix: &str, typ: &str) -> String {
         "INT8" => "i8".into(),
         "INT16" => "i16".into(),
         "INT32" => "i32".into(),
+        "BYTE" => "u8".into(),
+        "BOOL" => "u8".into(),
         typ => {
             let typ = tit_split(typ).to_ascii_lowercase();
             format!("xcb_{}{}_t", xcb_mod_prefix, typ)
         }
     }
+}
+
+/// same as ffi_type_name but can also have a namespace before (with a single colon)
+fn ffi_field_type_name(xcb_mod_prefix: &str, typ: &str) -> String {
+    let (module, typ) = extract_module(&typ);
+
+    let typ = ffi_type_name(&xcb_mod_prefix, &typ);
+
+    qualified_name(&module, &typ)
 }
 
 fn ffi_enum_item_name(xcb_mod_prefix: &str, name: &str, item: &str) -> String {
@@ -308,10 +546,6 @@ fn ffi_enum_item_name(xcb_mod_prefix: &str, name: &str, item: &str) -> String {
         tit_split(item)
     )
     .to_ascii_uppercase()
-}
-
-fn rust_enum_item_name(name: &str, item: &str) -> String {
-    format!("{}_{}", tit_split(name), tit_split(item)).to_ascii_uppercase()
 }
 
 fn ffi_iterator_name(xcb_mod_prefix: &str, typ: &str) -> String {
@@ -339,16 +573,39 @@ fn ffi_iterator_end_fn_name(xcb_mod_prefix: &str, typ: &str) -> String {
 }
 
 fn rust_type_name(typ: &str) -> String {
-    tit_cap(typ)
+    match typ {
+        "CARD8" => "u8".into(),
+        "CARD16" => "u16".into(),
+        "CARD32" => "u32".into(),
+        "INT8" => "i8".into(),
+        "INT16" => "i16".into(),
+        "INT32" => "i32".into(),
+        "BYTE" => "u8".into(),
+        "BOOL" => "bool".into(),
+        typ => tit_cap(typ),
+    }
 }
 
-fn emit_type_alias(out: &mut Output, new_typ: &str, old_typ: &str) -> io::Result<()> {
+/// same as rust_type_name but can also have a namespace before (with a single colon)
+fn rust_field_type_name(typ: &str) -> String {
+    let (module, typ) = extract_module(&typ);
+
+    let typ = rust_type_name(&typ);
+
+    qualified_name(&module, &typ)
+}
+
+fn rust_enum_item_name(name: &str, item: &str) -> String {
+    format!("{}_{}", tit_split(name), tit_split(item)).to_ascii_uppercase()
+}
+
+fn emit_type_alias<Out: Write>(out: &mut Out, new_typ: &str, old_typ: &str) -> io::Result<()> {
     writeln!(out)?;
     writeln!(out, "pub type {} = {};", new_typ, old_typ)?;
     Ok(())
 }
 
-fn emit_doc_str(out: &mut Output, docstr: &str) -> io::Result<()> {
+fn emit_doc_str<Out: Write>(out: &mut Out, docstr: &str) -> io::Result<()> {
     if !docstr.is_empty() {
         let strvec: Vec<String> = docstr.split('\n').map(|l| "/// ".to_owned() + l).collect();
         let mut docstr = strvec.join("\n");
@@ -359,7 +616,7 @@ fn emit_doc_str(out: &mut Output, docstr: &str) -> io::Result<()> {
     }
 }
 
-fn emit_doc_text(out: &mut Output, doc: &Option<Doc>) -> io::Result<()> {
+fn emit_doc_text<Out: Write>(out: &mut Out, doc: &Option<Doc>) -> io::Result<()> {
     if let Some(doc) = doc {
         if !doc.brief.is_empty() {
             emit_doc_str(out, &doc.brief)?;
@@ -371,7 +628,7 @@ fn emit_doc_text(out: &mut Output, doc: &Option<Doc>) -> io::Result<()> {
     Ok(())
 }
 
-fn emit_doc_field(out: &mut Output, doc: &Option<Doc>, field: &str) -> io::Result<()> {
+fn emit_doc_field<Out: Write>(out: &mut Out, doc: &Option<Doc>, field: &str) -> io::Result<()> {
     if let Some(doc) = doc {
         if let Some(f) = doc.fields.iter().find(|f| f.name == field) {
             emit_doc_str(out, &f.text)?;
@@ -380,8 +637,14 @@ fn emit_doc_field(out: &mut Output, doc: &Option<Doc>, field: &str) -> io::Resul
     Ok(())
 }
 
-fn emit_enum<Items>(out: &mut Output, typ: &str, items: Items, doc: &Option<Doc>) -> io::Result<()>
+fn emit_enum<Out, Items>(
+    out: &mut Out,
+    typ: &str,
+    items: Items,
+    doc: &Option<Doc>,
+) -> io::Result<()>
 where
+    Out: Write,
     Items: Iterator<Item = EnumItem>,
 {
     writeln!(out)?;
