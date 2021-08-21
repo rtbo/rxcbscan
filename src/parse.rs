@@ -342,7 +342,6 @@ impl<B: BufRead> Parser<B> {
 
                         if let (Some(typ), Some(name)) = (typ, nam) {
                             fields.push(StructField::Field {
-                                id: name.clone(),
                                 name: name,
                                 typ: typ,
                                 enu: enu,
@@ -392,7 +391,6 @@ impl<B: BufRead> Parser<B> {
                         if let (Some(typ), Some(name)) = (typ, nam) {
                             let len_expr = self.parse_expr::<usize>()?;
                             fields.push(StructField::List {
-                                id: name.clone(),
                                 name,
                                 typ,
                                 len_expr,

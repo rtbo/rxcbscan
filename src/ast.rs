@@ -45,13 +45,11 @@ pub struct Enum {
 #[derive(Debug, Clone)]
 pub enum StructField {
     Field {
-        id: String,
         name: String,
         typ: String,
         enu: Option<String>,
     },
     List {
-        id: String,
         name: String,
         typ: String,
         len_expr: Expr<usize>,
