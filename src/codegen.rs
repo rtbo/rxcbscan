@@ -55,7 +55,7 @@ impl CodeGen {
         !has_list(&stru.fields)
     }
 
-    fn iterator_has_lifetime(&self, stru: &Struct) -> bool {
+    fn type_has_lifetime(&self, stru: &Struct) -> bool {
         has_list(&stru.fields)
     }
 
@@ -183,15 +183,12 @@ impl CodeGen {
                 self.reg_rs_type(typ);
             }
             Event::Struct(stru) => {
+                let has_lifetime = self.type_has_lifetime(&stru);
                 let ffi_typ = self.emit_ffi_struct(&stru)?;
-                let ffi_it_typ = self.emit_ffi_iterator(
-                    &stru.name,
-                    &ffi_typ,
-                    self.iterator_has_lifetime(&stru),
-                )?;
+                let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ, has_lifetime)?;
 
-                let rs_typ = self.emit_rs_struct(&ffi_typ, &stru)?;
-                self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ)?;
+                let rs_typ = self.emit_rs_struct(&ffi_typ, &stru, has_lifetime)?;
+                self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, has_lifetime)?;
 
                 self.reg_ffi_type(ffi_typ);
                 self.reg_rs_type(rs_typ);
@@ -240,21 +237,37 @@ impl CodeGen {
         Ok(it_typ)
     }
 
-    fn emit_rs_iterator(&mut self, name: &str, typ: &str, ffi_it_typ: &str) -> io::Result<()> {
+    fn emit_rs_iterator(
+        &mut self,
+        name: &str,
+        typ: &str,
+        ffi_it_typ: &str,
+        has_lifetime: bool,
+    ) -> io::Result<()> {
         let it_typ = format!("{}Iterator", &typ);
         let ffi_it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &name);
+
+        let (indir, lifetime) = if has_lifetime { ("", "<'a>") } else { ("*", "") };
 
         let out = &mut self.rs_buf;
 
         writeln!(out)?;
-        writeln!(out, "pub type {} = {};", &it_typ, &ffi_it_typ)?;
-        writeln!(out)?;
-        writeln!(out, "impl Iterator for {} {{", &it_typ)?;
-        writeln!(out, "    type Item = {};", &typ)?;
         writeln!(
             out,
-            "    fn next(&mut self) -> std::option::Option<{}> {{",
-            &typ
+            "pub type {}{} = {}{};",
+            &it_typ, &lifetime, &ffi_it_typ, &lifetime
+        )?;
+        writeln!(out)?;
+        writeln!(
+            out,
+            "impl{} Iterator for {}{} {{",
+            &lifetime, &it_typ, &lifetime
+        )?;
+        writeln!(out, "    type Item = {}{};", &typ, &lifetime)?;
+        writeln!(
+            out,
+            "    fn next(&mut self) -> std::option::Option<{}{}> {{",
+            &typ, &lifetime,
         )?;
         writeln!(out, "        if self.rem == 0 {{")?;
         writeln!(out, "            None")?;
@@ -267,7 +280,7 @@ impl CodeGen {
         )?;
         writeln!(out, "                let data = (*iter).data;")?;
         writeln!(out, "                {}(iter);", &ffi_it_next)?;
-        writeln!(out, "                Some(std::mem::transmute(*data))")?;
+        writeln!(out, "                Some(std::mem::transmute({}data))", &indir)?;
         writeln!(out, "            }}")?;
         writeln!(out, "        }}")?;
         writeln!(out, "    }}")?;
@@ -354,7 +367,12 @@ impl CodeGen {
         Ok(typ)
     }
 
-    fn emit_rs_struct(&mut self, ffi_typ: &str, stru: &Struct) -> io::Result<String> {
+    fn emit_rs_struct(
+        &mut self,
+        ffi_typ: &str,
+        stru: &Struct,
+        has_lifetime: bool,
+    ) -> io::Result<String> {
         let Struct { name, fields, doc } = &stru;
 
         let typ = rust_type_name(&name);
@@ -363,57 +381,68 @@ impl CodeGen {
         // emitting struct
         writeln!(out)?;
         emit_doc_text(out, &doc)?;
-        writeln!(out, "#[derive(Copy, Clone)]")?;
-        writeln!(out, "pub struct {} {{", &typ)?;
-        writeln!(out, "    pub base: {},", &ffi_typ)?;
-        writeln!(out, "}}")?;
+        if has_lifetime {
+            writeln!(
+                out,
+                "pub type {}<'a> = base::StructPtr<'a, {}>;",
+                &typ, &ffi_typ
+            )?;
+        } else {
+            writeln!(out, "#[derive(Copy, Clone)]")?;
+            writeln!(out, "pub struct {} {{", &typ)?;
+            writeln!(out, "    pub base: {},", &ffi_typ)?;
+            writeln!(out, "}}")?;
+        }
 
+        let (accessor, lifetime) = if has_lifetime { ("(*self.ptr)", "<'a>") } else { ("self.base", "") };
         // emitting struct impl
         writeln!(out)?;
-        writeln!(out, "impl {} {{", &typ)?;
-        writeln!(out, "    #[allow(unused_unsafe)]")?;
+        writeln!(out, "impl{} {}{} {{", &lifetime, &typ, &lifetime)?;
 
         // emitting ctor
-        write!(out, "    pub fn new(")?;
-        for f in fields.iter() {
-            match f {
-                StructField::Field { name, typ, .. } => {
-                    write!(out, "{}: {},", symbol(&name), rust_field_type_name(&typ))?;
-                }
-                _ => {}
-            }
-        }
-        writeln!(out, ") -> {} {{", &typ)?;
-        writeln!(out, "        unsafe {{")?;
-        writeln!(out, "            {} {{", &typ)?;
-        writeln!(out, "                base: {} {{", &ffi_typ)?;
-        let mut padnum = 0;
-        for f in fields.iter() {
-            match f {
-                StructField::Field { name, typ, .. } => {
-                    let name = symbol(name);
-                    if typ == "BOOL" {
-                        writeln!(out, "                    {}: {} != 0,", &name, &name)?;
-                    } else {
-                        writeln!(out, "                    {}: {},", &name, &name)?;
+        if !has_lifetime {
+            writeln!(out, "    #[allow(unused_unsafe)]")?;
+            write!(out, "    pub fn new(")?;
+            for f in fields.iter() {
+                match f {
+                    StructField::Field { name, typ, .. } => {
+                        write!(out, "{}: {},", symbol(&name), rust_field_type_name(&typ))?;
                     }
+                    _ => {}
                 }
-                StructField::Pad(sz) => {
-                    let val = if *sz == 1 {
-                        "0".into()
-                    } else {
-                        format!("[0; {}]", sz)
-                    };
-                    writeln!(out, "                pad{}: {},", padnum, val)?;
-                    padnum += 1;
-                }
-                _ => {}
             }
+            writeln!(out, ") -> {} {{", &typ)?;
+            writeln!(out, "        unsafe {{")?;
+            writeln!(out, "            {} {{", &typ)?;
+            writeln!(out, "                base: {} {{", &ffi_typ)?;
+            let mut padnum = 0;
+            for f in fields.iter() {
+                match f {
+                    StructField::Field { name, typ, .. } => {
+                        let name = symbol(name);
+                        if typ == "BOOL" {
+                            writeln!(out, "                    {}: {} != 0,", &name, &name)?;
+                        } else {
+                            writeln!(out, "                    {}: {},", &name, &name)?;
+                        }
+                    }
+                    StructField::Pad(sz) => {
+                        let val = if *sz == 1 {
+                            "0".into()
+                        } else {
+                            format!("[0; {}]", sz)
+                        };
+                        writeln!(out, "                pad{}: {},", padnum, val)?;
+                        padnum += 1;
+                    }
+                    _ => {}
+                }
+            }
+            writeln!(out, "                }}")?;
+            writeln!(out, "            }}")?;
+            writeln!(out, "        }}")?;
+            writeln!(out, "    }}")?;
         }
-        writeln!(out, "                }}")?;
-        writeln!(out, "            }}")?;
-        writeln!(out, "        }}")?;
-        writeln!(out, "    }}")?;
 
         // emitting accessors
         for f in fields.iter() {
@@ -428,16 +457,15 @@ impl CodeGen {
                         rust_field_type_name(&typ)
                     )?;
                     if typ == "BOOL" {
-                        writeln!(out, "        self.base.{} != 0", &name)?;
+                        writeln!(out, "        unsafe {{ {}.{} != 0 }}", &accessor, &name)?;
                     } else {
-                        writeln!(out, "        unsafe {{ self.base.{} }}", &name)?;
+                        writeln!(out, "        unsafe {{ {}.{} }}", &accessor, &name)?;
                     }
                     writeln!(out, "    }}")?;
                 }
                 _ => {}
             }
         }
-
         writeln!(out, "}}")?;
 
         Ok(typ)
