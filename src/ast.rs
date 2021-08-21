@@ -35,6 +35,14 @@ pub struct EnumItem {
 }
 
 #[derive(Debug, Clone)]
+pub struct Enum {
+    pub name: String,
+    pub items: Vec<EnumItem>,
+    pub doc: Option<Doc>,
+}
+
+
+#[derive(Debug, Clone)]
 pub enum StructField {
     Field {
         id: String,
@@ -53,6 +61,13 @@ pub enum StructField {
 }
 
 #[derive(Debug, Clone)]
+pub struct Struct {
+    pub name: String,
+    pub fields: Vec<StructField>,
+    pub doc: Option<Doc>,
+}
+
+#[derive(Debug, Clone)]
 pub enum Event {
     Import(String),
     Typedef {
@@ -60,16 +75,7 @@ pub enum Event {
         newname: String,
     },
     XidType(String),
-    Enum {
-        name: String,
-        bitset: bool,
-        items: Vec<EnumItem>,
-        doc: Option<Doc>,
-    },
-    Struct {
-        name: String,
-        fields: Vec<StructField>,
-        doc: Option<Doc>,
-    },
+    Enum(Enum),
+    Struct(Struct),
     Ignore,
 }

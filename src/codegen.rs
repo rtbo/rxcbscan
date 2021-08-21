@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 use std::io::{self, Cursor, Write};
 
-use crate::ast::{Doc, EnumItem, Event, StructField};
+use crate::ast::{Doc, EnumItem, Event, StructField, Struct};
 use crate::output::Output;
 
 #[derive(Debug)]
@@ -147,45 +147,43 @@ impl CodeGen {
                 self.reg_ffi_type(ffi_typ);
                 self.reg_rs_type(rs_typ);
             }
-            Event::Enum {
-                name, items, doc, ..
-            } => {
+            Event::Enum (en) => {
                 // make owned string to pass into the closure
                 // otherwise borrow checker complains
                 let xcb_mod_prefix = self.xcb_mod_prefix.to_string();
 
-                let typ = self.ffi_enum_type_name(name);
+                let typ = self.ffi_enum_type_name(&en.name);
                 emit_enum(
                     &mut self.ffi,
                     &typ,
-                    items.iter().map(|it| EnumItem {
+                    en.items.iter().map(|it| EnumItem {
                         id: it.id.clone(),
-                        name: ffi_enum_item_name(&xcb_mod_prefix, name, &it.name),
+                        name: ffi_enum_item_name(&xcb_mod_prefix, &en.name, &it.name),
                         value: it.value,
                     }),
-                    &doc,
+                    &en.doc,
                 )?;
                 self.reg_ffi_type(typ);
 
-                let typ = self.rs_enum_type_name(name);
+                let typ = self.rs_enum_type_name(&en.name);
                 emit_enum(
                     &mut self.rs,
                     &typ,
-                    items.iter().map(|it| EnumItem {
+                    en.items.iter().map(|it| EnumItem {
                         id: it.id.clone(),
-                        name: rust_enum_item_name(name, &it.name),
+                        name: rust_enum_item_name(&en.name, &it.name),
                         value: it.value,
                     }),
-                    &doc,
+                    &en.doc,
                 )?;
                 self.reg_rs_type(typ);
             }
-            Event::Struct { name, fields, doc } => {
-                let ffi_typ = self.emit_ffi_struct(&name, &fields, &doc)?;
-                let ffi_it_typ = self.emit_ffi_iterator(&name, &ffi_typ)?;
+            Event::Struct (stru) => {
+                let ffi_typ = self.emit_ffi_struct(&stru)?;
+                let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ)?;
 
-                let rs_typ = self.emit_rs_struct(&ffi_typ, &name, &fields, &doc)?;
-                self.emit_rs_iterator(&name, &rs_typ, &ffi_it_typ)?;
+                let rs_typ = self.emit_rs_struct(&ffi_typ, &stru)?;
+                self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ)?;
 
                 self.reg_ffi_type(ffi_typ);
                 self.reg_rs_type(rs_typ);
@@ -248,35 +246,18 @@ impl CodeGen {
         writeln!(out, "    }}")?;
         writeln!(out, "}}")?;
 
-        // pub type FormatIterator = xcb_format_iterator_t;
-
-        // impl Iterator for FormatIterator {
-        //     type Item = Format;
-        //     fn next(&mut self) -> std::option::Option<Format> {
-        //         if self.rem == 0 {
-        //             None
-        //         } else {
-        //             unsafe {
-        //                 let iter = self as *mut xcb_format_iterator_t;
-        //                 let data = (*iter).data;
-        //                 xcb_format_next(iter);
-        //                 Some(std::mem::transmute(*data))
-        //             }
-        //         }
-        //     }
-        // }
         Ok(())
     }
 
     fn emit_ffi_struct(
         &mut self,
-        name: &str,
-        fields: &[StructField],
-        doc: &Option<Doc>,
+        stru: &Struct,
     ) -> io::Result<String> {
-        let out = &mut self.ffi;
+        let Struct {name, fields, doc} = &stru;
+
         let typ = ffi_type_name(&self.xcb_mod_prefix, &name);
 
+        let out = &mut self.ffi;
         writeln!(out)?;
         emit_doc_text(out, &doc)?;
         writeln!(out, "#[repr(C)]")?;
@@ -314,14 +295,13 @@ impl CodeGen {
     fn emit_rs_struct(
         &mut self,
         ffi_typ: &str,
-        name: &str,
-        fields: &[StructField],
-        doc: &Option<Doc>,
+        stru: &Struct,
     ) -> io::Result<String> {
-        let out = &mut self.rs_buf;
+        let Struct {name, fields, doc} = &stru;
 
         let typ = rust_type_name(&name);
 
+        let out = &mut self.rs_buf;
         // emitting struct
         writeln!(out)?;
         emit_doc_text(out, &doc)?;

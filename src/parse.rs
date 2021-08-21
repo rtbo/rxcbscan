@@ -8,7 +8,7 @@ use std::path::Path;
 use std::result;
 use std::str::{self, FromStr, Utf8Error};
 
-use crate::ast::{Doc, DocField, EnumItem, Event, Expr, StructField};
+use crate::ast::{Doc, DocField, Enum, EnumItem, Event, Expr, Struct, StructField};
 
 #[derive(Debug)]
 pub enum Error {
@@ -259,10 +259,9 @@ impl<B: BufRead> Parser<B> {
     fn parse_enum(
         &mut self,
         start: BytesStart,
-    ) -> Result<(String, bool, Vec<EnumItem>, Option<Doc>)> {
+    ) -> Result<Enum> {
         let name = expect_attribute(start.attributes(), b"name")?;
         let mut items = Vec::new();
-        let mut bitset = false;
         let mut doc = None;
 
         loop {
@@ -287,9 +286,6 @@ impl<B: BufRead> Parser<B> {
                             ))
                         })?;
                         let is_bit = tag == b"bit";
-                        if is_bit {
-                            bitset = true;
-                        }
                         let value = if is_bit { 1 << value } else { value };
                         items.push(EnumItem {
                             id: name.clone(),
@@ -326,10 +322,11 @@ impl<B: BufRead> Parser<B> {
             }
         }
 
-        Ok((name, bitset, items, doc))
+        Ok(Enum{name, items, doc})
     }
 
-    fn parse_struct(&mut self) -> Result<(Vec<StructField>, Option<Doc>)> {
+    fn parse_struct(&mut self, start: BytesStart) -> Result<Struct> {
+        let name = expect_attribute(start.attributes(), b"name")?;
         let mut fields = Vec::new();
         let mut doc = None;
         let mut had_list = false;
@@ -429,7 +426,7 @@ impl<B: BufRead> Parser<B> {
             }
         }
 
-        Ok((fields, doc))
+        Ok(Struct{name, fields, doc})
     }
 }
 
@@ -478,24 +475,12 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                 b"enum" => {
                     let start = e.to_owned();
                     let enumres = self.parse_enum(start);
-                    Some(enumres.map(|(name, bitset, items, doc)| Event::Enum {
-                        name,
-                        bitset,
-                        items,
-                        doc,
-                    }))
+                    Some(enumres.map(|enu| Event::Enum(enu)))
                 }
                 b"struct" => {
-                    let nameres = expect_attribute(e.attributes(), b"name");
-                    if let Err(err) = nameres {
-                        return Some(Err(err));
-                    }
-                    let structres = self.parse_struct();
-                    Some(structres.map(|(fields, doc)| Event::Struct {
-                        name: nameres.unwrap(),
-                        fields,
-                        doc,
-                    }))
+                    let start = e.to_owned();
+                    let structres = self.parse_struct(start);
+                    Some(structres.map(|stru| Event::Struct(stru)))
                 }
                 _ => Some(Ok(Event::Ignore)),
             },
