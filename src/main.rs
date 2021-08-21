@@ -3,16 +3,16 @@ mod codegen;
 mod output;
 mod parse;
 
-use std::cmp;
+// use std::cmp;
 use std::env;
 use std::fs;
-use std::io;
+// use std::io;
 use std::path::{Path, PathBuf};
 
 use ast::Event;
 use codegen::CodeGen;
 use output::Output;
-use parse::{Result, Parser};
+use parse::{Parser, Result};
 
 fn xcb_mod_map(name: &str) -> &str {
     match name {
@@ -40,18 +40,13 @@ fn main() {
     let out_dir = env::var("OUT_DIR").unwrap_or("./gen/current".to_string());
     let out_dir = Path::new(&out_dir);
 
-    let src_files = [
-        "main.rs",
-        "parse.rs",
-        "codegen.rs",
-        "output.rs",
-    ];
+    // let src_files = ["main.rs", "parse.rs", "codegen.rs", "output.rs"];
 
-    let ref_mtime = src_files
-        .iter()
-        .map(|f| Path::new(&root).join("src").join(f))
-        .map(|p| mtime(&p).expect(&format!("cannot get modification time of {}", p.display())))
-        .fold(std::i64::MIN, |a, b| a.max(b));
+    // let ref_mtime = src_files
+    //     .iter()
+    //     .map(|f| Path::new(&root).join("src").join(f))
+    //     .map(|p| mtime(&p).expect(&format!("cannot get modification time of {}", p.display())))
+    //     .fold(std::i64::MIN, |a, b| a.max(b));
 
     let rustfmt = env::var("XCB_RUSTFMT").ok().and_then(|var| {
         if var == "1" || var == "y" || var == "Y" {
@@ -67,36 +62,36 @@ fn main() {
         let xcb_mod = xcb_mod_map(xcb_mod);
 
         if !is_always(&xcb_mod) && !has_feature(&xcb_mod) {
-            // continue;
+            continue;
         }
 
-        let ref_mtime = cmp::max(ref_mtime, mtime(&xml_file).unwrap());
+        //let ref_mtime = cmp::max(ref_mtime, mtime(&xml_file).unwrap());
         let ffi_file = out_dir.join("ffi").join(&xcb_mod).with_extension("rs");
         let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
 
-        if ref_mtime > optional_mtime(&ffi_file, 0) || ref_mtime > optional_mtime(&rs_file, 0) {
-            drive_xcb_gen(&xml_file, &xcb_mod, &rustfmt, &ffi_file, &rs_file).expect(&format!(
-                "Error during processing of {}",
-                xml_file.display()
-            ));
-        }
+        // if ref_mtime > optional_mtime(&ffi_file, 0) || ref_mtime > optional_mtime(&rs_file, 0) {
+        drive_xcb_gen(&xml_file, &xcb_mod, &rustfmt, &ffi_file, &rs_file).expect(&format!(
+            "Error during processing of {}",
+            xml_file.display()
+        ));
+        // }
     }
 
     #[cfg(target_os = "freebsd")]
     println!("cargo:rustc-link-search=/usr/local/lib");
 }
 
-#[cfg(target_family = "unix")]
-fn mtime<P: AsRef<Path>>(path: P) -> io::Result<i64> {
-    use std::os::unix::fs::MetadataExt;
-    fs::metadata(path).map(|m| m.mtime())
-}
+// #[cfg(target_family = "unix")]
+// fn mtime<P: AsRef<Path>>(path: P) -> io::Result<i64> {
+//     use std::os::unix::fs::MetadataExt;
+//     fs::metadata(path).map(|m| m.mtime())
+// }
 
-#[cfg(target_family = "windows")]
-fn mtime<P: AsRef<Path>>(path: P) -> io::Result<i64> {
-    use std::os::windows::fs::MetadataExt;
-    fs::metadata(path).map(|m| m.last_write_time() as i64)
-}
+// #[cfg(target_family = "windows")]
+// fn mtime<P: AsRef<Path>>(path: P) -> io::Result<i64> {
+//     use std::os::windows::fs::MetadataExt;
+//     fs::metadata(path).map(|m| m.last_write_time() as i64)
+// }
 
 fn iter_xml(xml_dir: &Path) -> impl Iterator<Item = PathBuf> {
     fs::read_dir(xml_dir)
@@ -108,9 +103,9 @@ fn iter_xml(xml_dir: &Path) -> impl Iterator<Item = PathBuf> {
         })
 }
 
-fn optional_mtime(path: &Path, default: i64) -> i64 {
-    mtime(path).unwrap_or(default)
-}
+// fn optional_mtime(path: &Path, default: i64) -> i64 {
+//     mtime(path).unwrap_or(default)
+// }
 
 fn find_exe<P>(exe_name: P) -> Option<PathBuf>
 where
