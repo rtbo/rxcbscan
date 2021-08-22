@@ -10,6 +10,7 @@ pub struct CodeGen {
     xcb_mod_prefix: String,
     ffi: Output,
     rs: Output,
+    typ_with_lifetime: HashSet<String>,
     ffi_typ_reg: HashSet<String>, // types registered in the FFI module
     rs_typ_reg: HashSet<String>,  // types registered in the Rust module
 
@@ -30,10 +31,11 @@ impl CodeGen {
         CodeGen {
             xcb_mod: xcb_mod.to_owned(),
             xcb_mod_prefix: mp,
-            ffi_typ_reg: HashSet::new(),
-            rs_typ_reg: HashSet::new(),
             ffi,
             rs,
+            typ_with_lifetime: HashSet::new(),
+            ffi_typ_reg: HashSet::new(),
+            rs_typ_reg: HashSet::new(),
             ffi_buf: Cursor::new(Vec::new()),
             rs_buf: Cursor::new(Vec::new()),
         }
@@ -184,7 +186,11 @@ impl CodeGen {
             }
             Event::Struct(stru) => {
                 let has_lifetime = self.type_has_lifetime(&stru);
+                if has_lifetime {
+                    self.typ_with_lifetime.insert(stru.name.clone());
+                }
                 let ffi_typ = self.emit_ffi_struct(&stru)?;
+                self.emit_ffi_field_list_accessors(&ffi_typ, &stru)?;
                 let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ, has_lifetime)?;
 
                 let rs_typ = self.emit_rs_struct(&ffi_typ, &stru, has_lifetime)?;
@@ -237,6 +243,95 @@ impl CodeGen {
         Ok(it_typ)
     }
 
+    fn emit_ffi_field_list_accessors(&mut self, typ: &str, stru: &Struct) -> io::Result<()> {
+        let stru_typ = typ;
+        for f in &stru.fields {
+            match f {
+                StructField::List { name, typ, .. } => {
+                    // 3 possible cases depending on list type to provide the same functions as C bindings:
+                    //  1. Strings
+                    //      we need accessor (returns *mut c_char)
+                    //      we need the length function
+                    //      we need the end function
+                    //  2. type without lifetime (POD or scalar)
+                    //      we need accessor
+                    //      we need the length function
+                    //      we need the iterator function
+                    //  3. type with lifetime
+                    //      we need the length function
+                    //      we need the iterator function (with lifetime)
+                    let is_string = typ == "char";
+                    let has_lifetime = self.typ_with_lifetime.contains(typ);
+                    let accessor_needed = is_string || !has_lifetime;
+                    let length_needed = true;
+                    let iterator_needed = !is_string;
+                    let end_needed = is_string;
+
+                    if accessor_needed {
+                        let f_typ = ffi_type_name(&self.xcb_mod_prefix, typ);
+                        let acc_fn = ffi_field_list_iterator_acc_fn_name(
+                            &self.xcb_mod_prefix,
+                            &stru.name,
+                            &name,
+                        );
+                        let out = &mut self.ffi_buf;
+                        writeln!(out)?;
+                        writeln!(
+                            out,
+                            "pub fn {}(R: *const {}) -> *mut {};",
+                            &acc_fn, &stru_typ, &f_typ
+                        )?;
+                    }
+
+                    if length_needed {
+                        let len_fn = ffi_field_list_iterator_len_fn_name(
+                            &self.xcb_mod_prefix,
+                            &stru.name,
+                            &name,
+                        );
+                        let out = &mut self.ffi_buf;
+                        writeln!(out)?;
+                        writeln!(out, "pub fn {}(R: *const {}) -> c_int;", &len_fn, &stru_typ)?;
+                    }
+
+                    if end_needed {
+                        let end_fn = ffi_field_list_iterator_end_fn_name(
+                            &self.xcb_mod_prefix,
+                            &stru.name,
+                            &name,
+                        );
+                        let out = &mut self.ffi_buf;
+                        writeln!(out)?;
+                        writeln!(
+                            out,
+                            "pub fn {}(R: *const {}) -> xcb_generic_iterator_t;",
+                            &end_fn, &stru_typ
+                        )?;
+                    }
+
+                    if iterator_needed {
+                        let lifetime = if has_lifetime { "<'a>" } else { "" };
+                        let it_fn = ffi_field_list_iterator_it_fn_name(
+                            &self.xcb_mod_prefix,
+                            &stru.name,
+                            &name,
+                        );
+                        let it_typ = ffi_iterator_name(&self.xcb_mod_prefix, &typ);
+                        let out = &mut self.ffi_buf;
+                        writeln!(out)?;
+                        writeln!(
+                            out,
+                            "pub fn {}{}(R: *const {}) -> {}{};",
+                            &it_fn, &lifetime, &stru_typ, &it_typ, &lifetime
+                        )?;
+                    }
+                }
+                _ => {}
+            }
+        }
+        Ok(())
+    }
+
     fn emit_rs_iterator(
         &mut self,
         name: &str,
@@ -247,7 +342,11 @@ impl CodeGen {
         let it_typ = format!("{}Iterator", &typ);
         let ffi_it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &name);
 
-        let (indir, lifetime) = if has_lifetime { ("", "<'a>") } else { ("*", "") };
+        let (indir, lifetime) = if has_lifetime {
+            ("", "<'a>")
+        } else {
+            ("*", "")
+        };
 
         let out = &mut self.rs_buf;
 
@@ -280,7 +379,11 @@ impl CodeGen {
         )?;
         writeln!(out, "                let data = (*iter).data;")?;
         writeln!(out, "                {}(iter);", &ffi_it_next)?;
-        writeln!(out, "                Some(std::mem::transmute({}data))", &indir)?;
+        writeln!(
+            out,
+            "                Some(std::mem::transmute({}data))",
+            &indir
+        )?;
         writeln!(out, "            }}")?;
         writeln!(out, "        }}")?;
         writeln!(out, "    }}")?;
@@ -394,7 +497,11 @@ impl CodeGen {
             writeln!(out, "}}")?;
         }
 
-        let (accessor, lifetime) = if has_lifetime { ("(*self.ptr)", "<'a>") } else { ("self.base", "") };
+        let (accessor, lifetime) = if has_lifetime {
+            ("(*self.ptr)", "<'a>")
+        } else {
+            ("self.base", "")
+        };
         // emitting struct impl
         writeln!(out)?;
         writeln!(out, "impl{} {}{} {{", &lifetime, &typ, &lifetime)?;
@@ -462,6 +569,40 @@ impl CodeGen {
                         writeln!(out, "        unsafe {{ {}.{} }}", &accessor, &name)?;
                     }
                     writeln!(out, "    }}")?;
+                }
+                StructField::List { name, typ, .. } => {
+                    let is_string = typ == "char";
+
+                    if is_string {
+                        let len_fn = ffi_field_list_iterator_len_fn_name(
+                            &self.xcb_mod_prefix,
+                            &stru.name,
+                            &name,
+                        );
+                        let acc_fn = ffi_field_list_iterator_acc_fn_name(
+                            &self.xcb_mod_prefix,
+                            &stru.name,
+                            &name,
+                        );
+                        writeln!(out, "    pub fn {}(&self) -> &str {{", &name)?;
+                        writeln!(out, "        unsafe {{")?;
+                        writeln!(out, "            let field = self.ptr;")?;
+                        writeln!(out, "            let len = {}(field) as usize;", &len_fn)?;
+                        writeln!(out, "            let data = {}(field);", &acc_fn)?;
+                        writeln!(out, "            let slice = std::slice::from_raw_parts(data as *const u8, len);")?;
+                        writeln!(out, "            // should we check what comes from X?")?;
+                        writeln!(out, "            std::str::from_utf8_unchecked(&slice)")?;
+                        writeln!(out, "        }}")?;
+                        writeln!(out, "    }}")?;
+                    } else {
+                        let has_lifetime = self.typ_with_lifetime.contains(typ);
+                        let lifetime = if has_lifetime { "<'a>" } else { "" };
+                        let it_typ = rust_iterator_type_name(&typ);
+                        let ffi_it_typ = ffi_field_list_iterator_it_fn_name(&self.xcb_mod_prefix, &stru.name, &name);
+                        writeln!(out, "    pub fn {}(&self) -> {}{} {{", &name, &it_typ, &lifetime)?;
+                        writeln!(out, "        unsafe {{ {}(self.ptr) }}", &ffi_it_typ)?;
+                        writeln!(out, "    }}")?;
+                    }
                 }
                 _ => {}
             }
@@ -598,6 +739,7 @@ fn ffi_type_name(xcb_mod_prefix: &str, typ: &str) -> String {
         "INT32" => "i32".into(),
         "BYTE" => "u8".into(),
         "BOOL" => "u8".into(),
+        "char" => "c_char".into(),
         typ => {
             let typ = tit_split(typ).to_ascii_lowercase();
             format!("xcb_{}{}_t", xcb_mod_prefix, typ)
@@ -648,6 +790,54 @@ fn ffi_iterator_end_fn_name(xcb_mod_prefix: &str, typ: &str) -> String {
     )
 }
 
+fn ffi_field_list_iterator_acc_fn_name(
+    xcb_mod_prefix: &str,
+    typ_name: &str,
+    field: &str,
+) -> String {
+    format!(
+        "xcb_{}{}_{}",
+        &xcb_mod_prefix,
+        tit_split(typ_name).to_ascii_lowercase(),
+        &field
+    )
+}
+
+fn ffi_field_list_iterator_len_fn_name(
+    xcb_mod_prefix: &str,
+    typ_name: &str,
+    field: &str,
+) -> String {
+    format!(
+        "xcb_{}{}_{}_length",
+        &xcb_mod_prefix,
+        tit_split(typ_name).to_ascii_lowercase(),
+        &field
+    )
+}
+
+fn ffi_field_list_iterator_end_fn_name(
+    xcb_mod_prefix: &str,
+    typ_name: &str,
+    field: &str,
+) -> String {
+    format!(
+        "xcb_{}{}_{}_end",
+        &xcb_mod_prefix,
+        tit_split(typ_name).to_ascii_lowercase(),
+        &field
+    )
+}
+
+fn ffi_field_list_iterator_it_fn_name(xcb_mod_prefix: &str, typ_name: &str, field: &str) -> String {
+    format!(
+        "xcb_{}{}_{}_iterator",
+        &xcb_mod_prefix,
+        tit_split(typ_name).to_ascii_lowercase(),
+        &field
+    )
+}
+
 fn rust_type_name(typ: &str) -> String {
     match typ {
         "CARD8" => "u8".into(),
@@ -660,6 +850,10 @@ fn rust_type_name(typ: &str) -> String {
         "BOOL" => "bool".into(),
         typ => tit_cap(typ),
     }
+}
+
+fn rust_iterator_type_name(typ: &str) -> String {
+    format!("{}Iterator", tit_cap(&typ))
 }
 
 /// same as rust_type_name but can also have a namespace before (with a single colon)
