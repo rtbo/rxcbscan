@@ -13,9 +13,12 @@ pub struct CodeGen {
     rs: Output,
     typ_with_lifetime: HashSet<String>,
 
-    // Types registered in the ffi module and their size (needed for unions)
+    // registered types
     ffi_type_sizes: HashMap<String, Option<usize>>,
-    rs_typ_reg: HashSet<String>, // types registered in the Rust module
+    // types registered in the FFI module
+    ffi_typ_reg: HashSet<String>,
+    // types registered in the Rust module
+    rs_typ_reg: HashSet<String>,
 
     // additional output buffers that make a second group of declaration/functions
     // they are appended to the output at the end
@@ -53,8 +56,9 @@ impl CodeGen {
             ffi,
             rs,
             typ_with_lifetime: HashSet::new(),
-            rs_typ_reg: HashSet::new(),
             ffi_type_sizes: HashMap::new(),
+            ffi_typ_reg: HashSet::new(),
+            rs_typ_reg: HashSet::new(),
             ffi_buf: Cursor::new(Vec::new()),
             rs_buf: Cursor::new(Vec::new()),
             ptr_width,
@@ -65,16 +69,18 @@ impl CodeGen {
     //     &self.xcb_mod
     // }
 
-    fn reg_ffi_type(&mut self, typ: String, sz: Option<usize>) {
-        self.ffi_type_sizes.insert(typ, sz);
+    fn reg_type(&mut self, typ: String, ffi_typ: String, rs_typ: String, ffi_sz: Option<usize>) {
+        self.ffi_typ_reg.insert(ffi_typ);
+        self.rs_typ_reg.insert(rs_typ);
+        self.ffi_type_sizes.insert(typ, ffi_sz);
     }
 
     fn has_ffi_type(&mut self, typ: &str) -> bool {
-        self.ffi_type_sizes.get(typ).is_some()
+        self.ffi_typ_reg.contains(typ)
     }
 
-    fn reg_rs_type(&mut self, typ: String) {
-        self.rs_typ_reg.insert(typ);
+    fn has_rs_type(&mut self, typ: &str) -> bool {
+        self.rs_typ_reg.contains(typ)
     }
 
     fn ffi_type_sizeof(&self, typ: &str) -> usize {
@@ -94,7 +100,7 @@ impl CodeGen {
                 .ffi_type_sizes
                 .get(typ)
                 .unwrap_or_else(|| panic!("no sizeof entry for {}", typ))
-                .unwrap_or_else(|| panic!("type {} has variable size", typ))
+                .unwrap_or_else(|| panic!("type {} has variable size", typ)),
         }
     }
 
@@ -118,7 +124,7 @@ impl CodeGen {
 
     fn rs_enum_type_name(&mut self, typ: &str) -> String {
         let try1 = rust_type_name(&typ);
-        if self.rs_typ_reg.contains(&try1) {
+        if self.has_rs_type(&try1) {
             format!("{}Enum", &try1)
         } else {
             try1
@@ -184,8 +190,7 @@ impl CodeGen {
                 let rs_new_typ = rust_type_name(newname);
                 emit_type_alias(&mut self.rs, &rs_new_typ, &ffi_new_typ)?;
 
-                self.reg_ffi_type(ffi_new_typ, Some(self.ffi_type_sizeof(&oldname)));
-                self.reg_rs_type(rs_new_typ);
+                self.reg_type(newname.clone(), ffi_new_typ, rs_new_typ, Some(self.ffi_type_sizeof(&oldname)))
             }
             Event::XidType(name) => self.emit_xid(name)?,
             Event::XidUnion(xidun) => self.emit_xid(&xidun.name)?,
@@ -194,10 +199,10 @@ impl CodeGen {
                 // otherwise borrow checker complains
                 let xcb_mod_prefix = self.xcb_mod_prefix.to_string();
 
-                let typ = self.ffi_enum_type_name(&en.name);
+                let ffi_typ = self.ffi_enum_type_name(&en.name);
                 emit_enum(
                     &mut self.ffi,
-                    &typ,
+                    &ffi_typ,
                     en.items.iter().map(|it| EnumItem {
                         id: it.id.clone(),
                         name: ffi_enum_item_name(&xcb_mod_prefix, &en.name, &it.name),
@@ -205,12 +210,11 @@ impl CodeGen {
                     }),
                     &en.doc,
                 )?;
-                self.reg_ffi_type(typ, Some(4));
 
-                let typ = self.rs_enum_type_name(&en.name);
+                let rs_typ = self.rs_enum_type_name(&en.name);
                 emit_enum(
                     &mut self.rs,
-                    &typ,
+                    &rs_typ,
                     en.items.iter().map(|it| EnumItem {
                         id: it.id.clone(),
                         name: rust_enum_item_name(&en.name, &it.name),
@@ -218,7 +222,7 @@ impl CodeGen {
                     }),
                     &en.doc,
                 )?;
-                self.reg_rs_type(typ);
+                self.reg_type(en.name.clone(), ffi_typ, rs_typ, Some(4));
             }
             Event::Struct(stru) => self.emit_struct(&stru)?,
             _ => {}
@@ -234,8 +238,7 @@ impl CodeGen {
         let rs_typ = rust_type_name(name);
         emit_type_alias(&mut self.rs, &rs_typ, &ffi_typ)?;
 
-        self.reg_ffi_type(ffi_typ, Some(4));
-        self.reg_rs_type(rs_typ);
+        self.reg_type(name.into(), ffi_typ, rs_typ, Some(4));
         Ok(())
     }
 
@@ -268,8 +271,7 @@ impl CodeGen {
             }
         }
 
-        self.reg_ffi_type(ffi_typ, stru_sz);
-        self.reg_rs_type(rs_typ);
+        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, stru_sz);
 
         Ok(())
     }
