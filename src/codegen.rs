@@ -93,8 +93,8 @@ impl CodeGen {
             typ => self
                 .ffi_type_sizes
                 .get(typ)
-                .unwrap_or_else(|| panic!(format!("no sizeof entry for {}", typ)))
-                .unwrap_or_else(|| panic!(format!("type {} has variable size", typ)))
+                .unwrap_or_else(|| panic!("no sizeof entry for {}", typ))
+                .unwrap_or_else(|| panic!("type {} has variable size", typ))
         }
     }
 
