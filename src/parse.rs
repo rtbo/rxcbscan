@@ -1,5 +1,5 @@
 use quick_xml::events::attributes::{Attribute, Attributes};
-use quick_xml::events::{BytesStart, Event as XmlEv};
+use quick_xml::events::{Event as XmlEv};
 use quick_xml::Reader as XmlReader;
 use std::fmt::Display;
 use std::fs::File;
@@ -279,17 +279,21 @@ impl<B: BufRead> Parser<B> {
                     _ => unreachable!(),
                 },
                 Ok(ev) => {
-                    return Err(Error::Parse(format!("Unexpected XML in <xidunion>: {:?}", ev)));
+                    return Err(Error::Parse(format!(
+                        "Unexpected XML in <xidunion>: {:?}",
+                        ev
+                    )));
                 }
-                Err(err) => { return Err(err.into()); },
+                Err(err) => {
+                    return Err(err.into());
+                }
             }
         }
 
         Ok(XidUnion { name, xidtypes })
     }
 
-    fn parse_enum(&mut self, start: BytesStart) -> Result<Enum> {
-        let name = expect_attribute(start.attributes(), b"name")?;
+    fn parse_enum(&mut self, name: String) -> Result<Enum> {
         let mut items = Vec::new();
         let mut doc = None;
 
@@ -354,8 +358,7 @@ impl<B: BufRead> Parser<B> {
         Ok(Enum { name, items, doc })
     }
 
-    fn parse_struct(&mut self, start: BytesStart) -> Result<Struct> {
-        let name = expect_attribute(start.attributes(), b"name")?;
+    fn parse_struct_or_union(&mut self, name: String, end_tag: &[u8]) -> Result<Struct> {
         let mut fields = Vec::new();
         let mut doc = None;
         let mut had_list = false;
@@ -441,10 +444,11 @@ impl<B: BufRead> Parser<B> {
                         )))
                     }
                 },
-                Ok(XmlEv::End(ref e)) => match e.name() {
-                    b"struct" => break,
-                    _ => {}
-                },
+                Ok(XmlEv::End(ref e)) => {
+                    if e.name() == end_tag {
+                        break;
+                    }
+                }
                 Ok(XmlEv::Comment(_)) => {}
                 Ok(ev) => {
                     return Err(Error::Parse(format!("unexpected XML in struct: {:?}", ev)));
@@ -466,25 +470,12 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
             Ok(XmlEv::Empty(ref e) | XmlEv::Start(ref e)) => match e.name() {
                 b"import" => Some(self.parse_import().map(|s| Event::Import(s))),
                 b"typedef" => {
-                    let mut oldname: Option<String> = None;
-                    let mut newname: Option<String> = None;
-                    for attr in e.attributes() {
-                        if let Ok(attr) = attr {
-                            let valres = attr_value(&attr);
-                            if let Err(err) = valres {
-                                return Some(Err(err));
-                            }
-                            match attr.key {
-                                b"oldname" => {
-                                    oldname = Some(valres.unwrap());
-                                }
-                                b"newname" => {
-                                    newname = Some(valres.unwrap());
-                                }
-                                _ => {}
-                            }
-                        }
+                    let names: [&[u8]; 2] = [b"oldname", b"newname"];
+                    let mut vals: [Option<String>; 2] = [None, None];
+                    if let Err(err) = get_attributes(e.attributes(), &names, &mut vals) {
+                        return Some(Err(err));
                     }
+                    let [oldname, newname] = vals;
                     match (oldname, newname) {
                         (Some(oldname), Some(newname)) => {
                             Some(Ok(Event::Typedef { oldname, newname }))
@@ -495,24 +486,24 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                     }
                 }
                 b"xidtype" => {
-                    let attrs = e.attributes();
-                    let typres = expect_attribute(attrs, b"name");
-                    Some(typres.map(|v| Event::XidType(v)))
+                    Some(expect_attribute(e.attributes(), b"name").map(|name| Event::XidType(name)))
                 }
                 b"xidunion" => Some(expect_attribute(e.attributes(), b"name").and_then(|name| {
                     let unionres = self.parse_xidunion(name);
                     unionres.map(|un| Event::XidUnion(un))
                 })),
-                b"enum" => {
-                    let start = e.to_owned();
-                    let enumres = self.parse_enum(start);
-                    Some(enumres.map(|enu| Event::Enum(enu)))
-                }
-                b"struct" => {
-                    let start = e.to_owned();
-                    let structres = self.parse_struct(start);
-                    Some(structres.map(|stru| Event::Struct(stru)))
-                }
+                b"enum" => Some(expect_attribute(e.attributes(), b"name").and_then(|name| {
+                    let enumres = self.parse_enum(name);
+                    enumres.map(|enu| Event::Enum(enu))
+                })),
+                b"struct" => Some(expect_attribute(e.attributes(), b"name").and_then(|name| {
+                    let structres = self.parse_struct_or_union(name, b"struct");
+                    structres.map(|stru| Event::Struct(stru))
+                })),
+                b"union" => Some(expect_attribute(e.attributes(), b"name").and_then(|name| {
+                    let unionres = self.parse_struct_or_union(name, b"union");
+                    unionres.map(|stru| Event::Struct(stru))
+                })),
                 _ => Some(Ok(Event::Ignore)),
             },
 

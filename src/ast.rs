@@ -82,5 +82,6 @@ pub enum Event {
     XidUnion(XidUnion),
     Enum(Enum),
     Struct(Struct),
+    Union(Struct),
     Ignore,
 }
