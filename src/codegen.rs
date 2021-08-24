@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 use std::env;
 use std::io::{self, Cursor, Write};
 
-use crate::ast::{Doc, EnumItem, Event, Struct, StructField};
+use crate::ast::{Doc, EnumItem, Event, Expr, Struct, StructField};
 use crate::output::Output;
 
 #[derive(Debug)]
@@ -13,7 +13,7 @@ pub struct CodeGen {
     rs: Output,
     typ_with_lifetime: HashSet<String>,
 
-    // registered types
+    // registered types sizes (is None if size is not fixed - eg. lists with dynamic length)
     ffi_type_sizes: HashMap<String, Option<usize>>,
     // types registered in the FFI module
     ffi_typ_reg: HashSet<String>,
@@ -83,24 +83,22 @@ impl CodeGen {
         self.rs_typ_reg.contains(typ)
     }
 
-    fn ffi_type_sizeof(&self, typ: &str) -> usize {
+    fn ffi_type_sizeof(&self, typ: &str) -> Option<usize> {
         // TODO: emit codegen result if typ is not registered instead of panic
-
         match typ {
-            "CARD8" => 1,
-            "CARD16" => 2,
-            "CARD32" => 4,
-            "INT8" => 1,
-            "INT16" => 2,
-            "INT32" => 4,
-            "BYTE" => 1,
-            "BOOL" => 1,
-            "char" => 1,
-            typ => self
+            "CARD8" => Some(1),
+            "CARD16" => Some(2),
+            "CARD32" => Some(4),
+            "INT8" => Some(1),
+            "INT16" => Some(2),
+            "INT32" => Some(4),
+            "BYTE" => Some(1),
+            "BOOL" => Some(1),
+            "char" => Some(1),
+            typ => *self
                 .ffi_type_sizes
                 .get(typ)
-                .unwrap_or_else(|| panic!("no sizeof entry for {}", typ))
-                .unwrap_or_else(|| panic!("type {} has variable size", typ)),
+                .unwrap_or_else(|| panic!("no sizeof entry for {}", typ)),
         }
     }
 
@@ -129,6 +127,52 @@ impl CodeGen {
         } else {
             try1
         }
+    }
+
+    fn compute_ffi_struct_field_sizeof(&self, field: &StructField) -> Option<usize> {
+        match field {
+            StructField::Field { typ, .. } => self.ffi_type_sizeof(&typ),
+            StructField::Pad(pad_sz) => Some(*pad_sz),
+            StructField::List { typ, len_expr, .. } => {
+                match (self.ffi_type_sizeof(typ), expr_fixed_length(len_expr)) {
+                    (Some(sz), Some(len)) => Some(sz * len),
+                    _ => None,
+                }
+            }
+            StructField::AlignPad(_) => unreachable!(),
+        }
+    }
+
+    fn compute_ffi_struct_size(&self, stru: &Struct) -> Option<usize> {
+        let mut stru_sz = Some(0usize);
+
+        for f in stru.fields.iter() {
+            match f {
+                StructField::AlignPad(alignment) => match stru_sz.as_mut() {
+                    Some(sz) => {
+                        let curr = *sz % alignment;
+                        if curr != 0 {
+                            *sz += alignment - curr;
+                        }
+                    }
+                    _ => {
+                        return None;
+                    }
+                }
+                field => {
+                    match (stru_sz.as_mut(), self.compute_ffi_struct_field_sizeof(field)) {
+                        (Some(stru_sz), Some(f_sz)) => {
+                            *stru_sz += f_sz;
+                        }
+                        _=> {
+                            return None;
+                        }
+                    }
+                }
+            }
+        }
+
+        stru_sz
     }
 
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
@@ -190,7 +234,12 @@ impl CodeGen {
                 let rs_new_typ = rust_type_name(newname);
                 emit_type_alias(&mut self.rs, &rs_new_typ, &ffi_new_typ)?;
 
-                self.reg_type(newname.clone(), ffi_new_typ, rs_new_typ, Some(self.ffi_type_sizeof(&oldname)))
+                self.reg_type(
+                    newname.clone(),
+                    ffi_new_typ,
+                    rs_new_typ,
+                    self.ffi_type_sizeof(&oldname),
+                )
             }
             Event::XidType(name) => self.emit_xid(name)?,
             Event::XidUnion(xidun) => self.emit_xid(&xidun.name)?,
@@ -225,6 +274,7 @@ impl CodeGen {
                 self.reg_type(en.name.clone(), ffi_typ, rs_typ, Some(4));
             }
             Event::Struct(stru) => self.emit_struct(&stru)?,
+            Event::Union(stru) => self.emit_struct(&stru)?,
             _ => {}
         }
         Ok(())
@@ -254,23 +304,7 @@ impl CodeGen {
         let rs_typ = self.emit_rs_struct(&ffi_typ, &stru, has_lifetime)?;
         self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, has_lifetime)?;
 
-        let mut stru_sz = Some(0usize);
-
-        for f in stru.fields.iter() {
-            match f {
-                StructField::Field { typ, .. } => {
-                    stru_sz = stru_sz.map(|sz| sz + self.ffi_type_sizeof(&typ));
-                }
-                StructField::Pad(pad_sz) => {
-                    stru_sz = stru_sz.map(|sz| sz + pad_sz);
-                }
-                _ => {
-                    stru_sz = None;
-                    break;
-                }
-            }
-        }
-
+        let stru_sz = self.compute_ffi_struct_size(&stru);
         self.reg_type(stru.name.clone(), ffi_typ, rs_typ, stru_sz);
 
         Ok(())
@@ -701,6 +735,29 @@ fn has_list(fields: &[StructField]) -> bool {
         }
     }
     false
+}
+
+fn expr_fixed_length(expr: &Expr<usize>) -> Option<usize> {
+    match expr {
+        Expr::FieldRef(_) => None,
+        Expr::ParamRef(_) => None,
+        Expr::Value(val) => Some(*val),
+        Expr::Popcount(ex) => expr_fixed_length(&ex).map(|sz| sz.count_ones() as _),
+        Expr::Op(op, lhs, rhs) => match (expr_fixed_length(lhs), expr_fixed_length(rhs)) {
+            (Some(lhs), Some(rhs)) => match op.as_str() {
+                "+" => Some(lhs + rhs),
+                "-" => Some(lhs - rhs),
+                "*" => Some(lhs * rhs),
+                "/" => Some(lhs / rhs),
+                _ => panic!("Unexpected binary operator in Expr: {}", op),
+            },
+            _ => None,
+        },
+        Expr::Unop(op, val) => expr_fixed_length(val).map(|val| match op.as_str() {
+            "~" => !val,
+            _ => panic!("Unexpected unary operator in Expr: {}", op),
+        }),
+    }
 }
 
 // fn capitalize(s: &str) -> String {
