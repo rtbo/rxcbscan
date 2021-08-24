@@ -8,7 +8,7 @@ use std::path::Path;
 use std::result;
 use std::str::{self, FromStr, Utf8Error};
 
-use crate::ast::{Doc, DocField, Enum, EnumItem, Event, Expr, Struct, StructField};
+use crate::ast::{Doc, DocField, Enum, EnumItem, Event, Expr, Struct, StructField, XidUnion};
 
 #[derive(Debug)]
 pub enum Error {
@@ -256,10 +256,39 @@ impl<B: BufRead> Parser<B> {
         Ok(imp)
     }
 
-    fn parse_enum(
-        &mut self,
-        start: BytesStart,
-    ) -> Result<Enum> {
+    fn parse_xidunion(&mut self, name: String) -> Result<XidUnion> {
+        let mut xidtypes = Vec::new();
+
+        loop {
+            match self.xml.read_event(&mut self.buf) {
+                Ok(XmlEv::Start(ref e)) => match e.name() {
+                    b"type" => {
+                        let typ = self.expect_text_trim()?;
+                        self.expect_close_tag(b"type")?;
+                        xidtypes.push(typ);
+                    }
+                    tag => {
+                        return Err(Error::Parse(format!(
+                            "Unexpected <{}> in <xidunion>",
+                            str::from_utf8(tag)?
+                        )));
+                    }
+                },
+                Ok(XmlEv::End(ref e)) => match e.name() {
+                    b"xidunion" => break,
+                    _ => unreachable!(),
+                },
+                Ok(ev) => {
+                    return Err(Error::Parse(format!("Unexpected XML in <xidunion>: {:?}", ev)));
+                }
+                Err(err) => { return Err(err.into()); },
+            }
+        }
+
+        Ok(XidUnion { name, xidtypes })
+    }
+
+    fn parse_enum(&mut self, start: BytesStart) -> Result<Enum> {
         let name = expect_attribute(start.attributes(), b"name")?;
         let mut items = Vec::new();
         let mut doc = None;
@@ -322,7 +351,7 @@ impl<B: BufRead> Parser<B> {
             }
         }
 
-        Ok(Enum{name, items, doc})
+        Ok(Enum { name, items, doc })
     }
 
     fn parse_struct(&mut self, start: BytesStart) -> Result<Struct> {
@@ -424,7 +453,7 @@ impl<B: BufRead> Parser<B> {
             }
         }
 
-        Ok(Struct{name, fields, doc})
+        Ok(Struct { name, fields, doc })
     }
 }
 
@@ -470,6 +499,10 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                     let typres = expect_attribute(attrs, b"name");
                     Some(typres.map(|v| Event::XidType(v)))
                 }
+                b"xidunion" => Some(expect_attribute(e.attributes(), b"name").and_then(|name| {
+                    let unionres = self.parse_xidunion(name);
+                    unionres.map(|un| Event::XidUnion(un))
+                })),
                 b"enum" => {
                     let start = e.to_owned();
                     let enumres = self.parse_enum(start);

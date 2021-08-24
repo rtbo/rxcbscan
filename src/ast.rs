@@ -7,6 +7,13 @@ pub struct DocField {
 }
 
 #[derive(Debug, Clone)]
+pub struct Doc {
+    pub brief: String,
+    pub text: String,
+    pub fields: Vec<DocField>,
+}
+
+#[derive(Debug, Clone)]
 pub enum Expr<T>
 where
     T: FromStr,
@@ -21,10 +28,9 @@ where
 }
 
 #[derive(Debug, Clone)]
-pub struct Doc {
-    pub brief: String,
-    pub text: String,
-    pub fields: Vec<DocField>,
+pub struct XidUnion {
+    pub name: String,
+    pub xidtypes: Vec<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -73,6 +79,7 @@ pub enum Event {
         newname: String,
     },
     XidType(String),
+    XidUnion(XidUnion),
     Enum(Enum),
     Struct(Struct),
     Ignore,

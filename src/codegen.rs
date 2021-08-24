@@ -1,4 +1,5 @@
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
+use std::env;
 use std::io::{self, Cursor, Write};
 
 use crate::ast::{Doc, EnumItem, Event, Struct, StructField};
@@ -11,14 +12,23 @@ pub struct CodeGen {
     ffi: Output,
     rs: Output,
     typ_with_lifetime: HashSet<String>,
-    ffi_typ_reg: HashSet<String>, // types registered in the FFI module
-    rs_typ_reg: HashSet<String>,  // types registered in the Rust module
+
+    // Types registered in the ffi module and their size (needed for unions)
+    ffi_type_sizes: HashMap<String, Option<usize>>,
+    rs_typ_reg: HashSet<String>, // types registered in the Rust module
 
     // additional output buffers that make a second group of declaration/functions
     // they are appended to the output at the end
     ffi_buf: Cursor<Vec<u8>>,
     rs_buf: Cursor<Vec<u8>>,
+
+    ptr_width: usize,
 }
+
+#[cfg(target_pointer_width = "64")]
+const PTR_WIDTH: usize = 64;
+#[cfg(target_pointer_width = "32")]
+const PTR_WIDTH: usize = 32;
 
 impl CodeGen {
     pub fn new(xcb_mod: &str, ffi: Output, rs: Output) -> CodeGen {
@@ -28,16 +38,26 @@ impl CodeGen {
             format!("{}_", &xcb_mod)
         };
 
+        let ptr_width = env::var("CARGO_CFG_TARGET_POINTER_WIDTH")
+            .map(|s| {
+                str::parse::<usize>(&s).expect(&format!(
+                    "can't parse CARGO_CFG_TARGET_POINTER_WIDTH {} as usize",
+                    s
+                ))
+            })
+            .unwrap_or(PTR_WIDTH);
+
         CodeGen {
             xcb_mod: xcb_mod.to_owned(),
             xcb_mod_prefix: mp,
             ffi,
             rs,
             typ_with_lifetime: HashSet::new(),
-            ffi_typ_reg: HashSet::new(),
             rs_typ_reg: HashSet::new(),
+            ffi_type_sizes: HashMap::new(),
             ffi_buf: Cursor::new(Vec::new()),
             rs_buf: Cursor::new(Vec::new()),
+            ptr_width,
         }
     }
 
@@ -45,12 +65,37 @@ impl CodeGen {
     //     &self.xcb_mod
     // }
 
-    fn reg_ffi_type(&mut self, typ: String) {
-        self.ffi_typ_reg.insert(typ);
+    fn reg_ffi_type(&mut self, typ: String, sz: Option<usize>) {
+        self.ffi_type_sizes.insert(typ, sz);
+    }
+
+    fn has_ffi_type(&mut self, typ: &str) -> bool {
+        self.ffi_type_sizes.get(typ).is_some()
     }
 
     fn reg_rs_type(&mut self, typ: String) {
         self.rs_typ_reg.insert(typ);
+    }
+
+    fn ffi_type_sizeof(&self, typ: &str) -> usize {
+        // TODO: emit codegen result if typ is not registered instead of panic
+
+        match typ {
+            "CARD8" => 1,
+            "CARD16" => 2,
+            "CARD32" => 4,
+            "INT8" => 1,
+            "INT16" => 2,
+            "INT32" => 4,
+            "BYTE" => 1,
+            "BOOL" => 1,
+            "char" => 1,
+            typ => self
+                .ffi_type_sizes
+                .get(typ)
+                .unwrap_or_else(|| panic!(format!("no sizeof entry for {}", typ)))
+                .unwrap_or_else(|| panic!(format!("type {} has variable size", typ)))
+        }
     }
 
     fn eligible_to_copy(&self, stru: &Struct) -> bool {
@@ -64,7 +109,7 @@ impl CodeGen {
     fn ffi_enum_type_name(&mut self, typ: &str) -> String {
         let typ = tit_split(typ).to_ascii_lowercase();
         let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, typ);
-        if self.ffi_typ_reg.contains(&try1) {
+        if self.has_ffi_type(&try1) {
             format!("xcb_{}{}_enum_t", self.xcb_mod_prefix, typ)
         } else {
             try1
@@ -139,20 +184,11 @@ impl CodeGen {
                 let rs_new_typ = rust_type_name(newname);
                 emit_type_alias(&mut self.rs, &rs_new_typ, &ffi_new_typ)?;
 
-                self.reg_ffi_type(ffi_new_typ);
+                self.reg_ffi_type(ffi_new_typ, Some(self.ffi_type_sizeof(&oldname)));
                 self.reg_rs_type(rs_new_typ);
             }
-            Event::XidType(name) => {
-                let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
-                emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
-                self.emit_ffi_iterator(name, &ffi_typ, false)?;
-
-                let rs_typ = rust_type_name(name);
-                emit_type_alias(&mut self.rs, &rs_typ, &ffi_typ)?;
-
-                self.reg_ffi_type(ffi_typ);
-                self.reg_rs_type(rs_typ);
-            }
+            Event::XidType(name) => self.emit_xid(name)?,
+            Event::XidUnion(xidun) => self.emit_xid(&xidun.name)?,
             Event::Enum(en) => {
                 // make owned string to pass into the closure
                 // otherwise borrow checker complains
@@ -169,7 +205,7 @@ impl CodeGen {
                     }),
                     &en.doc,
                 )?;
-                self.reg_ffi_type(typ);
+                self.reg_ffi_type(typ, Some(4));
 
                 let typ = self.rs_enum_type_name(&en.name);
                 emit_enum(
@@ -184,23 +220,57 @@ impl CodeGen {
                 )?;
                 self.reg_rs_type(typ);
             }
-            Event::Struct(stru) => {
-                let has_lifetime = self.type_has_lifetime(&stru);
-                if has_lifetime {
-                    self.typ_with_lifetime.insert(stru.name.clone());
-                }
-                let ffi_typ = self.emit_ffi_struct(&stru)?;
-                self.emit_ffi_field_list_accessors(&ffi_typ, &stru)?;
-                let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ, has_lifetime)?;
-
-                let rs_typ = self.emit_rs_struct(&ffi_typ, &stru, has_lifetime)?;
-                self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, has_lifetime)?;
-
-                self.reg_ffi_type(ffi_typ);
-                self.reg_rs_type(rs_typ);
-            }
+            Event::Struct(stru) => self.emit_struct(&stru)?,
             _ => {}
         }
+        Ok(())
+    }
+
+    fn emit_xid(&mut self, name: &str) -> io::Result<()> {
+        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
+        emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
+        self.emit_ffi_iterator(name, &ffi_typ, false)?;
+
+        let rs_typ = rust_type_name(name);
+        emit_type_alias(&mut self.rs, &rs_typ, &ffi_typ)?;
+
+        self.reg_ffi_type(ffi_typ, Some(4));
+        self.reg_rs_type(rs_typ);
+        Ok(())
+    }
+
+    fn emit_struct(&mut self, stru: &Struct) -> io::Result<()> {
+        let has_lifetime = self.type_has_lifetime(&stru);
+        if has_lifetime {
+            self.typ_with_lifetime.insert(stru.name.clone());
+        }
+        let ffi_typ = self.emit_ffi_struct(&stru)?;
+        self.emit_ffi_field_list_accessors(&ffi_typ, &stru)?;
+        let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ, has_lifetime)?;
+
+        let rs_typ = self.emit_rs_struct(&ffi_typ, &stru, has_lifetime)?;
+        self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, has_lifetime)?;
+
+        let mut stru_sz = Some(0usize);
+
+        for f in stru.fields.iter() {
+            match f {
+                StructField::Field { typ, .. } => {
+                    stru_sz = stru_sz.map(|sz| sz + self.ffi_type_sizeof(&typ));
+                }
+                StructField::Pad(pad_sz) => {
+                    stru_sz = stru_sz.map(|sz| sz + pad_sz);
+                }
+                _ => {
+                    stru_sz = None;
+                    break;
+                }
+            }
+        }
+
+        self.reg_ffi_type(ffi_typ, stru_sz);
+        self.reg_rs_type(rs_typ);
+
         Ok(())
     }
 
@@ -598,8 +668,16 @@ impl CodeGen {
                         let has_lifetime = self.typ_with_lifetime.contains(typ);
                         let lifetime = if has_lifetime { "<'a>" } else { "" };
                         let it_typ = rust_iterator_type_name(&typ);
-                        let ffi_it_typ = ffi_field_list_iterator_it_fn_name(&self.xcb_mod_prefix, &stru.name, &name);
-                        writeln!(out, "    pub fn {}(&self) -> {}{} {{", &name, &it_typ, &lifetime)?;
+                        let ffi_it_typ = ffi_field_list_iterator_it_fn_name(
+                            &self.xcb_mod_prefix,
+                            &stru.name,
+                            &name,
+                        );
+                        writeln!(
+                            out,
+                            "    pub fn {}(&self) -> {}{} {{",
+                            &name, &it_typ, &lifetime
+                        )?;
                         writeln!(out, "        unsafe {{ {}(self.ptr) }}", &ffi_it_typ)?;
                         writeln!(out, "    }}")?;
                     }
