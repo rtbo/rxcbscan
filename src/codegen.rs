@@ -215,21 +215,28 @@ impl CodeGen {
 
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
         let out = &mut self.ffi;
-        writeln!(out, "use libc::{{c_char, c_int, c_uint, c_void}};")?;
-        writeln!(out, "use std;")?;
-        writeln!(out)?;
+        // Adding a comment only to fit the python generated code and pass initial tests
+        writeln!(out, "// Generated automatically from {}.xml by rs_client.py version 0.9.0.", &self.xcb_mod)?;
+        writeln!(out, "// Do not edit!")?;
+        writeln!(out, "")?;
         writeln!(out, "use ffi::base::*;")?;
         for imp in imports.iter() {
             writeln!(out, "use ffi::{}::*;", imp)?;
         }
+        writeln!(out, "use libc::{{c_char, c_int, c_uint, c_void}};")?;
+        writeln!(out, "use std;")?;
         writeln!(out)?;
 
-        let out = &mut self.rs;
-        writeln!(out, "use libc::{{self, c_char, c_int, c_uint, c_void}};")?;
-        writeln!(out, "use std;")?;
-        writeln!(out, "use std::iter::Iterator;")?;
-        writeln!(out, "")?;
+        if self.xcb_mod != "xproto" {
+            let out = &mut self.ffi_buf;
+            writeln!(out)?;
+            writeln!(out, "pub static mut {}: xcb_extension_t;", &self.xcb_mod)?;
+        }
 
+        let out = &mut self.rs;
+        writeln!(out, "// Generated automatically from {}.xml by rs_client.py version 0.9.0.", &self.xcb_mod)?;
+        writeln!(out, "// Do not edit!")?;
+        writeln!(out, "")?;
         writeln!(out, "use base;")?;
         for imp in imports.iter() {
             writeln!(out, "use {};", imp)?;
@@ -239,7 +246,20 @@ impl CodeGen {
         for imp in imports.iter() {
             writeln!(out, "use ffi::{}::*;", imp)?;
         }
+        writeln!(out, "use libc::{{self, c_char, c_int, c_uint, c_void}};")?;
+        writeln!(out, "use std;")?;
+        writeln!(out, "use std::iter::Iterator;")?;
         writeln!(out, "")?;
+
+        if self.xcb_mod != "xproto" {
+            let out = &mut self.rs_buf;
+            writeln!(out)?;
+            writeln!(out, "pub fn id() -> &'static mut base::Extension {{")?;
+            writeln!(out, "    unsafe {{")?;
+            writeln!(out, "        &mut {}", &self.xcb_mod)?;
+            writeln!(out, "    }}")?;
+            writeln!(out, "}}")?;
+        }
 
         Ok(())
     }
@@ -247,12 +267,13 @@ impl CodeGen {
     pub fn epilogue(&mut self) -> io::Result<()> {
         let out = &mut self.ffi;
         // write out all the external functions
-        writeln!(out).unwrap();
+        writeln!(out)?;
+        writeln!(out, "#[link(C)]")?;
         writeln!(out, "extern {{")?;
 
         out.write_all(self.ffi_buf.get_ref())?;
 
-        writeln!(out).unwrap();
+        writeln!(out)?;
         writeln!(out, "}} // extern")?;
 
         let out = &mut self.rs;
