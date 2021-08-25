@@ -502,7 +502,7 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                 })),
                 b"union" => Some(expect_attribute(e.attributes(), b"name").and_then(|name| {
                     let unionres = self.parse_struct_or_union(name, b"union");
-                    unionres.map(|stru| Event::Struct(stru))
+                    unionres.map(|stru| Event::Union(stru))
                 })),
                 _ => Some(Ok(Event::Ignore)),
             },

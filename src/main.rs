@@ -62,13 +62,14 @@ fn main() {
         let xcb_mod = xcb_mod_map(xcb_mod);
 
         if !is_always(&xcb_mod) && !has_feature(&xcb_mod) {
-            continue;
+            // continue;
         }
 
         //let ref_mtime = cmp::max(ref_mtime, mtime(&xml_file).unwrap());
         let ffi_file = out_dir.join("ffi").join(&xcb_mod).with_extension("rs");
         let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
 
+        // println!("processing {}", &xcb_mod);
         // if ref_mtime > optional_mtime(&ffi_file, 0) || ref_mtime > optional_mtime(&rs_file, 0) {
         drive_xcb_gen(&xml_file, &xcb_mod, &rustfmt, &ffi_file, &rs_file).expect(&format!(
             "Error during processing of {}",

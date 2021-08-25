@@ -95,10 +95,7 @@ impl CodeGen {
             "BYTE" => Some(1),
             "BOOL" => Some(1),
             "char" => Some(1),
-            typ => *self
-                .ffi_type_sizes
-                .get(typ)
-                .unwrap_or_else(|| panic!("no sizeof entry for {}", typ)),
+            typ => *self.ffi_type_sizes.get(typ).unwrap_or(&None),
         }
     }
 
@@ -158,13 +155,16 @@ impl CodeGen {
                     _ => {
                         return None;
                     }
-                }
+                },
                 field => {
-                    match (stru_sz.as_mut(), self.compute_ffi_struct_field_sizeof(field)) {
+                    match (
+                        stru_sz.as_mut(),
+                        self.compute_ffi_struct_field_sizeof(field),
+                    ) {
                         (Some(stru_sz), Some(f_sz)) => {
                             *stru_sz += f_sz;
                         }
-                        _=> {
+                        _ => {
                             return None;
                         }
                     }
@@ -173,6 +173,44 @@ impl CodeGen {
         }
 
         stru_sz
+    }
+
+    fn compute_ffi_union_size(&self, stru: &Struct) -> usize {
+        let mut biggest = 1;
+        let mut alignment = 1;
+
+        for f in stru.fields.iter() {
+            let mut fs = self.ptr_width;
+            let mut fa = self.ptr_width;
+            match f {
+                StructField::AlignPad(_) => panic!("Unexpected align pad in union"),
+                StructField::Pad(_) => panic!("Unexpected pad in union"),
+                StructField::Field { typ, .. } => {
+                    if let Some(sz) = self.ffi_type_sizeof(typ) {
+                        fs = sz;
+                        fa = sz;
+                    }
+                }
+                StructField::List { typ, len_expr, .. } => {
+                    if let Some(sz) = self.ffi_type_sizeof(typ) {
+                        fs = sz;
+                        fa = sz;
+                    }
+                    if let Some(len) = expr_fixed_length(len_expr) {
+                        fs = len * fa;
+                    }
+                }
+            }
+
+            biggest = biggest.max(fs);
+            alignment = alignment.max(fa);
+        }
+
+        let mut num_aligned = biggest / alignment;
+        if biggest % alignment > 0 {
+            num_aligned += 1;
+        }
+        num_aligned * alignment
     }
 
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
@@ -274,39 +312,9 @@ impl CodeGen {
                 self.reg_type(en.name.clone(), ffi_typ, rs_typ, Some(4));
             }
             Event::Struct(stru) => self.emit_struct(&stru)?,
-            Event::Union(stru) => self.emit_struct(&stru)?,
+            Event::Union(stru) => self.emit_union(&stru)?,
             _ => {}
         }
-        Ok(())
-    }
-
-    fn emit_xid(&mut self, name: &str) -> io::Result<()> {
-        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
-        emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
-        self.emit_ffi_iterator(name, &ffi_typ, false)?;
-
-        let rs_typ = rust_type_name(name);
-        emit_type_alias(&mut self.rs, &rs_typ, &ffi_typ)?;
-
-        self.reg_type(name.into(), ffi_typ, rs_typ, Some(4));
-        Ok(())
-    }
-
-    fn emit_struct(&mut self, stru: &Struct) -> io::Result<()> {
-        let has_lifetime = self.type_has_lifetime(&stru);
-        if has_lifetime {
-            self.typ_with_lifetime.insert(stru.name.clone());
-        }
-        let ffi_typ = self.emit_ffi_struct(&stru)?;
-        self.emit_ffi_field_list_accessors(&ffi_typ, &stru)?;
-        let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ, has_lifetime)?;
-
-        let rs_typ = self.emit_rs_struct(&ffi_typ, &stru, has_lifetime)?;
-        self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, has_lifetime)?;
-
-        let stru_sz = self.compute_ffi_struct_size(&stru);
-        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, stru_sz);
-
         Ok(())
     }
 
@@ -355,8 +363,8 @@ impl CodeGen {
             match f {
                 StructField::List { name, typ, .. } => {
                     // 3 possible cases depending on list type to provide the same functions as C bindings:
-                    //  1. Strings
-                    //      we need accessor (returns *mut c_char)
+                    //  1. Strings and byte arrays
+                    //      we need accessor (returns *mut c_char or *mut u8)
                     //      we need the length function
                     //      we need the end function
                     //  2. type without lifetime (POD or scalar)
@@ -366,7 +374,7 @@ impl CodeGen {
                     //  3. type with lifetime
                     //      we need the length function
                     //      we need the iterator function (with lifetime)
-                    let is_string = typ == "char";
+                    let is_string = typ == "char" || typ == "BYTE";
                     let has_lifetime = self.typ_with_lifetime.contains(typ);
                     let accessor_needed = is_string || !has_lifetime;
                     let length_needed = true;
@@ -438,66 +446,6 @@ impl CodeGen {
         Ok(())
     }
 
-    fn emit_rs_iterator(
-        &mut self,
-        name: &str,
-        typ: &str,
-        ffi_it_typ: &str,
-        has_lifetime: bool,
-    ) -> io::Result<()> {
-        let it_typ = format!("{}Iterator", &typ);
-        let ffi_it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &name);
-
-        let (indir, lifetime) = if has_lifetime {
-            ("", "<'a>")
-        } else {
-            ("*", "")
-        };
-
-        let out = &mut self.rs_buf;
-
-        writeln!(out)?;
-        writeln!(
-            out,
-            "pub type {}{} = {}{};",
-            &it_typ, &lifetime, &ffi_it_typ, &lifetime
-        )?;
-        writeln!(out)?;
-        writeln!(
-            out,
-            "impl{} Iterator for {}{} {{",
-            &lifetime, &it_typ, &lifetime
-        )?;
-        writeln!(out, "    type Item = {}{};", &typ, &lifetime)?;
-        writeln!(
-            out,
-            "    fn next(&mut self) -> std::option::Option<{}{}> {{",
-            &typ, &lifetime,
-        )?;
-        writeln!(out, "        if self.rem == 0 {{")?;
-        writeln!(out, "            None")?;
-        writeln!(out, "        }} else {{")?;
-        writeln!(out, "            unsafe {{")?;
-        writeln!(
-            out,
-            "                let iter = self as *mut {};",
-            &ffi_it_typ
-        )?;
-        writeln!(out, "                let data = (*iter).data;")?;
-        writeln!(out, "                {}(iter);", &ffi_it_next)?;
-        writeln!(
-            out,
-            "                Some(std::mem::transmute({}data))",
-            &indir
-        )?;
-        writeln!(out, "            }}")?;
-        writeln!(out, "        }}")?;
-        writeln!(out, "    }}")?;
-        writeln!(out, "}}")?;
-
-        Ok(())
-    }
-
     fn emit_ffi_struct(&mut self, stru: &Struct) -> io::Result<String> {
         let Struct { name, fields, doc } = &stru;
 
@@ -537,14 +485,9 @@ impl CodeGen {
         writeln!(out, "}}")?;
 
         if impl_copy_clone {
-            writeln!(out)?;
-            writeln!(out, "impl Copy for {} {{}}", &typ)?;
-            writeln!(out, "impl Clone for {} {{", &typ)?;
-            writeln!(out, "    fn clone(&self) -> {} {{", &typ)?;
-            writeln!(out, "        *self")?;
-            writeln!(out, "    }}")?;
-            writeln!(out, "}}")?;
+            emit_copy_clone(out, &typ)?;
         }
+
         writeln!(out, "impl ::std::fmt::Debug for {} {{", &typ)?;
         writeln!(
             out,
@@ -555,6 +498,7 @@ impl CodeGen {
         for f in fields.iter() {
             match f {
                 StructField::Field { name, .. } => {
+                    let name = symbol(name);
                     writeln!(out, "            .field(\"{}\", &self.{})", &name, &name)?;
                 }
                 StructField::Pad(sz) => {
@@ -576,32 +520,17 @@ impl CodeGen {
         Ok(typ)
     }
 
-    fn emit_rs_struct(
+    fn emit_rs_struct_impl(
         &mut self,
+        rs_typ: &str,
         ffi_typ: &str,
         stru: &Struct,
         has_lifetime: bool,
-    ) -> io::Result<String> {
-        let Struct { name, fields, doc } = &stru;
-
-        let typ = rust_type_name(&name);
-
+        is_pod: bool,
+    ) -> io::Result<()> {
         let out = &mut self.rs_buf;
-        // emitting struct
-        writeln!(out)?;
-        emit_doc_text(out, &doc)?;
-        if has_lifetime {
-            writeln!(
-                out,
-                "pub type {}<'a> = base::StructPtr<'a, {}>;",
-                &typ, &ffi_typ
-            )?;
-        } else {
-            writeln!(out, "#[derive(Copy, Clone)]")?;
-            writeln!(out, "pub struct {} {{", &typ)?;
-            writeln!(out, "    pub base: {},", &ffi_typ)?;
-            writeln!(out, "}}")?;
-        }
+
+        let Struct { fields, doc, .. } = &stru;
 
         let (accessor, lifetime) = if has_lifetime {
             ("(*self.ptr)", "<'a>")
@@ -610,10 +539,10 @@ impl CodeGen {
         };
         // emitting struct impl
         writeln!(out)?;
-        writeln!(out, "impl{} {}{} {{", &lifetime, &typ, &lifetime)?;
+        writeln!(out, "impl{} {}{} {{", &lifetime, &rs_typ, &lifetime)?;
 
         // emitting ctor
-        if !has_lifetime {
+        if is_pod {
             writeln!(out, "    #[allow(unused_unsafe)]")?;
             write!(out, "    pub fn new(")?;
             for f in fields.iter() {
@@ -624,9 +553,9 @@ impl CodeGen {
                     _ => {}
                 }
             }
-            writeln!(out, ") -> {} {{", &typ)?;
+            writeln!(out, ") -> {} {{", &rs_typ)?;
             writeln!(out, "        unsafe {{")?;
-            writeln!(out, "            {} {{", &typ)?;
+            writeln!(out, "            {} {{", &rs_typ)?;
             writeln!(out, "                base: {} {{", &ffi_typ)?;
             let mut padnum = 0;
             for f in fields.iter() {
@@ -678,8 +607,9 @@ impl CodeGen {
                 }
                 StructField::List { name, typ, .. } => {
                     let is_string = typ == "char";
+                    let is_byte_slice = typ == "BYTE";
 
-                    if is_string {
+                    if is_string || is_byte_slice {
                         let len_fn = ffi_field_list_iterator_len_fn_name(
                             &self.xcb_mod_prefix,
                             &stru.name,
@@ -690,14 +620,19 @@ impl CodeGen {
                             &stru.name,
                             &name,
                         );
-                        writeln!(out, "    pub fn {}(&self) -> &str {{", &name)?;
+                        let ret = if is_string { "&str" } else { "&[u8]" };
+                        writeln!(out, "    pub fn {}(&self) -> {} {{", &name, &ret)?;
                         writeln!(out, "        unsafe {{")?;
                         writeln!(out, "            let field = self.ptr;")?;
                         writeln!(out, "            let len = {}(field) as usize;", &len_fn)?;
                         writeln!(out, "            let data = {}(field);", &acc_fn)?;
-                        writeln!(out, "            let slice = std::slice::from_raw_parts(data as *const u8, len);")?;
-                        writeln!(out, "            // should we check what comes from X?")?;
-                        writeln!(out, "            std::str::from_utf8_unchecked(&slice)")?;
+                        if is_string {
+                            writeln!(out, "            let slice = std::slice::from_raw_parts(data as *const u8, len);")?;
+                            writeln!(out, "            // should we check what comes from X?")?;
+                            writeln!(out, "            std::str::from_utf8_unchecked(&slice)")?;
+                        } else {
+                            writeln!(out, "            std::slice::from_raw_parts(data, len)")?;
+                        }
                         writeln!(out, "        }}")?;
                         writeln!(out, "    }}")?;
                     } else {
@@ -723,7 +658,265 @@ impl CodeGen {
         }
         writeln!(out, "}}")?;
 
+        Ok(())
+    }
+
+    fn emit_rs_iterator(
+        &mut self,
+        name: &str,
+        typ: &str,
+        ffi_it_typ: &str,
+        has_lifetime: bool,
+        is_union: bool,
+    ) -> io::Result<()> {
+        let it_typ = format!("{}Iterator", &typ);
+        let ffi_it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &name);
+
+        let lifetime = if has_lifetime {
+            "<'a>"
+        } else {
+             ""
+        };
+
+        let return_expr = match (has_lifetime, is_union) {
+            (true, true) => unimplemented!(),
+            (true, false) => "std::mem::transmute(data)",
+            (false, true) => "*data",
+            (false, false) => "std::mem::transmute(*data)",
+        };
+
+        let out = &mut self.rs_buf;
+
+        writeln!(out)?;
+        writeln!(
+            out,
+            "pub type {}{} = {}{};",
+            &it_typ, &lifetime, &ffi_it_typ, &lifetime
+        )?;
+        writeln!(out)?;
+        writeln!(
+            out,
+            "impl{} Iterator for {}{} {{",
+            &lifetime, &it_typ, &lifetime
+        )?;
+        writeln!(out, "    type Item = {}{};", &typ, &lifetime)?;
+        writeln!(
+            out,
+            "    fn next(&mut self) -> std::option::Option<{}{}> {{",
+            &typ, &lifetime,
+        )?;
+        writeln!(out, "        if self.rem == 0 {{")?;
+        writeln!(out, "            None")?;
+        writeln!(out, "        }} else {{")?;
+        writeln!(out, "            unsafe {{")?;
+        writeln!(
+            out,
+            "                let iter = self as *mut {};",
+            &ffi_it_typ
+        )?;
+        writeln!(out, "                let data = (*iter).data;")?;
+        writeln!(out, "                {}(iter);", &ffi_it_next)?;
+        writeln!(out, "                Some({})", &return_expr)?;
+        writeln!(out, "            }}")?;
+        writeln!(out, "        }}")?;
+        writeln!(out, "    }}")?;
+        writeln!(out, "}}")?;
+
+        Ok(())
+    }
+
+    fn emit_rs_struct(
+        &mut self,
+        ffi_typ: &str,
+        stru: &Struct,
+        has_lifetime: bool,
+    ) -> io::Result<String> {
+        let Struct { name, doc, .. } = &stru;
+
+        let typ = rust_type_name(&name);
+
+        let out = &mut self.rs_buf;
+        // emitting struct
+        writeln!(out)?;
+        emit_doc_text(out, &doc)?;
+        if has_lifetime {
+            writeln!(
+                out,
+                "pub type {}<'a> = base::StructPtr<'a, {}>;",
+                &typ, &ffi_typ
+            )?;
+        } else {
+            writeln!(out, "#[derive(Copy, Clone)]")?;
+            writeln!(out, "pub struct {} {{", &typ)?;
+            writeln!(out, "    pub base: {},", &ffi_typ)?;
+            writeln!(out, "}}")?;
+        }
+
+        self.emit_rs_struct_impl(&typ, &ffi_typ, &stru, has_lifetime, !has_lifetime)?;
+
         Ok(typ)
+    }
+
+    fn emit_rs_union_impl(&mut self, rs_typ: &str, ffi_sz: usize, stru: &Struct) -> io::Result<()> {
+        let out = &mut self.rs_buf;
+
+        let Struct { fields, doc, .. } = &stru;
+
+        writeln!(out)?;
+        writeln!(out, "impl {} {{", &rs_typ)?;
+
+        // emitting accessors
+        for f in fields.iter() {
+            match f {
+                StructField::Field { name, typ, .. } => {
+                    let name = symbol(name);
+                    let f_rs_typ = rust_field_type_name(&typ);
+                    emit_doc_field(out, &doc, &name)?;
+
+                    writeln!(out)?;
+                    writeln!(out, "    pub fn {}(&self) -> {} {{", &name, &f_rs_typ)?;
+                    writeln!(out, "        unsafe {{")?;
+                    writeln!(
+                        out,
+                        "            let _ptr = self.data.as_ptr() as *const {};",
+                        &f_rs_typ
+                    )?;
+                    writeln!(out, "            *_ptr")?;
+                    writeln!(out, "        }}")?;
+                    writeln!(out, "    }}")?;
+                    writeln!(
+                        out,
+                        "    pub fn from_{}({}: {}) -> {} {{",
+                        &name, &name, &f_rs_typ, &rs_typ
+                    )?;
+                    writeln!(out, "        unsafe {{")?;
+                    writeln!(
+                        out,
+                        "            let mut res = {} {{ data: [0; {}] }};",
+                        &rs_typ, ffi_sz
+                    )?;
+                    writeln!(
+                        out,
+                        "            let res_ptr = self.data.as_mut_ptr() as *mut {};",
+                        &f_rs_typ
+                    )?;
+                    writeln!(out, "            *res_ptr = {};", &name)?;
+                    writeln!(out, "            res")?;
+                    writeln!(out, "        }}")?;
+                    writeln!(out, "    }}")?;
+                }
+                StructField::List {
+                    name,
+                    typ,
+                    len_expr,
+                } => {
+                    emit_doc_field(out, &doc, &name)?;
+                    let name = symbol(name);
+                    let f_rs_typ = rust_field_type_name(&typ);
+                    let len =
+                        expr_fixed_length(len_expr).expect("union list field with variable length");
+                    // accessor
+                    writeln!(out, "    pub fn {}(&self) -> &[{}] {{", &name, &f_rs_typ)?;
+                    writeln!(out, "        unsafe {{")?;
+                    writeln!(
+                        out,
+                        "            let ptr = self.data.as_ptr() as *const {};",
+                        &f_rs_typ
+                    )?;
+                    writeln!(out, "            std::slice::from_raw_parts(ptr, {})", len)?;
+                    writeln!(out, "        }}")?;
+                    writeln!(out, "    }}")?;
+                    // constructor
+                    writeln!(
+                        out,
+                        "    pub fn from_{}({}: [{}; {}]) -> {} {{",
+                        &name, &name, &f_rs_typ, len, &rs_typ
+                    )?;
+                    writeln!(out, "        unsafe {{")?;
+                    writeln!(out, "            {} {{", &rs_typ)?;
+                    writeln!(out, "                data: std::mem::transmute({})", &name)?;
+                    writeln!(out, "            }}")?;
+                    writeln!(out, "        }}")?;
+                    writeln!(out, "    }}")?;
+                }
+                _ => {
+                    unimplemented!();
+                }
+            }
+        }
+        writeln!(out, "}}")?;
+
+        Ok(())
+    }
+
+    fn emit_xid(&mut self, name: &str) -> io::Result<()> {
+        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
+        emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
+        self.emit_ffi_iterator(name, &ffi_typ, false)?;
+
+        let rs_typ = rust_type_name(name);
+        emit_type_alias(&mut self.rs, &rs_typ, &ffi_typ)?;
+
+        self.reg_type(name.into(), ffi_typ, rs_typ, Some(4));
+        Ok(())
+    }
+
+    fn emit_struct(&mut self, stru: &Struct) -> io::Result<()> {
+        let has_lifetime = self.type_has_lifetime(&stru);
+        if has_lifetime {
+            self.typ_with_lifetime.insert(stru.name.clone());
+        }
+        let ffi_typ = self.emit_ffi_struct(&stru)?;
+        self.emit_ffi_field_list_accessors(&ffi_typ, &stru)?;
+        let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ, has_lifetime)?;
+
+        let rs_typ = self.emit_rs_struct(&ffi_typ, &stru, has_lifetime)?;
+        self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, has_lifetime, false)?;
+
+        let stru_sz = self.compute_ffi_struct_size(&stru);
+        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, stru_sz);
+
+        Ok(())
+    }
+
+    fn emit_union(&mut self, stru: &Struct) -> io::Result<()> {
+        let ffi_sz = self.compute_ffi_union_size(&stru);
+        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &stru.name);
+
+        {
+            let out = &mut self.ffi;
+            writeln!(out)?;
+            emit_doc_text(out, &stru.doc)?;
+            writeln!(out, "// union")?;
+            writeln!(out, "#[repr(C)]")?;
+            writeln!(out, "#[derive(Debug)]")?;
+            writeln!(out, "pub struct {} {{", &ffi_typ)?;
+            writeln!(out, "    pub data: [u8; {}],", ffi_sz)?;
+            writeln!(out, "}}")?;
+            emit_copy_clone(out, &ffi_typ)?;
+        }
+
+        self.emit_ffi_iterator(&stru.name, &ffi_typ, false)?;
+
+        let rs_typ = rust_type_name(&stru.name);
+
+        {
+            let out = &mut self.rs_buf;
+
+            writeln!(out)?;
+            emit_doc_text(out, &stru.doc)?;
+            emit_type_alias(out, &rs_typ, &ffi_typ)?;
+        }
+
+        self.emit_rs_union_impl(&rs_typ, ffi_sz, &stru)?;
+
+        let ffi_it_typ = ffi_iterator_name(&self.xcb_mod_prefix, &stru.name);
+
+        self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, false, true)?;
+
+        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, Some(ffi_sz));
+
+        Ok(())
     }
 }
 
@@ -1041,6 +1234,16 @@ fn emit_doc_field<Out: Write>(out: &mut Out, doc: &Option<Doc>, field: &str) -> 
             emit_doc_str(out, &f.text)?;
         }
     }
+    Ok(())
+}
+
+fn emit_copy_clone<Out: Write>(out: &mut Out, typ: &str) -> io::Result<()> {
+    writeln!(out)?;
+    writeln!(out, "impl Copy for {} {{}}", &typ)?;
+    writeln!(out, "impl Clone for {} {{", &typ)?;
+    writeln!(out, "    fn clone(&self) -> {} {{ *self }}", &typ)?;
+    writeln!(out, "}}")?;
+
     Ok(())
 }
 
