@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 use std::env;
 use std::io::{self, Cursor, Write};
 
-use crate::ast::{Doc, EnumItem, Event, Expr, Struct, StructField};
+use crate::ast::{Doc, EnumItem, Event, Expr, Struct, StructField, OpCopyMap};
 use crate::output::Output;
 
 #[derive(Debug)]
@@ -25,6 +25,8 @@ pub struct CodeGen {
     ffi_buf: Cursor<Vec<u8>>,
     rs_buf: Cursor<Vec<u8>>,
 
+    evcopies: OpCopyMap,
+
     ptr_width: usize,
 }
 
@@ -34,7 +36,7 @@ const PTR_WIDTH: usize = 64;
 const PTR_WIDTH: usize = 32;
 
 impl CodeGen {
-    pub fn new(xcb_mod: &str, ffi: Output, rs: Output) -> CodeGen {
+    pub fn new(xcb_mod: &str, ffi: Output, rs: Output, evcopies: OpCopyMap) -> CodeGen {
         let mp = if xcb_mod == "xproto" {
             String::new()
         } else {
@@ -61,6 +63,7 @@ impl CodeGen {
             rs_typ_reg: HashSet::new(),
             ffi_buf: Cursor::new(Vec::new()),
             rs_buf: Cursor::new(Vec::new()),
+            evcopies,
             ptr_width,
         }
     }

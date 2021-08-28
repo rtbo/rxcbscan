@@ -3,13 +3,11 @@ mod codegen;
 mod output;
 mod parse;
 
-// use std::cmp;
 use std::env;
 use std::fs;
-// use std::io;
 use std::path::{Path, PathBuf};
 
-use ast::Event;
+use ast::{Event, OpCopy, OpCopyMap};
 use codegen::CodeGen;
 use output::Output;
 use parse::{Parser, Result};
@@ -142,33 +140,39 @@ fn drive_xcb_gen(
         rs_file.display()
     ));
 
-    let mut cg = CodeGen::new(&xcb_mod, ffi, rs);
-
     let mut parser = Parser::from_file(&xml_file);
 
     let mut imports = Vec::new();
-    let mut fst: Option<Result<Event>> = None;
+    let mut events = Vec::new();
+    let mut evcopies: OpCopyMap = OpCopyMap::new();
 
     for e in &mut parser {
         match e? {
             Event::Ignore => {}
             Event::Import(imp) => imports.push(imp),
+            Event::Event(number, stru) => {
+                evcopies.insert(stru.name.clone(), Vec::new());
+                events.push(Event::Event(number, stru));
+            }
+            Event::EventCopy { name, number, ref_ } => {
+                if let Some(copies) = evcopies.get_mut(&ref_) {
+                    copies.push(OpCopy { name, number });
+                } else {
+                    events.push(Event::EventCopy { name, number, ref_ });
+                }
+            }
             ev => {
-                fst = Some(Ok(ev));
-                break;
+                events.push(ev);
             }
         }
     }
 
+    let mut cg = CodeGen::new(&xcb_mod, ffi, rs, evcopies);
+
     cg.prologue(&imports)?;
 
-    for ev in fst.into_iter().chain(&mut parser) {
-        match ev {
-            Ok(ev) => {
-                cg.event(&ev)?;
-            }
-            Err(ev) => Err(ev)?,
-        }
+    for ev in events {
+        cg.event(&ev)?;
     }
 
     cg.epilogue()?;

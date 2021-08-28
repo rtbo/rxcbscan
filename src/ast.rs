@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::str::FromStr;
 
 #[derive(Debug, Clone)]
@@ -73,6 +74,15 @@ pub struct Struct {
     pub fields: Vec<StructField>,
     pub doc: Option<Doc>,
 }
+
+// a copy type for error or event
+#[derive(Debug, Clone)]
+pub struct OpCopy {
+    pub number: i32,
+    pub name: String,
+}
+
+pub type OpCopyMap = HashMap<String, Vec<OpCopy>>;
 
 #[derive(Debug, Clone)]
 pub enum Event {
