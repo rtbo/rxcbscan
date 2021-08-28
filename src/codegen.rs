@@ -216,7 +216,11 @@ impl CodeGen {
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
         let out = &mut self.ffi;
         // Adding a comment only to fit the python generated code and pass initial tests
-        writeln!(out, "// Generated automatically from {}.xml by rs_client.py version 0.9.0.", &self.xcb_mod)?;
+        writeln!(
+            out,
+            "// Generated automatically from {}.xml by rs_client.py version 0.9.0.",
+            &self.xcb_mod
+        )?;
         writeln!(out, "// Do not edit!")?;
         writeln!(out, "")?;
         writeln!(out, "use ffi::base::*;")?;
@@ -234,7 +238,11 @@ impl CodeGen {
         }
 
         let out = &mut self.rs;
-        writeln!(out, "// Generated automatically from {}.xml by rs_client.py version 0.9.0.", &self.xcb_mod)?;
+        writeln!(
+            out,
+            "// Generated automatically from {}.xml by rs_client.py version 0.9.0.",
+            &self.xcb_mod
+        )?;
         writeln!(out, "// Do not edit!")?;
         writeln!(out, "")?;
         writeln!(out, "use base;")?;
@@ -265,10 +273,20 @@ impl CodeGen {
     }
 
     pub fn epilogue(&mut self) -> io::Result<()> {
+        let linklib = match self.xcb_mod.as_str() {
+            "xproto" | "big_requests" | "xc_misc" => "xcb".to_owned(),
+            "genericevent" => "xcb-ge".to_owned(),
+            m => {
+                let mut l = "xcb-".to_owned();
+                l.push_str(m);
+                l
+            }
+        };
+
         let out = &mut self.ffi;
         // write out all the external functions
         writeln!(out)?;
-        writeln!(out, "#[link(C)]")?;
+        writeln!(out, "#[link(name = \"{}\")]", linklib)?;
         writeln!(out, "extern {{")?;
 
         out.write_all(self.ffi_buf.get_ref())?;
@@ -334,6 +352,8 @@ impl CodeGen {
             }
             Event::Struct(stru) => self.emit_struct(&stru)?,
             Event::Union(stru) => self.emit_union(&stru)?,
+            Event::Error(number, stru) => self.emit_error(*number, stru)?,
+            Event::ErrorCopy { name, number, ref_ } => self.emit_error_copy(name, *number, ref_)?,
             _ => {}
         }
         Ok(())
@@ -470,14 +490,14 @@ impl CodeGen {
     fn emit_ffi_struct(&mut self, stru: &Struct) -> io::Result<String> {
         let Struct { name, fields, doc } = &stru;
 
-        let typ = ffi_type_name(&self.xcb_mod_prefix, &name);
+        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &name);
         let impl_copy_clone = self.eligible_to_copy(&stru);
 
         let out = &mut self.ffi;
         writeln!(out)?;
         emit_doc_text(out, &doc)?;
         writeln!(out, "#[repr(C)]")?;
-        writeln!(out, "pub struct {} {{", &typ)?;
+        writeln!(out, "pub struct {} {{", &ffi_typ)?;
 
         let mut padnum = 0;
 
@@ -506,15 +526,15 @@ impl CodeGen {
         writeln!(out, "}}")?;
 
         if impl_copy_clone {
-            emit_copy_clone(out, &typ)?;
+            emit_copy_clone(out, &ffi_typ)?;
         }
 
-        writeln!(out, "impl ::std::fmt::Debug for {} {{", &typ)?;
+        writeln!(out, "impl ::std::fmt::Debug for {} {{", &ffi_typ)?;
         writeln!(
             out,
             "    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {{"
         )?;
-        writeln!(out, "        fmt.debug_struct(\"{}\")", &typ)?;
+        writeln!(out, "        fmt.debug_struct(\"{}\")", &ffi_typ)?;
         let mut padnum = 0;
         for f in fields.iter() {
             match f {
@@ -538,7 +558,7 @@ impl CodeGen {
         writeln!(out, "    }}")?;
         writeln!(out, "}}")?;
 
-        Ok(typ)
+        Ok(ffi_typ)
     }
 
     fn emit_rs_struct_impl(
@@ -693,11 +713,7 @@ impl CodeGen {
         let it_typ = format!("{}Iterator", &typ);
         let ffi_it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &name);
 
-        let lifetime = if has_lifetime {
-            "<'a>"
-        } else {
-             ""
-        };
+        let lifetime = if has_lifetime { "<'a>" } else { "" };
 
         let return_expr = match (has_lifetime, is_union) {
             (true, true) => unimplemented!(),
@@ -936,6 +952,66 @@ impl CodeGen {
         self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, false, true)?;
 
         self.reg_type(stru.name.clone(), ffi_typ, rs_typ, Some(ffi_sz));
+
+        Ok(())
+    }
+
+    fn emit_error(&mut self, number: i32, stru: &Struct) -> io::Result<()> {
+        emit_error_code(&mut self.ffi, &self.xcb_mod_prefix, &stru.name, number)?;
+
+        let fields = {
+            let mut fields = vec![
+                StructField::Field {
+                    name: "response_type".into(),
+                    typ: "CARD8".into(),
+                    enu: None,
+                },
+                StructField::Field {
+                    name: "error_code".into(),
+                    typ: "CARD8".into(),
+                    enu: None,
+                },
+                StructField::Field {
+                    name: "sequence".into(),
+                    typ: "CARD16".into(),
+                    enu: None,
+                },
+            ];
+            for f in stru.fields.iter() {
+                fields.push(f.clone());
+            }
+            fields
+        };
+        let stru = Struct {
+            name: stru.name.clone() + "Error",
+            fields,
+            doc: stru.doc.clone(),
+        };
+
+        let ffi_typ = self.emit_ffi_struct(&stru)?;
+
+        let rs_typ = rust_type_name(&stru.name);
+
+        emit_rs_error(&mut self.rs, &ffi_typ, &rs_typ)?;
+
+        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, None);
+
+        Ok(())
+    }
+
+    fn emit_error_copy(&mut self, name: &str, number: i32, error_ref: &str) -> io::Result<()> {
+        emit_error_code(&mut self.ffi, &self.xcb_mod_prefix, &name, number)?;
+        let new_name = name.to_owned() + "Error";
+        let old_name = error_ref.to_owned() + "Error";
+
+        let new_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &new_name);
+        let old_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &old_name);
+
+        emit_type_alias(&mut self.ffi, &new_ffi_typ, &old_ffi_typ)?;
+
+        let rs_typ = rust_type_name(&new_name);
+
+        emit_rs_error(&mut self.rs, &new_ffi_typ, &rs_typ)?;
 
         Ok(())
     }
@@ -1198,6 +1274,14 @@ fn ffi_field_list_iterator_it_fn_name(xcb_mod_prefix: &str, typ_name: &str, fiel
     )
 }
 
+fn ffi_error_name(xcb_mod_prefix: &str, name: &str) -> String {
+    format!(
+        "XCB_{}{}",
+        xcb_mod_prefix.to_ascii_uppercase(),
+        tit_split(&name).to_ascii_uppercase()
+    )
+}
+
 fn rust_type_name(typ: &str) -> String {
     match typ {
         "CARD8" => "u8".into(),
@@ -1272,6 +1356,28 @@ fn emit_copy_clone<Out: Write>(out: &mut Out, typ: &str) -> io::Result<()> {
     writeln!(out, "impl Copy for {} {{}}", &typ)?;
     writeln!(out, "impl Clone for {} {{", &typ)?;
     writeln!(out, "    fn clone(&self) -> {} {{ *self }}", &typ)?;
+    writeln!(out, "}}")?;
+
+    Ok(())
+}
+
+fn emit_error_code<Out: Write>(
+    out: &mut Out,
+    xcb_mod_prefix: &str,
+    name: &str,
+    num: i32,
+) -> io::Result<()> {
+    let err_name = ffi_error_name(&xcb_mod_prefix, &name);
+    let num_typ = if num < 0 { "i8" } else { "u8" };
+    writeln!(out)?;
+    writeln!(out, "pub const {}: {} = {};", &err_name, &num_typ, num)?;
+    Ok(())
+}
+
+fn emit_rs_error<Out: Write>(out: &mut Out, ffi_typ: &str, rs_typ: &str) -> io::Result<()> {
+    writeln!(out)?;
+    writeln!(out, "pub struct {} {{", &rs_typ)?;
+    writeln!(out, "    pub base: base::Error<{}>,", &ffi_typ)?;
     writeln!(out, "}}")?;
 
     Ok(())
