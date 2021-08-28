@@ -1025,9 +1025,11 @@ fn tit_split(name: &str) -> String {
 }
 
 /// capitalize each substring beginning by uppercase
-/// said otherwise: every upper preceded by another upper is turned to lower
+/// said otherwise: every upper preceded by another upper and followed by a upper is turned to lower
 /// assert!(tit_cap("SomeString") == "SomeString")
 /// assert!(tit_cap("WINDOW") == "Window")
+/// assert!(tit_cap("GContext") == "GContext")
+/// assert!(tit_cap("IDChoice") == "IdChoice")
 fn tit_cap(name: &str) -> String {
     if name.len() <= 1 {
         return name.into();
@@ -1039,14 +1041,21 @@ fn tit_cap(name: &str) -> String {
     let mut ch = name.chars();
     let mut prev = ch.next().unwrap();
     res.push(prev);
+    let mut c = ch.next().unwrap();
 
-    for c in ch {
-        if is_high(c) && is_high(prev) {
+    for next in ch {
+        if is_high(c) && is_high(prev) && is_high(next) {
             res.push(c.to_ascii_lowercase())
         } else {
             res.push(c)
         }
         prev = c;
+        c = next;
+    }
+    if is_high(c) && is_high(prev) {
+        res.push(c.to_ascii_lowercase());
+    } else {
+        res.push(c);
     }
 
     res
