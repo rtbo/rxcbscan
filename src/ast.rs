@@ -47,7 +47,6 @@ pub struct Enum {
     pub doc: Option<Doc>,
 }
 
-
 #[derive(Debug, Clone)]
 pub enum StructField {
     Field {
@@ -73,6 +72,12 @@ pub struct Struct {
 
 #[derive(Debug, Clone)]
 pub enum Event {
+    Error(i32, Struct),
+    ErrorCopy {
+        name: String,
+        number: i32,
+        ref_: String,
+    },
     Import(String),
     Typedef {
         oldname: String,
