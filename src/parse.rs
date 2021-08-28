@@ -1,5 +1,5 @@
 use quick_xml::events::attributes::{Attribute, Attributes};
-use quick_xml::events::Event as XmlEv;
+use quick_xml::events::{BytesStart, Event as XmlEv};
 use quick_xml::Reader as XmlReader;
 use std::fmt::Display;
 use std::fs::File;
@@ -358,7 +358,7 @@ impl<B: BufRead> Parser<B> {
         Ok(Enum { name, items, doc })
     }
 
-    fn parse_struct_or_union(&mut self, name: String, end_tag: &[u8]) -> Result<Struct> {
+    fn parse_struct(&mut self, name: String, end_tag: &[u8]) -> Result<Struct> {
         let mut fields = Vec::new();
         let mut doc = None;
         let mut had_list = false;
@@ -459,6 +459,43 @@ impl<B: BufRead> Parser<B> {
 
         Ok(Struct { name, fields, doc })
     }
+
+    fn parse_number_struct_ref(
+        &mut self,
+        start: BytesStart,
+        end_tag: &[u8],
+    ) -> Result<NumberStruct> {
+        let names: [&[u8]; 3] = [b"name", b"number", b"ref"];
+        let mut vals: [Option<String>; 3] = [None, None, None];
+        get_attributes(start.attributes(), &names, &mut vals)?;
+        let [name, number, ref_] = vals;
+        match (name, number) {
+            (Some(name), Some(number)) => {
+                let number = str::parse::<i32>(&number)
+                    .map_err(|_| Error::Parse(format!("can't parse {} as number", number)))?;
+                let stru = if end_tag.is_empty() {
+                    Struct {
+                        name,
+                        fields: Vec::new(),
+                        doc: None,
+                    }
+                } else {
+                    self.parse_struct(name, &end_tag)?
+                };
+                Ok(NumberStruct { number, stru, ref_ })
+            }
+            _ => Err(Error::Parse(format!(
+                "<{}> without name or number",
+                str::from_utf8(start.name())?
+            ))),
+        }
+    }
+}
+
+struct NumberStruct {
+    number: i32,
+    stru: Struct,
+    ref_: Option<String>,
 }
 
 impl<B: BufRead> Iterator for &mut Parser<B> {
@@ -488,56 +525,28 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                     Some(expect_attribute(e.attributes(), b"name").map(|name| Event::XidType(name)))
                 }
                 b"error" => Some({
-                    let names: [&[u8]; 2] = [b"name", b"number"];
-                    let mut vals: [Option<String>; 2] = [None, None];
-                    if let Err(err) = get_attributes(e.attributes(), &names, &mut vals) {
-                        return Some(Err(err));
-                    }
-                    let [name, number] = vals;
-                    match (name, number) {
-                        (Some(name), Some(number)) => {
-                            let numberres = str::parse::<i32>(&number);
-                            if let Err(_) = numberres {
-                                return Some(Err(Error::Parse(format!(
-                                    "can't parse {} as number",
-                                    &number
-                                ))));
-                            };
-                            let number = numberres.unwrap();
-                            Ok(Event::Error(
-                                number,
-                                Struct {
-                                    name,
-                                    fields: Vec::new(),
-                                    doc: None,
-                                },
-                            ))
-                        }
-                        _ => Err(Error::Parse("<error /> without name or number".into())),
-                    }
-                }),
+                    let start = e.to_owned();
+                    self.parse_number_struct_ref(start, b"")
+                        .map(|ns| Event::Error(ns.number, ns.stru))
+                }
+                ),
                 b"errorcopy" => Some({
-                    let names: [&[u8]; 3] = [b"name", b"number", b"ref"];
-                    let mut vals: [Option<String>; 3] = [None, None, None];
-                    if let Err(err) = get_attributes(e.attributes(), &names, &mut vals) {
-                        return Some(Err(err));
-                    }
-                    let [name, number, ref_] = vals;
-                    match (name, number, ref_) {
-                        (Some(name), Some(number), Some(ref_)) => {
-                            let numberres = str::parse::<i32>(&number);
-                            if let Err(_) = numberres {
-                                return Some(Err(Error::Parse(format!(
-                                    "can't parse {} as number",
-                                    &number
-                                ))));
-                            };
-                            let number = numberres.unwrap();
-                            Ok(Event::ErrorCopy { name, number, ref_ })
+                    let start = e.to_owned();
+                    let nsres = self.parse_number_struct_ref(start, b"");
+                    if let Ok(ns) = nsres {
+                        if ns.ref_.is_none() {
+                            return Some(Err(Error::Parse("".into())));
                         }
-                        _ => Err(Error::Parse(
-                            "<errorcopy /> without name, number or ref".into(),
-                        )),
+                        let number = ns.number;
+                        let ref_ = ns.ref_.unwrap();
+
+                        Ok(Event::ErrorCopy {
+                            name: ns.stru.name,
+                            number,
+                            ref_,
+                        })
+                    } else {
+                        Err(Error::Parse("<errorcopy> without ref attribute".into()))
                     }
                 }),
                 _ => Some(Ok(Event::Ignore)),
@@ -553,38 +562,17 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                     enumres.map(|enu| Event::Enum(enu))
                 })),
                 b"struct" => Some(expect_attribute(e.attributes(), b"name").and_then(|name| {
-                    let structres = self.parse_struct_or_union(name, b"struct");
+                    let structres = self.parse_struct(name, b"struct");
                     structres.map(|stru| Event::Struct(stru))
                 })),
                 b"union" => Some(expect_attribute(e.attributes(), b"name").and_then(|name| {
-                    let unionres = self.parse_struct_or_union(name, b"union");
+                    let unionres = self.parse_struct(name, b"union");
                     unionres.map(|stru| Event::Union(stru))
                 })),
                 b"error" => Some({
-                    let names: [&[u8]; 2] = [b"name", b"number"];
-                    let mut vals: [Option<String>; 2] = [None, None];
-                    if let Err(err) = get_attributes(e.attributes(), &names, &mut vals) {
-                        return Some(Err(err));
-                    }
-                    let [name, number] = vals;
-                    match (name, number) {
-                        (Some(name), Some(number)) => {
-                            let numberres = str::parse::<i32>(&number);
-                            if let Err(_) = numberres {
-                                return Some(Err(Error::Parse(format!(
-                                    "can't parse {} as number",
-                                    &number
-                                ))));
-                            };
-                            let number = numberres.unwrap();
-                            let structres = self.parse_struct_or_union(name, b"error");
-                            if let Err(err) = structres {
-                                return Some(Err(err));
-                            };
-                            Ok(Event::Error(number, structres.unwrap()))
-                        }
-                        _ => Err(Error::Parse("<error> without name or number".into())),
-                    }
+                    let start = e.to_owned();
+                    self.parse_number_struct_ref(start, b"error")
+                        .map(|ns| Event::Error(ns.number, ns.stru))
                 }),
                 b"event" => {
                     if let Err(err) = self.xml.read_to_end(b"event", &mut self.buf) {
