@@ -265,7 +265,7 @@ impl CodeGen {
         writeln!(out, "")?;
 
         if self.xcb_mod != "xproto" {
-            let out = &mut self.rs_buf;
+            let out = &mut self.rs;
             writeln!(out)?;
             writeln!(out, "pub fn id() -> &'static mut base::Extension {{")?;
             writeln!(out, "    unsafe {{")?;
