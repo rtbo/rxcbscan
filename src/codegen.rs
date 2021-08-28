@@ -137,6 +137,7 @@ impl CodeGen {
                 }
             }
             StructField::AlignPad(_) => unreachable!(),
+            StructField::ListNoLen{..} => None,
         }
     }
 
@@ -200,6 +201,7 @@ impl CodeGen {
                         fs = len * fa;
                     }
                 }
+                StructField::ListNoLen{..} => panic!("Unexpected list without length in union"),
             }
 
             biggest = biggest.max(fs);

@@ -59,6 +59,10 @@ pub enum StructField {
         typ: String,
         len_expr: Expr<usize>,
     },
+    ListNoLen {
+        name: String,
+        typ: String,
+    },
     Pad(usize),
     AlignPad(usize),
 }
@@ -88,5 +92,11 @@ pub enum Event {
     Enum(Enum),
     Struct(Struct),
     Union(Struct),
+    Event(i32, Struct),
+    EventCopy {
+        name: String,
+        number: i32,
+        ref_: String,
+    },
     Ignore,
 }

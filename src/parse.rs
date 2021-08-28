@@ -365,7 +365,7 @@ impl<B: BufRead> Parser<B> {
 
         loop {
             match self.xml.read_event(&mut self.buf) {
-                Ok(XmlEv::Start(ref e) | XmlEv::Empty(ref e)) => match e.name() {
+                Ok(XmlEv::Empty(ref e)) => match e.name() {
                     b"field" => {
                         let names: [&[u8]; 3] = [b"type", b"name", b"enum"];
                         let mut vals: [Option<String>; 3] = [None, None, None];
@@ -415,6 +415,28 @@ impl<B: BufRead> Parser<B> {
                             ));
                         }
                     }
+                    b"list" => {
+                        let names: [&[u8]; 2] = [b"type", b"name"];
+                        let mut vals: [Option<String>; 2] = [None, None];
+                        get_attributes(e.attributes(), &names, &mut vals)?;
+                        let [typ, nam] = vals;
+                        if let (Some(typ), Some(name)) = (typ, nam) {
+                            fields.push(StructField::ListNoLen { name, typ });
+                            had_list = true;
+                        } else {
+                            return Err(Error::Parse(
+                                "<list> tag without type and/or name attribute".into(),
+                            ));
+                        }
+                    }
+                    tag => {
+                        return Err(Error::Parse(format!(
+                            "Unexpected <{}> in struct",
+                            str::from_utf8(tag)?
+                        )))
+                    }
+                },
+                Ok(XmlEv::Start(ref e)) => match e.name() {
                     b"list" => {
                         let names: [&[u8]; 2] = [b"type", b"name"];
                         let mut vals: [Option<String>; 2] = [None, None];
@@ -528,8 +550,7 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                     let start = e.to_owned();
                     self.parse_number_struct_ref(start, b"")
                         .map(|ns| Event::Error(ns.number, ns.stru))
-                }
-                ),
+                }),
                 b"errorcopy" => Some({
                     let start = e.to_owned();
                     let nsres = self.parse_number_struct_ref(start, b"");
@@ -541,6 +562,25 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                         let ref_ = ns.ref_.unwrap();
 
                         Ok(Event::ErrorCopy {
+                            name: ns.stru.name,
+                            number,
+                            ref_,
+                        })
+                    } else {
+                        Err(Error::Parse("<errorcopy> without ref attribute".into()))
+                    }
+                }),
+                b"eventcopy" => Some({
+                    let start = e.to_owned();
+                    let nsres = self.parse_number_struct_ref(start, b"");
+                    if let Ok(ns) = nsres {
+                        if ns.ref_.is_none() {
+                            return Some(Err(Error::Parse("".into())));
+                        }
+                        let number = ns.number;
+                        let ref_ = ns.ref_.unwrap();
+
+                        Ok(Event::EventCopy {
                             name: ns.stru.name,
                             number,
                             ref_,
@@ -574,12 +614,11 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                     self.parse_number_struct_ref(start, b"error")
                         .map(|ns| Event::Error(ns.number, ns.stru))
                 }),
-                b"event" => {
-                    if let Err(err) = self.xml.read_to_end(b"event", &mut self.buf) {
-                        return Some(Err(err.into()));
-                    }
-                    Some(Ok(Event::Ignore))
-                }
+                b"event" => Some({
+                    let start = e.to_owned();
+                    self.parse_number_struct_ref(start, b"event")
+                        .map(|ns| Event::Event(ns.number, ns.stru))
+                }),
                 b"request" => {
                     if let Err(err) = self.xml.read_to_end(b"request", &mut self.buf) {
                         return Some(Err(err.into()));
