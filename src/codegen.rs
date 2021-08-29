@@ -5,12 +5,29 @@ use std::io::{self, Cursor, Write};
 use crate::ast::{Doc, EnumItem, Event, Expr, OpCopyMap, Struct, StructField};
 use crate::output::Output;
 
+#[derive(Clone, Debug)]
+pub struct DepInfo {
+    pub xcb_mod: String,
+    pub typ_with_lifetime: HashSet<String>,
+    pub ffi_type_sizes: HashMap<String, Option<usize>>,
+    pub ffi_typ_reg: HashSet<String>,
+    pub rs_typ_reg: HashSet<String>,
+}
+
 #[derive(Debug)]
 pub struct CodeGen {
     xcb_mod: String,
     xcb_mod_prefix: String,
+
+    // output files
     ffi: Output,
     rs: Output,
+
+    // additional output buffers that make a second group of declaration/functions
+    // they are appended to the output at the end
+    ffi_buf: Cursor<Vec<u8>>,
+    rs_buf: Cursor<Vec<u8>>,
+
     typ_with_lifetime: HashSet<String>,
 
     // registered types sizes (is None if size is not fixed - eg. lists with dynamic length)
@@ -20,10 +37,7 @@ pub struct CodeGen {
     // types registered in the Rust module
     rs_typ_reg: HashSet<String>,
 
-    // additional output buffers that make a second group of declaration/functions
-    // they are appended to the output at the end
-    ffi_buf: Cursor<Vec<u8>>,
-    rs_buf: Cursor<Vec<u8>>,
+    dep_info: Vec<DepInfo>,
 
     evcopies: OpCopyMap,
 
@@ -36,7 +50,7 @@ const PTR_WIDTH: usize = 64;
 const PTR_WIDTH: usize = 32;
 
 impl CodeGen {
-    pub fn new(xcb_mod: &str, ffi: Output, rs: Output, evcopies: OpCopyMap) -> CodeGen {
+    pub fn new(xcb_mod: &str, ffi: Output, rs: Output, dep_info: Vec<DepInfo>, evcopies: OpCopyMap) -> CodeGen {
         let mp = if xcb_mod == "xproto" {
             String::new()
         } else {
@@ -57,178 +71,26 @@ impl CodeGen {
             xcb_mod_prefix: mp,
             ffi,
             rs,
+            ffi_buf: Cursor::new(Vec::new()),
+            rs_buf: Cursor::new(Vec::new()),
             typ_with_lifetime: HashSet::new(),
             ffi_type_sizes: HashMap::new(),
             ffi_typ_reg: HashSet::new(),
             rs_typ_reg: HashSet::new(),
-            ffi_buf: Cursor::new(Vec::new()),
-            rs_buf: Cursor::new(Vec::new()),
+            dep_info,
             evcopies,
             ptr_width,
         }
     }
 
-    // pub fn xcb_mod(&self) -> &str {
-    //     &self.xcb_mod
-    // }
-
-    fn reg_type(&mut self, typ: String, ffi_typ: String, rs_typ: String, ffi_sz: Option<usize>) {
-        self.ffi_typ_reg.insert(ffi_typ);
-        self.rs_typ_reg.insert(rs_typ);
-        self.ffi_type_sizes.insert(typ, ffi_sz);
-    }
-
-    fn has_ffi_type(&mut self, typ: &str) -> bool {
-        self.ffi_typ_reg.contains(typ)
-    }
-
-    fn has_rs_type(&mut self, typ: &str) -> bool {
-        self.rs_typ_reg.contains(typ)
-    }
-
-    fn ffi_type_sizeof(&self, typ: &str) -> Option<usize> {
-        // TODO: emit codegen result if typ is not registered instead of panic
-        match typ {
-            "CARD8" => Some(1),
-            "CARD16" => Some(2),
-            "CARD32" => Some(4),
-            "CARD64" => Some(8),
-            "INT8" => Some(1),
-            "INT16" => Some(2),
-            "INT32" => Some(4),
-            "INT64" => Some(8),
-            "BYTE" => Some(1),
-            "BOOL" => Some(1),
-            "char" => Some(1),
-            typ => {
-                if let Some(sz) = self.ffi_type_sizes.get(typ) {
-                    *sz
-                } else {
-                    match typ {
-                        // adding a few xproto types used in extensions to avoid pre-parsing xproto
-                        // TODO: reorder module processing and fetch type defs from dependencies
-                        "WINDOW" | "ATOM" | "TIMESTAMP" | "BARRIER" | "PIXMAP" | "FENCE" => Some(4),
-                        _ => None,
-                    }
-                }
-            }
+    pub fn into_depinfo(self) -> DepInfo {
+        DepInfo {
+            xcb_mod: self.xcb_mod,
+            typ_with_lifetime: self.typ_with_lifetime,
+            ffi_type_sizes: self.ffi_type_sizes,
+            ffi_typ_reg: self.ffi_typ_reg,
+            rs_typ_reg: self.rs_typ_reg,
         }
-    }
-
-    fn eligible_to_copy(&self, stru: &Struct) -> bool {
-        !has_list(&stru.fields)
-    }
-
-    fn type_has_lifetime(&self, stru: &Struct) -> bool {
-        has_list(&stru.fields)
-    }
-
-    fn ffi_enum_type_name(&mut self, typ: &str) -> String {
-        let typ = tit_split(typ).to_ascii_lowercase();
-        let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, typ);
-        if self.has_ffi_type(&try1) {
-            format!("xcb_{}{}_enum_t", self.xcb_mod_prefix, typ)
-        } else {
-            try1
-        }
-    }
-
-    fn rs_enum_type_name(&mut self, typ: &str) -> String {
-        let try1 = rust_type_name(&typ);
-        if self.has_rs_type(&try1) {
-            format!("{}Enum", &try1)
-        } else {
-            try1
-        }
-    }
-
-    fn compute_ffi_struct_field_sizeof(&self, field: &StructField) -> Option<usize> {
-        match field {
-            StructField::Field { typ, .. } => self.ffi_type_sizeof(&typ),
-            StructField::Pad(pad_sz) => Some(*pad_sz),
-            StructField::List { typ, len_expr, .. } => {
-                match (self.ffi_type_sizeof(typ), expr_fixed_length(len_expr)) {
-                    (Some(sz), Some(len)) => Some(sz * len),
-                    _ => None,
-                }
-            }
-            StructField::ListNoLen { .. } => None,
-            StructField::AlignPad(_) => unreachable!(),
-        }
-    }
-
-    fn compute_ffi_struct_size(&self, stru: &Struct) -> Option<usize> {
-        let mut stru_sz = Some(0usize);
-
-        for f in stru.fields.iter() {
-            match f {
-                StructField::AlignPad(alignment) => match stru_sz.as_mut() {
-                    Some(sz) => {
-                        let curr = *sz % alignment;
-                        if curr != 0 {
-                            *sz += alignment - curr;
-                        }
-                    }
-                    _ => {
-                        return None;
-                    }
-                },
-                field => {
-                    match (
-                        stru_sz.as_mut(),
-                        self.compute_ffi_struct_field_sizeof(field),
-                    ) {
-                        (Some(stru_sz), Some(f_sz)) => {
-                            *stru_sz += f_sz;
-                        }
-                        _ => {
-                            return None;
-                        }
-                    }
-                }
-            }
-        }
-
-        stru_sz
-    }
-
-    fn compute_ffi_union_size(&self, stru: &Struct) -> usize {
-        let mut biggest = 1;
-        let mut alignment = 1;
-
-        for f in stru.fields.iter() {
-            let mut fs = self.ptr_width;
-            let mut fa = self.ptr_width;
-            match f {
-                StructField::AlignPad(_) => panic!("Unexpected align pad in union"),
-                StructField::Pad(_) => panic!("Unexpected pad in union"),
-                StructField::Field { typ, .. } => {
-                    if let Some(sz) = self.ffi_type_sizeof(typ) {
-                        fs = sz;
-                        fa = sz;
-                    }
-                }
-                StructField::List { typ, len_expr, .. } => {
-                    if let Some(sz) = self.ffi_type_sizeof(typ) {
-                        fs = sz;
-                        fa = sz;
-                    }
-                    if let Some(len) = expr_fixed_length(len_expr) {
-                        fs = len * fa;
-                    }
-                }
-                StructField::ListNoLen { .. } => panic!("Unexpected list without length in union"),
-            }
-
-            biggest = biggest.max(fs);
-            alignment = alignment.max(fa);
-        }
-
-        let mut num_aligned = biggest / alignment;
-        if biggest % alignment > 0 {
-            num_aligned += 1;
-        }
-        num_aligned * alignment
     }
 
     pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
@@ -382,6 +244,170 @@ impl CodeGen {
             _ => {}
         }
         Ok(())
+    }
+
+    // pub fn xcb_mod(&self) -> &str {
+    //     &self.xcb_mod
+    // }
+
+    fn reg_type(&mut self, typ: String, ffi_typ: String, rs_typ: String, ffi_sz: Option<usize>) {
+        self.ffi_typ_reg.insert(ffi_typ);
+        self.rs_typ_reg.insert(rs_typ);
+        self.ffi_type_sizes.insert(typ, ffi_sz);
+    }
+
+    fn has_ffi_type(&mut self, typ: &str) -> bool {
+        self.ffi_typ_reg.contains(typ)
+    }
+
+    fn has_rs_type(&mut self, typ: &str) -> bool {
+        self.rs_typ_reg.contains(typ)
+    }
+
+    fn ffi_type_sizeof(&self, typ: &str) -> Option<usize> {
+        // TODO: emit codegen result if typ is not registered instead of panic
+        match typ {
+            "CARD8" => Some(1),
+            "CARD16" => Some(2),
+            "CARD32" => Some(4),
+            "CARD64" => Some(8),
+            "INT8" => Some(1),
+            "INT16" => Some(2),
+            "INT32" => Some(4),
+            "INT64" => Some(8),
+            "BYTE" => Some(1),
+            "BOOL" => Some(1),
+            "char" => Some(1),
+            typ => {
+                if let Some(sz) = self.ffi_type_sizes.get(typ) {
+                    *sz
+                } else {
+                    // checking in the imported dependencies
+                    for di in self.dep_info.iter() {
+                        if let Some(sz) = di.ffi_type_sizes.get(typ) {
+                            return *sz;
+                        }
+                    }
+                    None
+                }
+            }
+        }
+    }
+
+    fn eligible_to_copy(&self, stru: &Struct) -> bool {
+        !has_list(&stru.fields)
+    }
+
+    fn type_has_lifetime(&self, stru: &Struct) -> bool {
+        has_list(&stru.fields)
+    }
+
+    fn ffi_enum_type_name(&mut self, typ: &str) -> String {
+        let typ = tit_split(typ).to_ascii_lowercase();
+        let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, typ);
+        if self.has_ffi_type(&try1) {
+            format!("xcb_{}{}_enum_t", self.xcb_mod_prefix, typ)
+        } else {
+            try1
+        }
+    }
+
+    fn rs_enum_type_name(&mut self, typ: &str) -> String {
+        let try1 = rust_type_name(&typ);
+        if self.has_rs_type(&try1) {
+            format!("{}Enum", &try1)
+        } else {
+            try1
+        }
+    }
+
+    fn compute_ffi_struct_field_sizeof(&self, field: &StructField) -> Option<usize> {
+        match field {
+            StructField::Field { typ, .. } => self.ffi_type_sizeof(&typ),
+            StructField::Pad(pad_sz) => Some(*pad_sz),
+            StructField::List { typ, len_expr, .. } => {
+                match (self.ffi_type_sizeof(typ), expr_fixed_length(len_expr)) {
+                    (Some(sz), Some(len)) => Some(sz * len),
+                    _ => None,
+                }
+            }
+            StructField::ListNoLen { .. } => None,
+            StructField::AlignPad(_) => unreachable!(),
+        }
+    }
+
+    fn compute_ffi_struct_size(&self, stru: &Struct) -> Option<usize> {
+        let mut stru_sz = Some(0usize);
+
+        for f in stru.fields.iter() {
+            match f {
+                StructField::AlignPad(alignment) => match stru_sz.as_mut() {
+                    Some(sz) => {
+                        let curr = *sz % alignment;
+                        if curr != 0 {
+                            *sz += alignment - curr;
+                        }
+                    }
+                    _ => {
+                        return None;
+                    }
+                },
+                field => {
+                    match (
+                        stru_sz.as_mut(),
+                        self.compute_ffi_struct_field_sizeof(field),
+                    ) {
+                        (Some(stru_sz), Some(f_sz)) => {
+                            *stru_sz += f_sz;
+                        }
+                        _ => {
+                            return None;
+                        }
+                    }
+                }
+            }
+        }
+
+        stru_sz
+    }
+
+    fn compute_ffi_union_size(&self, stru: &Struct) -> usize {
+        let mut biggest = 1;
+        let mut alignment = 1;
+
+        for f in stru.fields.iter() {
+            let mut fs = self.ptr_width;
+            let mut fa = self.ptr_width;
+            match f {
+                StructField::AlignPad(_) => panic!("Unexpected align pad in union"),
+                StructField::Pad(_) => panic!("Unexpected pad in union"),
+                StructField::Field { typ, .. } => {
+                    if let Some(sz) = self.ffi_type_sizeof(typ) {
+                        fs = sz;
+                        fa = sz;
+                    }
+                }
+                StructField::List { typ, len_expr, .. } => {
+                    if let Some(sz) = self.ffi_type_sizeof(typ) {
+                        fs = sz;
+                        fa = sz;
+                    }
+                    if let Some(len) = expr_fixed_length(len_expr) {
+                        fs = len * fa;
+                    }
+                }
+                StructField::ListNoLen { .. } => panic!("Unexpected list without length in union"),
+            }
+
+            biggest = biggest.max(fs);
+            alignment = alignment.max(fa);
+        }
+
+        let mut num_aligned = biggest / alignment;
+        if biggest % alignment > 0 {
+            num_aligned += 1;
+        }
+        num_aligned * alignment
     }
 
     fn emit_ffi_iterator(

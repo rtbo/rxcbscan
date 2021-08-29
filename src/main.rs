@@ -8,7 +8,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use ast::{Event, OpCopy, OpCopyMap};
-use codegen::CodeGen;
+use codegen::{CodeGen, DepInfo};
 use output::Output;
 use parse::{Parser, Result};
 
@@ -20,16 +20,16 @@ fn xcb_mod_map(name: &str) -> &str {
     }
 }
 
-fn is_always(name: &str) -> bool {
-    match name {
-        "xproto" | "big_requests" | "xc_misc" => true,
-        _ => false,
-    }
-}
+// fn is_always(name: &str) -> bool {
+//     match name {
+//         "xproto" | "big_requests" | "xc_misc" => true,
+//         _ => false,
+//     }
+// }
 
-fn has_feature(name: &str) -> bool {
-    env::var(format!("CARGO_FEATURE_{}", name.to_ascii_uppercase())).is_ok()
-}
+// fn has_feature(name: &str) -> bool {
+//     env::var(format!("CARGO_FEATURE_{}", name.to_ascii_uppercase())).is_ok()
+// }
 
 fn main() {
     let root = env::var("CARGO_MANIFEST_DIR").unwrap_or(".".to_string());
@@ -54,26 +54,11 @@ fn main() {
         }
     });
 
+    let mut dep_info = Vec::new();
+
     for xml_file in iter_xml(&xml_dir) {
-        let xcb_mod = xml_file.file_stem().unwrap();
-        let xcb_mod = xcb_mod.to_str().unwrap();
-        let xcb_mod = xcb_mod_map(xcb_mod);
-
-        if !is_always(&xcb_mod) && !has_feature(&xcb_mod) {
-            // continue;
-        }
-
-        //let ref_mtime = cmp::max(ref_mtime, mtime(&xml_file).unwrap());
-        let ffi_file = out_dir.join("ffi").join(&xcb_mod).with_extension("rs");
-        let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
-
-        // println!("processing {}", &xcb_mod);
-        // if ref_mtime > optional_mtime(&ffi_file, 0) || ref_mtime > optional_mtime(&rs_file, 0) {
-        drive_xcb_gen(&xml_file, &xcb_mod, &rustfmt, &ffi_file, &rs_file).expect(&format!(
-            "Error during processing of {}",
-            xml_file.display()
-        ));
-        // }
+        process_xcb_gen(&xml_file, &out_dir, &rustfmt, &mut dep_info)
+            .unwrap_or_else(|_| panic!("Error during processing of {}", xml_file.display()));
     }
 
     #[cfg(target_os = "freebsd")]
@@ -124,13 +109,29 @@ where
     })
 }
 
-fn drive_xcb_gen(
+fn process_xcb_gen(
     xml_file: &Path,
-    xcb_mod: &str,
+    out_dir: &Path,
     rustfmt: &Option<PathBuf>,
-    ffi_file: &Path,
-    rs_file: &Path,
+    dep_info: &mut Vec<DepInfo>,
 ) -> Result<()> {
+    let xcb_mod = xml_file.file_stem().unwrap();
+    let xcb_mod = xcb_mod.to_str().unwrap();
+    let xcb_mod = xcb_mod_map(xcb_mod);
+
+    if dep_info.iter().find(|di| di.xcb_mod == xcb_mod).is_some() {
+        return Ok(());
+    }
+
+    // if !is_always(&xcb_mod) && !has_feature(&xcb_mod) {
+    //     return Ok(());
+    // }
+
+    //let ref_mtime = cmp::max(ref_mtime, mtime(&xml_file).unwrap());
+    let ffi_file = out_dir.join("ffi").join(&xcb_mod).with_extension("rs");
+    let rs_file = out_dir.join(&xcb_mod).with_extension("rs");
+
+    // println!("processing {}", &xcb_mod);
     let ffi = Output::new(&rustfmt, &ffi_file).expect(&format!(
         "cannot create FFI output file: {}",
         ffi_file.display()
@@ -150,9 +151,19 @@ fn drive_xcb_gen(
         match e? {
             Event::Ignore => {}
             Event::Import(imp) => imports.push(imp),
-            Event::Event{number, stru, no_seq_number, xge} => {
+            Event::Event {
+                number,
+                stru,
+                no_seq_number,
+                xge,
+            } => {
                 evcopies.insert(stru.name.clone(), Vec::new());
-                events.push(Event::Event{number, stru, no_seq_number, xge});
+                events.push(Event::Event {
+                    number,
+                    stru,
+                    no_seq_number,
+                    xge,
+                });
             }
             Event::EventCopy { name, number, ref_ } => {
                 if let Some(copies) = evcopies.get_mut(&ref_) {
@@ -167,7 +178,26 @@ fn drive_xcb_gen(
         }
     }
 
-    let mut cg = CodeGen::new(&xcb_mod, ffi, rs, evcopies);
+    let deps = {
+        let mut deps = Vec::new();
+
+        for i in imports.iter() {
+            let xml_file = xml_file.with_file_name(&format!("{}.xml", i));
+            process_xcb_gen(&xml_file, out_dir, rustfmt, dep_info)?;
+            let i = xcb_mod_map(i);
+            deps.push(
+                dep_info
+                    .iter()
+                    .find(|di| di.xcb_mod == i)
+                    .unwrap_or_else(|| panic!("can't find dependency {} of {}", i, xcb_mod))
+                    .clone(),
+            );
+        }
+
+        deps
+    };
+
+    let mut cg = CodeGen::new(&xcb_mod, ffi, rs, deps, evcopies);
 
     cg.prologue(&imports)?;
 
@@ -176,6 +206,8 @@ fn drive_xcb_gen(
     }
 
     cg.epilogue()?;
+
+    dep_info.push(cg.into_depinfo());
 
     Ok(())
 }
