@@ -150,9 +150,9 @@ fn drive_xcb_gen(
         match e? {
             Event::Ignore => {}
             Event::Import(imp) => imports.push(imp),
-            Event::Event(number, stru) => {
+            Event::Event{number, stru, no_seq_number, xge} => {
                 evcopies.insert(stru.name.clone(), Vec::new());
-                events.push(Event::Event(number, stru));
+                events.push(Event::Event{number, stru, no_seq_number, xge});
             }
             Event::EventCopy { name, number, ref_ } => {
                 if let Some(copies) = evcopies.get_mut(&ref_) {

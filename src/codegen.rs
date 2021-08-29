@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 use std::env;
 use std::io::{self, Cursor, Write};
 
-use crate::ast::{Doc, EnumItem, Event, Expr, Struct, StructField, OpCopyMap};
+use crate::ast::{Doc, EnumItem, Event, Expr, OpCopyMap, Struct, StructField};
 use crate::output::Output;
 
 #[derive(Debug)]
@@ -92,13 +92,26 @@ impl CodeGen {
             "CARD8" => Some(1),
             "CARD16" => Some(2),
             "CARD32" => Some(4),
+            "CARD64" => Some(8),
             "INT8" => Some(1),
             "INT16" => Some(2),
             "INT32" => Some(4),
+            "INT64" => Some(8),
             "BYTE" => Some(1),
             "BOOL" => Some(1),
             "char" => Some(1),
-            typ => *self.ffi_type_sizes.get(typ).unwrap_or(&None),
+            typ => {
+                if let Some(sz) = self.ffi_type_sizes.get(typ) {
+                    *sz
+                } else {
+                    match typ {
+                        // adding a few xproto types used in extensions to avoid pre-parsing xproto
+                        // TODO: reorder module processing and fetch type defs from dependencies
+                        "WINDOW" | "ATOM" | "TIMESTAMP" | "BARRIER" | "PIXMAP" | "FENCE" => Some(4),
+                        _ => None,
+                    }
+                }
+            }
         }
     }
 
@@ -139,8 +152,8 @@ impl CodeGen {
                     _ => None,
                 }
             }
+            StructField::ListNoLen { .. } => None,
             StructField::AlignPad(_) => unreachable!(),
-            StructField::ListNoLen{..} => None,
         }
     }
 
@@ -204,7 +217,7 @@ impl CodeGen {
                         fs = len * fa;
                     }
                 }
-                StructField::ListNoLen{..} => panic!("Unexpected list without length in union"),
+                StructField::ListNoLen { .. } => panic!("Unexpected list without length in union"),
             }
 
             biggest = biggest.max(fs);
@@ -359,6 +372,13 @@ impl CodeGen {
             Event::Union(stru) => self.emit_union(&stru)?,
             Event::Error(number, stru) => self.emit_error(*number, stru)?,
             Event::ErrorCopy { name, number, ref_ } => self.emit_error_copy(name, *number, ref_)?,
+            Event::Event {
+                number,
+                stru,
+                no_seq_number,
+                xge,
+                ..
+            } => self.emit_event(*number, stru, *no_seq_number, *xge)?,
             _ => {}
         }
         Ok(())
@@ -962,7 +982,7 @@ impl CodeGen {
     }
 
     fn emit_error(&mut self, number: i32, stru: &Struct) -> io::Result<()> {
-        emit_error_code(&mut self.ffi, &self.xcb_mod_prefix, &stru.name, number)?;
+        emit_opcode(&mut self.ffi, &self.xcb_mod_prefix, &stru.name, number)?;
 
         let fields = {
             let mut fields = vec![
@@ -1005,7 +1025,7 @@ impl CodeGen {
     }
 
     fn emit_error_copy(&mut self, name: &str, number: i32, error_ref: &str) -> io::Result<()> {
-        emit_error_code(&mut self.ffi, &self.xcb_mod_prefix, &name, number)?;
+        emit_opcode(&mut self.ffi, &self.xcb_mod_prefix, &name, number)?;
         let new_name = name.to_owned() + "Error";
         let old_name = error_ref.to_owned() + "Error";
 
@@ -1017,6 +1037,109 @@ impl CodeGen {
         let rs_typ = rust_type_name(&new_name);
 
         emit_rs_error(&mut self.rs, &new_ffi_typ, &rs_typ)?;
+
+        Ok(())
+    }
+
+    fn emit_event(
+        &mut self,
+        number: i32,
+        stru: &Struct,
+        no_seq_number: bool,
+        xge: bool,
+    ) -> io::Result<()> {
+        emit_opcode(&mut self.ffi, &self.xcb_mod_prefix, &stru.name, number)?;
+
+        let opcopies = self
+            .evcopies
+            .remove(&stru.name)
+            .expect("missing event copies");
+
+        let fields = {
+            let mut fields = vec![StructField::Field {
+                name: "response_type".into(),
+                typ: "CARD8".into(),
+                enu: None,
+            }];
+
+            let mut sz = 1; // response_type
+            let mut skip_fst = false;
+
+            if xge {
+                fields.push(StructField::Field {
+                    name: "extension".into(),
+                    typ: "CARD8".into(),
+                    enu: None,
+                });
+                fields.push(StructField::Field {
+                    name: "sequence".into(),
+                    typ: "CARD16".into(),
+                    enu: None,
+                });
+                fields.push(StructField::Field {
+                    name: "length".into(),
+                    typ: "CARD32".into(),
+                    enu: None,
+                });
+                fields.push(StructField::Field {
+                    name: "event_type".into(),
+                    typ: "CARD16".into(),
+                    enu: None,
+                });
+                sz += 9;
+            } else if !no_seq_number {
+                fields.push(stru.fields[0].clone());
+                skip_fst = true;
+                fields.push(StructField::Field {
+                    name: "sequence".into(),
+                    typ: "CARD16".into(),
+                    enu: None,
+                });
+            }
+
+            for f in stru.fields.iter() {
+                if skip_fst {
+                    skip_fst = false;
+                    continue;
+                }
+                fields.push(f.clone());
+                if xge && sz < 32 {
+                    sz += self
+                        .compute_ffi_struct_field_sizeof(&f)
+                        .expect(&format!("can't compute ffi full_sequence pos"));
+                    if sz == 32 {
+                        fields.push(StructField::Field {
+                            name: "full_sequence".into(),
+                            typ: "CARD32".into(),
+                            enu: None,
+                        });
+                        sz += 4;
+                    }
+                }
+            }
+            fields
+        };
+        let stru = Struct {
+            name: stru.name.clone() + "Event",
+            fields,
+            doc: stru.doc.clone(),
+        };
+
+        let ffi_typ = self.emit_ffi_struct(&stru)?;
+
+        for c in opcopies.iter() {
+            emit_opcode(&mut self.ffi, &self.xcb_mod_prefix, &c.name, c.number)?;
+            let new_name = c.name.to_owned() + "Event";
+
+            let new_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &new_name);
+            let old_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &stru.name);
+
+            emit_type_alias(&mut self.ffi, &new_ffi_typ, &old_ffi_typ)?;
+        }
+
+        let rs_typ = rust_type_name(&stru.name);
+
+        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, None);
 
         Ok(())
     }
@@ -1175,9 +1298,11 @@ fn ffi_type_name(xcb_mod_prefix: &str, typ: &str) -> String {
         "CARD8" => "u8".into(),
         "CARD16" => "u16".into(),
         "CARD32" => "u32".into(),
+        "CARD64" => "u64".into(),
         "INT8" => "i8".into(),
         "INT16" => "i16".into(),
         "INT32" => "i32".into(),
+        "INT64" => "i64".into(),
         "BYTE" => "u8".into(),
         "BOOL" => "u8".into(),
         "char" => "c_char".into(),
@@ -1279,7 +1404,7 @@ fn ffi_field_list_iterator_it_fn_name(xcb_mod_prefix: &str, typ_name: &str, fiel
     )
 }
 
-fn ffi_error_name(xcb_mod_prefix: &str, name: &str) -> String {
+fn ffi_opcode_name(xcb_mod_prefix: &str, name: &str) -> String {
     format!(
         "XCB_{}{}",
         xcb_mod_prefix.to_ascii_uppercase(),
@@ -1292,9 +1417,11 @@ fn rust_type_name(typ: &str) -> String {
         "CARD8" => "u8".into(),
         "CARD16" => "u16".into(),
         "CARD32" => "u32".into(),
+        "CARD64" => "u64".into(),
         "INT8" => "i8".into(),
         "INT16" => "i16".into(),
         "INT32" => "i32".into(),
+        "INT64" => "i64".into(),
         "BYTE" => "u8".into(),
         "BOOL" => "bool".into(),
         typ => tit_cap(typ),
@@ -1366,13 +1493,13 @@ fn emit_copy_clone<Out: Write>(out: &mut Out, typ: &str) -> io::Result<()> {
     Ok(())
 }
 
-fn emit_error_code<Out: Write>(
+fn emit_opcode<Out: Write>(
     out: &mut Out,
     xcb_mod_prefix: &str,
     name: &str,
     num: i32,
 ) -> io::Result<()> {
-    let err_name = ffi_error_name(&xcb_mod_prefix, &name);
+    let err_name = ffi_opcode_name(&xcb_mod_prefix, &name);
     let num_typ = if num < 0 { "i8" } else { "u8" };
     writeln!(out)?;
     writeln!(out, "pub const {}: {} = {};", &err_name, &num_typ, num)?;

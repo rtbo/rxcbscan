@@ -482,15 +482,18 @@ impl<B: BufRead> Parser<B> {
         Ok(Struct { name, fields, doc })
     }
 
-    fn parse_number_struct_ref(
+    fn parse_op_struct(
         &mut self,
         start: BytesStart,
         end_tag: &[u8],
-    ) -> Result<NumberStruct> {
-        let names: [&[u8]; 3] = [b"name", b"number", b"ref"];
-        let mut vals: [Option<String>; 3] = [None, None, None];
+    ) -> Result<OpStruct> {
+        let names: [&[u8]; 5] = [b"name", b"number", b"ref", b"no-sequence-number", b"xge"];
+        let mut vals: [Option<String>; 5] = [None, None, None, None, None];
         get_attributes(start.attributes(), &names, &mut vals)?;
-        let [name, number, ref_] = vals;
+        let [name, number, ref_, no_seq_number, xge] = vals;
+        // FIXME: check if true or false
+        let no_seq_number = no_seq_number.is_some();
+        let xge =  xge.is_some();
         match (name, number) {
             (Some(name), Some(number)) => {
                 let number = str::parse::<i32>(&number)
@@ -504,7 +507,7 @@ impl<B: BufRead> Parser<B> {
                 } else {
                     self.parse_struct(name, &end_tag)?
                 };
-                Ok(NumberStruct { number, stru, ref_ })
+                Ok(OpStruct { number, stru, ref_, no_seq_number, xge})
             }
             _ => Err(Error::Parse(format!(
                 "<{}> without name or number",
@@ -514,10 +517,12 @@ impl<B: BufRead> Parser<B> {
     }
 }
 
-struct NumberStruct {
+struct OpStruct {
     number: i32,
     stru: Struct,
     ref_: Option<String>,
+    no_seq_number: bool,
+    xge: bool,
 }
 
 impl<B: BufRead> Iterator for &mut Parser<B> {
@@ -548,12 +553,12 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                 }
                 b"error" => Some({
                     let start = e.to_owned();
-                    self.parse_number_struct_ref(start, b"")
+                    self.parse_op_struct(start, b"")
                         .map(|ns| Event::Error(ns.number, ns.stru))
                 }),
                 b"errorcopy" => Some({
                     let start = e.to_owned();
-                    let nsres = self.parse_number_struct_ref(start, b"");
+                    let nsres = self.parse_op_struct(start, b"");
                     if let Ok(ns) = nsres {
                         if ns.ref_.is_none() {
                             return Some(Err(Error::Parse("".into())));
@@ -572,7 +577,7 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                 }),
                 b"eventcopy" => Some({
                     let start = e.to_owned();
-                    let nsres = self.parse_number_struct_ref(start, b"");
+                    let nsres = self.parse_op_struct(start, b"");
                     if let Ok(ns) = nsres {
                         if ns.ref_.is_none() {
                             return Some(Err(Error::Parse("".into())));
@@ -611,13 +616,13 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                 })),
                 b"error" => Some({
                     let start = e.to_owned();
-                    self.parse_number_struct_ref(start, b"error")
+                    self.parse_op_struct(start, b"error")
                         .map(|ns| Event::Error(ns.number, ns.stru))
                 }),
                 b"event" => Some({
                     let start = e.to_owned();
-                    self.parse_number_struct_ref(start, b"event")
-                        .map(|ns| Event::Event(ns.number, ns.stru))
+                    self.parse_op_struct(start, b"event")
+                        .map(|OpStruct{number, stru, no_seq_number, xge, ..}| Event::Event{number, stru, no_seq_number, xge})
                 }),
                 b"request" => {
                     if let Err(err) = self.xml.read_to_end(b"request", &mut self.buf) {

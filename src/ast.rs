@@ -102,7 +102,12 @@ pub enum Event {
     Enum(Enum),
     Struct(Struct),
     Union(Struct),
-    Event(i32, Struct),
+    Event{
+        number: i32,
+        stru: Struct,
+        no_seq_number: bool,
+        xge: bool,
+    },
     EventCopy {
         name: String,
         number: i32,
