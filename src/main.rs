@@ -58,7 +58,7 @@ fn main() {
 
     for xml_file in iter_xml(&xml_dir) {
         process_xcb_gen(&xml_file, &out_dir, &rustfmt, &mut dep_info)
-            .unwrap_or_else(|_| panic!("Error during processing of {}", xml_file.display()));
+            .unwrap_or_else(|err| panic!("Error during processing of {}: {:?}", xml_file.display(), err));
     }
 
     #[cfg(target_os = "freebsd")]
@@ -183,7 +183,11 @@ fn process_xcb_gen(
 
         for i in imports.iter() {
             let xml_file = xml_file.with_file_name(&format!("{}.xml", i));
-            process_xcb_gen(&xml_file, out_dir, rustfmt, dep_info)?;
+
+            // panic also from here to have the correct xml_file reported
+            process_xcb_gen(&xml_file, out_dir, rustfmt, dep_info)
+                .unwrap_or_else(|err| panic!("Error during processing of {}: {:?}", xml_file.display(), err));
+
             let i = xcb_mod_map(i);
             deps.push(
                 dep_info

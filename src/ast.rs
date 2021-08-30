@@ -50,6 +50,8 @@ pub struct Enum {
 
 #[derive(Debug, Clone)]
 pub enum StructField {
+    Pad(usize),
+    AlignPad(usize),
     Field {
         name: String,
         typ: String,
@@ -64,8 +66,18 @@ pub enum StructField {
         name: String,
         typ: String,
     },
-    Pad(usize),
-    AlignPad(usize),
+    Expr {
+        name: String,
+        typ: String,
+        expr: Expr<usize>,
+    },
+    ValueParam {
+        mask_typ: String,
+        mask_name: String,
+        list_name: String,
+    },
+    Fd(String),
+    Switch,
 }
 
 #[derive(Debug, Clone)]
@@ -83,6 +95,21 @@ pub struct OpCopy {
 }
 
 pub type OpCopyMap = HashMap<String, Vec<OpCopy>>;
+
+#[derive(Debug, Clone)]
+pub struct Reply {
+    pub fields: Vec<StructField>,
+    pub doc: Option<Doc>,
+}
+
+#[derive(Debug, Clone)]
+pub struct Request {
+    pub name: String,
+    pub opcode: i32,
+    pub params: Vec<StructField>,
+    pub reply: Option<Reply>,
+    pub doc: Option<Doc>,
+}
 
 #[derive(Debug, Clone)]
 pub enum Event {
@@ -113,5 +140,6 @@ pub enum Event {
         number: i32,
         ref_: String,
     },
+    Request(Request),
     Ignore,
 }
