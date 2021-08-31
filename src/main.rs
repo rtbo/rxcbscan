@@ -206,7 +206,7 @@ fn process_xcb_gen(
     cg.prologue(&imports)?;
 
     for ev in events {
-        cg.event(&ev)?;
+        cg.event(ev)?;
     }
 
     cg.epilogue()?;
