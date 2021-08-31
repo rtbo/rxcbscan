@@ -200,15 +200,15 @@ impl CodeGen {
                 emit_type_alias(&mut self.rs, &rs_new_typ, &ffi_new_typ)?;
 
                 self.reg_type(
-                    newname.clone(),
+                    newname,
                     ffi_new_typ,
                     rs_new_typ,
                     self.ffi_type_sizeof(&oldname),
                     false,
                 )
             }
-            Event::XidType(name) => self.emit_xid(&name)?,
-            Event::XidUnion(xidun) => self.emit_xid(&xidun.name)?,
+            Event::XidType(name) => self.emit_xid(name)?,
+            Event::XidUnion(xidun) => self.emit_xid(xidun.name)?,
             Event::Enum(en) => {
                 // make owned string to pass into the closure
                 // otherwise borrow checker complains
@@ -237,19 +237,21 @@ impl CodeGen {
                     }),
                     &en.doc,
                 )?;
-                self.reg_type(en.name.clone(), ffi_typ, rs_typ, Some(4), false);
+                self.reg_type(en.name, ffi_typ, rs_typ, Some(4), false);
             }
-            Event::Struct(stru) => self.emit_struct(&stru)?,
-            Event::Union(stru) => self.emit_union(&stru)?,
-            Event::Error(number, stru) => self.emit_error(number, &stru)?,
-            Event::ErrorCopy { name, number, ref_ } => self.emit_error_copy(&name, number, &ref_)?,
+            Event::Struct(stru) => self.emit_struct(stru)?,
+            Event::Union(stru) => self.emit_union(stru)?,
+            Event::Error(number, stru) => self.emit_error(number, stru)?,
+            Event::ErrorCopy { name, number, ref_ } => {
+                self.emit_error_copy(&name, number, &ref_)?
+            }
             Event::Event {
                 number,
                 stru,
                 no_seq_number,
                 xge,
                 ..
-            } => self.emit_event(number, &stru, no_seq_number, xge)?,
+            } => self.emit_event(number, stru, no_seq_number, xge)?,
             _ => {}
         }
         Ok(())
@@ -1214,19 +1216,19 @@ impl CodeGen {
         Ok(rs_typ)
     }
 
-    fn emit_xid(&mut self, name: &str) -> io::Result<()> {
-        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, name);
+    fn emit_xid(&mut self, name: String) -> io::Result<()> {
+        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &name);
         emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
-        self.emit_ffi_iterator(name, &ffi_typ, false)?;
+        self.emit_ffi_iterator(&name, &ffi_typ, false)?;
 
-        let rs_typ = rust_type_name(name);
+        let rs_typ = rust_type_name(&name);
         emit_type_alias(&mut self.rs, &rs_typ, &ffi_typ)?;
 
-        self.reg_type(name.into(), ffi_typ, rs_typ, Some(4), false);
+        self.reg_type(name, ffi_typ, rs_typ, Some(4), false);
         Ok(())
     }
 
-    fn emit_struct(&mut self, stru: &Struct) -> io::Result<()> {
+    fn emit_struct(&mut self, stru: Struct) -> io::Result<()> {
         let has_lifetime = self.type_has_lifetime(&stru);
         if has_lifetime {
             self.typ_with_lifetime.insert(stru.name.clone());
@@ -1239,12 +1241,12 @@ impl CodeGen {
         self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, has_lifetime, false)?;
 
         let stru_sz = self.compute_ffi_struct_size(&stru);
-        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, stru_sz, false);
+        self.reg_type(stru.name, ffi_typ, rs_typ, stru_sz, false);
 
         Ok(())
     }
 
-    fn emit_union(&mut self, stru: &Struct) -> io::Result<()> {
+    fn emit_union(&mut self, stru: Struct) -> io::Result<()> {
         let ffi_sz = self.compute_ffi_union_size(&stru);
         let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &stru.name);
 
@@ -1279,12 +1281,12 @@ impl CodeGen {
 
         self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, false, true)?;
 
-        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, Some(ffi_sz), true);
+        self.reg_type(stru.name, ffi_typ, rs_typ, Some(ffi_sz), true);
 
         Ok(())
     }
 
-    fn emit_error(&mut self, number: i32, stru: &Struct) -> io::Result<()> {
+    fn emit_error(&mut self, number: i32, stru: Struct) -> io::Result<()> {
         emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &stru.name, number)?;
 
         let fields = {
@@ -1305,15 +1307,15 @@ impl CodeGen {
                     enu: None,
                 },
             ];
-            for f in stru.fields.iter() {
-                fields.push(f.clone());
+            for f in stru.fields.into_iter() {
+                fields.push(f);
             }
             fields
         };
         let stru = Struct {
-            name: stru.name.clone() + "Error",
+            name: stru.name + "Error",
             fields,
-            doc: stru.doc.clone(),
+            doc: stru.doc,
         };
 
         let ffi_typ = self.emit_ffi_struct(&stru)?;
@@ -1322,7 +1324,7 @@ impl CodeGen {
 
         emit_rs_error(&mut self.rs, &ffi_typ, &rs_typ)?;
 
-        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, None, false);
+        self.reg_type(stru.name, ffi_typ, rs_typ, None, false);
 
         Ok(())
     }
@@ -1347,7 +1349,7 @@ impl CodeGen {
     fn emit_event(
         &mut self,
         number: i32,
-        stru: &Struct,
+        stru: Struct,
         no_seq_number: bool,
         xge: bool,
     ) -> io::Result<()> {
@@ -1358,7 +1360,7 @@ impl CodeGen {
             .remove(&stru.name)
             .expect("missing event copies");
 
-        let name = &stru.name;
+        let Struct{name: orig_name, fields: mut orig_fields, doc} = stru;
 
         let fields = {
             let mut fields = vec![StructField::Field {
@@ -1367,8 +1369,7 @@ impl CodeGen {
                 enu: None,
             }];
 
-            let mut sz = 1; // response_type
-            let mut skip_fst = false;
+            let mut sz = 1; // response_type size
 
             if xge {
                 fields.push(StructField::Field {
@@ -1393,8 +1394,7 @@ impl CodeGen {
                 });
                 sz += 9;
             } else if !no_seq_number {
-                fields.push(stru.fields[0].clone());
-                skip_fst = true;
+                fields.push(orig_fields.remove(0));
                 fields.push(StructField::Field {
                     name: "sequence".into(),
                     typ: "CARD16".into(),
@@ -1402,16 +1402,12 @@ impl CodeGen {
                 });
             }
 
-            for f in stru.fields.iter() {
-                if skip_fst {
-                    skip_fst = false;
-                    continue;
-                }
-                fields.push(f.clone());
+            for f in orig_fields.into_iter() {
                 if xge && sz < 32 {
                     sz += self
                         .compute_ffi_struct_field_sizeof(&f)
                         .expect(&format!("can't compute ffi full_sequence pos"));
+                    fields.push(f);
                     if sz == 32 {
                         fields.push(StructField::Field {
                             name: "full_sequence".into(),
@@ -1420,14 +1416,16 @@ impl CodeGen {
                         });
                         sz += 4;
                     }
+                } else {
+                    fields.push(f);
                 }
             }
             fields
         };
         let stru = Struct {
-            name: stru.name.clone() + "Event",
+            name: orig_name.clone() + "Event",
             fields,
-            doc: stru.doc.clone(),
+            doc,
         };
 
         let ffi_typ = self.emit_ffi_struct(&stru)?;
@@ -1443,9 +1441,9 @@ impl CodeGen {
             emit_type_alias(&mut self.ffi, &new_ffi_typ, &old_ffi_typ)?;
         }
 
-        let rs_typ = self.emit_rs_event(&name, number, &stru, &ffi_typ, &opcopies, xge)?;
+        let rs_typ = self.emit_rs_event(&orig_name, number, &stru, &ffi_typ, &opcopies, xge)?;
 
-        self.reg_type(stru.name.clone(), ffi_typ, rs_typ, ffi_sz, false);
+        self.reg_type(stru.name, ffi_typ, rs_typ, ffi_sz, false);
 
         Ok(())
     }
