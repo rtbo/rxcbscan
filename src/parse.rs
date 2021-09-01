@@ -197,16 +197,27 @@ impl<B: BufRead> Parser<B> {
                     b"brief" => {
                         brief = self.expect_text_trim(b"brief")?;
                     }
+                    b"description" => {
+                        text = self.expect_text_trim(b"description")?;
+                    }
                     b"field" => {
                         let name = expect_attribute(e.attributes(), b"name")?;
                         let text = self.expect_text_trim(b"field")?;
                         fields.push(DocField { name, text });
                     }
+                    b"error" => {
+                        self.xml.read_to_end(b"error", &mut self.buf)?;
+                    }
+                    b"example" => {
+                        self.xml.read_to_end(b"example", &mut self.buf)?;
+                    }
+                    b"see" => {
+                        self.xml.read_to_end(b"see", &mut self.buf)?;
+                    }
                     _ => {}
                 },
-                Ok(XmlEv::Text(txt) | XmlEv::CData(txt)) => {
-                    let txt = txt.unescaped()?;
-                    text.push_str(str::from_utf8(&txt)?);
+                Ok(XmlEv::Text(_) | XmlEv::CData(_)) => {
+                    return Err(Error::Parse("Unexpected doc text out of element".into()));
                 }
                 Ok(XmlEv::End(ref e)) => {
                     if e.name() == b"doc" {
@@ -615,7 +626,7 @@ impl<B: BufRead> Parser<B> {
         }
     }
 
-    fn parse_request(&mut self, start: BytesStart) -> Result<Request> {
+    fn parse_request(&mut self, start: BytesStart, is_empty: bool) -> Result<Request> {
         let names: [&[u8]; 2] = [b"name", b"opcode"];
         let mut vals: [Option<String>; 2] = [None, None];
         get_attributes(start.attributes(), &names, &mut vals)?;
@@ -629,14 +640,24 @@ impl<B: BufRead> Parser<B> {
         let opcode = opcode.unwrap();
         let opcode: i32 = str::parse(&opcode)
             .map_err(|_| Error::Parse(format!("cannot parse {} as int", &opcode)))?;
-        let StructContent { fields, doc, reply } = self.parse_struct_content(b"request")?;
-        Ok(Request {
-            name,
-            opcode,
-            params: fields,
-            doc,
-            reply,
-        })
+        if is_empty {
+            Ok(Request {
+                name,
+                opcode,
+                params: Vec::new(),
+                doc: None,
+                reply: None,
+            })
+        } else {
+            let StructContent { fields, doc, reply } = self.parse_struct_content(b"request")?;
+            Ok(Request {
+                name,
+                opcode,
+                params: fields,
+                doc,
+                reply,
+            })
+        }
     }
 }
 
@@ -723,6 +744,10 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                         Err(Error::Parse("<errorcopy> without ref attribute".into()))
                     }
                 }),
+                b"request" => {
+                    let start = e.to_owned();
+                    Some(self.parse_request(start, true).map(|req| Event::Request(req)))
+                }
                 _ => Some(Ok(Event::Ignore)),
             },
             Ok(XmlEv::Start(ref e)) => match e.name() {
@@ -767,7 +792,7 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                 }),
                 b"request" => {
                     let start = e.to_owned();
-                    Some(self.parse_request(start).map(|req| Event::Request(req)))
+                    Some(self.parse_request(start, false).map(|req| Event::Request(req)))
                 }
                 _ => Some(Ok(Event::Ignore)),
             },
