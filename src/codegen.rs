@@ -311,9 +311,7 @@ impl CodeGen {
             "BOOL" => true,
             "char" => true,
             "void" => true,
-            typ => {
-                self.typ_simple.contains(typ)
-            }
+            typ => self.typ_simple.contains(typ),
         }
     }
 
@@ -524,10 +522,19 @@ impl CodeGen {
         Ok(it_typ)
     }
 
-    fn emit_ffi_field_list_accessors(&mut self, ffi_typ: &str, xcb_name: &str, fields: &[StructField]) -> io::Result<()> {
+    fn emit_ffi_field_list_accessors(
+        &mut self,
+        ffi_typ: &str,
+        xcb_name: &str,
+        fields: &[StructField],
+    ) -> io::Result<()> {
         for f in fields {
             match f {
-                StructField::List { name, typ, len_expr } => {
+                StructField::List {
+                    name,
+                    typ,
+                    len_expr,
+                } => {
                     let fixed_size = self.ffi_type_sizeof(&typ).is_some();
                     let fixed_len = expr_fixed_length(&len_expr).is_some();
 
@@ -1354,7 +1361,7 @@ impl CodeGen {
         Ok(())
     }
 
-    fn emit_reply(&mut self, req_name: &str, mut reply: Reply) -> io::Result<()> {
+    fn emit_ffi_reply(&mut self, req_name: &str, mut reply: Reply) -> io::Result<()> {
         // writting cookie struct
         let cookie_name = req_name.to_string() + "Cookie";
         let cookie_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &cookie_name);
@@ -1389,25 +1396,6 @@ impl CodeGen {
         let ffi_reply_typ = self.emit_ffi_struct(&reply)?;
 
         self.emit_ffi_field_list_accessors(&ffi_reply_typ, &req_name, &reply.fields)?;
-        // for f in reply.fields.iter() {
-        //     let out = &mut self.ffi_buf;
-        //     match f {
-        //         StructField::List {name, typ, ..} => {
-        //             let acc_name = ffi_field_list_iterator_acc_fn_name(&self.xcb_mod_prefix, &req_name, &name);
-        //             let len_name = ffi_field_list_iterator_len_fn_name(&self.xcb_mod_prefix, &req_name, &name);
-        //             let end_name = ffi_field_list_iterator_end_fn_name(&self.xcb_mod_prefix, &req_name, &name);
-        //             let typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, typ);
-
-        //             writeln!(out)?;
-        //             writeln!(out, "    pub fn {}(R: *const {}) -> *mut {};", &acc_name, &ffi_reply_typ, &typ)?;
-        //             writeln!(out)?;
-        //             writeln!(out, "    pub fn {}(R: *const {}) -> c_int;", &len_name, &ffi_reply_typ)?;
-        //             writeln!(out)?;
-        //             writeln!(out, "    pub fn {}(R: *const {}) -> xcb_generic_iterator_t;", &end_name, &ffi_reply_typ)?;
-        //         }
-        //         _ => {}
-        //     }
-        // }
 
         {
             let ffi_reply_fn = ffi_reply_fn_name(&self.xcb_mod_prefix, &req_name);
@@ -1423,6 +1411,124 @@ impl CodeGen {
             writeln!(out, "        error: *mut *mut xcb_generic_error_t,")?;
             writeln!(out, "    ) -> *mut {};", &ffi_reply_typ)?;
         }
+
+        Ok(())
+    }
+
+    fn emit_rs_req_fn(
+        &mut self,
+        req_name: &str,
+        cookie_name: &str,
+        params: &[StructField],
+        doc: &Option<Doc>,
+        checked: bool,
+    ) -> io::Result<()> {
+        let out = &mut self.rs_buf;
+
+        writeln!(out)?;
+        emit_doc_text(out, &doc)?;
+        if let Some(_) = &doc {
+            writeln!(out, "///")?;
+            writeln!(out, "/// parameters:")?;
+            writeln!(out, "///")?;
+            writeln!(out, "///   - __c__:")?;
+            writeln!(out, "///       The connection object to the server")?;
+            for f in params.iter() {
+                if let Some(name) = rust_field_doc_name(&f) {
+                    writeln!(out, "///")?;
+                    writeln!(out, "///   - __{}__:", &name)?;
+                    emit_doc_field_indent(out, &doc, name, "       ")?;
+                }
+            }
+        }
+        let fn_name = rust_request_fn_name(&req_name);
+        let ffi_fn_name = ffi_request_fn_name(&self.xcb_mod_prefix, &req_name);
+        writeln!(out, "pub fn {}<'a>(", &fn_name)?;
+        writeln!(out, "    c: &'a base::Connection,")?;
+        for f in params.iter() {
+            match f {
+                StructField::Field { name, typ, .. } => {
+                    let name = symbol(&name);
+                    let typ = rust_field_type_name(&self.xcb_mod, &typ);
+                    writeln!(out, "    {}: {},", name, typ)?;
+                }
+                StructField::ValueParam {
+                    list_name,
+                    mask_typ,
+                    ..
+                } => {
+                    let name = symbol(&list_name);
+                    let typ = rust_field_type_name(&self.xcb_mod, &mask_typ);
+                    writeln!(out, "    {}: &[({}, u32)],", &name, &typ)?;
+                }
+                _ => {}
+            }
+        }
+        writeln!(out, ") -> {}<'a> {{", cookie_name)?;
+        writeln!(out, "    unsafe {{")?;
+        for f in params.iter() {
+            match f {
+                StructField::ValueParam { list_name, .. } => {
+                    let list_sym = symbol(&list_name);
+                    writeln!(
+                        out,
+                        "        let mut {}_copy = {}.to_vec();",
+                        &list_name, &list_sym
+                    )?;
+                    writeln!(
+                        out,
+                        "        let ({}_mask, {}_vec) = base::pack_bitfield(&mut {}_copy);",
+                        &list_name, &list_name, &list_name
+                    )?;
+                    writeln!(
+                        out,
+                        "        let {}_ptr = {}_vec.as_ptr();",
+                        &list_name, &list_name
+                    )?;
+                }
+                _ => {}
+            }
+        }
+        writeln!(out, "        let cookie = {}(", &ffi_fn_name)?;
+        writeln!(out, "            c.get_raw_conn(),")?;
+        let mut ind = 0;
+        for f in params.iter() {
+            match f {
+                StructField::Field { name, typ, .. } => {
+                    let name = symbol(&name);
+                    let ffi_typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
+                    writeln!(out, "            {} as {}, // {}", name, ffi_typ, ind)?;
+                    ind += 1;
+                }
+                StructField::ValueParam {
+                    list_name,
+                    mask_typ,
+                    ..
+                } => {
+                    let typ = rust_field_type_name(&self.xcb_mod, &mask_typ);
+                    writeln!(
+                        out,
+                        "            {}_mask as {}, // {}",
+                        &list_name, &typ, ind
+                    )?;
+                    writeln!(out, "             {}_ptr as *const u32,", &list_name)?;
+                    ind += 1;
+                }
+                _ => {}
+            }
+        }
+        writeln!(out, "        ); // {}", ind)?; // ind here is actually a bug in the python script
+        writeln!(out, "        {} {{", cookie_name)?;
+        writeln!(out, "            cookie: cookie,")?;
+        writeln!(out, "            conn: c,")?;
+        writeln!(
+            out,
+            "            checked: {},",
+            if checked { "true" } else { "false" }
+        )?;
+        writeln!(out, "        }}")?;
+        writeln!(out, "    }}")?;
+        writeln!(out, "}}")?;
 
         Ok(())
     }
@@ -1500,6 +1606,8 @@ impl CodeGen {
     fn emit_error(&mut self, number: i32, stru: Struct) -> io::Result<()> {
         emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &stru.name, number)?;
 
+        emit_rs_opcode(&mut self.rs_buf, &stru.name, number)?;
+
         let fields = {
             let mut fields = vec![
                 StructField::Field {
@@ -1553,6 +1661,7 @@ impl CodeGen {
         let rs_typ = rust_type_name(&new_name);
 
         emit_rs_error(&mut self.rs, &new_ffi_typ, &rs_typ)?;
+        emit_rs_opcode(&mut self.rs_buf, &name, number)?;
 
         Ok(())
     }
@@ -1663,7 +1772,7 @@ impl CodeGen {
         Ok(())
     }
 
-    fn emit_request(&mut self, req: Request) -> io::Result<()> {
+    fn emit_request(&mut self, mut req: Request) -> io::Result<()> {
         emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &req.name, req.opcode)?;
 
         let fields = {
@@ -1702,23 +1811,32 @@ impl CodeGen {
         let stru = Struct {
             name: req.name.clone() + "Request",
             fields,
-            doc: req.doc,
+            doc: req.doc.clone(),
         };
         self.emit_ffi_struct(&stru)?;
 
         let void = req.reply.is_none();
-        let (cookie_name, check_name) = if void {
-            ("VoidCookie".to_string(), req.name.clone() + "Checked")
+        let (ffi_cookie, check_name, checked) = if void {
+            ("VoidCookie".to_string(), req.name.clone() + "Checked", true)
         } else {
-            (req.name.clone() + "Cookie", req.name.clone() + "Unchecked")
+            (
+                req.name.clone() + "Cookie",
+                req.name.clone() + "Unchecked",
+                false,
+            )
         };
 
-        if let Some(reply) = req.reply {
-            self.emit_reply(&req.name, reply)?;
+        let rs_cookie = if ffi_cookie == "VoidCookie" { "base::VoidCookie" } else { &ffi_cookie };
+        emit_rs_opcode(&mut self.rs_buf, &req.name, req.opcode)?;
+        self.emit_rs_req_fn(&req.name, &rs_cookie, &req.params, &stru.doc, !checked)?;
+        self.emit_rs_req_fn(&check_name, &rs_cookie, &req.params, &stru.doc, checked)?;
+
+        if let Some(reply) = req.reply.take() {
+            self.emit_ffi_reply(&req.name, reply)?;
         }
 
-        self.emit_ffi_req_fn(&req.name, &cookie_name, &req.params, &stru.doc)?;
-        self.emit_ffi_req_fn(&check_name, &cookie_name, &req.params, &stru.doc)?;
+        self.emit_ffi_req_fn(&req.name, &ffi_cookie, &req.params, &stru.doc)?;
+        self.emit_ffi_req_fn(&check_name, &ffi_cookie, &req.params, &stru.doc)?;
 
         Ok(())
     }
@@ -2051,6 +2169,17 @@ fn rust_field_type_name(xcb_mod: &str, typ: &str) -> String {
     qualified_name(&xcb_mod, &module, &typ)
 }
 
+fn rust_field_doc_name(f: &StructField) -> Option<&str> {
+    match f {
+        StructField::Field { name, .. } => Some(symbol(name)),
+        StructField::List { name, .. } => Some(symbol(name)),
+        StructField::ListNoLen { name, .. } => Some(symbol(name)),
+        StructField::Fd(name) => Some(symbol(name)),
+        StructField::ValueParam { list_name, .. } => Some(symbol(list_name)),
+        _ => None,
+    }
+}
+
 fn rust_enum_item_name(name: &str, item: &str) -> String {
     format!("{}_{}", tit_split(name), tit_split(item)).to_ascii_uppercase()
 }
@@ -2059,33 +2188,43 @@ fn rust_opname(name: &str) -> String {
     tit_split(&name).to_ascii_uppercase()
 }
 
+fn rust_request_fn_name(name: &str) -> String {
+    let fn_name = tit_split(&name).to_ascii_lowercase();
+    match fn_name.as_str() {
+        "await" => "await_".into(),
+        _ => fn_name,
+    }
+}
+
 fn emit_type_alias<Out: Write>(out: &mut Out, new_typ: &str, old_typ: &str) -> io::Result<()> {
     writeln!(out)?;
     writeln!(out, "pub type {} = {};", new_typ, old_typ)?;
     Ok(())
 }
 
-fn emit_doc_str<Out: Write>(out: &mut Out, docstr: &str) -> io::Result<()> {
+fn emit_doc_str<Out: Write>(out: &mut Out, docstr: &str, indent: &str) -> io::Result<()> {
     if !docstr.is_empty() {
-        let strvec: Vec<String> = docstr.split('\n').map(|l| "/// ".to_owned() + l).collect();
-        let mut docstr = strvec.join("\n");
-        docstr.push('\n');
-        out.write_all(docstr.as_bytes())
-    } else {
-        Ok(())
+        let strvec: Vec<String> = docstr
+            .split('\n')
+            .map(|l| format!("///{}{}", indent, l))
+            .collect();
+        for s in strvec {
+            writeln!(out, "{}", s.trim_end())?;
+        }
     }
+    Ok(())
 }
 
 fn emit_doc_text<Out: Write>(out: &mut Out, doc: &Option<Doc>) -> io::Result<()> {
     if let Some(doc) = doc {
         if !doc.brief.is_empty() {
-            emit_doc_str(out, &doc.brief)?;
+            emit_doc_str(out, &doc.brief, " ")?;
         }
         if !doc.brief.is_empty() && !doc.text.is_empty() {
             writeln!(out, "///")?;
         }
         if !doc.text.is_empty() {
-            emit_doc_str(out, &doc.text)?;
+            emit_doc_str(out, &doc.text, " ")?;
         }
     }
     Ok(())
@@ -2094,7 +2233,21 @@ fn emit_doc_text<Out: Write>(out: &mut Out, doc: &Option<Doc>) -> io::Result<()>
 fn emit_doc_field<Out: Write>(out: &mut Out, doc: &Option<Doc>, field: &str) -> io::Result<()> {
     if let Some(doc) = doc {
         if let Some(f) = doc.fields.iter().find(|f| f.name == field) {
-            emit_doc_str(out, &f.text)?;
+            emit_doc_str(out, &f.text, " ")?;
+        }
+    }
+    Ok(())
+}
+
+fn emit_doc_field_indent<Out: Write>(
+    out: &mut Out,
+    doc: &Option<Doc>,
+    field: &str,
+    indent: &str,
+) -> io::Result<()> {
+    if let Some(doc) = doc {
+        if let Some(f) = doc.fields.iter().find(|f| f.name == field) {
+            emit_doc_str(out, &f.text, indent)?;
         }
     }
     Ok(())
@@ -2120,6 +2273,16 @@ fn emit_ffi_opcode<Out: Write>(
     let num_typ = if num < 0 { "i8" } else { "u8" };
     writeln!(out)?;
     writeln!(out, "pub const {}: {} = {};", &op_name, &num_typ, num)?;
+    Ok(())
+}
+
+fn emit_rs_opcode<Out: Write>(out: &mut Out, name: &str, opcode: i32) -> io::Result<()> {
+    let opname = rust_opname(&name);
+    let num_typ = if opcode < 0 { "i8" } else { "u8" };
+
+    writeln!(out)?;
+    writeln!(out, "pub const {}: {} = {};", &opname, &num_typ, opcode)?;
+
     Ok(())
 }
 
