@@ -899,7 +899,7 @@ impl CodeGen {
                         writeln!(out, "        }}")?;
                         writeln!(out, "    }}")?;
                     } else {
-                        let has_lifetime = self.typ_with_lifetime.contains(typ);
+                        let has_lifetime = has_lifetime && self.typ_with_lifetime.contains(typ);
                         let lifetime = if has_lifetime { "<'a>" } else { "" };
                         let it_typ = rust_iterator_type_name(&typ);
                         let ffi_it_fn_name = ffi_field_list_iterator_it_fn_name(
@@ -1623,9 +1623,13 @@ impl CodeGen {
                     if skip_fields.contains(&name) {
                         continue;
                     }
-                    let name = symbol(&name);
+                    let mut name = symbol(&name).to_string();
                     let ffi_typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
-                    writeln!(out, "            {} as {},", name, ffi_typ)?;
+
+                    if let Some(lf) = list_fields.iter().find(|lf| lf.lenfield == name) {
+                        name = lf.name.clone() + "_len";
+                    }
+                    writeln!(out, "            {} as {},", &name, &ffi_typ)?;
                 }
                 StructField::List { name, typ, .. } => {
                     if send_event && name == "event" {
@@ -1636,6 +1640,12 @@ impl CodeGen {
                             ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
                         writeln!(out, "            {}_ptr as *const {},", &name, &ffi_typ)?;
                     }
+                }
+                StructField::ListNoLen { name, typ } => {
+                    let name = symbol(&name);
+                    let ffi_typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
+                    writeln!(out, "            {}_len as u32,", &name)?;
+                    writeln!(out, "            {}_ptr as *const {},", &name, &ffi_typ)?;
                 }
                 StructField::ValueParam {
                     list_name,
@@ -2599,6 +2609,7 @@ struct ListField {
     name: String,
     typ: String,
     lenfield: String,
+    // lenfield_typ: String,
 }
 
 impl ListField {
@@ -2616,12 +2627,37 @@ impl ListField {
                         let name = name.clone();
                         let typ = typ.clone();
                         let lenfield = lenfield.to_string();
+                        // let lenfield_typ = fields
+                        //     .iter()
+                        //     .find_map(|f| match f {
+                        //         StructField::Field { name, typ, .. } => {
+                        //             if name == &lenfield {
+                        //                 Some(typ.clone())
+                        //             } else {
+                        //                 None
+                        //             }
+                        //         }
+                        //         _ => None,
+                        //     })
+                        //     .expect("can't find lenfield type");
                         res.push(ListField {
                             name,
                             typ,
                             lenfield,
+                            // lenfield_typ,
                         });
                     }
+                }
+                StructField::ListNoLen { name, typ } => {
+                    let name = name.clone();
+                    let typ = typ.clone();
+                    let lenfield = name.clone() + "_len";
+                    res.push(ListField {
+                        name,
+                        typ,
+                        lenfield,
+                        // lenfield_typ: "CARD32".to_string(),
+                    });
                 }
                 _ => {}
             }
