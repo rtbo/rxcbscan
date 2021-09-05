@@ -1492,14 +1492,23 @@ impl CodeGen {
         }
         writeln!(out, "        let cookie = {}(", &ffi_fn_name)?;
         writeln!(out, "            c.get_raw_conn(),")?;
-        let mut ind = 0;
+        // FIXME: ind and pos only to have diff identical comments and not useful otherwise
+        // should be removed before merging once tests are passed
+        let mut ind = 0usize;
+        let mut pos = 0;
         for f in params.iter() {
+            let is_last = ind == params.len();
+            let pos_str = if is_last {
+                format!(" // {}", pos)
+            } else {
+                String::new()
+            };
             match f {
                 StructField::Field { name, typ, .. } => {
                     let name = symbol(&name);
                     let ffi_typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
-                    writeln!(out, "            {} as {}, // {}", name, ffi_typ, ind)?;
-                    ind += 1;
+                    writeln!(out, "            {} as {},{}", name, ffi_typ, &pos_str)?;
+                    pos += 1;
                 }
                 StructField::ValueParam {
                     list_name,
@@ -1509,14 +1518,15 @@ impl CodeGen {
                     let typ = rust_field_type_name(&self.xcb_mod, &mask_typ);
                     writeln!(
                         out,
-                        "            {}_mask as {}, // {}",
-                        &list_name, &typ, ind
+                        "            {}_mask as {},{}",
+                        &list_name, &typ, &pos_str
                     )?;
                     writeln!(out, "             {}_ptr as *const u32,", &list_name)?;
-                    ind += 1;
+                    pos += 1;
                 }
                 _ => {}
             }
+            ind += 1;
         }
         writeln!(out, "        ); // {}", ind)?; // ind here is actually a bug in the python script
         writeln!(out, "        {} {{", cookie_name)?;
@@ -1534,7 +1544,12 @@ impl CodeGen {
         Ok(())
     }
 
-    fn emit_rs_reply(&mut self, req_name: &str, cookie_ffi_typ: &str, reply: Reply) -> io::Result<()> {
+    fn emit_rs_reply(
+        &mut self,
+        req_name: &str,
+        cookie_ffi_typ: &str,
+        reply: Reply,
+    ) -> io::Result<()> {
         let out = &mut self.rs_buf;
         writeln!(out, "impl base::CookieSeq for {} {{", &cookie_ffi_typ)?;
         writeln!(out, "    fn sequence(&self) -> c_uint {{")?;
