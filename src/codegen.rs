@@ -679,6 +679,7 @@ impl CodeGen {
                     if written_fields.contains(&mask_name.as_str()) {
                         continue;
                     }
+                    emit_doc_field(out, &doc, &mask_name)?;
                     writeln!(
                         out,
                         "    pub {}: {},",
@@ -1826,7 +1827,11 @@ impl CodeGen {
             )
         };
 
-        let rs_cookie = if ffi_cookie == "VoidCookie" { "base::VoidCookie" } else { &ffi_cookie };
+        let rs_cookie = if ffi_cookie == "VoidCookie" {
+            "base::VoidCookie"
+        } else {
+            &ffi_cookie
+        };
         emit_rs_opcode(&mut self.rs_buf, &req.name, req.opcode)?;
         self.emit_rs_req_fn(&req.name, &rs_cookie, &req.params, &stru.doc, !checked)?;
         self.emit_rs_req_fn(&check_name, &rs_cookie, &req.params, &stru.doc, checked)?;
@@ -2203,16 +2208,23 @@ fn emit_type_alias<Out: Write>(out: &mut Out, new_typ: &str, old_typ: &str) -> i
 }
 
 fn emit_doc_str<Out: Write>(out: &mut Out, docstr: &str, indent: &str) -> io::Result<()> {
+    let mut wrote = false;
     if !docstr.is_empty() {
-        let strvec: Vec<String> = docstr
-            .split('\n')
-            .map(|l| format!("///{}{}", indent, l))
-            .collect();
-        for s in strvec {
-            writeln!(out, "{}", s.trim_end())?;
+        for s in docstr.split('\n') {
+            let s = s.trim_end();
+            if !s.is_empty() {
+                writeln!(out, "///{}{}", indent, s.trim_end())?;
+            } else {
+                writeln!(out, "///")?;
+            }
+            wrote = true;
         }
     }
-    Ok(())
+    if !wrote {
+        writeln!(out, "///")
+    } else {
+        Ok(())
+    }
 }
 
 fn emit_doc_text<Out: Write>(out: &mut Out, doc: &Option<Doc>) -> io::Result<()> {
@@ -2233,10 +2245,14 @@ fn emit_doc_text<Out: Write>(out: &mut Out, doc: &Option<Doc>) -> io::Result<()>
 fn emit_doc_field<Out: Write>(out: &mut Out, doc: &Option<Doc>, field: &str) -> io::Result<()> {
     if let Some(doc) = doc {
         if let Some(f) = doc.fields.iter().find(|f| f.name == field) {
-            emit_doc_str(out, &f.text, " ")?;
+            emit_doc_str(out, &f.text, " ")
+        } else {
+            //writeln!(out, "///")
+            Ok(())
         }
+    } else {
+        Ok(())
     }
-    Ok(())
 }
 
 fn emit_doc_field_indent<Out: Write>(

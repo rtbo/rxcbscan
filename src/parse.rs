@@ -216,6 +216,13 @@ impl<B: BufRead> Parser<B> {
                     }
                     _ => {}
                 },
+                Ok(XmlEv::Empty(ref e)) => match e.name() {
+                    b"field" => {
+                        let name = expect_attribute(e.attributes(), b"name")?;
+                        fields.push(DocField { name, text: String::new() });
+                    }
+                    _ => {}
+                }
                 Ok(XmlEv::Text(_) | XmlEv::CData(_)) => {
                     return Err(Error::Parse("Unexpected doc text out of element".into()));
                 }
