@@ -1362,7 +1362,7 @@ impl CodeGen {
         Ok(())
     }
 
-    fn emit_ffi_reply(&mut self, req_name: &str, reply: &mut Reply) -> io::Result<()> {
+    fn emit_ffi_reply(&mut self, req_name: &str, mut reply: Reply) -> io::Result<String> {
         // writting cookie struct
         let cookie_name = req_name.to_string() + "Cookie";
         let cookie_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &cookie_name);
@@ -1413,7 +1413,7 @@ impl CodeGen {
             writeln!(out, "    ) -> *mut {};", &ffi_reply_typ)?;
         }
 
-        Ok(())
+        Ok(cookie_ffi_typ)
     }
 
     fn emit_rs_req_fn(
@@ -1534,7 +1534,14 @@ impl CodeGen {
         Ok(())
     }
 
-    fn emit_rs_reply(&mut self, req_name: &str, reply: &mut Reply) -> io::Result<()> {
+    fn emit_rs_reply(&mut self, req_name: &str, cookie_ffi_typ: &str, reply: Reply) -> io::Result<()> {
+        let out = &mut self.rs_buf;
+        writeln!(out, "impl base::CookieSeq for {} {{", &cookie_ffi_typ)?;
+        writeln!(out, "    fn sequence(&self) -> c_uint {{")?;
+        writeln!(out, "        self.sequence")?;
+        writeln!(out, "    }}")?;
+        writeln!(out, "}}")?;
+
         Ok(())
     }
 
@@ -1841,8 +1848,8 @@ impl CodeGen {
         self.emit_rs_req_fn(&check_name, &rs_cookie, &req.params, &stru.doc, checked)?;
 
         if let Some(reply) = req.reply.take() {
-            self.emit_ffi_reply(&req.name, &mut reply)?;
-            self.emit_rs_reply(&req.name, &mut reply)?;
+            let cookie_ffi_typ = self.emit_ffi_reply(&req.name, reply.clone())?;
+            self.emit_rs_reply(&req.name, &cookie_ffi_typ, reply)?;
         }
 
         self.emit_ffi_req_fn(&req.name, &ffi_cookie, &req.params, &stru.doc)?;
