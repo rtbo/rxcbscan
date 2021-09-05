@@ -812,7 +812,11 @@ impl CodeGen {
                         if typ == "BOOL" {
                             writeln!(out, "        unsafe {{ {}.{} != 0 }}", &accessor, &name)?;
                         } else if is_pod && !is_simple {
-                            writeln!(out, "        unsafe {{ std::mem::transmute({}.{}) }}", &accessor, &name)?;
+                            writeln!(
+                                out,
+                                "        unsafe {{ std::mem::transmute({}.{}) }}",
+                                &accessor, &name
+                            )?;
                         } else {
                             writeln!(out, "        unsafe {{ {}.{} }}", &accessor, &name)?;
                         }
@@ -1533,6 +1537,8 @@ impl CodeGen {
         let ffi_fn_name = ffi_request_fn_name(&self.xcb_mod_prefix, &req_name);
         let template = if has_template { ", T" } else { "" };
         writeln!(out, "pub fn {}<'a{}>(", &fn_name, &template)?;
+
+        // function parameters
         writeln!(out, "    c: &'a base::Connection,")?;
         for f in params.iter() {
             match f {
@@ -1547,7 +1553,7 @@ impl CodeGen {
                     let typ = rust_field_type_name(&self.xcb_mod, &typ);
                     writeln!(out, "    {}: {},", name, typ)?;
                 }
-                StructField::List { name, typ, .. } => {
+                StructField::List { name, typ, .. } | StructField::ListNoLen { name, typ } => {
                     let name = symbol(&name);
                     let typ = match (send_event, name, typ.as_str()) {
                         (true, "event", _) => "&base::Event<T>".to_string(),
@@ -1571,6 +1577,8 @@ impl CodeGen {
         }
         writeln!(out, ") -> {}<'a> {{", cookie_name)?;
         writeln!(out, "    unsafe {{")?;
+
+        // local variables
         if send_event {
             writeln!(
                 out,
@@ -1607,6 +1615,8 @@ impl CodeGen {
         }
         writeln!(out, "        let cookie = {}(", &ffi_fn_name)?;
         writeln!(out, "            c.get_raw_conn(),")?;
+
+        // FFI request arguments
         for f in params.iter() {
             match f {
                 StructField::Field { name, typ, .. } => {
