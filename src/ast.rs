@@ -2,6 +2,14 @@ use std::collections::HashMap;
 use std::str::FromStr;
 
 #[derive(Debug, Clone)]
+pub struct ExtInfo {
+    pub name: String,
+    pub xname: String,
+    pub major_version: u32,
+    pub minor_version: u32,
+}
+
+#[derive(Debug, Clone)]
 pub struct DocField {
     pub name: String,
     pub text: String,
@@ -113,6 +121,7 @@ pub struct Request {
 
 #[derive(Debug, Clone)]
 pub enum Event {
+    Info(String, Option<ExtInfo>),
     Error(i32, Struct),
     ErrorCopy {
         name: String,

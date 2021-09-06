@@ -7,7 +7,7 @@ use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use ast::{Event, OpCopy, OpCopyMap};
+use ast::{Event, ExtInfo, OpCopy, OpCopyMap};
 use codegen::{CodeGen, DepInfo};
 use output::Output;
 use parse::{Parser, Result};
@@ -57,8 +57,13 @@ fn main() {
     let mut dep_info = Vec::new();
 
     for xml_file in iter_xml(&xml_dir) {
-        process_xcb_gen(&xml_file, &out_dir, &rustfmt, &mut dep_info)
-            .unwrap_or_else(|err| panic!("Error during processing of {}: {:?}", xml_file.display(), err));
+        process_xcb_gen(&xml_file, &out_dir, &rustfmt, &mut dep_info).unwrap_or_else(|err| {
+            panic!(
+                "Error during processing of {}: {:?}",
+                xml_file.display(),
+                err
+            )
+        });
     }
 
     #[cfg(target_os = "freebsd")]
@@ -146,10 +151,14 @@ fn process_xcb_gen(
     let mut imports = Vec::new();
     let mut events = Vec::new();
     let mut evcopies: OpCopyMap = OpCopyMap::new();
+    let mut info: Option<(String, Option<ExtInfo>)> = None;
 
     for e in &mut parser {
         match e? {
             Event::Ignore => {}
+            Event::Info(mod_name, ext_info) => {
+                info = Some((mod_name, ext_info));
+            }
             Event::Import(imp) => imports.push(imp),
             Event::Event {
                 number,
@@ -178,6 +187,8 @@ fn process_xcb_gen(
         }
     }
 
+    let info = info.expect("no xcb protocol opening");
+
     let deps = {
         let mut deps = Vec::new();
 
@@ -185,8 +196,13 @@ fn process_xcb_gen(
             let xml_file = xml_file.with_file_name(&format!("{}.xml", i));
 
             // panic also from here to have the correct xml_file reported
-            process_xcb_gen(&xml_file, out_dir, rustfmt, dep_info)
-                .unwrap_or_else(|err| panic!("Error during processing of {}: {:?}", xml_file.display(), err));
+            process_xcb_gen(&xml_file, out_dir, rustfmt, dep_info).unwrap_or_else(|err| {
+                panic!(
+                    "Error during processing of {}: {:?}",
+                    xml_file.display(),
+                    err
+                )
+            });
 
             let i = xcb_mod_map(i);
             deps.push(
@@ -203,7 +219,7 @@ fn process_xcb_gen(
 
     let mut cg = CodeGen::new(&xcb_mod, ffi, rs, deps, evcopies);
 
-    cg.prologue(&imports)?;
+    cg.prologue(&imports, &info.1)?;
 
     for ev in events {
         cg.event(ev)?;

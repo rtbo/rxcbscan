@@ -3,7 +3,7 @@ use std::env;
 use std::io::{self, Cursor, Write};
 
 use crate::ast::{
-    Doc, EnumItem, Event, Expr, OpCopy, OpCopyMap, Reply, Request, Struct, StructField,
+    Doc, EnumItem, Event, Expr, ExtInfo, OpCopy, OpCopyMap, Reply, Request, Struct, StructField,
 };
 use crate::output::Output;
 
@@ -113,7 +113,11 @@ impl CodeGen {
         }
     }
 
-    pub fn prologue(&mut self, imports: &Vec<String>) -> io::Result<()> {
+    pub fn prologue(
+        &mut self,
+        imports: &Vec<String>,
+        ext_info: &Option<ExtInfo>,
+    ) -> io::Result<()> {
         let out = &mut self.ffi;
         // Adding a comment only to fit the python generated code and pass initial tests
         writeln!(
@@ -122,19 +126,37 @@ impl CodeGen {
             &self.xcb_mod
         )?;
         writeln!(out, "// Do not edit!")?;
-        writeln!(out, "")?;
+        writeln!(out)?;
         writeln!(out, "use ffi::base::*;")?;
         for imp in imports.iter() {
             writeln!(out, "use ffi::{}::*;", imp)?;
         }
         writeln!(out, "use libc::{{c_char, c_int, c_uint, c_void}};")?;
         writeln!(out, "use std;")?;
-        writeln!(out)?;
 
-        if self.xcb_mod != "xproto" {
+        if let Some(ext_info) = ext_info {
+            let maj_name = ffi_opcode_name(&self.xcb_mod_prefix, "MajorVersion");
+            let min_name = ffi_opcode_name(&self.xcb_mod_prefix, "MinorVersion");
+
+            writeln!(out)?;
+            writeln!(
+                out,
+                "pub const {}: u32 = {};",
+                &maj_name, ext_info.major_version
+            )?;
+            writeln!(
+                out,
+                "pub const {}: u32 = {};",
+                &min_name, ext_info.minor_version
+            )?;
+
             let out = &mut self.ffi_buf;
             writeln!(out)?;
-            writeln!(out, "pub static mut {}: xcb_extension_t;", &self.xcb_mod)?;
+            writeln!(
+                out,
+                "pub static mut xcb_{}_id: xcb_extension_t;",
+                &self.xcb_mod
+            )?;
         }
 
         let out = &mut self.rs;
@@ -164,7 +186,7 @@ impl CodeGen {
             writeln!(out)?;
             writeln!(out, "pub fn id() -> &'static mut base::Extension {{")?;
             writeln!(out, "    unsafe {{")?;
-            writeln!(out, "        &mut {}", &self.xcb_mod)?;
+            writeln!(out, "        &mut xcb_{}_id", &self.xcb_mod)?;
             writeln!(out, "    }}")?;
             writeln!(out, "}}")?;
         }
@@ -202,8 +224,8 @@ impl CodeGen {
     pub fn event(&mut self, ev: Event) -> io::Result<()> {
         match ev {
             Event::Typedef { oldname, newname } => {
-                let ffi_old_typ = ffi_type_name(&self.xcb_mod_prefix, &oldname);
-                let ffi_new_typ = ffi_type_name(&self.xcb_mod_prefix, &newname);
+                let ffi_old_typ = self.ffi_decl_type_name(&oldname);
+                let ffi_new_typ = self.ffi_decl_type_name(&newname);
 
                 emit_type_alias(&mut self.ffi, &ffi_new_typ, &ffi_old_typ)?;
                 self.emit_ffi_iterator(&newname, &ffi_new_typ, false)?;
@@ -303,12 +325,23 @@ impl CodeGen {
         self.ffi_type_sizes.insert(typ, ffi_sz);
     }
 
-    fn has_ffi_type(&mut self, typ: &str) -> bool {
+    /// notifies that a XCB type was declared in this module
+    /// alternative to reg_type, with less info
+    /// this is useful for replies, cookies, etc. and other derived types
+    fn notify_typ(&mut self, typ: String) {
+        self.ffi_type_sizes.insert(typ, None);
+    }
+
+    fn has_ffi_type(&self, typ: &str) -> bool {
         self.ffi_typ_reg.contains(typ)
     }
 
-    fn has_rs_type(&mut self, typ: &str) -> bool {
+    fn has_rs_type(&self, typ: &str) -> bool {
         self.rs_typ_reg.contains(typ)
+    }
+
+    fn has_type(&self, typ: &str) -> bool {
+        self.ffi_type_sizes.contains_key(typ)
     }
 
     fn typ_is_simple(&self, typ: &str) -> bool {
@@ -352,6 +385,56 @@ impl CodeGen {
             }
         }
         true
+    }
+
+    fn ffi_decl_type_name(&self, typ: &str) -> String {
+        match typ {
+            "CARD8" => "u8".into(),
+            "CARD16" => "u16".into(),
+            "CARD32" => "u32".into(),
+            "CARD64" => "u64".into(),
+            "INT8" => "i8".into(),
+            "INT16" => "i16".into(),
+            "INT32" => "i32".into(),
+            "BYTE" => "u8".into(),
+            "BOOL" => "u8".into(),
+            "char" => "c_char".into(),
+            "void" => "c_void".into(),
+            typ => {
+                let typ = tit_split(typ).to_ascii_lowercase();
+                format!("xcb_{}{}_t", &self.xcb_mod_prefix, typ)
+            }
+        }
+    }
+
+    /// same as ffi_decl_type_name but can also have a namespace before (with a single colon)
+    fn ffi_use_type_name(&self, typ: &str) -> String {
+        let (module, typ) = extract_module(&typ);
+
+        let typ = match typ {
+            "CARD8" => "u8".into(),
+            "CARD16" => "u16".into(),
+            "CARD32" => "u32".into(),
+            "CARD64" => "u64".into(),
+            "INT8" => "i8".into(),
+            "INT16" => "i16".into(),
+            "INT32" => "i32".into(),
+            "BYTE" => "u8".into(),
+            "BOOL" => "u8".into(),
+            "char" => "c_char".into(),
+            "void" => "c_void".into(),
+            typ => {
+                let mod_prefix = if self.has_type(typ) {
+                    &self.xcb_mod_prefix
+                } else {
+                    ""
+                };
+                let typ = tit_split(typ).to_ascii_lowercase();
+                format!("xcb_{}{}_t", mod_prefix, typ)
+            }
+        };
+
+        qualified_name(&self.xcb_mod, &module, &typ)
     }
 
     fn ffi_type_sizeof(&self, typ: &str) -> Option<usize> {
@@ -591,7 +674,7 @@ impl CodeGen {
                     let has_lifetime = self.typ_with_lifetime.contains(typ);
 
                     if accessor_needed {
-                        let f_typ = ffi_type_name(&self.xcb_mod_prefix, typ);
+                        let f_typ = self.ffi_decl_type_name(typ);
                         let acc_fn = ffi_field_list_iterator_acc_fn_name(
                             &self.xcb_mod_prefix,
                             &xcb_name,
@@ -658,14 +741,16 @@ impl CodeGen {
     fn emit_ffi_struct(&mut self, stru: &Struct) -> io::Result<String> {
         let Struct { name, fields, doc } = &stru;
 
-        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &name);
+        let ffi_typ = self.ffi_decl_type_name(&name);
         let impl_copy_clone = self.eligible_to_copy(&stru);
 
-        let out = &mut self.ffi;
-        writeln!(out)?;
-        emit_doc_text(out, &doc)?;
-        writeln!(out, "#[repr(C)]")?;
-        writeln!(out, "pub struct {} {{", &ffi_typ)?;
+        {
+            let out = &mut self.ffi;
+            writeln!(out)?;
+            emit_doc_text(out, &doc)?;
+            writeln!(out, "#[repr(C)]")?;
+            writeln!(out, "pub struct {} {{", &ffi_typ)?;
+        }
 
         let mut padnum = 0;
 
@@ -677,16 +762,14 @@ impl CodeGen {
         for f in fields.iter() {
             match f {
                 StructField::Field { name, typ, .. } | StructField::Expr { name, typ, .. } => {
+                    let typ = self.ffi_use_type_name(&typ);
+                    let out = &mut self.ffi;
                     emit_doc_field(out, &doc, &name)?;
-                    writeln!(
-                        out,
-                        "    pub {}: {},",
-                        symbol(&name),
-                        ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ)
-                    )?;
+                    writeln!(out, "    pub {}: {},", symbol(&name), &typ,)?;
                     written_fields.push(name.as_str());
                 }
                 StructField::Pad(sz) => {
+                    let out = &mut self.ffi;
                     let padtyp = match sz {
                         1 => "u8".into(),
                         x => format!("[u8; {}]", x),
@@ -700,14 +783,11 @@ impl CodeGen {
                     len_expr,
                 } => {
                     if let Some(sz) = expr_fixed_length(&len_expr) {
+                        let typ = self.ffi_use_type_name(&typ);
+                        let out = &mut self.ffi;
+
                         emit_doc_field(out, &doc, &name)?;
-                        writeln!(
-                            out,
-                            "    pub {}: [{}; {}],",
-                            symbol(&name),
-                            ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ),
-                            sz
-                        )?;
+                        writeln!(out, "    pub {}: [{}; {}],", symbol(&name), &typ, sz)?;
                     }
                 }
                 StructField::ValueParam {
@@ -718,17 +798,16 @@ impl CodeGen {
                     if written_fields.contains(&mask_name.as_str()) {
                         continue;
                     }
+                    let mask_typ = self.ffi_use_type_name(&mask_typ);
+                    let out = &mut self.ffi;
                     emit_doc_field(out, &doc, &mask_name)?;
-                    writeln!(
-                        out,
-                        "    pub {}: {},",
-                        symbol(&mask_name),
-                        ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &mask_typ)
-                    )?;
+                    writeln!(out, "    pub {}: {},", symbol(&mask_name), mask_typ,)?;
                 }
                 _ => {}
             }
         }
+
+        let out = &mut self.ffi;
         writeln!(out, "}}")?;
 
         if impl_copy_clone {
@@ -1353,7 +1432,7 @@ impl CodeGen {
             let name = opc.name.clone() + "Event";
             let num_typ = if number < 0 { "i8" } else { "u8" };
             let rs_typ = rust_type_name(&name);
-            let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &name);
+            let ffi_typ = self.ffi_decl_type_name(&name);
 
             let out = &mut self.rs_buf;
             writeln!(out)?;
@@ -1379,30 +1458,32 @@ impl CodeGen {
         doc: &Option<Doc>,
     ) -> io::Result<()> {
         let fn_name = ffi_request_fn_name(&self.xcb_mod_prefix, &req_name);
-        let cookie_typ = ffi_type_name(&self.xcb_mod_prefix, &cookie_name);
-        let out = &mut self.ffi_buf;
-        writeln!(out)?;
-        emit_doc_text(out, doc)?;
-        writeln!(out, "    pub fn {} (", &fn_name)?;
-        writeln!(out, "        c: *mut xcb_connection_t,")?;
+        let cookie_typ = self.ffi_use_type_name(&cookie_name);
+        {
+            let out = &mut self.ffi_buf;
+            writeln!(out)?;
+            emit_doc_text(out, doc)?;
+            writeln!(out, "    pub fn {} (", &fn_name)?;
+            writeln!(out, "        c: *mut xcb_connection_t,")?;
+        }
         let mut written_fields = Vec::new();
         for f in fields.iter() {
             match f {
                 StructField::Field { name, typ, .. } => {
                     written_fields.push(name);
                     let name = symbol(&name);
-                    let typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
-                    writeln!(out, "        {}: {},", &name, &typ)?;
+                    let typ = self.ffi_use_type_name(&typ);
+                    writeln!(&mut self.ffi_buf, "        {}: {},", &name, &typ)?;
                 }
                 StructField::ValueParam {
                     mask_typ,
                     mask_name,
                     list_name,
                 } => {
-                    let mask_typ =
-                        ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &mask_typ);
+                    let mask_typ = self.ffi_use_type_name(&mask_typ);
                     let list_name = symbol(list_name);
 
+                    let out = &mut self.ffi_buf;
                     if !written_fields.contains(&mask_name) {
                         let mask_name = symbol(mask_name);
                         writeln!(out, "        {}: {},", &mask_name, &mask_typ)?;
@@ -1411,19 +1492,23 @@ impl CodeGen {
                 }
                 StructField::List { name, typ, .. } => {
                     let name = symbol(&name);
-                    let typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
+                    let typ = self.ffi_use_type_name(&typ);
+                    let out = &mut self.ffi_buf;
                     writeln!(out, "        {}: *const {},", &name, &typ)?;
                 }
                 StructField::ListNoLen { name, typ } => {
                     let len_name = name.clone() + "_len";
                     let name = symbol(&name);
-                    let typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
+                    let typ = self.ffi_use_type_name(&typ);
+                    let out = &mut self.ffi_buf;
                     writeln!(out, "        {}: u32,", &len_name)?;
                     writeln!(out, "        {}: *const {},", &name, &typ)?;
                 }
                 _ => {}
             }
         }
+
+        let out = &mut self.ffi_buf;
         writeln!(out, "    ) -> {};", &cookie_typ)?;
 
         Ok(())
@@ -1436,7 +1521,7 @@ impl CodeGen {
     ) -> io::Result<(String, String, String)> {
         // writting cookie struct
         let cookie_name = req_name.to_string() + "Cookie";
-        let cookie_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &cookie_name);
+        let cookie_ffi_typ = self.ffi_decl_type_name(&cookie_name);
         let reply_fields = {
             let mut fields = vec![
                 make_field("response_type".into(), "CARD8".into()),
@@ -1515,106 +1600,110 @@ impl CodeGen {
             sf
         };
 
-        let out = &mut self.rs_buf;
+        {
+            let out = &mut self.rs_buf;
 
-        writeln!(out)?;
-        emit_doc_text(out, &doc)?;
-        if let Some(_) = &doc {
-            writeln!(out, "///")?;
-            writeln!(out, "/// parameters:")?;
-            writeln!(out, "///")?;
-            writeln!(out, "///   - __c__:")?;
-            writeln!(out, "///       The connection object to the server")?;
+            writeln!(out)?;
+            emit_doc_text(out, &doc)?;
+            if let Some(_) = &doc {
+                writeln!(out, "///")?;
+                writeln!(out, "/// parameters:")?;
+                writeln!(out, "///")?;
+                writeln!(out, "///   - __c__:")?;
+                writeln!(out, "///       The connection object to the server")?;
+                for f in params.iter() {
+                    if let Some(name) = rust_field_doc_name(&f) {
+                        writeln!(out, "///")?;
+                        writeln!(out, "///   - __{}__:", &name)?;
+                        emit_doc_field_indent(out, &doc, name, "       ")?;
+                    }
+                }
+            }
+            let fn_name = rust_request_fn_name(&req_name);
+            let ffi_fn_name = ffi_request_fn_name(&self.xcb_mod_prefix, &req_name);
+            let template = if has_template { ", T" } else { "" };
+            writeln!(out, "pub fn {}<'a{}>(", &fn_name, &template)?;
+
+            // function parameters
+            writeln!(out, "    c: &'a base::Connection,")?;
             for f in params.iter() {
-                if let Some(name) = rust_field_doc_name(&f) {
-                    writeln!(out, "///")?;
-                    writeln!(out, "///   - __{}__:", &name)?;
-                    emit_doc_field_indent(out, &doc, name, "       ")?;
-                }
-            }
-        }
-        let fn_name = rust_request_fn_name(&req_name);
-        let ffi_fn_name = ffi_request_fn_name(&self.xcb_mod_prefix, &req_name);
-        let template = if has_template { ", T" } else { "" };
-        writeln!(out, "pub fn {}<'a{}>(", &fn_name, &template)?;
-
-        // function parameters
-        writeln!(out, "    c: &'a base::Connection,")?;
-        for f in params.iter() {
-            match f {
-                StructField::Field { name, typ, .. } => {
-                    if skip_fields.contains(&name) {
-                        continue;
+                match f {
+                    StructField::Field { name, typ, .. } => {
+                        if skip_fields.contains(&name) {
+                            continue;
+                        }
+                        if list_fields.iter().any(|lf| &lf.lenfield == name) {
+                            continue;
+                        }
+                        let name = symbol(&name);
+                        let typ = rust_field_type_name(&self.xcb_mod, &typ);
+                        writeln!(out, "    {}: {},", name, typ)?;
                     }
-                    if list_fields.iter().any(|lf| &lf.lenfield == name) {
-                        continue;
+                    StructField::List { name, typ, .. } | StructField::ListNoLen { name, typ } => {
+                        let name = symbol(&name);
+                        let typ = match (send_event, name, typ.as_str()) {
+                            (true, "event", _) => "&base::Event<T>".to_string(),
+                            (_, _, "char") => "&str".to_string(),
+                            (_, _, "void") => "&[T]".to_string(),
+                            (_, _, typ) => {
+                                format!("&[{}]", rust_field_type_name(&self.xcb_mod, &typ))
+                            }
+                        };
+                        writeln!(out, "    {}: {},", name, typ)?;
                     }
-                    let name = symbol(&name);
-                    let typ = rust_field_type_name(&self.xcb_mod, &typ);
-                    writeln!(out, "    {}: {},", name, typ)?;
+                    StructField::ValueParam {
+                        list_name,
+                        mask_typ,
+                        ..
+                    } => {
+                        let name = symbol(&list_name);
+                        let typ = rust_field_type_name(&self.xcb_mod, &mask_typ);
+                        writeln!(out, "    {}: &[({}, u32)],", &name, &typ)?;
+                    }
+                    _ => {}
                 }
-                StructField::List { name, typ, .. } | StructField::ListNoLen { name, typ } => {
-                    let name = symbol(&name);
-                    let typ = match (send_event, name, typ.as_str()) {
-                        (true, "event", _) => "&base::Event<T>".to_string(),
-                        (_, _, "char") => "&str".to_string(),
-                        (_, _, "void") => "&[T]".to_string(),
-                        (_, _, typ) => format!("&[{}]", rust_field_type_name(&self.xcb_mod, &typ)),
-                    };
-                    writeln!(out, "    {}: {},", name, typ)?;
-                }
-                StructField::ValueParam {
-                    list_name,
-                    mask_typ,
-                    ..
-                } => {
-                    let name = symbol(&list_name);
-                    let typ = rust_field_type_name(&self.xcb_mod, &mask_typ);
-                    writeln!(out, "    {}: &[({}, u32)],", &name, &typ)?;
-                }
-                _ => {}
             }
-        }
-        writeln!(out, ") -> {}<'a> {{", cookie_name)?;
-        writeln!(out, "    unsafe {{")?;
+            writeln!(out, ") -> {}<'a> {{", cookie_name)?;
+            writeln!(out, "    unsafe {{")?;
 
-        // local variables
-        if send_event {
-            writeln!(
-                out,
-                "        let event_ptr = std::mem::transmute(event.ptr);"
-            )?;
-        }
-        for ListField { name, typ, .. } in list_fields.iter() {
-            let name = symbol(&name);
-            if typ == "char" {
-                writeln!(out, "        let {} = {}.as_bytes();", &name, &name)?;
-            }
-            writeln!(out, "        let {}_len = {}.len();", &name, &name)?;
-            writeln!(out, "        let {}_ptr = {}.as_ptr();", &name, &name)?;
-        }
-        for f in params.iter() {
-            if let StructField::ValueParam { list_name, .. } = f {
-                let list_sym = symbol(&list_name);
+            // local variables
+            if send_event {
                 writeln!(
                     out,
-                    "        let mut {}_copy = {}.to_vec();",
-                    &list_name, &list_sym
-                )?;
-                writeln!(
-                    out,
-                    "        let ({}_mask, {}_vec) = base::pack_bitfield(&mut {}_copy);",
-                    &list_name, &list_name, &list_name
-                )?;
-                writeln!(
-                    out,
-                    "        let {}_ptr = {}_vec.as_ptr();",
-                    &list_name, &list_name
+                    "        let event_ptr = std::mem::transmute(event.ptr);"
                 )?;
             }
+            for ListField { name, typ, .. } in list_fields.iter() {
+                let name = symbol(&name);
+                if typ == "char" {
+                    writeln!(out, "        let {} = {}.as_bytes();", &name, &name)?;
+                }
+                writeln!(out, "        let {}_len = {}.len();", &name, &name)?;
+                writeln!(out, "        let {}_ptr = {}.as_ptr();", &name, &name)?;
+            }
+            for f in params.iter() {
+                if let StructField::ValueParam { list_name, .. } = f {
+                    let list_sym = symbol(&list_name);
+                    writeln!(
+                        out,
+                        "        let mut {}_copy = {}.to_vec();",
+                        &list_name, &list_sym
+                    )?;
+                    writeln!(
+                        out,
+                        "        let ({}_mask, {}_vec) = base::pack_bitfield(&mut {}_copy);",
+                        &list_name, &list_name, &list_name
+                    )?;
+                    writeln!(
+                        out,
+                        "        let {}_ptr = {}_vec.as_ptr();",
+                        &list_name, &list_name
+                    )?;
+                }
+            }
+            writeln!(out, "        let cookie = {}(", &ffi_fn_name)?;
+            writeln!(out, "            c.get_raw_conn(),")?;
         }
-        writeln!(out, "        let cookie = {}(", &ffi_fn_name)?;
-        writeln!(out, "            c.get_raw_conn(),")?;
 
         // FFI request arguments
         for f in params.iter() {
@@ -1624,26 +1713,29 @@ impl CodeGen {
                         continue;
                     }
                     let mut name = symbol(&name).to_string();
-                    let ffi_typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
+                    let ffi_typ = self.ffi_use_type_name(&typ);
 
                     if let Some(lf) = list_fields.iter().find(|lf| lf.lenfield == name) {
                         name = lf.name.clone() + "_len";
                     }
+                    let out = &mut self.rs_buf;
                     writeln!(out, "            {} as {},", &name, &ffi_typ)?;
                 }
                 StructField::List { name, typ, .. } => {
                     if send_event && name == "event" {
+                        let out = &mut self.rs_buf;
                         writeln!(out, "            event_ptr")?;
                     } else {
                         let name = symbol(&name);
-                        let ffi_typ =
-                            ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
+                        let ffi_typ = self.ffi_use_type_name(&typ);
+                        let out = &mut self.rs_buf;
                         writeln!(out, "            {}_ptr as *const {},", &name, &ffi_typ)?;
                     }
                 }
                 StructField::ListNoLen { name, typ } => {
                     let name = symbol(&name);
-                    let ffi_typ = ffi_field_type_name(&self.xcb_mod, &self.xcb_mod_prefix, &typ);
+                    let ffi_typ = self.ffi_use_type_name(&typ);
+                    let out = &mut self.rs_buf;
                     writeln!(out, "            {}_len as u32,", &name)?;
                     writeln!(out, "            {}_ptr as *const {},", &name, &ffi_typ)?;
                 }
@@ -1653,12 +1745,15 @@ impl CodeGen {
                     ..
                 } => {
                     let typ = rust_field_type_name(&self.xcb_mod, &mask_typ);
+                    let out = &mut self.rs_buf;
                     writeln!(out, "            {}_mask as {},", &list_name, &typ)?;
                     writeln!(out, "             {}_ptr as *const u32,", &list_name)?;
                 }
                 _ => {}
             }
         }
+
+        let out = &mut self.rs_buf;
         writeln!(out, "        );")?;
         writeln!(out, "        {} {{", cookie_name)?;
         writeln!(out, "            cookie: cookie,")?;
@@ -1775,7 +1870,7 @@ impl CodeGen {
     }
 
     fn emit_xid(&mut self, name: String) -> io::Result<()> {
-        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &name);
+        let ffi_typ = self.ffi_decl_type_name(&name);
         emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
         self.emit_ffi_iterator(&name, &ffi_typ, false)?;
 
@@ -1814,7 +1909,7 @@ impl CodeGen {
 
     fn emit_union(&mut self, stru: Struct) -> io::Result<()> {
         let ffi_sz = self.compute_ffi_union_size(&stru);
-        let ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &stru.name);
+        let ffi_typ = self.ffi_decl_type_name(&stru.name);
 
         {
             let out = &mut self.ffi;
@@ -1910,8 +2005,8 @@ impl CodeGen {
         let new_name = name.to_owned() + "Error";
         let old_name = error_ref.to_owned() + "Error";
 
-        let new_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &new_name);
-        let old_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &old_name);
+        let new_ffi_typ = self.ffi_decl_type_name(&new_name);
+        let old_ffi_typ = self.ffi_decl_type_name(&old_name);
 
         emit_type_alias(&mut self.ffi, &new_ffi_typ, &old_ffi_typ)?;
 
@@ -2016,8 +2111,8 @@ impl CodeGen {
             emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &c.name, c.number)?;
             let new_name = c.name.to_owned() + "Event";
 
-            let new_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &new_name);
-            let old_ffi_typ = ffi_type_name(&self.xcb_mod_prefix, &stru.name);
+            let new_ffi_typ = self.ffi_decl_type_name(&new_name);
+            let old_ffi_typ = self.ffi_decl_type_name(&stru.name);
 
             emit_type_alias(&mut self.ffi, &new_ffi_typ, &old_ffi_typ)?;
         }
@@ -2109,12 +2204,16 @@ impl CodeGen {
                 &rs_cookie,
                 reply,
             )?;
+            self.notify_typ(req.name.clone() + "Reply");
+            self.notify_typ(req.name.clone() + "Cookie");
         }
 
         self.emit_ffi_req_fn(&req.name, &ffi_cookie, &req.params, &stru.doc)?;
         self.emit_ffi_req_fn(&check_name, &ffi_cookie, &req.params, &stru.doc)?;
         self.emit_rs_req_fn(&req.name, &rs_cookie, &req.params, &stru.doc, !checked)?;
         self.emit_rs_req_fn(&check_name, &rs_cookie, &req.params, &stru.doc, checked)?;
+
+        self.notify_typ(stru.name);
 
         Ok(())
     }
@@ -2164,22 +2263,6 @@ fn expr_fixed_length(expr: &Expr<usize>) -> Option<usize> {
         }),
     }
 }
-
-// fn capitalize(s: &str) -> String {
-//     let mut c = s.chars();
-//     match c.next() {
-//         None => String::new(),
-//         Some(f) => f.to_uppercase().collect::<String>() + &c.as_str().to_lowercase(),
-//     }
-// }
-
-// fn upper_first(s: &str) -> String {
-//     let mut c = s.chars();
-//     match c.next() {
-//         None => String::new(),
-//         Some(f) => f.to_uppercase().collect::<String>() + c.as_str(),
-//     }
-// }
 
 /// insert a underscore before each uppercase/digit preceded or follwed by lowercase
 /// do not apply to the first char
@@ -2282,35 +2365,6 @@ fn qualified_name(xcb_mod: &str, module: &Option<&str>, name: &str) -> String {
     } else {
         name.into()
     }
-}
-
-fn ffi_type_name(xcb_mod_prefix: &str, typ: &str) -> String {
-    match typ {
-        "CARD8" => "u8".into(),
-        "CARD16" => "u16".into(),
-        "CARD32" => "u32".into(),
-        "CARD64" => "u64".into(),
-        "INT8" => "i8".into(),
-        "INT16" => "i16".into(),
-        "INT32" => "i32".into(),
-        "BYTE" => "u8".into(),
-        "BOOL" => "u8".into(),
-        "char" => "c_char".into(),
-        "void" => "c_void".into(),
-        typ => {
-            let typ = tit_split(typ).to_ascii_lowercase();
-            format!("xcb_{}{}_t", xcb_mod_prefix, typ)
-        }
-    }
-}
-
-/// same as ffi_type_name but can also have a namespace before (with a single colon)
-fn ffi_field_type_name(xcb_mod: &str, xcb_mod_prefix: &str, typ: &str) -> String {
-    let (module, typ) = extract_module(&typ);
-
-    let typ = ffi_type_name(&xcb_mod_prefix, &typ);
-
-    qualified_name(&xcb_mod, &module, &typ)
 }
 
 fn ffi_enum_item_name(xcb_mod_prefix: &str, name: &str, item: &str) -> String {

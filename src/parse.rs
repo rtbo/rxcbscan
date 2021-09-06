@@ -9,7 +9,8 @@ use std::result;
 use std::str::{self, FromStr, Utf8Error};
 
 use crate::ast::{
-    Doc, DocField, Enum, EnumItem, Event, Expr, Reply, Request, Struct, StructField, XidUnion,
+    Doc, DocField, Enum, EnumItem, Event, Expr, ExtInfo, Reply, Request, Struct, StructField,
+    XidUnion,
 };
 
 #[derive(Debug)]
@@ -219,10 +220,13 @@ impl<B: BufRead> Parser<B> {
                 Ok(XmlEv::Empty(ref e)) => match e.name() {
                     b"field" => {
                         let name = expect_attribute(e.attributes(), b"name")?;
-                        fields.push(DocField { name, text: String::new() });
+                        fields.push(DocField {
+                            name,
+                            text: String::new(),
+                        });
                     }
                     _ => {}
-                }
+                },
                 Ok(XmlEv::Text(_) | XmlEv::CData(_)) => {
                     return Err(Error::Parse("Unexpected doc text out of element".into()));
                 }
@@ -753,11 +757,54 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                 }),
                 b"request" => {
                     let start = e.to_owned();
-                    Some(self.parse_request(start, true).map(|req| Event::Request(req)))
+                    Some(
+                        self.parse_request(start, true)
+                            .map(|req| Event::Request(req)),
+                    )
                 }
                 _ => Some(Ok(Event::Ignore)),
             },
             Ok(XmlEv::Start(ref e)) => match e.name() {
+                b"xcb" => {
+                    let names: [&[u8]; 5] = [
+                        b"header",
+                        b"extension-xname",
+                        b"extension-name",
+                        b"major-version",
+                        b"minor-version",
+                    ];
+                    let mut vals: [Option<String>; 5] = [None, None, None, None, None];
+                    if let Err(err) = get_attributes(e.attributes(), &names, &mut vals) {
+                        return Some(Err(err));
+                    }
+                    let [mod_name, xname, name, major_version, minor_version] = vals;
+
+                    if mod_name.is_none() {
+                        return Some(Err(Error::Parse("<xcb> without header attr".into())));
+                    }
+                    let mod_name = mod_name.unwrap();
+
+                    let ext_info = match (xname, name, major_version, minor_version) {
+                        (Some(xname), Some(name), Some(major_version), Some(minor_version)) => {
+                            let major_version = major_version
+                                .parse::<u32>()
+                                .expect("could not parse major_version");
+                            let minor_version = minor_version
+                                .parse::<u32>()
+                                .expect("could not parse major_version");
+                            Some(ExtInfo {
+                                xname,
+                                name,
+                                major_version,
+                                minor_version,
+                            })
+                        }
+                        (None, None, None, None) => None,
+                        _ => panic!("incomplete extension info for {}", &mod_name),
+                    };
+
+                    Some(Ok(Event::Info(mod_name, ext_info)))
+                }
                 b"import" => Some(self.parse_import().map(|s| Event::Import(s))),
                 b"xidunion" => Some(expect_attribute(e.attributes(), b"name").and_then(|name| {
                     let unionres = self.parse_xidunion(name);
@@ -799,7 +846,10 @@ impl<B: BufRead> Iterator for &mut Parser<B> {
                 }),
                 b"request" => {
                     let start = e.to_owned();
-                    Some(self.parse_request(start, false).map(|req| Event::Request(req)))
+                    Some(
+                        self.parse_request(start, false)
+                            .map(|req| Event::Request(req)),
+                    )
                 }
                 _ => Some(Ok(Event::Ignore)),
             },
