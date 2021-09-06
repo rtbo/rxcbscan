@@ -6,6 +6,14 @@ dirout = sys.argv[2]
 
 os.makedirs(dirout, exist_ok=True)
 
+def exec(cmd):
+    p = os.popen(cmd)
+    for l in p:
+        print(l.rstrip())
+    if p.close():
+        print(f"\"{cmd}\" did not exit succesfully")
+        sys.exit(1)
+
 for f in os.listdir(dirin):
     fni = os.path.join(dirin, f)
     if os.path.isdir(fni):
@@ -17,7 +25,6 @@ for f in os.listdir(dirin):
             for line in fi:
                 line = line.rstrip()
                 if len(line) == 0:
-                    print("", file=fo)
                     continue
                 comment = line.find('//')
                 if comment >= 0:
@@ -25,4 +32,4 @@ for f in os.listdir(dirin):
                 if len(line):
                     print(line, file=fo)
 
-    os.popen(f"rustfmt {fno}")
+    exec(f"rustfmt {fno}")
