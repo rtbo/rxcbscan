@@ -10,6 +10,7 @@ use crate::output::Output;
 #[derive(Clone, Debug)]
 pub struct DepInfo {
     pub xcb_mod: String,
+    pub imports: Vec<String>,
     pub typ_with_lifetime: HashSet<String>,
     pub typ_unions: HashSet<String>,
     pub typ_simple: HashSet<String>,
@@ -38,6 +39,7 @@ pub struct CodeGen {
     typ_simple: HashSet<String>, // integer, chars, xids, enums
     typ_pod: HashSet<String>,    // simple and plain old data
 
+    imports: Vec<String>,
     // registered types sizes (is None if size is not fixed - eg. lists with dynamic length)
     ffi_type_sizes: HashMap<String, Option<usize>>,
     // types registered in the FFI module
@@ -87,6 +89,7 @@ impl CodeGen {
             rs,
             ffi_buf: Cursor::new(Vec::new()),
             rs_buf: Cursor::new(Vec::new()),
+            imports: Vec::new(),
             typ_with_lifetime: HashSet::new(),
             typ_unions: HashSet::new(),
             typ_simple: HashSet::new(),
@@ -103,6 +106,7 @@ impl CodeGen {
     pub fn into_depinfo(self) -> DepInfo {
         DepInfo {
             xcb_mod: self.xcb_mod,
+            imports: self.imports,
             typ_with_lifetime: self.typ_with_lifetime,
             typ_unions: self.typ_unions,
             typ_simple: self.typ_simple,
@@ -115,9 +119,20 @@ impl CodeGen {
 
     pub fn prologue(
         &mut self,
-        imports: &Vec<String>,
+        imports: Vec<String>,
         ext_info: &Option<ExtInfo>,
     ) -> io::Result<()> {
+        self.imports = imports;
+        let mut imports = HashSet::<String>::new();
+        for imp in self.imports.iter() {
+            imports.insert(imp.clone());
+        }
+        for di in &self.dep_info {
+            for imp in &di.imports {
+                imports.insert(imp.clone());
+            }
+        }
+
         let out = &mut self.ffi;
         // Adding a comment only to fit the python generated code and pass initial tests
         writeln!(

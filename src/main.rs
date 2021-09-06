@@ -219,7 +219,7 @@ fn process_xcb_gen(
 
     let mut cg = CodeGen::new(&xcb_mod, ffi, rs, deps, evcopies);
 
-    cg.prologue(&imports, &info.1)?;
+    cg.prologue(imports, &info.1)?;
 
     for ev in events {
         cg.event(ev)?;
