@@ -10,6 +10,7 @@ use crate::output::Output;
 #[derive(Clone, Debug)]
 pub struct DepInfo {
     pub xcb_mod: String,
+    pub xcb_mod_prefix: String,
     pub imports: Vec<String>,
     pub typ_with_lifetime: HashSet<String>,
     pub typ_unions: HashSet<String>,
@@ -18,6 +19,12 @@ pub struct DepInfo {
     pub ffi_type_sizes: HashMap<String, Option<usize>>,
     pub ffi_typ_reg: HashSet<String>,
     pub rs_typ_reg: HashSet<String>,
+}
+
+impl DepInfo {
+    fn has_type(&self, typ: &str) -> bool {
+        self.ffi_type_sizes.contains_key(typ)
+    }
 }
 
 #[derive(Debug)]
@@ -106,6 +113,7 @@ impl CodeGen {
     pub fn into_depinfo(self) -> DepInfo {
         DepInfo {
             xcb_mod: self.xcb_mod,
+            xcb_mod_prefix: self.xcb_mod_prefix,
             imports: self.imports,
             typ_with_lifetime: self.typ_with_lifetime,
             typ_unions: self.typ_unions,
@@ -442,7 +450,16 @@ impl CodeGen {
                 let mod_prefix = if self.has_type(typ) {
                     &self.xcb_mod_prefix
                 } else {
-                    ""
+                    let mut pref = "";
+
+                    for di in self.dep_info.iter() {
+                        if di.has_type(typ) {
+                            pref = &di.xcb_mod_prefix;
+                            break;
+                        }
+                    }
+
+                    pref
                 };
                 let typ = tit_split(typ).to_ascii_lowercase();
                 format!("xcb_{}{}_t", mod_prefix, typ)
