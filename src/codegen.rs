@@ -125,11 +125,7 @@ impl CodeGen {
         }
     }
 
-    pub fn prologue(
-        &mut self,
-        imports: Vec<String>,
-        ext_info: &Option<ExtInfo>,
-    ) -> io::Result<()> {
+    pub fn prologue(&mut self, imports: Vec<String>, ext_info: &Option<ExtInfo>) -> io::Result<()> {
         self.imports = imports;
         let mut imports = HashSet::<String>::new();
         for imp in self.imports.iter() {
@@ -221,6 +217,7 @@ impl CodeGen {
         let linklib = match self.xcb_mod.as_str() {
             "xproto" | "big_requests" | "xc_misc" => "xcb".to_owned(),
             "genericevent" => "xcb-ge".to_owned(),
+            "x_print" => "xcb-xprint".to_owned(),
             m => {
                 let mut l = "xcb-".to_owned();
                 l.push_str(m);
@@ -247,7 +244,9 @@ impl CodeGen {
     pub fn event(&mut self, ev: Event) -> io::Result<()> {
         match ev {
             Event::Typedef { oldname, newname } => {
-                let ffi_old_typ = self.ffi_decl_type_name(&oldname);
+                self.notify_typ(newname.clone());
+
+                let ffi_old_typ = self.ffi_use_type_name(&oldname);
                 let ffi_new_typ = self.ffi_decl_type_name(&newname);
 
                 emit_type_alias(&mut self.ffi, &ffi_new_typ, &ffi_old_typ)?;
@@ -380,6 +379,8 @@ impl CodeGen {
             "BYTE" => true,
             "BOOL" => true,
             "char" => true,
+            "float" => true,
+            "double" => true,
             "void" => true,
             typ => {
                 self.typ_simple.contains(typ)
@@ -410,7 +411,59 @@ impl CodeGen {
         true
     }
 
+    fn type_has_lifetime(&self, typ: &str) -> bool {
+        if self.typ_with_lifetime.contains(typ) {
+            true
+        } else {
+            for di in &self.dep_info {
+                if di.typ_with_lifetime.contains(typ) {
+                    return true;
+                }
+            }
+            false
+        }
+    }
+
+    /// FFI type name
     fn ffi_decl_type_name(&self, typ: &str) -> String {
+        let typ = tit_split(typ).to_ascii_lowercase();
+        format!("xcb_{}{}_t", &self.xcb_mod_prefix, typ)
+    }
+
+    // fn ffi_typ_base<'a>(&self, typ: &'a str) -> (Option<&'a str>, String) {
+    //     let (module, typ) = extract_module(&typ);
+
+    //     if let Some(module) = module {
+    //         let mod_prefix = if module == "xproto" { "" } else { module };
+    //         let typ = format!("xcb_{}{}_t", &mod_prefix, typ);
+
+    //         if module == "xproto" || module == self.xcb_mod {
+    //             (None, typ)
+    //         } else {
+    //             (Some(module), typ)
+    //         }
+    //     } else {
+    //         let mod_prefix = if self.has_type(typ) {
+    //             &self.xcb_mod_prefix
+    //         } else {
+    //             let mut pref = "";
+
+    //             for di in self.dep_info.iter() {
+    //                 if di.has_type(typ) {
+    //                     pref = &di.xcb_mod_prefix;
+    //                     break;
+    //                 }
+    //             }
+
+    //             pref
+    //         };
+    //         let typ = tit_split(typ).to_ascii_lowercase();
+    //         (None, format!("xcb_{}{}_t", mod_prefix, typ))
+    //     }
+    // }
+
+    /// same as ffi_decl_type_name but can also have a namespace before (with a single colon)
+    fn ffi_use_type_name(&self, typ: &str) -> String {
         match typ {
             "CARD8" => "u8".into(),
             "CARD16" => "u16".into(),
@@ -422,51 +475,62 @@ impl CodeGen {
             "BYTE" => "u8".into(),
             "BOOL" => "u8".into(),
             "char" => "c_char".into(),
+            "float" => "f32".into(),
+            "double" => "f64".into(),
             "void" => "c_void".into(),
             typ => {
-                let typ = tit_split(typ).to_ascii_lowercase();
-                format!("xcb_{}{}_t", &self.xcb_mod_prefix, typ)
+                let (module, typ) = extract_module(&typ);
+
+                if let Some(module) = module {
+                    let typ = tit_split(typ).to_ascii_lowercase();
+                    let mod_prefix = if module == "xproto" {
+                        String::new()
+                    } else {
+                        format!("{}_", module)
+                    };
+                    format!("xcb_{}{}_t", &mod_prefix, typ)
+                } else {
+                    let mod_prefix = if self.has_type(typ) {
+                        &self.xcb_mod_prefix
+                    } else {
+                        let mut pref = "";
+
+                        for di in self.dep_info.iter() {
+                            if di.has_type(typ) {
+                                pref = &di.xcb_mod_prefix;
+                                break;
+                            }
+                        }
+
+                        pref
+                    };
+                    let typ = tit_split(typ).to_ascii_lowercase();
+                    format!("xcb_{}{}_t", mod_prefix, typ)
+                }
             }
         }
     }
 
-    /// same as ffi_decl_type_name but can also have a namespace before (with a single colon)
-    fn ffi_use_type_name(&self, typ: &str) -> String {
-        let (module, typ) = extract_module(&typ);
+    fn ffi_iterator_name(&self, typ: &str) -> String {
+        let mod_prefix = if self.has_type(typ) {
+            &self.xcb_mod_prefix
+        } else {
+            let mut pref = "";
 
-        let typ = match typ {
-            "CARD8" => "u8".into(),
-            "CARD16" => "u16".into(),
-            "CARD32" => "u32".into(),
-            "CARD64" => "u64".into(),
-            "INT8" => "i8".into(),
-            "INT16" => "i16".into(),
-            "INT32" => "i32".into(),
-            "BYTE" => "u8".into(),
-            "BOOL" => "u8".into(),
-            "char" => "c_char".into(),
-            "void" => "c_void".into(),
-            typ => {
-                let mod_prefix = if self.has_type(typ) {
-                    &self.xcb_mod_prefix
-                } else {
-                    let mut pref = "";
-
-                    for di in self.dep_info.iter() {
-                        if di.has_type(typ) {
-                            pref = &di.xcb_mod_prefix;
-                            break;
-                        }
-                    }
-
-                    pref
-                };
-                let typ = tit_split(typ).to_ascii_lowercase();
-                format!("xcb_{}{}_t", mod_prefix, typ)
+            for di in self.dep_info.iter() {
+                if di.has_type(typ) {
+                    pref = &di.xcb_mod_prefix;
+                    break;
+                }
             }
-        };
 
-        qualified_name(&self.xcb_mod, &module, &typ)
+            pref
+        };
+        format!(
+            "xcb_{}{}_iterator_t",
+            &mod_prefix,
+            tit_split(typ).to_ascii_lowercase()
+        )
     }
 
     fn ffi_type_sizeof(&self, typ: &str) -> Option<usize> {
@@ -483,6 +547,8 @@ impl CodeGen {
             "BYTE" => Some(1),
             "BOOL" => Some(1),
             "char" => Some(1),
+            "float" => Some(4),
+            "double" => Some(8),
             "void" => Some(0),
             typ => {
                 if let Some(sz) = self.ffi_type_sizes.get(typ) {
@@ -523,13 +589,19 @@ impl CodeGen {
         true
     }
 
-    fn type_has_lifetime(&self, stru: &Struct) -> bool {
-        has_variable_list(&stru.fields)
-    }
-
     fn ffi_enum_type_name(&mut self, typ: &str) -> String {
         let typ = tit_split(typ).to_ascii_lowercase();
         let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, typ);
+        // hardcoded exceptions: enum are defined before the homonym type
+        match try1.as_str() {
+            "xcb_render_picture_t" => {
+                return "xcb_render_picture_enum_t".into();
+            }
+            "xcb_present_event_t" => {
+                return "xcb_present_event_enum_t".into();
+            }
+            _ => {}
+        }
         if self.has_ffi_type(&try1) {
             format!("xcb_{}{}_enum_t", self.xcb_mod_prefix, typ)
         } else {
@@ -643,7 +715,7 @@ impl CodeGen {
         typ: &str,
         has_lifetime: bool,
     ) -> io::Result<String> {
-        let it_typ = ffi_iterator_name(&self.xcb_mod_prefix, &name);
+        let it_typ = self.ffi_iterator_name(&name);
         let it_next = ffi_iterator_next_fn_name(&self.xcb_mod_prefix, &name);
         let it_end = ffi_iterator_end_fn_name(&self.xcb_mod_prefix, &name);
 
@@ -676,6 +748,71 @@ impl CodeGen {
         Ok(it_typ)
     }
 
+    fn emit_ffi_field_list_accessor(
+        &mut self,
+        ffi_typ: &str,
+        xcb_name: &str,
+        fname: &str,
+        ftyp: &str,
+        fixed_size: bool,
+    ) -> io::Result<()> {
+        let is_simple = self.typ_is_simple(&ftyp);
+
+        let accessor_needed = fixed_size;
+        let length_needed = true;
+        let end_needed = is_simple;
+        let iterator_needed = !is_simple;
+
+        let has_lifetime = self.type_has_lifetime(ftyp);
+
+        if accessor_needed {
+            let ftyp = self.ffi_use_type_name(ftyp);
+            let acc_fn =
+                ffi_field_list_iterator_acc_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
+            let out = &mut self.ffi_buf;
+            writeln!(out)?;
+            writeln!(
+                out,
+                "pub fn {}(R: *const {}) -> *mut {};",
+                &acc_fn, &ffi_typ, &ftyp
+            )?;
+        }
+
+        if length_needed {
+            let len_fn =
+                ffi_field_list_iterator_len_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
+            let out = &mut self.ffi_buf;
+            writeln!(out)?;
+            writeln!(out, "pub fn {}(R: *const {}) -> c_int;", &len_fn, &ffi_typ)?;
+        }
+
+        if end_needed {
+            let end_fn =
+                ffi_field_list_iterator_end_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
+            let out = &mut self.ffi_buf;
+            writeln!(out)?;
+            writeln!(
+                out,
+                "pub fn {}(R: *const {}) -> xcb_generic_iterator_t;",
+                &end_fn, &ffi_typ
+            )?;
+        }
+
+        if iterator_needed {
+            let lifetime = if has_lifetime { "<'a>" } else { "" };
+            let it_fn = ffi_field_list_iterator_it_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
+            let it_typ = self.ffi_iterator_name(&ftyp);
+            let out = &mut self.ffi_buf;
+            writeln!(out)?;
+            writeln!(
+                out,
+                "pub fn {}{}(R: *const {}) -> {}{};",
+                &it_fn, &lifetime, &ffi_typ, &it_typ, &lifetime
+            )?;
+        }
+        Ok(())
+    }
+
     fn emit_ffi_field_list_accessors(
         &mut self,
         ffi_typ: &str,
@@ -696,73 +833,13 @@ impl CodeGen {
                         continue;
                     }
 
-                    let is_simple = self.typ_is_simple(&typ);
-
-                    let accessor_needed = fixed_size;
-                    let length_needed = true;
-                    let end_needed = is_simple;
-                    let iterator_needed = !is_simple;
-
-                    let has_lifetime = self.typ_with_lifetime.contains(typ);
-
-                    if accessor_needed {
-                        let f_typ = self.ffi_decl_type_name(typ);
-                        let acc_fn = ffi_field_list_iterator_acc_fn_name(
-                            &self.xcb_mod_prefix,
-                            &xcb_name,
-                            &name,
-                        );
-                        let out = &mut self.ffi_buf;
-                        writeln!(out)?;
-                        writeln!(
-                            out,
-                            "pub fn {}(R: *const {}) -> *mut {};",
-                            &acc_fn, &ffi_typ, &f_typ
-                        )?;
-                    }
-
-                    if length_needed {
-                        let len_fn = ffi_field_list_iterator_len_fn_name(
-                            &self.xcb_mod_prefix,
-                            &xcb_name,
-                            &name,
-                        );
-                        let out = &mut self.ffi_buf;
-                        writeln!(out)?;
-                        writeln!(out, "pub fn {}(R: *const {}) -> c_int;", &len_fn, &ffi_typ)?;
-                    }
-
-                    if end_needed {
-                        let end_fn = ffi_field_list_iterator_end_fn_name(
-                            &self.xcb_mod_prefix,
-                            &xcb_name,
-                            &name,
-                        );
-                        let out = &mut self.ffi_buf;
-                        writeln!(out)?;
-                        writeln!(
-                            out,
-                            "pub fn {}(R: *const {}) -> xcb_generic_iterator_t;",
-                            &end_fn, &ffi_typ
-                        )?;
-                    }
-
-                    if iterator_needed {
-                        let lifetime = if has_lifetime { "<'a>" } else { "" };
-                        let it_fn = ffi_field_list_iterator_it_fn_name(
-                            &self.xcb_mod_prefix,
-                            &xcb_name,
-                            &name,
-                        );
-                        let it_typ = ffi_iterator_name(&self.xcb_mod_prefix, &typ);
-                        let out = &mut self.ffi_buf;
-                        writeln!(out)?;
-                        writeln!(
-                            out,
-                            "pub fn {}{}(R: *const {}) -> {}{};",
-                            &it_fn, &lifetime, &ffi_typ, &it_typ, &lifetime
-                        )?;
-                    }
+                    self.emit_ffi_field_list_accessor(&ffi_typ, &xcb_name, &name, &typ, fixed_size)?;
+                }
+                StructField::ValueParam {
+                    list_name,
+                    ..
+                } => {
+                    self.emit_ffi_field_list_accessor(&ffi_typ, &xcb_name, &list_name, "CARD32", true)?;
                 }
                 _ => {}
             }
@@ -770,17 +847,19 @@ impl CodeGen {
         Ok(())
     }
 
-    fn emit_ffi_struct(&mut self, stru: &Struct) -> io::Result<String> {
+    fn emit_ffi_struct(&mut self, stru: &Struct, must_pack: bool) -> io::Result<String> {
         let Struct { name, fields, doc } = &stru;
 
         let ffi_typ = self.ffi_decl_type_name(&name);
         let impl_copy_clone = self.eligible_to_copy(&stru);
 
         {
+            let must_pack = if must_pack { ", packed" } else { "" };
+
             let out = &mut self.ffi;
             writeln!(out)?;
             emit_doc_text(out, &doc)?;
-            writeln!(out, "#[repr(C)]")?;
+            writeln!(out, "#[repr(C{})]", must_pack)?;
             writeln!(out, "pub struct {} {{", &ffi_typ)?;
         }
 
@@ -1507,6 +1586,10 @@ impl CodeGen {
                     let typ = self.ffi_use_type_name(&typ);
                     writeln!(&mut self.ffi_buf, "        {}: {},", &name, &typ)?;
                 }
+                StructField::Fd(name) => {
+                    let name = symbol(&name);
+                    writeln!(&mut self.ffi_buf, "        {}: i32,", &name)?;
+                }
                 StructField::ValueParam {
                     mask_typ,
                     mask_name,
@@ -1574,15 +1657,17 @@ impl CodeGen {
             doc: reply.doc,
         };
 
-        let out = &mut self.ffi;
-        writeln!(out)?;
-        writeln!(out, "#[derive(Copy, Clone, Debug)]")?;
-        writeln!(out, "#[repr(C)]")?;
-        writeln!(out, "pub struct {} {{", &cookie_ffi_typ)?;
-        writeln!(out, "    pub(crate) sequence: c_uint,")?;
-        writeln!(out, "}}")?;
+        {
+            let out = &mut self.ffi;
+            writeln!(out)?;
+            writeln!(out, "#[derive(Copy, Clone, Debug)]")?;
+            writeln!(out, "#[repr(C)]")?;
+            writeln!(out, "pub struct {} {{", &cookie_ffi_typ)?;
+            writeln!(out, "    pub(crate) sequence: c_uint,")?;
+            writeln!(out, "}}")?;
+        }
 
-        let ffi_reply_typ = self.emit_ffi_struct(&reply)?;
+        let ffi_reply_typ = self.emit_ffi_struct(&reply, false)?;
 
         self.emit_ffi_field_list_accessors(&ffi_reply_typ, &req_name, &reply.fields)?;
 
@@ -1599,6 +1684,16 @@ impl CodeGen {
             writeln!(out, "        cookie: {},", &cookie_ffi_typ)?;
             writeln!(out, "        error: *mut *mut xcb_generic_error_t,")?;
             writeln!(out, "    ) -> *mut {};", &ffi_reply_typ)?;
+        }
+
+        if has_fd(&reply.fields) {
+            let fds_fn = ffi_reply_fds_fn_name(&self.xcb_mod_prefix, &req_name);
+            let out = &mut self.ffi_buf;
+            writeln!(out)?;
+            writeln!(out, "    pub fn {}(", &fds_fn)?;
+            writeln!(out, "        c: *mut xcb_connection_t,")?;
+            writeln!(out, "        reply: *mut {},", &ffi_reply_typ)?;
+            writeln!(out, "    ) -> *mut c_int;")?;
         }
 
         Ok((cookie_ffi_typ, ffi_reply_fn, ffi_reply_typ))
@@ -1902,6 +1997,7 @@ impl CodeGen {
     }
 
     fn emit_xid(&mut self, name: String) -> io::Result<()> {
+        self.notify_typ(name.clone());
         let ffi_typ = self.ffi_decl_type_name(&name);
         emit_type_alias(&mut self.ffi, &ffi_typ, "u32")?;
         self.emit_ffi_iterator(&name, &ffi_typ, false)?;
@@ -1914,11 +2010,13 @@ impl CodeGen {
     }
 
     fn emit_struct(&mut self, stru: Struct) -> io::Result<()> {
-        let has_lifetime = self.type_has_lifetime(&stru);
+        self.notify_typ(stru.name.clone());
+
+        let has_lifetime = fields_need_lifetime(&stru.fields);
         if has_lifetime {
             self.typ_with_lifetime.insert(stru.name.clone());
         }
-        let ffi_typ = self.emit_ffi_struct(&stru)?;
+        let ffi_typ = self.emit_ffi_struct(&stru, false)?;
         self.emit_ffi_field_list_accessors(&ffi_typ, &stru.name, &stru.fields)?;
         let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ, has_lifetime)?;
 
@@ -1940,6 +2038,8 @@ impl CodeGen {
     }
 
     fn emit_union(&mut self, stru: Struct) -> io::Result<()> {
+        self.notify_typ(stru.name.clone());
+
         let ffi_sz = self.compute_ffi_union_size(&stru);
         let ffi_typ = self.ffi_decl_type_name(&stru.name);
 
@@ -1970,7 +2070,7 @@ impl CodeGen {
 
         self.emit_rs_union_impl(&rs_typ, ffi_sz, &stru)?;
 
-        let ffi_it_typ = ffi_iterator_name(&self.xcb_mod_prefix, &stru.name);
+        let ffi_it_typ = self.ffi_iterator_name(&stru.name);
 
         self.emit_rs_iterator(&stru.name, &rs_typ, &ffi_it_typ, false, true)?;
 
@@ -1980,6 +2080,8 @@ impl CodeGen {
     }
 
     fn emit_error(&mut self, number: i32, stru: Struct) -> io::Result<()> {
+        self.notify_typ(stru.name.clone() + "Error");
+
         emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &stru.name, number)?;
 
         emit_rs_opcode(&mut self.rs_buf, &stru.name, number)?;
@@ -2013,7 +2115,7 @@ impl CodeGen {
             doc: stru.doc,
         };
 
-        let ffi_typ = self.emit_ffi_struct(&stru)?;
+        let ffi_typ = self.emit_ffi_struct(&stru, false)?;
 
         let rs_typ = rust_type_name(&stru.name);
 
@@ -2038,7 +2140,7 @@ impl CodeGen {
         let old_name = error_ref.to_owned() + "Error";
 
         let new_ffi_typ = self.ffi_decl_type_name(&new_name);
-        let old_ffi_typ = self.ffi_decl_type_name(&old_name);
+        let old_ffi_typ = self.ffi_use_type_name(&old_name);
 
         emit_type_alias(&mut self.ffi, &new_ffi_typ, &old_ffi_typ)?;
 
@@ -2046,6 +2148,8 @@ impl CodeGen {
 
         emit_rs_error(&mut self.rs, &new_ffi_typ, &rs_typ)?;
         emit_rs_opcode(&mut self.rs_buf, &name, number)?;
+
+        self.notify_typ(new_name);
 
         Ok(())
     }
@@ -2057,25 +2161,28 @@ impl CodeGen {
         no_seq_number: bool,
         xge: bool,
     ) -> io::Result<()> {
-        emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &stru.name, number)?;
-
-        let opcopies = self
-            .evcopies
-            .remove(&stru.name)
-            .expect("missing event copies");
-
         let Struct {
             name: orig_name,
             fields: mut orig_fields,
             doc,
         } = stru;
+        let event_typ = orig_name.clone() + "Event";
+        self.notify_typ(event_typ.clone());
 
-        let fields = {
+        emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &orig_name, number)?;
+
+        let opcopies = self
+            .evcopies
+            .remove(&orig_name)
+            .expect("missing event copies");
+
+        let (fields, must_pack) = {
             let mut fields = vec![StructField::Field {
                 name: "response_type".into(),
                 typ: "CARD8".into(),
                 enu: None,
             }];
+            let mut must_pack = false;
 
             let mut sz = 1; // response_type size
 
@@ -2111,32 +2218,36 @@ impl CodeGen {
             }
 
             for f in orig_fields.into_iter() {
-                if xge && sz < 32 {
-                    sz += self
-                        .compute_ffi_struct_field_sizeof(&f)
-                        .expect(&format!("can't compute ffi full_sequence pos"));
+                if xge {
+                    let fsz = self.compute_ffi_struct_field_sizeof(&f);
                     fields.push(f);
-                    if sz == 32 {
-                        fields.push(StructField::Field {
-                            name: "full_sequence".into(),
-                            typ: "CARD32".into(),
-                            enu: None,
-                        });
-                        sz += 4;
+                    if sz < 32 {
+                        sz += fsz.expect("can't compute ffi full_sequence position");
+                        if sz == 32 {
+                            fields.push(StructField::Field {
+                                name: "full_sequence".into(),
+                                typ: "CARD32".into(),
+                                enu: None,
+                            });
+                        }
+                    } else if let Some(fsz) = fsz {
+                        if fsz == 8 {
+                            must_pack = true;
+                        }
                     }
                 } else {
                     fields.push(f);
                 }
             }
-            fields
+            (fields, must_pack)
         };
         let stru = Struct {
-            name: orig_name.clone() + "Event",
+            name: event_typ,
             fields,
             doc,
         };
 
-        let ffi_typ = self.emit_ffi_struct(&stru)?;
+        let ffi_typ = self.emit_ffi_struct(&stru, must_pack)?;
         let ffi_sz = self.compute_ffi_struct_size(&stru);
 
         for c in opcopies.iter() {
@@ -2144,7 +2255,7 @@ impl CodeGen {
             let new_name = c.name.to_owned() + "Event";
 
             let new_ffi_typ = self.ffi_decl_type_name(&new_name);
-            let old_ffi_typ = self.ffi_decl_type_name(&stru.name);
+            let old_ffi_typ = self.ffi_use_type_name(&stru.name);
 
             emit_type_alias(&mut self.ffi, &new_ffi_typ, &old_ffi_typ)?;
         }
@@ -2165,6 +2276,9 @@ impl CodeGen {
     }
 
     fn emit_request(&mut self, mut req: Request) -> io::Result<()> {
+        let request_typ = req.name.clone() + "Request";
+        self.notify_typ(request_typ.clone());
+
         emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &req.name, req.opcode)?;
 
         let fields = {
@@ -2201,11 +2315,11 @@ impl CodeGen {
         };
 
         let stru = Struct {
-            name: req.name.clone() + "Request",
+            name: request_typ,
             fields,
             doc: req.doc.clone(),
         };
-        self.emit_ffi_struct(&stru)?;
+        self.emit_ffi_struct(&stru, false)?;
 
         let void = req.reply.is_none();
         let (ffi_cookie, check_name, checked) = if void {
@@ -2245,21 +2359,26 @@ impl CodeGen {
         self.emit_rs_req_fn(&req.name, &rs_cookie, &req.params, &stru.doc, !checked)?;
         self.emit_rs_req_fn(&check_name, &rs_cookie, &req.params, &stru.doc, checked)?;
 
-        self.notify_typ(stru.name);
-
         Ok(())
     }
 }
 
-fn has_variable_list(fields: &[StructField]) -> bool {
+fn fields_need_lifetime(fields: &[StructField]) -> bool {
     for f in fields.iter() {
         match f {
-            StructField::List { len_expr, .. } => {
-                if expr_fixed_length(&len_expr).is_none() {
-                    return true;
-                }
+            StructField::List { .. } => {
+                return true;
             }
             _ => {}
+        }
+    }
+    false
+}
+
+fn has_fd(fields: &[StructField]) -> bool {
+    for f in fields.iter() {
+        if let StructField::Fd(_) = f {
+            return true;
         }
     }
     false
@@ -2316,13 +2435,15 @@ fn tit_split(name: &str) -> String {
 
     for next in ch {
         if is_low(prev) && is_high(c) || is_high(c) && is_low(next) {
-            res.push('_');
+            if prev != '_' {
+                res.push('_');
+            }
         }
         res.push(c);
         prev = c;
         c = next;
     }
-    if is_low(prev) && is_high(c) {
+    if is_low(prev) && is_high(c) && prev != '_' {
         res.push('_');
     }
     res.push(c);
@@ -2409,14 +2530,6 @@ fn ffi_enum_item_name(xcb_mod_prefix: &str, name: &str, item: &str) -> String {
     .to_ascii_uppercase()
 }
 
-fn ffi_iterator_name(xcb_mod_prefix: &str, typ: &str) -> String {
-    format!(
-        "xcb_{}{}_iterator_t",
-        xcb_mod_prefix,
-        tit_split(typ).to_ascii_lowercase()
-    )
-}
-
 fn ffi_iterator_next_fn_name(xcb_mod_prefix: &str, typ: &str) -> String {
     format!(
         "xcb_{}{}_next",
@@ -2442,7 +2555,7 @@ fn ffi_field_list_iterator_acc_fn_name(
         "xcb_{}{}_{}",
         &xcb_mod_prefix,
         tit_split(typ_name).to_ascii_lowercase(),
-        &field
+        tit_split(field)
     )
 }
 
@@ -2455,7 +2568,7 @@ fn ffi_field_list_iterator_len_fn_name(
         "xcb_{}{}_{}_length",
         &xcb_mod_prefix,
         tit_split(typ_name).to_ascii_lowercase(),
-        &field
+        tit_split(field)
     )
 }
 
@@ -2468,7 +2581,7 @@ fn ffi_field_list_iterator_end_fn_name(
         "xcb_{}{}_{}_end",
         &xcb_mod_prefix,
         tit_split(typ_name).to_ascii_lowercase(),
-        &field
+        tit_split(field)
     )
 }
 
@@ -2477,7 +2590,7 @@ fn ffi_field_list_iterator_it_fn_name(xcb_mod_prefix: &str, typ_name: &str, fiel
         "xcb_{}{}_{}_iterator",
         &xcb_mod_prefix,
         tit_split(typ_name).to_ascii_lowercase(),
-        &field
+        tit_split(field)
     )
 }
 
@@ -2492,6 +2605,14 @@ fn ffi_request_fn_name(xcb_mod_prefix: &str, req_name: &str) -> String {
 fn ffi_reply_fn_name(xcb_mod_prefix: &str, req_name: &str) -> String {
     format!(
         "xcb_{}{}_reply",
+        &xcb_mod_prefix,
+        tit_split(req_name).to_ascii_lowercase(),
+    )
+}
+
+fn ffi_reply_fds_fn_name(xcb_mod_prefix: &str, req_name: &str) -> String {
+    format!(
+        "xcb_{}{}_reply_fds",
         &xcb_mod_prefix,
         tit_split(req_name).to_ascii_lowercase(),
     )
@@ -2516,6 +2637,8 @@ fn rust_type_name(typ: &str) -> String {
         "INT32" => "i32".into(),
         "BYTE" => "u8".into(),
         "BOOL" => "bool".into(),
+        "float" => "f32".into(),
+        "double" => "f64".into(),
         typ => tit_cap(typ),
     }
 }

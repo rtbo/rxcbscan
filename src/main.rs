@@ -16,6 +16,9 @@ fn xcb_mod_map(name: &str) -> &str {
     match name {
         "bigreq" => "big_requests",
         "ge" => "genericevent",
+        "xselinux" => "selinux",
+        "xprint" => "x_print",
+        "xinput" => "input",
         _ => name,
     }
 }
