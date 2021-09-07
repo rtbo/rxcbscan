@@ -18,7 +18,7 @@ fn xcb_mod_map(name: &str) -> &str {
         "ge" => "genericevent",
         "xselinux" => "selinux",
         "xprint" => "x_print",
-        "xinput" => "input",
+        "xtest" => "test",
         _ => name,
     }
 }

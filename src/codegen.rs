@@ -218,6 +218,7 @@ impl CodeGen {
             "xproto" | "big_requests" | "xc_misc" => "xcb".to_owned(),
             "genericevent" => "xcb-ge".to_owned(),
             "x_print" => "xcb-xprint".to_owned(),
+            "test" => "xcb-xtest".to_owned(),
             m => {
                 let mut l = "xcb-".to_owned();
                 l.push_str(m);
