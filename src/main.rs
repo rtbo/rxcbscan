@@ -60,6 +60,11 @@ fn main() {
     let mut dep_info = Vec::new();
 
     for xml_file in iter_xml(&xml_dir) {
+        match xml_file.file_stem().unwrap().to_str().unwrap() {
+            "xinput" => {continue},
+            _ => {}
+        }
+
         process_xcb_gen(&xml_file, &out_dir, &rustfmt, &mut dep_info).unwrap_or_else(|err| {
             panic!(
                 "Error during processing of {}: {:?}",
