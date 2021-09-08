@@ -30,10 +30,12 @@ where
 {
     FieldRef(String),
     ParamRef(String),
+    EnumRef { name: String, item: String },
     Value(T),
     Op(String, Box<Expr<T>>, Box<Expr<T>>),
     Unop(String, Box<Expr<T>>),
     Popcount(Box<Expr<T>>),
+    SumOf(String),
 }
 
 #[derive(Debug, Clone)]
@@ -54,6 +56,13 @@ pub struct Enum {
     pub name: String,
     pub items: Vec<EnumItem>,
     pub doc: Option<Doc>,
+}
+
+#[derive(Debug, Clone)]
+pub struct SwitchCase {
+    pub bit: bool,
+    pub exprs: Vec<Expr<usize>>,
+    pub fields: Vec<StructField>,
 }
 
 #[derive(Debug, Clone)]
@@ -85,7 +94,7 @@ pub enum StructField {
         list_name: String,
     },
     Fd(String),
-    Switch,
+    Switch(String, Expr<usize>, Vec<SwitchCase>),
 }
 
 #[derive(Debug, Clone)]
@@ -138,7 +147,7 @@ pub enum Event {
     Enum(Enum),
     Struct(Struct),
     Union(Struct),
-    Event{
+    Event {
         number: i32,
         stru: Struct,
         no_seq_number: bool,

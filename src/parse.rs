@@ -10,7 +10,7 @@ use std::str::{self, FromStr, Utf8Error};
 
 use crate::ast::{
     Doc, DocField, Enum, EnumItem, Event, Expr, ExtInfo, Reply, Request, Struct, StructField,
-    XidUnion,
+    SwitchCase, XidUnion,
 };
 
 #[derive(Debug)]
@@ -247,6 +247,62 @@ impl<B: BufRead> Parser<B> {
         })
     }
 
+    fn parse_expr_content<T>(&mut self, attrs: Attributes, tag: &[u8]) -> Result<Expr<T>>
+    where
+        T: FromStr,
+        <T as FromStr>::Err: Display,
+        T: Clone,
+    {
+        match tag {
+            b"fieldref" => {
+                let fr = self.expect_text_trim(b"fieldref")?;
+                Ok(Expr::FieldRef(fr))
+            }
+            b"paramref" => {
+                let pr = self.expect_text_trim(b"paramref")?;
+                Ok(Expr::ParamRef(pr))
+            }
+            b"enumref" => {
+                let name = expect_attribute(attrs, b"ref")?;
+                let item = self.expect_text_trim(b"enumref")?;
+                Ok(Expr::EnumRef { name, item })
+            }
+            b"value" => {
+                let val = self.expect_text_trim(b"value")?;
+                let val: T = val.parse().map_err(|e| {
+                    Error::Parse(format!("could not parse expr <value> tag: {}", e))
+                })?;
+                Ok(Expr::Value(val))
+            }
+            b"op" => {
+                let op = expect_attribute(attrs, b"op")?;
+                let lhs = self.parse_expr::<T>(b"")?.unwrap();
+                let rhs = self.parse_expr::<T>(b"")?.unwrap();
+                self.expect_close_tag(b"op")?;
+                Ok(Expr::Op(op, Box::new(lhs), Box::new(rhs)))
+            }
+            b"unop" => {
+                let unop = expect_attribute(attrs, b"op")?;
+                let expr = self.parse_expr::<T>(b"")?.unwrap();
+                self.expect_close_tag(b"unop")?;
+                Ok(Expr::Unop(unop, Box::new(expr)))
+            }
+            b"popcount" => {
+                let expr = self.parse_expr::<T>(b"")?.unwrap();
+                self.expect_close_tag(b"popcount")?;
+                Ok(Expr::Popcount(Box::new(expr)))
+            }
+            b"sumof" => {
+                let list_ref = expect_attribute(attrs, b"ref")?;
+                Ok(Expr::SumOf(list_ref))
+            }
+            tag => Err(Error::Parse(format!(
+                "Unexpected <{}> in expression",
+                str::from_utf8(tag)?
+            ))),
+        }
+    }
+
     fn parse_expr<T>(&mut self, empty_end_tag: &[u8]) -> Result<Option<Expr<T>>>
     where
         T: FromStr,
@@ -254,45 +310,10 @@ impl<B: BufRead> Parser<B> {
         T: Clone,
     {
         match self.xml.read_event(&mut self.buf) {
-            Ok(XmlEv::Start(ref e)) => match e.name() {
-                b"fieldref" => {
-                    let fr = self.expect_text_trim(b"fieldref")?;
-                    Ok(Some(Expr::FieldRef(fr)))
-                }
-                b"paramref" => {
-                    let pr = self.expect_text_trim(b"paramref")?;
-                    Ok(Some(Expr::ParamRef(pr)))
-                }
-                b"value" => {
-                    let val = self.expect_text_trim(b"value")?;
-                    let val: T = val.parse().map_err(|e| {
-                        Error::Parse(format!("could not parse expr <value> tag: {}", e))
-                    })?;
-                    Ok(Some(Expr::Value(val)))
-                }
-                b"op" => {
-                    let op = expect_attribute(e.attributes(), b"op")?;
-                    let lhs = self.parse_expr::<T>(b"")?.unwrap();
-                    let rhs = self.parse_expr::<T>(b"")?.unwrap();
-                    self.expect_close_tag(b"op")?;
-                    Ok(Some(Expr::Op(op, Box::new(lhs), Box::new(rhs))))
-                }
-                b"unop" => {
-                    let unop = expect_attribute(e.attributes(), b"op")?;
-                    let expr = self.parse_expr::<T>(b"")?.unwrap();
-                    self.expect_close_tag(b"unop")?;
-                    Ok(Some(Expr::Unop(unop, Box::new(expr))))
-                }
-                b"popcount" => {
-                    let expr = self.parse_expr::<T>(b"")?.unwrap();
-                    self.expect_close_tag(b"popcount")?;
-                    Ok(Some(Expr::Popcount(Box::new(expr))))
-                }
-                tag => Err(Error::Parse(format!(
-                    "Unexpected <{}> in expression",
-                    str::from_utf8(tag)?
-                ))),
-            },
+            Ok(XmlEv::Start(ref e) | XmlEv::Empty(ref e)) => {
+                let e = e.to_owned();
+                Ok(Some(self.parse_expr_content(e.attributes(), e.name())?))
+            }
             Ok(XmlEv::Comment(_)) => self.parse_expr::<T>(empty_end_tag), // in case of comment, we just parse the next one
             Ok(XmlEv::End(e)) => {
                 if e.name() == empty_end_tag {
@@ -419,147 +440,161 @@ impl<B: BufRead> Parser<B> {
         Ok(Enum { name, items, doc })
     }
 
+    fn parse_field_content(&mut self, e: &BytesStart, empty_tag: bool) -> Result<StructField> {
+        if empty_tag {
+            match e.name() {
+                b"field" => {
+                    let names: [&[u8]; 3] = [b"type", b"name", b"enum"];
+                    let mut vals: [Option<String>; 3] = [None, None, None];
+                    get_attributes(e.attributes(), &names, &mut vals)?;
+                    let [typ, nam, enu] = vals;
+
+                    if let (Some(typ), Some(name)) = (typ, nam) {
+                        Ok(StructField::Field {
+                            name: name,
+                            typ: typ,
+                            enu: enu,
+                        })
+                    } else {
+                        return Err(Error::Parse("struct field without type and/or name".into()));
+                    }
+                }
+                b"pad" => {
+                    let names: [&[u8]; 2] = [b"bytes", b"align"];
+                    let mut vals: [Option<String>; 2] = [None, None];
+                    get_attributes(e.attributes(), &names, &mut vals)?;
+                    let [bytes, align] = vals;
+                    if bytes.is_some() && align.is_some() {
+                        return Err(Error::Parse("<pad> with both align and bytes attr".into()));
+                    }
+                    if let Some(bytes) = bytes {
+                        let val: usize = bytes.parse().map_err(|e| {
+                            Error::Parse(format!("failed to parse pad bytes of struct: {}", e))
+                        })?;
+                        Ok(StructField::Pad(val))
+                    } else if let Some(align) = align {
+                        let val: usize = align.parse().map_err(|e| {
+                            Error::Parse(format!("failed to parse pad bytes of struct: {}", e))
+                        })?;
+                        Ok(StructField::AlignPad(val))
+                    } else {
+                        return Err(Error::Parse(
+                            "<pad> with neither align and bytes attr".into(),
+                        ));
+                    }
+                }
+                b"list" => {
+                    let names: [&[u8]; 2] = [b"type", b"name"];
+                    let mut vals: [Option<String>; 2] = [None, None];
+                    get_attributes(e.attributes(), &names, &mut vals)?;
+                    let [typ, nam] = vals;
+                    if let (Some(typ), Some(name)) = (typ, nam) {
+                        Ok(StructField::ListNoLen { name, typ })
+                    } else {
+                        return Err(Error::Parse(
+                            "<list> tag without type and/or name attribute".into(),
+                        ));
+                    }
+                }
+                b"valueparam" => {
+                    let names: [&[u8]; 3] =
+                        [b"value-mask-type", b"value-mask-name", b"value-list-name"];
+                    let mut vals: [Option<String>; 3] = [None, None, None];
+                    get_attributes(e.attributes(), &names, &mut vals)?;
+                    let [mask_typ, mask_name, list_name] = vals;
+                    if let (Some(mask_typ), Some(mask_name), Some(list_name)) =
+                        (mask_typ, mask_name, list_name)
+                    {
+                        Ok(StructField::ValueParam {
+                            mask_typ,
+                            mask_name,
+                            list_name,
+                        })
+                    } else {
+                        return Err(Error::Parse(
+                                "<valueparam> tag without value-mask-type, value-mask-name or value-list-name attribute".into(),
+                            ));
+                    }
+                }
+                b"fd" => {
+                    let name = expect_attribute(e.attributes(), b"name")?;
+                    Ok(StructField::Fd(name))
+                }
+                tag => {
+                    return Err(Error::Parse(format!(
+                        "Unexpected <{} /> in field",
+                        str::from_utf8(tag)?
+                    )))
+                }
+            }
+        } else {
+            match e.name() {
+                b"list" => {
+                    let names: [&[u8]; 2] = [b"type", b"name"];
+                    let mut vals: [Option<String>; 2] = [None, None];
+                    get_attributes(e.attributes(), &names, &mut vals)?;
+                    let [typ, nam] = vals;
+                    if let (Some(typ), Some(name)) = (typ, nam) {
+                        let len_expr = self.parse_expr::<usize>(b"list")?;
+                        Ok(match len_expr {
+                            Some(len_expr) => StructField::List {
+                                name,
+                                typ,
+                                len_expr,
+                            },
+                            None => StructField::ListNoLen { name, typ },
+                        })
+                    } else {
+                        return Err(Error::Parse(
+                            "<list> tag without type and/or name attribute".into(),
+                        ));
+                    }
+                }
+                b"exprfield" => {
+                    let names: [&[u8]; 2] = [b"type", b"name"];
+                    let mut vals: [Option<String>; 2] = [None, None];
+                    get_attributes(e.attributes(), &names, &mut vals)?;
+                    let [typ, nam] = vals;
+                    if let (Some(typ), Some(name)) = (typ, nam) {
+                        let expr = self.parse_expr::<usize>(b"")?.unwrap();
+                        self.xml.read_to_end(b"exprfield", &mut self.buf)?;
+                        Ok(StructField::Expr { name, typ, expr })
+                    } else {
+                        return Err(Error::Parse(
+                            "<exprfield> tag without type and/or name attribute".into(),
+                        ));
+                    }
+                }
+                b"switch" => {
+                    let name = expect_attribute(e.attributes(), b"name")?;
+                    let (expr, cases) = self.parse_switch()?;
+                    Ok(StructField::Switch(name, expr, cases))
+                }
+                tag => {
+                    return Err(Error::Parse(format!(
+                        "Unexpected <{}> in field",
+                        str::from_utf8(tag)?
+                    )))
+                }
+            }
+        }
+    }
+
     fn parse_struct_content(&mut self, end_tag: &[u8]) -> Result<StructContent> {
         let mut fields = Vec::new();
         let mut reply = None;
         let mut doc = None;
 
-        let mut had_list = false;
-
         loop {
             match self.xml.read_event(&mut self.buf) {
-                Ok(XmlEv::Empty(ref e)) => match e.name() {
-                    b"field" => {
-                        let names: [&[u8]; 3] = [b"type", b"name", b"enum"];
-                        let mut vals: [Option<String>; 3] = [None, None, None];
-                        get_attributes(e.attributes(), &names, &mut vals)?;
-                        let [typ, nam, enu] = vals;
-
-                        if let (Some(typ), Some(name)) = (typ, nam) {
-                            fields.push(StructField::Field {
-                                name: name,
-                                typ: typ,
-                                enu: enu,
-                            })
-                        } else {
-                            return Err(Error::Parse(
-                                "struct field without type and/or name".into(),
-                            ));
-                        }
-                    }
-                    b"pad" => {
-                        let names: [&[u8]; 2] = [b"bytes", b"align"];
-                        let mut vals: [Option<String>; 2] = [None, None];
-                        get_attributes(e.attributes(), &names, &mut vals)?;
-                        let [bytes, align] = vals;
-                        if bytes.is_some() && align.is_some() {
-                            return Err(Error::Parse(
-                                "<pad> with both align and bytes attr".into(),
-                            ));
-                        }
-                        if let Some(bytes) = bytes {
-                            let val: usize = bytes.parse().map_err(|e| {
-                                Error::Parse(format!("failed to parse pad bytes of struct: {}", e))
-                            })?;
-                            fields.push(StructField::Pad(val));
-                        } else if let Some(align) = align {
-                            if !had_list {
-                                return Err(Error::Parse(
-                                    "alignment pad only expected after list field".into(),
-                                ));
-                            }
-                            let val: usize = align.parse().map_err(|e| {
-                                Error::Parse(format!("failed to parse pad bytes of struct: {}", e))
-                            })?;
-                            fields.push(StructField::AlignPad(val));
-                        } else {
-                            return Err(Error::Parse(
-                                "<pad> with neither align and bytes attr".into(),
-                            ));
-                        }
-                    }
-                    b"list" => {
-                        let names: [&[u8]; 2] = [b"type", b"name"];
-                        let mut vals: [Option<String>; 2] = [None, None];
-                        get_attributes(e.attributes(), &names, &mut vals)?;
-                        let [typ, nam] = vals;
-                        if let (Some(typ), Some(name)) = (typ, nam) {
-                            fields.push(StructField::ListNoLen { name, typ });
-                            had_list = true;
-                        } else {
-                            return Err(Error::Parse(
-                                "<list> tag without type and/or name attribute".into(),
-                            ));
-                        }
-                    }
-                    b"valueparam" => {
-                        let names: [&[u8]; 3] =
-                            [b"value-mask-type", b"value-mask-name", b"value-list-name"];
-                        let mut vals: [Option<String>; 3] = [None, None, None];
-                        get_attributes(e.attributes(), &names, &mut vals)?;
-                        let [mask_typ, mask_name, list_name] = vals;
-                        if let (Some(mask_typ), Some(mask_name), Some(list_name)) =
-                            (mask_typ, mask_name, list_name)
-                        {
-                            fields.push(StructField::ValueParam {
-                                mask_typ,
-                                mask_name,
-                                list_name,
-                            });
-                        } else {
-                            return Err(Error::Parse(
-                                "<valueparam> tag without value-mask-type, value-mask-name or value-list-name attribute".into(),
-                            ));
-                        }
-                    }
-                    b"fd" => {
-                        let name = expect_attribute(e.attributes(), b"name")?;
-                        fields.push(StructField::Fd(name));
-                    }
-                    tag => {
-                        return Err(Error::Parse(format!(
-                            "Unexpected <{}> in struct",
-                            str::from_utf8(tag)?
-                        )))
-                    }
-                },
+                Ok(XmlEv::Empty(ref e)) => {
+                    let e = e.to_owned();
+                    fields.push(self.parse_field_content(&e, true)?);
+                }
                 Ok(XmlEv::Start(ref e)) => match e.name() {
-                    b"list" => {
-                        let names: [&[u8]; 2] = [b"type", b"name"];
-                        let mut vals: [Option<String>; 2] = [None, None];
-                        get_attributes(e.attributes(), &names, &mut vals)?;
-                        let [typ, nam] = vals;
-                        if let (Some(typ), Some(name)) = (typ, nam) {
-                            let len_expr = self.parse_expr::<usize>(b"list")?;
-                            fields.push(match len_expr {
-                                Some(len_expr) => StructField::List {
-                                    name,
-                                    typ,
-                                    len_expr,
-                                },
-                                None => StructField::ListNoLen { name, typ },
-                            });
-                            had_list = true;
-                        } else {
-                            return Err(Error::Parse(
-                                "<list> tag without type and/or name attribute".into(),
-                            ));
-                        }
-                    }
-                    b"exprfield" => {
-                        let names: [&[u8]; 2] = [b"type", b"name"];
-                        let mut vals: [Option<String>; 2] = [None, None];
-                        get_attributes(e.attributes(), &names, &mut vals)?;
-                        let [typ, nam] = vals;
-                        if let (Some(typ), Some(name)) = (typ, nam) {
-                            let expr = self.parse_expr::<usize>(b"")?.unwrap();
-                            fields.push(StructField::Expr { name, typ, expr });
-                        } else {
-                            return Err(Error::Parse(
-                                "<exprfield> tag without type and/or name attribute".into(),
-                            ));
-                        }
-                        self.xml.read_to_end(b"exprfield", &mut self.buf)?;
+                    b"list" | b"exprfield" | b"switch" => {
+                        let e = e.to_owned();
+                        fields.push(self.parse_field_content(&e, false)?);
                     }
                     b"doc" => {
                         doc = Some(self.parse_doc()?);
@@ -569,12 +604,9 @@ impl<B: BufRead> Parser<B> {
                             self.parse_struct_content(b"reply")?;
                         reply = Some(Reply { fields, doc })
                     }
-                    b"switch" => {
-                        self.xml.read_to_end(b"switch", &mut self.buf)?;
-                    }
                     tag => {
                         return Err(Error::Parse(format!(
-                            "Unexpected <{}> in struct",
+                            "Unexpected <{} /> in struct",
                             str::from_utf8(tag)?
                         )))
                     }
@@ -670,6 +702,84 @@ impl<B: BufRead> Parser<B> {
             })
         }
     }
+
+    fn parse_switch_case(&mut self, end_tag: &[u8]) -> Result<SwitchCase> {
+        let bit = end_tag == b"bitcase";
+
+        let mut exprs = Vec::new();
+        let mut fields = Vec::new();
+        loop {
+            match self.xml.read_event(&mut self.buf) {
+                Ok(XmlEv::Start(ref e)) => {
+                    let e = e.to_owned();
+                    if is_expr_tag(e.name()) {
+                        let expr = self.parse_expr_content(e.attributes(), e.name())?;
+                        exprs.push(expr);
+                    } else {
+                        let field = self.parse_field_content(&e, false)?;
+                        fields.push(field);
+                    }
+                }
+                Ok(XmlEv::Empty(ref e)) => {
+                    let e = e.to_owned();
+                    if is_expr_tag(e.name()) {
+                        let expr = self.parse_expr_content(e.attributes(), e.name())?;
+                        exprs.push(expr);
+                    } else {
+                        let field = self.parse_field_content(&e, true)?;
+                        fields.push(field);
+                    }
+                }
+                Ok(XmlEv::Comment(_)) => {}
+                Ok(XmlEv::End(ref e)) => {
+                    if e.name() == end_tag {
+                        break;
+                    }
+                }
+                ev => {
+                    return Err(Error::Parse(format!(
+                        "unexpected XML in switch case: {:?}",
+                        ev
+                    )))
+                }
+            }
+        }
+
+        Ok(SwitchCase { bit, exprs, fields })
+    }
+
+    fn parse_switch(&mut self) -> Result<(Expr<usize>, Vec<SwitchCase>)> {
+        let expr = self.parse_expr(b"")?.unwrap();
+
+        let mut cases = Vec::new();
+
+        loop {
+            match self.xml.read_event(&mut self.buf) {
+                Ok(XmlEv::Start(ref e)) => match e.name() {
+                    b"bitcase" => {
+                        cases.push(self.parse_switch_case(b"bitcase")?);
+                    }
+                    b"case" => {
+                        cases.push(self.parse_switch_case(b"case")?);
+                    }
+                    name => {
+                        return Err(Error::Parse(format!(
+                            "unexpected <{}> in <switch>",
+                            str::from_utf8(name).unwrap()
+                        )));
+                    }
+                },
+                Ok(XmlEv::End(ref e)) => match e.name() {
+                    b"switch" => break,
+                    _ => {}
+                },
+                Ok(_) => {}
+                Err(err) => return Err(err.into()),
+            }
+        }
+
+        Ok((expr, cases))
+    }
 }
 
 struct OpStruct {
@@ -684,6 +794,13 @@ struct StructContent {
     fields: Vec<StructField>,
     reply: Option<Reply>,
     doc: Option<Doc>,
+}
+
+fn is_expr_tag(tag: &[u8]) -> bool {
+    match tag {
+        b"fieldref" | b"paramref" | b"op" | b"unop" | b"popcount" | b"value" | b"enumref" | b"sumof" => true,
+        _ => false,
+    }
 }
 
 impl<B: BufRead> Iterator for &mut Parser<B> {

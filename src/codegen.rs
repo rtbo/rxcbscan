@@ -578,7 +578,7 @@ impl CodeGen {
                 StructField::ValueParam { .. } => {
                     return false;
                 }
-                StructField::Switch => {
+                StructField::Switch(..) => {
                     return false;
                 }
                 StructField::ListNoLen { .. } => {
@@ -2395,8 +2395,7 @@ fn make_field(name: String, typ: String) -> StructField {
 
 fn expr_fixed_length(expr: &Expr<usize>) -> Option<usize> {
     match expr {
-        Expr::FieldRef(_) => None,
-        Expr::ParamRef(_) => None,
+        Expr::EnumRef{..} => None, // FIXME: get the value of the enum item
         Expr::Value(val) => Some(*val),
         Expr::Popcount(ex) => expr_fixed_length(&ex).map(|sz| sz.count_ones() as _),
         Expr::Op(op, lhs, rhs) => match (expr_fixed_length(lhs), expr_fixed_length(rhs)) {
@@ -2413,6 +2412,7 @@ fn expr_fixed_length(expr: &Expr<usize>) -> Option<usize> {
             "~" => !val,
             _ => panic!("Unexpected unary operator in Expr: {}", op),
         }),
+        _ => None,
     }
 }
 
