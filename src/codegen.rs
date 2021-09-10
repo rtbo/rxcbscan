@@ -220,6 +220,7 @@ impl CodeGen {
             "genericevent" => "xcb-ge".to_owned(),
             "x_print" => "xcb-xprint".to_owned(),
             "test" => "xcb-xtest".to_owned(),
+            "selinux" => "xcb-xselinux".to_owned(),
             m => {
                 let mut l = "xcb-".to_owned();
                 l.push_str(m);
