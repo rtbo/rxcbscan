@@ -4,6 +4,7 @@ use std::io::{self, Cursor, Write};
 
 use crate::ast::{
     Doc, EnumItem, Event, Expr, ExtInfo, OpCopy, OpCopyMap, Reply, Request, Struct, StructField,
+    SwitchCase,
 };
 use crate::output::Output;
 
@@ -834,13 +835,14 @@ impl CodeGen {
                         continue;
                     }
 
-                    self.emit_ffi_field_list_accessor(&ffi_typ, &xcb_name, &name, &typ, fixed_size)?;
+                    self.emit_ffi_field_list_accessor(
+                        &ffi_typ, &xcb_name, &name, &typ, fixed_size,
+                    )?;
                 }
-                StructField::ValueParam {
-                    list_name,
-                    ..
-                } => {
-                    self.emit_ffi_field_list_accessor(&ffi_typ, &xcb_name, &list_name, "CARD32", true)?;
+                StructField::ValueParam { list_name, .. } => {
+                    self.emit_ffi_field_list_accessor(
+                        &ffi_typ, &xcb_name, &list_name, "CARD32", true,
+                    )?;
                 }
                 _ => {}
             }
@@ -848,11 +850,11 @@ impl CodeGen {
         Ok(())
     }
 
-    fn emit_ffi_struct(&mut self, stru: &Struct, must_pack: bool) -> io::Result<String> {
+    fn emit_ffi_struct(&mut self, stru: &Struct, must_pack: bool, no_copy: bool) -> io::Result<String> {
         let Struct { name, fields, doc } = &stru;
 
         let ffi_typ = self.ffi_decl_type_name(&name);
-        let impl_copy_clone = self.eligible_to_copy(&stru);
+        let impl_copy_clone = self.eligible_to_copy(&stru) && !no_copy;
 
         {
             let must_pack = if must_pack { ", packed" } else { "" };
@@ -1562,14 +1564,38 @@ impl CodeGen {
         Ok(rs_typ)
     }
 
+    fn emit_ffi_switch_struct(
+        &mut self,
+        typ_name: &str,
+        switch_name: &str,
+        _expr: &Expr<usize>,
+        cases: &[SwitchCase],
+    ) -> io::Result<String> {
+        let fields = {
+            let mut fields = Vec::new();
+            for c in cases.iter() {
+                fields.append(&mut c.fields.clone());
+            }
+            fields
+        };
+
+        let stru = Struct {
+            name: typ_name.to_string() + &capitalize(switch_name),
+            fields,
+            doc: None,
+        };
+        let typ = self.emit_ffi_struct(&stru, false, true)?;
+        Ok(typ)
+    }
+
     fn emit_ffi_req_fn(
         &mut self,
         req_name: &str,
+        fn_name: &str,
         cookie_name: &str,
         fields: &[StructField],
         doc: &Option<Doc>,
     ) -> io::Result<()> {
-        let fn_name = ffi_request_fn_name(&self.xcb_mod_prefix, &req_name);
         let cookie_typ = self.ffi_use_type_name(&cookie_name);
         {
             let out = &mut self.ffi_buf;
@@ -1620,6 +1646,11 @@ impl CodeGen {
                     writeln!(out, "        {}: u32,", &len_name)?;
                     writeln!(out, "        {}: *const {},", &name, &typ)?;
                 }
+                StructField::Switch(name, ..) => {
+                    let name = symbol(&name);
+                    let typ = ffi_switch_struct_name(&self.xcb_mod_prefix, &req_name, &name);
+                    writeln!(&mut self.ffi_buf, "        {}: *const {},", &name, &typ)?;
+                }
                 _ => {}
             }
         }
@@ -1668,7 +1699,7 @@ impl CodeGen {
             writeln!(out, "}}")?;
         }
 
-        let ffi_reply_typ = self.emit_ffi_struct(&reply, false)?;
+        let ffi_reply_typ = self.emit_ffi_struct(&reply, false, false)?;
 
         self.emit_ffi_field_list_accessors(&ffi_reply_typ, &req_name, &reply.fields)?;
 
@@ -2017,7 +2048,7 @@ impl CodeGen {
         if has_lifetime {
             self.typ_with_lifetime.insert(stru.name.clone());
         }
-        let ffi_typ = self.emit_ffi_struct(&stru, false)?;
+        let ffi_typ = self.emit_ffi_struct(&stru, false, false)?;
         self.emit_ffi_field_list_accessors(&ffi_typ, &stru.name, &stru.fields)?;
         let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ, has_lifetime)?;
 
@@ -2116,7 +2147,7 @@ impl CodeGen {
             doc: stru.doc,
         };
 
-        let ffi_typ = self.emit_ffi_struct(&stru, false)?;
+        let ffi_typ = self.emit_ffi_struct(&stru, false, false)?;
 
         let rs_typ = rust_type_name(&stru.name);
 
@@ -2248,7 +2279,7 @@ impl CodeGen {
             doc,
         };
 
-        let ffi_typ = self.emit_ffi_struct(&stru, must_pack)?;
+        let ffi_typ = self.emit_ffi_struct(&stru, must_pack, false)?;
         let ffi_sz = self.compute_ffi_struct_size(&stru);
 
         for c in opcopies.iter() {
@@ -2279,8 +2310,6 @@ impl CodeGen {
     fn emit_request(&mut self, mut req: Request) -> io::Result<()> {
         let request_typ = req.name.clone() + "Request";
         self.notify_typ(request_typ.clone());
-
-        emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &req.name, req.opcode)?;
 
         let fields = {
             let mut params = req.params.clone();
@@ -2315,12 +2344,20 @@ impl CodeGen {
             fields
         };
 
+        for f in &fields {
+            if let StructField::Switch(name, expr, cases) = f {
+                self.emit_ffi_switch_struct(&req.name, &name, &expr, &cases)?;
+            }
+        }
+
+        emit_ffi_opcode(&mut self.ffi, &self.xcb_mod_prefix, &req.name, req.opcode)?;
+
         let stru = Struct {
             name: request_typ,
             fields,
             doc: req.doc.clone(),
         };
-        self.emit_ffi_struct(&stru, false)?;
+        self.emit_ffi_struct(&stru, false, false)?;
 
         let void = req.reply.is_none();
         let (ffi_cookie, check_name, checked) = if void {
@@ -2355,8 +2392,11 @@ impl CodeGen {
             self.notify_typ(req.name.clone() + "Cookie");
         }
 
-        self.emit_ffi_req_fn(&req.name, &ffi_cookie, &req.params, &stru.doc)?;
-        self.emit_ffi_req_fn(&check_name, &ffi_cookie, &req.params, &stru.doc)?;
+        let ffi_fn_name = ffi_request_fn_name(&self.xcb_mod_prefix, &req.name);
+        let ffi_check_fn_name = ffi_request_fn_name(&self.xcb_mod_prefix, &check_name);
+
+        self.emit_ffi_req_fn(&req.name, &ffi_fn_name, &ffi_cookie, &req.params, &stru.doc)?;
+        self.emit_ffi_req_fn(&req.name, &ffi_check_fn_name, &ffi_cookie, &req.params, &stru.doc)?;
         self.emit_rs_req_fn(&req.name, &rs_cookie, &req.params, &stru.doc, !checked)?;
         self.emit_rs_req_fn(&check_name, &rs_cookie, &req.params, &stru.doc, checked)?;
 
@@ -2395,7 +2435,7 @@ fn make_field(name: String, typ: String) -> StructField {
 
 fn expr_fixed_length(expr: &Expr<usize>) -> Option<usize> {
     match expr {
-        Expr::EnumRef{..} => None, // FIXME: get the value of the enum item
+        Expr::EnumRef { .. } => None, // FIXME: get the value of the enum item
         Expr::Value(val) => Some(*val),
         Expr::Popcount(ex) => expr_fixed_length(&ex).map(|sz| sz.count_ones() as _),
         Expr::Op(op, lhs, rhs) => match (expr_fixed_length(lhs), expr_fixed_length(rhs)) {
@@ -2413,6 +2453,14 @@ fn expr_fixed_length(expr: &Expr<usize>) -> Option<usize> {
             _ => panic!("Unexpected unary operator in Expr: {}", op),
         }),
         _ => None,
+    }
+}
+
+fn capitalize(s: &str) -> String {
+    let mut ch = s.chars();
+    match ch.next() {
+        None => String::new(),
+        Some(c) => c.to_uppercase().chain(ch).collect()
     }
 }
 
@@ -2592,6 +2640,15 @@ fn ffi_field_list_iterator_it_fn_name(xcb_mod_prefix: &str, typ_name: &str, fiel
         &xcb_mod_prefix,
         tit_split(typ_name).to_ascii_lowercase(),
         tit_split(field)
+    )
+}
+
+fn ffi_switch_struct_name(xcb_mod_prefix: &str, req_name: &str, switch_name: &str) -> String {
+    format!(
+        "xcb_{}{}_{}_t",
+        &xcb_mod_prefix,
+        tit_split(req_name).to_ascii_lowercase(),
+        tit_split(switch_name).to_ascii_lowercase()
     )
 }
 
