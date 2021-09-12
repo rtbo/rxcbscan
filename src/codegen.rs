@@ -396,7 +396,6 @@ impl CodeGen {
             "INT8" => true,
             "INT16" => true,
             "INT32" => true,
-            "INT64" => true,
             "BYTE" => true,
             "BOOL" => true,
             "char" => true,
@@ -404,6 +403,7 @@ impl CodeGen {
             "double" => true,
             "void" => true,
             typ => {
+                let (_, typ) = extract_module(&typ);
                 self.typ_simple.contains(typ)
                     || self.dep_info.iter().any(|di| di.typ_simple.contains(typ))
             }
@@ -411,6 +411,7 @@ impl CodeGen {
     }
 
     fn typ_is_pod(&self, typ: &str) -> bool {
+        let (_, typ) = extract_module(&typ);
         self.typ_is_simple(&typ)
             || self.typ_pod.contains(typ)
             || self.dep_info.iter().any(|di| di.typ_pod.contains(typ))
@@ -583,7 +584,6 @@ impl CodeGen {
             "INT8" => Some(1),
             "INT16" => Some(2),
             "INT32" => Some(4),
-            "INT64" => Some(8),
             "BYTE" => Some(1),
             "BOOL" => Some(1),
             "char" => Some(1),
@@ -875,7 +875,6 @@ impl CodeGen {
         xcb_name: &str,
         fields: &[StructField],
         toplevel_typ: Option<&str>,
-        _parent_typ: Option<&str>,
         is_switch: bool,
     ) -> io::Result<()> {
         for f in fields {
@@ -911,17 +910,20 @@ impl CodeGen {
                         true,
                     )?;
                 }
+                StructField::Field { name, typ, .. } => {
+                    if is_switch && !self.typ_is_pod(typ) {
+                        let fn_name = ffi_switch_accessor_fn(&self.xcb_mod_prefix, xcb_name, &name);
+                        let ret = self.ffi_use_type_name(&typ);
+                        let out = &mut self.ffi_buf;
+                        writeln!(
+                            out,
+                            "pub fn {}(R: *const {}) -> *mut {};",
+                            &fn_name, ffi_typ, ret,
+                        )?;
+                    }
+                }
                 StructField::Switch(name, ..) => {
                     let fn_name = ffi_switch_accessor_fn(&self.xcb_mod_prefix, xcb_name, &name);
-                    // if fn_name == "xcb_xkb_get_kbd_by_name_replies_types_map" {
-                    //     println!("ffi_typ = {}", &ffi_typ);
-                    //     println!("toplevel = {:?}", &toplevel_typ);
-                    //     println!("parent = {:?}", &parent_typ);
-                    // }
-                    // is this correct?
-                    // let typ = parent_typ
-                    //     .map(|t| self.ffi_use_type_name(t))
-                    //     .unwrap_or(ffi_typ.to_string());
                     let ret = if is_switch {
                         let typ = xcb_name.to_string() + &capitalize(name);
                         self.notify_typ(typ.to_string());
@@ -1687,7 +1689,6 @@ impl CodeGen {
             &stru_name,
             &stru.fields,
             Some(&toplevel_typ),
-            None,
             true,
         )?;
 
@@ -1708,7 +1709,6 @@ impl CodeGen {
                     &case_req_name,
                     &stru.fields,
                     Some(&toplevel_typ),
-                    None,
                     true,
                 )?;
             }
@@ -1856,14 +1856,7 @@ impl CodeGen {
 
         let ffi_reply_typ = self.emit_ffi_struct(&reply, None, false, false, false)?;
 
-        self.emit_ffi_field_list_accessors(
-            &ffi_reply_typ,
-            &req_name,
-            &reply.fields,
-            None,
-            None,
-            false,
-        )?;
+        self.emit_ffi_field_list_accessors(&ffi_reply_typ, &req_name, &reply.fields, None, false)?;
 
         let ffi_reply_fn = ffi_reply_fn_name(&self.xcb_mod_prefix, &req_name);
         {
@@ -2211,7 +2204,7 @@ impl CodeGen {
             self.typ_with_lifetime.insert(stru.name.clone());
         }
         let ffi_typ = self.emit_ffi_struct(&stru, None, false, false, false)?;
-        self.emit_ffi_field_list_accessors(&ffi_typ, &stru.name, &stru.fields, None, None, false)?;
+        self.emit_ffi_field_list_accessors(&ffi_typ, &stru.name, &stru.fields, None, false)?;
         let ffi_it_typ = self.emit_ffi_iterator(&stru.name, &ffi_typ, has_lifetime)?;
 
         let rs_typ = self.emit_rs_struct(&ffi_typ, &stru, has_lifetime)?;
