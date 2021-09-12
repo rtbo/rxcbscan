@@ -440,7 +440,12 @@ impl<B: BufRead> Parser<B> {
         Ok(Enum { name, items, doc })
     }
 
-    fn parse_field_content(&mut self, e: &BytesStart, empty_tag: bool) -> Result<StructField> {
+    fn parse_field_content(
+        &mut self,
+        e: &BytesStart,
+        mut padnum: &mut u32,
+        empty_tag: bool,
+    ) -> Result<StructField> {
         if empty_tag {
             match e.name() {
                 b"field" => {
@@ -471,12 +476,16 @@ impl<B: BufRead> Parser<B> {
                         let val: usize = bytes.parse().map_err(|e| {
                             Error::Parse(format!("failed to parse pad bytes of struct: {}", e))
                         })?;
-                        Ok(StructField::Pad(val))
+                        let name = format!("pad{}", padnum);
+                        (*padnum) += 1;
+                        Ok(StructField::Pad(name, val))
                     } else if let Some(align) = align {
                         let val: usize = align.parse().map_err(|e| {
                             Error::Parse(format!("failed to parse pad bytes of struct: {}", e))
                         })?;
-                        Ok(StructField::AlignPad(val))
+                        let name = format!("pad{}", padnum);
+                        (*padnum) += 1;
+                        Ok(StructField::AlignPad(name, val))
                     } else {
                         return Err(Error::Parse(
                             "<pad> with neither align and bytes attr".into(),
@@ -567,7 +576,7 @@ impl<B: BufRead> Parser<B> {
                 }
                 b"switch" => {
                     let name = expect_attribute(e.attributes(), b"name")?;
-                    let (expr, cases) = self.parse_switch()?;
+                    let (expr, cases) = self.parse_switch(&mut padnum)?;
                     Ok(StructField::Switch(name, expr, cases))
                 }
                 tag => {
@@ -584,17 +593,18 @@ impl<B: BufRead> Parser<B> {
         let mut fields = Vec::new();
         let mut reply = None;
         let mut doc = None;
+        let mut padnum = 0;
 
         loop {
             match self.xml.read_event(&mut self.buf) {
                 Ok(XmlEv::Empty(ref e)) => {
                     let e = e.to_owned();
-                    fields.push(self.parse_field_content(&e, true)?);
+                    fields.push(self.parse_field_content(&e, &mut padnum, true)?);
                 }
                 Ok(XmlEv::Start(ref e)) => match e.name() {
                     b"list" | b"exprfield" | b"switch" => {
                         let e = e.to_owned();
-                        fields.push(self.parse_field_content(&e, false)?);
+                        fields.push(self.parse_field_content(&e, &mut padnum, false)?);
                     }
                     b"doc" => {
                         doc = Some(self.parse_doc()?);
@@ -703,11 +713,12 @@ impl<B: BufRead> Parser<B> {
         }
     }
 
-    fn parse_switch_case(&mut self, end_tag: &[u8]) -> Result<SwitchCase> {
+    fn parse_switch_case(&mut self, name: Option<String>, mut padnum: &mut u32, end_tag: &[u8]) -> Result<SwitchCase> {
         let bit = end_tag == b"bitcase";
 
         let mut exprs = Vec::new();
         let mut fields = Vec::new();
+
         loop {
             match self.xml.read_event(&mut self.buf) {
                 Ok(XmlEv::Start(ref e)) => {
@@ -716,7 +727,7 @@ impl<B: BufRead> Parser<B> {
                         let expr = self.parse_expr_content(e.attributes(), e.name())?;
                         exprs.push(expr);
                     } else {
-                        let field = self.parse_field_content(&e, false)?;
+                        let field = self.parse_field_content(&e, &mut padnum, false)?;
                         fields.push(field);
                     }
                 }
@@ -726,7 +737,7 @@ impl<B: BufRead> Parser<B> {
                         let expr = self.parse_expr_content(e.attributes(), e.name())?;
                         exprs.push(expr);
                     } else {
-                        let field = self.parse_field_content(&e, true)?;
+                        let field = self.parse_field_content(&e, &mut padnum, true)?;
                         fields.push(field);
                     }
                 }
@@ -745,30 +756,36 @@ impl<B: BufRead> Parser<B> {
             }
         }
 
-        Ok(SwitchCase { bit, exprs, fields })
+        Ok(SwitchCase { bit, name, exprs, fields })
     }
 
-    fn parse_switch(&mut self) -> Result<(Expr<usize>, Vec<SwitchCase>)> {
+    fn parse_switch(&mut self, padnum: &mut u32) -> Result<(Expr<usize>, Vec<SwitchCase>)> {
         let expr = self.parse_expr(b"")?.unwrap();
 
         let mut cases = Vec::new();
 
         loop {
             match self.xml.read_event(&mut self.buf) {
-                Ok(XmlEv::Start(ref e)) => match e.name() {
-                    b"bitcase" => {
-                        cases.push(self.parse_switch_case(b"bitcase")?);
+                Ok(XmlEv::Start(ref e)) => {
+                    let names: [&[u8]; 1] = [b"name"];
+                    let mut vals: [Option<String>; 1] = [None];
+                    get_attributes(e.attributes(), &names, &mut vals)?;
+                    let [name] = vals;
+                    match e.name() {
+                        b"bitcase" => {
+                            cases.push(self.parse_switch_case(name, padnum, b"bitcase")?);
+                        }
+                        b"case" => {
+                            cases.push(self.parse_switch_case(name, padnum, b"case")?);
+                        }
+                        name => {
+                            return Err(Error::Parse(format!(
+                                "unexpected <{}> in <switch>",
+                                str::from_utf8(name).unwrap()
+                            )));
+                        }
                     }
-                    b"case" => {
-                        cases.push(self.parse_switch_case(b"case")?);
-                    }
-                    name => {
-                        return Err(Error::Parse(format!(
-                            "unexpected <{}> in <switch>",
-                            str::from_utf8(name).unwrap()
-                        )));
-                    }
-                },
+                }
                 Ok(XmlEv::End(ref e)) => match e.name() {
                     b"switch" => break,
                     _ => {}
@@ -798,7 +815,8 @@ struct StructContent {
 
 fn is_expr_tag(tag: &[u8]) -> bool {
     match tag {
-        b"fieldref" | b"paramref" | b"op" | b"unop" | b"popcount" | b"value" | b"enumref" | b"sumof" => true,
+        b"fieldref" | b"paramref" | b"op" | b"unop" | b"popcount" | b"value" | b"enumref"
+        | b"sumof" => true,
         _ => false,
     }
 }

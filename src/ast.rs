@@ -61,14 +61,15 @@ pub struct Enum {
 #[derive(Debug, Clone)]
 pub struct SwitchCase {
     pub bit: bool,
+    pub name: Option<String>,
     pub exprs: Vec<Expr<usize>>,
     pub fields: Vec<StructField>,
 }
 
 #[derive(Debug, Clone)]
 pub enum StructField {
-    Pad(usize),
-    AlignPad(usize),
+    Pad(String, usize),
+    AlignPad(String, usize),
     Field {
         name: String,
         typ: String,
@@ -95,6 +96,7 @@ pub enum StructField {
     },
     Fd(String),
     Switch(String, Expr<usize>, Vec<SwitchCase>),
+    NamedCase(String, String),
 }
 
 #[derive(Debug, Clone)]
