@@ -329,7 +329,12 @@ impl CodeGen {
         Ok(typ)
     }
 
-    pub fn emit_rs_union_impl(&mut self, rs_typ: &str, ffi_sz: usize, stru: &Struct) -> io::Result<()> {
+    pub fn emit_rs_union_impl(
+        &mut self,
+        rs_typ: &str,
+        ffi_sz: usize,
+        stru: &Struct,
+    ) -> io::Result<()> {
         let out = &mut self.rs_buf;
 
         let Struct { fields, doc, .. } = &stru;
@@ -594,11 +599,7 @@ impl CodeGen {
 
             let out = &mut self.rs_buf;
             writeln!(out)?;
-            writeln!(
-                out,
-                "pub const {}: {} = {};",
-                &opn, &num_typ, &opc.number
-            )?;
+            writeln!(out, "pub const {}: {} = {};", &opn, &num_typ, &opc.number)?;
 
             writeln!(out)?;
             emit_doc_text(out, &stru.doc)?;
@@ -620,9 +621,26 @@ impl CodeGen {
         let send_event = match (req_name, self.xcb_mod.as_str()) {
             ("SendEvent", "xproto") => true,
             ("SendEventChecked", "xproto") => true,
+            ("Send", "xevie") => true,
+            ("SendUnchecked", "xevie") => true,
             (_, _) => false,
         };
-        let has_template = request_has_template(&params) || send_event;
+        let event_is_list = if send_event {
+            let mut is_list = false;
+            for f in params.iter() {
+                if let StructField::List{name, ..} = f {
+                    if name == "event" {
+                        is_list = true;
+                        break;
+                    }
+                }
+            }
+            is_list
+        } else {
+            false
+        };
+
+        let has_template = request_has_template(&params) || event_is_list;
         let list_fields = ListField::fetch_from(&params);
         let skip_fields = {
             let mut sf = Vec::new();
@@ -703,7 +721,7 @@ impl CodeGen {
             writeln!(out, "    unsafe {{")?;
 
             // local variables
-            if send_event {
+            if event_is_list {
                 writeln!(
                     out,
                     "        let event_ptr = std::mem::transmute(event.ptr);"
@@ -749,13 +767,18 @@ impl CodeGen {
                         continue;
                     }
                     let mut name = symbol(&name).to_string();
-                    let ffi_typ = self.ffi_use_type_name(&typ);
+                    if send_event && name == "event" {
+                        let out = &mut self.rs_buf;
+                        writeln!(out, "            {}.base,", &name)?;
+                    } else {
+                        let ffi_typ = self.ffi_use_type_name(&typ);
 
-                    if let Some(lf) = list_fields.iter().find(|lf| lf.lenfield == name) {
-                        name = lf.name.clone() + "_len";
+                        if let Some(lf) = list_fields.iter().find(|lf| lf.lenfield == name) {
+                            name = lf.name.clone() + "_len";
+                        }
+                        let out = &mut self.rs_buf;
+                        writeln!(out, "            {} as {},", &name, &ffi_typ)?;
                     }
-                    let out = &mut self.rs_buf;
-                    writeln!(out, "            {} as {},", &name, &ffi_typ)?;
                 }
                 StructField::List { name, typ, .. } => {
                     if send_event && name == "event" {
