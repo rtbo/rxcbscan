@@ -207,7 +207,7 @@ impl CodeGen {
         writeln!(out, "use std::iter::Iterator;")?;
         writeln!(out, "")?;
 
-        if self.xcb_mod != "xproto" {
+        if let Some(ext_info) = ext_info {
             let out = &mut self.rs;
             writeln!(out)?;
             writeln!(out, "pub fn id() -> &'static mut base::Extension {{")?;
@@ -215,6 +215,9 @@ impl CodeGen {
             writeln!(out, "        &mut xcb_{}_id", &self.xcb_mod)?;
             writeln!(out, "    }}")?;
             writeln!(out, "}}")?;
+            writeln!(out)?;
+            writeln!(out, "pub const MAJOR_VERSION: u32 = {};", ext_info.major_version)?;
+            writeln!(out, "pub const MINOR_VERSION: u32 = {};", ext_info.minor_version)?;
         }
 
         Ok(())
