@@ -13,25 +13,12 @@ pub const XCB_BIG_REQUESTS_MINOR_VERSION: u32 = 0;
 
 pub const XCB_BIG_REQUESTS_ENABLE: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_big_requests_enable_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_big_requests_enable_request_t {}
-impl Clone for xcb_big_requests_enable_request_t {
-    fn clone(&self) -> xcb_big_requests_enable_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_big_requests_enable_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_big_requests_enable_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -40,6 +27,7 @@ pub struct xcb_big_requests_enable_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_big_requests_enable_reply_t {
     pub response_type:          u8,
@@ -47,22 +35,6 @@ pub struct xcb_big_requests_enable_reply_t {
     pub sequence:               u16,
     pub length:                 u32,
     pub maximum_request_length: u32,
-}
-
-impl Copy for xcb_big_requests_enable_reply_t {}
-impl Clone for xcb_big_requests_enable_reply_t {
-    fn clone(&self) -> xcb_big_requests_enable_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_big_requests_enable_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_big_requests_enable_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("maximum_request_length", &self.maximum_request_length)
-            .finish()
-    }
 }
 
 

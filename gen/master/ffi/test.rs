@@ -14,6 +14,7 @@ pub const XCB_TEST_MINOR_VERSION: u32 = 2;
 
 pub const XCB_TEST_GET_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_test_get_version_request_t {
     pub major_opcode:  u8,
@@ -24,29 +25,13 @@ pub struct xcb_test_get_version_request_t {
     pub minor_version: u16,
 }
 
-impl Copy for xcb_test_get_version_request_t {}
-impl Clone for xcb_test_get_version_request_t {
-    fn clone(&self) -> xcb_test_get_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_test_get_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_test_get_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("pad0", &self.pad0)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_test_get_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_test_get_version_reply_t {
     pub response_type: u8,
@@ -56,28 +41,13 @@ pub struct xcb_test_get_version_reply_t {
     pub minor_version: u16,
 }
 
-impl Copy for xcb_test_get_version_reply_t {}
-impl Clone for xcb_test_get_version_reply_t {
-    fn clone(&self) -> xcb_test_get_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_test_get_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_test_get_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("major_version", &self.major_version)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 pub type xcb_test_cursor_t = u32;
 pub const XCB_TEST_CURSOR_NONE   : xcb_test_cursor_t = 0x00;
 pub const XCB_TEST_CURSOR_CURRENT: xcb_test_cursor_t = 0x01;
 
 pub const XCB_TEST_COMPARE_CURSOR: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_test_compare_cursor_request_t {
     pub major_opcode: u8,
@@ -87,28 +57,13 @@ pub struct xcb_test_compare_cursor_request_t {
     pub cursor:       xcb_cursor_t,
 }
 
-impl Copy for xcb_test_compare_cursor_request_t {}
-impl Clone for xcb_test_compare_cursor_request_t {
-    fn clone(&self) -> xcb_test_compare_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_test_compare_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_test_compare_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("cursor", &self.cursor)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_test_compare_cursor_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_test_compare_cursor_reply_t {
     pub response_type: u8,
@@ -117,23 +72,9 @@ pub struct xcb_test_compare_cursor_reply_t {
     pub length:        u32,
 }
 
-impl Copy for xcb_test_compare_cursor_reply_t {}
-impl Clone for xcb_test_compare_cursor_reply_t {
-    fn clone(&self) -> xcb_test_compare_cursor_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_test_compare_cursor_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_test_compare_cursor_reply_t")
-            .field("response_type", &self.response_type)
-            .field("same", &self.same)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_TEST_FAKE_INPUT: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_test_fake_input_request_t {
     pub major_opcode: u8,
@@ -151,32 +92,9 @@ pub struct xcb_test_fake_input_request_t {
     pub deviceid:     u8,
 }
 
-impl Copy for xcb_test_fake_input_request_t {}
-impl Clone for xcb_test_fake_input_request_t {
-    fn clone(&self) -> xcb_test_fake_input_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_test_fake_input_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_test_fake_input_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("type_", &self.type_)
-            .field("detail", &self.detail)
-            .field("pad0", &&self.pad0[..])
-            .field("time", &self.time)
-            .field("root", &self.root)
-            .field("pad1", &&self.pad1[..])
-            .field("rootX", &self.rootX)
-            .field("rootY", &self.rootY)
-            .field("pad2", &&self.pad2[..])
-            .field("deviceid", &self.deviceid)
-            .finish()
-    }
-}
-
 pub const XCB_TEST_GRAB_CONTROL: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_test_grab_control_request_t {
     pub major_opcode: u8,
@@ -184,22 +102,6 @@ pub struct xcb_test_grab_control_request_t {
     pub length:       u16,
     pub impervious:   u8,
     pub pad0:         [u8; 3],
-}
-
-impl Copy for xcb_test_grab_control_request_t {}
-impl Clone for xcb_test_grab_control_request_t {
-    fn clone(&self) -> xcb_test_grab_control_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_test_grab_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_test_grab_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("impervious", &self.impervious)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 

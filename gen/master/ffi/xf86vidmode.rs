@@ -53,6 +53,7 @@ pub type xcb_xf86vidmode_permission_t = u32;
 pub const XCB_XF86VIDMODE_PERMISSION_READ : xcb_xf86vidmode_permission_t = 0x01;
 pub const XCB_XF86VIDMODE_PERMISSION_WRITE: xcb_xf86vidmode_permission_t = 0x02;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_mode_info_t {
     pub dotclock:   xcb_xf86vidmode_dotclock_t,
@@ -71,31 +72,6 @@ pub struct xcb_xf86vidmode_mode_info_t {
     pub privsize:   u32,
 }
 
-impl Copy for xcb_xf86vidmode_mode_info_t {}
-impl Clone for xcb_xf86vidmode_mode_info_t {
-    fn clone(&self) -> xcb_xf86vidmode_mode_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_mode_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_mode_info_t")
-            .field("dotclock", &self.dotclock)
-            .field("hdisplay", &self.hdisplay)
-            .field("hsyncstart", &self.hsyncstart)
-            .field("hsyncend", &self.hsyncend)
-            .field("htotal", &self.htotal)
-            .field("hskew", &self.hskew)
-            .field("vdisplay", &self.vdisplay)
-            .field("vsyncstart", &self.vsyncstart)
-            .field("vsyncend", &self.vsyncend)
-            .field("vtotal", &self.vtotal)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("pad1", &&self.pad1[..])
-            .field("privsize", &self.privsize)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xf86vidmode_mode_info_iterator_t {
@@ -106,25 +82,12 @@ pub struct xcb_xf86vidmode_mode_info_iterator_t {
 
 pub const XCB_XF86VIDMODE_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_query_version_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_xf86vidmode_query_version_request_t {}
-impl Clone for xcb_xf86vidmode_query_version_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -133,6 +96,7 @@ pub struct xcb_xf86vidmode_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_query_version_reply_t {
     pub response_type: u8,
@@ -143,25 +107,9 @@ pub struct xcb_xf86vidmode_query_version_reply_t {
     pub minor_version: u16,
 }
 
-impl Copy for xcb_xf86vidmode_query_version_reply_t {}
-impl Clone for xcb_xf86vidmode_query_version_reply_t {
-    fn clone(&self) -> xcb_xf86vidmode_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_GET_MODE_LINE: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_mode_line_request_t {
     pub major_opcode: u8,
@@ -171,28 +119,13 @@ pub struct xcb_xf86vidmode_get_mode_line_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xf86vidmode_get_mode_line_request_t {}
-impl Clone for xcb_xf86vidmode_get_mode_line_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_mode_line_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_mode_line_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_mode_line_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_mode_line_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_mode_line_reply_t {
     pub response_type: u8,
@@ -214,33 +147,10 @@ pub struct xcb_xf86vidmode_get_mode_line_reply_t {
     pub pad2:          [u8; 12],
     pub privsize:      u32,
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_mode_line_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_mode_line_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("dotclock", &self.dotclock)
-            .field("hdisplay", &self.hdisplay)
-            .field("hsyncstart", &self.hsyncstart)
-            .field("hsyncend", &self.hsyncend)
-            .field("htotal", &self.htotal)
-            .field("hskew", &self.hskew)
-            .field("vdisplay", &self.vdisplay)
-            .field("vsyncstart", &self.vsyncstart)
-            .field("vsyncend", &self.vsyncend)
-            .field("vtotal", &self.vtotal)
-            .field("pad1", &&self.pad1[..])
-            .field("flags", &self.flags)
-            .field("pad2", &&self.pad2[..])
-            .field("privsize", &self.privsize)
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_MOD_MODE_LINE: u8 = 2;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_mod_mode_line_request_t {
     pub major_opcode: u8,
@@ -261,32 +171,10 @@ pub struct xcb_xf86vidmode_mod_mode_line_request_t {
     pub pad1:         [u8; 12],
     pub privsize:     u32,
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_mod_mode_line_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_mod_mode_line_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("hdisplay", &self.hdisplay)
-            .field("hsyncstart", &self.hsyncstart)
-            .field("hsyncend", &self.hsyncend)
-            .field("htotal", &self.htotal)
-            .field("hskew", &self.hskew)
-            .field("vdisplay", &self.vdisplay)
-            .field("vsyncstart", &self.vsyncstart)
-            .field("vsyncend", &self.vsyncend)
-            .field("vtotal", &self.vtotal)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("pad1", &&self.pad1[..])
-            .field("privsize", &self.privsize)
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_SWITCH_MODE: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_switch_mode_request_t {
     pub major_opcode: u8,
@@ -296,24 +184,9 @@ pub struct xcb_xf86vidmode_switch_mode_request_t {
     pub zoom:         u16,
 }
 
-impl Copy for xcb_xf86vidmode_switch_mode_request_t {}
-impl Clone for xcb_xf86vidmode_switch_mode_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_switch_mode_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_switch_mode_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_switch_mode_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("zoom", &self.zoom)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_GET_MONITOR: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_monitor_request_t {
     pub major_opcode: u8,
@@ -323,28 +196,13 @@ pub struct xcb_xf86vidmode_get_monitor_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xf86vidmode_get_monitor_request_t {}
-impl Clone for xcb_xf86vidmode_get_monitor_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_monitor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_monitor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_monitor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_monitor_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_monitor_reply_t {
     pub response_type: u8,
@@ -357,24 +215,10 @@ pub struct xcb_xf86vidmode_get_monitor_reply_t {
     pub num_vsync:     u8,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_monitor_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_monitor_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("vendor_length", &self.vendor_length)
-            .field("model_length", &self.model_length)
-            .field("num_hsync", &self.num_hsync)
-            .field("num_vsync", &self.num_vsync)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_LOCK_MODE_SWITCH: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_lock_mode_switch_request_t {
     pub major_opcode: u8,
@@ -384,24 +228,9 @@ pub struct xcb_xf86vidmode_lock_mode_switch_request_t {
     pub lock:         u16,
 }
 
-impl Copy for xcb_xf86vidmode_lock_mode_switch_request_t {}
-impl Clone for xcb_xf86vidmode_lock_mode_switch_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_lock_mode_switch_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_lock_mode_switch_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_lock_mode_switch_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("lock", &self.lock)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_GET_ALL_MODE_LINES: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_all_mode_lines_request_t {
     pub major_opcode: u8,
@@ -411,28 +240,13 @@ pub struct xcb_xf86vidmode_get_all_mode_lines_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xf86vidmode_get_all_mode_lines_request_t {}
-impl Clone for xcb_xf86vidmode_get_all_mode_lines_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_all_mode_lines_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_all_mode_lines_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_all_mode_lines_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_all_mode_lines_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_all_mode_lines_reply_t {
     pub response_type: u8,
@@ -442,21 +256,10 @@ pub struct xcb_xf86vidmode_get_all_mode_lines_reply_t {
     pub modecount:     u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_all_mode_lines_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_all_mode_lines_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("modecount", &self.modecount)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_ADD_MODE_LINE: u8 = 7;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_add_mode_line_request_t {
     pub major_opcode:     u8,
@@ -491,46 +294,10 @@ pub struct xcb_xf86vidmode_add_mode_line_request_t {
     pub after_flags:      u32,
     pub pad3:             [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_add_mode_line_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_add_mode_line_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("dotclock", &self.dotclock)
-            .field("hdisplay", &self.hdisplay)
-            .field("hsyncstart", &self.hsyncstart)
-            .field("hsyncend", &self.hsyncend)
-            .field("htotal", &self.htotal)
-            .field("hskew", &self.hskew)
-            .field("vdisplay", &self.vdisplay)
-            .field("vsyncstart", &self.vsyncstart)
-            .field("vsyncend", &self.vsyncend)
-            .field("vtotal", &self.vtotal)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("pad1", &&self.pad1[..])
-            .field("privsize", &self.privsize)
-            .field("after_dotclock", &self.after_dotclock)
-            .field("after_hdisplay", &self.after_hdisplay)
-            .field("after_hsyncstart", &self.after_hsyncstart)
-            .field("after_hsyncend", &self.after_hsyncend)
-            .field("after_htotal", &self.after_htotal)
-            .field("after_hskew", &self.after_hskew)
-            .field("after_vdisplay", &self.after_vdisplay)
-            .field("after_vsyncstart", &self.after_vsyncstart)
-            .field("after_vsyncend", &self.after_vsyncend)
-            .field("after_vtotal", &self.after_vtotal)
-            .field("pad2", &&self.pad2[..])
-            .field("after_flags", &self.after_flags)
-            .field("pad3", &&self.pad3[..])
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_DELETE_MODE_LINE: u8 = 8;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_delete_mode_line_request_t {
     pub major_opcode: u8,
@@ -552,33 +319,10 @@ pub struct xcb_xf86vidmode_delete_mode_line_request_t {
     pub pad1:         [u8; 12],
     pub privsize:     u32,
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_delete_mode_line_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_delete_mode_line_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("dotclock", &self.dotclock)
-            .field("hdisplay", &self.hdisplay)
-            .field("hsyncstart", &self.hsyncstart)
-            .field("hsyncend", &self.hsyncend)
-            .field("htotal", &self.htotal)
-            .field("hskew", &self.hskew)
-            .field("vdisplay", &self.vdisplay)
-            .field("vsyncstart", &self.vsyncstart)
-            .field("vsyncend", &self.vsyncend)
-            .field("vtotal", &self.vtotal)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("pad1", &&self.pad1[..])
-            .field("privsize", &self.privsize)
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_VALIDATE_MODE_LINE: u8 = 9;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_validate_mode_line_request_t {
     pub major_opcode: u8,
@@ -600,30 +344,6 @@ pub struct xcb_xf86vidmode_validate_mode_line_request_t {
     pub pad1:         [u8; 12],
     pub privsize:     u32,
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_validate_mode_line_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_validate_mode_line_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("dotclock", &self.dotclock)
-            .field("hdisplay", &self.hdisplay)
-            .field("hsyncstart", &self.hsyncstart)
-            .field("hsyncend", &self.hsyncend)
-            .field("htotal", &self.htotal)
-            .field("hskew", &self.hskew)
-            .field("vdisplay", &self.vdisplay)
-            .field("vsyncstart", &self.vsyncstart)
-            .field("vsyncend", &self.vsyncend)
-            .field("vtotal", &self.vtotal)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("pad1", &&self.pad1[..])
-            .field("privsize", &self.privsize)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -631,6 +351,7 @@ pub struct xcb_xf86vidmode_validate_mode_line_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_validate_mode_line_reply_t {
     pub response_type: u8,
@@ -641,25 +362,9 @@ pub struct xcb_xf86vidmode_validate_mode_line_reply_t {
     pub pad1:          [u8; 20],
 }
 
-impl Copy for xcb_xf86vidmode_validate_mode_line_reply_t {}
-impl Clone for xcb_xf86vidmode_validate_mode_line_reply_t {
-    fn clone(&self) -> xcb_xf86vidmode_validate_mode_line_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_validate_mode_line_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_validate_mode_line_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_SWITCH_TO_MODE: u8 = 10;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_switch_to_mode_request_t {
     pub major_opcode: u8,
@@ -681,33 +386,10 @@ pub struct xcb_xf86vidmode_switch_to_mode_request_t {
     pub pad1:         [u8; 12],
     pub privsize:     u32,
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_switch_to_mode_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_switch_to_mode_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("dotclock", &self.dotclock)
-            .field("hdisplay", &self.hdisplay)
-            .field("hsyncstart", &self.hsyncstart)
-            .field("hsyncend", &self.hsyncend)
-            .field("htotal", &self.htotal)
-            .field("hskew", &self.hskew)
-            .field("vdisplay", &self.vdisplay)
-            .field("vsyncstart", &self.vsyncstart)
-            .field("vsyncend", &self.vsyncend)
-            .field("vtotal", &self.vtotal)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("pad1", &&self.pad1[..])
-            .field("privsize", &self.privsize)
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_GET_VIEW_PORT: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_view_port_request_t {
     pub major_opcode: u8,
@@ -717,28 +399,13 @@ pub struct xcb_xf86vidmode_get_view_port_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xf86vidmode_get_view_port_request_t {}
-impl Clone for xcb_xf86vidmode_get_view_port_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_view_port_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_view_port_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_view_port_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_view_port_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_view_port_reply_t {
     pub response_type: u8,
@@ -750,26 +417,9 @@ pub struct xcb_xf86vidmode_get_view_port_reply_t {
     pub pad1:          [u8; 16],
 }
 
-impl Copy for xcb_xf86vidmode_get_view_port_reply_t {}
-impl Clone for xcb_xf86vidmode_get_view_port_reply_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_view_port_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_view_port_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_view_port_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_SET_VIEW_PORT: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_set_view_port_request_t {
     pub major_opcode: u8,
@@ -781,26 +431,9 @@ pub struct xcb_xf86vidmode_set_view_port_request_t {
     pub y:            u32,
 }
 
-impl Copy for xcb_xf86vidmode_set_view_port_request_t {}
-impl Clone for xcb_xf86vidmode_set_view_port_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_set_view_port_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_set_view_port_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_set_view_port_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_GET_DOT_CLOCKS: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_dot_clocks_request_t {
     pub major_opcode: u8,
@@ -810,28 +443,13 @@ pub struct xcb_xf86vidmode_get_dot_clocks_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xf86vidmode_get_dot_clocks_request_t {}
-impl Clone for xcb_xf86vidmode_get_dot_clocks_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_dot_clocks_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_dot_clocks_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_dot_clocks_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_dot_clocks_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_dot_clocks_reply_t {
     pub response_type: u8,
@@ -843,23 +461,10 @@ pub struct xcb_xf86vidmode_get_dot_clocks_reply_t {
     pub maxclocks:     u32,
     pub pad1:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_dot_clocks_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_dot_clocks_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("flags", &self.flags)
-            .field("clocks", &self.clocks)
-            .field("maxclocks", &self.maxclocks)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_SET_CLIENT_VERSION: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_set_client_version_request_t {
     pub major_opcode: u8,
@@ -869,24 +474,9 @@ pub struct xcb_xf86vidmode_set_client_version_request_t {
     pub minor:        u16,
 }
 
-impl Copy for xcb_xf86vidmode_set_client_version_request_t {}
-impl Clone for xcb_xf86vidmode_set_client_version_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_set_client_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_set_client_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_set_client_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major", &self.major)
-            .field("minor", &self.minor)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_SET_GAMMA: u8 = 15;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_set_gamma_request_t {
     pub major_opcode: u8,
@@ -900,28 +490,9 @@ pub struct xcb_xf86vidmode_set_gamma_request_t {
     pub pad1:         [u8; 12],
 }
 
-impl Copy for xcb_xf86vidmode_set_gamma_request_t {}
-impl Clone for xcb_xf86vidmode_set_gamma_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_set_gamma_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_set_gamma_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_set_gamma_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .field("red", &self.red)
-            .field("green", &self.green)
-            .field("blue", &self.blue)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_GET_GAMMA: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_gamma_request_t {
     pub major_opcode: u8,
@@ -931,28 +502,13 @@ pub struct xcb_xf86vidmode_get_gamma_request_t {
     pub pad0:         [u8; 26],
 }
 
-impl Copy for xcb_xf86vidmode_get_gamma_request_t {}
-impl Clone for xcb_xf86vidmode_get_gamma_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_gamma_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_gamma_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_gamma_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_gamma_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_gamma_reply_t {
     pub response_type: u8,
@@ -965,27 +521,9 @@ pub struct xcb_xf86vidmode_get_gamma_reply_t {
     pub pad1:          [u8; 12],
 }
 
-impl Copy for xcb_xf86vidmode_get_gamma_reply_t {}
-impl Clone for xcb_xf86vidmode_get_gamma_reply_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_gamma_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_gamma_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_gamma_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("red", &self.red)
-            .field("green", &self.green)
-            .field("blue", &self.blue)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_GET_GAMMA_RAMP: u8 = 17;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_gamma_ramp_request_t {
     pub major_opcode: u8,
@@ -995,28 +533,13 @@ pub struct xcb_xf86vidmode_get_gamma_ramp_request_t {
     pub size:         u16,
 }
 
-impl Copy for xcb_xf86vidmode_get_gamma_ramp_request_t {}
-impl Clone for xcb_xf86vidmode_get_gamma_ramp_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_gamma_ramp_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_gamma_ramp_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_gamma_ramp_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("size", &self.size)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_gamma_ramp_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_gamma_ramp_reply_t {
     pub response_type: u8,
@@ -1026,21 +549,10 @@ pub struct xcb_xf86vidmode_get_gamma_ramp_reply_t {
     pub size:          u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_gamma_ramp_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_gamma_ramp_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("size", &self.size)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_SET_GAMMA_RAMP: u8 = 18;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_set_gamma_ramp_request_t {
     pub major_opcode: u8,
@@ -1049,20 +561,10 @@ pub struct xcb_xf86vidmode_set_gamma_ramp_request_t {
     pub screen:       u16,
     pub size:         u16,
 }
-impl ::std::fmt::Debug for xcb_xf86vidmode_set_gamma_ramp_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_set_gamma_ramp_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("size", &self.size)
-            .finish()
-    }
-}
 
 pub const XCB_XF86VIDMODE_GET_GAMMA_RAMP_SIZE: u8 = 19;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_gamma_ramp_size_request_t {
     pub major_opcode: u8,
@@ -1072,28 +574,13 @@ pub struct xcb_xf86vidmode_get_gamma_ramp_size_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xf86vidmode_get_gamma_ramp_size_request_t {}
-impl Clone for xcb_xf86vidmode_get_gamma_ramp_size_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_gamma_ramp_size_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_gamma_ramp_size_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_gamma_ramp_size_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_gamma_ramp_size_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_gamma_ramp_size_reply_t {
     pub response_type: u8,
@@ -1104,25 +591,9 @@ pub struct xcb_xf86vidmode_get_gamma_ramp_size_reply_t {
     pub pad1:          [u8; 22],
 }
 
-impl Copy for xcb_xf86vidmode_get_gamma_ramp_size_reply_t {}
-impl Clone for xcb_xf86vidmode_get_gamma_ramp_size_reply_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_gamma_ramp_size_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_gamma_ramp_size_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_gamma_ramp_size_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("size", &self.size)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_GET_PERMISSIONS: u8 = 20;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_permissions_request_t {
     pub major_opcode: u8,
@@ -1132,28 +603,13 @@ pub struct xcb_xf86vidmode_get_permissions_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xf86vidmode_get_permissions_request_t {}
-impl Clone for xcb_xf86vidmode_get_permissions_request_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_permissions_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_permissions_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_permissions_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_permissions_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_get_permissions_reply_t {
     pub response_type: u8,
@@ -1164,25 +620,9 @@ pub struct xcb_xf86vidmode_get_permissions_reply_t {
     pub pad1:          [u8; 20],
 }
 
-impl Copy for xcb_xf86vidmode_get_permissions_reply_t {}
-impl Clone for xcb_xf86vidmode_get_permissions_reply_t {
-    fn clone(&self) -> xcb_xf86vidmode_get_permissions_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_get_permissions_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_get_permissions_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("permissions", &self.permissions)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_BAD_CLOCK: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_bad_clock_error_t {
     pub response_type: u8,
@@ -1190,22 +630,9 @@ pub struct xcb_xf86vidmode_bad_clock_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xf86vidmode_bad_clock_error_t {}
-impl Clone for xcb_xf86vidmode_bad_clock_error_t {
-    fn clone(&self) -> xcb_xf86vidmode_bad_clock_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_bad_clock_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_bad_clock_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_BAD_H_TIMINGS: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_bad_h_timings_error_t {
     pub response_type: u8,
@@ -1213,22 +640,9 @@ pub struct xcb_xf86vidmode_bad_h_timings_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xf86vidmode_bad_h_timings_error_t {}
-impl Clone for xcb_xf86vidmode_bad_h_timings_error_t {
-    fn clone(&self) -> xcb_xf86vidmode_bad_h_timings_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_bad_h_timings_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_bad_h_timings_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_BAD_V_TIMINGS: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_bad_v_timings_error_t {
     pub response_type: u8,
@@ -1236,22 +650,9 @@ pub struct xcb_xf86vidmode_bad_v_timings_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xf86vidmode_bad_v_timings_error_t {}
-impl Clone for xcb_xf86vidmode_bad_v_timings_error_t {
-    fn clone(&self) -> xcb_xf86vidmode_bad_v_timings_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_bad_v_timings_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_bad_v_timings_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_MODE_UNSUITABLE: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_mode_unsuitable_error_t {
     pub response_type: u8,
@@ -1259,22 +660,9 @@ pub struct xcb_xf86vidmode_mode_unsuitable_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xf86vidmode_mode_unsuitable_error_t {}
-impl Clone for xcb_xf86vidmode_mode_unsuitable_error_t {
-    fn clone(&self) -> xcb_xf86vidmode_mode_unsuitable_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_mode_unsuitable_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_mode_unsuitable_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_EXTENSION_DISABLED: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_extension_disabled_error_t {
     pub response_type: u8,
@@ -1282,22 +670,9 @@ pub struct xcb_xf86vidmode_extension_disabled_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xf86vidmode_extension_disabled_error_t {}
-impl Clone for xcb_xf86vidmode_extension_disabled_error_t {
-    fn clone(&self) -> xcb_xf86vidmode_extension_disabled_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_extension_disabled_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_extension_disabled_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_CLIENT_NOT_LOCAL: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_client_not_local_error_t {
     pub response_type: u8,
@@ -1305,41 +680,14 @@ pub struct xcb_xf86vidmode_client_not_local_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xf86vidmode_client_not_local_error_t {}
-impl Clone for xcb_xf86vidmode_client_not_local_error_t {
-    fn clone(&self) -> xcb_xf86vidmode_client_not_local_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_client_not_local_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_client_not_local_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_XF86VIDMODE_ZOOM_LOCKED: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86vidmode_zoom_locked_error_t {
     pub response_type: u8,
     pub error_code:    u8,
     pub sequence:      u16,
-}
-
-impl Copy for xcb_xf86vidmode_zoom_locked_error_t {}
-impl Clone for xcb_xf86vidmode_zoom_locked_error_t {
-    fn clone(&self) -> xcb_xf86vidmode_zoom_locked_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86vidmode_zoom_locked_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86vidmode_zoom_locked_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
 }
 
 

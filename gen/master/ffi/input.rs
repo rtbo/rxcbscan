@@ -55,23 +55,11 @@ pub struct xcb_input_fp1616_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_fp3232_t {
     pub integral: i32,
     pub frac:     u32,
-}
-
-impl Copy for xcb_input_fp3232_t {}
-impl Clone for xcb_input_fp3232_t {
-    fn clone(&self) -> xcb_input_fp3232_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_fp3232_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_fp3232_t")
-            .field("integral", &self.integral)
-            .field("frac", &self.frac)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -84,6 +72,7 @@ pub struct xcb_input_fp3232_iterator_t {
 
 pub const XCB_INPUT_GET_EXTENSION_VERSION: u8 = 1;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_extension_version_request_t {
     pub major_opcode: u8,
@@ -92,17 +81,6 @@ pub struct xcb_input_get_extension_version_request_t {
     pub name_len:     u16,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_input_get_extension_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_extension_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("name_len", &self.name_len)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -110,6 +88,7 @@ pub struct xcb_input_get_extension_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_extension_version_reply_t {
     pub response_type: u8,
@@ -120,25 +99,6 @@ pub struct xcb_input_get_extension_version_reply_t {
     pub server_minor:  u16,
     pub present:       u8,
     pub pad1:          [u8; 19],
-}
-
-impl Copy for xcb_input_get_extension_version_reply_t {}
-impl Clone for xcb_input_get_extension_version_reply_t {
-    fn clone(&self) -> xcb_input_get_extension_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_extension_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_extension_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("server_major", &self.server_major)
-            .field("server_minor", &self.server_minor)
-            .field("present", &self.present)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub type xcb_input_device_use_t = u32;
@@ -161,6 +121,7 @@ pub type xcb_input_valuator_mode_t = u32;
 pub const XCB_INPUT_VALUATOR_MODE_RELATIVE: xcb_input_valuator_mode_t = 0x00;
 pub const XCB_INPUT_VALUATOR_MODE_ABSOLUTE: xcb_input_valuator_mode_t = 0x01;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_info_t {
     pub device_type:    xcb_atom_t,
@@ -168,22 +129,6 @@ pub struct xcb_input_device_info_t {
     pub num_class_info: u8,
     pub device_use:     u8,
     pub pad0:           u8,
-}
-
-impl Copy for xcb_input_device_info_t {}
-impl Clone for xcb_input_device_info_t {
-    fn clone(&self) -> xcb_input_device_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_info_t")
-            .field("device_type", &self.device_type)
-            .field("device_id", &self.device_id)
-            .field("num_class_info", &self.num_class_info)
-            .field("device_use", &self.device_use)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -194,6 +139,7 @@ pub struct xcb_input_device_info_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_key_info_t {
     pub class_id:    u8,
@@ -204,23 +150,6 @@ pub struct xcb_input_key_info_t {
     pub pad0:        [u8; 2],
 }
 
-impl Copy for xcb_input_key_info_t {}
-impl Clone for xcb_input_key_info_t {
-    fn clone(&self) -> xcb_input_key_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_key_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_key_info_t")
-            .field("class_id", &self.class_id)
-            .field("len", &self.len)
-            .field("min_keycode", &self.min_keycode)
-            .field("max_keycode", &self.max_keycode)
-            .field("num_keys", &self.num_keys)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_key_info_iterator_t {
@@ -229,25 +158,12 @@ pub struct xcb_input_key_info_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_button_info_t {
     pub class_id:    u8,
     pub len:         u8,
     pub num_buttons: u16,
-}
-
-impl Copy for xcb_input_button_info_t {}
-impl Clone for xcb_input_button_info_t {
-    fn clone(&self) -> xcb_input_button_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_button_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_button_info_t")
-            .field("class_id", &self.class_id)
-            .field("len", &self.len)
-            .field("num_buttons", &self.num_buttons)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -258,25 +174,12 @@ pub struct xcb_input_button_info_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_axis_info_t {
     pub resolution: u32,
     pub minimum:    i32,
     pub maximum:    i32,
-}
-
-impl Copy for xcb_input_axis_info_t {}
-impl Clone for xcb_input_axis_info_t {
-    fn clone(&self) -> xcb_input_axis_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_axis_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_axis_info_t")
-            .field("resolution", &self.resolution)
-            .field("minimum", &self.minimum)
-            .field("maximum", &self.maximum)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -287,6 +190,7 @@ pub struct xcb_input_axis_info_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_valuator_info_t {
     pub class_id:    u8,
@@ -294,17 +198,6 @@ pub struct xcb_input_valuator_info_t {
     pub axes_len:    u8,
     pub mode:        u8,
     pub motion_size: u32,
-}
-impl ::std::fmt::Debug for xcb_input_valuator_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_valuator_info_t")
-            .field("class_id", &self.class_id)
-            .field("len", &self.len)
-            .field("axes_len", &self.axes_len)
-            .field("mode", &self.mode)
-            .field("motion_size", &self.motion_size)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -316,23 +209,11 @@ pub struct xcb_input_valuator_info_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_valuator_info_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_input_info_t {
     pub class_id: u8,
     pub len:      u8,
-}
-
-impl Copy for xcb_input_input_info_t {}
-impl Clone for xcb_input_input_info_t {
-    fn clone(&self) -> xcb_input_input_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_input_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_input_info_t")
-            .field("class_id", &self.class_id)
-            .field("len", &self.len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -343,16 +224,10 @@ pub struct xcb_input_input_info_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_device_name_t {
     pub len:    u8,
-}
-impl ::std::fmt::Debug for xcb_input_device_name_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_name_t")
-            .field("len", &self.len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -366,25 +241,12 @@ pub struct xcb_input_device_name_iterator_t<'a> {
 
 pub const XCB_INPUT_LIST_INPUT_DEVICES: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_list_input_devices_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_input_list_input_devices_request_t {}
-impl Clone for xcb_input_list_input_devices_request_t {
-    fn clone(&self) -> xcb_input_list_input_devices_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_list_input_devices_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_list_input_devices_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -393,6 +255,7 @@ pub struct xcb_input_list_input_devices_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_list_input_devices_reply_t {
     pub response_type: u8,
@@ -402,36 +265,12 @@ pub struct xcb_input_list_input_devices_reply_t {
     pub devices_len:   u8,
     pub pad1:          [u8; 23],
 }
-impl ::std::fmt::Debug for xcb_input_list_input_devices_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_list_input_devices_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("devices_len", &self.devices_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_input_class_info_t {
     pub class_id:        u8,
     pub event_type_base: u8,
-}
-
-impl Copy for xcb_input_input_class_info_t {}
-impl Clone for xcb_input_input_class_info_t {
-    fn clone(&self) -> xcb_input_input_class_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_input_class_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_input_class_info_t")
-            .field("class_id", &self.class_id)
-            .field("event_type_base", &self.event_type_base)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -444,6 +283,7 @@ pub struct xcb_input_input_class_info_iterator_t {
 
 pub const XCB_INPUT_OPEN_DEVICE: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_open_device_request_t {
     pub major_opcode: u8,
@@ -453,28 +293,13 @@ pub struct xcb_input_open_device_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_open_device_request_t {}
-impl Clone for xcb_input_open_device_request_t {
-    fn clone(&self) -> xcb_input_open_device_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_open_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_open_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_open_device_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_open_device_reply_t {
     pub response_type: u8,
@@ -484,21 +309,10 @@ pub struct xcb_input_open_device_reply_t {
     pub num_classes:   u8,
     pub pad1:          [u8; 23],
 }
-impl ::std::fmt::Debug for xcb_input_open_device_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_open_device_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_classes", &self.num_classes)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_CLOSE_DEVICE: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_close_device_request_t {
     pub major_opcode: u8,
@@ -508,24 +322,9 @@ pub struct xcb_input_close_device_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_close_device_request_t {}
-impl Clone for xcb_input_close_device_request_t {
-    fn clone(&self) -> xcb_input_close_device_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_close_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_close_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_SET_DEVICE_MODE: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_mode_request_t {
     pub major_opcode: u8,
@@ -536,29 +335,13 @@ pub struct xcb_input_set_device_mode_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_input_set_device_mode_request_t {}
-impl Clone for xcb_input_set_device_mode_request_t {
-    fn clone(&self) -> xcb_input_set_device_mode_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_set_device_mode_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_set_device_mode_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("mode", &self.mode)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_mode_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_mode_reply_t {
     pub response_type: u8,
@@ -569,25 +352,9 @@ pub struct xcb_input_set_device_mode_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_input_set_device_mode_reply_t {}
-impl Clone for xcb_input_set_device_mode_reply_t {
-    fn clone(&self) -> xcb_input_set_device_mode_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_set_device_mode_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_set_device_mode_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_SELECT_EXTENSION_EVENT: u8 = 6;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_select_extension_event_request_t {
     pub major_opcode: u8,
@@ -597,21 +364,10 @@ pub struct xcb_input_select_extension_event_request_t {
     pub num_classes:  u16,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_input_select_extension_event_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_select_extension_event_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("num_classes", &self.num_classes)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_GET_SELECTED_EXTENSION_EVENTS: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_selected_extension_events_request_t {
     pub major_opcode: u8,
@@ -620,27 +376,13 @@ pub struct xcb_input_get_selected_extension_events_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_input_get_selected_extension_events_request_t {}
-impl Clone for xcb_input_get_selected_extension_events_request_t {
-    fn clone(&self) -> xcb_input_get_selected_extension_events_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_selected_extension_events_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_selected_extension_events_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_selected_extension_events_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_selected_extension_events_reply_t {
     pub response_type:    u8,
@@ -651,19 +393,6 @@ pub struct xcb_input_get_selected_extension_events_reply_t {
     pub num_all_classes:  u16,
     pub pad1:             [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_input_get_selected_extension_events_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_selected_extension_events_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_this_classes", &self.num_this_classes)
-            .field("num_all_classes", &self.num_all_classes)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub type xcb_input_propagate_mode_t = u32;
 pub const XCB_INPUT_PROPAGATE_MODE_ADD_TO_LIST     : xcb_input_propagate_mode_t = 0x00;
@@ -671,6 +400,7 @@ pub const XCB_INPUT_PROPAGATE_MODE_DELETE_FROM_LIST: xcb_input_propagate_mode_t 
 
 pub const XCB_INPUT_CHANGE_DEVICE_DONT_PROPAGATE_LIST: u8 = 8;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_change_device_dont_propagate_list_request_t {
     pub major_opcode: u8,
@@ -681,22 +411,10 @@ pub struct xcb_input_change_device_dont_propagate_list_request_t {
     pub mode:         u8,
     pub pad0:         u8,
 }
-impl ::std::fmt::Debug for xcb_input_change_device_dont_propagate_list_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_device_dont_propagate_list_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("num_classes", &self.num_classes)
-            .field("mode", &self.mode)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_GET_DEVICE_DONT_PROPAGATE_LIST: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_dont_propagate_list_request_t {
     pub major_opcode: u8,
@@ -705,27 +423,13 @@ pub struct xcb_input_get_device_dont_propagate_list_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_input_get_device_dont_propagate_list_request_t {}
-impl Clone for xcb_input_get_device_dont_propagate_list_request_t {
-    fn clone(&self) -> xcb_input_get_device_dont_propagate_list_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_dont_propagate_list_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_dont_propagate_list_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_dont_propagate_list_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_dont_propagate_list_reply_t {
     pub response_type: u8,
@@ -735,34 +439,11 @@ pub struct xcb_input_get_device_dont_propagate_list_reply_t {
     pub num_classes:   u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_input_get_device_dont_propagate_list_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_dont_propagate_list_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_classes", &self.num_classes)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_time_coord_t {
     pub time: xcb_timestamp_t,
-}
-
-impl Copy for xcb_input_device_time_coord_t {}
-impl Clone for xcb_input_device_time_coord_t {
-    fn clone(&self) -> xcb_input_device_time_coord_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_time_coord_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_time_coord_t")
-            .field("time", &self.time)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -775,6 +456,7 @@ pub struct xcb_input_device_time_coord_iterator_t {
 
 pub const XCB_INPUT_GET_DEVICE_MOTION_EVENTS: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_motion_events_request_t {
     pub major_opcode: u8,
@@ -785,29 +467,13 @@ pub struct xcb_input_get_device_motion_events_request_t {
     pub device_id:    u8,
 }
 
-impl Copy for xcb_input_get_device_motion_events_request_t {}
-impl Clone for xcb_input_get_device_motion_events_request_t {
-    fn clone(&self) -> xcb_input_get_device_motion_events_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_motion_events_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_motion_events_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("start", &self.start)
-            .field("stop", &self.stop)
-            .field("device_id", &self.device_id)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_motion_events_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_motion_events_reply_t {
     pub response_type: u8,
@@ -820,27 +486,9 @@ pub struct xcb_input_get_device_motion_events_reply_t {
     pub pad1:          [u8; 18],
 }
 
-impl Copy for xcb_input_get_device_motion_events_reply_t {}
-impl Clone for xcb_input_get_device_motion_events_reply_t {
-    fn clone(&self) -> xcb_input_get_device_motion_events_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_motion_events_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_motion_events_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_events", &self.num_events)
-            .field("num_axes", &self.num_axes)
-            .field("device_mode", &self.device_mode)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_CHANGE_KEYBOARD_DEVICE: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_change_keyboard_device_request_t {
     pub major_opcode: u8,
@@ -850,28 +498,13 @@ pub struct xcb_input_change_keyboard_device_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_change_keyboard_device_request_t {}
-impl Clone for xcb_input_change_keyboard_device_request_t {
-    fn clone(&self) -> xcb_input_change_keyboard_device_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_change_keyboard_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_keyboard_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_change_keyboard_device_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_change_keyboard_device_reply_t {
     pub response_type: u8,
@@ -882,25 +515,9 @@ pub struct xcb_input_change_keyboard_device_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_input_change_keyboard_device_reply_t {}
-impl Clone for xcb_input_change_keyboard_device_reply_t {
-    fn clone(&self) -> xcb_input_change_keyboard_device_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_change_keyboard_device_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_keyboard_device_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_CHANGE_POINTER_DEVICE: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_change_pointer_device_request_t {
     pub major_opcode: u8,
@@ -912,30 +529,13 @@ pub struct xcb_input_change_pointer_device_request_t {
     pub pad0:         u8,
 }
 
-impl Copy for xcb_input_change_pointer_device_request_t {}
-impl Clone for xcb_input_change_pointer_device_request_t {
-    fn clone(&self) -> xcb_input_change_pointer_device_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_change_pointer_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_pointer_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("x_axis", &self.x_axis)
-            .field("y_axis", &self.y_axis)
-            .field("device_id", &self.device_id)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_change_pointer_device_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_change_pointer_device_reply_t {
     pub response_type: u8,
@@ -946,25 +546,9 @@ pub struct xcb_input_change_pointer_device_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_input_change_pointer_device_reply_t {}
-impl Clone for xcb_input_change_pointer_device_reply_t {
-    fn clone(&self) -> xcb_input_change_pointer_device_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_change_pointer_device_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_pointer_device_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_GRAB_DEVICE: u8 = 13;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_grab_device_request_t {
     pub major_opcode:      u8,
@@ -979,23 +563,6 @@ pub struct xcb_input_grab_device_request_t {
     pub device_id:         u8,
     pub pad0:              [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_input_grab_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_grab_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("time", &self.time)
-            .field("num_classes", &self.num_classes)
-            .field("this_device_mode", &self.this_device_mode)
-            .field("other_device_mode", &self.other_device_mode)
-            .field("owner_events", &self.owner_events)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -1003,6 +570,7 @@ pub struct xcb_input_grab_device_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_grab_device_reply_t {
     pub response_type: u8,
@@ -1013,25 +581,9 @@ pub struct xcb_input_grab_device_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_input_grab_device_reply_t {}
-impl Clone for xcb_input_grab_device_reply_t {
-    fn clone(&self) -> xcb_input_grab_device_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_grab_device_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_grab_device_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_UNGRAB_DEVICE: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_ungrab_device_request_t {
     pub major_opcode: u8,
@@ -1041,24 +593,9 @@ pub struct xcb_input_ungrab_device_request_t {
     pub device_id:    u8,
 }
 
-impl Copy for xcb_input_ungrab_device_request_t {}
-impl Clone for xcb_input_ungrab_device_request_t {
-    fn clone(&self) -> xcb_input_ungrab_device_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_ungrab_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_ungrab_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("time", &self.time)
-            .field("device_id", &self.device_id)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_GRAB_DEVICE_KEY: u8 = 15;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_grab_device_key_request_t {
     pub major_opcode:      u8,
@@ -1075,28 +612,10 @@ pub struct xcb_input_grab_device_key_request_t {
     pub owner_events:      u8,
     pub pad0:              [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_input_grab_device_key_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_grab_device_key_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("num_classes", &self.num_classes)
-            .field("modifiers", &self.modifiers)
-            .field("modifier_device", &self.modifier_device)
-            .field("grabbed_device", &self.grabbed_device)
-            .field("key", &self.key)
-            .field("this_device_mode", &self.this_device_mode)
-            .field("other_device_mode", &self.other_device_mode)
-            .field("owner_events", &self.owner_events)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_UNGRAB_DEVICE_KEY: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_ungrab_device_key_request_t {
     pub major_opcode:    u8,
@@ -1109,27 +628,9 @@ pub struct xcb_input_ungrab_device_key_request_t {
     pub grabbed_device:  u8,
 }
 
-impl Copy for xcb_input_ungrab_device_key_request_t {}
-impl Clone for xcb_input_ungrab_device_key_request_t {
-    fn clone(&self) -> xcb_input_ungrab_device_key_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_ungrab_device_key_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_ungrab_device_key_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("grabWindow", &self.grabWindow)
-            .field("modifiers", &self.modifiers)
-            .field("modifier_device", &self.modifier_device)
-            .field("key", &self.key)
-            .field("grabbed_device", &self.grabbed_device)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_GRAB_DEVICE_BUTTON: u8 = 17;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_grab_device_button_request_t {
     pub major_opcode:      u8,
@@ -1146,28 +647,10 @@ pub struct xcb_input_grab_device_button_request_t {
     pub owner_events:      u8,
     pub pad0:              [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_input_grab_device_button_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_grab_device_button_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("grabbed_device", &self.grabbed_device)
-            .field("modifier_device", &self.modifier_device)
-            .field("num_classes", &self.num_classes)
-            .field("modifiers", &self.modifiers)
-            .field("this_device_mode", &self.this_device_mode)
-            .field("other_device_mode", &self.other_device_mode)
-            .field("button", &self.button)
-            .field("owner_events", &self.owner_events)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_UNGRAB_DEVICE_BUTTON: u8 = 18;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_ungrab_device_button_request_t {
     pub major_opcode:    u8,
@@ -1180,25 +663,6 @@ pub struct xcb_input_ungrab_device_button_request_t {
     pub grabbed_device:  u8,
 }
 
-impl Copy for xcb_input_ungrab_device_button_request_t {}
-impl Clone for xcb_input_ungrab_device_button_request_t {
-    fn clone(&self) -> xcb_input_ungrab_device_button_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_ungrab_device_button_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_ungrab_device_button_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("modifiers", &self.modifiers)
-            .field("modifier_device", &self.modifier_device)
-            .field("button", &self.button)
-            .field("grabbed_device", &self.grabbed_device)
-            .finish()
-    }
-}
-
 pub type xcb_input_device_input_mode_t = u32;
 pub const XCB_INPUT_DEVICE_INPUT_MODE_ASYNC_THIS_DEVICE  : xcb_input_device_input_mode_t = 0x00;
 pub const XCB_INPUT_DEVICE_INPUT_MODE_SYNC_THIS_DEVICE   : xcb_input_device_input_mode_t = 0x01;
@@ -1209,6 +673,7 @@ pub const XCB_INPUT_DEVICE_INPUT_MODE_SYNC_ALL           : xcb_input_device_inpu
 
 pub const XCB_INPUT_ALLOW_DEVICE_EVENTS: u8 = 19;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_allow_device_events_request_t {
     pub major_opcode: u8,
@@ -1219,25 +684,9 @@ pub struct xcb_input_allow_device_events_request_t {
     pub device_id:    u8,
 }
 
-impl Copy for xcb_input_allow_device_events_request_t {}
-impl Clone for xcb_input_allow_device_events_request_t {
-    fn clone(&self) -> xcb_input_allow_device_events_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_allow_device_events_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_allow_device_events_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("time", &self.time)
-            .field("mode", &self.mode)
-            .field("device_id", &self.device_id)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_GET_DEVICE_FOCUS: u8 = 20;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_focus_request_t {
     pub major_opcode: u8,
@@ -1247,28 +696,13 @@ pub struct xcb_input_get_device_focus_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_get_device_focus_request_t {}
-impl Clone for xcb_input_get_device_focus_request_t {
-    fn clone(&self) -> xcb_input_get_device_focus_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_focus_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_focus_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_focus_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_focus_reply_t {
     pub response_type: u8,
@@ -1281,27 +715,9 @@ pub struct xcb_input_get_device_focus_reply_t {
     pub pad1:          [u8; 15],
 }
 
-impl Copy for xcb_input_get_device_focus_reply_t {}
-impl Clone for xcb_input_get_device_focus_reply_t {
-    fn clone(&self) -> xcb_input_get_device_focus_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_focus_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_focus_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("focus", &self.focus)
-            .field("time", &self.time)
-            .field("revert_to", &self.revert_to)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_SET_DEVICE_FOCUS: u8 = 21;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_focus_request_t {
     pub major_opcode: u8,
@@ -1313,24 +729,6 @@ pub struct xcb_input_set_device_focus_request_t {
     pub device_id:    u8,
 }
 
-impl Copy for xcb_input_set_device_focus_request_t {}
-impl Clone for xcb_input_set_device_focus_request_t {
-    fn clone(&self) -> xcb_input_set_device_focus_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_set_device_focus_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_set_device_focus_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("focus", &self.focus)
-            .field("time", &self.time)
-            .field("revert_to", &self.revert_to)
-            .field("device_id", &self.device_id)
-            .finish()
-    }
-}
-
 pub type xcb_input_feedback_class_t = u32;
 pub const XCB_INPUT_FEEDBACK_CLASS_KEYBOARD: xcb_input_feedback_class_t = 0x00;
 pub const XCB_INPUT_FEEDBACK_CLASS_POINTER : xcb_input_feedback_class_t = 0x01;
@@ -1339,6 +737,7 @@ pub const XCB_INPUT_FEEDBACK_CLASS_INTEGER : xcb_input_feedback_class_t = 0x03;
 pub const XCB_INPUT_FEEDBACK_CLASS_LED     : xcb_input_feedback_class_t = 0x04;
 pub const XCB_INPUT_FEEDBACK_CLASS_BELL    : xcb_input_feedback_class_t = 0x05;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_kbd_feedback_state_t {
     pub class_id:           u8,
@@ -1355,29 +754,6 @@ pub struct xcb_input_kbd_feedback_state_t {
     pub auto_repeats:       [u8; 32],
 }
 
-impl Copy for xcb_input_kbd_feedback_state_t {}
-impl Clone for xcb_input_kbd_feedback_state_t {
-    fn clone(&self) -> xcb_input_kbd_feedback_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_kbd_feedback_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_kbd_feedback_state_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("pitch", &self.pitch)
-            .field("duration", &self.duration)
-            .field("led_mask", &self.led_mask)
-            .field("led_values", &self.led_values)
-            .field("global_auto_repeat", &self.global_auto_repeat)
-            .field("click", &self.click)
-            .field("percent", &self.percent)
-            .field("pad0", &self.pad0)
-            .field("auto_repeats", &&self.auto_repeats[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_kbd_feedback_state_iterator_t<'a> {
@@ -1387,6 +763,7 @@ pub struct xcb_input_kbd_feedback_state_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_kbd_feedback_state_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_ptr_feedback_state_t {
     pub class_id:    u8,
@@ -1398,24 +775,6 @@ pub struct xcb_input_ptr_feedback_state_t {
     pub threshold:   u16,
 }
 
-impl Copy for xcb_input_ptr_feedback_state_t {}
-impl Clone for xcb_input_ptr_feedback_state_t {
-    fn clone(&self) -> xcb_input_ptr_feedback_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_ptr_feedback_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_ptr_feedback_state_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("pad0", &&self.pad0[..])
-            .field("accel_num", &self.accel_num)
-            .field("accel_denom", &self.accel_denom)
-            .field("threshold", &self.threshold)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_ptr_feedback_state_iterator_t {
@@ -1424,6 +783,7 @@ pub struct xcb_input_ptr_feedback_state_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_integer_feedback_state_t {
     pub class_id:    u8,
@@ -1434,23 +794,6 @@ pub struct xcb_input_integer_feedback_state_t {
     pub max_value:   i32,
 }
 
-impl Copy for xcb_input_integer_feedback_state_t {}
-impl Clone for xcb_input_integer_feedback_state_t {
-    fn clone(&self) -> xcb_input_integer_feedback_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_integer_feedback_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_integer_feedback_state_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("resolution", &self.resolution)
-            .field("min_value", &self.min_value)
-            .field("max_value", &self.max_value)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_integer_feedback_state_iterator_t {
@@ -1459,6 +802,7 @@ pub struct xcb_input_integer_feedback_state_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_string_feedback_state_t {
     pub class_id:    u8,
@@ -1466,17 +810,6 @@ pub struct xcb_input_string_feedback_state_t {
     pub len:         u16,
     pub max_symbols: u16,
     pub num_keysyms: u16,
-}
-impl ::std::fmt::Debug for xcb_input_string_feedback_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_string_feedback_state_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("max_symbols", &self.max_symbols)
-            .field("num_keysyms", &self.num_keysyms)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1488,6 +821,7 @@ pub struct xcb_input_string_feedback_state_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_string_feedback_state_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_bell_feedback_state_t {
     pub class_id:    u8,
@@ -1499,24 +833,6 @@ pub struct xcb_input_bell_feedback_state_t {
     pub duration:    u16,
 }
 
-impl Copy for xcb_input_bell_feedback_state_t {}
-impl Clone for xcb_input_bell_feedback_state_t {
-    fn clone(&self) -> xcb_input_bell_feedback_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_bell_feedback_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_bell_feedback_state_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("percent", &self.percent)
-            .field("pad0", &&self.pad0[..])
-            .field("pitch", &self.pitch)
-            .field("duration", &self.duration)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_bell_feedback_state_iterator_t {
@@ -1525,6 +841,7 @@ pub struct xcb_input_bell_feedback_state_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_led_feedback_state_t {
     pub class_id:    u8,
@@ -1532,22 +849,6 @@ pub struct xcb_input_led_feedback_state_t {
     pub len:         u16,
     pub led_mask:    u32,
     pub led_values:  u32,
-}
-
-impl Copy for xcb_input_led_feedback_state_t {}
-impl Clone for xcb_input_led_feedback_state_t {
-    fn clone(&self) -> xcb_input_led_feedback_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_led_feedback_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_led_feedback_state_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("led_mask", &self.led_mask)
-            .field("led_values", &self.led_values)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1558,20 +859,12 @@ pub struct xcb_input_led_feedback_state_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_feedback_state_t {
     pub class_id:           u8,
     pub feedback_id:        u8,
     pub len:                u16,
-}
-impl ::std::fmt::Debug for xcb_input_feedback_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_feedback_state_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1585,6 +878,7 @@ pub struct xcb_input_feedback_state_iterator_t<'a> {
 
 pub const XCB_INPUT_GET_FEEDBACK_CONTROL: u8 = 22;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_feedback_control_request_t {
     pub major_opcode: u8,
@@ -1594,28 +888,13 @@ pub struct xcb_input_get_feedback_control_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_get_feedback_control_request_t {}
-impl Clone for xcb_input_get_feedback_control_request_t {
-    fn clone(&self) -> xcb_input_get_feedback_control_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_feedback_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_feedback_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_feedback_control_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_feedback_control_reply_t {
     pub response_type: u8,
@@ -1625,19 +904,8 @@ pub struct xcb_input_get_feedback_control_reply_t {
     pub num_feedbacks: u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_input_get_feedback_control_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_feedback_control_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_feedbacks", &self.num_feedbacks)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_kbd_feedback_ctl_t {
     pub class_id:          u8,
@@ -1653,28 +921,6 @@ pub struct xcb_input_kbd_feedback_ctl_t {
     pub led_values:        u32,
 }
 
-impl Copy for xcb_input_kbd_feedback_ctl_t {}
-impl Clone for xcb_input_kbd_feedback_ctl_t {
-    fn clone(&self) -> xcb_input_kbd_feedback_ctl_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_kbd_feedback_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_kbd_feedback_ctl_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("key", &self.key)
-            .field("auto_repeat_mode", &self.auto_repeat_mode)
-            .field("key_click_percent", &self.key_click_percent)
-            .field("bell_percent", &self.bell_percent)
-            .field("bell_pitch", &self.bell_pitch)
-            .field("bell_duration", &self.bell_duration)
-            .field("led_mask", &self.led_mask)
-            .field("led_values", &self.led_values)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_kbd_feedback_ctl_iterator_t {
@@ -1683,6 +929,7 @@ pub struct xcb_input_kbd_feedback_ctl_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_ptr_feedback_ctl_t {
     pub class_id:    u8,
@@ -1694,24 +941,6 @@ pub struct xcb_input_ptr_feedback_ctl_t {
     pub threshold:   i16,
 }
 
-impl Copy for xcb_input_ptr_feedback_ctl_t {}
-impl Clone for xcb_input_ptr_feedback_ctl_t {
-    fn clone(&self) -> xcb_input_ptr_feedback_ctl_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_ptr_feedback_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_ptr_feedback_ctl_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("pad0", &&self.pad0[..])
-            .field("num", &self.num)
-            .field("denom", &self.denom)
-            .field("threshold", &self.threshold)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_ptr_feedback_ctl_iterator_t {
@@ -1720,27 +949,13 @@ pub struct xcb_input_ptr_feedback_ctl_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_integer_feedback_ctl_t {
     pub class_id:       u8,
     pub feedback_id:    u8,
     pub len:            u16,
     pub int_to_display: i32,
-}
-
-impl Copy for xcb_input_integer_feedback_ctl_t {}
-impl Clone for xcb_input_integer_feedback_ctl_t {
-    fn clone(&self) -> xcb_input_integer_feedback_ctl_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_integer_feedback_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_integer_feedback_ctl_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("int_to_display", &self.int_to_display)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1751,6 +966,7 @@ pub struct xcb_input_integer_feedback_ctl_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_string_feedback_ctl_t {
     pub class_id:    u8,
@@ -1758,17 +974,6 @@ pub struct xcb_input_string_feedback_ctl_t {
     pub len:         u16,
     pub pad0:        [u8; 2],
     pub num_keysyms: u16,
-}
-impl ::std::fmt::Debug for xcb_input_string_feedback_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_string_feedback_ctl_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("pad0", &&self.pad0[..])
-            .field("num_keysyms", &self.num_keysyms)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1780,6 +985,7 @@ pub struct xcb_input_string_feedback_ctl_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_string_feedback_ctl_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_bell_feedback_ctl_t {
     pub class_id:    u8,
@@ -1791,24 +997,6 @@ pub struct xcb_input_bell_feedback_ctl_t {
     pub duration:    i16,
 }
 
-impl Copy for xcb_input_bell_feedback_ctl_t {}
-impl Clone for xcb_input_bell_feedback_ctl_t {
-    fn clone(&self) -> xcb_input_bell_feedback_ctl_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_bell_feedback_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_bell_feedback_ctl_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("percent", &self.percent)
-            .field("pad0", &&self.pad0[..])
-            .field("pitch", &self.pitch)
-            .field("duration", &self.duration)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_bell_feedback_ctl_iterator_t {
@@ -1817,6 +1005,7 @@ pub struct xcb_input_bell_feedback_ctl_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_led_feedback_ctl_t {
     pub class_id:    u8,
@@ -1824,22 +1013,6 @@ pub struct xcb_input_led_feedback_ctl_t {
     pub len:         u16,
     pub led_mask:    u32,
     pub led_values:  u32,
-}
-
-impl Copy for xcb_input_led_feedback_ctl_t {}
-impl Clone for xcb_input_led_feedback_ctl_t {
-    fn clone(&self) -> xcb_input_led_feedback_ctl_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_led_feedback_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_led_feedback_ctl_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .field("led_mask", &self.led_mask)
-            .field("led_values", &self.led_values)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1850,20 +1023,12 @@ pub struct xcb_input_led_feedback_ctl_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_feedback_ctl_t {
     pub class_id:           u8,
     pub feedback_id:        u8,
     pub len:                u16,
-}
-impl ::std::fmt::Debug for xcb_input_feedback_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_feedback_ctl_t")
-            .field("class_id", &self.class_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("len", &self.len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1877,6 +1042,7 @@ pub struct xcb_input_feedback_ctl_iterator_t<'a> {
 
 pub const XCB_INPUT_CHANGE_FEEDBACK_CONTROL: u8 = 23;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_change_feedback_control_request_t {
     pub major_opcode: u8,
@@ -1886,21 +1052,10 @@ pub struct xcb_input_change_feedback_control_request_t {
     pub device_id:    u8,
     pub feedback_id:  u8,
 }
-impl ::std::fmt::Debug for xcb_input_change_feedback_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_feedback_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("mask", &self.mask)
-            .field("device_id", &self.device_id)
-            .field("feedback_id", &self.feedback_id)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_GET_DEVICE_KEY_MAPPING: u8 = 24;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_key_mapping_request_t {
     pub major_opcode:  u8,
@@ -1911,29 +1066,13 @@ pub struct xcb_input_get_device_key_mapping_request_t {
     pub count:         u8,
 }
 
-impl Copy for xcb_input_get_device_key_mapping_request_t {}
-impl Clone for xcb_input_get_device_key_mapping_request_t {
-    fn clone(&self) -> xcb_input_get_device_key_mapping_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_key_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_key_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("first_keycode", &self.first_keycode)
-            .field("count", &self.count)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_key_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_key_mapping_reply_t {
     pub response_type:       u8,
@@ -1943,21 +1082,10 @@ pub struct xcb_input_get_device_key_mapping_reply_t {
     pub keysyms_per_keycode: u8,
     pub pad1:                [u8; 23],
 }
-impl ::std::fmt::Debug for xcb_input_get_device_key_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_key_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("keysyms_per_keycode", &self.keysyms_per_keycode)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_CHANGE_DEVICE_KEY_MAPPING: u8 = 25;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_change_device_key_mapping_request_t {
     pub major_opcode:        u8,
@@ -1968,22 +1096,10 @@ pub struct xcb_input_change_device_key_mapping_request_t {
     pub keysyms_per_keycode: u8,
     pub keycode_count:       u8,
 }
-impl ::std::fmt::Debug for xcb_input_change_device_key_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_device_key_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("first_keycode", &self.first_keycode)
-            .field("keysyms_per_keycode", &self.keysyms_per_keycode)
-            .field("keycode_count", &self.keycode_count)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_GET_DEVICE_MODIFIER_MAPPING: u8 = 26;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_modifier_mapping_request_t {
     pub major_opcode: u8,
@@ -1993,28 +1109,13 @@ pub struct xcb_input_get_device_modifier_mapping_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_get_device_modifier_mapping_request_t {}
-impl Clone for xcb_input_get_device_modifier_mapping_request_t {
-    fn clone(&self) -> xcb_input_get_device_modifier_mapping_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_modifier_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_modifier_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_modifier_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_modifier_mapping_reply_t {
     pub response_type:         u8,
@@ -2024,21 +1125,10 @@ pub struct xcb_input_get_device_modifier_mapping_reply_t {
     pub keycodes_per_modifier: u8,
     pub pad1:                  [u8; 23],
 }
-impl ::std::fmt::Debug for xcb_input_get_device_modifier_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_modifier_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("keycodes_per_modifier", &self.keycodes_per_modifier)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_SET_DEVICE_MODIFIER_MAPPING: u8 = 27;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_modifier_mapping_request_t {
     pub major_opcode:          u8,
@@ -2048,18 +1138,6 @@ pub struct xcb_input_set_device_modifier_mapping_request_t {
     pub keycodes_per_modifier: u8,
     pub pad0:                  u8,
 }
-impl ::std::fmt::Debug for xcb_input_set_device_modifier_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_set_device_modifier_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("keycodes_per_modifier", &self.keycodes_per_modifier)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -2067,6 +1145,7 @@ pub struct xcb_input_set_device_modifier_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_modifier_mapping_reply_t {
     pub response_type: u8,
@@ -2077,25 +1156,9 @@ pub struct xcb_input_set_device_modifier_mapping_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_input_set_device_modifier_mapping_reply_t {}
-impl Clone for xcb_input_set_device_modifier_mapping_reply_t {
-    fn clone(&self) -> xcb_input_set_device_modifier_mapping_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_set_device_modifier_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_set_device_modifier_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_GET_DEVICE_BUTTON_MAPPING: u8 = 28;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_button_mapping_request_t {
     pub major_opcode: u8,
@@ -2105,28 +1168,13 @@ pub struct xcb_input_get_device_button_mapping_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_get_device_button_mapping_request_t {}
-impl Clone for xcb_input_get_device_button_mapping_request_t {
-    fn clone(&self) -> xcb_input_get_device_button_mapping_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_button_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_button_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_button_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_button_mapping_reply_t {
     pub response_type: u8,
@@ -2136,21 +1184,10 @@ pub struct xcb_input_get_device_button_mapping_reply_t {
     pub map_size:      u8,
     pub pad1:          [u8; 23],
 }
-impl ::std::fmt::Debug for xcb_input_get_device_button_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_button_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("map_size", &self.map_size)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_SET_DEVICE_BUTTON_MAPPING: u8 = 29;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_button_mapping_request_t {
     pub major_opcode: u8,
@@ -2160,18 +1197,6 @@ pub struct xcb_input_set_device_button_mapping_request_t {
     pub map_size:     u8,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_input_set_device_button_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_set_device_button_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("map_size", &self.map_size)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -2179,6 +1204,7 @@ pub struct xcb_input_set_device_button_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_button_mapping_reply_t {
     pub response_type: u8,
@@ -2189,23 +1215,7 @@ pub struct xcb_input_set_device_button_mapping_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_input_set_device_button_mapping_reply_t {}
-impl Clone for xcb_input_set_device_button_mapping_reply_t {
-    fn clone(&self) -> xcb_input_set_device_button_mapping_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_set_device_button_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_set_device_button_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_key_state_t {
     pub class_id: u8,
@@ -2213,22 +1223,6 @@ pub struct xcb_input_key_state_t {
     pub num_keys: u8,
     pub pad0:     u8,
     pub keys:     [u8; 32],
-}
-
-impl Copy for xcb_input_key_state_t {}
-impl Clone for xcb_input_key_state_t {
-    fn clone(&self) -> xcb_input_key_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_key_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_key_state_t")
-            .field("class_id", &self.class_id)
-            .field("len", &self.len)
-            .field("num_keys", &self.num_keys)
-            .field("pad0", &self.pad0)
-            .field("keys", &&self.keys[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2240,6 +1234,7 @@ pub struct xcb_input_key_state_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_key_state_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_button_state_t {
     pub class_id:    u8,
@@ -2247,22 +1242,6 @@ pub struct xcb_input_button_state_t {
     pub num_buttons: u8,
     pub pad0:        u8,
     pub buttons:     [u8; 32],
-}
-
-impl Copy for xcb_input_button_state_t {}
-impl Clone for xcb_input_button_state_t {
-    fn clone(&self) -> xcb_input_button_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_button_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_button_state_t")
-            .field("class_id", &self.class_id)
-            .field("len", &self.len)
-            .field("num_buttons", &self.num_buttons)
-            .field("pad0", &self.pad0)
-            .field("buttons", &&self.buttons[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2274,22 +1253,13 @@ pub struct xcb_input_button_state_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_button_state_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_valuator_state_t {
     pub class_id:      u8,
     pub len:           u8,
     pub num_valuators: u8,
     pub mode:          u8,
-}
-impl ::std::fmt::Debug for xcb_input_valuator_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_valuator_state_t")
-            .field("class_id", &self.class_id)
-            .field("len", &self.len)
-            .field("num_valuators", &self.num_valuators)
-            .field("mode", &self.mode)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2301,22 +1271,13 @@ pub struct xcb_input_valuator_state_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_valuator_state_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_input_state_t {
     pub class_id:           u8,
     pub len:                u8,
     pub num_items:          u8,
     pub pad0:               u8,
-}
-impl ::std::fmt::Debug for xcb_input_input_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_input_state_t")
-            .field("class_id", &self.class_id)
-            .field("len", &self.len)
-            .field("num_items", &self.num_items)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2330,6 +1291,7 @@ pub struct xcb_input_input_state_iterator_t<'a> {
 
 pub const XCB_INPUT_QUERY_DEVICE_STATE: u8 = 30;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_query_device_state_request_t {
     pub major_opcode: u8,
@@ -2339,28 +1301,13 @@ pub struct xcb_input_query_device_state_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_query_device_state_request_t {}
-impl Clone for xcb_input_query_device_state_request_t {
-    fn clone(&self) -> xcb_input_query_device_state_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_query_device_state_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_query_device_state_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_query_device_state_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_query_device_state_reply_t {
     pub response_type: u8,
@@ -2370,21 +1317,10 @@ pub struct xcb_input_query_device_state_reply_t {
     pub num_classes:   u8,
     pub pad1:          [u8; 23],
 }
-impl ::std::fmt::Debug for xcb_input_query_device_state_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_query_device_state_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_classes", &self.num_classes)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_SEND_EXTENSION_EVENT: u8 = 31;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_send_extension_event_request_t {
     pub major_opcode: u8,
@@ -2397,24 +1333,10 @@ pub struct xcb_input_send_extension_event_request_t {
     pub num_events:   u8,
     pub pad0:         [u8; 3],
 }
-impl ::std::fmt::Debug for xcb_input_send_extension_event_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_send_extension_event_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("destination", &self.destination)
-            .field("device_id", &self.device_id)
-            .field("propagate", &self.propagate)
-            .field("num_classes", &self.num_classes)
-            .field("num_events", &self.num_events)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_DEVICE_BELL: u8 = 32;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_bell_request_t {
     pub major_opcode:   u8,
@@ -2426,26 +1348,9 @@ pub struct xcb_input_device_bell_request_t {
     pub percent:        i8,
 }
 
-impl Copy for xcb_input_device_bell_request_t {}
-impl Clone for xcb_input_device_bell_request_t {
-    fn clone(&self) -> xcb_input_device_bell_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_bell_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_bell_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("feedback_id", &self.feedback_id)
-            .field("feedback_class", &self.feedback_class)
-            .field("percent", &self.percent)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_SET_DEVICE_VALUATORS: u8 = 33;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_valuators_request_t {
     pub major_opcode:   u8,
@@ -2456,19 +1361,6 @@ pub struct xcb_input_set_device_valuators_request_t {
     pub num_valuators:  u8,
     pub pad0:           u8,
 }
-impl ::std::fmt::Debug for xcb_input_set_device_valuators_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_set_device_valuators_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("first_valuator", &self.first_valuator)
-            .field("num_valuators", &self.num_valuators)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -2476,6 +1368,7 @@ pub struct xcb_input_set_device_valuators_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_set_device_valuators_reply_t {
     pub response_type: u8,
@@ -2486,23 +1379,6 @@ pub struct xcb_input_set_device_valuators_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_input_set_device_valuators_reply_t {}
-impl Clone for xcb_input_set_device_valuators_reply_t {
-    fn clone(&self) -> xcb_input_set_device_valuators_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_set_device_valuators_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_set_device_valuators_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub type xcb_input_device_control_t = u32;
 pub const XCB_INPUT_DEVICE_CONTROL_RESOLUTION: xcb_input_device_control_t = 0x01;
 pub const XCB_INPUT_DEVICE_CONTROL_ABS_CALIB : xcb_input_device_control_t = 0x02;
@@ -2510,20 +1386,12 @@ pub const XCB_INPUT_DEVICE_CONTROL_CORE      : xcb_input_device_control_t = 0x03
 pub const XCB_INPUT_DEVICE_CONTROL_ENABLE    : xcb_input_device_control_t = 0x04;
 pub const XCB_INPUT_DEVICE_CONTROL_ABS_AREA  : xcb_input_device_control_t = 0x05;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_device_resolution_state_t {
     pub control_id:        u16,
     pub len:               u16,
     pub num_valuators:     u32,
-}
-impl ::std::fmt::Debug for xcb_input_device_resolution_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_resolution_state_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("num_valuators", &self.num_valuators)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2535,6 +1403,7 @@ pub struct xcb_input_device_resolution_state_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_device_resolution_state_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_abs_calib_state_t {
     pub control_id:       u16,
@@ -2549,27 +1418,6 @@ pub struct xcb_input_device_abs_calib_state_t {
     pub button_threshold: u32,
 }
 
-impl Copy for xcb_input_device_abs_calib_state_t {}
-impl Clone for xcb_input_device_abs_calib_state_t {
-    fn clone(&self) -> xcb_input_device_abs_calib_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_abs_calib_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_abs_calib_state_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("min_x", &self.min_x)
-            .field("max_x", &self.max_x)
-            .field("min_y", &self.min_y)
-            .field("max_y", &self.max_y)
-            .field("flip_x", &self.flip_x)
-            .field("flip_y", &self.flip_y)
-            .field("rotation", &self.rotation)
-            .field("button_threshold", &self.button_threshold)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_device_abs_calib_state_iterator_t {
@@ -2578,6 +1426,7 @@ pub struct xcb_input_device_abs_calib_state_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_abs_area_state_t {
     pub control_id: u16,
@@ -2590,25 +1439,6 @@ pub struct xcb_input_device_abs_area_state_t {
     pub following:  u32,
 }
 
-impl Copy for xcb_input_device_abs_area_state_t {}
-impl Clone for xcb_input_device_abs_area_state_t {
-    fn clone(&self) -> xcb_input_device_abs_area_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_abs_area_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_abs_area_state_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("offset_x", &self.offset_x)
-            .field("offset_y", &self.offset_y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("screen", &self.screen)
-            .field("following", &self.following)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_device_abs_area_state_iterator_t {
@@ -2617,6 +1447,7 @@ pub struct xcb_input_device_abs_area_state_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_core_state_t {
     pub control_id: u16,
@@ -2624,22 +1455,6 @@ pub struct xcb_input_device_core_state_t {
     pub status:     u8,
     pub iscore:     u8,
     pub pad0:       [u8; 2],
-}
-
-impl Copy for xcb_input_device_core_state_t {}
-impl Clone for xcb_input_device_core_state_t {
-    fn clone(&self) -> xcb_input_device_core_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_core_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_core_state_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("status", &self.status)
-            .field("iscore", &self.iscore)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2650,27 +1465,13 @@ pub struct xcb_input_device_core_state_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_enable_state_t {
     pub control_id: u16,
     pub len:        u16,
     pub enable:     u8,
     pub pad0:       [u8; 3],
-}
-
-impl Copy for xcb_input_device_enable_state_t {}
-impl Clone for xcb_input_device_enable_state_t {
-    fn clone(&self) -> xcb_input_device_enable_state_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_enable_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_enable_state_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("enable", &self.enable)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2681,18 +1482,11 @@ pub struct xcb_input_device_enable_state_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_device_state_t {
     pub control_id:         u16,
     pub len:                u16,
-}
-impl ::std::fmt::Debug for xcb_input_device_state_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_state_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2706,6 +1500,7 @@ pub struct xcb_input_device_state_iterator_t<'a> {
 
 pub const XCB_INPUT_GET_DEVICE_CONTROL: u8 = 34;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_control_request_t {
     pub major_opcode: u8,
@@ -2716,29 +1511,13 @@ pub struct xcb_input_get_device_control_request_t {
     pub pad0:         u8,
 }
 
-impl Copy for xcb_input_get_device_control_request_t {}
-impl Clone for xcb_input_get_device_control_request_t {
-    fn clone(&self) -> xcb_input_get_device_control_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("control_id", &self.control_id)
-            .field("device_id", &self.device_id)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_control_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_control_reply_t {
     pub response_type: u8,
@@ -2748,19 +1527,8 @@ pub struct xcb_input_get_device_control_reply_t {
     pub status:        u8,
     pub pad1:          [u8; 23],
 }
-impl ::std::fmt::Debug for xcb_input_get_device_control_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_control_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_device_resolution_ctl_t {
     pub control_id:        u16,
@@ -2768,17 +1536,6 @@ pub struct xcb_input_device_resolution_ctl_t {
     pub first_valuator:    u8,
     pub num_valuators:     u8,
     pub pad0:              [u8; 2],
-}
-impl ::std::fmt::Debug for xcb_input_device_resolution_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_resolution_ctl_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("first_valuator", &self.first_valuator)
-            .field("num_valuators", &self.num_valuators)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2790,6 +1547,7 @@ pub struct xcb_input_device_resolution_ctl_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_device_resolution_ctl_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_abs_calib_ctl_t {
     pub control_id:       u16,
@@ -2804,27 +1562,6 @@ pub struct xcb_input_device_abs_calib_ctl_t {
     pub button_threshold: u32,
 }
 
-impl Copy for xcb_input_device_abs_calib_ctl_t {}
-impl Clone for xcb_input_device_abs_calib_ctl_t {
-    fn clone(&self) -> xcb_input_device_abs_calib_ctl_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_abs_calib_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_abs_calib_ctl_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("min_x", &self.min_x)
-            .field("max_x", &self.max_x)
-            .field("min_y", &self.min_y)
-            .field("max_y", &self.max_y)
-            .field("flip_x", &self.flip_x)
-            .field("flip_y", &self.flip_y)
-            .field("rotation", &self.rotation)
-            .field("button_threshold", &self.button_threshold)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_device_abs_calib_ctl_iterator_t {
@@ -2833,6 +1570,7 @@ pub struct xcb_input_device_abs_calib_ctl_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_abs_area_ctrl_t {
     pub control_id: u16,
@@ -2845,25 +1583,6 @@ pub struct xcb_input_device_abs_area_ctrl_t {
     pub following:  u32,
 }
 
-impl Copy for xcb_input_device_abs_area_ctrl_t {}
-impl Clone for xcb_input_device_abs_area_ctrl_t {
-    fn clone(&self) -> xcb_input_device_abs_area_ctrl_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_abs_area_ctrl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_abs_area_ctrl_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("offset_x", &self.offset_x)
-            .field("offset_y", &self.offset_y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("screen", &self.screen)
-            .field("following", &self.following)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_device_abs_area_ctrl_iterator_t {
@@ -2872,27 +1591,13 @@ pub struct xcb_input_device_abs_area_ctrl_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_core_ctrl_t {
     pub control_id: u16,
     pub len:        u16,
     pub status:     u8,
     pub pad0:       [u8; 3],
-}
-
-impl Copy for xcb_input_device_core_ctrl_t {}
-impl Clone for xcb_input_device_core_ctrl_t {
-    fn clone(&self) -> xcb_input_device_core_ctrl_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_core_ctrl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_core_ctrl_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("status", &self.status)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2903,27 +1608,13 @@ pub struct xcb_input_device_core_ctrl_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_enable_ctrl_t {
     pub control_id: u16,
     pub len:        u16,
     pub enable:     u8,
     pub pad0:       [u8; 3],
-}
-
-impl Copy for xcb_input_device_enable_ctrl_t {}
-impl Clone for xcb_input_device_enable_ctrl_t {
-    fn clone(&self) -> xcb_input_device_enable_ctrl_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_enable_ctrl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_enable_ctrl_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .field("enable", &self.enable)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2934,18 +1625,11 @@ pub struct xcb_input_device_enable_ctrl_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_device_ctl_t {
     pub control_id:         u16,
     pub len:                u16,
-}
-impl ::std::fmt::Debug for xcb_input_device_ctl_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_ctl_t")
-            .field("control_id", &self.control_id)
-            .field("len", &self.len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2959,6 +1643,7 @@ pub struct xcb_input_device_ctl_iterator_t<'a> {
 
 pub const XCB_INPUT_CHANGE_DEVICE_CONTROL: u8 = 35;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_change_device_control_request_t {
     pub major_opcode: u8,
@@ -2968,18 +1653,6 @@ pub struct xcb_input_change_device_control_request_t {
     pub device_id:    u8,
     pub pad0:         u8,
 }
-impl ::std::fmt::Debug for xcb_input_change_device_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_device_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("control_id", &self.control_id)
-            .field("device_id", &self.device_id)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -2987,6 +1660,7 @@ pub struct xcb_input_change_device_control_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_change_device_control_reply_t {
     pub response_type: u8,
@@ -2997,25 +1671,9 @@ pub struct xcb_input_change_device_control_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_input_change_device_control_reply_t {}
-impl Clone for xcb_input_change_device_control_reply_t {
-    fn clone(&self) -> xcb_input_change_device_control_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_change_device_control_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_device_control_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_LIST_DEVICE_PROPERTIES: u8 = 36;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_list_device_properties_request_t {
     pub major_opcode: u8,
@@ -3025,28 +1683,13 @@ pub struct xcb_input_list_device_properties_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_list_device_properties_request_t {}
-impl Clone for xcb_input_list_device_properties_request_t {
-    fn clone(&self) -> xcb_input_list_device_properties_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_list_device_properties_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_list_device_properties_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_list_device_properties_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_list_device_properties_reply_t {
     pub response_type: u8,
@@ -3056,42 +1699,23 @@ pub struct xcb_input_list_device_properties_reply_t {
     pub num_atoms:     u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_input_list_device_properties_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_list_device_properties_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_atoms", &self.num_atoms)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub type xcb_input_property_format_t = u32;
 pub const XCB_INPUT_PROPERTY_FORMAT_8_BITS : xcb_input_property_format_t = 0x08;
 pub const XCB_INPUT_PROPERTY_FORMAT_16_BITS: xcb_input_property_format_t = 0x10;
 pub const XCB_INPUT_PROPERTY_FORMAT_32_BITS: xcb_input_property_format_t = 0x20;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_change_device_property_items_t {
     pub data8:  *mut u8,
     pub data16: *mut u16,
     pub data32: *mut u32,
 }
-impl ::std::fmt::Debug for xcb_input_change_device_property_items_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_device_property_items_t")
-            .field("data8", &self.data8)
-            .field("data16", &self.data16)
-            .field("data32", &self.data32)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_CHANGE_DEVICE_PROPERTY: u8 = 37;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_change_device_property_request_t {
     pub major_opcode: u8,
@@ -3105,25 +1729,10 @@ pub struct xcb_input_change_device_property_request_t {
     pub pad0:         u8,
     pub num_items:    u32,
 }
-impl ::std::fmt::Debug for xcb_input_change_device_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_device_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("device_id", &self.device_id)
-            .field("format", &self.format)
-            .field("mode", &self.mode)
-            .field("pad0", &self.pad0)
-            .field("num_items", &self.num_items)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_DELETE_DEVICE_PROPERTY: u8 = 38;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_delete_device_property_request_t {
     pub major_opcode: u8,
@@ -3134,25 +1743,9 @@ pub struct xcb_input_delete_device_property_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_input_delete_device_property_request_t {}
-impl Clone for xcb_input_delete_device_property_request_t {
-    fn clone(&self) -> xcb_input_delete_device_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_delete_device_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_delete_device_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("property", &self.property)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_GET_DEVICE_PROPERTY: u8 = 39;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_property_request_t {
     pub major_opcode: u8,
@@ -3167,49 +1760,21 @@ pub struct xcb_input_get_device_property_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_input_get_device_property_request_t {}
-impl Clone for xcb_input_get_device_property_request_t {
-    fn clone(&self) -> xcb_input_get_device_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_get_device_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("offset", &self.offset)
-            .field("len", &self.len)
-            .field("device_id", &self.device_id)
-            .field("delete", &self.delete)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_property_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_property_items_t {
     pub data8:  *mut u8,
     pub data16: *mut u16,
     pub data32: *mut u32,
 }
-impl ::std::fmt::Debug for xcb_input_get_device_property_items_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_property_items_t")
-            .field("data8", &self.data8)
-            .field("data16", &self.data16)
-            .field("data32", &self.data32)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_get_device_property_reply_t {
     pub response_type: u8,
@@ -3223,48 +1788,18 @@ pub struct xcb_input_get_device_property_reply_t {
     pub device_id:     u8,
     pub pad1:          [u8; 10],
 }
-impl ::std::fmt::Debug for xcb_input_get_device_property_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_get_device_property_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("type_", &self.type_)
-            .field("bytes_after", &self.bytes_after)
-            .field("num_items", &self.num_items)
-            .field("format", &self.format)
-            .field("device_id", &self.device_id)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub type xcb_input_device_t = u32;
 pub const XCB_INPUT_DEVICE_ALL       : xcb_input_device_t = 0x00;
 pub const XCB_INPUT_DEVICE_ALL_MASTER: xcb_input_device_t = 0x01;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_group_info_t {
     pub base:      u8,
     pub latched:   u8,
     pub locked:    u8,
     pub effective: u8,
-}
-
-impl Copy for xcb_input_group_info_t {}
-impl Clone for xcb_input_group_info_t {
-    fn clone(&self) -> xcb_input_group_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_group_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_group_info_t")
-            .field("base", &self.base)
-            .field("latched", &self.latched)
-            .field("locked", &self.locked)
-            .field("effective", &self.effective)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -3275,27 +1810,13 @@ pub struct xcb_input_group_info_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_modifier_info_t {
     pub base:      u32,
     pub latched:   u32,
     pub locked:    u32,
     pub effective: u32,
-}
-
-impl Copy for xcb_input_modifier_info_t {}
-impl Clone for xcb_input_modifier_info_t {
-    fn clone(&self) -> xcb_input_modifier_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_modifier_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_modifier_info_t")
-            .field("base", &self.base)
-            .field("latched", &self.latched)
-            .field("locked", &self.locked)
-            .field("effective", &self.effective)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -3308,6 +1829,7 @@ pub struct xcb_input_modifier_info_iterator_t {
 
 pub const XCB_INPUT_XI_QUERY_POINTER: u8 = 40;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_query_pointer_request_t {
     pub major_opcode: u8,
@@ -3318,29 +1840,13 @@ pub struct xcb_input_xi_query_pointer_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_input_xi_query_pointer_request_t {}
-impl Clone for xcb_input_xi_query_pointer_request_t {
-    fn clone(&self) -> xcb_input_xi_query_pointer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_query_pointer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_query_pointer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_query_pointer_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_query_pointer_reply_t {
     pub response_type: u8,
@@ -3359,30 +1865,10 @@ pub struct xcb_input_xi_query_pointer_reply_t {
     pub mods:          xcb_input_modifier_info_t,
     pub group:         xcb_input_group_info_t,
 }
-impl ::std::fmt::Debug for xcb_input_xi_query_pointer_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_query_pointer_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("root", &self.root)
-            .field("child", &self.child)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("win_x", &self.win_x)
-            .field("win_y", &self.win_y)
-            .field("same_screen", &self.same_screen)
-            .field("pad1", &self.pad1)
-            .field("buttons_len", &self.buttons_len)
-            .field("mods", &self.mods)
-            .field("group", &self.group)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_XI_WARP_POINTER: u8 = 41;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_warp_pointer_request_t {
     pub major_opcode: u8,
@@ -3400,32 +1886,9 @@ pub struct xcb_input_xi_warp_pointer_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_input_xi_warp_pointer_request_t {}
-impl Clone for xcb_input_xi_warp_pointer_request_t {
-    fn clone(&self) -> xcb_input_xi_warp_pointer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_warp_pointer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_warp_pointer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("src_win", &self.src_win)
-            .field("dst_win", &self.dst_win)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .field("src_width", &self.src_width)
-            .field("src_height", &self.src_height)
-            .field("dst_x", &self.dst_x)
-            .field("dst_y", &self.dst_y)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_XI_CHANGE_CURSOR: u8 = 42;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_change_cursor_request_t {
     pub major_opcode: u8,
@@ -3435,24 +1898,6 @@ pub struct xcb_input_xi_change_cursor_request_t {
     pub cursor:       xcb_cursor_t,
     pub deviceid:     xcb_input_device_id_t,
     pub pad0:         [u8; 2],
-}
-
-impl Copy for xcb_input_xi_change_cursor_request_t {}
-impl Clone for xcb_input_xi_change_cursor_request_t {
-    fn clone(&self) -> xcb_input_xi_change_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_change_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_change_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("cursor", &self.cursor)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 pub type xcb_input_hierarchy_change_type_t = u32;
@@ -3465,6 +1910,7 @@ pub type xcb_input_change_mode_t = u32;
 pub const XCB_INPUT_CHANGE_MODE_ATTACH: xcb_input_change_mode_t = 0x01;
 pub const XCB_INPUT_CHANGE_MODE_FLOAT : xcb_input_change_mode_t = 0x02;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_add_master_t {
     pub type_:     u16,
@@ -3472,17 +1918,6 @@ pub struct xcb_input_add_master_t {
     pub name_len:  u16,
     pub send_core: u8,
     pub enable:    u8,
-}
-impl ::std::fmt::Debug for xcb_input_add_master_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_add_master_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("name_len", &self.name_len)
-            .field("send_core", &self.send_core)
-            .field("enable", &self.enable)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -3494,6 +1929,7 @@ pub struct xcb_input_add_master_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_add_master_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_remove_master_t {
     pub type_:           u16,
@@ -3505,24 +1941,6 @@ pub struct xcb_input_remove_master_t {
     pub return_keyboard: xcb_input_device_id_t,
 }
 
-impl Copy for xcb_input_remove_master_t {}
-impl Clone for xcb_input_remove_master_t {
-    fn clone(&self) -> xcb_input_remove_master_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_remove_master_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_remove_master_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("deviceid", &self.deviceid)
-            .field("return_mode", &self.return_mode)
-            .field("pad0", &self.pad0)
-            .field("return_pointer", &self.return_pointer)
-            .field("return_keyboard", &self.return_keyboard)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_remove_master_iterator_t {
@@ -3531,27 +1949,13 @@ pub struct xcb_input_remove_master_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_attach_slave_t {
     pub type_:    u16,
     pub len:      u16,
     pub deviceid: xcb_input_device_id_t,
     pub master:   xcb_input_device_id_t,
-}
-
-impl Copy for xcb_input_attach_slave_t {}
-impl Clone for xcb_input_attach_slave_t {
-    fn clone(&self) -> xcb_input_attach_slave_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_attach_slave_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_attach_slave_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("deviceid", &self.deviceid)
-            .field("master", &self.master)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -3562,27 +1966,13 @@ pub struct xcb_input_attach_slave_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_detach_slave_t {
     pub type_:    u16,
     pub len:      u16,
     pub deviceid: xcb_input_device_id_t,
     pub pad0:     [u8; 2],
-}
-
-impl Copy for xcb_input_detach_slave_t {}
-impl Clone for xcb_input_detach_slave_t {
-    fn clone(&self) -> xcb_input_detach_slave_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_detach_slave_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_detach_slave_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -3593,18 +1983,11 @@ pub struct xcb_input_detach_slave_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_hierarchy_change_t {
     pub type_:              u16,
     pub len:                u16,
-}
-impl ::std::fmt::Debug for xcb_input_hierarchy_change_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_hierarchy_change_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -3618,6 +2001,7 @@ pub struct xcb_input_hierarchy_change_iterator_t<'a> {
 
 pub const XCB_INPUT_XI_CHANGE_HIERARCHY: u8 = 43;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_change_hierarchy_request_t {
     pub major_opcode: u8,
@@ -3626,20 +2010,10 @@ pub struct xcb_input_xi_change_hierarchy_request_t {
     pub num_changes:  u8,
     pub pad0:         [u8; 3],
 }
-impl ::std::fmt::Debug for xcb_input_xi_change_hierarchy_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_change_hierarchy_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("num_changes", &self.num_changes)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_XI_SET_CLIENT_POINTER: u8 = 44;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_set_client_pointer_request_t {
     pub major_opcode: u8,
@@ -3650,25 +2024,9 @@ pub struct xcb_input_xi_set_client_pointer_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_input_xi_set_client_pointer_request_t {}
-impl Clone for xcb_input_xi_set_client_pointer_request_t {
-    fn clone(&self) -> xcb_input_xi_set_client_pointer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_set_client_pointer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_set_client_pointer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_XI_GET_CLIENT_POINTER: u8 = 45;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_client_pointer_request_t {
     pub major_opcode: u8,
@@ -3677,27 +2035,13 @@ pub struct xcb_input_xi_get_client_pointer_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_input_xi_get_client_pointer_request_t {}
-impl Clone for xcb_input_xi_get_client_pointer_request_t {
-    fn clone(&self) -> xcb_input_xi_get_client_pointer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_get_client_pointer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_get_client_pointer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_client_pointer_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_client_pointer_reply_t {
     pub response_type: u8,
@@ -3708,25 +2052,6 @@ pub struct xcb_input_xi_get_client_pointer_reply_t {
     pub pad1:          u8,
     pub deviceid:      xcb_input_device_id_t,
     pub pad2:          [u8; 20],
-}
-
-impl Copy for xcb_input_xi_get_client_pointer_reply_t {}
-impl Clone for xcb_input_xi_get_client_pointer_reply_t {
-    fn clone(&self) -> xcb_input_xi_get_client_pointer_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_get_client_pointer_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_get_client_pointer_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("set", &self.set)
-            .field("pad1", &self.pad1)
-            .field("deviceid", &self.deviceid)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
 }
 
 pub type xcb_input_xi_event_mask_t = u32;
@@ -3757,18 +2082,11 @@ pub const XCB_INPUT_XI_EVENT_MASK_RAW_TOUCH_END     : xcb_input_xi_event_mask_t 
 pub const XCB_INPUT_XI_EVENT_MASK_BARRIER_HIT       : xcb_input_xi_event_mask_t = 0x2000000;
 pub const XCB_INPUT_XI_EVENT_MASK_BARRIER_LEAVE     : xcb_input_xi_event_mask_t = 0x4000000;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_event_mask_t {
     pub deviceid: xcb_input_device_id_t,
     pub mask_len: u16,
-}
-impl ::std::fmt::Debug for xcb_input_event_mask_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_event_mask_t")
-            .field("deviceid", &self.deviceid)
-            .field("mask_len", &self.mask_len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -3782,6 +2100,7 @@ pub struct xcb_input_event_mask_iterator_t<'a> {
 
 pub const XCB_INPUT_XI_SELECT_EVENTS: u8 = 46;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_select_events_request_t {
     pub major_opcode: u8,
@@ -3791,21 +2110,10 @@ pub struct xcb_input_xi_select_events_request_t {
     pub num_mask:     u16,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_input_xi_select_events_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_select_events_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("num_mask", &self.num_mask)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_XI_QUERY_VERSION: u8 = 47;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_query_version_request_t {
     pub major_opcode:  u8,
@@ -3815,28 +2123,13 @@ pub struct xcb_input_xi_query_version_request_t {
     pub minor_version: u16,
 }
 
-impl Copy for xcb_input_xi_query_version_request_t {}
-impl Clone for xcb_input_xi_query_version_request_t {
-    fn clone(&self) -> xcb_input_xi_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_query_version_reply_t {
     pub response_type: u8,
@@ -3846,24 +2139,6 @@ pub struct xcb_input_xi_query_version_reply_t {
     pub major_version: u16,
     pub minor_version: u16,
     pub pad1:          [u8; 20],
-}
-
-impl Copy for xcb_input_xi_query_version_reply_t {}
-impl Clone for xcb_input_xi_query_version_reply_t {
-    fn clone(&self) -> xcb_input_xi_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub type xcb_input_device_class_type_t = u32;
@@ -3892,22 +2167,13 @@ pub type xcb_input_touch_mode_t = u32;
 pub const XCB_INPUT_TOUCH_MODE_DIRECT   : xcb_input_touch_mode_t = 0x01;
 pub const XCB_INPUT_TOUCH_MODE_DEPENDENT: xcb_input_touch_mode_t = 0x02;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_button_class_t {
     pub type_:       u16,
     pub len:         u16,
     pub sourceid:    xcb_input_device_id_t,
     pub num_buttons: u16,
-}
-impl ::std::fmt::Debug for xcb_input_button_class_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_button_class_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("sourceid", &self.sourceid)
-            .field("num_buttons", &self.num_buttons)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -3919,22 +2185,13 @@ pub struct xcb_input_button_class_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_button_class_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_key_class_t {
     pub type_:    u16,
     pub len:      u16,
     pub sourceid: xcb_input_device_id_t,
     pub num_keys: u16,
-}
-impl ::std::fmt::Debug for xcb_input_key_class_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_key_class_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("sourceid", &self.sourceid)
-            .field("num_keys", &self.num_keys)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -3946,6 +2203,7 @@ pub struct xcb_input_key_class_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_key_class_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_scroll_class_t {
     pub type_:       u16,
@@ -3958,25 +2216,6 @@ pub struct xcb_input_scroll_class_t {
     pub increment:   xcb_input_fp3232_t,
 }
 
-impl Copy for xcb_input_scroll_class_t {}
-impl Clone for xcb_input_scroll_class_t {
-    fn clone(&self) -> xcb_input_scroll_class_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_scroll_class_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_scroll_class_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("sourceid", &self.sourceid)
-            .field("number", &self.number)
-            .field("scroll_type", &self.scroll_type)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("increment", &self.increment)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_scroll_class_iterator_t {
@@ -3985,6 +2224,7 @@ pub struct xcb_input_scroll_class_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_touch_class_t {
     pub type_:       u16,
@@ -3992,22 +2232,6 @@ pub struct xcb_input_touch_class_t {
     pub sourceid:    xcb_input_device_id_t,
     pub mode:        u8,
     pub num_touches: u8,
-}
-
-impl Copy for xcb_input_touch_class_t {}
-impl Clone for xcb_input_touch_class_t {
-    fn clone(&self) -> xcb_input_touch_class_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_touch_class_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_touch_class_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("sourceid", &self.sourceid)
-            .field("mode", &self.mode)
-            .field("num_touches", &self.num_touches)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -4018,6 +2242,7 @@ pub struct xcb_input_touch_class_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_valuator_class_t {
     pub type_:      u16,
@@ -4033,28 +2258,6 @@ pub struct xcb_input_valuator_class_t {
     pub pad0:       [u8; 3],
 }
 
-impl Copy for xcb_input_valuator_class_t {}
-impl Clone for xcb_input_valuator_class_t {
-    fn clone(&self) -> xcb_input_valuator_class_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_valuator_class_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_valuator_class_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("sourceid", &self.sourceid)
-            .field("number", &self.number)
-            .field("label", &self.label)
-            .field("min", &self.min)
-            .field("max", &self.max)
-            .field("value", &self.value)
-            .field("resolution", &self.resolution)
-            .field("mode", &self.mode)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_input_valuator_class_iterator_t {
@@ -4063,22 +2266,13 @@ pub struct xcb_input_valuator_class_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_device_class_t {
     pub type_:              u16,
     pub len:                u16,
     pub sourceid:           xcb_input_device_id_t,
     pub pad0:               [u8; 2],
-}
-impl ::std::fmt::Debug for xcb_input_device_class_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_class_t")
-            .field("type_", &self.type_)
-            .field("len", &self.len)
-            .field("sourceid", &self.sourceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -4090,6 +2284,7 @@ pub struct xcb_input_device_class_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_input_device_class_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_device_info_t {
     pub deviceid:    xcb_input_device_id_t,
@@ -4099,19 +2294,6 @@ pub struct xcb_input_xi_device_info_t {
     pub name_len:    u16,
     pub enabled:     u8,
     pub pad0:        u8,
-}
-impl ::std::fmt::Debug for xcb_input_xi_device_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_device_info_t")
-            .field("deviceid", &self.deviceid)
-            .field("type_", &self.type_)
-            .field("attachment", &self.attachment)
-            .field("num_classes", &self.num_classes)
-            .field("name_len", &self.name_len)
-            .field("enabled", &self.enabled)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -4125,6 +2307,7 @@ pub struct xcb_input_xi_device_info_iterator_t<'a> {
 
 pub const XCB_INPUT_XI_QUERY_DEVICE: u8 = 48;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_query_device_request_t {
     pub major_opcode: u8,
@@ -4134,28 +2317,13 @@ pub struct xcb_input_xi_query_device_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_input_xi_query_device_request_t {}
-impl Clone for xcb_input_xi_query_device_request_t {
-    fn clone(&self) -> xcb_input_xi_query_device_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_query_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_query_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_query_device_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_query_device_reply_t {
     pub response_type: u8,
@@ -4165,21 +2333,10 @@ pub struct xcb_input_xi_query_device_reply_t {
     pub num_infos:     u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_input_xi_query_device_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_query_device_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_infos", &self.num_infos)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_XI_SET_FOCUS: u8 = 49;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_set_focus_request_t {
     pub major_opcode: u8,
@@ -4191,26 +2348,9 @@ pub struct xcb_input_xi_set_focus_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_input_xi_set_focus_request_t {}
-impl Clone for xcb_input_xi_set_focus_request_t {
-    fn clone(&self) -> xcb_input_xi_set_focus_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_set_focus_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_set_focus_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("time", &self.time)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_XI_GET_FOCUS: u8 = 50;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_focus_request_t {
     pub major_opcode: u8,
@@ -4220,28 +2360,13 @@ pub struct xcb_input_xi_get_focus_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_input_xi_get_focus_request_t {}
-impl Clone for xcb_input_xi_get_focus_request_t {
-    fn clone(&self) -> xcb_input_xi_get_focus_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_get_focus_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_get_focus_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_focus_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_focus_reply_t {
     pub response_type: u8,
@@ -4252,29 +2377,13 @@ pub struct xcb_input_xi_get_focus_reply_t {
     pub pad1:          [u8; 20],
 }
 
-impl Copy for xcb_input_xi_get_focus_reply_t {}
-impl Clone for xcb_input_xi_get_focus_reply_t {
-    fn clone(&self) -> xcb_input_xi_get_focus_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_get_focus_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_get_focus_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("focus", &self.focus)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub type xcb_input_grab_owner_t = u32;
 pub const XCB_INPUT_GRAB_OWNER_NO_OWNER: xcb_input_grab_owner_t = 0x00;
 pub const XCB_INPUT_GRAB_OWNER_OWNER   : xcb_input_grab_owner_t = 0x01;
 
 pub const XCB_INPUT_XI_GRAB_DEVICE: u8 = 51;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_grab_device_request_t {
     pub major_opcode:       u8,
@@ -4290,24 +2399,6 @@ pub struct xcb_input_xi_grab_device_request_t {
     pub pad0:               u8,
     pub mask_len:           u16,
 }
-impl ::std::fmt::Debug for xcb_input_xi_grab_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_grab_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("time", &self.time)
-            .field("cursor", &self.cursor)
-            .field("deviceid", &self.deviceid)
-            .field("mode", &self.mode)
-            .field("paired_device_mode", &self.paired_device_mode)
-            .field("owner_events", &self.owner_events)
-            .field("pad0", &self.pad0)
-            .field("mask_len", &self.mask_len)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -4315,6 +2406,7 @@ pub struct xcb_input_xi_grab_device_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_grab_device_reply_t {
     pub response_type: u8,
@@ -4325,25 +2417,9 @@ pub struct xcb_input_xi_grab_device_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_input_xi_grab_device_reply_t {}
-impl Clone for xcb_input_xi_grab_device_reply_t {
-    fn clone(&self) -> xcb_input_xi_grab_device_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_grab_device_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_grab_device_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status", &self.status)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_XI_UNGRAB_DEVICE: u8 = 52;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_ungrab_device_request_t {
     pub major_opcode: u8,
@@ -4352,23 +2428,6 @@ pub struct xcb_input_xi_ungrab_device_request_t {
     pub time:         xcb_timestamp_t,
     pub deviceid:     xcb_input_device_id_t,
     pub pad0:         [u8; 2],
-}
-
-impl Copy for xcb_input_xi_ungrab_device_request_t {}
-impl Clone for xcb_input_xi_ungrab_device_request_t {
-    fn clone(&self) -> xcb_input_xi_ungrab_device_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_ungrab_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_ungrab_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("time", &self.time)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 pub type xcb_input_event_mode_t = u32;
@@ -4383,6 +2442,7 @@ pub const XCB_INPUT_EVENT_MODE_REJECT_TOUCH       : xcb_input_event_mode_t = 0x0
 
 pub const XCB_INPUT_XI_ALLOW_EVENTS: u8 = 53;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_allow_events_request_t {
     pub major_opcode: u8,
@@ -4394,26 +2454,6 @@ pub struct xcb_input_xi_allow_events_request_t {
     pub pad0:         u8,
     pub touchid:      u32,
     pub grab_window:  xcb_window_t,
-}
-
-impl Copy for xcb_input_xi_allow_events_request_t {}
-impl Clone for xcb_input_xi_allow_events_request_t {
-    fn clone(&self) -> xcb_input_xi_allow_events_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_allow_events_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_allow_events_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("time", &self.time)
-            .field("deviceid", &self.deviceid)
-            .field("event_mode", &self.event_mode)
-            .field("pad0", &self.pad0)
-            .field("touchid", &self.touchid)
-            .field("grab_window", &self.grab_window)
-            .finish()
-    }
 }
 
 pub type xcb_input_grab_mode_22_t = u32;
@@ -4431,25 +2471,12 @@ pub const XCB_INPUT_GRAB_TYPE_TOUCH_BEGIN: xcb_input_grab_type_t = 0x04;
 pub type xcb_input_modifier_mask_t = u32;
 pub const XCB_INPUT_MODIFIER_MASK_ANY: xcb_input_modifier_mask_t = 0x80000000;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_grab_modifier_info_t {
     pub modifiers: u32,
     pub status:    u8,
     pub pad0:      [u8; 3],
-}
-
-impl Copy for xcb_input_grab_modifier_info_t {}
-impl Clone for xcb_input_grab_modifier_info_t {
-    fn clone(&self) -> xcb_input_grab_modifier_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_grab_modifier_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_grab_modifier_info_t")
-            .field("modifiers", &self.modifiers)
-            .field("status", &self.status)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -4462,6 +2489,7 @@ pub struct xcb_input_grab_modifier_info_iterator_t {
 
 pub const XCB_INPUT_XI_PASSIVE_GRAB_DEVICE: u8 = 54;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_passive_grab_device_request_t {
     pub major_opcode:       u8,
@@ -4480,27 +2508,6 @@ pub struct xcb_input_xi_passive_grab_device_request_t {
     pub owner_events:       u8,
     pub pad0:               [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_input_xi_passive_grab_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_passive_grab_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("time", &self.time)
-            .field("grab_window", &self.grab_window)
-            .field("cursor", &self.cursor)
-            .field("detail", &self.detail)
-            .field("deviceid", &self.deviceid)
-            .field("num_modifiers", &self.num_modifiers)
-            .field("mask_len", &self.mask_len)
-            .field("grab_type", &self.grab_type)
-            .field("grab_mode", &self.grab_mode)
-            .field("paired_device_mode", &self.paired_device_mode)
-            .field("owner_events", &self.owner_events)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -4508,6 +2515,7 @@ pub struct xcb_input_xi_passive_grab_device_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_passive_grab_device_reply_t {
     pub response_type: u8,
@@ -4517,21 +2525,10 @@ pub struct xcb_input_xi_passive_grab_device_reply_t {
     pub num_modifiers: u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_input_xi_passive_grab_device_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_passive_grab_device_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_modifiers", &self.num_modifiers)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_XI_PASSIVE_UNGRAB_DEVICE: u8 = 55;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_passive_ungrab_device_request_t {
     pub major_opcode:  u8,
@@ -4544,24 +2541,10 @@ pub struct xcb_input_xi_passive_ungrab_device_request_t {
     pub grab_type:     u8,
     pub pad0:          [u8; 3],
 }
-impl ::std::fmt::Debug for xcb_input_xi_passive_ungrab_device_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_passive_ungrab_device_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("detail", &self.detail)
-            .field("deviceid", &self.deviceid)
-            .field("num_modifiers", &self.num_modifiers)
-            .field("grab_type", &self.grab_type)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_XI_LIST_PROPERTIES: u8 = 56;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_list_properties_request_t {
     pub major_opcode: u8,
@@ -4571,28 +2554,13 @@ pub struct xcb_input_xi_list_properties_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_input_xi_list_properties_request_t {}
-impl Clone for xcb_input_xi_list_properties_request_t {
-    fn clone(&self) -> xcb_input_xi_list_properties_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_list_properties_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_list_properties_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_list_properties_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_list_properties_reply_t {
     pub response_type:  u8,
@@ -4602,37 +2570,18 @@ pub struct xcb_input_xi_list_properties_reply_t {
     pub num_properties: u16,
     pub pad1:           [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_input_xi_list_properties_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_list_properties_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_properties", &self.num_properties)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_change_property_items_t {
     pub data8:  *mut u8,
     pub data16: *mut u16,
     pub data32: *mut u32,
 }
-impl ::std::fmt::Debug for xcb_input_xi_change_property_items_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_change_property_items_t")
-            .field("data8", &self.data8)
-            .field("data16", &self.data16)
-            .field("data32", &self.data32)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_XI_CHANGE_PROPERTY: u8 = 57;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_change_property_request_t {
     pub major_opcode: u8,
@@ -4645,24 +2594,10 @@ pub struct xcb_input_xi_change_property_request_t {
     pub type_:        xcb_atom_t,
     pub num_items:    u32,
 }
-impl ::std::fmt::Debug for xcb_input_xi_change_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_change_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceid", &self.deviceid)
-            .field("mode", &self.mode)
-            .field("format", &self.format)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("num_items", &self.num_items)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_XI_DELETE_PROPERTY: u8 = 58;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_delete_property_request_t {
     pub major_opcode: u8,
@@ -4673,25 +2608,9 @@ pub struct xcb_input_xi_delete_property_request_t {
     pub property:     xcb_atom_t,
 }
 
-impl Copy for xcb_input_xi_delete_property_request_t {}
-impl Clone for xcb_input_xi_delete_property_request_t {
-    fn clone(&self) -> xcb_input_xi_delete_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_delete_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_delete_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .field("property", &self.property)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_XI_GET_PROPERTY: u8 = 59;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_property_request_t {
     pub major_opcode: u8,
@@ -4706,49 +2625,21 @@ pub struct xcb_input_xi_get_property_request_t {
     pub len:          u32,
 }
 
-impl Copy for xcb_input_xi_get_property_request_t {}
-impl Clone for xcb_input_xi_get_property_request_t {
-    fn clone(&self) -> xcb_input_xi_get_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_get_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_get_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceid", &self.deviceid)
-            .field("delete", &self.delete)
-            .field("pad0", &self.pad0)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("offset", &self.offset)
-            .field("len", &self.len)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_property_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_property_items_t {
     pub data8:  *mut u8,
     pub data16: *mut u16,
     pub data32: *mut u32,
 }
-impl ::std::fmt::Debug for xcb_input_xi_get_property_items_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_get_property_items_t")
-            .field("data8", &self.data8)
-            .field("data16", &self.data16)
-            .field("data32", &self.data32)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_property_reply_t {
     pub response_type: u8,
@@ -4761,24 +2652,10 @@ pub struct xcb_input_xi_get_property_reply_t {
     pub format:        u8,
     pub pad1:          [u8; 11],
 }
-impl ::std::fmt::Debug for xcb_input_xi_get_property_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_get_property_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("type_", &self.type_)
-            .field("bytes_after", &self.bytes_after)
-            .field("num_items", &self.num_items)
-            .field("format", &self.format)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_XI_GET_SELECTED_EVENTS: u8 = 60;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_selected_events_request_t {
     pub major_opcode: u8,
@@ -4787,27 +2664,13 @@ pub struct xcb_input_xi_get_selected_events_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_input_xi_get_selected_events_request_t {}
-impl Clone for xcb_input_xi_get_selected_events_request_t {
-    fn clone(&self) -> xcb_input_xi_get_selected_events_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_xi_get_selected_events_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_get_selected_events_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_selected_events_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_get_selected_events_reply_t {
     pub response_type: u8,
@@ -4817,40 +2680,14 @@ pub struct xcb_input_xi_get_selected_events_reply_t {
     pub num_masks:     u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_input_xi_get_selected_events_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_get_selected_events_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_masks", &self.num_masks)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_barrier_release_pointer_info_t {
     pub deviceid: xcb_input_device_id_t,
     pub pad0:     [u8; 2],
     pub barrier:  xcb_xfixes_barrier_t,
     pub eventid:  u32,
-}
-
-impl Copy for xcb_input_barrier_release_pointer_info_t {}
-impl Clone for xcb_input_barrier_release_pointer_info_t {
-    fn clone(&self) -> xcb_input_barrier_release_pointer_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_barrier_release_pointer_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_barrier_release_pointer_info_t")
-            .field("deviceid", &self.deviceid)
-            .field("pad0", &&self.pad0[..])
-            .field("barrier", &self.barrier)
-            .field("eventid", &self.eventid)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -4863,6 +2700,7 @@ pub struct xcb_input_barrier_release_pointer_info_iterator_t {
 
 pub const XCB_INPUT_XI_BARRIER_RELEASE_POINTER: u8 = 61;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_xi_barrier_release_pointer_request_t {
     pub major_opcode: u8,
@@ -4870,19 +2708,10 @@ pub struct xcb_input_xi_barrier_release_pointer_request_t {
     pub length:       u16,
     pub num_barriers: u32,
 }
-impl ::std::fmt::Debug for xcb_input_xi_barrier_release_pointer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_xi_barrier_release_pointer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("num_barriers", &self.num_barriers)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_DEVICE_VALUATOR: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_valuator_event_t {
     pub response_type:  u8,
@@ -4894,26 +2723,9 @@ pub struct xcb_input_device_valuator_event_t {
     pub valuators:      [i32; 6],
 }
 
-impl Copy for xcb_input_device_valuator_event_t {}
-impl Clone for xcb_input_device_valuator_event_t {
-    fn clone(&self) -> xcb_input_device_valuator_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_valuator_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_valuator_event_t")
-            .field("response_type", &self.response_type)
-            .field("device_id", &self.device_id)
-            .field("sequence", &self.sequence)
-            .field("device_state", &self.device_state)
-            .field("num_valuators", &self.num_valuators)
-            .field("first_valuator", &self.first_valuator)
-            .field("valuators", &&self.valuators[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_DEVICE_KEY_PRESS: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_key_press_event_t {
     pub response_type: u8,
@@ -4930,31 +2742,6 @@ pub struct xcb_input_device_key_press_event_t {
     pub state:         u16,
     pub same_screen:   u8,
     pub device_id:     u8,
-}
-
-impl Copy for xcb_input_device_key_press_event_t {}
-impl Clone for xcb_input_device_key_press_event_t {
-    fn clone(&self) -> xcb_input_device_key_press_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_key_press_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_key_press_event_t")
-            .field("response_type", &self.response_type)
-            .field("detail", &self.detail)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("event_x", &self.event_x)
-            .field("event_y", &self.event_y)
-            .field("state", &self.state)
-            .field("same_screen", &self.same_screen)
-            .field("device_id", &self.device_id)
-            .finish()
-    }
 }
 
 pub const XCB_INPUT_DEVICE_KEY_RELEASE: u8 = 2;
@@ -4975,6 +2762,7 @@ pub type xcb_input_device_motion_notify_event_t = xcb_input_device_key_press_eve
 
 pub const XCB_INPUT_DEVICE_FOCUS_IN: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_focus_in_event_t {
     pub response_type: u8,
@@ -4985,25 +2773,6 @@ pub struct xcb_input_device_focus_in_event_t {
     pub mode:          u8,
     pub device_id:     u8,
     pub pad0:          [u8; 18],
-}
-
-impl Copy for xcb_input_device_focus_in_event_t {}
-impl Clone for xcb_input_device_focus_in_event_t {
-    fn clone(&self) -> xcb_input_device_focus_in_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_focus_in_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_focus_in_event_t")
-            .field("response_type", &self.response_type)
-            .field("detail", &self.detail)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("window", &self.window)
-            .field("mode", &self.mode)
-            .field("device_id", &self.device_id)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 pub const XCB_INPUT_DEVICE_FOCUS_OUT: u8 = 7;
@@ -5020,6 +2789,7 @@ pub type xcb_input_proximity_out_event_t = xcb_input_device_key_press_event_t;
 
 pub const XCB_INPUT_DEVICE_STATE_NOTIFY: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_state_notify_event_t {
     pub response_type:    u8,
@@ -5035,30 +2805,9 @@ pub struct xcb_input_device_state_notify_event_t {
     pub valuators:        [u32; 3],
 }
 
-impl Copy for xcb_input_device_state_notify_event_t {}
-impl Clone for xcb_input_device_state_notify_event_t {
-    fn clone(&self) -> xcb_input_device_state_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_state_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_state_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("device_id", &self.device_id)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("num_keys", &self.num_keys)
-            .field("num_buttons", &self.num_buttons)
-            .field("num_valuators", &self.num_valuators)
-            .field("classes_reported", &self.classes_reported)
-            .field("buttons", &&self.buttons[..])
-            .field("keys", &&self.keys[..])
-            .field("valuators", &&self.valuators[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_DEVICE_MAPPING_NOTIFY: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_mapping_notify_event_t {
     pub response_type: u8,
@@ -5072,28 +2821,9 @@ pub struct xcb_input_device_mapping_notify_event_t {
     pub pad1:          [u8; 20],
 }
 
-impl Copy for xcb_input_device_mapping_notify_event_t {}
-impl Clone for xcb_input_device_mapping_notify_event_t {
-    fn clone(&self) -> xcb_input_device_mapping_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_mapping_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_mapping_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("device_id", &self.device_id)
-            .field("sequence", &self.sequence)
-            .field("request", &self.request)
-            .field("first_keycode", &self.first_keycode)
-            .field("count", &self.count)
-            .field("pad0", &self.pad0)
-            .field("time", &self.time)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_CHANGE_DEVICE_NOTIFY: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_change_device_notify_event_t {
     pub response_type: u8,
@@ -5104,25 +2834,9 @@ pub struct xcb_input_change_device_notify_event_t {
     pub pad0:          [u8; 23],
 }
 
-impl Copy for xcb_input_change_device_notify_event_t {}
-impl Clone for xcb_input_change_device_notify_event_t {
-    fn clone(&self) -> xcb_input_change_device_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_change_device_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_change_device_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("device_id", &self.device_id)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("request", &self.request)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_DEVICE_KEY_STATE_NOTIFY: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_key_state_notify_event_t {
     pub response_type: u8,
@@ -5131,44 +2845,15 @@ pub struct xcb_input_device_key_state_notify_event_t {
     pub keys:          [u8; 28],
 }
 
-impl Copy for xcb_input_device_key_state_notify_event_t {}
-impl Clone for xcb_input_device_key_state_notify_event_t {
-    fn clone(&self) -> xcb_input_device_key_state_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_key_state_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_key_state_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("device_id", &self.device_id)
-            .field("sequence", &self.sequence)
-            .field("keys", &&self.keys[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_DEVICE_BUTTON_STATE_NOTIFY: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_button_state_notify_event_t {
     pub response_type: u8,
     pub device_id:     u8,
     pub sequence:      u16,
     pub buttons:       [u8; 28],
-}
-
-impl Copy for xcb_input_device_button_state_notify_event_t {}
-impl Clone for xcb_input_device_button_state_notify_event_t {
-    fn clone(&self) -> xcb_input_device_button_state_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_button_state_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_button_state_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("device_id", &self.device_id)
-            .field("sequence", &self.sequence)
-            .field("buttons", &&self.buttons[..])
-            .finish()
-    }
 }
 
 pub type xcb_input_device_change_t = u32;
@@ -5181,6 +2866,7 @@ pub const XCB_INPUT_DEVICE_CHANGE_CONTROL_CHANGED: xcb_input_device_change_t = 0
 
 pub const XCB_INPUT_DEVICE_PRESENCE_NOTIFY: u8 = 15;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_presence_notify_event_t {
     pub response_type: u8,
@@ -5193,27 +2879,9 @@ pub struct xcb_input_device_presence_notify_event_t {
     pub pad1:          [u8; 20],
 }
 
-impl Copy for xcb_input_device_presence_notify_event_t {}
-impl Clone for xcb_input_device_presence_notify_event_t {
-    fn clone(&self) -> xcb_input_device_presence_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_presence_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_presence_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("devchange", &self.devchange)
-            .field("device_id", &self.device_id)
-            .field("control", &self.control)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_DEVICE_PROPERTY_NOTIFY: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_property_notify_event_t {
     pub response_type: u8,
@@ -5225,30 +2893,13 @@ pub struct xcb_input_device_property_notify_event_t {
     pub device_id:     u8,
 }
 
-impl Copy for xcb_input_device_property_notify_event_t {}
-impl Clone for xcb_input_device_property_notify_event_t {
-    fn clone(&self) -> xcb_input_device_property_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_property_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_property_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("state", &self.state)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("property", &self.property)
-            .field("pad0", &&self.pad0[..])
-            .field("device_id", &self.device_id)
-            .finish()
-    }
-}
-
 pub type xcb_input_change_reason_t = u32;
 pub const XCB_INPUT_CHANGE_REASON_SLAVE_SWITCH : xcb_input_change_reason_t = 0x01;
 pub const XCB_INPUT_CHANGE_REASON_DEVICE_CHANGE: xcb_input_change_reason_t = 0x02;
 
 pub const XCB_INPUT_DEVICE_CHANGED: u8 = 1;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_device_changed_event_t {
     pub response_type: u8,
@@ -5264,30 +2915,13 @@ pub struct xcb_input_device_changed_event_t {
     pub pad0:          [u8; 11],
     pub full_sequence: u32,
 }
-impl ::std::fmt::Debug for xcb_input_device_changed_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_changed_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("num_classes", &self.num_classes)
-            .field("sourceid", &self.sourceid)
-            .field("reason", &self.reason)
-            .field("pad0", &&self.pad0[..])
-            .field("full_sequence", &self.full_sequence)
-            .finish()
-    }
-}
 
 pub type xcb_input_key_event_flags_t = u32;
 pub const XCB_INPUT_KEY_EVENT_FLAGS_KEY_REPEAT: xcb_input_key_event_flags_t = 0x10000;
 
 pub const XCB_INPUT_KEY_PRESS: u8 = 2;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_key_press_event_t {
     pub response_type: u8,
@@ -5314,35 +2948,6 @@ pub struct xcb_input_key_press_event_t {
     pub mods:          xcb_input_modifier_info_t,
     pub group:         xcb_input_group_info_t,
 }
-impl ::std::fmt::Debug for xcb_input_key_press_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_key_press_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("detail", &self.detail)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("full_sequence", &self.full_sequence)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("event_x", &self.event_x)
-            .field("event_y", &self.event_y)
-            .field("buttons_len", &self.buttons_len)
-            .field("valuators_len", &self.valuators_len)
-            .field("sourceid", &self.sourceid)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("mods", &self.mods)
-            .field("group", &self.group)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_KEY_RELEASE: u8 = 3;
 
@@ -5353,6 +2958,7 @@ pub const XCB_INPUT_POINTER_EVENT_FLAGS_POINTER_EMULATED: xcb_input_pointer_even
 
 pub const XCB_INPUT_BUTTON_PRESS: u8 = 4;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_button_press_event_t {
     pub response_type: u8,
@@ -5378,35 +2984,6 @@ pub struct xcb_input_button_press_event_t {
     pub flags:         u32,
     pub mods:          xcb_input_modifier_info_t,
     pub group:         xcb_input_group_info_t,
-}
-impl ::std::fmt::Debug for xcb_input_button_press_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_button_press_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("detail", &self.detail)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("full_sequence", &self.full_sequence)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("event_x", &self.event_x)
-            .field("event_y", &self.event_y)
-            .field("buttons_len", &self.buttons_len)
-            .field("valuators_len", &self.valuators_len)
-            .field("sourceid", &self.sourceid)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("mods", &self.mods)
-            .field("group", &self.group)
-            .finish()
-    }
 }
 
 pub const XCB_INPUT_BUTTON_RELEASE: u8 = 5;
@@ -5437,6 +3014,7 @@ pub const XCB_INPUT_NOTIFY_DETAIL_NONE             : xcb_input_notify_detail_t =
 
 pub const XCB_INPUT_ENTER: u8 = 7;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_enter_event_t {
     pub response_type: u8,
@@ -5463,35 +3041,6 @@ pub struct xcb_input_enter_event_t {
     pub mods:          xcb_input_modifier_info_t,
     pub group:         xcb_input_group_info_t,
 }
-impl ::std::fmt::Debug for xcb_input_enter_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_enter_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("sourceid", &self.sourceid)
-            .field("mode", &self.mode)
-            .field("detail", &self.detail)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("full_sequence", &self.full_sequence)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("event_x", &self.event_x)
-            .field("event_y", &self.event_y)
-            .field("same_screen", &self.same_screen)
-            .field("focus", &self.focus)
-            .field("buttons_len", &self.buttons_len)
-            .field("mods", &self.mods)
-            .field("group", &self.group)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_LEAVE: u8 = 8;
 
@@ -5515,6 +3064,7 @@ pub const XCB_INPUT_HIERARCHY_MASK_SLAVE_DETACHED : xcb_input_hierarchy_mask_t =
 pub const XCB_INPUT_HIERARCHY_MASK_DEVICE_ENABLED : xcb_input_hierarchy_mask_t = 0x40;
 pub const XCB_INPUT_HIERARCHY_MASK_DEVICE_DISABLED: xcb_input_hierarchy_mask_t = 0x80;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_hierarchy_info_t {
     pub deviceid:   xcb_input_device_id_t,
@@ -5523,23 +3073,6 @@ pub struct xcb_input_hierarchy_info_t {
     pub enabled:    u8,
     pub pad0:       [u8; 2],
     pub flags:      u32,
-}
-
-impl Copy for xcb_input_hierarchy_info_t {}
-impl Clone for xcb_input_hierarchy_info_t {
-    fn clone(&self) -> xcb_input_hierarchy_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_hierarchy_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_hierarchy_info_t")
-            .field("deviceid", &self.deviceid)
-            .field("attachment", &self.attachment)
-            .field("type_", &self.type_)
-            .field("enabled", &self.enabled)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -5552,6 +3085,7 @@ pub struct xcb_input_hierarchy_info_iterator_t {
 
 pub const XCB_INPUT_HIERARCHY: u8 = 11;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_hierarchy_event_t {
     pub response_type: u8,
@@ -5566,23 +3100,6 @@ pub struct xcb_input_hierarchy_event_t {
     pub pad0:          [u8; 10],
     pub full_sequence: u32,
 }
-impl ::std::fmt::Debug for xcb_input_hierarchy_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_hierarchy_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("flags", &self.flags)
-            .field("num_infos", &self.num_infos)
-            .field("pad0", &&self.pad0[..])
-            .field("full_sequence", &self.full_sequence)
-            .finish()
-    }
-}
 
 pub type xcb_input_property_flag_t = u32;
 pub const XCB_INPUT_PROPERTY_FLAG_DELETED : xcb_input_property_flag_t = 0x00;
@@ -5591,6 +3108,7 @@ pub const XCB_INPUT_PROPERTY_FLAG_MODIFIED: xcb_input_property_flag_t = 0x02;
 
 pub const XCB_INPUT_PROPERTY: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_property_event_t {
     pub response_type: u8,
@@ -5606,30 +3124,9 @@ pub struct xcb_input_property_event_t {
     pub full_sequence: u32,
 }
 
-impl Copy for xcb_input_property_event_t {}
-impl Clone for xcb_input_property_event_t {
-    fn clone(&self) -> xcb_input_property_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_property_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_property_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("property", &self.property)
-            .field("what", &self.what)
-            .field("pad0", &&self.pad0[..])
-            .field("full_sequence", &self.full_sequence)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_RAW_KEY_PRESS: u8 = 13;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_raw_key_press_event_t {
     pub response_type: u8,
@@ -5646,25 +3143,6 @@ pub struct xcb_input_raw_key_press_event_t {
     pub pad0:          [u8; 4],
     pub full_sequence: u32,
 }
-impl ::std::fmt::Debug for xcb_input_raw_key_press_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_raw_key_press_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("detail", &self.detail)
-            .field("sourceid", &self.sourceid)
-            .field("valuators_len", &self.valuators_len)
-            .field("flags", &self.flags)
-            .field("pad0", &&self.pad0[..])
-            .field("full_sequence", &self.full_sequence)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_RAW_KEY_RELEASE: u8 = 14;
 
@@ -5672,6 +3150,7 @@ pub type xcb_input_raw_key_release_event_t = xcb_input_raw_key_press_event_t;
 
 pub const XCB_INPUT_RAW_BUTTON_PRESS: u8 = 15;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_raw_button_press_event_t {
     pub response_type: u8,
@@ -5688,25 +3167,6 @@ pub struct xcb_input_raw_button_press_event_t {
     pub pad0:          [u8; 4],
     pub full_sequence: u32,
 }
-impl ::std::fmt::Debug for xcb_input_raw_button_press_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_raw_button_press_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("detail", &self.detail)
-            .field("sourceid", &self.sourceid)
-            .field("valuators_len", &self.valuators_len)
-            .field("flags", &self.flags)
-            .field("pad0", &&self.pad0[..])
-            .field("full_sequence", &self.full_sequence)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_RAW_BUTTON_RELEASE: u8 = 16;
 
@@ -5722,6 +3182,7 @@ pub const XCB_INPUT_TOUCH_EVENT_FLAGS_TOUCH_EMULATING_POINTER: xcb_input_touch_e
 
 pub const XCB_INPUT_TOUCH_BEGIN: u8 = 18;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_touch_begin_event_t {
     pub response_type: u8,
@@ -5748,35 +3209,6 @@ pub struct xcb_input_touch_begin_event_t {
     pub mods:          xcb_input_modifier_info_t,
     pub group:         xcb_input_group_info_t,
 }
-impl ::std::fmt::Debug for xcb_input_touch_begin_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_touch_begin_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("detail", &self.detail)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("full_sequence", &self.full_sequence)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("event_x", &self.event_x)
-            .field("event_y", &self.event_y)
-            .field("buttons_len", &self.buttons_len)
-            .field("valuators_len", &self.valuators_len)
-            .field("sourceid", &self.sourceid)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("mods", &self.mods)
-            .field("group", &self.group)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_TOUCH_UPDATE: u8 = 19;
 
@@ -5791,6 +3223,7 @@ pub const XCB_INPUT_TOUCH_OWNERSHIP_FLAGS_NONE: xcb_input_touch_ownership_flags_
 
 pub const XCB_INPUT_TOUCH_OWNERSHIP: u8 = 21;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_touch_ownership_event_t {
     pub response_type: u8,
@@ -5811,35 +3244,9 @@ pub struct xcb_input_touch_ownership_event_t {
     pub pad1:          [u8; 8],
 }
 
-impl Copy for xcb_input_touch_ownership_event_t {}
-impl Clone for xcb_input_touch_ownership_event_t {
-    fn clone(&self) -> xcb_input_touch_ownership_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_touch_ownership_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_touch_ownership_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("touchid", &self.touchid)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("full_sequence", &self.full_sequence)
-            .field("sourceid", &self.sourceid)
-            .field("pad0", &&self.pad0[..])
-            .field("flags", &self.flags)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_RAW_TOUCH_BEGIN: u8 = 22;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_input_raw_touch_begin_event_t {
     pub response_type: u8,
@@ -5856,25 +3263,6 @@ pub struct xcb_input_raw_touch_begin_event_t {
     pub pad0:          [u8; 4],
     pub full_sequence: u32,
 }
-impl ::std::fmt::Debug for xcb_input_raw_touch_begin_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_raw_touch_begin_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("detail", &self.detail)
-            .field("sourceid", &self.sourceid)
-            .field("valuators_len", &self.valuators_len)
-            .field("flags", &self.flags)
-            .field("pad0", &&self.pad0[..])
-            .field("full_sequence", &self.full_sequence)
-            .finish()
-    }
-}
 
 pub const XCB_INPUT_RAW_TOUCH_UPDATE: u8 = 23;
 
@@ -5886,6 +3274,7 @@ pub type xcb_input_raw_touch_end_event_t = xcb_input_raw_touch_begin_event_t;
 
 pub const XCB_INPUT_BARRIER_HIT: u8 = 25;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_barrier_hit_event_t {
     pub response_type: u8,
@@ -5910,43 +3299,13 @@ pub struct xcb_input_barrier_hit_event_t {
     pub dy:            xcb_input_fp3232_t,
 }
 
-impl Copy for xcb_input_barrier_hit_event_t {}
-impl Clone for xcb_input_barrier_hit_event_t {
-    fn clone(&self) -> xcb_input_barrier_hit_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_barrier_hit_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_barrier_hit_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("deviceid", &self.deviceid)
-            .field("time", &self.time)
-            .field("eventid", &self.eventid)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("barrier", &self.barrier)
-            .field("full_sequence", &self.full_sequence)
-            .field("dtime", &self.dtime)
-            .field("flags", &self.flags)
-            .field("sourceid", &self.sourceid)
-            .field("pad0", &&self.pad0[..])
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("dx", &self.dx)
-            .field("dy", &self.dy)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_BARRIER_LEAVE: u8 = 26;
 
 pub type xcb_input_barrier_leave_event_t = xcb_input_barrier_hit_event_t;
 
 pub const XCB_INPUT_DEVICE: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_error_t {
     pub response_type: u8,
@@ -5954,22 +3313,9 @@ pub struct xcb_input_device_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_input_device_error_t {}
-impl Clone for xcb_input_device_error_t {
-    fn clone(&self) -> xcb_input_device_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_EVENT: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_event_error_t {
     pub response_type: u8,
@@ -5977,22 +3323,9 @@ pub struct xcb_input_event_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_input_event_error_t {}
-impl Clone for xcb_input_event_error_t {
-    fn clone(&self) -> xcb_input_event_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_event_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_event_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_MODE: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_mode_error_t {
     pub response_type: u8,
@@ -6000,22 +3333,9 @@ pub struct xcb_input_mode_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_input_mode_error_t {}
-impl Clone for xcb_input_mode_error_t {
-    fn clone(&self) -> xcb_input_mode_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_mode_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_mode_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_DEVICE_BUSY: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_device_busy_error_t {
     pub response_type: u8,
@@ -6023,41 +3343,14 @@ pub struct xcb_input_device_busy_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_input_device_busy_error_t {}
-impl Clone for xcb_input_device_busy_error_t {
-    fn clone(&self) -> xcb_input_device_busy_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_device_busy_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_device_busy_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_INPUT_CLASS: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_input_class_error_t {
     pub response_type: u8,
     pub error_code:    u8,
     pub sequence:      u16,
-}
-
-impl Copy for xcb_input_class_error_t {}
-impl Clone for xcb_input_class_error_t {
-    fn clone(&self) -> xcb_input_class_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_input_class_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_input_class_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
 }
 
 

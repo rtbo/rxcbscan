@@ -114,6 +114,7 @@ pub struct xcb_glx_context_tag_iterator_t {
 
 pub const XCB_GLX_GENERIC: i8 = -1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_generic_error_t {
     pub response_type: u8,
@@ -123,24 +124,6 @@ pub struct xcb_glx_generic_error_t {
     pub minor_opcode:  u16,
     pub major_opcode:  u8,
     pub pad0:          [u8; 21],
-}
-
-impl Copy for xcb_glx_generic_error_t {}
-impl Clone for xcb_glx_generic_error_t {
-    fn clone(&self) -> xcb_glx_generic_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_generic_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_generic_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .field("bad_value", &self.bad_value)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 pub const XCB_GLX_BAD_CONTEXT: u8 = 0;
@@ -201,6 +184,7 @@ pub type xcb_glx_glx_bad_profile_arb_error_t = xcb_glx_generic_error_t;
 
 pub const XCB_GLX_PBUFFER_CLOBBER: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_pbuffer_clobber_event_t {
     pub response_type: u8,
@@ -219,33 +203,9 @@ pub struct xcb_glx_pbuffer_clobber_event_t {
     pub pad1:          [u8; 4],
 }
 
-impl Copy for xcb_glx_pbuffer_clobber_event_t {}
-impl Clone for xcb_glx_pbuffer_clobber_event_t {
-    fn clone(&self) -> xcb_glx_pbuffer_clobber_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_pbuffer_clobber_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_pbuffer_clobber_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event_type", &self.event_type)
-            .field("draw_type", &self.draw_type)
-            .field("drawable", &self.drawable)
-            .field("b_mask", &self.b_mask)
-            .field("aux_buffer", &self.aux_buffer)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("count", &self.count)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_GLX_BUFFER_SWAP_COMPLETE: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_buffer_swap_complete_event_t {
     pub response_type: u8,
@@ -261,28 +221,6 @@ pub struct xcb_glx_buffer_swap_complete_event_t {
     pub sbc:           u32,
 }
 
-impl Copy for xcb_glx_buffer_swap_complete_event_t {}
-impl Clone for xcb_glx_buffer_swap_complete_event_t {
-    fn clone(&self) -> xcb_glx_buffer_swap_complete_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_buffer_swap_complete_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_buffer_swap_complete_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event_type", &self.event_type)
-            .field("pad1", &&self.pad1[..])
-            .field("drawable", &self.drawable)
-            .field("ust_hi", &self.ust_hi)
-            .field("ust_lo", &self.ust_lo)
-            .field("msc_hi", &self.msc_hi)
-            .field("msc_lo", &self.msc_lo)
-            .field("sbc", &self.sbc)
-            .finish()
-    }
-}
-
 pub type xcb_glx_pbcet_t = u32;
 pub const XCB_GLX_PBCET_DAMAGED: xcb_glx_pbcet_t = 0x8017;
 pub const XCB_GLX_PBCET_SAVED  : xcb_glx_pbcet_t = 0x8018;
@@ -293,6 +231,7 @@ pub const XCB_GLX_PBCDT_PBUFFER: xcb_glx_pbcdt_t = 0x801a;
 
 pub const XCB_GLX_RENDER: u8 = 1;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_render_request_t {
     pub major_opcode: u8,
@@ -300,19 +239,10 @@ pub struct xcb_glx_render_request_t {
     pub length:       u16,
     pub context_tag:  xcb_glx_context_tag_t,
 }
-impl ::std::fmt::Debug for xcb_glx_render_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_render_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_RENDER_LARGE: u8 = 2;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_render_large_request_t {
     pub major_opcode:  u8,
@@ -323,22 +253,10 @@ pub struct xcb_glx_render_large_request_t {
     pub request_total: u16,
     pub data_len:      u32,
 }
-impl ::std::fmt::Debug for xcb_glx_render_large_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_render_large_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("request_num", &self.request_num)
-            .field("request_total", &self.request_total)
-            .field("data_len", &self.data_len)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_CREATE_CONTEXT: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_create_context_request_t {
     pub major_opcode: u8,
@@ -352,28 +270,9 @@ pub struct xcb_glx_create_context_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_glx_create_context_request_t {}
-impl Clone for xcb_glx_create_context_request_t {
-    fn clone(&self) -> xcb_glx_create_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("visual", &self.visual)
-            .field("screen", &self.screen)
-            .field("share_list", &self.share_list)
-            .field("is_direct", &self.is_direct)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_GLX_DESTROY_CONTEXT: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_destroy_context_request_t {
     pub major_opcode: u8,
@@ -382,23 +281,9 @@ pub struct xcb_glx_destroy_context_request_t {
     pub context:      xcb_glx_context_t,
 }
 
-impl Copy for xcb_glx_destroy_context_request_t {}
-impl Clone for xcb_glx_destroy_context_request_t {
-    fn clone(&self) -> xcb_glx_destroy_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_destroy_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_destroy_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_MAKE_CURRENT: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_make_current_request_t {
     pub major_opcode:    u8,
@@ -409,29 +294,13 @@ pub struct xcb_glx_make_current_request_t {
     pub old_context_tag: xcb_glx_context_tag_t,
 }
 
-impl Copy for xcb_glx_make_current_request_t {}
-impl Clone for xcb_glx_make_current_request_t {
-    fn clone(&self) -> xcb_glx_make_current_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_make_current_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_make_current_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("context", &self.context)
-            .field("old_context_tag", &self.old_context_tag)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_make_current_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_make_current_reply_t {
     pub response_type: u8,
@@ -442,25 +311,9 @@ pub struct xcb_glx_make_current_reply_t {
     pub pad1:          [u8; 20],
 }
 
-impl Copy for xcb_glx_make_current_reply_t {}
-impl Clone for xcb_glx_make_current_reply_t {
-    fn clone(&self) -> xcb_glx_make_current_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_make_current_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_make_current_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_GLX_IS_DIRECT: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_direct_request_t {
     pub major_opcode: u8,
@@ -469,27 +322,13 @@ pub struct xcb_glx_is_direct_request_t {
     pub context:      xcb_glx_context_t,
 }
 
-impl Copy for xcb_glx_is_direct_request_t {}
-impl Clone for xcb_glx_is_direct_request_t {
-    fn clone(&self) -> xcb_glx_is_direct_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_is_direct_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_is_direct_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_direct_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_direct_reply_t {
     pub response_type: u8,
@@ -500,25 +339,9 @@ pub struct xcb_glx_is_direct_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_glx_is_direct_reply_t {}
-impl Clone for xcb_glx_is_direct_reply_t {
-    fn clone(&self) -> xcb_glx_is_direct_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_is_direct_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_is_direct_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("is_direct", &self.is_direct)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_GLX_QUERY_VERSION: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_version_request_t {
     pub major_opcode:  u8,
@@ -528,28 +351,13 @@ pub struct xcb_glx_query_version_request_t {
     pub minor_version: u32,
 }
 
-impl Copy for xcb_glx_query_version_request_t {}
-impl Clone for xcb_glx_query_version_request_t {
-    fn clone(&self) -> xcb_glx_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_version_reply_t {
     pub response_type: u8,
@@ -561,26 +369,9 @@ pub struct xcb_glx_query_version_reply_t {
     pub pad1:          [u8; 16],
 }
 
-impl Copy for xcb_glx_query_version_reply_t {}
-impl Clone for xcb_glx_query_version_reply_t {
-    fn clone(&self) -> xcb_glx_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_GLX_WAIT_GL: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_wait_gl_request_t {
     pub major_opcode: u8,
@@ -589,23 +380,9 @@ pub struct xcb_glx_wait_gl_request_t {
     pub context_tag:  xcb_glx_context_tag_t,
 }
 
-impl Copy for xcb_glx_wait_gl_request_t {}
-impl Clone for xcb_glx_wait_gl_request_t {
-    fn clone(&self) -> xcb_glx_wait_gl_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_wait_gl_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_wait_gl_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_WAIT_X: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_wait_x_request_t {
     pub major_opcode: u8,
@@ -614,23 +391,9 @@ pub struct xcb_glx_wait_x_request_t {
     pub context_tag:  xcb_glx_context_tag_t,
 }
 
-impl Copy for xcb_glx_wait_x_request_t {}
-impl Clone for xcb_glx_wait_x_request_t {
-    fn clone(&self) -> xcb_glx_wait_x_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_wait_x_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_wait_x_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_COPY_CONTEXT: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_copy_context_request_t {
     pub major_opcode:    u8,
@@ -640,24 +403,6 @@ pub struct xcb_glx_copy_context_request_t {
     pub dest:            xcb_glx_context_t,
     pub mask:            u32,
     pub src_context_tag: xcb_glx_context_tag_t,
-}
-
-impl Copy for xcb_glx_copy_context_request_t {}
-impl Clone for xcb_glx_copy_context_request_t {
-    fn clone(&self) -> xcb_glx_copy_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_copy_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_copy_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("src", &self.src)
-            .field("dest", &self.dest)
-            .field("mask", &self.mask)
-            .field("src_context_tag", &self.src_context_tag)
-            .finish()
-    }
 }
 
 pub type xcb_glx_gc_t = u32;
@@ -685,6 +430,7 @@ pub const XCB_GLX_GC_GL_ALL_ATTRIB_BITS    : xcb_glx_gc_t = 0xffffff;
 
 pub const XCB_GLX_SWAP_BUFFERS: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_swap_buffers_request_t {
     pub major_opcode: u8,
@@ -694,24 +440,9 @@ pub struct xcb_glx_swap_buffers_request_t {
     pub drawable:     xcb_glx_drawable_t,
 }
 
-impl Copy for xcb_glx_swap_buffers_request_t {}
-impl Clone for xcb_glx_swap_buffers_request_t {
-    fn clone(&self) -> xcb_glx_swap_buffers_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_swap_buffers_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_swap_buffers_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_USE_X_FONT: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_use_x_font_request_t {
     pub major_opcode: u8,
@@ -724,27 +455,9 @@ pub struct xcb_glx_use_x_font_request_t {
     pub list_base:    u32,
 }
 
-impl Copy for xcb_glx_use_x_font_request_t {}
-impl Clone for xcb_glx_use_x_font_request_t {
-    fn clone(&self) -> xcb_glx_use_x_font_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_use_x_font_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_use_x_font_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("font", &self.font)
-            .field("first", &self.first)
-            .field("count", &self.count)
-            .field("list_base", &self.list_base)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_CREATE_GLX_PIXMAP: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_create_glx_pixmap_request_t {
     pub major_opcode: u8,
@@ -756,26 +469,9 @@ pub struct xcb_glx_create_glx_pixmap_request_t {
     pub glx_pixmap:   xcb_glx_pixmap_t,
 }
 
-impl Copy for xcb_glx_create_glx_pixmap_request_t {}
-impl Clone for xcb_glx_create_glx_pixmap_request_t {
-    fn clone(&self) -> xcb_glx_create_glx_pixmap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_create_glx_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_create_glx_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("visual", &self.visual)
-            .field("pixmap", &self.pixmap)
-            .field("glx_pixmap", &self.glx_pixmap)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_GET_VISUAL_CONFIGS: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_visual_configs_request_t {
     pub major_opcode: u8,
@@ -784,27 +480,13 @@ pub struct xcb_glx_get_visual_configs_request_t {
     pub screen:       u32,
 }
 
-impl Copy for xcb_glx_get_visual_configs_request_t {}
-impl Clone for xcb_glx_get_visual_configs_request_t {
-    fn clone(&self) -> xcb_glx_get_visual_configs_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_visual_configs_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_visual_configs_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_visual_configs_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_visual_configs_reply_t {
     pub response_type:  u8,
@@ -815,22 +497,10 @@ pub struct xcb_glx_get_visual_configs_reply_t {
     pub num_properties: u32,
     pub pad1:           [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_glx_get_visual_configs_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_visual_configs_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_visuals", &self.num_visuals)
-            .field("num_properties", &self.num_properties)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_DESTROY_GLX_PIXMAP: u8 = 15;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_destroy_glx_pixmap_request_t {
     pub major_opcode: u8,
@@ -839,23 +509,9 @@ pub struct xcb_glx_destroy_glx_pixmap_request_t {
     pub glx_pixmap:   xcb_glx_pixmap_t,
 }
 
-impl Copy for xcb_glx_destroy_glx_pixmap_request_t {}
-impl Clone for xcb_glx_destroy_glx_pixmap_request_t {
-    fn clone(&self) -> xcb_glx_destroy_glx_pixmap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_destroy_glx_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_destroy_glx_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("glx_pixmap", &self.glx_pixmap)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_VENDOR_PRIVATE: u8 = 16;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_vendor_private_request_t {
     pub major_opcode: u8,
@@ -864,20 +520,10 @@ pub struct xcb_glx_vendor_private_request_t {
     pub vendor_code:  u32,
     pub context_tag:  xcb_glx_context_tag_t,
 }
-impl ::std::fmt::Debug for xcb_glx_vendor_private_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_vendor_private_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("vendor_code", &self.vendor_code)
-            .field("context_tag", &self.context_tag)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_VENDOR_PRIVATE_WITH_REPLY: u8 = 17;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_vendor_private_with_reply_request_t {
     pub major_opcode: u8,
@@ -886,17 +532,6 @@ pub struct xcb_glx_vendor_private_with_reply_request_t {
     pub vendor_code:  u32,
     pub context_tag:  xcb_glx_context_tag_t,
 }
-impl ::std::fmt::Debug for xcb_glx_vendor_private_with_reply_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_vendor_private_with_reply_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("vendor_code", &self.vendor_code)
-            .field("context_tag", &self.context_tag)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -904,6 +539,7 @@ pub struct xcb_glx_vendor_private_with_reply_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_vendor_private_with_reply_reply_t {
     pub response_type: u8,
@@ -913,21 +549,10 @@ pub struct xcb_glx_vendor_private_with_reply_reply_t {
     pub retval:        u32,
     pub data1:         [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_glx_vendor_private_with_reply_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_vendor_private_with_reply_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("retval", &self.retval)
-            .field("data1", &&self.data1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_QUERY_EXTENSIONS_STRING: u8 = 18;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_extensions_string_request_t {
     pub major_opcode: u8,
@@ -936,27 +561,13 @@ pub struct xcb_glx_query_extensions_string_request_t {
     pub screen:       u32,
 }
 
-impl Copy for xcb_glx_query_extensions_string_request_t {}
-impl Clone for xcb_glx_query_extensions_string_request_t {
-    fn clone(&self) -> xcb_glx_query_extensions_string_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_query_extensions_string_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_query_extensions_string_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_extensions_string_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_extensions_string_reply_t {
     pub response_type: u8,
@@ -968,26 +579,9 @@ pub struct xcb_glx_query_extensions_string_reply_t {
     pub pad2:          [u8; 16],
 }
 
-impl Copy for xcb_glx_query_extensions_string_reply_t {}
-impl Clone for xcb_glx_query_extensions_string_reply_t {
-    fn clone(&self) -> xcb_glx_query_extensions_string_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_query_extensions_string_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_query_extensions_string_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
-
 pub const XCB_GLX_QUERY_SERVER_STRING: u8 = 19;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_server_string_request_t {
     pub major_opcode: u8,
@@ -997,28 +591,13 @@ pub struct xcb_glx_query_server_string_request_t {
     pub name:         u32,
 }
 
-impl Copy for xcb_glx_query_server_string_request_t {}
-impl Clone for xcb_glx_query_server_string_request_t {
-    fn clone(&self) -> xcb_glx_query_server_string_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_query_server_string_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_query_server_string_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("name", &self.name)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_server_string_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_server_string_reply_t {
     pub response_type: u8,
@@ -1029,22 +608,10 @@ pub struct xcb_glx_query_server_string_reply_t {
     pub str_len:       u32,
     pub pad2:          [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_glx_query_server_string_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_query_server_string_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("str_len", &self.str_len)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_CLIENT_INFO: u8 = 20;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_client_info_request_t {
     pub major_opcode:  u8,
@@ -1054,21 +621,10 @@ pub struct xcb_glx_client_info_request_t {
     pub minor_version: u32,
     pub str_len:       u32,
 }
-impl ::std::fmt::Debug for xcb_glx_client_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_client_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("str_len", &self.str_len)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_FB_CONFIGS: u8 = 21;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_fb_configs_request_t {
     pub major_opcode: u8,
@@ -1077,27 +633,13 @@ pub struct xcb_glx_get_fb_configs_request_t {
     pub screen:       u32,
 }
 
-impl Copy for xcb_glx_get_fb_configs_request_t {}
-impl Clone for xcb_glx_get_fb_configs_request_t {
-    fn clone(&self) -> xcb_glx_get_fb_configs_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_fb_configs_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_fb_configs_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_fb_configs_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_fb_configs_reply_t {
     pub response_type:  u8,
@@ -1108,22 +650,10 @@ pub struct xcb_glx_get_fb_configs_reply_t {
     pub num_properties: u32,
     pub pad1:           [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_glx_get_fb_configs_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_fb_configs_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_FB_configs", &self.num_FB_configs)
-            .field("num_properties", &self.num_properties)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_CREATE_PIXMAP: u8 = 22;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_create_pixmap_request_t {
     pub major_opcode: u8,
@@ -1135,23 +665,10 @@ pub struct xcb_glx_create_pixmap_request_t {
     pub glx_pixmap:   xcb_glx_pixmap_t,
     pub num_attribs:  u32,
 }
-impl ::std::fmt::Debug for xcb_glx_create_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_create_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("fbconfig", &self.fbconfig)
-            .field("pixmap", &self.pixmap)
-            .field("glx_pixmap", &self.glx_pixmap)
-            .field("num_attribs", &self.num_attribs)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_DESTROY_PIXMAP: u8 = 23;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_destroy_pixmap_request_t {
     pub major_opcode: u8,
@@ -1160,23 +677,9 @@ pub struct xcb_glx_destroy_pixmap_request_t {
     pub glx_pixmap:   xcb_glx_pixmap_t,
 }
 
-impl Copy for xcb_glx_destroy_pixmap_request_t {}
-impl Clone for xcb_glx_destroy_pixmap_request_t {
-    fn clone(&self) -> xcb_glx_destroy_pixmap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_destroy_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_destroy_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("glx_pixmap", &self.glx_pixmap)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_CREATE_NEW_CONTEXT: u8 = 24;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_create_new_context_request_t {
     pub major_opcode: u8,
@@ -1191,29 +694,9 @@ pub struct xcb_glx_create_new_context_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_glx_create_new_context_request_t {}
-impl Clone for xcb_glx_create_new_context_request_t {
-    fn clone(&self) -> xcb_glx_create_new_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_create_new_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_create_new_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("fbconfig", &self.fbconfig)
-            .field("screen", &self.screen)
-            .field("render_type", &self.render_type)
-            .field("share_list", &self.share_list)
-            .field("is_direct", &self.is_direct)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_GLX_QUERY_CONTEXT: u8 = 25;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_context_request_t {
     pub major_opcode: u8,
@@ -1222,27 +705,13 @@ pub struct xcb_glx_query_context_request_t {
     pub context:      xcb_glx_context_t,
 }
 
-impl Copy for xcb_glx_query_context_request_t {}
-impl Clone for xcb_glx_query_context_request_t {
-    fn clone(&self) -> xcb_glx_query_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_query_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_query_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_query_context_reply_t {
     pub response_type: u8,
@@ -1252,21 +721,10 @@ pub struct xcb_glx_query_context_reply_t {
     pub num_attribs:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_glx_query_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_query_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_attribs", &self.num_attribs)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_MAKE_CONTEXT_CURRENT: u8 = 26;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_make_context_current_request_t {
     pub major_opcode:    u8,
@@ -1278,30 +736,13 @@ pub struct xcb_glx_make_context_current_request_t {
     pub context:         xcb_glx_context_t,
 }
 
-impl Copy for xcb_glx_make_context_current_request_t {}
-impl Clone for xcb_glx_make_context_current_request_t {
-    fn clone(&self) -> xcb_glx_make_context_current_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_make_context_current_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_make_context_current_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("old_context_tag", &self.old_context_tag)
-            .field("drawable", &self.drawable)
-            .field("read_drawable", &self.read_drawable)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_make_context_current_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_make_context_current_reply_t {
     pub response_type: u8,
@@ -1312,25 +753,9 @@ pub struct xcb_glx_make_context_current_reply_t {
     pub pad1:          [u8; 20],
 }
 
-impl Copy for xcb_glx_make_context_current_reply_t {}
-impl Clone for xcb_glx_make_context_current_reply_t {
-    fn clone(&self) -> xcb_glx_make_context_current_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_make_context_current_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_make_context_current_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_GLX_CREATE_PBUFFER: u8 = 27;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_create_pbuffer_request_t {
     pub major_opcode: u8,
@@ -1341,22 +766,10 @@ pub struct xcb_glx_create_pbuffer_request_t {
     pub pbuffer:      xcb_glx_pbuffer_t,
     pub num_attribs:  u32,
 }
-impl ::std::fmt::Debug for xcb_glx_create_pbuffer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_create_pbuffer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("fbconfig", &self.fbconfig)
-            .field("pbuffer", &self.pbuffer)
-            .field("num_attribs", &self.num_attribs)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_DESTROY_PBUFFER: u8 = 28;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_destroy_pbuffer_request_t {
     pub major_opcode: u8,
@@ -1365,23 +778,9 @@ pub struct xcb_glx_destroy_pbuffer_request_t {
     pub pbuffer:      xcb_glx_pbuffer_t,
 }
 
-impl Copy for xcb_glx_destroy_pbuffer_request_t {}
-impl Clone for xcb_glx_destroy_pbuffer_request_t {
-    fn clone(&self) -> xcb_glx_destroy_pbuffer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_destroy_pbuffer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_destroy_pbuffer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("pbuffer", &self.pbuffer)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_GET_DRAWABLE_ATTRIBUTES: u8 = 29;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_drawable_attributes_request_t {
     pub major_opcode: u8,
@@ -1390,27 +789,13 @@ pub struct xcb_glx_get_drawable_attributes_request_t {
     pub drawable:     xcb_glx_drawable_t,
 }
 
-impl Copy for xcb_glx_get_drawable_attributes_request_t {}
-impl Clone for xcb_glx_get_drawable_attributes_request_t {
-    fn clone(&self) -> xcb_glx_get_drawable_attributes_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_drawable_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_drawable_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_drawable_attributes_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_drawable_attributes_reply_t {
     pub response_type: u8,
@@ -1420,21 +805,10 @@ pub struct xcb_glx_get_drawable_attributes_reply_t {
     pub num_attribs:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_glx_get_drawable_attributes_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_drawable_attributes_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_attribs", &self.num_attribs)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_CHANGE_DRAWABLE_ATTRIBUTES: u8 = 30;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_change_drawable_attributes_request_t {
     pub major_opcode: u8,
@@ -1443,20 +817,10 @@ pub struct xcb_glx_change_drawable_attributes_request_t {
     pub drawable:     xcb_glx_drawable_t,
     pub num_attribs:  u32,
 }
-impl ::std::fmt::Debug for xcb_glx_change_drawable_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_change_drawable_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("num_attribs", &self.num_attribs)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_CREATE_WINDOW: u8 = 31;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_create_window_request_t {
     pub major_opcode: u8,
@@ -1468,23 +832,10 @@ pub struct xcb_glx_create_window_request_t {
     pub glx_window:   xcb_glx_window_t,
     pub num_attribs:  u32,
 }
-impl ::std::fmt::Debug for xcb_glx_create_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_create_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("fbconfig", &self.fbconfig)
-            .field("window", &self.window)
-            .field("glx_window", &self.glx_window)
-            .field("num_attribs", &self.num_attribs)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_DELETE_WINDOW: u8 = 32;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_delete_window_request_t {
     pub major_opcode: u8,
@@ -1493,23 +844,9 @@ pub struct xcb_glx_delete_window_request_t {
     pub glxwindow:    xcb_glx_window_t,
 }
 
-impl Copy for xcb_glx_delete_window_request_t {}
-impl Clone for xcb_glx_delete_window_request_t {
-    fn clone(&self) -> xcb_glx_delete_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_delete_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_delete_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("glxwindow", &self.glxwindow)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_SET_CLIENT_INFO_ARB: u8 = 33;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_set_client_info_arb_request_t {
     pub major_opcode:         u8,
@@ -1521,23 +858,10 @@ pub struct xcb_glx_set_client_info_arb_request_t {
     pub gl_str_len:           u32,
     pub glx_str_len:          u32,
 }
-impl ::std::fmt::Debug for xcb_glx_set_client_info_arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_set_client_info_arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("num_versions", &self.num_versions)
-            .field("gl_str_len", &self.gl_str_len)
-            .field("glx_str_len", &self.glx_str_len)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_CREATE_CONTEXT_ATTRIBS_ARB: u8 = 34;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_create_context_attribs_arb_request_t {
     pub major_opcode: u8,
@@ -1551,25 +875,10 @@ pub struct xcb_glx_create_context_attribs_arb_request_t {
     pub pad0:         [u8; 3],
     pub num_attribs:  u32,
 }
-impl ::std::fmt::Debug for xcb_glx_create_context_attribs_arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_create_context_attribs_arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("fbconfig", &self.fbconfig)
-            .field("screen", &self.screen)
-            .field("share_list", &self.share_list)
-            .field("is_direct", &self.is_direct)
-            .field("pad0", &&self.pad0[..])
-            .field("num_attribs", &self.num_attribs)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_SET_CLIENT_INFO_2ARB: u8 = 35;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_set_client_info_2arb_request_t {
     pub major_opcode:         u8,
@@ -1581,23 +890,10 @@ pub struct xcb_glx_set_client_info_2arb_request_t {
     pub gl_str_len:           u32,
     pub glx_str_len:          u32,
 }
-impl ::std::fmt::Debug for xcb_glx_set_client_info_2arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_set_client_info_2arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("num_versions", &self.num_versions)
-            .field("gl_str_len", &self.gl_str_len)
-            .field("glx_str_len", &self.glx_str_len)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_NEW_LIST: u8 = 101;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_new_list_request_t {
     pub major_opcode: u8,
@@ -1608,25 +904,9 @@ pub struct xcb_glx_new_list_request_t {
     pub mode:         u32,
 }
 
-impl Copy for xcb_glx_new_list_request_t {}
-impl Clone for xcb_glx_new_list_request_t {
-    fn clone(&self) -> xcb_glx_new_list_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_new_list_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_new_list_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("list", &self.list)
-            .field("mode", &self.mode)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_END_LIST: u8 = 102;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_end_list_request_t {
     pub major_opcode: u8,
@@ -1635,23 +915,9 @@ pub struct xcb_glx_end_list_request_t {
     pub context_tag:  xcb_glx_context_tag_t,
 }
 
-impl Copy for xcb_glx_end_list_request_t {}
-impl Clone for xcb_glx_end_list_request_t {
-    fn clone(&self) -> xcb_glx_end_list_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_end_list_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_end_list_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_DELETE_LISTS: u8 = 103;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_delete_lists_request_t {
     pub major_opcode: u8,
@@ -1662,25 +928,9 @@ pub struct xcb_glx_delete_lists_request_t {
     pub range:        i32,
 }
 
-impl Copy for xcb_glx_delete_lists_request_t {}
-impl Clone for xcb_glx_delete_lists_request_t {
-    fn clone(&self) -> xcb_glx_delete_lists_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_delete_lists_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_delete_lists_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("list", &self.list)
-            .field("range", &self.range)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_GEN_LISTS: u8 = 104;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_gen_lists_request_t {
     pub major_opcode: u8,
@@ -1690,28 +940,13 @@ pub struct xcb_glx_gen_lists_request_t {
     pub range:        i32,
 }
 
-impl Copy for xcb_glx_gen_lists_request_t {}
-impl Clone for xcb_glx_gen_lists_request_t {
-    fn clone(&self) -> xcb_glx_gen_lists_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_gen_lists_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_gen_lists_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("range", &self.range)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_gen_lists_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_gen_lists_reply_t {
     pub response_type: u8,
@@ -1721,24 +956,9 @@ pub struct xcb_glx_gen_lists_reply_t {
     pub ret_val:       u32,
 }
 
-impl Copy for xcb_glx_gen_lists_reply_t {}
-impl Clone for xcb_glx_gen_lists_reply_t {
-    fn clone(&self) -> xcb_glx_gen_lists_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_gen_lists_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_gen_lists_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ret_val", &self.ret_val)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_FEEDBACK_BUFFER: u8 = 105;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_feedback_buffer_request_t {
     pub major_opcode: u8,
@@ -1749,25 +969,9 @@ pub struct xcb_glx_feedback_buffer_request_t {
     pub type_:        i32,
 }
 
-impl Copy for xcb_glx_feedback_buffer_request_t {}
-impl Clone for xcb_glx_feedback_buffer_request_t {
-    fn clone(&self) -> xcb_glx_feedback_buffer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_feedback_buffer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_feedback_buffer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("size", &self.size)
-            .field("type_", &self.type_)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_SELECT_BUFFER: u8 = 106;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_select_buffer_request_t {
     pub major_opcode: u8,
@@ -1777,24 +981,9 @@ pub struct xcb_glx_select_buffer_request_t {
     pub size:         i32,
 }
 
-impl Copy for xcb_glx_select_buffer_request_t {}
-impl Clone for xcb_glx_select_buffer_request_t {
-    fn clone(&self) -> xcb_glx_select_buffer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_select_buffer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_select_buffer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("size", &self.size)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_RENDER_MODE: u8 = 107;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_render_mode_request_t {
     pub major_opcode: u8,
@@ -1804,28 +993,13 @@ pub struct xcb_glx_render_mode_request_t {
     pub mode:         u32,
 }
 
-impl Copy for xcb_glx_render_mode_request_t {}
-impl Clone for xcb_glx_render_mode_request_t {
-    fn clone(&self) -> xcb_glx_render_mode_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_render_mode_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_render_mode_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("mode", &self.mode)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_render_mode_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_render_mode_reply_t {
     pub response_type: u8,
@@ -1837,20 +1011,6 @@ pub struct xcb_glx_render_mode_reply_t {
     pub new_mode:      u32,
     pub pad1:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_render_mode_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_render_mode_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ret_val", &self.ret_val)
-            .field("n", &self.n)
-            .field("new_mode", &self.new_mode)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub type xcb_glx_rm_t = u32;
 pub const XCB_GLX_RM_GL_RENDER  : xcb_glx_rm_t = 0x1c00;
@@ -1859,6 +1019,7 @@ pub const XCB_GLX_RM_GL_SELECT  : xcb_glx_rm_t = 0x1c02;
 
 pub const XCB_GLX_FINISH: u8 = 108;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_finish_request_t {
     pub major_opcode: u8,
@@ -1867,27 +1028,13 @@ pub struct xcb_glx_finish_request_t {
     pub context_tag:  xcb_glx_context_tag_t,
 }
 
-impl Copy for xcb_glx_finish_request_t {}
-impl Clone for xcb_glx_finish_request_t {
-    fn clone(&self) -> xcb_glx_finish_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_finish_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_finish_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_finish_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_finish_reply_t {
     pub response_type: u8,
@@ -1896,23 +1043,9 @@ pub struct xcb_glx_finish_reply_t {
     pub length:        u32,
 }
 
-impl Copy for xcb_glx_finish_reply_t {}
-impl Clone for xcb_glx_finish_reply_t {
-    fn clone(&self) -> xcb_glx_finish_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_finish_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_finish_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_PIXEL_STOREF: u8 = 109;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_pixel_storef_request_t {
     pub major_opcode: u8,
@@ -1923,25 +1056,9 @@ pub struct xcb_glx_pixel_storef_request_t {
     pub datum:        xcb_glx_float32_t,
 }
 
-impl Copy for xcb_glx_pixel_storef_request_t {}
-impl Clone for xcb_glx_pixel_storef_request_t {
-    fn clone(&self) -> xcb_glx_pixel_storef_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_pixel_storef_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_pixel_storef_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("pname", &self.pname)
-            .field("datum", &self.datum)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_PIXEL_STOREI: u8 = 110;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_pixel_storei_request_t {
     pub major_opcode: u8,
@@ -1952,25 +1069,9 @@ pub struct xcb_glx_pixel_storei_request_t {
     pub datum:        i32,
 }
 
-impl Copy for xcb_glx_pixel_storei_request_t {}
-impl Clone for xcb_glx_pixel_storei_request_t {
-    fn clone(&self) -> xcb_glx_pixel_storei_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_pixel_storei_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_pixel_storei_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("pname", &self.pname)
-            .field("datum", &self.datum)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_READ_PIXELS: u8 = 111;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_read_pixels_request_t {
     pub major_opcode: u8,
@@ -1987,35 +1088,13 @@ pub struct xcb_glx_read_pixels_request_t {
     pub lsb_first:    u8,
 }
 
-impl Copy for xcb_glx_read_pixels_request_t {}
-impl Clone for xcb_glx_read_pixels_request_t {
-    fn clone(&self) -> xcb_glx_read_pixels_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_read_pixels_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_read_pixels_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("format", &self.format)
-            .field("type_", &self.type_)
-            .field("swap_bytes", &self.swap_bytes)
-            .field("lsb_first", &self.lsb_first)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_read_pixels_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_read_pixels_reply_t {
     pub response_type: u8,
@@ -2024,20 +1103,10 @@ pub struct xcb_glx_read_pixels_reply_t {
     pub length:        u32,
     pub pad1:          [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_glx_read_pixels_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_read_pixels_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_BOOLEANV: u8 = 112;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_booleanv_request_t {
     pub major_opcode: u8,
@@ -2047,28 +1116,13 @@ pub struct xcb_glx_get_booleanv_request_t {
     pub pname:        i32,
 }
 
-impl Copy for xcb_glx_get_booleanv_request_t {}
-impl Clone for xcb_glx_get_booleanv_request_t {
-    fn clone(&self) -> xcb_glx_get_booleanv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_booleanv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_booleanv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_booleanv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_booleanv_reply_t {
     pub response_type: u8,
@@ -2080,23 +1134,10 @@ pub struct xcb_glx_get_booleanv_reply_t {
     pub datum:         u8,
     pub pad2:          [u8; 15],
 }
-impl ::std::fmt::Debug for xcb_glx_get_booleanv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_booleanv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_CLIP_PLANE: u8 = 113;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_clip_plane_request_t {
     pub major_opcode: u8,
@@ -2106,28 +1147,13 @@ pub struct xcb_glx_get_clip_plane_request_t {
     pub plane:        i32,
 }
 
-impl Copy for xcb_glx_get_clip_plane_request_t {}
-impl Clone for xcb_glx_get_clip_plane_request_t {
-    fn clone(&self) -> xcb_glx_get_clip_plane_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_clip_plane_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_clip_plane_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("plane", &self.plane)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_clip_plane_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_clip_plane_reply_t {
     pub response_type: u8,
@@ -2136,20 +1162,10 @@ pub struct xcb_glx_get_clip_plane_reply_t {
     pub length:        u32,
     pub pad1:          [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_glx_get_clip_plane_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_clip_plane_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_DOUBLEV: u8 = 114;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_doublev_request_t {
     pub major_opcode: u8,
@@ -2159,28 +1175,13 @@ pub struct xcb_glx_get_doublev_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_doublev_request_t {}
-impl Clone for xcb_glx_get_doublev_request_t {
-    fn clone(&self) -> xcb_glx_get_doublev_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_doublev_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_doublev_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_doublev_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_doublev_reply_t {
     pub response_type: u8,
@@ -2192,23 +1193,10 @@ pub struct xcb_glx_get_doublev_reply_t {
     pub datum:         xcb_glx_float64_t,
     pub pad2:          [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_glx_get_doublev_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_doublev_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_ERROR: u8 = 115;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_error_request_t {
     pub major_opcode: u8,
@@ -2217,27 +1205,13 @@ pub struct xcb_glx_get_error_request_t {
     pub context_tag:  xcb_glx_context_tag_t,
 }
 
-impl Copy for xcb_glx_get_error_request_t {}
-impl Clone for xcb_glx_get_error_request_t {
-    fn clone(&self) -> xcb_glx_get_error_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_error_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_error_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_error_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_error_reply_t {
     pub response_type: u8,
@@ -2247,24 +1221,9 @@ pub struct xcb_glx_get_error_reply_t {
     pub error:         i32,
 }
 
-impl Copy for xcb_glx_get_error_reply_t {}
-impl Clone for xcb_glx_get_error_reply_t {
-    fn clone(&self) -> xcb_glx_get_error_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_error_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_error_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("error", &self.error)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_GET_FLOATV: u8 = 116;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_floatv_request_t {
     pub major_opcode: u8,
@@ -2274,28 +1233,13 @@ pub struct xcb_glx_get_floatv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_floatv_request_t {}
-impl Clone for xcb_glx_get_floatv_request_t {
-    fn clone(&self) -> xcb_glx_get_floatv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_floatv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_floatv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_floatv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_floatv_reply_t {
     pub response_type: u8,
@@ -2307,23 +1251,10 @@ pub struct xcb_glx_get_floatv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_floatv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_floatv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_INTEGERV: u8 = 117;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_integerv_request_t {
     pub major_opcode: u8,
@@ -2333,28 +1264,13 @@ pub struct xcb_glx_get_integerv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_integerv_request_t {}
-impl Clone for xcb_glx_get_integerv_request_t {
-    fn clone(&self) -> xcb_glx_get_integerv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_integerv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_integerv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_integerv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_integerv_reply_t {
     pub response_type: u8,
@@ -2366,23 +1282,10 @@ pub struct xcb_glx_get_integerv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_integerv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_integerv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_LIGHTFV: u8 = 118;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_lightfv_request_t {
     pub major_opcode: u8,
@@ -2393,29 +1296,13 @@ pub struct xcb_glx_get_lightfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_lightfv_request_t {}
-impl Clone for xcb_glx_get_lightfv_request_t {
-    fn clone(&self) -> xcb_glx_get_lightfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_lightfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_lightfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("light", &self.light)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_lightfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_lightfv_reply_t {
     pub response_type: u8,
@@ -2427,23 +1314,10 @@ pub struct xcb_glx_get_lightfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_lightfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_lightfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_LIGHTIV: u8 = 119;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_lightiv_request_t {
     pub major_opcode: u8,
@@ -2454,29 +1328,13 @@ pub struct xcb_glx_get_lightiv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_lightiv_request_t {}
-impl Clone for xcb_glx_get_lightiv_request_t {
-    fn clone(&self) -> xcb_glx_get_lightiv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_lightiv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_lightiv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("light", &self.light)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_lightiv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_lightiv_reply_t {
     pub response_type: u8,
@@ -2488,23 +1346,10 @@ pub struct xcb_glx_get_lightiv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_lightiv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_lightiv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_MAPDV: u8 = 120;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_mapdv_request_t {
     pub major_opcode: u8,
@@ -2515,29 +1360,13 @@ pub struct xcb_glx_get_mapdv_request_t {
     pub query:        u32,
 }
 
-impl Copy for xcb_glx_get_mapdv_request_t {}
-impl Clone for xcb_glx_get_mapdv_request_t {
-    fn clone(&self) -> xcb_glx_get_mapdv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_mapdv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_mapdv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("query", &self.query)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_mapdv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_mapdv_reply_t {
     pub response_type: u8,
@@ -2549,23 +1378,10 @@ pub struct xcb_glx_get_mapdv_reply_t {
     pub datum:         xcb_glx_float64_t,
     pub pad2:          [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_glx_get_mapdv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_mapdv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_MAPFV: u8 = 121;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_mapfv_request_t {
     pub major_opcode: u8,
@@ -2576,29 +1392,13 @@ pub struct xcb_glx_get_mapfv_request_t {
     pub query:        u32,
 }
 
-impl Copy for xcb_glx_get_mapfv_request_t {}
-impl Clone for xcb_glx_get_mapfv_request_t {
-    fn clone(&self) -> xcb_glx_get_mapfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_mapfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_mapfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("query", &self.query)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_mapfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_mapfv_reply_t {
     pub response_type: u8,
@@ -2610,23 +1410,10 @@ pub struct xcb_glx_get_mapfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_mapfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_mapfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_MAPIV: u8 = 122;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_mapiv_request_t {
     pub major_opcode: u8,
@@ -2637,29 +1424,13 @@ pub struct xcb_glx_get_mapiv_request_t {
     pub query:        u32,
 }
 
-impl Copy for xcb_glx_get_mapiv_request_t {}
-impl Clone for xcb_glx_get_mapiv_request_t {
-    fn clone(&self) -> xcb_glx_get_mapiv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_mapiv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_mapiv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("query", &self.query)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_mapiv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_mapiv_reply_t {
     pub response_type: u8,
@@ -2671,23 +1442,10 @@ pub struct xcb_glx_get_mapiv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_mapiv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_mapiv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_MATERIALFV: u8 = 123;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_materialfv_request_t {
     pub major_opcode: u8,
@@ -2698,29 +1456,13 @@ pub struct xcb_glx_get_materialfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_materialfv_request_t {}
-impl Clone for xcb_glx_get_materialfv_request_t {
-    fn clone(&self) -> xcb_glx_get_materialfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_materialfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_materialfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("face", &self.face)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_materialfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_materialfv_reply_t {
     pub response_type: u8,
@@ -2732,23 +1474,10 @@ pub struct xcb_glx_get_materialfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_materialfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_materialfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_MATERIALIV: u8 = 124;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_materialiv_request_t {
     pub major_opcode: u8,
@@ -2759,29 +1488,13 @@ pub struct xcb_glx_get_materialiv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_materialiv_request_t {}
-impl Clone for xcb_glx_get_materialiv_request_t {
-    fn clone(&self) -> xcb_glx_get_materialiv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_materialiv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_materialiv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("face", &self.face)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_materialiv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_materialiv_reply_t {
     pub response_type: u8,
@@ -2793,23 +1506,10 @@ pub struct xcb_glx_get_materialiv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_materialiv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_materialiv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_PIXEL_MAPFV: u8 = 125;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_pixel_mapfv_request_t {
     pub major_opcode: u8,
@@ -2819,28 +1519,13 @@ pub struct xcb_glx_get_pixel_mapfv_request_t {
     pub map:          u32,
 }
 
-impl Copy for xcb_glx_get_pixel_mapfv_request_t {}
-impl Clone for xcb_glx_get_pixel_mapfv_request_t {
-    fn clone(&self) -> xcb_glx_get_pixel_mapfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_pixel_mapfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_pixel_mapfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("map", &self.map)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_pixel_mapfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_pixel_mapfv_reply_t {
     pub response_type: u8,
@@ -2852,23 +1537,10 @@ pub struct xcb_glx_get_pixel_mapfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_pixel_mapfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_pixel_mapfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_PIXEL_MAPUIV: u8 = 126;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_pixel_mapuiv_request_t {
     pub major_opcode: u8,
@@ -2878,28 +1550,13 @@ pub struct xcb_glx_get_pixel_mapuiv_request_t {
     pub map:          u32,
 }
 
-impl Copy for xcb_glx_get_pixel_mapuiv_request_t {}
-impl Clone for xcb_glx_get_pixel_mapuiv_request_t {
-    fn clone(&self) -> xcb_glx_get_pixel_mapuiv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_pixel_mapuiv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_pixel_mapuiv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("map", &self.map)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_pixel_mapuiv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_pixel_mapuiv_reply_t {
     pub response_type: u8,
@@ -2911,23 +1568,10 @@ pub struct xcb_glx_get_pixel_mapuiv_reply_t {
     pub datum:         u32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_pixel_mapuiv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_pixel_mapuiv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_PIXEL_MAPUSV: u8 = 127;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_pixel_mapusv_request_t {
     pub major_opcode: u8,
@@ -2937,28 +1581,13 @@ pub struct xcb_glx_get_pixel_mapusv_request_t {
     pub map:          u32,
 }
 
-impl Copy for xcb_glx_get_pixel_mapusv_request_t {}
-impl Clone for xcb_glx_get_pixel_mapusv_request_t {
-    fn clone(&self) -> xcb_glx_get_pixel_mapusv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_pixel_mapusv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_pixel_mapusv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("map", &self.map)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_pixel_mapusv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_pixel_mapusv_reply_t {
     pub response_type: u8,
@@ -2970,23 +1599,10 @@ pub struct xcb_glx_get_pixel_mapusv_reply_t {
     pub datum:         u16,
     pub pad2:          [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_glx_get_pixel_mapusv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_pixel_mapusv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_POLYGON_STIPPLE: u8 = 128;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_polygon_stipple_request_t {
     pub major_opcode: u8,
@@ -2996,28 +1612,13 @@ pub struct xcb_glx_get_polygon_stipple_request_t {
     pub lsb_first:    u8,
 }
 
-impl Copy for xcb_glx_get_polygon_stipple_request_t {}
-impl Clone for xcb_glx_get_polygon_stipple_request_t {
-    fn clone(&self) -> xcb_glx_get_polygon_stipple_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_polygon_stipple_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_polygon_stipple_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("lsb_first", &self.lsb_first)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_polygon_stipple_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_polygon_stipple_reply_t {
     pub response_type: u8,
@@ -3026,20 +1627,10 @@ pub struct xcb_glx_get_polygon_stipple_reply_t {
     pub length:        u32,
     pub pad1:          [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_glx_get_polygon_stipple_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_polygon_stipple_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_STRING: u8 = 129;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_string_request_t {
     pub major_opcode: u8,
@@ -3049,28 +1640,13 @@ pub struct xcb_glx_get_string_request_t {
     pub name:         u32,
 }
 
-impl Copy for xcb_glx_get_string_request_t {}
-impl Clone for xcb_glx_get_string_request_t {
-    fn clone(&self) -> xcb_glx_get_string_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_string_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_string_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("name", &self.name)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_string_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_string_reply_t {
     pub response_type: u8,
@@ -3081,22 +1657,10 @@ pub struct xcb_glx_get_string_reply_t {
     pub n:             u32,
     pub pad2:          [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_glx_get_string_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_string_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_ENVFV: u8 = 130;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_envfv_request_t {
     pub major_opcode: u8,
@@ -3107,29 +1671,13 @@ pub struct xcb_glx_get_tex_envfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_tex_envfv_request_t {}
-impl Clone for xcb_glx_get_tex_envfv_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_envfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_envfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_envfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_envfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_envfv_reply_t {
     pub response_type: u8,
@@ -3141,23 +1689,10 @@ pub struct xcb_glx_get_tex_envfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_envfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_envfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_ENVIV: u8 = 131;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_enviv_request_t {
     pub major_opcode: u8,
@@ -3168,29 +1703,13 @@ pub struct xcb_glx_get_tex_enviv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_tex_enviv_request_t {}
-impl Clone for xcb_glx_get_tex_enviv_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_enviv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_enviv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_enviv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_enviv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_enviv_reply_t {
     pub response_type: u8,
@@ -3202,23 +1721,10 @@ pub struct xcb_glx_get_tex_enviv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_enviv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_enviv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_GENDV: u8 = 132;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_gendv_request_t {
     pub major_opcode: u8,
@@ -3229,29 +1735,13 @@ pub struct xcb_glx_get_tex_gendv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_tex_gendv_request_t {}
-impl Clone for xcb_glx_get_tex_gendv_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_gendv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_gendv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_gendv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("coord", &self.coord)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_gendv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_gendv_reply_t {
     pub response_type: u8,
@@ -3263,23 +1753,10 @@ pub struct xcb_glx_get_tex_gendv_reply_t {
     pub datum:         xcb_glx_float64_t,
     pub pad2:          [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_gendv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_gendv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_GENFV: u8 = 133;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_genfv_request_t {
     pub major_opcode: u8,
@@ -3290,29 +1767,13 @@ pub struct xcb_glx_get_tex_genfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_tex_genfv_request_t {}
-impl Clone for xcb_glx_get_tex_genfv_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_genfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_genfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_genfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("coord", &self.coord)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_genfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_genfv_reply_t {
     pub response_type: u8,
@@ -3324,23 +1785,10 @@ pub struct xcb_glx_get_tex_genfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_genfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_genfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_GENIV: u8 = 134;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_geniv_request_t {
     pub major_opcode: u8,
@@ -3351,29 +1799,13 @@ pub struct xcb_glx_get_tex_geniv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_tex_geniv_request_t {}
-impl Clone for xcb_glx_get_tex_geniv_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_geniv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_geniv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_geniv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("coord", &self.coord)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_geniv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_geniv_reply_t {
     pub response_type: u8,
@@ -3385,23 +1817,10 @@ pub struct xcb_glx_get_tex_geniv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_geniv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_geniv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_IMAGE: u8 = 135;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_image_request_t {
     pub major_opcode: u8,
@@ -3415,32 +1834,13 @@ pub struct xcb_glx_get_tex_image_request_t {
     pub swap_bytes:   u8,
 }
 
-impl Copy for xcb_glx_get_tex_image_request_t {}
-impl Clone for xcb_glx_get_tex_image_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_image_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_image_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_image_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("level", &self.level)
-            .field("format", &self.format)
-            .field("type_", &self.type_)
-            .field("swap_bytes", &self.swap_bytes)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_image_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_image_reply_t {
     pub response_type: u8,
@@ -3453,24 +1853,10 @@ pub struct xcb_glx_get_tex_image_reply_t {
     pub depth:         i32,
     pub pad2:          [u8; 4],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_image_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_image_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("depth", &self.depth)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_PARAMETERFV: u8 = 136;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_parameterfv_request_t {
     pub major_opcode: u8,
@@ -3481,29 +1867,13 @@ pub struct xcb_glx_get_tex_parameterfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_tex_parameterfv_request_t {}
-impl Clone for xcb_glx_get_tex_parameterfv_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_parameterfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_parameterfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_parameterfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_parameterfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_parameterfv_reply_t {
     pub response_type: u8,
@@ -3515,23 +1885,10 @@ pub struct xcb_glx_get_tex_parameterfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_parameterfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_parameterfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_PARAMETERIV: u8 = 137;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_parameteriv_request_t {
     pub major_opcode: u8,
@@ -3542,29 +1899,13 @@ pub struct xcb_glx_get_tex_parameteriv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_tex_parameteriv_request_t {}
-impl Clone for xcb_glx_get_tex_parameteriv_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_parameteriv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_parameteriv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_parameteriv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_parameteriv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_parameteriv_reply_t {
     pub response_type: u8,
@@ -3576,23 +1917,10 @@ pub struct xcb_glx_get_tex_parameteriv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_parameteriv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_parameteriv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_LEVEL_PARAMETERFV: u8 = 138;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_level_parameterfv_request_t {
     pub major_opcode: u8,
@@ -3604,30 +1932,13 @@ pub struct xcb_glx_get_tex_level_parameterfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_tex_level_parameterfv_request_t {}
-impl Clone for xcb_glx_get_tex_level_parameterfv_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_level_parameterfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_level_parameterfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_level_parameterfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("level", &self.level)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_level_parameterfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_level_parameterfv_reply_t {
     pub response_type: u8,
@@ -3639,23 +1950,10 @@ pub struct xcb_glx_get_tex_level_parameterfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_level_parameterfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_level_parameterfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_TEX_LEVEL_PARAMETERIV: u8 = 139;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_level_parameteriv_request_t {
     pub major_opcode: u8,
@@ -3667,30 +1965,13 @@ pub struct xcb_glx_get_tex_level_parameteriv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_tex_level_parameteriv_request_t {}
-impl Clone for xcb_glx_get_tex_level_parameteriv_request_t {
-    fn clone(&self) -> xcb_glx_get_tex_level_parameteriv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_tex_level_parameteriv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_level_parameteriv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("level", &self.level)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_level_parameteriv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_tex_level_parameteriv_reply_t {
     pub response_type: u8,
@@ -3702,23 +1983,10 @@ pub struct xcb_glx_get_tex_level_parameteriv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_tex_level_parameteriv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_tex_level_parameteriv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_IS_LIST: u8 = 141;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_list_request_t {
     pub major_opcode: u8,
@@ -3728,28 +1996,13 @@ pub struct xcb_glx_is_list_request_t {
     pub list:         u32,
 }
 
-impl Copy for xcb_glx_is_list_request_t {}
-impl Clone for xcb_glx_is_list_request_t {
-    fn clone(&self) -> xcb_glx_is_list_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_is_list_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_is_list_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("list", &self.list)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_list_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_list_reply_t {
     pub response_type: u8,
@@ -3759,24 +2012,9 @@ pub struct xcb_glx_is_list_reply_t {
     pub ret_val:       xcb_glx_bool32_t,
 }
 
-impl Copy for xcb_glx_is_list_reply_t {}
-impl Clone for xcb_glx_is_list_reply_t {
-    fn clone(&self) -> xcb_glx_is_list_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_is_list_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_is_list_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ret_val", &self.ret_val)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_FLUSH: u8 = 142;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_flush_request_t {
     pub major_opcode: u8,
@@ -3785,23 +2023,9 @@ pub struct xcb_glx_flush_request_t {
     pub context_tag:  xcb_glx_context_tag_t,
 }
 
-impl Copy for xcb_glx_flush_request_t {}
-impl Clone for xcb_glx_flush_request_t {
-    fn clone(&self) -> xcb_glx_flush_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_flush_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_flush_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_ARE_TEXTURES_RESIDENT: u8 = 143;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_are_textures_resident_request_t {
     pub major_opcode: u8,
@@ -3810,17 +2034,6 @@ pub struct xcb_glx_are_textures_resident_request_t {
     pub context_tag:  xcb_glx_context_tag_t,
     pub n:            i32,
 }
-impl ::std::fmt::Debug for xcb_glx_are_textures_resident_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_are_textures_resident_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("n", &self.n)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -3828,6 +2041,7 @@ pub struct xcb_glx_are_textures_resident_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_are_textures_resident_reply_t {
     pub response_type: u8,
@@ -3837,21 +2051,10 @@ pub struct xcb_glx_are_textures_resident_reply_t {
     pub ret_val:       xcb_glx_bool32_t,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_glx_are_textures_resident_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_are_textures_resident_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ret_val", &self.ret_val)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_DELETE_TEXTURES: u8 = 144;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_delete_textures_request_t {
     pub major_opcode: u8,
@@ -3860,20 +2063,10 @@ pub struct xcb_glx_delete_textures_request_t {
     pub context_tag:  xcb_glx_context_tag_t,
     pub n:            i32,
 }
-impl ::std::fmt::Debug for xcb_glx_delete_textures_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_delete_textures_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("n", &self.n)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GEN_TEXTURES: u8 = 145;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_gen_textures_request_t {
     pub major_opcode: u8,
@@ -3883,28 +2076,13 @@ pub struct xcb_glx_gen_textures_request_t {
     pub n:            i32,
 }
 
-impl Copy for xcb_glx_gen_textures_request_t {}
-impl Clone for xcb_glx_gen_textures_request_t {
-    fn clone(&self) -> xcb_glx_gen_textures_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_gen_textures_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_gen_textures_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("n", &self.n)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_gen_textures_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_gen_textures_reply_t {
     pub response_type: u8,
@@ -3913,20 +2091,10 @@ pub struct xcb_glx_gen_textures_reply_t {
     pub length:        u32,
     pub pad1:          [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_glx_gen_textures_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_gen_textures_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_IS_TEXTURE: u8 = 146;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_texture_request_t {
     pub major_opcode: u8,
@@ -3936,28 +2104,13 @@ pub struct xcb_glx_is_texture_request_t {
     pub texture:      u32,
 }
 
-impl Copy for xcb_glx_is_texture_request_t {}
-impl Clone for xcb_glx_is_texture_request_t {
-    fn clone(&self) -> xcb_glx_is_texture_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_is_texture_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_is_texture_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("texture", &self.texture)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_texture_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_texture_reply_t {
     pub response_type: u8,
@@ -3967,24 +2120,9 @@ pub struct xcb_glx_is_texture_reply_t {
     pub ret_val:       xcb_glx_bool32_t,
 }
 
-impl Copy for xcb_glx_is_texture_reply_t {}
-impl Clone for xcb_glx_is_texture_reply_t {
-    fn clone(&self) -> xcb_glx_is_texture_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_is_texture_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_is_texture_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ret_val", &self.ret_val)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_GET_COLOR_TABLE: u8 = 147;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_color_table_request_t {
     pub major_opcode: u8,
@@ -3997,31 +2135,13 @@ pub struct xcb_glx_get_color_table_request_t {
     pub swap_bytes:   u8,
 }
 
-impl Copy for xcb_glx_get_color_table_request_t {}
-impl Clone for xcb_glx_get_color_table_request_t {
-    fn clone(&self) -> xcb_glx_get_color_table_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_color_table_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_color_table_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("format", &self.format)
-            .field("type_", &self.type_)
-            .field("swap_bytes", &self.swap_bytes)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_color_table_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_color_table_reply_t {
     pub response_type: u8,
@@ -4032,22 +2152,10 @@ pub struct xcb_glx_get_color_table_reply_t {
     pub width:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_color_table_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_color_table_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("width", &self.width)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_COLOR_TABLE_PARAMETERFV: u8 = 148;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_color_table_parameterfv_request_t {
     pub major_opcode: u8,
@@ -4058,29 +2166,13 @@ pub struct xcb_glx_get_color_table_parameterfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_color_table_parameterfv_request_t {}
-impl Clone for xcb_glx_get_color_table_parameterfv_request_t {
-    fn clone(&self) -> xcb_glx_get_color_table_parameterfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_color_table_parameterfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_color_table_parameterfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_color_table_parameterfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_color_table_parameterfv_reply_t {
     pub response_type: u8,
@@ -4092,23 +2184,10 @@ pub struct xcb_glx_get_color_table_parameterfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_color_table_parameterfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_color_table_parameterfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_COLOR_TABLE_PARAMETERIV: u8 = 149;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_color_table_parameteriv_request_t {
     pub major_opcode: u8,
@@ -4119,29 +2198,13 @@ pub struct xcb_glx_get_color_table_parameteriv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_color_table_parameteriv_request_t {}
-impl Clone for xcb_glx_get_color_table_parameteriv_request_t {
-    fn clone(&self) -> xcb_glx_get_color_table_parameteriv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_color_table_parameteriv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_color_table_parameteriv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_color_table_parameteriv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_color_table_parameteriv_reply_t {
     pub response_type: u8,
@@ -4153,23 +2216,10 @@ pub struct xcb_glx_get_color_table_parameteriv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_color_table_parameteriv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_color_table_parameteriv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_CONVOLUTION_FILTER: u8 = 150;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_convolution_filter_request_t {
     pub major_opcode: u8,
@@ -4182,31 +2232,13 @@ pub struct xcb_glx_get_convolution_filter_request_t {
     pub swap_bytes:   u8,
 }
 
-impl Copy for xcb_glx_get_convolution_filter_request_t {}
-impl Clone for xcb_glx_get_convolution_filter_request_t {
-    fn clone(&self) -> xcb_glx_get_convolution_filter_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_convolution_filter_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_convolution_filter_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("format", &self.format)
-            .field("type_", &self.type_)
-            .field("swap_bytes", &self.swap_bytes)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_convolution_filter_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_convolution_filter_reply_t {
     pub response_type: u8,
@@ -4218,23 +2250,10 @@ pub struct xcb_glx_get_convolution_filter_reply_t {
     pub height:        i32,
     pub pad2:          [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_glx_get_convolution_filter_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_convolution_filter_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_CONVOLUTION_PARAMETERFV: u8 = 151;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_convolution_parameterfv_request_t {
     pub major_opcode: u8,
@@ -4245,29 +2264,13 @@ pub struct xcb_glx_get_convolution_parameterfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_convolution_parameterfv_request_t {}
-impl Clone for xcb_glx_get_convolution_parameterfv_request_t {
-    fn clone(&self) -> xcb_glx_get_convolution_parameterfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_convolution_parameterfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_convolution_parameterfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_convolution_parameterfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_convolution_parameterfv_reply_t {
     pub response_type: u8,
@@ -4279,23 +2282,10 @@ pub struct xcb_glx_get_convolution_parameterfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_convolution_parameterfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_convolution_parameterfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_CONVOLUTION_PARAMETERIV: u8 = 152;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_convolution_parameteriv_request_t {
     pub major_opcode: u8,
@@ -4306,29 +2296,13 @@ pub struct xcb_glx_get_convolution_parameteriv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_convolution_parameteriv_request_t {}
-impl Clone for xcb_glx_get_convolution_parameteriv_request_t {
-    fn clone(&self) -> xcb_glx_get_convolution_parameteriv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_convolution_parameteriv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_convolution_parameteriv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_convolution_parameteriv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_convolution_parameteriv_reply_t {
     pub response_type: u8,
@@ -4340,23 +2314,10 @@ pub struct xcb_glx_get_convolution_parameteriv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_convolution_parameteriv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_convolution_parameteriv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_SEPARABLE_FILTER: u8 = 153;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_separable_filter_request_t {
     pub major_opcode: u8,
@@ -4369,31 +2330,13 @@ pub struct xcb_glx_get_separable_filter_request_t {
     pub swap_bytes:   u8,
 }
 
-impl Copy for xcb_glx_get_separable_filter_request_t {}
-impl Clone for xcb_glx_get_separable_filter_request_t {
-    fn clone(&self) -> xcb_glx_get_separable_filter_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_separable_filter_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_separable_filter_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("format", &self.format)
-            .field("type_", &self.type_)
-            .field("swap_bytes", &self.swap_bytes)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_separable_filter_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_separable_filter_reply_t {
     pub response_type: u8,
@@ -4405,23 +2348,10 @@ pub struct xcb_glx_get_separable_filter_reply_t {
     pub col_h:         i32,
     pub pad2:          [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_glx_get_separable_filter_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_separable_filter_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("row_w", &self.row_w)
-            .field("col_h", &self.col_h)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_HISTOGRAM: u8 = 154;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_histogram_request_t {
     pub major_opcode: u8,
@@ -4435,32 +2365,13 @@ pub struct xcb_glx_get_histogram_request_t {
     pub reset:        u8,
 }
 
-impl Copy for xcb_glx_get_histogram_request_t {}
-impl Clone for xcb_glx_get_histogram_request_t {
-    fn clone(&self) -> xcb_glx_get_histogram_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_histogram_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_histogram_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("format", &self.format)
-            .field("type_", &self.type_)
-            .field("swap_bytes", &self.swap_bytes)
-            .field("reset", &self.reset)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_histogram_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_histogram_reply_t {
     pub response_type: u8,
@@ -4471,22 +2382,10 @@ pub struct xcb_glx_get_histogram_reply_t {
     pub width:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_histogram_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_histogram_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("width", &self.width)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_HISTOGRAM_PARAMETERFV: u8 = 155;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_histogram_parameterfv_request_t {
     pub major_opcode: u8,
@@ -4497,29 +2396,13 @@ pub struct xcb_glx_get_histogram_parameterfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_histogram_parameterfv_request_t {}
-impl Clone for xcb_glx_get_histogram_parameterfv_request_t {
-    fn clone(&self) -> xcb_glx_get_histogram_parameterfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_histogram_parameterfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_histogram_parameterfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_histogram_parameterfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_histogram_parameterfv_reply_t {
     pub response_type: u8,
@@ -4531,23 +2414,10 @@ pub struct xcb_glx_get_histogram_parameterfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_histogram_parameterfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_histogram_parameterfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_HISTOGRAM_PARAMETERIV: u8 = 156;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_histogram_parameteriv_request_t {
     pub major_opcode: u8,
@@ -4558,29 +2428,13 @@ pub struct xcb_glx_get_histogram_parameteriv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_histogram_parameteriv_request_t {}
-impl Clone for xcb_glx_get_histogram_parameteriv_request_t {
-    fn clone(&self) -> xcb_glx_get_histogram_parameteriv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_histogram_parameteriv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_histogram_parameteriv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_histogram_parameteriv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_histogram_parameteriv_reply_t {
     pub response_type: u8,
@@ -4592,23 +2446,10 @@ pub struct xcb_glx_get_histogram_parameteriv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_histogram_parameteriv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_histogram_parameteriv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_MINMAX: u8 = 157;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_minmax_request_t {
     pub major_opcode: u8,
@@ -4622,32 +2463,13 @@ pub struct xcb_glx_get_minmax_request_t {
     pub reset:        u8,
 }
 
-impl Copy for xcb_glx_get_minmax_request_t {}
-impl Clone for xcb_glx_get_minmax_request_t {
-    fn clone(&self) -> xcb_glx_get_minmax_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_minmax_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_minmax_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("format", &self.format)
-            .field("type_", &self.type_)
-            .field("swap_bytes", &self.swap_bytes)
-            .field("reset", &self.reset)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_minmax_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_minmax_reply_t {
     pub response_type: u8,
@@ -4656,20 +2478,10 @@ pub struct xcb_glx_get_minmax_reply_t {
     pub length:        u32,
     pub pad1:          [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_glx_get_minmax_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_minmax_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_MINMAX_PARAMETERFV: u8 = 158;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_minmax_parameterfv_request_t {
     pub major_opcode: u8,
@@ -4680,29 +2492,13 @@ pub struct xcb_glx_get_minmax_parameterfv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_minmax_parameterfv_request_t {}
-impl Clone for xcb_glx_get_minmax_parameterfv_request_t {
-    fn clone(&self) -> xcb_glx_get_minmax_parameterfv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_minmax_parameterfv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_minmax_parameterfv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_minmax_parameterfv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_minmax_parameterfv_reply_t {
     pub response_type: u8,
@@ -4714,23 +2510,10 @@ pub struct xcb_glx_get_minmax_parameterfv_reply_t {
     pub datum:         xcb_glx_float32_t,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_minmax_parameterfv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_minmax_parameterfv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_MINMAX_PARAMETERIV: u8 = 159;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_minmax_parameteriv_request_t {
     pub major_opcode: u8,
@@ -4741,29 +2524,13 @@ pub struct xcb_glx_get_minmax_parameteriv_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_minmax_parameteriv_request_t {}
-impl Clone for xcb_glx_get_minmax_parameteriv_request_t {
-    fn clone(&self) -> xcb_glx_get_minmax_parameteriv_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_minmax_parameteriv_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_minmax_parameteriv_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_minmax_parameteriv_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_minmax_parameteriv_reply_t {
     pub response_type: u8,
@@ -4775,23 +2542,10 @@ pub struct xcb_glx_get_minmax_parameteriv_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_minmax_parameteriv_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_minmax_parameteriv_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_COMPRESSED_TEX_IMAGE_ARB: u8 = 160;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_compressed_tex_image_arb_request_t {
     pub major_opcode: u8,
@@ -4802,29 +2556,13 @@ pub struct xcb_glx_get_compressed_tex_image_arb_request_t {
     pub level:        i32,
 }
 
-impl Copy for xcb_glx_get_compressed_tex_image_arb_request_t {}
-impl Clone for xcb_glx_get_compressed_tex_image_arb_request_t {
-    fn clone(&self) -> xcb_glx_get_compressed_tex_image_arb_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_compressed_tex_image_arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_compressed_tex_image_arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("level", &self.level)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_compressed_tex_image_arb_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_compressed_tex_image_arb_reply_t {
     pub response_type: u8,
@@ -4835,22 +2573,10 @@ pub struct xcb_glx_get_compressed_tex_image_arb_reply_t {
     pub size:          i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_compressed_tex_image_arb_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_compressed_tex_image_arb_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("size", &self.size)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_DELETE_QUERIES_ARB: u8 = 161;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_delete_queries_arb_request_t {
     pub major_opcode: u8,
@@ -4859,20 +2585,10 @@ pub struct xcb_glx_delete_queries_arb_request_t {
     pub context_tag:  xcb_glx_context_tag_t,
     pub n:            i32,
 }
-impl ::std::fmt::Debug for xcb_glx_delete_queries_arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_delete_queries_arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("n", &self.n)
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GEN_QUERIES_ARB: u8 = 162;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_gen_queries_arb_request_t {
     pub major_opcode: u8,
@@ -4882,28 +2598,13 @@ pub struct xcb_glx_gen_queries_arb_request_t {
     pub n:            i32,
 }
 
-impl Copy for xcb_glx_gen_queries_arb_request_t {}
-impl Clone for xcb_glx_gen_queries_arb_request_t {
-    fn clone(&self) -> xcb_glx_gen_queries_arb_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_gen_queries_arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_gen_queries_arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("n", &self.n)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_gen_queries_arb_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_gen_queries_arb_reply_t {
     pub response_type: u8,
@@ -4912,20 +2613,10 @@ pub struct xcb_glx_gen_queries_arb_reply_t {
     pub length:        u32,
     pub pad1:          [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_glx_gen_queries_arb_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_gen_queries_arb_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_IS_QUERY_ARB: u8 = 163;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_query_arb_request_t {
     pub major_opcode: u8,
@@ -4935,28 +2626,13 @@ pub struct xcb_glx_is_query_arb_request_t {
     pub id:           u32,
 }
 
-impl Copy for xcb_glx_is_query_arb_request_t {}
-impl Clone for xcb_glx_is_query_arb_request_t {
-    fn clone(&self) -> xcb_glx_is_query_arb_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_is_query_arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_is_query_arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("id", &self.id)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_query_arb_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_is_query_arb_reply_t {
     pub response_type: u8,
@@ -4966,24 +2642,9 @@ pub struct xcb_glx_is_query_arb_reply_t {
     pub ret_val:       xcb_glx_bool32_t,
 }
 
-impl Copy for xcb_glx_is_query_arb_reply_t {}
-impl Clone for xcb_glx_is_query_arb_reply_t {
-    fn clone(&self) -> xcb_glx_is_query_arb_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_is_query_arb_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_is_query_arb_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ret_val", &self.ret_val)
-            .finish()
-    }
-}
-
 pub const XCB_GLX_GET_QUERYIV_ARB: u8 = 164;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_queryiv_arb_request_t {
     pub major_opcode: u8,
@@ -4994,29 +2655,13 @@ pub struct xcb_glx_get_queryiv_arb_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_queryiv_arb_request_t {}
-impl Clone for xcb_glx_get_queryiv_arb_request_t {
-    fn clone(&self) -> xcb_glx_get_queryiv_arb_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_queryiv_arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_queryiv_arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("target", &self.target)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_queryiv_arb_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_queryiv_arb_reply_t {
     pub response_type: u8,
@@ -5028,23 +2673,10 @@ pub struct xcb_glx_get_queryiv_arb_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_queryiv_arb_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_queryiv_arb_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_QUERY_OBJECTIV_ARB: u8 = 165;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_query_objectiv_arb_request_t {
     pub major_opcode: u8,
@@ -5055,29 +2687,13 @@ pub struct xcb_glx_get_query_objectiv_arb_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_query_objectiv_arb_request_t {}
-impl Clone for xcb_glx_get_query_objectiv_arb_request_t {
-    fn clone(&self) -> xcb_glx_get_query_objectiv_arb_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_query_objectiv_arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_query_objectiv_arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("id", &self.id)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_query_objectiv_arb_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_query_objectiv_arb_reply_t {
     pub response_type: u8,
@@ -5089,23 +2705,10 @@ pub struct xcb_glx_get_query_objectiv_arb_reply_t {
     pub datum:         i32,
     pub pad2:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_glx_get_query_objectiv_arb_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_query_objectiv_arb_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_GLX_GET_QUERY_OBJECTUIV_ARB: u8 = 166;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_query_objectuiv_arb_request_t {
     pub major_opcode: u8,
@@ -5116,29 +2719,13 @@ pub struct xcb_glx_get_query_objectuiv_arb_request_t {
     pub pname:        u32,
 }
 
-impl Copy for xcb_glx_get_query_objectuiv_arb_request_t {}
-impl Clone for xcb_glx_get_query_objectuiv_arb_request_t {
-    fn clone(&self) -> xcb_glx_get_query_objectuiv_arb_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_glx_get_query_objectuiv_arb_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_query_objectuiv_arb_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_tag", &self.context_tag)
-            .field("id", &self.id)
-            .field("pname", &self.pname)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_query_objectuiv_arb_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_glx_get_query_objectuiv_arb_reply_t {
     pub response_type: u8,
@@ -5149,20 +2736,6 @@ pub struct xcb_glx_get_query_objectuiv_arb_reply_t {
     pub n:             u32,
     pub datum:         u32,
     pub pad2:          [u8; 12],
-}
-impl ::std::fmt::Debug for xcb_glx_get_query_objectuiv_arb_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_glx_get_query_objectuiv_arb_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .field("n", &self.n)
-            .field("datum", &self.datum)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
 }
 
 

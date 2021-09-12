@@ -12,27 +12,13 @@ use std;
 pub const XCB_XINERAMA_MAJOR_VERSION: u32 = 1;
 pub const XCB_XINERAMA_MINOR_VERSION: u32 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_screen_info_t {
     pub x_org:  i16,
     pub y_org:  i16,
     pub width:  u16,
     pub height: u16,
-}
-
-impl Copy for xcb_xinerama_screen_info_t {}
-impl Clone for xcb_xinerama_screen_info_t {
-    fn clone(&self) -> xcb_xinerama_screen_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_screen_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_screen_info_t")
-            .field("x_org", &self.x_org)
-            .field("y_org", &self.y_org)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -45,6 +31,7 @@ pub struct xcb_xinerama_screen_info_iterator_t {
 
 pub const XCB_XINERAMA_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_query_version_request_t {
     pub major_opcode: u8,
@@ -54,28 +41,13 @@ pub struct xcb_xinerama_query_version_request_t {
     pub minor:        u8,
 }
 
-impl Copy for xcb_xinerama_query_version_request_t {}
-impl Clone for xcb_xinerama_query_version_request_t {
-    fn clone(&self) -> xcb_xinerama_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major", &self.major)
-            .field("minor", &self.minor)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_query_version_reply_t {
     pub response_type: u8,
@@ -86,25 +58,9 @@ pub struct xcb_xinerama_query_version_reply_t {
     pub minor:         u16,
 }
 
-impl Copy for xcb_xinerama_query_version_reply_t {}
-impl Clone for xcb_xinerama_query_version_reply_t {
-    fn clone(&self) -> xcb_xinerama_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major", &self.major)
-            .field("minor", &self.minor)
-            .finish()
-    }
-}
-
 pub const XCB_XINERAMA_GET_STATE: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_get_state_request_t {
     pub major_opcode: u8,
@@ -113,27 +69,13 @@ pub struct xcb_xinerama_get_state_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_xinerama_get_state_request_t {}
-impl Clone for xcb_xinerama_get_state_request_t {
-    fn clone(&self) -> xcb_xinerama_get_state_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_get_state_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_get_state_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_get_state_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_get_state_reply_t {
     pub response_type: u8,
@@ -143,24 +85,9 @@ pub struct xcb_xinerama_get_state_reply_t {
     pub window:        xcb_window_t,
 }
 
-impl Copy for xcb_xinerama_get_state_reply_t {}
-impl Clone for xcb_xinerama_get_state_reply_t {
-    fn clone(&self) -> xcb_xinerama_get_state_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_get_state_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_get_state_reply_t")
-            .field("response_type", &self.response_type)
-            .field("state", &self.state)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_XINERAMA_GET_SCREEN_COUNT: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_get_screen_count_request_t {
     pub major_opcode: u8,
@@ -169,27 +96,13 @@ pub struct xcb_xinerama_get_screen_count_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_xinerama_get_screen_count_request_t {}
-impl Clone for xcb_xinerama_get_screen_count_request_t {
-    fn clone(&self) -> xcb_xinerama_get_screen_count_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_get_screen_count_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_get_screen_count_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_get_screen_count_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_get_screen_count_reply_t {
     pub response_type: u8,
@@ -199,24 +112,9 @@ pub struct xcb_xinerama_get_screen_count_reply_t {
     pub window:        xcb_window_t,
 }
 
-impl Copy for xcb_xinerama_get_screen_count_reply_t {}
-impl Clone for xcb_xinerama_get_screen_count_reply_t {
-    fn clone(&self) -> xcb_xinerama_get_screen_count_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_get_screen_count_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_get_screen_count_reply_t")
-            .field("response_type", &self.response_type)
-            .field("screen_count", &self.screen_count)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_XINERAMA_GET_SCREEN_SIZE: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_get_screen_size_request_t {
     pub major_opcode: u8,
@@ -226,28 +124,13 @@ pub struct xcb_xinerama_get_screen_size_request_t {
     pub screen:       u32,
 }
 
-impl Copy for xcb_xinerama_get_screen_size_request_t {}
-impl Clone for xcb_xinerama_get_screen_size_request_t {
-    fn clone(&self) -> xcb_xinerama_get_screen_size_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_get_screen_size_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_get_screen_size_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_get_screen_size_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_get_screen_size_reply_t {
     pub response_type: u8,
@@ -260,46 +143,14 @@ pub struct xcb_xinerama_get_screen_size_reply_t {
     pub screen:        u32,
 }
 
-impl Copy for xcb_xinerama_get_screen_size_reply_t {}
-impl Clone for xcb_xinerama_get_screen_size_reply_t {
-    fn clone(&self) -> xcb_xinerama_get_screen_size_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_get_screen_size_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_get_screen_size_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("window", &self.window)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 pub const XCB_XINERAMA_IS_ACTIVE: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_is_active_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_xinerama_is_active_request_t {}
-impl Clone for xcb_xinerama_is_active_request_t {
-    fn clone(&self) -> xcb_xinerama_is_active_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_is_active_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_is_active_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -308,6 +159,7 @@ pub struct xcb_xinerama_is_active_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_is_active_reply_t {
     pub response_type: u8,
@@ -317,43 +169,14 @@ pub struct xcb_xinerama_is_active_reply_t {
     pub state:         u32,
 }
 
-impl Copy for xcb_xinerama_is_active_reply_t {}
-impl Clone for xcb_xinerama_is_active_reply_t {
-    fn clone(&self) -> xcb_xinerama_is_active_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_is_active_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_is_active_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("state", &self.state)
-            .finish()
-    }
-}
-
 pub const XCB_XINERAMA_QUERY_SCREENS: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_query_screens_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_xinerama_query_screens_request_t {}
-impl Clone for xcb_xinerama_query_screens_request_t {
-    fn clone(&self) -> xcb_xinerama_query_screens_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xinerama_query_screens_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_query_screens_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -362,6 +185,7 @@ pub struct xcb_xinerama_query_screens_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xinerama_query_screens_reply_t {
     pub response_type: u8,
@@ -370,18 +194,6 @@ pub struct xcb_xinerama_query_screens_reply_t {
     pub length:        u32,
     pub number:        u32,
     pub pad1:          [u8; 20],
-}
-impl ::std::fmt::Debug for xcb_xinerama_query_screens_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xinerama_query_screens_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("number", &self.number)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 

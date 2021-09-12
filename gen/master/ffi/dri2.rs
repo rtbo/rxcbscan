@@ -34,6 +34,7 @@ pub const XCB_DRI2_EVENT_TYPE_EXCHANGE_COMPLETE: xcb_dri2_event_type_t = 0x01;
 pub const XCB_DRI2_EVENT_TYPE_BLIT_COMPLETE    : xcb_dri2_event_type_t = 0x02;
 pub const XCB_DRI2_EVENT_TYPE_FLIP_COMPLETE    : xcb_dri2_event_type_t = 0x03;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_dri2_buffer_t {
     pub attachment: u32,
@@ -41,22 +42,6 @@ pub struct xcb_dri2_dri2_buffer_t {
     pub pitch:      u32,
     pub cpp:        u32,
     pub flags:      u32,
-}
-
-impl Copy for xcb_dri2_dri2_buffer_t {}
-impl Clone for xcb_dri2_dri2_buffer_t {
-    fn clone(&self) -> xcb_dri2_dri2_buffer_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_dri2_buffer_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_dri2_buffer_t")
-            .field("attachment", &self.attachment)
-            .field("name", &self.name)
-            .field("pitch", &self.pitch)
-            .field("cpp", &self.cpp)
-            .field("flags", &self.flags)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -67,23 +52,11 @@ pub struct xcb_dri2_dri2_buffer_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_attach_format_t {
     pub attachment: u32,
     pub format:     u32,
-}
-
-impl Copy for xcb_dri2_attach_format_t {}
-impl Clone for xcb_dri2_attach_format_t {
-    fn clone(&self) -> xcb_dri2_attach_format_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_attach_format_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_attach_format_t")
-            .field("attachment", &self.attachment)
-            .field("format", &self.format)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -96,6 +69,7 @@ pub struct xcb_dri2_attach_format_iterator_t {
 
 pub const XCB_DRI2_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_query_version_request_t {
     pub major_opcode:  u8,
@@ -105,28 +79,13 @@ pub struct xcb_dri2_query_version_request_t {
     pub minor_version: u32,
 }
 
-impl Copy for xcb_dri2_query_version_request_t {}
-impl Clone for xcb_dri2_query_version_request_t {
-    fn clone(&self) -> xcb_dri2_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_query_version_reply_t {
     pub response_type: u8,
@@ -137,25 +96,9 @@ pub struct xcb_dri2_query_version_reply_t {
     pub minor_version: u32,
 }
 
-impl Copy for xcb_dri2_query_version_reply_t {}
-impl Clone for xcb_dri2_query_version_reply_t {
-    fn clone(&self) -> xcb_dri2_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_CONNECT: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_connect_request_t {
     pub major_opcode: u8,
@@ -165,28 +108,13 @@ pub struct xcb_dri2_connect_request_t {
     pub driver_type:  u32,
 }
 
-impl Copy for xcb_dri2_connect_request_t {}
-impl Clone for xcb_dri2_connect_request_t {
-    fn clone(&self) -> xcb_dri2_connect_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_connect_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_connect_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("driver_type", &self.driver_type)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_connect_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_dri2_connect_reply_t {
     pub response_type:      u8,
@@ -197,22 +125,10 @@ pub struct xcb_dri2_connect_reply_t {
     pub device_name_length: u32,
     pub pad1:               [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_dri2_connect_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_connect_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("driver_name_length", &self.driver_name_length)
-            .field("device_name_length", &self.device_name_length)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_DRI2_AUTHENTICATE: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_authenticate_request_t {
     pub major_opcode: u8,
@@ -222,28 +138,13 @@ pub struct xcb_dri2_authenticate_request_t {
     pub magic:        u32,
 }
 
-impl Copy for xcb_dri2_authenticate_request_t {}
-impl Clone for xcb_dri2_authenticate_request_t {
-    fn clone(&self) -> xcb_dri2_authenticate_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_authenticate_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_authenticate_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("magic", &self.magic)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_authenticate_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_authenticate_reply_t {
     pub response_type: u8,
@@ -253,24 +154,9 @@ pub struct xcb_dri2_authenticate_reply_t {
     pub authenticated: u32,
 }
 
-impl Copy for xcb_dri2_authenticate_reply_t {}
-impl Clone for xcb_dri2_authenticate_reply_t {
-    fn clone(&self) -> xcb_dri2_authenticate_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_authenticate_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_authenticate_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("authenticated", &self.authenticated)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_CREATE_DRAWABLE: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_create_drawable_request_t {
     pub major_opcode: u8,
@@ -279,23 +165,9 @@ pub struct xcb_dri2_create_drawable_request_t {
     pub drawable:     xcb_drawable_t,
 }
 
-impl Copy for xcb_dri2_create_drawable_request_t {}
-impl Clone for xcb_dri2_create_drawable_request_t {
-    fn clone(&self) -> xcb_dri2_create_drawable_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_create_drawable_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_create_drawable_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_DESTROY_DRAWABLE: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_destroy_drawable_request_t {
     pub major_opcode: u8,
@@ -304,23 +176,9 @@ pub struct xcb_dri2_destroy_drawable_request_t {
     pub drawable:     xcb_drawable_t,
 }
 
-impl Copy for xcb_dri2_destroy_drawable_request_t {}
-impl Clone for xcb_dri2_destroy_drawable_request_t {
-    fn clone(&self) -> xcb_dri2_destroy_drawable_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_destroy_drawable_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_destroy_drawable_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_GET_BUFFERS: u8 = 5;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_buffers_request_t {
     pub major_opcode:    u8,
@@ -329,17 +187,6 @@ pub struct xcb_dri2_get_buffers_request_t {
     pub drawable:        xcb_drawable_t,
     pub count:           u32,
 }
-impl ::std::fmt::Debug for xcb_dri2_get_buffers_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_get_buffers_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("count", &self.count)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -347,6 +194,7 @@ pub struct xcb_dri2_get_buffers_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_buffers_reply_t {
     pub response_type: u8,
@@ -358,23 +206,10 @@ pub struct xcb_dri2_get_buffers_reply_t {
     pub count:         u32,
     pub pad1:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_dri2_get_buffers_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_get_buffers_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("count", &self.count)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_DRI2_COPY_REGION: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_copy_region_request_t {
     pub major_opcode: u8,
@@ -386,30 +221,13 @@ pub struct xcb_dri2_copy_region_request_t {
     pub src:          u32,
 }
 
-impl Copy for xcb_dri2_copy_region_request_t {}
-impl Clone for xcb_dri2_copy_region_request_t {
-    fn clone(&self) -> xcb_dri2_copy_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_copy_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_copy_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("region", &self.region)
-            .field("dest", &self.dest)
-            .field("src", &self.src)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_copy_region_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_copy_region_reply_t {
     pub response_type: u8,
@@ -418,23 +236,9 @@ pub struct xcb_dri2_copy_region_reply_t {
     pub length:        u32,
 }
 
-impl Copy for xcb_dri2_copy_region_reply_t {}
-impl Clone for xcb_dri2_copy_region_reply_t {
-    fn clone(&self) -> xcb_dri2_copy_region_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_copy_region_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_copy_region_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_GET_BUFFERS_WITH_FORMAT: u8 = 7;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_buffers_with_format_request_t {
     pub major_opcode:    u8,
@@ -443,17 +247,6 @@ pub struct xcb_dri2_get_buffers_with_format_request_t {
     pub drawable:        xcb_drawable_t,
     pub count:           u32,
 }
-impl ::std::fmt::Debug for xcb_dri2_get_buffers_with_format_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_get_buffers_with_format_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("count", &self.count)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -461,6 +254,7 @@ pub struct xcb_dri2_get_buffers_with_format_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_buffers_with_format_reply_t {
     pub response_type: u8,
@@ -472,23 +266,10 @@ pub struct xcb_dri2_get_buffers_with_format_reply_t {
     pub count:         u32,
     pub pad1:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_dri2_get_buffers_with_format_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_get_buffers_with_format_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("count", &self.count)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_DRI2_SWAP_BUFFERS: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_swap_buffers_request_t {
     pub major_opcode:  u8,
@@ -503,33 +284,13 @@ pub struct xcb_dri2_swap_buffers_request_t {
     pub remainder_lo:  u32,
 }
 
-impl Copy for xcb_dri2_swap_buffers_request_t {}
-impl Clone for xcb_dri2_swap_buffers_request_t {
-    fn clone(&self) -> xcb_dri2_swap_buffers_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_swap_buffers_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_swap_buffers_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("target_msc_hi", &self.target_msc_hi)
-            .field("target_msc_lo", &self.target_msc_lo)
-            .field("divisor_hi", &self.divisor_hi)
-            .field("divisor_lo", &self.divisor_lo)
-            .field("remainder_hi", &self.remainder_hi)
-            .field("remainder_lo", &self.remainder_lo)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_swap_buffers_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_swap_buffers_reply_t {
     pub response_type: u8,
@@ -540,25 +301,9 @@ pub struct xcb_dri2_swap_buffers_reply_t {
     pub swap_lo:       u32,
 }
 
-impl Copy for xcb_dri2_swap_buffers_reply_t {}
-impl Clone for xcb_dri2_swap_buffers_reply_t {
-    fn clone(&self) -> xcb_dri2_swap_buffers_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_swap_buffers_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_swap_buffers_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("swap_hi", &self.swap_hi)
-            .field("swap_lo", &self.swap_lo)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_GET_MSC: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_msc_request_t {
     pub major_opcode: u8,
@@ -567,27 +312,13 @@ pub struct xcb_dri2_get_msc_request_t {
     pub drawable:     xcb_drawable_t,
 }
 
-impl Copy for xcb_dri2_get_msc_request_t {}
-impl Clone for xcb_dri2_get_msc_request_t {
-    fn clone(&self) -> xcb_dri2_get_msc_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_get_msc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_get_msc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_msc_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_msc_reply_t {
     pub response_type: u8,
@@ -602,29 +333,9 @@ pub struct xcb_dri2_get_msc_reply_t {
     pub sbc_lo:        u32,
 }
 
-impl Copy for xcb_dri2_get_msc_reply_t {}
-impl Clone for xcb_dri2_get_msc_reply_t {
-    fn clone(&self) -> xcb_dri2_get_msc_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_get_msc_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_get_msc_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ust_hi", &self.ust_hi)
-            .field("ust_lo", &self.ust_lo)
-            .field("msc_hi", &self.msc_hi)
-            .field("msc_lo", &self.msc_lo)
-            .field("sbc_hi", &self.sbc_hi)
-            .field("sbc_lo", &self.sbc_lo)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_WAIT_MSC: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_wait_msc_request_t {
     pub major_opcode:  u8,
@@ -639,33 +350,13 @@ pub struct xcb_dri2_wait_msc_request_t {
     pub remainder_lo:  u32,
 }
 
-impl Copy for xcb_dri2_wait_msc_request_t {}
-impl Clone for xcb_dri2_wait_msc_request_t {
-    fn clone(&self) -> xcb_dri2_wait_msc_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_wait_msc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_wait_msc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("target_msc_hi", &self.target_msc_hi)
-            .field("target_msc_lo", &self.target_msc_lo)
-            .field("divisor_hi", &self.divisor_hi)
-            .field("divisor_lo", &self.divisor_lo)
-            .field("remainder_hi", &self.remainder_hi)
-            .field("remainder_lo", &self.remainder_lo)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_wait_msc_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_wait_msc_reply_t {
     pub response_type: u8,
@@ -680,29 +371,9 @@ pub struct xcb_dri2_wait_msc_reply_t {
     pub sbc_lo:        u32,
 }
 
-impl Copy for xcb_dri2_wait_msc_reply_t {}
-impl Clone for xcb_dri2_wait_msc_reply_t {
-    fn clone(&self) -> xcb_dri2_wait_msc_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_wait_msc_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_wait_msc_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ust_hi", &self.ust_hi)
-            .field("ust_lo", &self.ust_lo)
-            .field("msc_hi", &self.msc_hi)
-            .field("msc_lo", &self.msc_lo)
-            .field("sbc_hi", &self.sbc_hi)
-            .field("sbc_lo", &self.sbc_lo)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_WAIT_SBC: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_wait_sbc_request_t {
     pub major_opcode:  u8,
@@ -713,29 +384,13 @@ pub struct xcb_dri2_wait_sbc_request_t {
     pub target_sbc_lo: u32,
 }
 
-impl Copy for xcb_dri2_wait_sbc_request_t {}
-impl Clone for xcb_dri2_wait_sbc_request_t {
-    fn clone(&self) -> xcb_dri2_wait_sbc_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_wait_sbc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_wait_sbc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("target_sbc_hi", &self.target_sbc_hi)
-            .field("target_sbc_lo", &self.target_sbc_lo)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_wait_sbc_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_wait_sbc_reply_t {
     pub response_type: u8,
@@ -750,29 +405,9 @@ pub struct xcb_dri2_wait_sbc_reply_t {
     pub sbc_lo:        u32,
 }
 
-impl Copy for xcb_dri2_wait_sbc_reply_t {}
-impl Clone for xcb_dri2_wait_sbc_reply_t {
-    fn clone(&self) -> xcb_dri2_wait_sbc_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_wait_sbc_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_wait_sbc_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ust_hi", &self.ust_hi)
-            .field("ust_lo", &self.ust_lo)
-            .field("msc_hi", &self.msc_hi)
-            .field("msc_lo", &self.msc_lo)
-            .field("sbc_hi", &self.sbc_hi)
-            .field("sbc_lo", &self.sbc_lo)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_SWAP_INTERVAL: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_swap_interval_request_t {
     pub major_opcode: u8,
@@ -782,24 +417,9 @@ pub struct xcb_dri2_swap_interval_request_t {
     pub interval:     u32,
 }
 
-impl Copy for xcb_dri2_swap_interval_request_t {}
-impl Clone for xcb_dri2_swap_interval_request_t {
-    fn clone(&self) -> xcb_dri2_swap_interval_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_swap_interval_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_swap_interval_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("interval", &self.interval)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_GET_PARAM: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_param_request_t {
     pub major_opcode: u8,
@@ -809,28 +429,13 @@ pub struct xcb_dri2_get_param_request_t {
     pub param:        u32,
 }
 
-impl Copy for xcb_dri2_get_param_request_t {}
-impl Clone for xcb_dri2_get_param_request_t {
-    fn clone(&self) -> xcb_dri2_get_param_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_get_param_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_get_param_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("param", &self.param)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_param_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_get_param_reply_t {
     pub response_type:       u8,
@@ -841,25 +446,9 @@ pub struct xcb_dri2_get_param_reply_t {
     pub value_lo:            u32,
 }
 
-impl Copy for xcb_dri2_get_param_reply_t {}
-impl Clone for xcb_dri2_get_param_reply_t {
-    fn clone(&self) -> xcb_dri2_get_param_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_get_param_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_get_param_reply_t")
-            .field("response_type", &self.response_type)
-            .field("is_param_recognized", &self.is_param_recognized)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("value_hi", &self.value_hi)
-            .field("value_lo", &self.value_lo)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_BUFFER_SWAP_COMPLETE: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_buffer_swap_complete_event_t {
     pub response_type: u8,
@@ -875,51 +464,15 @@ pub struct xcb_dri2_buffer_swap_complete_event_t {
     pub sbc:           u32,
 }
 
-impl Copy for xcb_dri2_buffer_swap_complete_event_t {}
-impl Clone for xcb_dri2_buffer_swap_complete_event_t {
-    fn clone(&self) -> xcb_dri2_buffer_swap_complete_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_buffer_swap_complete_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_buffer_swap_complete_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event_type", &self.event_type)
-            .field("pad1", &&self.pad1[..])
-            .field("drawable", &self.drawable)
-            .field("ust_hi", &self.ust_hi)
-            .field("ust_lo", &self.ust_lo)
-            .field("msc_hi", &self.msc_hi)
-            .field("msc_lo", &self.msc_lo)
-            .field("sbc", &self.sbc)
-            .finish()
-    }
-}
-
 pub const XCB_DRI2_INVALIDATE_BUFFERS: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri2_invalidate_buffers_event_t {
     pub response_type: u8,
     pub pad0:          u8,
     pub sequence:      u16,
     pub drawable:      xcb_drawable_t,
-}
-
-impl Copy for xcb_dri2_invalidate_buffers_event_t {}
-impl Clone for xcb_dri2_invalidate_buffers_event_t {
-    fn clone(&self) -> xcb_dri2_invalidate_buffers_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri2_invalidate_buffers_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri2_invalidate_buffers_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
 }
 
 

@@ -163,6 +163,7 @@ pub struct xcb_render_fixed_iterator_t {
 
 pub const XCB_RENDER_PICT_FORMAT: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_pict_format_error_t {
     pub response_type: u8,
@@ -170,22 +171,9 @@ pub struct xcb_render_pict_format_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_render_pict_format_error_t {}
-impl Clone for xcb_render_pict_format_error_t {
-    fn clone(&self) -> xcb_render_pict_format_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_pict_format_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_pict_format_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_PICTURE: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_picture_error_t {
     pub response_type: u8,
@@ -193,22 +181,9 @@ pub struct xcb_render_picture_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_render_picture_error_t {}
-impl Clone for xcb_render_picture_error_t {
-    fn clone(&self) -> xcb_render_picture_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_picture_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_picture_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_PICT_OP: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_pict_op_error_t {
     pub response_type: u8,
@@ -216,22 +191,9 @@ pub struct xcb_render_pict_op_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_render_pict_op_error_t {}
-impl Clone for xcb_render_pict_op_error_t {
-    fn clone(&self) -> xcb_render_pict_op_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_pict_op_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_pict_op_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_GLYPH_SET: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_glyph_set_error_t {
     pub response_type: u8,
@@ -239,22 +201,9 @@ pub struct xcb_render_glyph_set_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_render_glyph_set_error_t {}
-impl Clone for xcb_render_glyph_set_error_t {
-    fn clone(&self) -> xcb_render_glyph_set_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_glyph_set_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_glyph_set_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_GLYPH: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_glyph_error_t {
     pub response_type: u8,
@@ -262,20 +211,7 @@ pub struct xcb_render_glyph_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_render_glyph_error_t {}
-impl Clone for xcb_render_glyph_error_t {
-    fn clone(&self) -> xcb_render_glyph_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_glyph_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_glyph_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_directformat_t {
     pub red_shift:   u16,
@@ -288,25 +224,6 @@ pub struct xcb_render_directformat_t {
     pub alpha_mask:  u16,
 }
 
-impl Copy for xcb_render_directformat_t {}
-impl Clone for xcb_render_directformat_t {
-    fn clone(&self) -> xcb_render_directformat_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_directformat_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_directformat_t")
-            .field("red_shift", &self.red_shift)
-            .field("red_mask", &self.red_mask)
-            .field("green_shift", &self.green_shift)
-            .field("green_mask", &self.green_mask)
-            .field("blue_shift", &self.blue_shift)
-            .field("blue_mask", &self.blue_mask)
-            .field("alpha_shift", &self.alpha_shift)
-            .field("alpha_mask", &self.alpha_mask)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_directformat_iterator_t {
@@ -315,6 +232,7 @@ pub struct xcb_render_directformat_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_pictforminfo_t {
     pub id:       xcb_render_pictformat_t,
@@ -325,23 +243,6 @@ pub struct xcb_render_pictforminfo_t {
     pub colormap: xcb_colormap_t,
 }
 
-impl Copy for xcb_render_pictforminfo_t {}
-impl Clone for xcb_render_pictforminfo_t {
-    fn clone(&self) -> xcb_render_pictforminfo_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_pictforminfo_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_pictforminfo_t")
-            .field("id", &self.id)
-            .field("type_", &self.type_)
-            .field("depth", &self.depth)
-            .field("pad0", &&self.pad0[..])
-            .field("direct", &self.direct)
-            .field("colormap", &self.colormap)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_pictforminfo_iterator_t {
@@ -350,23 +251,11 @@ pub struct xcb_render_pictforminfo_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_pictvisual_t {
     pub visual: xcb_visualid_t,
     pub format: xcb_render_pictformat_t,
-}
-
-impl Copy for xcb_render_pictvisual_t {}
-impl Clone for xcb_render_pictvisual_t {
-    fn clone(&self) -> xcb_render_pictvisual_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_pictvisual_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_pictvisual_t")
-            .field("visual", &self.visual)
-            .field("format", &self.format)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -377,22 +266,13 @@ pub struct xcb_render_pictvisual_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_pictdepth_t {
     pub depth:       u8,
     pub pad0:        u8,
     pub num_visuals: u16,
     pub pad1:        [u8; 4],
-}
-impl ::std::fmt::Debug for xcb_render_pictdepth_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_pictdepth_t")
-            .field("depth", &self.depth)
-            .field("pad0", &self.pad0)
-            .field("num_visuals", &self.num_visuals)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -404,18 +284,11 @@ pub struct xcb_render_pictdepth_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_render_pictdepth_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_pictscreen_t {
     pub num_depths: u32,
     pub fallback:   xcb_render_pictformat_t,
-}
-impl ::std::fmt::Debug for xcb_render_pictscreen_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_pictscreen_t")
-            .field("num_depths", &self.num_depths)
-            .field("fallback", &self.fallback)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -427,6 +300,7 @@ pub struct xcb_render_pictscreen_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_render_pictscreen_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_indexvalue_t {
     pub pixel: u32,
@@ -434,22 +308,6 @@ pub struct xcb_render_indexvalue_t {
     pub green: u16,
     pub blue:  u16,
     pub alpha: u16,
-}
-
-impl Copy for xcb_render_indexvalue_t {}
-impl Clone for xcb_render_indexvalue_t {
-    fn clone(&self) -> xcb_render_indexvalue_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_indexvalue_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_indexvalue_t")
-            .field("pixel", &self.pixel)
-            .field("red", &self.red)
-            .field("green", &self.green)
-            .field("blue", &self.blue)
-            .field("alpha", &self.alpha)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -460,27 +318,13 @@ pub struct xcb_render_indexvalue_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_color_t {
     pub red:   u16,
     pub green: u16,
     pub blue:  u16,
     pub alpha: u16,
-}
-
-impl Copy for xcb_render_color_t {}
-impl Clone for xcb_render_color_t {
-    fn clone(&self) -> xcb_render_color_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_color_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_color_t")
-            .field("red", &self.red)
-            .field("green", &self.green)
-            .field("blue", &self.blue)
-            .field("alpha", &self.alpha)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -491,23 +335,11 @@ pub struct xcb_render_color_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_pointfix_t {
     pub x: xcb_render_fixed_t,
     pub y: xcb_render_fixed_t,
-}
-
-impl Copy for xcb_render_pointfix_t {}
-impl Clone for xcb_render_pointfix_t {
-    fn clone(&self) -> xcb_render_pointfix_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_pointfix_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_pointfix_t")
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -518,23 +350,11 @@ pub struct xcb_render_pointfix_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_linefix_t {
     pub p1: xcb_render_pointfix_t,
     pub p2: xcb_render_pointfix_t,
-}
-
-impl Copy for xcb_render_linefix_t {}
-impl Clone for xcb_render_linefix_t {
-    fn clone(&self) -> xcb_render_linefix_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_linefix_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_linefix_t")
-            .field("p1", &self.p1)
-            .field("p2", &self.p2)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -545,25 +365,12 @@ pub struct xcb_render_linefix_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_triangle_t {
     pub p1: xcb_render_pointfix_t,
     pub p2: xcb_render_pointfix_t,
     pub p3: xcb_render_pointfix_t,
-}
-
-impl Copy for xcb_render_triangle_t {}
-impl Clone for xcb_render_triangle_t {
-    fn clone(&self) -> xcb_render_triangle_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_triangle_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_triangle_t")
-            .field("p1", &self.p1)
-            .field("p2", &self.p2)
-            .field("p3", &self.p3)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -574,27 +381,13 @@ pub struct xcb_render_triangle_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_trapezoid_t {
     pub top:    xcb_render_fixed_t,
     pub bottom: xcb_render_fixed_t,
     pub left:   xcb_render_linefix_t,
     pub right:  xcb_render_linefix_t,
-}
-
-impl Copy for xcb_render_trapezoid_t {}
-impl Clone for xcb_render_trapezoid_t {
-    fn clone(&self) -> xcb_render_trapezoid_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_trapezoid_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_trapezoid_t")
-            .field("top", &self.top)
-            .field("bottom", &self.bottom)
-            .field("left", &self.left)
-            .field("right", &self.right)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -605,6 +398,7 @@ pub struct xcb_render_trapezoid_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_glyphinfo_t {
     pub width:  u16,
@@ -613,23 +407,6 @@ pub struct xcb_render_glyphinfo_t {
     pub y:      i16,
     pub x_off:  i16,
     pub y_off:  i16,
-}
-
-impl Copy for xcb_render_glyphinfo_t {}
-impl Clone for xcb_render_glyphinfo_t {
-    fn clone(&self) -> xcb_render_glyphinfo_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_glyphinfo_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_glyphinfo_t")
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("x_off", &self.x_off)
-            .field("y_off", &self.y_off)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -642,6 +419,7 @@ pub struct xcb_render_glyphinfo_iterator_t {
 
 pub const XCB_RENDER_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_query_version_request_t {
     pub major_opcode:         u8,
@@ -651,28 +429,13 @@ pub struct xcb_render_query_version_request_t {
     pub client_minor_version: u32,
 }
 
-impl Copy for xcb_render_query_version_request_t {}
-impl Clone for xcb_render_query_version_request_t {
-    fn clone(&self) -> xcb_render_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major_version", &self.client_major_version)
-            .field("client_minor_version", &self.client_minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_query_version_reply_t {
     pub response_type: u8,
@@ -684,45 +447,14 @@ pub struct xcb_render_query_version_reply_t {
     pub pad1:          [u8; 16],
 }
 
-impl Copy for xcb_render_query_version_reply_t {}
-impl Clone for xcb_render_query_version_reply_t {
-    fn clone(&self) -> xcb_render_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_QUERY_PICT_FORMATS: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_query_pict_formats_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_render_query_pict_formats_request_t {}
-impl Clone for xcb_render_query_pict_formats_request_t {
-    fn clone(&self) -> xcb_render_query_pict_formats_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_query_pict_formats_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_query_pict_formats_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -731,6 +463,7 @@ pub struct xcb_render_query_pict_formats_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_query_pict_formats_reply_t {
     pub response_type: u8,
@@ -744,25 +477,10 @@ pub struct xcb_render_query_pict_formats_reply_t {
     pub num_subpixel:  u32,
     pub pad1:          [u8; 4],
 }
-impl ::std::fmt::Debug for xcb_render_query_pict_formats_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_query_pict_formats_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_formats", &self.num_formats)
-            .field("num_screens", &self.num_screens)
-            .field("num_depths", &self.num_depths)
-            .field("num_visuals", &self.num_visuals)
-            .field("num_subpixel", &self.num_subpixel)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_QUERY_PICT_INDEX_VALUES: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_query_pict_index_values_request_t {
     pub major_opcode: u8,
@@ -771,27 +489,13 @@ pub struct xcb_render_query_pict_index_values_request_t {
     pub format:       xcb_render_pictformat_t,
 }
 
-impl Copy for xcb_render_query_pict_index_values_request_t {}
-impl Clone for xcb_render_query_pict_index_values_request_t {
-    fn clone(&self) -> xcb_render_query_pict_index_values_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_query_pict_index_values_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_query_pict_index_values_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("format", &self.format)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_query_pict_index_values_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_query_pict_index_values_reply_t {
     pub response_type: u8,
@@ -801,21 +505,10 @@ pub struct xcb_render_query_pict_index_values_reply_t {
     pub num_values:    u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_render_query_pict_index_values_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_query_pict_index_values_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_values", &self.num_values)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_CREATE_PICTURE: u8 = 4;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_create_picture_request_t {
     pub major_opcode: u8,
@@ -826,22 +519,10 @@ pub struct xcb_render_create_picture_request_t {
     pub format:       xcb_render_pictformat_t,
     pub value_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_render_create_picture_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_create_picture_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("pid", &self.pid)
-            .field("drawable", &self.drawable)
-            .field("format", &self.format)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_CHANGE_PICTURE: u8 = 5;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_change_picture_request_t {
     pub major_opcode: u8,
@@ -850,20 +531,10 @@ pub struct xcb_render_change_picture_request_t {
     pub picture:      xcb_render_picture_t,
     pub value_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_render_change_picture_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_change_picture_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_SET_PICTURE_CLIP_RECTANGLES: u8 = 6;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_set_picture_clip_rectangles_request_t {
     pub major_opcode:   u8,
@@ -873,21 +544,10 @@ pub struct xcb_render_set_picture_clip_rectangles_request_t {
     pub clip_x_origin:  i16,
     pub clip_y_origin:  i16,
 }
-impl ::std::fmt::Debug for xcb_render_set_picture_clip_rectangles_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_set_picture_clip_rectangles_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("clip_x_origin", &self.clip_x_origin)
-            .field("clip_y_origin", &self.clip_y_origin)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_FREE_PICTURE: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_free_picture_request_t {
     pub major_opcode: u8,
@@ -896,23 +556,9 @@ pub struct xcb_render_free_picture_request_t {
     pub picture:      xcb_render_picture_t,
 }
 
-impl Copy for xcb_render_free_picture_request_t {}
-impl Clone for xcb_render_free_picture_request_t {
-    fn clone(&self) -> xcb_render_free_picture_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_free_picture_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_free_picture_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_COMPOSITE: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_composite_request_t {
     pub major_opcode: u8,
@@ -933,35 +579,9 @@ pub struct xcb_render_composite_request_t {
     pub height:       u16,
 }
 
-impl Copy for xcb_render_composite_request_t {}
-impl Clone for xcb_render_composite_request_t {
-    fn clone(&self) -> xcb_render_composite_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_composite_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_composite_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("op", &self.op)
-            .field("pad0", &&self.pad0[..])
-            .field("src", &self.src)
-            .field("mask", &self.mask)
-            .field("dst", &self.dst)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .field("mask_x", &self.mask_x)
-            .field("mask_y", &self.mask_y)
-            .field("dst_x", &self.dst_x)
-            .field("dst_y", &self.dst_y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_TRAPEZOIDS: u8 = 10;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_trapezoids_request_t {
     pub major_opcode: u8,
@@ -975,25 +595,10 @@ pub struct xcb_render_trapezoids_request_t {
     pub src_x:        i16,
     pub src_y:        i16,
 }
-impl ::std::fmt::Debug for xcb_render_trapezoids_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_trapezoids_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("op", &self.op)
-            .field("pad0", &&self.pad0[..])
-            .field("src", &self.src)
-            .field("dst", &self.dst)
-            .field("mask_format", &self.mask_format)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_TRIANGLES: u8 = 11;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_triangles_request_t {
     pub major_opcode:  u8,
@@ -1007,25 +612,10 @@ pub struct xcb_render_triangles_request_t {
     pub src_x:         i16,
     pub src_y:         i16,
 }
-impl ::std::fmt::Debug for xcb_render_triangles_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_triangles_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("op", &self.op)
-            .field("pad0", &&self.pad0[..])
-            .field("src", &self.src)
-            .field("dst", &self.dst)
-            .field("mask_format", &self.mask_format)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_TRI_STRIP: u8 = 12;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_tri_strip_request_t {
     pub major_opcode: u8,
@@ -1039,25 +629,10 @@ pub struct xcb_render_tri_strip_request_t {
     pub src_x:        i16,
     pub src_y:        i16,
 }
-impl ::std::fmt::Debug for xcb_render_tri_strip_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_tri_strip_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("op", &self.op)
-            .field("pad0", &&self.pad0[..])
-            .field("src", &self.src)
-            .field("dst", &self.dst)
-            .field("mask_format", &self.mask_format)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_TRI_FAN: u8 = 13;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_tri_fan_request_t {
     pub major_opcode: u8,
@@ -1071,25 +646,10 @@ pub struct xcb_render_tri_fan_request_t {
     pub src_x:        i16,
     pub src_y:        i16,
 }
-impl ::std::fmt::Debug for xcb_render_tri_fan_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_tri_fan_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("op", &self.op)
-            .field("pad0", &&self.pad0[..])
-            .field("src", &self.src)
-            .field("dst", &self.dst)
-            .field("mask_format", &self.mask_format)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_CREATE_GLYPH_SET: u8 = 17;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_create_glyph_set_request_t {
     pub major_opcode: u8,
@@ -1099,24 +659,9 @@ pub struct xcb_render_create_glyph_set_request_t {
     pub format:       xcb_render_pictformat_t,
 }
 
-impl Copy for xcb_render_create_glyph_set_request_t {}
-impl Clone for xcb_render_create_glyph_set_request_t {
-    fn clone(&self) -> xcb_render_create_glyph_set_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_create_glyph_set_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_create_glyph_set_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("gsid", &self.gsid)
-            .field("format", &self.format)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_REFERENCE_GLYPH_SET: u8 = 18;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_reference_glyph_set_request_t {
     pub major_opcode: u8,
@@ -1126,24 +671,9 @@ pub struct xcb_render_reference_glyph_set_request_t {
     pub existing:     xcb_render_glyphset_t,
 }
 
-impl Copy for xcb_render_reference_glyph_set_request_t {}
-impl Clone for xcb_render_reference_glyph_set_request_t {
-    fn clone(&self) -> xcb_render_reference_glyph_set_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_reference_glyph_set_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_reference_glyph_set_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("gsid", &self.gsid)
-            .field("existing", &self.existing)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_FREE_GLYPH_SET: u8 = 19;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_free_glyph_set_request_t {
     pub major_opcode: u8,
@@ -1152,23 +682,9 @@ pub struct xcb_render_free_glyph_set_request_t {
     pub glyphset:     xcb_render_glyphset_t,
 }
 
-impl Copy for xcb_render_free_glyph_set_request_t {}
-impl Clone for xcb_render_free_glyph_set_request_t {
-    fn clone(&self) -> xcb_render_free_glyph_set_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_free_glyph_set_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_free_glyph_set_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("glyphset", &self.glyphset)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_ADD_GLYPHS: u8 = 20;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_add_glyphs_request_t {
     pub major_opcode: u8,
@@ -1177,20 +693,10 @@ pub struct xcb_render_add_glyphs_request_t {
     pub glyphset:     xcb_render_glyphset_t,
     pub glyphs_len:   u32,
 }
-impl ::std::fmt::Debug for xcb_render_add_glyphs_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_add_glyphs_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("glyphset", &self.glyphset)
-            .field("glyphs_len", &self.glyphs_len)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_FREE_GLYPHS: u8 = 22;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_free_glyphs_request_t {
     pub major_opcode: u8,
@@ -1198,19 +704,10 @@ pub struct xcb_render_free_glyphs_request_t {
     pub length:       u16,
     pub glyphset:     xcb_render_glyphset_t,
 }
-impl ::std::fmt::Debug for xcb_render_free_glyphs_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_free_glyphs_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("glyphset", &self.glyphset)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_COMPOSITE_GLYPHS_8: u8 = 23;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_composite_glyphs_8_request_t {
     pub major_opcode:  u8,
@@ -1225,26 +722,10 @@ pub struct xcb_render_composite_glyphs_8_request_t {
     pub src_x:         i16,
     pub src_y:         i16,
 }
-impl ::std::fmt::Debug for xcb_render_composite_glyphs_8_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_composite_glyphs_8_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("op", &self.op)
-            .field("pad0", &&self.pad0[..])
-            .field("src", &self.src)
-            .field("dst", &self.dst)
-            .field("mask_format", &self.mask_format)
-            .field("glyphset", &self.glyphset)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_COMPOSITE_GLYPHS_16: u8 = 24;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_composite_glyphs_16_request_t {
     pub major_opcode:  u8,
@@ -1259,26 +740,10 @@ pub struct xcb_render_composite_glyphs_16_request_t {
     pub src_x:         i16,
     pub src_y:         i16,
 }
-impl ::std::fmt::Debug for xcb_render_composite_glyphs_16_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_composite_glyphs_16_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("op", &self.op)
-            .field("pad0", &&self.pad0[..])
-            .field("src", &self.src)
-            .field("dst", &self.dst)
-            .field("mask_format", &self.mask_format)
-            .field("glyphset", &self.glyphset)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_COMPOSITE_GLYPHS_32: u8 = 25;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_composite_glyphs_32_request_t {
     pub major_opcode:  u8,
@@ -1293,26 +758,10 @@ pub struct xcb_render_composite_glyphs_32_request_t {
     pub src_x:         i16,
     pub src_y:         i16,
 }
-impl ::std::fmt::Debug for xcb_render_composite_glyphs_32_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_composite_glyphs_32_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("op", &self.op)
-            .field("pad0", &&self.pad0[..])
-            .field("src", &self.src)
-            .field("dst", &self.dst)
-            .field("mask_format", &self.mask_format)
-            .field("glyphset", &self.glyphset)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_FILL_RECTANGLES: u8 = 26;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_fill_rectangles_request_t {
     pub major_opcode: u8,
@@ -1323,22 +772,10 @@ pub struct xcb_render_fill_rectangles_request_t {
     pub dst:          xcb_render_picture_t,
     pub color:        xcb_render_color_t,
 }
-impl ::std::fmt::Debug for xcb_render_fill_rectangles_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_fill_rectangles_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("op", &self.op)
-            .field("pad0", &&self.pad0[..])
-            .field("dst", &self.dst)
-            .field("color", &self.color)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_CREATE_CURSOR: u8 = 27;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_create_cursor_request_t {
     pub major_opcode: u8,
@@ -1350,24 +787,7 @@ pub struct xcb_render_create_cursor_request_t {
     pub y:            u16,
 }
 
-impl Copy for xcb_render_create_cursor_request_t {}
-impl Clone for xcb_render_create_cursor_request_t {
-    fn clone(&self) -> xcb_render_create_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_create_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_create_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("cid", &self.cid)
-            .field("source", &self.source)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
-}
-
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_transform_t {
     pub matrix11: xcb_render_fixed_t,
@@ -1381,26 +801,6 @@ pub struct xcb_render_transform_t {
     pub matrix33: xcb_render_fixed_t,
 }
 
-impl Copy for xcb_render_transform_t {}
-impl Clone for xcb_render_transform_t {
-    fn clone(&self) -> xcb_render_transform_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_transform_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_transform_t")
-            .field("matrix11", &self.matrix11)
-            .field("matrix12", &self.matrix12)
-            .field("matrix13", &self.matrix13)
-            .field("matrix21", &self.matrix21)
-            .field("matrix22", &self.matrix22)
-            .field("matrix23", &self.matrix23)
-            .field("matrix31", &self.matrix31)
-            .field("matrix32", &self.matrix32)
-            .field("matrix33", &self.matrix33)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_transform_iterator_t {
@@ -1411,6 +811,7 @@ pub struct xcb_render_transform_iterator_t {
 
 pub const XCB_RENDER_SET_PICTURE_TRANSFORM: u8 = 28;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_set_picture_transform_request_t {
     pub major_opcode: u8,
@@ -1420,24 +821,9 @@ pub struct xcb_render_set_picture_transform_request_t {
     pub transform:    xcb_render_transform_t,
 }
 
-impl Copy for xcb_render_set_picture_transform_request_t {}
-impl Clone for xcb_render_set_picture_transform_request_t {
-    fn clone(&self) -> xcb_render_set_picture_transform_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_set_picture_transform_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_set_picture_transform_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("transform", &self.transform)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_QUERY_FILTERS: u8 = 29;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_query_filters_request_t {
     pub major_opcode: u8,
@@ -1446,27 +832,13 @@ pub struct xcb_render_query_filters_request_t {
     pub drawable:     xcb_drawable_t,
 }
 
-impl Copy for xcb_render_query_filters_request_t {}
-impl Clone for xcb_render_query_filters_request_t {
-    fn clone(&self) -> xcb_render_query_filters_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_query_filters_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_query_filters_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_query_filters_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_query_filters_reply_t {
     pub response_type: u8,
@@ -1477,22 +849,10 @@ pub struct xcb_render_query_filters_reply_t {
     pub num_filters:   u32,
     pub pad1:          [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_render_query_filters_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_query_filters_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_aliases", &self.num_aliases)
-            .field("num_filters", &self.num_filters)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_SET_PICTURE_FILTER: u8 = 30;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_set_picture_filter_request_t {
     pub major_opcode: u8,
@@ -1502,36 +862,12 @@ pub struct xcb_render_set_picture_filter_request_t {
     pub filter_len:   u16,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_render_set_picture_filter_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_set_picture_filter_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("filter_len", &self.filter_len)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_animcursorelt_t {
     pub cursor: xcb_cursor_t,
     pub delay:  u32,
-}
-
-impl Copy for xcb_render_animcursorelt_t {}
-impl Clone for xcb_render_animcursorelt_t {
-    fn clone(&self) -> xcb_render_animcursorelt_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_animcursorelt_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_animcursorelt_t")
-            .field("cursor", &self.cursor)
-            .field("delay", &self.delay)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1544,6 +880,7 @@ pub struct xcb_render_animcursorelt_iterator_t {
 
 pub const XCB_RENDER_CREATE_ANIM_CURSOR: u8 = 31;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_create_anim_cursor_request_t {
     pub major_opcode: u8,
@@ -1551,36 +888,13 @@ pub struct xcb_render_create_anim_cursor_request_t {
     pub length:       u16,
     pub cid:          xcb_cursor_t,
 }
-impl ::std::fmt::Debug for xcb_render_create_anim_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_create_anim_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("cid", &self.cid)
-            .finish()
-    }
-}
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_spanfix_t {
     pub l: xcb_render_fixed_t,
     pub r: xcb_render_fixed_t,
     pub y: xcb_render_fixed_t,
-}
-
-impl Copy for xcb_render_spanfix_t {}
-impl Clone for xcb_render_spanfix_t {
-    fn clone(&self) -> xcb_render_spanfix_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_spanfix_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_spanfix_t")
-            .field("l", &self.l)
-            .field("r", &self.r)
-            .field("y", &self.y)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1591,23 +905,11 @@ pub struct xcb_render_spanfix_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_trap_t {
     pub top: xcb_render_spanfix_t,
     pub bot: xcb_render_spanfix_t,
-}
-
-impl Copy for xcb_render_trap_t {}
-impl Clone for xcb_render_trap_t {
-    fn clone(&self) -> xcb_render_trap_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_trap_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_trap_t")
-            .field("top", &self.top)
-            .field("bot", &self.bot)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1620,6 +922,7 @@ pub struct xcb_render_trap_iterator_t {
 
 pub const XCB_RENDER_ADD_TRAPS: u8 = 32;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_add_traps_request_t {
     pub major_opcode: u8,
@@ -1629,21 +932,10 @@ pub struct xcb_render_add_traps_request_t {
     pub x_off:        i16,
     pub y_off:        i16,
 }
-impl ::std::fmt::Debug for xcb_render_add_traps_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_add_traps_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("x_off", &self.x_off)
-            .field("y_off", &self.y_off)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_CREATE_SOLID_FILL: u8 = 33;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_render_create_solid_fill_request_t {
     pub major_opcode: u8,
@@ -1653,24 +945,9 @@ pub struct xcb_render_create_solid_fill_request_t {
     pub color:        xcb_render_color_t,
 }
 
-impl Copy for xcb_render_create_solid_fill_request_t {}
-impl Clone for xcb_render_create_solid_fill_request_t {
-    fn clone(&self) -> xcb_render_create_solid_fill_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_render_create_solid_fill_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_create_solid_fill_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("color", &self.color)
-            .finish()
-    }
-}
-
 pub const XCB_RENDER_CREATE_LINEAR_GRADIENT: u8 = 34;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_create_linear_gradient_request_t {
     pub major_opcode: u8,
@@ -1681,22 +958,10 @@ pub struct xcb_render_create_linear_gradient_request_t {
     pub p2:           xcb_render_pointfix_t,
     pub num_stops:    u32,
 }
-impl ::std::fmt::Debug for xcb_render_create_linear_gradient_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_create_linear_gradient_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("p1", &self.p1)
-            .field("p2", &self.p2)
-            .field("num_stops", &self.num_stops)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_CREATE_RADIAL_GRADIENT: u8 = 35;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_create_radial_gradient_request_t {
     pub major_opcode: u8,
@@ -1709,24 +974,10 @@ pub struct xcb_render_create_radial_gradient_request_t {
     pub outer_radius: xcb_render_fixed_t,
     pub num_stops:    u32,
 }
-impl ::std::fmt::Debug for xcb_render_create_radial_gradient_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_create_radial_gradient_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("inner", &self.inner)
-            .field("outer", &self.outer)
-            .field("inner_radius", &self.inner_radius)
-            .field("outer_radius", &self.outer_radius)
-            .field("num_stops", &self.num_stops)
-            .finish()
-    }
-}
 
 pub const XCB_RENDER_CREATE_CONICAL_GRADIENT: u8 = 36;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_render_create_conical_gradient_request_t {
     pub major_opcode: u8,
@@ -1736,19 +987,6 @@ pub struct xcb_render_create_conical_gradient_request_t {
     pub center:       xcb_render_pointfix_t,
     pub angle:        xcb_render_fixed_t,
     pub num_stops:    u32,
-}
-impl ::std::fmt::Debug for xcb_render_create_conical_gradient_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_render_create_conical_gradient_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("center", &self.center)
-            .field("angle", &self.angle)
-            .field("num_stops", &self.num_stops)
-            .finish()
-    }
 }
 
 

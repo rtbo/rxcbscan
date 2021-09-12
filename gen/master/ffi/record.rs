@@ -21,23 +21,11 @@ pub struct xcb_record_context_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_range_8_t {
     pub first: u8,
     pub last:  u8,
-}
-
-impl Copy for xcb_record_range_8_t {}
-impl Clone for xcb_record_range_8_t {
-    fn clone(&self) -> xcb_record_range_8_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_range_8_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_range_8_t")
-            .field("first", &self.first)
-            .field("last", &self.last)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -48,23 +36,11 @@ pub struct xcb_record_range_8_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_range_16_t {
     pub first: u16,
     pub last:  u16,
-}
-
-impl Copy for xcb_record_range_16_t {}
-impl Clone for xcb_record_range_16_t {
-    fn clone(&self) -> xcb_record_range_16_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_range_16_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_range_16_t")
-            .field("first", &self.first)
-            .field("last", &self.last)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -75,23 +51,11 @@ pub struct xcb_record_range_16_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_ext_range_t {
     pub major: xcb_record_range_8_t,
     pub minor: xcb_record_range_16_t,
-}
-
-impl Copy for xcb_record_ext_range_t {}
-impl Clone for xcb_record_ext_range_t {
-    fn clone(&self) -> xcb_record_ext_range_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_ext_range_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_ext_range_t")
-            .field("major", &self.major)
-            .field("minor", &self.minor)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -102,6 +66,7 @@ pub struct xcb_record_ext_range_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_range_t {
     pub core_requests:    xcb_record_range_8_t,
@@ -113,26 +78,6 @@ pub struct xcb_record_range_t {
     pub errors:           xcb_record_range_8_t,
     pub client_started:   u8,
     pub client_died:      u8,
-}
-
-impl Copy for xcb_record_range_t {}
-impl Clone for xcb_record_range_t {
-    fn clone(&self) -> xcb_record_range_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_range_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_range_t")
-            .field("core_requests", &self.core_requests)
-            .field("core_replies", &self.core_replies)
-            .field("ext_requests", &self.ext_requests)
-            .field("ext_replies", &self.ext_replies)
-            .field("delivered_events", &self.delivered_events)
-            .field("device_events", &self.device_events)
-            .field("errors", &self.errors)
-            .field("client_started", &self.client_started)
-            .field("client_died", &self.client_died)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -173,18 +118,11 @@ pub const XCB_RECORD_CS_CURRENT_CLIENTS: xcb_record_cs_t = 0x01;
 pub const XCB_RECORD_CS_FUTURE_CLIENTS : xcb_record_cs_t = 0x02;
 pub const XCB_RECORD_CS_ALL_CLIENTS    : xcb_record_cs_t = 0x03;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_record_client_info_t {
     pub client_resource: xcb_record_client_spec_t,
     pub num_ranges:      u32,
-}
-impl ::std::fmt::Debug for xcb_record_client_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_client_info_t")
-            .field("client_resource", &self.client_resource)
-            .field("num_ranges", &self.num_ranges)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -198,6 +136,7 @@ pub struct xcb_record_client_info_iterator_t<'a> {
 
 pub const XCB_RECORD_BAD_CONTEXT: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_bad_context_error_t {
     pub response_type:  u8,
@@ -206,23 +145,9 @@ pub struct xcb_record_bad_context_error_t {
     pub invalid_record: u32,
 }
 
-impl Copy for xcb_record_bad_context_error_t {}
-impl Clone for xcb_record_bad_context_error_t {
-    fn clone(&self) -> xcb_record_bad_context_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_bad_context_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_bad_context_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .field("invalid_record", &self.invalid_record)
-            .finish()
-    }
-}
-
 pub const XCB_RECORD_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_query_version_request_t {
     pub major_opcode:  u8,
@@ -232,28 +157,13 @@ pub struct xcb_record_query_version_request_t {
     pub minor_version: u16,
 }
 
-impl Copy for xcb_record_query_version_request_t {}
-impl Clone for xcb_record_query_version_request_t {
-    fn clone(&self) -> xcb_record_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_query_version_reply_t {
     pub response_type: u8,
@@ -264,25 +174,9 @@ pub struct xcb_record_query_version_reply_t {
     pub minor_version: u16,
 }
 
-impl Copy for xcb_record_query_version_reply_t {}
-impl Clone for xcb_record_query_version_reply_t {
-    fn clone(&self) -> xcb_record_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 pub const XCB_RECORD_CREATE_CONTEXT: u8 = 1;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_record_create_context_request_t {
     pub major_opcode:     u8,
@@ -294,23 +188,10 @@ pub struct xcb_record_create_context_request_t {
     pub num_client_specs: u32,
     pub num_ranges:       u32,
 }
-impl ::std::fmt::Debug for xcb_record_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("element_header", &self.element_header)
-            .field("pad0", &&self.pad0[..])
-            .field("num_client_specs", &self.num_client_specs)
-            .field("num_ranges", &self.num_ranges)
-            .finish()
-    }
-}
 
 pub const XCB_RECORD_REGISTER_CLIENTS: u8 = 2;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_record_register_clients_request_t {
     pub major_opcode:     u8,
@@ -322,23 +203,10 @@ pub struct xcb_record_register_clients_request_t {
     pub num_client_specs: u32,
     pub num_ranges:       u32,
 }
-impl ::std::fmt::Debug for xcb_record_register_clients_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_register_clients_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("element_header", &self.element_header)
-            .field("pad0", &&self.pad0[..])
-            .field("num_client_specs", &self.num_client_specs)
-            .field("num_ranges", &self.num_ranges)
-            .finish()
-    }
-}
 
 pub const XCB_RECORD_UNREGISTER_CLIENTS: u8 = 3;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_record_unregister_clients_request_t {
     pub major_opcode:     u8,
@@ -347,20 +215,10 @@ pub struct xcb_record_unregister_clients_request_t {
     pub context:          xcb_record_context_t,
     pub num_client_specs: u32,
 }
-impl ::std::fmt::Debug for xcb_record_unregister_clients_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_unregister_clients_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("num_client_specs", &self.num_client_specs)
-            .finish()
-    }
-}
 
 pub const XCB_RECORD_GET_CONTEXT: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_get_context_request_t {
     pub major_opcode: u8,
@@ -369,27 +227,13 @@ pub struct xcb_record_get_context_request_t {
     pub context:      xcb_record_context_t,
 }
 
-impl Copy for xcb_record_get_context_request_t {}
-impl Clone for xcb_record_get_context_request_t {
-    fn clone(&self) -> xcb_record_get_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_get_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_get_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_get_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_record_get_context_reply_t {
     pub response_type:           u8,
@@ -401,23 +245,10 @@ pub struct xcb_record_get_context_reply_t {
     pub num_intercepted_clients: u32,
     pub pad1:                    [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_record_get_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_get_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("enabled", &self.enabled)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("element_header", &self.element_header)
-            .field("pad0", &&self.pad0[..])
-            .field("num_intercepted_clients", &self.num_intercepted_clients)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RECORD_ENABLE_CONTEXT: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_enable_context_request_t {
     pub major_opcode: u8,
@@ -426,27 +257,13 @@ pub struct xcb_record_enable_context_request_t {
     pub context:      xcb_record_context_t,
 }
 
-impl Copy for xcb_record_enable_context_request_t {}
-impl Clone for xcb_record_enable_context_request_t {
-    fn clone(&self) -> xcb_record_enable_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_enable_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_enable_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_enable_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_record_enable_context_reply_t {
     pub response_type:    u8,
@@ -461,26 +278,10 @@ pub struct xcb_record_enable_context_reply_t {
     pub rec_sequence_num: u32,
     pub pad1:             [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_record_enable_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_enable_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("category", &self.category)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("element_header", &self.element_header)
-            .field("client_swapped", &self.client_swapped)
-            .field("pad0", &&self.pad0[..])
-            .field("xid_base", &self.xid_base)
-            .field("server_time", &self.server_time)
-            .field("rec_sequence_num", &self.rec_sequence_num)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RECORD_DISABLE_CONTEXT: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_disable_context_request_t {
     pub major_opcode: u8,
@@ -489,44 +290,15 @@ pub struct xcb_record_disable_context_request_t {
     pub context:      xcb_record_context_t,
 }
 
-impl Copy for xcb_record_disable_context_request_t {}
-impl Clone for xcb_record_disable_context_request_t {
-    fn clone(&self) -> xcb_record_disable_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_disable_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_disable_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 pub const XCB_RECORD_FREE_CONTEXT: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_record_free_context_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
     pub context:      xcb_record_context_t,
-}
-
-impl Copy for xcb_record_free_context_request_t {}
-impl Clone for xcb_record_free_context_request_t {
-    fn clone(&self) -> xcb_record_free_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_record_free_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_record_free_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
 }
 
 

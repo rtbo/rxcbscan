@@ -24,6 +24,7 @@ pub struct xcb_shm_seg_iterator_t {
 
 pub const XCB_SHM_COMPLETION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_completion_event_t {
     pub response_type: u8,
@@ -37,51 +38,18 @@ pub struct xcb_shm_completion_event_t {
     pub offset:        u32,
 }
 
-impl Copy for xcb_shm_completion_event_t {}
-impl Clone for xcb_shm_completion_event_t {
-    fn clone(&self) -> xcb_shm_completion_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_completion_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_completion_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("drawable", &self.drawable)
-            .field("minor_event", &self.minor_event)
-            .field("major_event", &self.major_event)
-            .field("pad1", &self.pad1)
-            .field("shmseg", &self.shmseg)
-            .field("offset", &self.offset)
-            .finish()
-    }
-}
-
 pub const XCB_SHM_BAD_SEG: u8 = 0;
 
 pub type xcb_shm_bad_seg_error_t = xcb_value_error_t;
 
 pub const XCB_SHM_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_query_version_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_shm_query_version_request_t {}
-impl Clone for xcb_shm_query_version_request_t {
-    fn clone(&self) -> xcb_shm_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -90,6 +58,7 @@ pub struct xcb_shm_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_query_version_reply_t {
     pub response_type:  u8,
@@ -104,29 +73,9 @@ pub struct xcb_shm_query_version_reply_t {
     pub pad0:           [u8; 15],
 }
 
-impl Copy for xcb_shm_query_version_reply_t {}
-impl Clone for xcb_shm_query_version_reply_t {
-    fn clone(&self) -> xcb_shm_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("shared_pixmaps", &self.shared_pixmaps)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("uid", &self.uid)
-            .field("gid", &self.gid)
-            .field("pixmap_format", &self.pixmap_format)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_SHM_ATTACH: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_attach_request_t {
     pub major_opcode: u8,
@@ -138,26 +87,9 @@ pub struct xcb_shm_attach_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_shm_attach_request_t {}
-impl Clone for xcb_shm_attach_request_t {
-    fn clone(&self) -> xcb_shm_attach_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_attach_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_attach_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("shmseg", &self.shmseg)
-            .field("shmid", &self.shmid)
-            .field("read_only", &self.read_only)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_SHM_DETACH: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_detach_request_t {
     pub major_opcode: u8,
@@ -166,23 +98,9 @@ pub struct xcb_shm_detach_request_t {
     pub shmseg:       xcb_shm_seg_t,
 }
 
-impl Copy for xcb_shm_detach_request_t {}
-impl Clone for xcb_shm_detach_request_t {
-    fn clone(&self) -> xcb_shm_detach_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_detach_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_detach_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("shmseg", &self.shmseg)
-            .finish()
-    }
-}
-
 pub const XCB_SHM_PUT_IMAGE: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_put_image_request_t {
     pub major_opcode: u8,
@@ -206,38 +124,9 @@ pub struct xcb_shm_put_image_request_t {
     pub offset:       u32,
 }
 
-impl Copy for xcb_shm_put_image_request_t {}
-impl Clone for xcb_shm_put_image_request_t {
-    fn clone(&self) -> xcb_shm_put_image_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_put_image_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_put_image_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("total_width", &self.total_width)
-            .field("total_height", &self.total_height)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .field("src_width", &self.src_width)
-            .field("src_height", &self.src_height)
-            .field("dst_x", &self.dst_x)
-            .field("dst_y", &self.dst_y)
-            .field("depth", &self.depth)
-            .field("format", &self.format)
-            .field("send_event", &self.send_event)
-            .field("pad0", &self.pad0)
-            .field("shmseg", &self.shmseg)
-            .field("offset", &self.offset)
-            .finish()
-    }
-}
-
 pub const XCB_SHM_GET_IMAGE: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_get_image_request_t {
     pub major_opcode: u8,
@@ -255,36 +144,13 @@ pub struct xcb_shm_get_image_request_t {
     pub offset:       u32,
 }
 
-impl Copy for xcb_shm_get_image_request_t {}
-impl Clone for xcb_shm_get_image_request_t {
-    fn clone(&self) -> xcb_shm_get_image_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_get_image_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_get_image_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("plane_mask", &self.plane_mask)
-            .field("format", &self.format)
-            .field("pad0", &&self.pad0[..])
-            .field("shmseg", &self.shmseg)
-            .field("offset", &self.offset)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_get_image_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_get_image_reply_t {
     pub response_type: u8,
@@ -295,25 +161,9 @@ pub struct xcb_shm_get_image_reply_t {
     pub size:          u32,
 }
 
-impl Copy for xcb_shm_get_image_reply_t {}
-impl Clone for xcb_shm_get_image_reply_t {
-    fn clone(&self) -> xcb_shm_get_image_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_get_image_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_get_image_reply_t")
-            .field("response_type", &self.response_type)
-            .field("depth", &self.depth)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("visual", &self.visual)
-            .field("size", &self.size)
-            .finish()
-    }
-}
-
 pub const XCB_SHM_CREATE_PIXMAP: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_create_pixmap_request_t {
     pub major_opcode: u8,
@@ -329,30 +179,9 @@ pub struct xcb_shm_create_pixmap_request_t {
     pub offset:       u32,
 }
 
-impl Copy for xcb_shm_create_pixmap_request_t {}
-impl Clone for xcb_shm_create_pixmap_request_t {
-    fn clone(&self) -> xcb_shm_create_pixmap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_create_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_create_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("pid", &self.pid)
-            .field("drawable", &self.drawable)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("depth", &self.depth)
-            .field("pad0", &&self.pad0[..])
-            .field("shmseg", &self.shmseg)
-            .field("offset", &self.offset)
-            .finish()
-    }
-}
-
 pub const XCB_SHM_ATTACH_FD: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_attach_fd_request_t {
     pub major_opcode: u8,
@@ -363,25 +192,9 @@ pub struct xcb_shm_attach_fd_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_shm_attach_fd_request_t {}
-impl Clone for xcb_shm_attach_fd_request_t {
-    fn clone(&self) -> xcb_shm_attach_fd_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_attach_fd_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_attach_fd_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("shmseg", &self.shmseg)
-            .field("read_only", &self.read_only)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_SHM_CREATE_SEGMENT: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_create_segment_request_t {
     pub major_opcode: u8,
@@ -393,30 +206,13 @@ pub struct xcb_shm_create_segment_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_shm_create_segment_request_t {}
-impl Clone for xcb_shm_create_segment_request_t {
-    fn clone(&self) -> xcb_shm_create_segment_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_create_segment_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_create_segment_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("shmseg", &self.shmseg)
-            .field("size", &self.size)
-            .field("read_only", &self.read_only)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_create_segment_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shm_create_segment_reply_t {
     pub response_type: u8,
@@ -424,22 +220,6 @@ pub struct xcb_shm_create_segment_reply_t {
     pub sequence:      u16,
     pub length:        u32,
     pub pad0:          [u8; 24],
-}
-
-impl Copy for xcb_shm_create_segment_reply_t {}
-impl Clone for xcb_shm_create_segment_reply_t {
-    fn clone(&self) -> xcb_shm_create_segment_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shm_create_segment_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shm_create_segment_reply_t")
-            .field("response_type", &self.response_type)
-            .field("nfd", &self.nfd)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 

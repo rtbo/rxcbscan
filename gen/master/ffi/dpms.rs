@@ -13,6 +13,7 @@ pub const XCB_DPMS_MINOR_VERSION: u32 = 0;
 
 pub const XCB_DPMS_GET_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_get_version_request_t {
     pub major_opcode:         u8,
@@ -22,28 +23,13 @@ pub struct xcb_dpms_get_version_request_t {
     pub client_minor_version: u16,
 }
 
-impl Copy for xcb_dpms_get_version_request_t {}
-impl Clone for xcb_dpms_get_version_request_t {
-    fn clone(&self) -> xcb_dpms_get_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_get_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_get_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major_version", &self.client_major_version)
-            .field("client_minor_version", &self.client_minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_get_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_get_version_reply_t {
     pub response_type:        u8,
@@ -54,44 +40,14 @@ pub struct xcb_dpms_get_version_reply_t {
     pub server_minor_version: u16,
 }
 
-impl Copy for xcb_dpms_get_version_reply_t {}
-impl Clone for xcb_dpms_get_version_reply_t {
-    fn clone(&self) -> xcb_dpms_get_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_get_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_get_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("server_major_version", &self.server_major_version)
-            .field("server_minor_version", &self.server_minor_version)
-            .finish()
-    }
-}
-
 pub const XCB_DPMS_CAPABLE: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_capable_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_dpms_capable_request_t {}
-impl Clone for xcb_dpms_capable_request_t {
-    fn clone(&self) -> xcb_dpms_capable_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_capable_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_capable_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -100,6 +56,7 @@ pub struct xcb_dpms_capable_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_capable_reply_t {
     pub response_type: u8,
@@ -110,44 +67,14 @@ pub struct xcb_dpms_capable_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_dpms_capable_reply_t {}
-impl Clone for xcb_dpms_capable_reply_t {
-    fn clone(&self) -> xcb_dpms_capable_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_capable_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_capable_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("capable", &self.capable)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_DPMS_GET_TIMEOUTS: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_get_timeouts_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_dpms_get_timeouts_request_t {}
-impl Clone for xcb_dpms_get_timeouts_request_t {
-    fn clone(&self) -> xcb_dpms_get_timeouts_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_get_timeouts_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_get_timeouts_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -156,6 +83,7 @@ pub struct xcb_dpms_get_timeouts_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_get_timeouts_reply_t {
     pub response_type:   u8,
@@ -168,27 +96,9 @@ pub struct xcb_dpms_get_timeouts_reply_t {
     pub pad1:            [u8; 18],
 }
 
-impl Copy for xcb_dpms_get_timeouts_reply_t {}
-impl Clone for xcb_dpms_get_timeouts_reply_t {
-    fn clone(&self) -> xcb_dpms_get_timeouts_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_get_timeouts_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_get_timeouts_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("standby_timeout", &self.standby_timeout)
-            .field("suspend_timeout", &self.suspend_timeout)
-            .field("off_timeout", &self.off_timeout)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_DPMS_SET_TIMEOUTS: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_set_timeouts_request_t {
     pub major_opcode:    u8,
@@ -199,25 +109,9 @@ pub struct xcb_dpms_set_timeouts_request_t {
     pub off_timeout:     u16,
 }
 
-impl Copy for xcb_dpms_set_timeouts_request_t {}
-impl Clone for xcb_dpms_set_timeouts_request_t {
-    fn clone(&self) -> xcb_dpms_set_timeouts_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_set_timeouts_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_set_timeouts_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("standby_timeout", &self.standby_timeout)
-            .field("suspend_timeout", &self.suspend_timeout)
-            .field("off_timeout", &self.off_timeout)
-            .finish()
-    }
-}
-
 pub const XCB_DPMS_ENABLE: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_enable_request_t {
     pub major_opcode: u8,
@@ -225,41 +119,14 @@ pub struct xcb_dpms_enable_request_t {
     pub length:       u16,
 }
 
-impl Copy for xcb_dpms_enable_request_t {}
-impl Clone for xcb_dpms_enable_request_t {
-    fn clone(&self) -> xcb_dpms_enable_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_enable_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_enable_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_DPMS_DISABLE: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_disable_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_dpms_disable_request_t {}
-impl Clone for xcb_dpms_disable_request_t {
-    fn clone(&self) -> xcb_dpms_disable_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_disable_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_disable_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 pub type xcb_dpms_dpms_mode_t = u32;
@@ -270,6 +137,7 @@ pub const XCB_DPMS_DPMS_MODE_OFF    : xcb_dpms_dpms_mode_t = 0x03;
 
 pub const XCB_DPMS_FORCE_LEVEL: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_force_level_request_t {
     pub major_opcode: u8,
@@ -278,42 +146,14 @@ pub struct xcb_dpms_force_level_request_t {
     pub power_level:  u16,
 }
 
-impl Copy for xcb_dpms_force_level_request_t {}
-impl Clone for xcb_dpms_force_level_request_t {
-    fn clone(&self) -> xcb_dpms_force_level_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_force_level_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_force_level_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("power_level", &self.power_level)
-            .finish()
-    }
-}
-
 pub const XCB_DPMS_INFO: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_info_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_dpms_info_request_t {}
-impl Clone for xcb_dpms_info_request_t {
-    fn clone(&self) -> xcb_dpms_info_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -322,6 +162,7 @@ pub struct xcb_dpms_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dpms_info_reply_t {
     pub response_type: u8,
@@ -331,24 +172,6 @@ pub struct xcb_dpms_info_reply_t {
     pub power_level:   u16,
     pub state:         u8,
     pub pad1:          [u8; 21],
-}
-
-impl Copy for xcb_dpms_info_reply_t {}
-impl Clone for xcb_dpms_info_reply_t {
-    fn clone(&self) -> xcb_dpms_info_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dpms_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dpms_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("power_level", &self.power_level)
-            .field("state", &self.state)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 

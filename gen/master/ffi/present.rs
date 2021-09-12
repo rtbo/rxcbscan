@@ -51,23 +51,11 @@ pub const XCB_PRESENT_COMPLETE_MODE_COPY: xcb_present_complete_mode_t = 0x00;
 pub const XCB_PRESENT_COMPLETE_MODE_FLIP: xcb_present_complete_mode_t = 0x01;
 pub const XCB_PRESENT_COMPLETE_MODE_SKIP: xcb_present_complete_mode_t = 0x02;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_notify_t {
     pub window: xcb_window_t,
     pub serial: u32,
-}
-
-impl Copy for xcb_present_notify_t {}
-impl Clone for xcb_present_notify_t {
-    fn clone(&self) -> xcb_present_notify_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_notify_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_notify_t")
-            .field("window", &self.window)
-            .field("serial", &self.serial)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -80,6 +68,7 @@ pub struct xcb_present_notify_iterator_t {
 
 pub const XCB_PRESENT_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_query_version_request_t {
     pub major_opcode:  u8,
@@ -89,28 +78,13 @@ pub struct xcb_present_query_version_request_t {
     pub minor_version: u32,
 }
 
-impl Copy for xcb_present_query_version_request_t {}
-impl Clone for xcb_present_query_version_request_t {
-    fn clone(&self) -> xcb_present_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_query_version_reply_t {
     pub response_type: u8,
@@ -121,25 +95,9 @@ pub struct xcb_present_query_version_reply_t {
     pub minor_version: u32,
 }
 
-impl Copy for xcb_present_query_version_reply_t {}
-impl Clone for xcb_present_query_version_reply_t {
-    fn clone(&self) -> xcb_present_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 pub const XCB_PRESENT_PIXMAP: u8 = 1;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_present_pixmap_request_t {
     pub major_opcode: u8,
@@ -161,33 +119,10 @@ pub struct xcb_present_pixmap_request_t {
     pub divisor:      u64,
     pub remainder:    u64,
 }
-impl ::std::fmt::Debug for xcb_present_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("pixmap", &self.pixmap)
-            .field("serial", &self.serial)
-            .field("valid", &self.valid)
-            .field("update", &self.update)
-            .field("x_off", &self.x_off)
-            .field("y_off", &self.y_off)
-            .field("target_crtc", &self.target_crtc)
-            .field("wait_fence", &self.wait_fence)
-            .field("idle_fence", &self.idle_fence)
-            .field("options", &self.options)
-            .field("pad0", &&self.pad0[..])
-            .field("target_msc", &self.target_msc)
-            .field("divisor", &self.divisor)
-            .field("remainder", &self.remainder)
-            .finish()
-    }
-}
 
 pub const XCB_PRESENT_NOTIFY_MSC: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_notify_msc_request_t {
     pub major_opcode: u8,
@@ -199,26 +134,6 @@ pub struct xcb_present_notify_msc_request_t {
     pub target_msc:   u64,
     pub divisor:      u64,
     pub remainder:    u64,
-}
-
-impl Copy for xcb_present_notify_msc_request_t {}
-impl Clone for xcb_present_notify_msc_request_t {
-    fn clone(&self) -> xcb_present_notify_msc_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_notify_msc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_notify_msc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("serial", &self.serial)
-            .field("pad0", &&self.pad0[..])
-            .field("target_msc", &self.target_msc)
-            .field("divisor", &self.divisor)
-            .field("remainder", &self.remainder)
-            .finish()
-    }
 }
 
 pub type xcb_present_event_t = u32;
@@ -233,6 +148,7 @@ pub struct xcb_present_event_iterator_t {
 
 pub const XCB_PRESENT_SELECT_INPUT: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_select_input_request_t {
     pub major_opcode: u8,
@@ -243,25 +159,9 @@ pub struct xcb_present_select_input_request_t {
     pub event_mask:   u32,
 }
 
-impl Copy for xcb_present_select_input_request_t {}
-impl Clone for xcb_present_select_input_request_t {
-    fn clone(&self) -> xcb_present_select_input_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_select_input_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_select_input_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("eid", &self.eid)
-            .field("window", &self.window)
-            .field("event_mask", &self.event_mask)
-            .finish()
-    }
-}
-
 pub const XCB_PRESENT_QUERY_CAPABILITIES: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_query_capabilities_request_t {
     pub major_opcode: u8,
@@ -270,27 +170,13 @@ pub struct xcb_present_query_capabilities_request_t {
     pub target:       u32,
 }
 
-impl Copy for xcb_present_query_capabilities_request_t {}
-impl Clone for xcb_present_query_capabilities_request_t {
-    fn clone(&self) -> xcb_present_query_capabilities_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_query_capabilities_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_query_capabilities_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("target", &self.target)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_query_capabilities_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_query_capabilities_reply_t {
     pub response_type: u8,
@@ -300,24 +186,9 @@ pub struct xcb_present_query_capabilities_reply_t {
     pub capabilities:  u32,
 }
 
-impl Copy for xcb_present_query_capabilities_reply_t {}
-impl Clone for xcb_present_query_capabilities_reply_t {
-    fn clone(&self) -> xcb_present_query_capabilities_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_query_capabilities_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_query_capabilities_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("capabilities", &self.capabilities)
-            .finish()
-    }
-}
-
 pub const XCB_PRESENT_GENERIC: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_generic_event_t {
     pub response_type: u8,
@@ -329,26 +200,9 @@ pub struct xcb_present_generic_event_t {
     pub event:         xcb_present_event_t,
 }
 
-impl Copy for xcb_present_generic_event_t {}
-impl Clone for xcb_present_generic_event_t {
-    fn clone(&self) -> xcb_present_generic_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_generic_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_generic_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("evtype", &self.evtype)
-            .field("pad0", &&self.pad0[..])
-            .field("event", &self.event)
-            .finish()
-    }
-}
-
 pub const XCB_PRESENT_CONFIGURE_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_configure_notify_event_t {
     pub response_type: u8,
@@ -371,37 +225,9 @@ pub struct xcb_present_configure_notify_event_t {
     pub pixmap_flags:  u32,
 }
 
-impl Copy for xcb_present_configure_notify_event_t {}
-impl Clone for xcb_present_configure_notify_event_t {
-    fn clone(&self) -> xcb_present_configure_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_configure_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_configure_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("pad0", &&self.pad0[..])
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("off_x", &self.off_x)
-            .field("off_y", &self.off_y)
-            .field("full_sequence", &self.full_sequence)
-            .field("pixmap_width", &self.pixmap_width)
-            .field("pixmap_height", &self.pixmap_height)
-            .field("pixmap_flags", &self.pixmap_flags)
-            .finish()
-    }
-}
-
 pub const XCB_PRESENT_COMPLETE_NOTIFY: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C, packed)]
 pub struct xcb_present_complete_notify_event_t {
     pub response_type: u8,
@@ -419,32 +245,9 @@ pub struct xcb_present_complete_notify_event_t {
     pub msc:           u64,
 }
 
-impl Copy for xcb_present_complete_notify_event_t {}
-impl Clone for xcb_present_complete_notify_event_t {
-    fn clone(&self) -> xcb_present_complete_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_complete_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_complete_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("kind", &self.kind)
-            .field("mode", &self.mode)
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .field("serial", &self.serial)
-            .field("ust", &self.ust)
-            .field("full_sequence", &self.full_sequence)
-            .field("msc", &self.msc)
-            .finish()
-    }
-}
-
 pub const XCB_PRESENT_IDLE_NOTIFY: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_present_idle_notify_event_t {
     pub response_type: u8,
@@ -461,31 +264,9 @@ pub struct xcb_present_idle_notify_event_t {
     pub full_sequence: u32,
 }
 
-impl Copy for xcb_present_idle_notify_event_t {}
-impl Clone for xcb_present_idle_notify_event_t {
-    fn clone(&self) -> xcb_present_idle_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_present_idle_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_idle_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("pad0", &&self.pad0[..])
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .field("serial", &self.serial)
-            .field("pixmap", &self.pixmap)
-            .field("idle_fence", &self.idle_fence)
-            .field("full_sequence", &self.full_sequence)
-            .finish()
-    }
-}
-
 pub const XCB_PRESENT_REDIRECT_NOTIFY: u8 = 3;
 
+#[derive(Debug)]
 #[repr(C, packed)]
 pub struct xcb_present_redirect_notify_event_t {
     pub response_type: u8,
@@ -515,39 +296,6 @@ pub struct xcb_present_redirect_notify_event_t {
     pub target_msc:    u64,
     pub divisor:       u64,
     pub remainder:     u64,
-}
-impl ::std::fmt::Debug for xcb_present_redirect_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_present_redirect_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("update_window", &self.update_window)
-            .field("pad0", &self.pad0)
-            .field("event", &self.event)
-            .field("event_window", &self.event_window)
-            .field("window", &self.window)
-            .field("pixmap", &self.pixmap)
-            .field("serial", &self.serial)
-            .field("full_sequence", &self.full_sequence)
-            .field("valid_region", &self.valid_region)
-            .field("update_region", &self.update_region)
-            .field("valid_rect", &self.valid_rect)
-            .field("update_rect", &self.update_rect)
-            .field("x_off", &self.x_off)
-            .field("y_off", &self.y_off)
-            .field("target_crtc", &self.target_crtc)
-            .field("wait_fence", &self.wait_fence)
-            .field("idle_fence", &self.idle_fence)
-            .field("options", &self.options)
-            .field("pad1", &&self.pad1[..])
-            .field("target_msc", &self.target_msc)
-            .field("divisor", &self.divisor)
-            .field("remainder", &self.remainder)
-            .finish()
-    }
 }
 
 

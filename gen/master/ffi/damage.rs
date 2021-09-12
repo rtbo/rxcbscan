@@ -33,6 +33,7 @@ pub const XCB_DAMAGE_REPORT_LEVEL_NON_EMPTY       : xcb_damage_report_level_t = 
 
 pub const XCB_DAMAGE_BAD_DAMAGE: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_damage_bad_damage_error_t {
     pub response_type: u8,
@@ -40,22 +41,9 @@ pub struct xcb_damage_bad_damage_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_damage_bad_damage_error_t {}
-impl Clone for xcb_damage_bad_damage_error_t {
-    fn clone(&self) -> xcb_damage_bad_damage_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_damage_bad_damage_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_damage_bad_damage_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_DAMAGE_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_damage_query_version_request_t {
     pub major_opcode:         u8,
@@ -65,28 +53,13 @@ pub struct xcb_damage_query_version_request_t {
     pub client_minor_version: u32,
 }
 
-impl Copy for xcb_damage_query_version_request_t {}
-impl Clone for xcb_damage_query_version_request_t {
-    fn clone(&self) -> xcb_damage_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_damage_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_damage_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major_version", &self.client_major_version)
-            .field("client_minor_version", &self.client_minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_damage_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_damage_query_version_reply_t {
     pub response_type: u8,
@@ -98,26 +71,9 @@ pub struct xcb_damage_query_version_reply_t {
     pub pad1:          [u8; 16],
 }
 
-impl Copy for xcb_damage_query_version_reply_t {}
-impl Clone for xcb_damage_query_version_reply_t {
-    fn clone(&self) -> xcb_damage_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_damage_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_damage_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_DAMAGE_CREATE: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_damage_create_request_t {
     pub major_opcode: u8,
@@ -129,26 +85,9 @@ pub struct xcb_damage_create_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_damage_create_request_t {}
-impl Clone for xcb_damage_create_request_t {
-    fn clone(&self) -> xcb_damage_create_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_damage_create_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_damage_create_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("damage", &self.damage)
-            .field("drawable", &self.drawable)
-            .field("level", &self.level)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_DAMAGE_DESTROY: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_damage_destroy_request_t {
     pub major_opcode: u8,
@@ -157,23 +96,9 @@ pub struct xcb_damage_destroy_request_t {
     pub damage:       xcb_damage_damage_t,
 }
 
-impl Copy for xcb_damage_destroy_request_t {}
-impl Clone for xcb_damage_destroy_request_t {
-    fn clone(&self) -> xcb_damage_destroy_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_damage_destroy_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_damage_destroy_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("damage", &self.damage)
-            .finish()
-    }
-}
-
 pub const XCB_DAMAGE_SUBTRACT: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_damage_subtract_request_t {
     pub major_opcode: u8,
@@ -184,25 +109,9 @@ pub struct xcb_damage_subtract_request_t {
     pub parts:        xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_damage_subtract_request_t {}
-impl Clone for xcb_damage_subtract_request_t {
-    fn clone(&self) -> xcb_damage_subtract_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_damage_subtract_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_damage_subtract_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("damage", &self.damage)
-            .field("repair", &self.repair)
-            .field("parts", &self.parts)
-            .finish()
-    }
-}
-
 pub const XCB_DAMAGE_ADD: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_damage_add_request_t {
     pub major_opcode: u8,
@@ -212,24 +121,9 @@ pub struct xcb_damage_add_request_t {
     pub region:       xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_damage_add_request_t {}
-impl Clone for xcb_damage_add_request_t {
-    fn clone(&self) -> xcb_damage_add_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_damage_add_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_damage_add_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("region", &self.region)
-            .finish()
-    }
-}
-
 pub const XCB_DAMAGE_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_damage_notify_event_t {
     pub response_type: u8,
@@ -240,25 +134,6 @@ pub struct xcb_damage_notify_event_t {
     pub timestamp:     xcb_timestamp_t,
     pub area:          xcb_rectangle_t,
     pub geometry:      xcb_rectangle_t,
-}
-
-impl Copy for xcb_damage_notify_event_t {}
-impl Clone for xcb_damage_notify_event_t {
-    fn clone(&self) -> xcb_damage_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_damage_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_damage_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("level", &self.level)
-            .field("sequence", &self.sequence)
-            .field("drawable", &self.drawable)
-            .field("damage", &self.damage)
-            .field("timestamp", &self.timestamp)
-            .field("area", &self.area)
-            .field("geometry", &self.geometry)
-            .finish()
-    }
 }
 
 

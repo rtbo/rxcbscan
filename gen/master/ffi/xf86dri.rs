@@ -11,27 +11,13 @@ use std;
 pub const XCB_XF86DRI_MAJOR_VERSION: u32 = 4;
 pub const XCB_XF86DRI_MINOR_VERSION: u32 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_drm_clip_rect_t {
     pub x1: i16,
     pub y1: i16,
     pub x2: i16,
     pub x3: i16,
-}
-
-impl Copy for xcb_xf86dri_drm_clip_rect_t {}
-impl Clone for xcb_xf86dri_drm_clip_rect_t {
-    fn clone(&self) -> xcb_xf86dri_drm_clip_rect_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_drm_clip_rect_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_drm_clip_rect_t")
-            .field("x1", &self.x1)
-            .field("y1", &self.y1)
-            .field("x2", &self.x2)
-            .field("x3", &self.x3)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -44,25 +30,12 @@ pub struct xcb_xf86dri_drm_clip_rect_iterator_t {
 
 pub const XCB_XF86DRI_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_query_version_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_xf86dri_query_version_request_t {}
-impl Clone for xcb_xf86dri_query_version_request_t {
-    fn clone(&self) -> xcb_xf86dri_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -71,6 +44,7 @@ pub struct xcb_xf86dri_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_query_version_reply_t {
     pub response_type:     u8,
@@ -82,26 +56,9 @@ pub struct xcb_xf86dri_query_version_reply_t {
     pub dri_minor_patch:   u32,
 }
 
-impl Copy for xcb_xf86dri_query_version_reply_t {}
-impl Clone for xcb_xf86dri_query_version_reply_t {
-    fn clone(&self) -> xcb_xf86dri_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("dri_major_version", &self.dri_major_version)
-            .field("dri_minor_version", &self.dri_minor_version)
-            .field("dri_minor_patch", &self.dri_minor_patch)
-            .finish()
-    }
-}
-
 pub const XCB_XF86DRI_QUERY_DIRECT_RENDERING_CAPABLE: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_query_direct_rendering_capable_request_t {
     pub major_opcode: u8,
@@ -110,27 +67,13 @@ pub struct xcb_xf86dri_query_direct_rendering_capable_request_t {
     pub screen:       u32,
 }
 
-impl Copy for xcb_xf86dri_query_direct_rendering_capable_request_t {}
-impl Clone for xcb_xf86dri_query_direct_rendering_capable_request_t {
-    fn clone(&self) -> xcb_xf86dri_query_direct_rendering_capable_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_query_direct_rendering_capable_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_query_direct_rendering_capable_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_query_direct_rendering_capable_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_query_direct_rendering_capable_reply_t {
     pub response_type: u8,
@@ -140,24 +83,9 @@ pub struct xcb_xf86dri_query_direct_rendering_capable_reply_t {
     pub is_capable:    u8,
 }
 
-impl Copy for xcb_xf86dri_query_direct_rendering_capable_reply_t {}
-impl Clone for xcb_xf86dri_query_direct_rendering_capable_reply_t {
-    fn clone(&self) -> xcb_xf86dri_query_direct_rendering_capable_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_query_direct_rendering_capable_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_query_direct_rendering_capable_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("is_capable", &self.is_capable)
-            .finish()
-    }
-}
-
 pub const XCB_XF86DRI_OPEN_CONNECTION: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_open_connection_request_t {
     pub major_opcode: u8,
@@ -166,27 +94,13 @@ pub struct xcb_xf86dri_open_connection_request_t {
     pub screen:       u32,
 }
 
-impl Copy for xcb_xf86dri_open_connection_request_t {}
-impl Clone for xcb_xf86dri_open_connection_request_t {
-    fn clone(&self) -> xcb_xf86dri_open_connection_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_open_connection_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_open_connection_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_open_connection_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_open_connection_reply_t {
     pub response_type:     u8,
@@ -198,23 +112,10 @@ pub struct xcb_xf86dri_open_connection_reply_t {
     pub bus_id_len:        u32,
     pub pad1:              [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_xf86dri_open_connection_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_open_connection_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("sarea_handle_low", &self.sarea_handle_low)
-            .field("sarea_handle_high", &self.sarea_handle_high)
-            .field("bus_id_len", &self.bus_id_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XF86DRI_CLOSE_CONNECTION: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_close_connection_request_t {
     pub major_opcode: u8,
@@ -223,23 +124,9 @@ pub struct xcb_xf86dri_close_connection_request_t {
     pub screen:       u32,
 }
 
-impl Copy for xcb_xf86dri_close_connection_request_t {}
-impl Clone for xcb_xf86dri_close_connection_request_t {
-    fn clone(&self) -> xcb_xf86dri_close_connection_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_close_connection_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_close_connection_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 pub const XCB_XF86DRI_GET_CLIENT_DRIVER_NAME: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_get_client_driver_name_request_t {
     pub major_opcode: u8,
@@ -248,27 +135,13 @@ pub struct xcb_xf86dri_get_client_driver_name_request_t {
     pub screen:       u32,
 }
 
-impl Copy for xcb_xf86dri_get_client_driver_name_request_t {}
-impl Clone for xcb_xf86dri_get_client_driver_name_request_t {
-    fn clone(&self) -> xcb_xf86dri_get_client_driver_name_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_get_client_driver_name_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_get_client_driver_name_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_get_client_driver_name_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_get_client_driver_name_reply_t {
     pub response_type:               u8,
@@ -281,24 +154,10 @@ pub struct xcb_xf86dri_get_client_driver_name_reply_t {
     pub client_driver_name_len:      u32,
     pub pad1:                        [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_xf86dri_get_client_driver_name_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_get_client_driver_name_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("client_driver_major_version", &self.client_driver_major_version)
-            .field("client_driver_minor_version", &self.client_driver_minor_version)
-            .field("client_driver_patch_version", &self.client_driver_patch_version)
-            .field("client_driver_name_len", &self.client_driver_name_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XF86DRI_CREATE_CONTEXT: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_create_context_request_t {
     pub major_opcode: u8,
@@ -309,29 +168,13 @@ pub struct xcb_xf86dri_create_context_request_t {
     pub context:      u32,
 }
 
-impl Copy for xcb_xf86dri_create_context_request_t {}
-impl Clone for xcb_xf86dri_create_context_request_t {
-    fn clone(&self) -> xcb_xf86dri_create_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("visual", &self.visual)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_create_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_create_context_reply_t {
     pub response_type: u8,
@@ -341,24 +184,9 @@ pub struct xcb_xf86dri_create_context_reply_t {
     pub hw_context:    u32,
 }
 
-impl Copy for xcb_xf86dri_create_context_reply_t {}
-impl Clone for xcb_xf86dri_create_context_reply_t {
-    fn clone(&self) -> xcb_xf86dri_create_context_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_create_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_create_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("hw_context", &self.hw_context)
-            .finish()
-    }
-}
-
 pub const XCB_XF86DRI_DESTROY_CONTEXT: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_destroy_context_request_t {
     pub major_opcode: u8,
@@ -368,24 +196,9 @@ pub struct xcb_xf86dri_destroy_context_request_t {
     pub context:      u32,
 }
 
-impl Copy for xcb_xf86dri_destroy_context_request_t {}
-impl Clone for xcb_xf86dri_destroy_context_request_t {
-    fn clone(&self) -> xcb_xf86dri_destroy_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_destroy_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_destroy_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 pub const XCB_XF86DRI_CREATE_DRAWABLE: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_create_drawable_request_t {
     pub major_opcode: u8,
@@ -395,28 +208,13 @@ pub struct xcb_xf86dri_create_drawable_request_t {
     pub drawable:     u32,
 }
 
-impl Copy for xcb_xf86dri_create_drawable_request_t {}
-impl Clone for xcb_xf86dri_create_drawable_request_t {
-    fn clone(&self) -> xcb_xf86dri_create_drawable_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_create_drawable_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_create_drawable_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_create_drawable_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_create_drawable_reply_t {
     pub response_type:      u8,
@@ -426,24 +224,9 @@ pub struct xcb_xf86dri_create_drawable_reply_t {
     pub hw_drawable_handle: u32,
 }
 
-impl Copy for xcb_xf86dri_create_drawable_reply_t {}
-impl Clone for xcb_xf86dri_create_drawable_reply_t {
-    fn clone(&self) -> xcb_xf86dri_create_drawable_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_create_drawable_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_create_drawable_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("hw_drawable_handle", &self.hw_drawable_handle)
-            .finish()
-    }
-}
-
 pub const XCB_XF86DRI_DESTROY_DRAWABLE: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_destroy_drawable_request_t {
     pub major_opcode: u8,
@@ -453,24 +236,9 @@ pub struct xcb_xf86dri_destroy_drawable_request_t {
     pub drawable:     u32,
 }
 
-impl Copy for xcb_xf86dri_destroy_drawable_request_t {}
-impl Clone for xcb_xf86dri_destroy_drawable_request_t {
-    fn clone(&self) -> xcb_xf86dri_destroy_drawable_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_destroy_drawable_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_destroy_drawable_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 pub const XCB_XF86DRI_GET_DRAWABLE_INFO: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_get_drawable_info_request_t {
     pub major_opcode: u8,
@@ -480,28 +248,13 @@ pub struct xcb_xf86dri_get_drawable_info_request_t {
     pub drawable:     u32,
 }
 
-impl Copy for xcb_xf86dri_get_drawable_info_request_t {}
-impl Clone for xcb_xf86dri_get_drawable_info_request_t {
-    fn clone(&self) -> xcb_xf86dri_get_drawable_info_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_get_drawable_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_get_drawable_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_get_drawable_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_get_drawable_info_reply_t {
     pub response_type:        u8,
@@ -519,29 +272,10 @@ pub struct xcb_xf86dri_get_drawable_info_reply_t {
     pub back_y:               i16,
     pub num_back_clip_rects:  u32,
 }
-impl ::std::fmt::Debug for xcb_xf86dri_get_drawable_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_get_drawable_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("drawable_table_index", &self.drawable_table_index)
-            .field("drawable_table_stamp", &self.drawable_table_stamp)
-            .field("drawable_origin_X", &self.drawable_origin_X)
-            .field("drawable_origin_Y", &self.drawable_origin_Y)
-            .field("drawable_size_W", &self.drawable_size_W)
-            .field("drawable_size_H", &self.drawable_size_H)
-            .field("num_clip_rects", &self.num_clip_rects)
-            .field("back_x", &self.back_x)
-            .field("back_y", &self.back_y)
-            .field("num_back_clip_rects", &self.num_back_clip_rects)
-            .finish()
-    }
-}
 
 pub const XCB_XF86DRI_GET_DEVICE_INFO: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_get_device_info_request_t {
     pub major_opcode: u8,
@@ -550,27 +284,13 @@ pub struct xcb_xf86dri_get_device_info_request_t {
     pub screen:       u32,
 }
 
-impl Copy for xcb_xf86dri_get_device_info_request_t {}
-impl Clone for xcb_xf86dri_get_device_info_request_t {
-    fn clone(&self) -> xcb_xf86dri_get_device_info_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_get_device_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_get_device_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_get_device_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_get_device_info_reply_t {
     pub response_type:             u8,
@@ -584,25 +304,10 @@ pub struct xcb_xf86dri_get_device_info_reply_t {
     pub framebuffer_stride:        u32,
     pub device_private_size:       u32,
 }
-impl ::std::fmt::Debug for xcb_xf86dri_get_device_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_get_device_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("framebuffer_handle_low", &self.framebuffer_handle_low)
-            .field("framebuffer_handle_high", &self.framebuffer_handle_high)
-            .field("framebuffer_origin_offset", &self.framebuffer_origin_offset)
-            .field("framebuffer_size", &self.framebuffer_size)
-            .field("framebuffer_stride", &self.framebuffer_stride)
-            .field("device_private_size", &self.device_private_size)
-            .finish()
-    }
-}
 
 pub const XCB_XF86DRI_AUTH_CONNECTION: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_auth_connection_request_t {
     pub major_opcode: u8,
@@ -612,28 +317,13 @@ pub struct xcb_xf86dri_auth_connection_request_t {
     pub magic:        u32,
 }
 
-impl Copy for xcb_xf86dri_auth_connection_request_t {}
-impl Clone for xcb_xf86dri_auth_connection_request_t {
-    fn clone(&self) -> xcb_xf86dri_auth_connection_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_auth_connection_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_auth_connection_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("screen", &self.screen)
-            .field("magic", &self.magic)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_auth_connection_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xf86dri_auth_connection_reply_t {
     pub response_type: u8,
@@ -641,22 +331,6 @@ pub struct xcb_xf86dri_auth_connection_reply_t {
     pub sequence:      u16,
     pub length:        u32,
     pub authenticated: u32,
-}
-
-impl Copy for xcb_xf86dri_auth_connection_reply_t {}
-impl Clone for xcb_xf86dri_auth_connection_reply_t {
-    fn clone(&self) -> xcb_xf86dri_auth_connection_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xf86dri_auth_connection_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xf86dri_auth_connection_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("authenticated", &self.authenticated)
-            .finish()
-    }
 }
 
 

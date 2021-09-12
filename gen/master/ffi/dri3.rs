@@ -14,6 +14,7 @@ pub const XCB_DRI3_MINOR_VERSION: u32 = 0;
 
 pub const XCB_DRI3_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_query_version_request_t {
     pub major_opcode:  u8,
@@ -23,28 +24,13 @@ pub struct xcb_dri3_query_version_request_t {
     pub minor_version: u32,
 }
 
-impl Copy for xcb_dri3_query_version_request_t {}
-impl Clone for xcb_dri3_query_version_request_t {
-    fn clone(&self) -> xcb_dri3_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_query_version_reply_t {
     pub response_type: u8,
@@ -55,25 +41,9 @@ pub struct xcb_dri3_query_version_reply_t {
     pub minor_version: u32,
 }
 
-impl Copy for xcb_dri3_query_version_reply_t {}
-impl Clone for xcb_dri3_query_version_reply_t {
-    fn clone(&self) -> xcb_dri3_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 pub const XCB_DRI3_OPEN: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_open_request_t {
     pub major_opcode: u8,
@@ -83,28 +53,13 @@ pub struct xcb_dri3_open_request_t {
     pub provider:     u32,
 }
 
-impl Copy for xcb_dri3_open_request_t {}
-impl Clone for xcb_dri3_open_request_t {
-    fn clone(&self) -> xcb_dri3_open_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_open_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_open_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("provider", &self.provider)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_open_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_open_reply_t {
     pub response_type: u8,
@@ -114,24 +69,9 @@ pub struct xcb_dri3_open_reply_t {
     pub pad0:          [u8; 24],
 }
 
-impl Copy for xcb_dri3_open_reply_t {}
-impl Clone for xcb_dri3_open_reply_t {
-    fn clone(&self) -> xcb_dri3_open_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_open_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_open_reply_t")
-            .field("response_type", &self.response_type)
-            .field("nfd", &self.nfd)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_DRI3_PIXMAP_FROM_BUFFER: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_pixmap_from_buffer_request_t {
     pub major_opcode: u8,
@@ -147,30 +87,9 @@ pub struct xcb_dri3_pixmap_from_buffer_request_t {
     pub bpp:          u8,
 }
 
-impl Copy for xcb_dri3_pixmap_from_buffer_request_t {}
-impl Clone for xcb_dri3_pixmap_from_buffer_request_t {
-    fn clone(&self) -> xcb_dri3_pixmap_from_buffer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_pixmap_from_buffer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_pixmap_from_buffer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("pixmap", &self.pixmap)
-            .field("drawable", &self.drawable)
-            .field("size", &self.size)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("stride", &self.stride)
-            .field("depth", &self.depth)
-            .field("bpp", &self.bpp)
-            .finish()
-    }
-}
-
 pub const XCB_DRI3_BUFFER_FROM_PIXMAP: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_buffer_from_pixmap_request_t {
     pub major_opcode: u8,
@@ -179,27 +98,13 @@ pub struct xcb_dri3_buffer_from_pixmap_request_t {
     pub pixmap:       xcb_pixmap_t,
 }
 
-impl Copy for xcb_dri3_buffer_from_pixmap_request_t {}
-impl Clone for xcb_dri3_buffer_from_pixmap_request_t {
-    fn clone(&self) -> xcb_dri3_buffer_from_pixmap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_buffer_from_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_buffer_from_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("pixmap", &self.pixmap)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_buffer_from_pixmap_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_buffer_from_pixmap_reply_t {
     pub response_type: u8,
@@ -215,30 +120,9 @@ pub struct xcb_dri3_buffer_from_pixmap_reply_t {
     pub pad0:          [u8; 12],
 }
 
-impl Copy for xcb_dri3_buffer_from_pixmap_reply_t {}
-impl Clone for xcb_dri3_buffer_from_pixmap_reply_t {
-    fn clone(&self) -> xcb_dri3_buffer_from_pixmap_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_buffer_from_pixmap_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_buffer_from_pixmap_reply_t")
-            .field("response_type", &self.response_type)
-            .field("nfd", &self.nfd)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("size", &self.size)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("stride", &self.stride)
-            .field("depth", &self.depth)
-            .field("bpp", &self.bpp)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_DRI3_FENCE_FROM_FD: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_fence_from_fd_request_t {
     pub major_opcode:        u8,
@@ -250,26 +134,9 @@ pub struct xcb_dri3_fence_from_fd_request_t {
     pub pad0:                [u8; 3],
 }
 
-impl Copy for xcb_dri3_fence_from_fd_request_t {}
-impl Clone for xcb_dri3_fence_from_fd_request_t {
-    fn clone(&self) -> xcb_dri3_fence_from_fd_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_fence_from_fd_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_fence_from_fd_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("fence", &self.fence)
-            .field("initially_triggered", &self.initially_triggered)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_DRI3_FD_FROM_FENCE: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_fd_from_fence_request_t {
     pub major_opcode: u8,
@@ -279,28 +146,13 @@ pub struct xcb_dri3_fd_from_fence_request_t {
     pub fence:        u32,
 }
 
-impl Copy for xcb_dri3_fd_from_fence_request_t {}
-impl Clone for xcb_dri3_fd_from_fence_request_t {
-    fn clone(&self) -> xcb_dri3_fd_from_fence_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_fd_from_fence_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_fd_from_fence_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("fence", &self.fence)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_fd_from_fence_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_dri3_fd_from_fence_reply_t {
     pub response_type: u8,
@@ -308,22 +160,6 @@ pub struct xcb_dri3_fd_from_fence_reply_t {
     pub sequence:      u16,
     pub length:        u32,
     pub pad0:          [u8; 24],
-}
-
-impl Copy for xcb_dri3_fd_from_fence_reply_t {}
-impl Clone for xcb_dri3_fd_from_fence_reply_t {
-    fn clone(&self) -> xcb_dri3_fd_from_fence_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_dri3_fd_from_fence_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_dri3_fd_from_fence_reply_t")
-            .field("response_type", &self.response_type)
-            .field("nfd", &self.nfd)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 

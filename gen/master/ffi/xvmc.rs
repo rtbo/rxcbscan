@@ -44,6 +44,7 @@ pub struct xcb_xvmc_subpicture_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_surface_info_t {
     pub id:                    xcb_xvmc_surface_t,
@@ -57,26 +58,6 @@ pub struct xcb_xvmc_surface_info_t {
     pub flags:                 u32,
 }
 
-impl Copy for xcb_xvmc_surface_info_t {}
-impl Clone for xcb_xvmc_surface_info_t {
-    fn clone(&self) -> xcb_xvmc_surface_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_surface_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_surface_info_t")
-            .field("id", &self.id)
-            .field("chroma_format", &self.chroma_format)
-            .field("pad0", &self.pad0)
-            .field("max_width", &self.max_width)
-            .field("max_height", &self.max_height)
-            .field("subpicture_max_width", &self.subpicture_max_width)
-            .field("subpicture_max_height", &self.subpicture_max_height)
-            .field("mc_type", &self.mc_type)
-            .field("flags", &self.flags)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xvmc_surface_info_iterator_t {
@@ -87,25 +68,12 @@ pub struct xcb_xvmc_surface_info_iterator_t {
 
 pub const XCB_XVMC_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_query_version_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_xvmc_query_version_request_t {}
-impl Clone for xcb_xvmc_query_version_request_t {
-    fn clone(&self) -> xcb_xvmc_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -114,6 +82,7 @@ pub struct xcb_xvmc_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_query_version_reply_t {
     pub response_type: u8,
@@ -124,25 +93,9 @@ pub struct xcb_xvmc_query_version_reply_t {
     pub minor:         u32,
 }
 
-impl Copy for xcb_xvmc_query_version_reply_t {}
-impl Clone for xcb_xvmc_query_version_reply_t {
-    fn clone(&self) -> xcb_xvmc_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major", &self.major)
-            .field("minor", &self.minor)
-            .finish()
-    }
-}
-
 pub const XCB_XVMC_LIST_SURFACE_TYPES: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_list_surface_types_request_t {
     pub major_opcode: u8,
@@ -151,27 +104,13 @@ pub struct xcb_xvmc_list_surface_types_request_t {
     pub port_id:      xcb_xv_port_t,
 }
 
-impl Copy for xcb_xvmc_list_surface_types_request_t {}
-impl Clone for xcb_xvmc_list_surface_types_request_t {
-    fn clone(&self) -> xcb_xvmc_list_surface_types_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_list_surface_types_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_list_surface_types_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port_id", &self.port_id)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_list_surface_types_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_list_surface_types_reply_t {
     pub response_type: u8,
@@ -181,21 +120,10 @@ pub struct xcb_xvmc_list_surface_types_reply_t {
     pub num:           u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_xvmc_list_surface_types_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_list_surface_types_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num", &self.num)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XVMC_CREATE_CONTEXT: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_create_context_request_t {
     pub major_opcode: u8,
@@ -209,32 +137,13 @@ pub struct xcb_xvmc_create_context_request_t {
     pub flags:        u32,
 }
 
-impl Copy for xcb_xvmc_create_context_request_t {}
-impl Clone for xcb_xvmc_create_context_request_t {
-    fn clone(&self) -> xcb_xvmc_create_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_id", &self.context_id)
-            .field("port_id", &self.port_id)
-            .field("surface_id", &self.surface_id)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("flags", &self.flags)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_create_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_create_context_reply_t {
     pub response_type: u8,
@@ -246,23 +155,10 @@ pub struct xcb_xvmc_create_context_reply_t {
     pub flags_return:  u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_xvmc_create_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_create_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("width_actual", &self.width_actual)
-            .field("height_actual", &self.height_actual)
-            .field("flags_return", &self.flags_return)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XVMC_DESTROY_CONTEXT: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_destroy_context_request_t {
     pub major_opcode: u8,
@@ -271,23 +167,9 @@ pub struct xcb_xvmc_destroy_context_request_t {
     pub context_id:   xcb_xvmc_context_t,
 }
 
-impl Copy for xcb_xvmc_destroy_context_request_t {}
-impl Clone for xcb_xvmc_destroy_context_request_t {
-    fn clone(&self) -> xcb_xvmc_destroy_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_destroy_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_destroy_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_id", &self.context_id)
-            .finish()
-    }
-}
-
 pub const XCB_XVMC_CREATE_SURFACE: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_create_surface_request_t {
     pub major_opcode: u8,
@@ -297,28 +179,13 @@ pub struct xcb_xvmc_create_surface_request_t {
     pub context_id:   xcb_xvmc_context_t,
 }
 
-impl Copy for xcb_xvmc_create_surface_request_t {}
-impl Clone for xcb_xvmc_create_surface_request_t {
-    fn clone(&self) -> xcb_xvmc_create_surface_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_create_surface_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_create_surface_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("surface_id", &self.surface_id)
-            .field("context_id", &self.context_id)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_create_surface_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_create_surface_reply_t {
     pub response_type: u8,
@@ -327,20 +194,10 @@ pub struct xcb_xvmc_create_surface_reply_t {
     pub length:        u32,
     pub pad1:          [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_xvmc_create_surface_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_create_surface_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XVMC_DESTROY_SURFACE: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_destroy_surface_request_t {
     pub major_opcode: u8,
@@ -349,23 +206,9 @@ pub struct xcb_xvmc_destroy_surface_request_t {
     pub surface_id:   xcb_xvmc_surface_t,
 }
 
-impl Copy for xcb_xvmc_destroy_surface_request_t {}
-impl Clone for xcb_xvmc_destroy_surface_request_t {
-    fn clone(&self) -> xcb_xvmc_destroy_surface_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_destroy_surface_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_destroy_surface_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("surface_id", &self.surface_id)
-            .finish()
-    }
-}
-
 pub const XCB_XVMC_CREATE_SUBPICTURE: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_create_subpicture_request_t {
     pub major_opcode:  u8,
@@ -378,31 +221,13 @@ pub struct xcb_xvmc_create_subpicture_request_t {
     pub height:        u16,
 }
 
-impl Copy for xcb_xvmc_create_subpicture_request_t {}
-impl Clone for xcb_xvmc_create_subpicture_request_t {
-    fn clone(&self) -> xcb_xvmc_create_subpicture_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_create_subpicture_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_create_subpicture_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("subpicture_id", &self.subpicture_id)
-            .field("context", &self.context)
-            .field("xvimage_id", &self.xvimage_id)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_create_subpicture_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_create_subpicture_reply_t {
     pub response_type:       u8,
@@ -416,25 +241,10 @@ pub struct xcb_xvmc_create_subpicture_reply_t {
     pub component_order:     [u8; 4],
     pub pad1:                [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_xvmc_create_subpicture_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_create_subpicture_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("width_actual", &self.width_actual)
-            .field("height_actual", &self.height_actual)
-            .field("num_palette_entries", &self.num_palette_entries)
-            .field("entry_bytes", &self.entry_bytes)
-            .field("component_order", &&self.component_order[..])
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XVMC_DESTROY_SUBPICTURE: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_destroy_subpicture_request_t {
     pub major_opcode:  u8,
@@ -443,23 +253,9 @@ pub struct xcb_xvmc_destroy_subpicture_request_t {
     pub subpicture_id: xcb_xvmc_subpicture_t,
 }
 
-impl Copy for xcb_xvmc_destroy_subpicture_request_t {}
-impl Clone for xcb_xvmc_destroy_subpicture_request_t {
-    fn clone(&self) -> xcb_xvmc_destroy_subpicture_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_destroy_subpicture_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_destroy_subpicture_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("subpicture_id", &self.subpicture_id)
-            .finish()
-    }
-}
-
 pub const XCB_XVMC_LIST_SUBPICTURE_TYPES: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_list_subpicture_types_request_t {
     pub major_opcode: u8,
@@ -469,28 +265,13 @@ pub struct xcb_xvmc_list_subpicture_types_request_t {
     pub surface_id:   xcb_xvmc_surface_t,
 }
 
-impl Copy for xcb_xvmc_list_subpicture_types_request_t {}
-impl Clone for xcb_xvmc_list_subpicture_types_request_t {
-    fn clone(&self) -> xcb_xvmc_list_subpicture_types_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xvmc_list_subpicture_types_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_list_subpicture_types_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port_id", &self.port_id)
-            .field("surface_id", &self.surface_id)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_list_subpicture_types_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xvmc_list_subpicture_types_reply_t {
     pub response_type: u8,
@@ -499,18 +280,6 @@ pub struct xcb_xvmc_list_subpicture_types_reply_t {
     pub length:        u32,
     pub num:           u32,
     pub pad1:          [u8; 20],
-}
-impl ::std::fmt::Debug for xcb_xvmc_list_subpicture_types_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xvmc_list_subpicture_types_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num", &self.num)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 

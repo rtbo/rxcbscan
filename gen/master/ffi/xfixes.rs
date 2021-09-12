@@ -16,6 +16,7 @@ pub const XCB_XFIXES_MINOR_VERSION: u32 = 0;
 
 pub const XCB_XFIXES_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_query_version_request_t {
     pub major_opcode:         u8,
@@ -25,28 +26,13 @@ pub struct xcb_xfixes_query_version_request_t {
     pub client_minor_version: u32,
 }
 
-impl Copy for xcb_xfixes_query_version_request_t {}
-impl Clone for xcb_xfixes_query_version_request_t {
-    fn clone(&self) -> xcb_xfixes_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major_version", &self.client_major_version)
-            .field("client_minor_version", &self.client_minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_query_version_reply_t {
     pub response_type: u8,
@@ -56,24 +42,6 @@ pub struct xcb_xfixes_query_version_reply_t {
     pub major_version: u32,
     pub minor_version: u32,
     pub pad1:          [u8; 16],
-}
-
-impl Copy for xcb_xfixes_query_version_reply_t {}
-impl Clone for xcb_xfixes_query_version_reply_t {
-    fn clone(&self) -> xcb_xfixes_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub type xcb_xfixes_save_set_mode_t = u32;
@@ -90,6 +58,7 @@ pub const XCB_XFIXES_SAVE_SET_MAPPING_UNMAP: xcb_xfixes_save_set_mapping_t = 0x0
 
 pub const XCB_XFIXES_CHANGE_SAVE_SET: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_change_save_set_request_t {
     pub major_opcode: u8,
@@ -100,25 +69,6 @@ pub struct xcb_xfixes_change_save_set_request_t {
     pub map:          u8,
     pub pad0:         u8,
     pub window:       xcb_window_t,
-}
-
-impl Copy for xcb_xfixes_change_save_set_request_t {}
-impl Clone for xcb_xfixes_change_save_set_request_t {
-    fn clone(&self) -> xcb_xfixes_change_save_set_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_change_save_set_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_change_save_set_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("mode", &self.mode)
-            .field("target", &self.target)
-            .field("map", &self.map)
-            .field("pad0", &self.pad0)
-            .field("window", &self.window)
-            .finish()
-    }
 }
 
 pub type xcb_xfixes_selection_event_t = u32;
@@ -133,6 +83,7 @@ pub const XCB_XFIXES_SELECTION_EVENT_MASK_SELECTION_CLIENT_CLOSE  : xcb_xfixes_s
 
 pub const XCB_XFIXES_SELECTION_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_selection_notify_event_t {
     pub response_type:       u8,
@@ -146,28 +97,9 @@ pub struct xcb_xfixes_selection_notify_event_t {
     pub pad0:                [u8; 8],
 }
 
-impl Copy for xcb_xfixes_selection_notify_event_t {}
-impl Clone for xcb_xfixes_selection_notify_event_t {
-    fn clone(&self) -> xcb_xfixes_selection_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_selection_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_selection_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("subtype", &self.subtype)
-            .field("sequence", &self.sequence)
-            .field("window", &self.window)
-            .field("owner", &self.owner)
-            .field("selection", &self.selection)
-            .field("timestamp", &self.timestamp)
-            .field("selection_timestamp", &self.selection_timestamp)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_SELECT_SELECTION_INPUT: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_select_selection_input_request_t {
     pub major_opcode: u8,
@@ -178,23 +110,6 @@ pub struct xcb_xfixes_select_selection_input_request_t {
     pub event_mask:   u32,
 }
 
-impl Copy for xcb_xfixes_select_selection_input_request_t {}
-impl Clone for xcb_xfixes_select_selection_input_request_t {
-    fn clone(&self) -> xcb_xfixes_select_selection_input_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_select_selection_input_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_select_selection_input_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("selection", &self.selection)
-            .field("event_mask", &self.event_mask)
-            .finish()
-    }
-}
-
 pub type xcb_xfixes_cursor_notify_t = u32;
 pub const XCB_XFIXES_CURSOR_NOTIFY_DISPLAY_CURSOR: xcb_xfixes_cursor_notify_t = 0x00;
 
@@ -203,6 +118,7 @@ pub const XCB_XFIXES_CURSOR_NOTIFY_MASK_DISPLAY_CURSOR: xcb_xfixes_cursor_notify
 
 pub const XCB_XFIXES_CURSOR_NOTIFY: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_cursor_notify_event_t {
     pub response_type: u8,
@@ -215,27 +131,9 @@ pub struct xcb_xfixes_cursor_notify_event_t {
     pub pad0:          [u8; 12],
 }
 
-impl Copy for xcb_xfixes_cursor_notify_event_t {}
-impl Clone for xcb_xfixes_cursor_notify_event_t {
-    fn clone(&self) -> xcb_xfixes_cursor_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_cursor_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_cursor_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("subtype", &self.subtype)
-            .field("sequence", &self.sequence)
-            .field("window", &self.window)
-            .field("cursor_serial", &self.cursor_serial)
-            .field("timestamp", &self.timestamp)
-            .field("name", &self.name)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_SELECT_CURSOR_INPUT: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_select_cursor_input_request_t {
     pub major_opcode: u8,
@@ -245,43 +143,14 @@ pub struct xcb_xfixes_select_cursor_input_request_t {
     pub event_mask:   u32,
 }
 
-impl Copy for xcb_xfixes_select_cursor_input_request_t {}
-impl Clone for xcb_xfixes_select_cursor_input_request_t {
-    fn clone(&self) -> xcb_xfixes_select_cursor_input_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_select_cursor_input_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_select_cursor_input_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("event_mask", &self.event_mask)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_GET_CURSOR_IMAGE: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_get_cursor_image_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_xfixes_get_cursor_image_request_t {}
-impl Clone for xcb_xfixes_get_cursor_image_request_t {
-    fn clone(&self) -> xcb_xfixes_get_cursor_image_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_get_cursor_image_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_get_cursor_image_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -290,6 +159,7 @@ pub struct xcb_xfixes_get_cursor_image_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_get_cursor_image_reply_t {
     pub response_type: u8,
@@ -305,24 +175,6 @@ pub struct xcb_xfixes_get_cursor_image_reply_t {
     pub cursor_serial: u32,
     pub pad1:          [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_xfixes_get_cursor_image_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_get_cursor_image_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("xhot", &self.xhot)
-            .field("yhot", &self.yhot)
-            .field("cursor_serial", &self.cursor_serial)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub type xcb_xfixes_region_t = u32;
 
@@ -336,6 +188,7 @@ pub struct xcb_xfixes_region_iterator_t {
 
 pub const XCB_XFIXES_BAD_REGION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_bad_region_error_t {
     pub response_type: u8,
@@ -343,25 +196,12 @@ pub struct xcb_xfixes_bad_region_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xfixes_bad_region_error_t {}
-impl Clone for xcb_xfixes_bad_region_error_t {
-    fn clone(&self) -> xcb_xfixes_bad_region_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_bad_region_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_bad_region_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub type xcb_xfixes_region_enum_t = u32;
 pub const XCB_XFIXES_REGION_NONE: xcb_xfixes_region_enum_t = 0x00;
 
 pub const XCB_XFIXES_CREATE_REGION: u8 = 5;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_create_region_request_t {
     pub major_opcode:   u8,
@@ -369,19 +209,10 @@ pub struct xcb_xfixes_create_region_request_t {
     pub length:         u16,
     pub region:         xcb_xfixes_region_t,
 }
-impl ::std::fmt::Debug for xcb_xfixes_create_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_create_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .finish()
-    }
-}
 
 pub const XCB_XFIXES_CREATE_REGION_FROM_BITMAP: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_create_region_from_bitmap_request_t {
     pub major_opcode: u8,
@@ -391,24 +222,9 @@ pub struct xcb_xfixes_create_region_from_bitmap_request_t {
     pub bitmap:       xcb_pixmap_t,
 }
 
-impl Copy for xcb_xfixes_create_region_from_bitmap_request_t {}
-impl Clone for xcb_xfixes_create_region_from_bitmap_request_t {
-    fn clone(&self) -> xcb_xfixes_create_region_from_bitmap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_create_region_from_bitmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_create_region_from_bitmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .field("bitmap", &self.bitmap)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_CREATE_REGION_FROM_WINDOW: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_create_region_from_window_request_t {
     pub major_opcode: u8,
@@ -420,26 +236,9 @@ pub struct xcb_xfixes_create_region_from_window_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_xfixes_create_region_from_window_request_t {}
-impl Clone for xcb_xfixes_create_region_from_window_request_t {
-    fn clone(&self) -> xcb_xfixes_create_region_from_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_create_region_from_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_create_region_from_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .field("window", &self.window)
-            .field("kind", &self.kind)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_CREATE_REGION_FROM_GC: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_create_region_from_gc_request_t {
     pub major_opcode: u8,
@@ -449,24 +248,9 @@ pub struct xcb_xfixes_create_region_from_gc_request_t {
     pub gc:           xcb_gcontext_t,
 }
 
-impl Copy for xcb_xfixes_create_region_from_gc_request_t {}
-impl Clone for xcb_xfixes_create_region_from_gc_request_t {
-    fn clone(&self) -> xcb_xfixes_create_region_from_gc_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_create_region_from_gc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_create_region_from_gc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .field("gc", &self.gc)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_CREATE_REGION_FROM_PICTURE: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_create_region_from_picture_request_t {
     pub major_opcode: u8,
@@ -476,24 +260,9 @@ pub struct xcb_xfixes_create_region_from_picture_request_t {
     pub picture:      xcb_render_picture_t,
 }
 
-impl Copy for xcb_xfixes_create_region_from_picture_request_t {}
-impl Clone for xcb_xfixes_create_region_from_picture_request_t {
-    fn clone(&self) -> xcb_xfixes_create_region_from_picture_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_create_region_from_picture_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_create_region_from_picture_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .field("picture", &self.picture)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_DESTROY_REGION: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_destroy_region_request_t {
     pub major_opcode: u8,
@@ -502,23 +271,9 @@ pub struct xcb_xfixes_destroy_region_request_t {
     pub region:       xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_xfixes_destroy_region_request_t {}
-impl Clone for xcb_xfixes_destroy_region_request_t {
-    fn clone(&self) -> xcb_xfixes_destroy_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_destroy_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_destroy_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_SET_REGION: u8 = 11;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_set_region_request_t {
     pub major_opcode:   u8,
@@ -526,19 +281,10 @@ pub struct xcb_xfixes_set_region_request_t {
     pub length:         u16,
     pub region:         xcb_xfixes_region_t,
 }
-impl ::std::fmt::Debug for xcb_xfixes_set_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_set_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .finish()
-    }
-}
 
 pub const XCB_XFIXES_COPY_REGION: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_copy_region_request_t {
     pub major_opcode: u8,
@@ -548,24 +294,9 @@ pub struct xcb_xfixes_copy_region_request_t {
     pub destination:  xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_xfixes_copy_region_request_t {}
-impl Clone for xcb_xfixes_copy_region_request_t {
-    fn clone(&self) -> xcb_xfixes_copy_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_copy_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_copy_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("source", &self.source)
-            .field("destination", &self.destination)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_UNION_REGION: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_union_region_request_t {
     pub major_opcode: u8,
@@ -576,25 +307,9 @@ pub struct xcb_xfixes_union_region_request_t {
     pub destination:  xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_xfixes_union_region_request_t {}
-impl Clone for xcb_xfixes_union_region_request_t {
-    fn clone(&self) -> xcb_xfixes_union_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_union_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_union_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("source1", &self.source1)
-            .field("source2", &self.source2)
-            .field("destination", &self.destination)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_INTERSECT_REGION: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_intersect_region_request_t {
     pub major_opcode: u8,
@@ -605,25 +320,9 @@ pub struct xcb_xfixes_intersect_region_request_t {
     pub destination:  xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_xfixes_intersect_region_request_t {}
-impl Clone for xcb_xfixes_intersect_region_request_t {
-    fn clone(&self) -> xcb_xfixes_intersect_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_intersect_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_intersect_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("source1", &self.source1)
-            .field("source2", &self.source2)
-            .field("destination", &self.destination)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_SUBTRACT_REGION: u8 = 15;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_subtract_region_request_t {
     pub major_opcode: u8,
@@ -634,25 +333,9 @@ pub struct xcb_xfixes_subtract_region_request_t {
     pub destination:  xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_xfixes_subtract_region_request_t {}
-impl Clone for xcb_xfixes_subtract_region_request_t {
-    fn clone(&self) -> xcb_xfixes_subtract_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_subtract_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_subtract_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("source1", &self.source1)
-            .field("source2", &self.source2)
-            .field("destination", &self.destination)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_INVERT_REGION: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_invert_region_request_t {
     pub major_opcode: u8,
@@ -663,25 +346,9 @@ pub struct xcb_xfixes_invert_region_request_t {
     pub destination:  xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_xfixes_invert_region_request_t {}
-impl Clone for xcb_xfixes_invert_region_request_t {
-    fn clone(&self) -> xcb_xfixes_invert_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_invert_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_invert_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("source", &self.source)
-            .field("bounds", &self.bounds)
-            .field("destination", &self.destination)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_TRANSLATE_REGION: u8 = 17;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_translate_region_request_t {
     pub major_opcode: u8,
@@ -692,25 +359,9 @@ pub struct xcb_xfixes_translate_region_request_t {
     pub dy:           i16,
 }
 
-impl Copy for xcb_xfixes_translate_region_request_t {}
-impl Clone for xcb_xfixes_translate_region_request_t {
-    fn clone(&self) -> xcb_xfixes_translate_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_translate_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_translate_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .field("dx", &self.dx)
-            .field("dy", &self.dy)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_REGION_EXTENTS: u8 = 18;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_region_extents_request_t {
     pub major_opcode: u8,
@@ -720,24 +371,9 @@ pub struct xcb_xfixes_region_extents_request_t {
     pub destination:  xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_xfixes_region_extents_request_t {}
-impl Clone for xcb_xfixes_region_extents_request_t {
-    fn clone(&self) -> xcb_xfixes_region_extents_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_region_extents_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_region_extents_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("source", &self.source)
-            .field("destination", &self.destination)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_FETCH_REGION: u8 = 19;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_fetch_region_request_t {
     pub major_opcode: u8,
@@ -746,27 +382,13 @@ pub struct xcb_xfixes_fetch_region_request_t {
     pub region:       xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_xfixes_fetch_region_request_t {}
-impl Clone for xcb_xfixes_fetch_region_request_t {
-    fn clone(&self) -> xcb_xfixes_fetch_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_fetch_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_fetch_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_fetch_region_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_fetch_region_reply_t {
     pub response_type: u8,
@@ -776,21 +398,10 @@ pub struct xcb_xfixes_fetch_region_reply_t {
     pub extents:       xcb_rectangle_t,
     pub pad1:          [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_xfixes_fetch_region_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_fetch_region_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("extents", &self.extents)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XFIXES_SET_GC_CLIP_REGION: u8 = 20;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_set_gc_clip_region_request_t {
     pub major_opcode: u8,
@@ -802,26 +413,9 @@ pub struct xcb_xfixes_set_gc_clip_region_request_t {
     pub y_origin:     i16,
 }
 
-impl Copy for xcb_xfixes_set_gc_clip_region_request_t {}
-impl Clone for xcb_xfixes_set_gc_clip_region_request_t {
-    fn clone(&self) -> xcb_xfixes_set_gc_clip_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_set_gc_clip_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_set_gc_clip_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("gc", &self.gc)
-            .field("region", &self.region)
-            .field("x_origin", &self.x_origin)
-            .field("y_origin", &self.y_origin)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_SET_WINDOW_SHAPE_REGION: u8 = 21;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_set_window_shape_region_request_t {
     pub major_opcode: u8,
@@ -835,28 +429,9 @@ pub struct xcb_xfixes_set_window_shape_region_request_t {
     pub region:       xcb_xfixes_region_t,
 }
 
-impl Copy for xcb_xfixes_set_window_shape_region_request_t {}
-impl Clone for xcb_xfixes_set_window_shape_region_request_t {
-    fn clone(&self) -> xcb_xfixes_set_window_shape_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_set_window_shape_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_set_window_shape_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("dest", &self.dest)
-            .field("dest_kind", &self.dest_kind)
-            .field("pad0", &&self.pad0[..])
-            .field("x_offset", &self.x_offset)
-            .field("y_offset", &self.y_offset)
-            .field("region", &self.region)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_SET_PICTURE_CLIP_REGION: u8 = 22;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_set_picture_clip_region_request_t {
     pub major_opcode: u8,
@@ -868,26 +443,9 @@ pub struct xcb_xfixes_set_picture_clip_region_request_t {
     pub y_origin:     i16,
 }
 
-impl Copy for xcb_xfixes_set_picture_clip_region_request_t {}
-impl Clone for xcb_xfixes_set_picture_clip_region_request_t {
-    fn clone(&self) -> xcb_xfixes_set_picture_clip_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_set_picture_clip_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_set_picture_clip_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("picture", &self.picture)
-            .field("region", &self.region)
-            .field("x_origin", &self.x_origin)
-            .field("y_origin", &self.y_origin)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_SET_CURSOR_NAME: u8 = 23;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_set_cursor_name_request_t {
     pub major_opcode: u8,
@@ -897,21 +455,10 @@ pub struct xcb_xfixes_set_cursor_name_request_t {
     pub nbytes:       u16,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_xfixes_set_cursor_name_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_set_cursor_name_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("cursor", &self.cursor)
-            .field("nbytes", &self.nbytes)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_XFIXES_GET_CURSOR_NAME: u8 = 24;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_get_cursor_name_request_t {
     pub major_opcode: u8,
@@ -920,27 +467,13 @@ pub struct xcb_xfixes_get_cursor_name_request_t {
     pub cursor:       xcb_cursor_t,
 }
 
-impl Copy for xcb_xfixes_get_cursor_name_request_t {}
-impl Clone for xcb_xfixes_get_cursor_name_request_t {
-    fn clone(&self) -> xcb_xfixes_get_cursor_name_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_get_cursor_name_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_get_cursor_name_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("cursor", &self.cursor)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_get_cursor_name_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_get_cursor_name_reply_t {
     pub response_type: u8,
@@ -951,41 +484,15 @@ pub struct xcb_xfixes_get_cursor_name_reply_t {
     pub nbytes:        u16,
     pub pad1:          [u8; 18],
 }
-impl ::std::fmt::Debug for xcb_xfixes_get_cursor_name_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_get_cursor_name_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("atom", &self.atom)
-            .field("nbytes", &self.nbytes)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XFIXES_GET_CURSOR_IMAGE_AND_NAME: u8 = 25;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_get_cursor_image_and_name_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_xfixes_get_cursor_image_and_name_request_t {}
-impl Clone for xcb_xfixes_get_cursor_image_and_name_request_t {
-    fn clone(&self) -> xcb_xfixes_get_cursor_image_and_name_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_get_cursor_image_and_name_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_get_cursor_image_and_name_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -994,6 +501,7 @@ pub struct xcb_xfixes_get_cursor_image_and_name_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_get_cursor_image_and_name_reply_t {
     pub response_type: u8,
@@ -1011,29 +519,10 @@ pub struct xcb_xfixes_get_cursor_image_and_name_reply_t {
     pub nbytes:        u16,
     pub pad1:          [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_xfixes_get_cursor_image_and_name_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_get_cursor_image_and_name_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("xhot", &self.xhot)
-            .field("yhot", &self.yhot)
-            .field("cursor_serial", &self.cursor_serial)
-            .field("cursor_atom", &self.cursor_atom)
-            .field("nbytes", &self.nbytes)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XFIXES_CHANGE_CURSOR: u8 = 26;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_change_cursor_request_t {
     pub major_opcode: u8,
@@ -1043,24 +532,9 @@ pub struct xcb_xfixes_change_cursor_request_t {
     pub destination:  xcb_cursor_t,
 }
 
-impl Copy for xcb_xfixes_change_cursor_request_t {}
-impl Clone for xcb_xfixes_change_cursor_request_t {
-    fn clone(&self) -> xcb_xfixes_change_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_change_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_change_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("source", &self.source)
-            .field("destination", &self.destination)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_CHANGE_CURSOR_BY_NAME: u8 = 27;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_change_cursor_by_name_request_t {
     pub major_opcode: u8,
@@ -1070,21 +544,10 @@ pub struct xcb_xfixes_change_cursor_by_name_request_t {
     pub nbytes:       u16,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_xfixes_change_cursor_by_name_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_change_cursor_by_name_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("src", &self.src)
-            .field("nbytes", &self.nbytes)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_XFIXES_EXPAND_REGION: u8 = 28;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_expand_region_request_t {
     pub major_opcode: u8,
@@ -1098,28 +561,9 @@ pub struct xcb_xfixes_expand_region_request_t {
     pub bottom:       u16,
 }
 
-impl Copy for xcb_xfixes_expand_region_request_t {}
-impl Clone for xcb_xfixes_expand_region_request_t {
-    fn clone(&self) -> xcb_xfixes_expand_region_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_expand_region_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_expand_region_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("source", &self.source)
-            .field("destination", &self.destination)
-            .field("left", &self.left)
-            .field("right", &self.right)
-            .field("top", &self.top)
-            .field("bottom", &self.bottom)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_HIDE_CURSOR: u8 = 29;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_hide_cursor_request_t {
     pub major_opcode: u8,
@@ -1128,44 +572,15 @@ pub struct xcb_xfixes_hide_cursor_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_xfixes_hide_cursor_request_t {}
-impl Clone for xcb_xfixes_hide_cursor_request_t {
-    fn clone(&self) -> xcb_xfixes_hide_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_hide_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_hide_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_XFIXES_SHOW_CURSOR: u8 = 30;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_show_cursor_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
     pub window:       xcb_window_t,
-}
-
-impl Copy for xcb_xfixes_show_cursor_request_t {}
-impl Clone for xcb_xfixes_show_cursor_request_t {
-    fn clone(&self) -> xcb_xfixes_show_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_show_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_show_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
 }
 
 pub type xcb_xfixes_barrier_t = u32;
@@ -1186,6 +601,7 @@ pub const XCB_XFIXES_BARRIER_DIRECTIONS_NEGATIVE_Y: xcb_xfixes_barrier_direction
 
 pub const XCB_XFIXES_CREATE_POINTER_BARRIER: u8 = 31;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_create_pointer_barrier_request_t {
     pub major_opcode: u8,
@@ -1201,48 +617,16 @@ pub struct xcb_xfixes_create_pointer_barrier_request_t {
     pub pad0:         [u8; 2],
     pub num_devices:  u16,
 }
-impl ::std::fmt::Debug for xcb_xfixes_create_pointer_barrier_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_create_pointer_barrier_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("barrier", &self.barrier)
-            .field("window", &self.window)
-            .field("x1", &self.x1)
-            .field("y1", &self.y1)
-            .field("x2", &self.x2)
-            .field("y2", &self.y2)
-            .field("directions", &self.directions)
-            .field("pad0", &&self.pad0[..])
-            .field("num_devices", &self.num_devices)
-            .finish()
-    }
-}
 
 pub const XCB_XFIXES_DELETE_POINTER_BARRIER: u8 = 32;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xfixes_delete_pointer_barrier_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
     pub barrier:      xcb_xfixes_barrier_t,
-}
-
-impl Copy for xcb_xfixes_delete_pointer_barrier_request_t {}
-impl Clone for xcb_xfixes_delete_pointer_barrier_request_t {
-    fn clone(&self) -> xcb_xfixes_delete_pointer_barrier_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xfixes_delete_pointer_barrier_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xfixes_delete_pointer_barrier_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("barrier", &self.barrier)
-            .finish()
-    }
 }
 
 

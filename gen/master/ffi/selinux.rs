@@ -14,6 +14,7 @@ pub const XCB_SELINUX_MINOR_VERSION: u32 = 0;
 
 pub const XCB_SELINUX_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_query_version_request_t {
     pub major_opcode: u8,
@@ -23,28 +24,13 @@ pub struct xcb_selinux_query_version_request_t {
     pub client_minor: u8,
 }
 
-impl Copy for xcb_selinux_query_version_request_t {}
-impl Clone for xcb_selinux_query_version_request_t {
-    fn clone(&self) -> xcb_selinux_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major", &self.client_major)
-            .field("client_minor", &self.client_minor)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_query_version_reply_t {
     pub response_type: u8,
@@ -55,25 +41,9 @@ pub struct xcb_selinux_query_version_reply_t {
     pub server_minor:  u16,
 }
 
-impl Copy for xcb_selinux_query_version_reply_t {}
-impl Clone for xcb_selinux_query_version_reply_t {
-    fn clone(&self) -> xcb_selinux_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("server_major", &self.server_major)
-            .field("server_minor", &self.server_minor)
-            .finish()
-    }
-}
-
 pub const XCB_SELINUX_SET_DEVICE_CREATE_CONTEXT: u8 = 1;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_set_device_create_context_request_t {
     pub major_opcode: u8,
@@ -81,38 +51,15 @@ pub struct xcb_selinux_set_device_create_context_request_t {
     pub length:       u16,
     pub context_len:  u32,
 }
-impl ::std::fmt::Debug for xcb_selinux_set_device_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_set_device_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_DEVICE_CREATE_CONTEXT: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_device_create_context_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_selinux_get_device_create_context_request_t {}
-impl Clone for xcb_selinux_get_device_create_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_device_create_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_device_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_device_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -121,6 +68,7 @@ pub struct xcb_selinux_get_device_create_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_device_create_context_reply_t {
     pub response_type: u8,
@@ -130,21 +78,10 @@ pub struct xcb_selinux_get_device_create_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_device_create_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_device_create_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_SET_DEVICE_CONTEXT: u8 = 3;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_set_device_context_request_t {
     pub major_opcode: u8,
@@ -153,20 +90,10 @@ pub struct xcb_selinux_set_device_context_request_t {
     pub device:       u32,
     pub context_len:  u32,
 }
-impl ::std::fmt::Debug for xcb_selinux_set_device_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_set_device_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device", &self.device)
-            .field("context_len", &self.context_len)
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_DEVICE_CONTEXT: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_device_context_request_t {
     pub major_opcode: u8,
@@ -175,27 +102,13 @@ pub struct xcb_selinux_get_device_context_request_t {
     pub device:       u32,
 }
 
-impl Copy for xcb_selinux_get_device_context_request_t {}
-impl Clone for xcb_selinux_get_device_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_device_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_device_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_device_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("device", &self.device)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_device_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_device_context_reply_t {
     pub response_type: u8,
@@ -205,21 +118,10 @@ pub struct xcb_selinux_get_device_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_device_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_device_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_SET_WINDOW_CREATE_CONTEXT: u8 = 5;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_set_window_create_context_request_t {
     pub major_opcode: u8,
@@ -227,38 +129,15 @@ pub struct xcb_selinux_set_window_create_context_request_t {
     pub length:       u16,
     pub context_len:  u32,
 }
-impl ::std::fmt::Debug for xcb_selinux_set_window_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_set_window_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_WINDOW_CREATE_CONTEXT: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_window_create_context_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_selinux_get_window_create_context_request_t {}
-impl Clone for xcb_selinux_get_window_create_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_window_create_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_window_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_window_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -267,6 +146,7 @@ pub struct xcb_selinux_get_window_create_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_window_create_context_reply_t {
     pub response_type: u8,
@@ -276,21 +156,10 @@ pub struct xcb_selinux_get_window_create_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_window_create_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_window_create_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_WINDOW_CONTEXT: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_window_context_request_t {
     pub major_opcode: u8,
@@ -299,27 +168,13 @@ pub struct xcb_selinux_get_window_context_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_selinux_get_window_context_request_t {}
-impl Clone for xcb_selinux_get_window_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_window_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_window_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_window_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_window_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_window_context_reply_t {
     pub response_type: u8,
@@ -329,33 +184,13 @@ pub struct xcb_selinux_get_window_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_window_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_window_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_list_item_t {
     pub name:               xcb_atom_t,
     pub object_context_len: u32,
     pub data_context_len:   u32,
-}
-impl ::std::fmt::Debug for xcb_selinux_list_item_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_list_item_t")
-            .field("name", &self.name)
-            .field("object_context_len", &self.object_context_len)
-            .field("data_context_len", &self.data_context_len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -369,6 +204,7 @@ pub struct xcb_selinux_list_item_iterator_t<'a> {
 
 pub const XCB_SELINUX_SET_PROPERTY_CREATE_CONTEXT: u8 = 8;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_set_property_create_context_request_t {
     pub major_opcode: u8,
@@ -376,38 +212,15 @@ pub struct xcb_selinux_set_property_create_context_request_t {
     pub length:       u16,
     pub context_len:  u32,
 }
-impl ::std::fmt::Debug for xcb_selinux_set_property_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_set_property_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_PROPERTY_CREATE_CONTEXT: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_create_context_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_selinux_get_property_create_context_request_t {}
-impl Clone for xcb_selinux_get_property_create_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_property_create_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_property_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_property_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -416,6 +229,7 @@ pub struct xcb_selinux_get_property_create_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_create_context_reply_t {
     pub response_type: u8,
@@ -425,21 +239,10 @@ pub struct xcb_selinux_get_property_create_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_property_create_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_property_create_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_SET_PROPERTY_USE_CONTEXT: u8 = 10;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_set_property_use_context_request_t {
     pub major_opcode: u8,
@@ -447,38 +250,15 @@ pub struct xcb_selinux_set_property_use_context_request_t {
     pub length:       u16,
     pub context_len:  u32,
 }
-impl ::std::fmt::Debug for xcb_selinux_set_property_use_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_set_property_use_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_PROPERTY_USE_CONTEXT: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_use_context_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_selinux_get_property_use_context_request_t {}
-impl Clone for xcb_selinux_get_property_use_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_property_use_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_property_use_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_property_use_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -487,6 +267,7 @@ pub struct xcb_selinux_get_property_use_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_use_context_reply_t {
     pub response_type: u8,
@@ -496,21 +277,10 @@ pub struct xcb_selinux_get_property_use_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_property_use_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_property_use_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_PROPERTY_CONTEXT: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_context_request_t {
     pub major_opcode: u8,
@@ -520,28 +290,13 @@ pub struct xcb_selinux_get_property_context_request_t {
     pub property:     xcb_atom_t,
 }
 
-impl Copy for xcb_selinux_get_property_context_request_t {}
-impl Clone for xcb_selinux_get_property_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_property_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_property_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_property_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("property", &self.property)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_context_reply_t {
     pub response_type: u8,
@@ -551,21 +306,10 @@ pub struct xcb_selinux_get_property_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_property_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_property_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_PROPERTY_DATA_CONTEXT: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_data_context_request_t {
     pub major_opcode: u8,
@@ -575,28 +319,13 @@ pub struct xcb_selinux_get_property_data_context_request_t {
     pub property:     xcb_atom_t,
 }
 
-impl Copy for xcb_selinux_get_property_data_context_request_t {}
-impl Clone for xcb_selinux_get_property_data_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_property_data_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_property_data_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_property_data_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("property", &self.property)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_data_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_property_data_context_reply_t {
     pub response_type: u8,
@@ -606,21 +335,10 @@ pub struct xcb_selinux_get_property_data_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_property_data_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_property_data_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_LIST_PROPERTIES: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_list_properties_request_t {
     pub major_opcode: u8,
@@ -629,27 +347,13 @@ pub struct xcb_selinux_list_properties_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_selinux_list_properties_request_t {}
-impl Clone for xcb_selinux_list_properties_request_t {
-    fn clone(&self) -> xcb_selinux_list_properties_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_list_properties_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_list_properties_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_list_properties_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_list_properties_reply_t {
     pub response_type:  u8,
@@ -659,21 +363,10 @@ pub struct xcb_selinux_list_properties_reply_t {
     pub properties_len: u32,
     pub pad1:           [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_list_properties_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_list_properties_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("properties_len", &self.properties_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_SET_SELECTION_CREATE_CONTEXT: u8 = 15;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_set_selection_create_context_request_t {
     pub major_opcode: u8,
@@ -681,38 +374,15 @@ pub struct xcb_selinux_set_selection_create_context_request_t {
     pub length:       u16,
     pub context_len:  u32,
 }
-impl ::std::fmt::Debug for xcb_selinux_set_selection_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_set_selection_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_SELECTION_CREATE_CONTEXT: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_create_context_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_selinux_get_selection_create_context_request_t {}
-impl Clone for xcb_selinux_get_selection_create_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_selection_create_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_selection_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_selection_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -721,6 +391,7 @@ pub struct xcb_selinux_get_selection_create_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_create_context_reply_t {
     pub response_type: u8,
@@ -730,21 +401,10 @@ pub struct xcb_selinux_get_selection_create_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_selection_create_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_selection_create_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_SET_SELECTION_USE_CONTEXT: u8 = 17;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_set_selection_use_context_request_t {
     pub major_opcode: u8,
@@ -752,38 +412,15 @@ pub struct xcb_selinux_set_selection_use_context_request_t {
     pub length:       u16,
     pub context_len:  u32,
 }
-impl ::std::fmt::Debug for xcb_selinux_set_selection_use_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_set_selection_use_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_SELECTION_USE_CONTEXT: u8 = 18;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_use_context_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_selinux_get_selection_use_context_request_t {}
-impl Clone for xcb_selinux_get_selection_use_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_selection_use_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_selection_use_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_selection_use_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -792,6 +429,7 @@ pub struct xcb_selinux_get_selection_use_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_use_context_reply_t {
     pub response_type: u8,
@@ -801,21 +439,10 @@ pub struct xcb_selinux_get_selection_use_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_selection_use_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_selection_use_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_SELECTION_CONTEXT: u8 = 19;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_context_request_t {
     pub major_opcode: u8,
@@ -824,27 +451,13 @@ pub struct xcb_selinux_get_selection_context_request_t {
     pub selection:    xcb_atom_t,
 }
 
-impl Copy for xcb_selinux_get_selection_context_request_t {}
-impl Clone for xcb_selinux_get_selection_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_selection_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_selection_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_selection_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("selection", &self.selection)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_context_reply_t {
     pub response_type: u8,
@@ -854,21 +467,10 @@ pub struct xcb_selinux_get_selection_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_selection_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_selection_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_SELECTION_DATA_CONTEXT: u8 = 20;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_data_context_request_t {
     pub major_opcode: u8,
@@ -877,27 +479,13 @@ pub struct xcb_selinux_get_selection_data_context_request_t {
     pub selection:    xcb_atom_t,
 }
 
-impl Copy for xcb_selinux_get_selection_data_context_request_t {}
-impl Clone for xcb_selinux_get_selection_data_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_selection_data_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_selection_data_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_selection_data_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("selection", &self.selection)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_data_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_selection_data_context_reply_t {
     pub response_type: u8,
@@ -907,40 +495,15 @@ pub struct xcb_selinux_get_selection_data_context_reply_t {
     pub context_len:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_get_selection_data_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_selection_data_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_LIST_SELECTIONS: u8 = 21;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_list_selections_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_selinux_list_selections_request_t {}
-impl Clone for xcb_selinux_list_selections_request_t {
-    fn clone(&self) -> xcb_selinux_list_selections_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_list_selections_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_list_selections_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -949,6 +512,7 @@ pub struct xcb_selinux_list_selections_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_list_selections_reply_t {
     pub response_type:  u8,
@@ -958,21 +522,10 @@ pub struct xcb_selinux_list_selections_reply_t {
     pub selections_len: u32,
     pub pad1:           [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_selinux_list_selections_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_list_selections_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("selections_len", &self.selections_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SELINUX_GET_CLIENT_CONTEXT: u8 = 22;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_client_context_request_t {
     pub major_opcode: u8,
@@ -981,27 +534,13 @@ pub struct xcb_selinux_get_client_context_request_t {
     pub resource:     u32,
 }
 
-impl Copy for xcb_selinux_get_client_context_request_t {}
-impl Clone for xcb_selinux_get_client_context_request_t {
-    fn clone(&self) -> xcb_selinux_get_client_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selinux_get_client_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_client_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("resource", &self.resource)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_client_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_selinux_get_client_context_reply_t {
     pub response_type: u8,
@@ -1010,18 +549,6 @@ pub struct xcb_selinux_get_client_context_reply_t {
     pub length:        u32,
     pub context_len:   u32,
     pub pad1:          [u8; 20],
-}
-impl ::std::fmt::Debug for xcb_selinux_get_client_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selinux_get_client_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context_len", &self.context_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 

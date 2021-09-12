@@ -12,23 +12,11 @@ use std;
 pub const XCB_RES_MAJOR_VERSION: u32 = 1;
 pub const XCB_RES_MINOR_VERSION: u32 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_client_t {
     pub resource_base: u32,
     pub resource_mask: u32,
-}
-
-impl Copy for xcb_res_client_t {}
-impl Clone for xcb_res_client_t {
-    fn clone(&self) -> xcb_res_client_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_client_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_client_t")
-            .field("resource_base", &self.resource_base)
-            .field("resource_mask", &self.resource_mask)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -39,23 +27,11 @@ pub struct xcb_res_client_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_type_t {
     pub resource_type: xcb_atom_t,
     pub count:         u32,
-}
-
-impl Copy for xcb_res_type_t {}
-impl Clone for xcb_res_type_t {
-    fn clone(&self) -> xcb_res_type_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_type_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_type_t")
-            .field("resource_type", &self.resource_type)
-            .field("count", &self.count)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -70,23 +46,11 @@ pub type xcb_res_client_id_mask_t = u32;
 pub const XCB_RES_CLIENT_ID_MASK_CLIENT_XID      : xcb_res_client_id_mask_t = 0x01;
 pub const XCB_RES_CLIENT_ID_MASK_LOCAL_CLIENT_PID: xcb_res_client_id_mask_t = 0x02;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_client_id_spec_t {
     pub client: u32,
     pub mask:   u32,
-}
-
-impl Copy for xcb_res_client_id_spec_t {}
-impl Clone for xcb_res_client_id_spec_t {
-    fn clone(&self) -> xcb_res_client_id_spec_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_client_id_spec_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_client_id_spec_t")
-            .field("client", &self.client)
-            .field("mask", &self.mask)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -97,18 +61,11 @@ pub struct xcb_res_client_id_spec_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_res_client_id_value_t {
     pub spec:   xcb_res_client_id_spec_t,
     pub length: u32,
-}
-impl ::std::fmt::Debug for xcb_res_client_id_value_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_client_id_value_t")
-            .field("spec", &self.spec)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -120,23 +77,11 @@ pub struct xcb_res_client_id_value_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_res_client_id_value_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_resource_id_spec_t {
     pub resource: u32,
     pub type_:    u32,
-}
-
-impl Copy for xcb_res_resource_id_spec_t {}
-impl Clone for xcb_res_resource_id_spec_t {
-    fn clone(&self) -> xcb_res_resource_id_spec_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_resource_id_spec_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_resource_id_spec_t")
-            .field("resource", &self.resource)
-            .field("type_", &self.type_)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -147,27 +92,13 @@ pub struct xcb_res_resource_id_spec_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_resource_size_spec_t {
     pub spec:      xcb_res_resource_id_spec_t,
     pub bytes:     u32,
     pub ref_count: u32,
     pub use_count: u32,
-}
-
-impl Copy for xcb_res_resource_size_spec_t {}
-impl Clone for xcb_res_resource_size_spec_t {
-    fn clone(&self) -> xcb_res_resource_size_spec_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_resource_size_spec_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_resource_size_spec_t")
-            .field("spec", &self.spec)
-            .field("bytes", &self.bytes)
-            .field("ref_count", &self.ref_count)
-            .field("use_count", &self.use_count)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -178,18 +109,11 @@ pub struct xcb_res_resource_size_spec_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_res_resource_size_value_t {
     pub size:                 xcb_res_resource_size_spec_t,
     pub num_cross_references: u32,
-}
-impl ::std::fmt::Debug for xcb_res_resource_size_value_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_resource_size_value_t")
-            .field("size", &self.size)
-            .field("num_cross_references", &self.num_cross_references)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -203,6 +127,7 @@ pub struct xcb_res_resource_size_value_iterator_t<'a> {
 
 pub const XCB_RES_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_query_version_request_t {
     pub major_opcode: u8,
@@ -212,28 +137,13 @@ pub struct xcb_res_query_version_request_t {
     pub client_minor: u8,
 }
 
-impl Copy for xcb_res_query_version_request_t {}
-impl Clone for xcb_res_query_version_request_t {
-    fn clone(&self) -> xcb_res_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major", &self.client_major)
-            .field("client_minor", &self.client_minor)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_query_version_reply_t {
     pub response_type: u8,
@@ -244,44 +154,14 @@ pub struct xcb_res_query_version_reply_t {
     pub server_minor:  u16,
 }
 
-impl Copy for xcb_res_query_version_reply_t {}
-impl Clone for xcb_res_query_version_reply_t {
-    fn clone(&self) -> xcb_res_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("server_major", &self.server_major)
-            .field("server_minor", &self.server_minor)
-            .finish()
-    }
-}
-
 pub const XCB_RES_QUERY_CLIENTS: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_query_clients_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_res_query_clients_request_t {}
-impl Clone for xcb_res_query_clients_request_t {
-    fn clone(&self) -> xcb_res_query_clients_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_query_clients_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_clients_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -290,6 +170,7 @@ pub struct xcb_res_query_clients_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_res_query_clients_reply_t {
     pub response_type: u8,
@@ -299,21 +180,10 @@ pub struct xcb_res_query_clients_reply_t {
     pub num_clients:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_res_query_clients_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_clients_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_clients", &self.num_clients)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RES_QUERY_CLIENT_RESOURCES: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_query_client_resources_request_t {
     pub major_opcode: u8,
@@ -322,27 +192,13 @@ pub struct xcb_res_query_client_resources_request_t {
     pub xid:          u32,
 }
 
-impl Copy for xcb_res_query_client_resources_request_t {}
-impl Clone for xcb_res_query_client_resources_request_t {
-    fn clone(&self) -> xcb_res_query_client_resources_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_query_client_resources_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_client_resources_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("xid", &self.xid)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_query_client_resources_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_res_query_client_resources_reply_t {
     pub response_type: u8,
@@ -352,21 +208,10 @@ pub struct xcb_res_query_client_resources_reply_t {
     pub num_types:     u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_res_query_client_resources_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_client_resources_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_types", &self.num_types)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RES_QUERY_CLIENT_PIXMAP_BYTES: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_query_client_pixmap_bytes_request_t {
     pub major_opcode: u8,
@@ -375,27 +220,13 @@ pub struct xcb_res_query_client_pixmap_bytes_request_t {
     pub xid:          u32,
 }
 
-impl Copy for xcb_res_query_client_pixmap_bytes_request_t {}
-impl Clone for xcb_res_query_client_pixmap_bytes_request_t {
-    fn clone(&self) -> xcb_res_query_client_pixmap_bytes_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_query_client_pixmap_bytes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_client_pixmap_bytes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("xid", &self.xid)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_query_client_pixmap_bytes_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_res_query_client_pixmap_bytes_reply_t {
     pub response_type:  u8,
@@ -406,41 +237,15 @@ pub struct xcb_res_query_client_pixmap_bytes_reply_t {
     pub bytes_overflow: u32,
 }
 
-impl Copy for xcb_res_query_client_pixmap_bytes_reply_t {}
-impl Clone for xcb_res_query_client_pixmap_bytes_reply_t {
-    fn clone(&self) -> xcb_res_query_client_pixmap_bytes_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_res_query_client_pixmap_bytes_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_client_pixmap_bytes_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("bytes", &self.bytes)
-            .field("bytes_overflow", &self.bytes_overflow)
-            .finish()
-    }
-}
-
 pub const XCB_RES_QUERY_CLIENT_IDS: u8 = 4;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_res_query_client_ids_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
     pub num_specs:    u32,
-}
-impl ::std::fmt::Debug for xcb_res_query_client_ids_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_client_ids_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("num_specs", &self.num_specs)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -449,6 +254,7 @@ pub struct xcb_res_query_client_ids_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_res_query_client_ids_reply_t {
     pub response_type: u8,
@@ -458,21 +264,10 @@ pub struct xcb_res_query_client_ids_reply_t {
     pub num_ids:       u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_res_query_client_ids_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_client_ids_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_ids", &self.num_ids)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RES_QUERY_RESOURCE_BYTES: u8 = 5;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_res_query_resource_bytes_request_t {
     pub major_opcode: u8,
@@ -481,17 +276,6 @@ pub struct xcb_res_query_resource_bytes_request_t {
     pub client:       u32,
     pub num_specs:    u32,
 }
-impl ::std::fmt::Debug for xcb_res_query_resource_bytes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_resource_bytes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client", &self.client)
-            .field("num_specs", &self.num_specs)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -499,6 +283,7 @@ pub struct xcb_res_query_resource_bytes_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_res_query_resource_bytes_reply_t {
     pub response_type: u8,
@@ -507,18 +292,6 @@ pub struct xcb_res_query_resource_bytes_reply_t {
     pub length:        u32,
     pub num_sizes:     u32,
     pub pad1:          [u8; 20],
-}
-impl ::std::fmt::Debug for xcb_res_query_resource_bytes_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_res_query_resource_bytes_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_sizes", &self.num_sizes)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 

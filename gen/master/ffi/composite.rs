@@ -21,6 +21,7 @@ pub const XCB_COMPOSITE_REDIRECT_MANUAL   : xcb_composite_redirect_t = 0x01;
 
 pub const XCB_COMPOSITE_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_query_version_request_t {
     pub major_opcode:         u8,
@@ -30,28 +31,13 @@ pub struct xcb_composite_query_version_request_t {
     pub client_minor_version: u32,
 }
 
-impl Copy for xcb_composite_query_version_request_t {}
-impl Clone for xcb_composite_query_version_request_t {
-    fn clone(&self) -> xcb_composite_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major_version", &self.client_major_version)
-            .field("client_minor_version", &self.client_minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_query_version_reply_t {
     pub response_type: u8,
@@ -63,26 +49,9 @@ pub struct xcb_composite_query_version_reply_t {
     pub pad1:          [u8; 16],
 }
 
-impl Copy for xcb_composite_query_version_reply_t {}
-impl Clone for xcb_composite_query_version_reply_t {
-    fn clone(&self) -> xcb_composite_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_COMPOSITE_REDIRECT_WINDOW: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_redirect_window_request_t {
     pub major_opcode: u8,
@@ -93,25 +62,9 @@ pub struct xcb_composite_redirect_window_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_composite_redirect_window_request_t {}
-impl Clone for xcb_composite_redirect_window_request_t {
-    fn clone(&self) -> xcb_composite_redirect_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_redirect_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_redirect_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("update", &self.update)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_COMPOSITE_REDIRECT_SUBWINDOWS: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_redirect_subwindows_request_t {
     pub major_opcode: u8,
@@ -122,25 +75,9 @@ pub struct xcb_composite_redirect_subwindows_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_composite_redirect_subwindows_request_t {}
-impl Clone for xcb_composite_redirect_subwindows_request_t {
-    fn clone(&self) -> xcb_composite_redirect_subwindows_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_redirect_subwindows_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_redirect_subwindows_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("update", &self.update)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_COMPOSITE_UNREDIRECT_WINDOW: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_unredirect_window_request_t {
     pub major_opcode: u8,
@@ -151,25 +88,9 @@ pub struct xcb_composite_unredirect_window_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_composite_unredirect_window_request_t {}
-impl Clone for xcb_composite_unredirect_window_request_t {
-    fn clone(&self) -> xcb_composite_unredirect_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_unredirect_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_unredirect_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("update", &self.update)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_COMPOSITE_UNREDIRECT_SUBWINDOWS: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_unredirect_subwindows_request_t {
     pub major_opcode: u8,
@@ -180,25 +101,9 @@ pub struct xcb_composite_unredirect_subwindows_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_composite_unredirect_subwindows_request_t {}
-impl Clone for xcb_composite_unredirect_subwindows_request_t {
-    fn clone(&self) -> xcb_composite_unredirect_subwindows_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_unredirect_subwindows_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_unredirect_subwindows_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("update", &self.update)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_COMPOSITE_CREATE_REGION_FROM_BORDER_CLIP: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_create_region_from_border_clip_request_t {
     pub major_opcode: u8,
@@ -208,24 +113,9 @@ pub struct xcb_composite_create_region_from_border_clip_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_composite_create_region_from_border_clip_request_t {}
-impl Clone for xcb_composite_create_region_from_border_clip_request_t {
-    fn clone(&self) -> xcb_composite_create_region_from_border_clip_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_create_region_from_border_clip_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_create_region_from_border_clip_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("region", &self.region)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_COMPOSITE_NAME_WINDOW_PIXMAP: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_name_window_pixmap_request_t {
     pub major_opcode: u8,
@@ -235,24 +125,9 @@ pub struct xcb_composite_name_window_pixmap_request_t {
     pub pixmap:       xcb_pixmap_t,
 }
 
-impl Copy for xcb_composite_name_window_pixmap_request_t {}
-impl Clone for xcb_composite_name_window_pixmap_request_t {
-    fn clone(&self) -> xcb_composite_name_window_pixmap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_name_window_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_name_window_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("pixmap", &self.pixmap)
-            .finish()
-    }
-}
-
 pub const XCB_COMPOSITE_GET_OVERLAY_WINDOW: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_get_overlay_window_request_t {
     pub major_opcode: u8,
@@ -261,27 +136,13 @@ pub struct xcb_composite_get_overlay_window_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_composite_get_overlay_window_request_t {}
-impl Clone for xcb_composite_get_overlay_window_request_t {
-    fn clone(&self) -> xcb_composite_get_overlay_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_get_overlay_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_get_overlay_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_get_overlay_window_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_get_overlay_window_reply_t {
     pub response_type: u8,
@@ -292,46 +153,15 @@ pub struct xcb_composite_get_overlay_window_reply_t {
     pub pad1:          [u8; 20],
 }
 
-impl Copy for xcb_composite_get_overlay_window_reply_t {}
-impl Clone for xcb_composite_get_overlay_window_reply_t {
-    fn clone(&self) -> xcb_composite_get_overlay_window_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_get_overlay_window_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_get_overlay_window_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("overlay_win", &self.overlay_win)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_COMPOSITE_RELEASE_OVERLAY_WINDOW: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_composite_release_overlay_window_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
     pub window:       xcb_window_t,
-}
-
-impl Copy for xcb_composite_release_overlay_window_request_t {}
-impl Clone for xcb_composite_release_overlay_window_request_t {
-    fn clone(&self) -> xcb_composite_release_overlay_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_composite_release_overlay_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_composite_release_overlay_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
 }
 
 

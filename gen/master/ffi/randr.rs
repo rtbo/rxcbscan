@@ -55,6 +55,7 @@ pub struct xcb_randr_provider_iterator_t {
 
 pub const XCB_RANDR_BAD_OUTPUT: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_bad_output_error_t {
     pub response_type: u8,
@@ -62,22 +63,9 @@ pub struct xcb_randr_bad_output_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_randr_bad_output_error_t {}
-impl Clone for xcb_randr_bad_output_error_t {
-    fn clone(&self) -> xcb_randr_bad_output_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_bad_output_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_bad_output_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_BAD_CRTC: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_bad_crtc_error_t {
     pub response_type: u8,
@@ -85,22 +73,9 @@ pub struct xcb_randr_bad_crtc_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_randr_bad_crtc_error_t {}
-impl Clone for xcb_randr_bad_crtc_error_t {
-    fn clone(&self) -> xcb_randr_bad_crtc_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_bad_crtc_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_bad_crtc_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_BAD_MODE: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_bad_mode_error_t {
     pub response_type: u8,
@@ -108,41 +83,14 @@ pub struct xcb_randr_bad_mode_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_randr_bad_mode_error_t {}
-impl Clone for xcb_randr_bad_mode_error_t {
-    fn clone(&self) -> xcb_randr_bad_mode_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_bad_mode_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_bad_mode_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_BAD_PROVIDER: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_bad_provider_error_t {
     pub response_type: u8,
     pub error_code:    u8,
     pub sequence:      u16,
-}
-
-impl Copy for xcb_randr_bad_provider_error_t {}
-impl Clone for xcb_randr_bad_provider_error_t {
-    fn clone(&self) -> xcb_randr_bad_provider_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_bad_provider_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_bad_provider_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
 }
 
 pub type xcb_randr_rotation_t = u32;
@@ -153,27 +101,13 @@ pub const XCB_RANDR_ROTATION_ROTATE_270: xcb_randr_rotation_t = 0x08;
 pub const XCB_RANDR_ROTATION_REFLECT_X : xcb_randr_rotation_t = 0x10;
 pub const XCB_RANDR_ROTATION_REFLECT_Y : xcb_randr_rotation_t = 0x20;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_screen_size_t {
     pub width:   u16,
     pub height:  u16,
     pub mwidth:  u16,
     pub mheight: u16,
-}
-
-impl Copy for xcb_randr_screen_size_t {}
-impl Clone for xcb_randr_screen_size_t {
-    fn clone(&self) -> xcb_randr_screen_size_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_screen_size_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_screen_size_t")
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("mwidth", &self.mwidth)
-            .field("mheight", &self.mheight)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -184,16 +118,10 @@ pub struct xcb_randr_screen_size_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_refresh_rates_t {
     pub nRates: u16,
-}
-impl ::std::fmt::Debug for xcb_randr_refresh_rates_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_refresh_rates_t")
-            .field("nRates", &self.nRates)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -207,6 +135,7 @@ pub struct xcb_randr_refresh_rates_iterator_t<'a> {
 
 pub const XCB_RANDR_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_query_version_request_t {
     pub major_opcode:  u8,
@@ -216,28 +145,13 @@ pub struct xcb_randr_query_version_request_t {
     pub minor_version: u32,
 }
 
-impl Copy for xcb_randr_query_version_request_t {}
-impl Clone for xcb_randr_query_version_request_t {
-    fn clone(&self) -> xcb_randr_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_query_version_reply_t {
     pub response_type: u8,
@@ -249,24 +163,6 @@ pub struct xcb_randr_query_version_reply_t {
     pub pad1:          [u8; 16],
 }
 
-impl Copy for xcb_randr_query_version_reply_t {}
-impl Clone for xcb_randr_query_version_reply_t {
-    fn clone(&self) -> xcb_randr_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub type xcb_randr_set_config_t = u32;
 pub const XCB_RANDR_SET_CONFIG_SUCCESS            : xcb_randr_set_config_t = 0x00;
 pub const XCB_RANDR_SET_CONFIG_INVALID_CONFIG_TIME: xcb_randr_set_config_t = 0x01;
@@ -275,6 +171,7 @@ pub const XCB_RANDR_SET_CONFIG_FAILED             : xcb_randr_set_config_t = 0x0
 
 pub const XCB_RANDR_SET_SCREEN_CONFIG: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_screen_config_request_t {
     pub major_opcode:     u8,
@@ -289,33 +186,13 @@ pub struct xcb_randr_set_screen_config_request_t {
     pub pad0:             [u8; 2],
 }
 
-impl Copy for xcb_randr_set_screen_config_request_t {}
-impl Clone for xcb_randr_set_screen_config_request_t {
-    fn clone(&self) -> xcb_randr_set_screen_config_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_set_screen_config_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_screen_config_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("timestamp", &self.timestamp)
-            .field("config_timestamp", &self.config_timestamp)
-            .field("sizeID", &self.sizeID)
-            .field("rotation", &self.rotation)
-            .field("rate", &self.rate)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_screen_config_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_screen_config_reply_t {
     pub response_type:    u8,
@@ -329,26 +206,6 @@ pub struct xcb_randr_set_screen_config_reply_t {
     pub pad0:             [u8; 10],
 }
 
-impl Copy for xcb_randr_set_screen_config_reply_t {}
-impl Clone for xcb_randr_set_screen_config_reply_t {
-    fn clone(&self) -> xcb_randr_set_screen_config_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_set_screen_config_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_screen_config_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("new_timestamp", &self.new_timestamp)
-            .field("config_timestamp", &self.config_timestamp)
-            .field("root", &self.root)
-            .field("subpixel_order", &self.subpixel_order)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub type xcb_randr_notify_mask_t = u32;
 pub const XCB_RANDR_NOTIFY_MASK_SCREEN_CHANGE    : xcb_randr_notify_mask_t = 0x01;
 pub const XCB_RANDR_NOTIFY_MASK_CRTC_CHANGE      : xcb_randr_notify_mask_t = 0x02;
@@ -360,6 +217,7 @@ pub const XCB_RANDR_NOTIFY_MASK_RESOURCE_CHANGE  : xcb_randr_notify_mask_t = 0x4
 
 pub const XCB_RANDR_SELECT_INPUT: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_select_input_request_t {
     pub major_opcode: u8,
@@ -370,25 +228,9 @@ pub struct xcb_randr_select_input_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_randr_select_input_request_t {}
-impl Clone for xcb_randr_select_input_request_t {
-    fn clone(&self) -> xcb_randr_select_input_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_select_input_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_select_input_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("enable", &self.enable)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_GET_SCREEN_INFO: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_info_request_t {
     pub major_opcode: u8,
@@ -397,27 +239,13 @@ pub struct xcb_randr_get_screen_info_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_randr_get_screen_info_request_t {}
-impl Clone for xcb_randr_get_screen_info_request_t {
-    fn clone(&self) -> xcb_randr_get_screen_info_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_screen_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_screen_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_info_reply_t {
     pub response_type:    u8,
@@ -434,28 +262,10 @@ pub struct xcb_randr_get_screen_info_reply_t {
     pub nInfo:            u16,
     pub pad0:             [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_randr_get_screen_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_screen_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("rotations", &self.rotations)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("root", &self.root)
-            .field("timestamp", &self.timestamp)
-            .field("config_timestamp", &self.config_timestamp)
-            .field("nSizes", &self.nSizes)
-            .field("sizeID", &self.sizeID)
-            .field("rotation", &self.rotation)
-            .field("rate", &self.rate)
-            .field("nInfo", &self.nInfo)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_GET_SCREEN_SIZE_RANGE: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_size_range_request_t {
     pub major_opcode: u8,
@@ -464,27 +274,13 @@ pub struct xcb_randr_get_screen_size_range_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_randr_get_screen_size_range_request_t {}
-impl Clone for xcb_randr_get_screen_size_range_request_t {
-    fn clone(&self) -> xcb_randr_get_screen_size_range_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_screen_size_range_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_screen_size_range_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_size_range_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_size_range_reply_t {
     pub response_type: u8,
@@ -498,28 +294,9 @@ pub struct xcb_randr_get_screen_size_range_reply_t {
     pub pad1:          [u8; 16],
 }
 
-impl Copy for xcb_randr_get_screen_size_range_reply_t {}
-impl Clone for xcb_randr_get_screen_size_range_reply_t {
-    fn clone(&self) -> xcb_randr_get_screen_size_range_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_screen_size_range_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_screen_size_range_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("min_width", &self.min_width)
-            .field("min_height", &self.min_height)
-            .field("max_width", &self.max_width)
-            .field("max_height", &self.max_height)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_SET_SCREEN_SIZE: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_screen_size_request_t {
     pub major_opcode: u8,
@@ -530,25 +307,6 @@ pub struct xcb_randr_set_screen_size_request_t {
     pub height:       u16,
     pub mm_width:     u32,
     pub mm_height:    u32,
-}
-
-impl Copy for xcb_randr_set_screen_size_request_t {}
-impl Clone for xcb_randr_set_screen_size_request_t {
-    fn clone(&self) -> xcb_randr_set_screen_size_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_set_screen_size_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_screen_size_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("mm_width", &self.mm_width)
-            .field("mm_height", &self.mm_height)
-            .finish()
-    }
 }
 
 pub type xcb_randr_mode_flag_t = u32;
@@ -567,6 +325,7 @@ pub const XCB_RANDR_MODE_FLAG_PIXEL_MULTIPLEX: xcb_randr_mode_flag_t =  0x800;
 pub const XCB_RANDR_MODE_FLAG_DOUBLE_CLOCK   : xcb_randr_mode_flag_t = 0x1000;
 pub const XCB_RANDR_MODE_FLAG_HALVE_CLOCK    : xcb_randr_mode_flag_t = 0x2000;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_mode_info_t {
     pub id:          u32,
@@ -584,30 +343,6 @@ pub struct xcb_randr_mode_info_t {
     pub mode_flags:  u32,
 }
 
-impl Copy for xcb_randr_mode_info_t {}
-impl Clone for xcb_randr_mode_info_t {
-    fn clone(&self) -> xcb_randr_mode_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_mode_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_mode_info_t")
-            .field("id", &self.id)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("dot_clock", &self.dot_clock)
-            .field("hsync_start", &self.hsync_start)
-            .field("hsync_end", &self.hsync_end)
-            .field("htotal", &self.htotal)
-            .field("hskew", &self.hskew)
-            .field("vsync_start", &self.vsync_start)
-            .field("vsync_end", &self.vsync_end)
-            .field("vtotal", &self.vtotal)
-            .field("name_len", &self.name_len)
-            .field("mode_flags", &self.mode_flags)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_mode_info_iterator_t {
@@ -618,6 +353,7 @@ pub struct xcb_randr_mode_info_iterator_t {
 
 pub const XCB_RANDR_GET_SCREEN_RESOURCES: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_resources_request_t {
     pub major_opcode: u8,
@@ -626,27 +362,13 @@ pub struct xcb_randr_get_screen_resources_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_randr_get_screen_resources_request_t {}
-impl Clone for xcb_randr_get_screen_resources_request_t {
-    fn clone(&self) -> xcb_randr_get_screen_resources_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_screen_resources_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_screen_resources_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_resources_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_resources_reply_t {
     pub response_type:    u8,
@@ -661,23 +383,6 @@ pub struct xcb_randr_get_screen_resources_reply_t {
     pub names_len:        u16,
     pub pad1:             [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_randr_get_screen_resources_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_screen_resources_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timestamp", &self.timestamp)
-            .field("config_timestamp", &self.config_timestamp)
-            .field("num_crtcs", &self.num_crtcs)
-            .field("num_outputs", &self.num_outputs)
-            .field("num_modes", &self.num_modes)
-            .field("names_len", &self.names_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub type xcb_randr_connection_t = u32;
 pub const XCB_RANDR_CONNECTION_CONNECTED   : xcb_randr_connection_t = 0x00;
@@ -686,6 +391,7 @@ pub const XCB_RANDR_CONNECTION_UNKNOWN     : xcb_randr_connection_t = 0x02;
 
 pub const XCB_RANDR_GET_OUTPUT_INFO: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_output_info_request_t {
     pub major_opcode:     u8,
@@ -695,28 +401,13 @@ pub struct xcb_randr_get_output_info_request_t {
     pub config_timestamp: xcb_timestamp_t,
 }
 
-impl Copy for xcb_randr_get_output_info_request_t {}
-impl Clone for xcb_randr_get_output_info_request_t {
-    fn clone(&self) -> xcb_randr_get_output_info_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_output_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_output_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .field("config_timestamp", &self.config_timestamp)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_output_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_output_info_reply_t {
     pub response_type:  u8,
@@ -735,30 +426,10 @@ pub struct xcb_randr_get_output_info_reply_t {
     pub num_clones:     u16,
     pub name_len:       u16,
 }
-impl ::std::fmt::Debug for xcb_randr_get_output_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_output_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timestamp", &self.timestamp)
-            .field("crtc", &self.crtc)
-            .field("mm_width", &self.mm_width)
-            .field("mm_height", &self.mm_height)
-            .field("connection", &self.connection)
-            .field("subpixel_order", &self.subpixel_order)
-            .field("num_crtcs", &self.num_crtcs)
-            .field("num_modes", &self.num_modes)
-            .field("num_preferred", &self.num_preferred)
-            .field("num_clones", &self.num_clones)
-            .field("name_len", &self.name_len)
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_LIST_OUTPUT_PROPERTIES: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_list_output_properties_request_t {
     pub major_opcode: u8,
@@ -767,27 +438,13 @@ pub struct xcb_randr_list_output_properties_request_t {
     pub output:       xcb_randr_output_t,
 }
 
-impl Copy for xcb_randr_list_output_properties_request_t {}
-impl Clone for xcb_randr_list_output_properties_request_t {
-    fn clone(&self) -> xcb_randr_list_output_properties_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_list_output_properties_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_list_output_properties_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_list_output_properties_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_list_output_properties_reply_t {
     pub response_type: u8,
@@ -797,21 +454,10 @@ pub struct xcb_randr_list_output_properties_reply_t {
     pub num_atoms:     u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_randr_list_output_properties_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_list_output_properties_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_atoms", &self.num_atoms)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_QUERY_OUTPUT_PROPERTY: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_query_output_property_request_t {
     pub major_opcode: u8,
@@ -821,28 +467,13 @@ pub struct xcb_randr_query_output_property_request_t {
     pub property:     xcb_atom_t,
 }
 
-impl Copy for xcb_randr_query_output_property_request_t {}
-impl Clone for xcb_randr_query_output_property_request_t {
-    fn clone(&self) -> xcb_randr_query_output_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_query_output_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_query_output_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .field("property", &self.property)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_query_output_property_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_query_output_property_reply_t {
     pub response_type: u8,
@@ -854,23 +485,10 @@ pub struct xcb_randr_query_output_property_reply_t {
     pub immutable:     u8,
     pub pad1:          [u8; 21],
 }
-impl ::std::fmt::Debug for xcb_randr_query_output_property_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_query_output_property_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pending", &self.pending)
-            .field("range", &self.range)
-            .field("immutable", &self.immutable)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_CONFIGURE_OUTPUT_PROPERTY: u8 = 12;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_configure_output_property_request_t {
     pub major_opcode: u8,
@@ -882,23 +500,10 @@ pub struct xcb_randr_configure_output_property_request_t {
     pub range:        u8,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_randr_configure_output_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_configure_output_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .field("property", &self.property)
-            .field("pending", &self.pending)
-            .field("range", &self.range)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_CHANGE_OUTPUT_PROPERTY: u8 = 13;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_change_output_property_request_t {
     pub major_opcode: u8,
@@ -912,25 +517,10 @@ pub struct xcb_randr_change_output_property_request_t {
     pub pad0:         [u8; 2],
     pub num_units:    u32,
 }
-impl ::std::fmt::Debug for xcb_randr_change_output_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_change_output_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("format", &self.format)
-            .field("mode", &self.mode)
-            .field("pad0", &&self.pad0[..])
-            .field("num_units", &self.num_units)
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_DELETE_OUTPUT_PROPERTY: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_delete_output_property_request_t {
     pub major_opcode: u8,
@@ -940,24 +530,9 @@ pub struct xcb_randr_delete_output_property_request_t {
     pub property:     xcb_atom_t,
 }
 
-impl Copy for xcb_randr_delete_output_property_request_t {}
-impl Clone for xcb_randr_delete_output_property_request_t {
-    fn clone(&self) -> xcb_randr_delete_output_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_delete_output_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_delete_output_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .field("property", &self.property)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_GET_OUTPUT_PROPERTY: u8 = 15;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_output_property_request_t {
     pub major_opcode: u8,
@@ -973,34 +548,13 @@ pub struct xcb_randr_get_output_property_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_randr_get_output_property_request_t {}
-impl Clone for xcb_randr_get_output_property_request_t {
-    fn clone(&self) -> xcb_randr_get_output_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_output_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_output_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("long_offset", &self.long_offset)
-            .field("long_length", &self.long_length)
-            .field("delete", &self.delete)
-            .field("pending", &self.pending)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_output_property_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_output_property_reply_t {
     pub response_type: u8,
@@ -1012,23 +566,10 @@ pub struct xcb_randr_get_output_property_reply_t {
     pub num_items:     u32,
     pub pad0:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_randr_get_output_property_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_output_property_reply_t")
-            .field("response_type", &self.response_type)
-            .field("format", &self.format)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("type_", &self.type_)
-            .field("bytes_after", &self.bytes_after)
-            .field("num_items", &self.num_items)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_CREATE_MODE: u8 = 16;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_create_mode_request_t {
     pub major_opcode: u8,
@@ -1037,17 +578,6 @@ pub struct xcb_randr_create_mode_request_t {
     pub window:       xcb_window_t,
     pub mode_info:    xcb_randr_mode_info_t,
 }
-impl ::std::fmt::Debug for xcb_randr_create_mode_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_create_mode_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("mode_info", &self.mode_info)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -1055,6 +585,7 @@ pub struct xcb_randr_create_mode_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_create_mode_reply_t {
     pub response_type: u8,
@@ -1065,25 +596,9 @@ pub struct xcb_randr_create_mode_reply_t {
     pub pad1:          [u8; 20],
 }
 
-impl Copy for xcb_randr_create_mode_reply_t {}
-impl Clone for xcb_randr_create_mode_reply_t {
-    fn clone(&self) -> xcb_randr_create_mode_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_create_mode_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_create_mode_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("mode", &self.mode)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_DESTROY_MODE: u8 = 17;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_destroy_mode_request_t {
     pub major_opcode: u8,
@@ -1092,23 +607,9 @@ pub struct xcb_randr_destroy_mode_request_t {
     pub mode:         xcb_randr_mode_t,
 }
 
-impl Copy for xcb_randr_destroy_mode_request_t {}
-impl Clone for xcb_randr_destroy_mode_request_t {
-    fn clone(&self) -> xcb_randr_destroy_mode_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_destroy_mode_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_destroy_mode_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("mode", &self.mode)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_ADD_OUTPUT_MODE: u8 = 18;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_add_output_mode_request_t {
     pub major_opcode: u8,
@@ -1118,24 +619,9 @@ pub struct xcb_randr_add_output_mode_request_t {
     pub mode:         xcb_randr_mode_t,
 }
 
-impl Copy for xcb_randr_add_output_mode_request_t {}
-impl Clone for xcb_randr_add_output_mode_request_t {
-    fn clone(&self) -> xcb_randr_add_output_mode_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_add_output_mode_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_add_output_mode_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .field("mode", &self.mode)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_DELETE_OUTPUT_MODE: u8 = 19;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_delete_output_mode_request_t {
     pub major_opcode: u8,
@@ -1145,24 +631,9 @@ pub struct xcb_randr_delete_output_mode_request_t {
     pub mode:         xcb_randr_mode_t,
 }
 
-impl Copy for xcb_randr_delete_output_mode_request_t {}
-impl Clone for xcb_randr_delete_output_mode_request_t {
-    fn clone(&self) -> xcb_randr_delete_output_mode_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_delete_output_mode_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_delete_output_mode_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .field("mode", &self.mode)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_GET_CRTC_INFO: u8 = 20;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_info_request_t {
     pub major_opcode:     u8,
@@ -1172,28 +643,13 @@ pub struct xcb_randr_get_crtc_info_request_t {
     pub config_timestamp: xcb_timestamp_t,
 }
 
-impl Copy for xcb_randr_get_crtc_info_request_t {}
-impl Clone for xcb_randr_get_crtc_info_request_t {
-    fn clone(&self) -> xcb_randr_get_crtc_info_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_crtc_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_crtc_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("crtc", &self.crtc)
-            .field("config_timestamp", &self.config_timestamp)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_info_reply_t {
     pub response_type:        u8,
@@ -1211,29 +667,10 @@ pub struct xcb_randr_get_crtc_info_reply_t {
     pub num_outputs:          u16,
     pub num_possible_outputs: u16,
 }
-impl ::std::fmt::Debug for xcb_randr_get_crtc_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_crtc_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timestamp", &self.timestamp)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("mode", &self.mode)
-            .field("rotation", &self.rotation)
-            .field("rotations", &self.rotations)
-            .field("num_outputs", &self.num_outputs)
-            .field("num_possible_outputs", &self.num_possible_outputs)
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_SET_CRTC_CONFIG: u8 = 21;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_crtc_config_request_t {
     pub major_opcode:     u8,
@@ -1248,23 +685,6 @@ pub struct xcb_randr_set_crtc_config_request_t {
     pub rotation:         u16,
     pub pad0:             [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_randr_set_crtc_config_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_crtc_config_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("crtc", &self.crtc)
-            .field("timestamp", &self.timestamp)
-            .field("config_timestamp", &self.config_timestamp)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("mode", &self.mode)
-            .field("rotation", &self.rotation)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -1272,6 +692,7 @@ pub struct xcb_randr_set_crtc_config_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_crtc_config_reply_t {
     pub response_type: u8,
@@ -1282,25 +703,9 @@ pub struct xcb_randr_set_crtc_config_reply_t {
     pub pad0:          [u8; 20],
 }
 
-impl Copy for xcb_randr_set_crtc_config_reply_t {}
-impl Clone for xcb_randr_set_crtc_config_reply_t {
-    fn clone(&self) -> xcb_randr_set_crtc_config_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_set_crtc_config_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_crtc_config_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timestamp", &self.timestamp)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_GET_CRTC_GAMMA_SIZE: u8 = 22;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_gamma_size_request_t {
     pub major_opcode: u8,
@@ -1309,27 +714,13 @@ pub struct xcb_randr_get_crtc_gamma_size_request_t {
     pub crtc:         xcb_randr_crtc_t,
 }
 
-impl Copy for xcb_randr_get_crtc_gamma_size_request_t {}
-impl Clone for xcb_randr_get_crtc_gamma_size_request_t {
-    fn clone(&self) -> xcb_randr_get_crtc_gamma_size_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_crtc_gamma_size_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_crtc_gamma_size_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("crtc", &self.crtc)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_gamma_size_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_gamma_size_reply_t {
     pub response_type: u8,
@@ -1340,25 +731,9 @@ pub struct xcb_randr_get_crtc_gamma_size_reply_t {
     pub pad1:          [u8; 22],
 }
 
-impl Copy for xcb_randr_get_crtc_gamma_size_reply_t {}
-impl Clone for xcb_randr_get_crtc_gamma_size_reply_t {
-    fn clone(&self) -> xcb_randr_get_crtc_gamma_size_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_crtc_gamma_size_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_crtc_gamma_size_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("size", &self.size)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_GET_CRTC_GAMMA: u8 = 23;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_gamma_request_t {
     pub major_opcode: u8,
@@ -1367,27 +742,13 @@ pub struct xcb_randr_get_crtc_gamma_request_t {
     pub crtc:         xcb_randr_crtc_t,
 }
 
-impl Copy for xcb_randr_get_crtc_gamma_request_t {}
-impl Clone for xcb_randr_get_crtc_gamma_request_t {
-    fn clone(&self) -> xcb_randr_get_crtc_gamma_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_crtc_gamma_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_crtc_gamma_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("crtc", &self.crtc)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_gamma_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_gamma_reply_t {
     pub response_type: u8,
@@ -1397,21 +758,10 @@ pub struct xcb_randr_get_crtc_gamma_reply_t {
     pub size:          u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_randr_get_crtc_gamma_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_crtc_gamma_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("size", &self.size)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_SET_CRTC_GAMMA: u8 = 24;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_crtc_gamma_request_t {
     pub major_opcode: u8,
@@ -1421,21 +771,10 @@ pub struct xcb_randr_set_crtc_gamma_request_t {
     pub size:         u16,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_randr_set_crtc_gamma_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_crtc_gamma_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("crtc", &self.crtc)
-            .field("size", &self.size)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_GET_SCREEN_RESOURCES_CURRENT: u8 = 25;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_resources_current_request_t {
     pub major_opcode: u8,
@@ -1444,27 +783,13 @@ pub struct xcb_randr_get_screen_resources_current_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_randr_get_screen_resources_current_request_t {}
-impl Clone for xcb_randr_get_screen_resources_current_request_t {
-    fn clone(&self) -> xcb_randr_get_screen_resources_current_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_screen_resources_current_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_screen_resources_current_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_resources_current_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_screen_resources_current_reply_t {
     pub response_type:    u8,
@@ -1479,23 +804,6 @@ pub struct xcb_randr_get_screen_resources_current_reply_t {
     pub names_len:        u16,
     pub pad1:             [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_randr_get_screen_resources_current_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_screen_resources_current_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timestamp", &self.timestamp)
-            .field("config_timestamp", &self.config_timestamp)
-            .field("num_crtcs", &self.num_crtcs)
-            .field("num_outputs", &self.num_outputs)
-            .field("num_modes", &self.num_modes)
-            .field("names_len", &self.names_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub type xcb_randr_transform_t = u32;
 pub const XCB_RANDR_TRANSFORM_UNIT      : xcb_randr_transform_t = 0x01;
@@ -1505,6 +813,7 @@ pub const XCB_RANDR_TRANSFORM_PROJECTIVE: xcb_randr_transform_t = 0x08;
 
 pub const XCB_RANDR_SET_CRTC_TRANSFORM: u8 = 26;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_crtc_transform_request_t {
     pub major_opcode:      u8,
@@ -1515,22 +824,10 @@ pub struct xcb_randr_set_crtc_transform_request_t {
     pub filter_len:        u16,
     pub pad0:              [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_randr_set_crtc_transform_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_crtc_transform_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("crtc", &self.crtc)
-            .field("transform", &self.transform)
-            .field("filter_len", &self.filter_len)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_GET_CRTC_TRANSFORM: u8 = 27;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_transform_request_t {
     pub major_opcode: u8,
@@ -1539,27 +836,13 @@ pub struct xcb_randr_get_crtc_transform_request_t {
     pub crtc:         xcb_randr_crtc_t,
 }
 
-impl Copy for xcb_randr_get_crtc_transform_request_t {}
-impl Clone for xcb_randr_get_crtc_transform_request_t {
-    fn clone(&self) -> xcb_randr_get_crtc_transform_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_crtc_transform_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_crtc_transform_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("crtc", &self.crtc)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_transform_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_crtc_transform_reply_t {
     pub response_type:       u8,
@@ -1576,28 +859,10 @@ pub struct xcb_randr_get_crtc_transform_reply_t {
     pub current_len:         u16,
     pub current_nparams:     u16,
 }
-impl ::std::fmt::Debug for xcb_randr_get_crtc_transform_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_crtc_transform_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pending_transform", &self.pending_transform)
-            .field("has_transforms", &self.has_transforms)
-            .field("pad1", &&self.pad1[..])
-            .field("current_transform", &self.current_transform)
-            .field("pad2", &&self.pad2[..])
-            .field("pending_len", &self.pending_len)
-            .field("pending_nparams", &self.pending_nparams)
-            .field("current_len", &self.current_len)
-            .field("current_nparams", &self.current_nparams)
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_GET_PANNING: u8 = 28;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_panning_request_t {
     pub major_opcode: u8,
@@ -1606,27 +871,13 @@ pub struct xcb_randr_get_panning_request_t {
     pub crtc:         xcb_randr_crtc_t,
 }
 
-impl Copy for xcb_randr_get_panning_request_t {}
-impl Clone for xcb_randr_get_panning_request_t {
-    fn clone(&self) -> xcb_randr_get_panning_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_panning_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_panning_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("crtc", &self.crtc)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_panning_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_panning_reply_t {
     pub response_type: u8,
@@ -1648,36 +899,9 @@ pub struct xcb_randr_get_panning_reply_t {
     pub border_bottom: i16,
 }
 
-impl Copy for xcb_randr_get_panning_reply_t {}
-impl Clone for xcb_randr_get_panning_reply_t {
-    fn clone(&self) -> xcb_randr_get_panning_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_panning_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_panning_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timestamp", &self.timestamp)
-            .field("left", &self.left)
-            .field("top", &self.top)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("track_left", &self.track_left)
-            .field("track_top", &self.track_top)
-            .field("track_width", &self.track_width)
-            .field("track_height", &self.track_height)
-            .field("border_left", &self.border_left)
-            .field("border_top", &self.border_top)
-            .field("border_right", &self.border_right)
-            .field("border_bottom", &self.border_bottom)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_SET_PANNING: u8 = 29;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_panning_request_t {
     pub major_opcode:  u8,
@@ -1699,40 +923,13 @@ pub struct xcb_randr_set_panning_request_t {
     pub border_bottom: i16,
 }
 
-impl Copy for xcb_randr_set_panning_request_t {}
-impl Clone for xcb_randr_set_panning_request_t {
-    fn clone(&self) -> xcb_randr_set_panning_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_set_panning_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_panning_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("crtc", &self.crtc)
-            .field("timestamp", &self.timestamp)
-            .field("left", &self.left)
-            .field("top", &self.top)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("track_left", &self.track_left)
-            .field("track_top", &self.track_top)
-            .field("track_width", &self.track_width)
-            .field("track_height", &self.track_height)
-            .field("border_left", &self.border_left)
-            .field("border_top", &self.border_top)
-            .field("border_right", &self.border_right)
-            .field("border_bottom", &self.border_bottom)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_panning_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_panning_reply_t {
     pub response_type: u8,
@@ -1742,24 +939,9 @@ pub struct xcb_randr_set_panning_reply_t {
     pub timestamp:     xcb_timestamp_t,
 }
 
-impl Copy for xcb_randr_set_panning_reply_t {}
-impl Clone for xcb_randr_set_panning_reply_t {
-    fn clone(&self) -> xcb_randr_set_panning_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_set_panning_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_panning_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timestamp", &self.timestamp)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_SET_OUTPUT_PRIMARY: u8 = 30;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_output_primary_request_t {
     pub major_opcode: u8,
@@ -1769,24 +951,9 @@ pub struct xcb_randr_set_output_primary_request_t {
     pub output:       xcb_randr_output_t,
 }
 
-impl Copy for xcb_randr_set_output_primary_request_t {}
-impl Clone for xcb_randr_set_output_primary_request_t {
-    fn clone(&self) -> xcb_randr_set_output_primary_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_set_output_primary_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_output_primary_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("output", &self.output)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_GET_OUTPUT_PRIMARY: u8 = 31;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_output_primary_request_t {
     pub major_opcode: u8,
@@ -1795,27 +962,13 @@ pub struct xcb_randr_get_output_primary_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_randr_get_output_primary_request_t {}
-impl Clone for xcb_randr_get_output_primary_request_t {
-    fn clone(&self) -> xcb_randr_get_output_primary_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_output_primary_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_output_primary_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_output_primary_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_output_primary_reply_t {
     pub response_type: u8,
@@ -1825,24 +978,9 @@ pub struct xcb_randr_get_output_primary_reply_t {
     pub output:        xcb_randr_output_t,
 }
 
-impl Copy for xcb_randr_get_output_primary_reply_t {}
-impl Clone for xcb_randr_get_output_primary_reply_t {
-    fn clone(&self) -> xcb_randr_get_output_primary_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_output_primary_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_output_primary_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("output", &self.output)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_GET_PROVIDERS: u8 = 32;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_providers_request_t {
     pub major_opcode: u8,
@@ -1851,27 +989,13 @@ pub struct xcb_randr_get_providers_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_randr_get_providers_request_t {}
-impl Clone for xcb_randr_get_providers_request_t {
-    fn clone(&self) -> xcb_randr_get_providers_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_providers_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_providers_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_providers_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_providers_reply_t {
     pub response_type: u8,
@@ -1882,19 +1006,6 @@ pub struct xcb_randr_get_providers_reply_t {
     pub num_providers: u16,
     pub pad1:          [u8; 18],
 }
-impl ::std::fmt::Debug for xcb_randr_get_providers_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_providers_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timestamp", &self.timestamp)
-            .field("num_providers", &self.num_providers)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub type xcb_randr_provider_capability_t = u32;
 pub const XCB_RANDR_PROVIDER_CAPABILITY_SOURCE_OUTPUT : xcb_randr_provider_capability_t = 0x01;
@@ -1904,6 +1015,7 @@ pub const XCB_RANDR_PROVIDER_CAPABILITY_SINK_OFFLOAD  : xcb_randr_provider_capab
 
 pub const XCB_RANDR_GET_PROVIDER_INFO: u8 = 33;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_provider_info_request_t {
     pub major_opcode:     u8,
@@ -1913,28 +1025,13 @@ pub struct xcb_randr_get_provider_info_request_t {
     pub config_timestamp: xcb_timestamp_t,
 }
 
-impl Copy for xcb_randr_get_provider_info_request_t {}
-impl Clone for xcb_randr_get_provider_info_request_t {
-    fn clone(&self) -> xcb_randr_get_provider_info_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_provider_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_provider_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("provider", &self.provider)
-            .field("config_timestamp", &self.config_timestamp)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_provider_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_provider_info_reply_t {
     pub response_type:            u8,
@@ -1949,26 +1046,10 @@ pub struct xcb_randr_get_provider_info_reply_t {
     pub name_len:                 u16,
     pub pad0:                     [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_randr_get_provider_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_provider_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timestamp", &self.timestamp)
-            .field("capabilities", &self.capabilities)
-            .field("num_crtcs", &self.num_crtcs)
-            .field("num_outputs", &self.num_outputs)
-            .field("num_associated_providers", &self.num_associated_providers)
-            .field("name_len", &self.name_len)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_SET_PROVIDER_OFFLOAD_SINK: u8 = 34;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_provider_offload_sink_request_t {
     pub major_opcode:     u8,
@@ -1979,25 +1060,9 @@ pub struct xcb_randr_set_provider_offload_sink_request_t {
     pub config_timestamp: xcb_timestamp_t,
 }
 
-impl Copy for xcb_randr_set_provider_offload_sink_request_t {}
-impl Clone for xcb_randr_set_provider_offload_sink_request_t {
-    fn clone(&self) -> xcb_randr_set_provider_offload_sink_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_set_provider_offload_sink_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_provider_offload_sink_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("provider", &self.provider)
-            .field("sink_provider", &self.sink_provider)
-            .field("config_timestamp", &self.config_timestamp)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_SET_PROVIDER_OUTPUT_SOURCE: u8 = 35;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_set_provider_output_source_request_t {
     pub major_opcode:     u8,
@@ -2008,25 +1073,9 @@ pub struct xcb_randr_set_provider_output_source_request_t {
     pub config_timestamp: xcb_timestamp_t,
 }
 
-impl Copy for xcb_randr_set_provider_output_source_request_t {}
-impl Clone for xcb_randr_set_provider_output_source_request_t {
-    fn clone(&self) -> xcb_randr_set_provider_output_source_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_set_provider_output_source_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_set_provider_output_source_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("provider", &self.provider)
-            .field("source_provider", &self.source_provider)
-            .field("config_timestamp", &self.config_timestamp)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_LIST_PROVIDER_PROPERTIES: u8 = 36;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_list_provider_properties_request_t {
     pub major_opcode: u8,
@@ -2035,27 +1084,13 @@ pub struct xcb_randr_list_provider_properties_request_t {
     pub provider:     xcb_randr_provider_t,
 }
 
-impl Copy for xcb_randr_list_provider_properties_request_t {}
-impl Clone for xcb_randr_list_provider_properties_request_t {
-    fn clone(&self) -> xcb_randr_list_provider_properties_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_list_provider_properties_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_list_provider_properties_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("provider", &self.provider)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_list_provider_properties_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_list_provider_properties_reply_t {
     pub response_type: u8,
@@ -2065,21 +1100,10 @@ pub struct xcb_randr_list_provider_properties_reply_t {
     pub num_atoms:     u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_randr_list_provider_properties_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_list_provider_properties_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_atoms", &self.num_atoms)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_QUERY_PROVIDER_PROPERTY: u8 = 37;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_query_provider_property_request_t {
     pub major_opcode: u8,
@@ -2089,28 +1113,13 @@ pub struct xcb_randr_query_provider_property_request_t {
     pub property:     xcb_atom_t,
 }
 
-impl Copy for xcb_randr_query_provider_property_request_t {}
-impl Clone for xcb_randr_query_provider_property_request_t {
-    fn clone(&self) -> xcb_randr_query_provider_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_query_provider_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_query_provider_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("provider", &self.provider)
-            .field("property", &self.property)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_query_provider_property_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_query_provider_property_reply_t {
     pub response_type: u8,
@@ -2122,23 +1131,10 @@ pub struct xcb_randr_query_provider_property_reply_t {
     pub immutable:     u8,
     pub pad1:          [u8; 21],
 }
-impl ::std::fmt::Debug for xcb_randr_query_provider_property_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_query_provider_property_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pending", &self.pending)
-            .field("range", &self.range)
-            .field("immutable", &self.immutable)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_CONFIGURE_PROVIDER_PROPERTY: u8 = 38;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_configure_provider_property_request_t {
     pub major_opcode: u8,
@@ -2150,23 +1146,10 @@ pub struct xcb_randr_configure_provider_property_request_t {
     pub range:        u8,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_randr_configure_provider_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_configure_provider_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("provider", &self.provider)
-            .field("property", &self.property)
-            .field("pending", &self.pending)
-            .field("range", &self.range)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_CHANGE_PROVIDER_PROPERTY: u8 = 39;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_change_provider_property_request_t {
     pub major_opcode: u8,
@@ -2180,25 +1163,10 @@ pub struct xcb_randr_change_provider_property_request_t {
     pub pad0:         [u8; 2],
     pub num_items:    u32,
 }
-impl ::std::fmt::Debug for xcb_randr_change_provider_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_change_provider_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("provider", &self.provider)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("format", &self.format)
-            .field("mode", &self.mode)
-            .field("pad0", &&self.pad0[..])
-            .field("num_items", &self.num_items)
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_DELETE_PROVIDER_PROPERTY: u8 = 40;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_delete_provider_property_request_t {
     pub major_opcode: u8,
@@ -2208,24 +1176,9 @@ pub struct xcb_randr_delete_provider_property_request_t {
     pub property:     xcb_atom_t,
 }
 
-impl Copy for xcb_randr_delete_provider_property_request_t {}
-impl Clone for xcb_randr_delete_provider_property_request_t {
-    fn clone(&self) -> xcb_randr_delete_provider_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_delete_provider_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_delete_provider_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("provider", &self.provider)
-            .field("property", &self.property)
-            .finish()
-    }
-}
-
 pub const XCB_RANDR_GET_PROVIDER_PROPERTY: u8 = 41;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_provider_property_request_t {
     pub major_opcode: u8,
@@ -2241,34 +1194,13 @@ pub struct xcb_randr_get_provider_property_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_randr_get_provider_property_request_t {}
-impl Clone for xcb_randr_get_provider_property_request_t {
-    fn clone(&self) -> xcb_randr_get_provider_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_get_provider_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_provider_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("provider", &self.provider)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("long_offset", &self.long_offset)
-            .field("long_length", &self.long_length)
-            .field("delete", &self.delete)
-            .field("pending", &self.pending)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_provider_property_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_get_provider_property_reply_t {
     pub response_type: u8,
@@ -2280,23 +1212,10 @@ pub struct xcb_randr_get_provider_property_reply_t {
     pub num_items:     u32,
     pub pad0:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_randr_get_provider_property_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_get_provider_property_reply_t")
-            .field("response_type", &self.response_type)
-            .field("format", &self.format)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("type_", &self.type_)
-            .field("bytes_after", &self.bytes_after)
-            .field("num_items", &self.num_items)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_RANDR_SCREEN_CHANGE_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_screen_change_notify_event_t {
     pub response_type:    u8,
@@ -2314,30 +1233,6 @@ pub struct xcb_randr_screen_change_notify_event_t {
     pub mheight:          u16,
 }
 
-impl Copy for xcb_randr_screen_change_notify_event_t {}
-impl Clone for xcb_randr_screen_change_notify_event_t {
-    fn clone(&self) -> xcb_randr_screen_change_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_screen_change_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_screen_change_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("rotation", &self.rotation)
-            .field("sequence", &self.sequence)
-            .field("timestamp", &self.timestamp)
-            .field("config_timestamp", &self.config_timestamp)
-            .field("root", &self.root)
-            .field("request_window", &self.request_window)
-            .field("sizeID", &self.sizeID)
-            .field("subpixel_order", &self.subpixel_order)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("mwidth", &self.mwidth)
-            .field("mheight", &self.mheight)
-            .finish()
-    }
-}
-
 pub type xcb_randr_notify_t = u32;
 pub const XCB_RANDR_NOTIFY_CRTC_CHANGE      : xcb_randr_notify_t = 0x00;
 pub const XCB_RANDR_NOTIFY_OUTPUT_CHANGE    : xcb_randr_notify_t = 0x01;
@@ -2346,6 +1241,7 @@ pub const XCB_RANDR_NOTIFY_PROVIDER_CHANGE  : xcb_randr_notify_t = 0x03;
 pub const XCB_RANDR_NOTIFY_PROVIDER_PROPERTY: xcb_randr_notify_t = 0x04;
 pub const XCB_RANDR_NOTIFY_RESOURCE_CHANGE  : xcb_randr_notify_t = 0x05;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_crtc_change_t {
     pub timestamp: xcb_timestamp_t,
@@ -2360,27 +1256,6 @@ pub struct xcb_randr_crtc_change_t {
     pub height:    u16,
 }
 
-impl Copy for xcb_randr_crtc_change_t {}
-impl Clone for xcb_randr_crtc_change_t {
-    fn clone(&self) -> xcb_randr_crtc_change_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_crtc_change_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_crtc_change_t")
-            .field("timestamp", &self.timestamp)
-            .field("window", &self.window)
-            .field("crtc", &self.crtc)
-            .field("mode", &self.mode)
-            .field("rotation", &self.rotation)
-            .field("pad0", &&self.pad0[..])
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_crtc_change_iterator_t {
@@ -2389,6 +1264,7 @@ pub struct xcb_randr_crtc_change_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_output_change_t {
     pub timestamp:        xcb_timestamp_t,
@@ -2402,26 +1278,6 @@ pub struct xcb_randr_output_change_t {
     pub subpixel_order:   u8,
 }
 
-impl Copy for xcb_randr_output_change_t {}
-impl Clone for xcb_randr_output_change_t {
-    fn clone(&self) -> xcb_randr_output_change_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_output_change_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_output_change_t")
-            .field("timestamp", &self.timestamp)
-            .field("config_timestamp", &self.config_timestamp)
-            .field("window", &self.window)
-            .field("output", &self.output)
-            .field("crtc", &self.crtc)
-            .field("mode", &self.mode)
-            .field("rotation", &self.rotation)
-            .field("connection", &self.connection)
-            .field("subpixel_order", &self.subpixel_order)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_output_change_iterator_t {
@@ -2430,6 +1286,7 @@ pub struct xcb_randr_output_change_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_output_property_t {
     pub window:    xcb_window_t,
@@ -2440,23 +1297,6 @@ pub struct xcb_randr_output_property_t {
     pub pad0:      [u8; 11],
 }
 
-impl Copy for xcb_randr_output_property_t {}
-impl Clone for xcb_randr_output_property_t {
-    fn clone(&self) -> xcb_randr_output_property_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_output_property_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_output_property_t")
-            .field("window", &self.window)
-            .field("output", &self.output)
-            .field("atom", &self.atom)
-            .field("timestamp", &self.timestamp)
-            .field("status", &self.status)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_output_property_iterator_t {
@@ -2465,27 +1305,13 @@ pub struct xcb_randr_output_property_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_provider_change_t {
     pub timestamp: xcb_timestamp_t,
     pub window:    xcb_window_t,
     pub provider:  xcb_randr_provider_t,
     pub pad0:      [u8; 16],
-}
-
-impl Copy for xcb_randr_provider_change_t {}
-impl Clone for xcb_randr_provider_change_t {
-    fn clone(&self) -> xcb_randr_provider_change_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_provider_change_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_provider_change_t")
-            .field("timestamp", &self.timestamp)
-            .field("window", &self.window)
-            .field("provider", &self.provider)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2496,6 +1322,7 @@ pub struct xcb_randr_provider_change_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_provider_property_t {
     pub window:    xcb_window_t,
@@ -2506,23 +1333,6 @@ pub struct xcb_randr_provider_property_t {
     pub pad0:      [u8; 11],
 }
 
-impl Copy for xcb_randr_provider_property_t {}
-impl Clone for xcb_randr_provider_property_t {
-    fn clone(&self) -> xcb_randr_provider_property_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_provider_property_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_provider_property_t")
-            .field("window", &self.window)
-            .field("provider", &self.provider)
-            .field("atom", &self.atom)
-            .field("timestamp", &self.timestamp)
-            .field("state", &self.state)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_provider_property_iterator_t {
@@ -2531,25 +1341,12 @@ pub struct xcb_randr_provider_property_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_resource_change_t {
     pub timestamp: xcb_timestamp_t,
     pub window:    xcb_window_t,
     pub pad0:      [u8; 20],
-}
-
-impl Copy for xcb_randr_resource_change_t {}
-impl Clone for xcb_randr_resource_change_t {
-    fn clone(&self) -> xcb_randr_resource_change_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_resource_change_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_resource_change_t")
-            .field("timestamp", &self.timestamp)
-            .field("window", &self.window)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2582,27 +1379,13 @@ pub struct xcb_randr_notify_data_iterator_t {
 
 pub const XCB_RANDR_NOTIFY: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_randr_notify_event_t {
     pub response_type: u8,
     pub subCode:       u8,
     pub sequence:      u16,
     pub u:             xcb_randr_notify_data_t,
-}
-
-impl Copy for xcb_randr_notify_event_t {}
-impl Clone for xcb_randr_notify_event_t {
-    fn clone(&self) -> xcb_randr_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_randr_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_randr_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("subCode", &self.subCode)
-            .field("sequence", &self.sequence)
-            .field("u", &self.u)
-            .finish()
-    }
 }
 
 

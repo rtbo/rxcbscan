@@ -71,23 +71,11 @@ pub const XCB_XV_GRAB_PORT_STATUS_INVALID_TIME   : xcb_xv_grab_port_status_t = 0
 pub const XCB_XV_GRAB_PORT_STATUS_BAD_REPLY      : xcb_xv_grab_port_status_t = 0x04;
 pub const XCB_XV_GRAB_PORT_STATUS_BAD_ALLOC      : xcb_xv_grab_port_status_t = 0x05;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_rational_t {
     pub numerator:   i32,
     pub denominator: i32,
-}
-
-impl Copy for xcb_xv_rational_t {}
-impl Clone for xcb_xv_rational_t {
-    fn clone(&self) -> xcb_xv_rational_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_rational_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_rational_t")
-            .field("numerator", &self.numerator)
-            .field("denominator", &self.denominator)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -98,25 +86,12 @@ pub struct xcb_xv_rational_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_format_t {
     pub visual: xcb_visualid_t,
     pub depth:  u8,
     pub pad0:   [u8; 3],
-}
-
-impl Copy for xcb_xv_format_t {}
-impl Clone for xcb_xv_format_t {
-    fn clone(&self) -> xcb_xv_format_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_format_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_format_t")
-            .field("visual", &self.visual)
-            .field("depth", &self.depth)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -127,6 +102,7 @@ pub struct xcb_xv_format_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_adaptor_info_t {
     pub base_id:     xcb_xv_port_t,
@@ -135,18 +111,6 @@ pub struct xcb_xv_adaptor_info_t {
     pub num_formats: u16,
     pub type_:       u8,
     pub pad0:        u8,
-}
-impl ::std::fmt::Debug for xcb_xv_adaptor_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_adaptor_info_t")
-            .field("base_id", &self.base_id)
-            .field("name_size", &self.name_size)
-            .field("num_ports", &self.num_ports)
-            .field("num_formats", &self.num_formats)
-            .field("type_", &self.type_)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -158,6 +122,7 @@ pub struct xcb_xv_adaptor_info_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xv_adaptor_info_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_encoding_info_t {
     pub encoding:  xcb_xv_encoding_t,
@@ -166,18 +131,6 @@ pub struct xcb_xv_encoding_info_t {
     pub height:    u16,
     pub pad0:      [u8; 2],
     pub rate:      xcb_xv_rational_t,
-}
-impl ::std::fmt::Debug for xcb_xv_encoding_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_encoding_info_t")
-            .field("encoding", &self.encoding)
-            .field("name_size", &self.name_size)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("pad0", &&self.pad0[..])
-            .field("rate", &self.rate)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -189,6 +142,7 @@ pub struct xcb_xv_encoding_info_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xv_encoding_info_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_image_t {
     pub id:         u32,
@@ -196,17 +150,6 @@ pub struct xcb_xv_image_t {
     pub height:     u16,
     pub data_size:  u32,
     pub num_planes: u32,
-}
-impl ::std::fmt::Debug for xcb_xv_image_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_image_t")
-            .field("id", &self.id)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("data_size", &self.data_size)
-            .field("num_planes", &self.num_planes)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -218,22 +161,13 @@ pub struct xcb_xv_image_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xv_image_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_attribute_info_t {
     pub flags: u32,
     pub min:   i32,
     pub max:   i32,
     pub size:  u32,
-}
-impl ::std::fmt::Debug for xcb_xv_attribute_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_attribute_info_t")
-            .field("flags", &self.flags)
-            .field("min", &self.min)
-            .field("max", &self.max)
-            .field("size", &self.size)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -245,6 +179,7 @@ pub struct xcb_xv_attribute_info_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xv_attribute_info_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_image_format_info_t {
     pub id:              u32,
@@ -276,44 +211,6 @@ pub struct xcb_xv_image_format_info_t {
     pub pad4:            [u8; 11],
 }
 
-impl Copy for xcb_xv_image_format_info_t {}
-impl Clone for xcb_xv_image_format_info_t {
-    fn clone(&self) -> xcb_xv_image_format_info_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_image_format_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_image_format_info_t")
-            .field("id", &self.id)
-            .field("type_", &self.type_)
-            .field("byte_order", &self.byte_order)
-            .field("pad0", &&self.pad0[..])
-            .field("guid", &&self.guid[..])
-            .field("bpp", &self.bpp)
-            .field("num_planes", &self.num_planes)
-            .field("pad1", &&self.pad1[..])
-            .field("depth", &self.depth)
-            .field("pad2", &&self.pad2[..])
-            .field("red_mask", &self.red_mask)
-            .field("green_mask", &self.green_mask)
-            .field("blue_mask", &self.blue_mask)
-            .field("format", &self.format)
-            .field("pad3", &&self.pad3[..])
-            .field("y_sample_bits", &self.y_sample_bits)
-            .field("u_sample_bits", &self.u_sample_bits)
-            .field("v_sample_bits", &self.v_sample_bits)
-            .field("vhorz_y_period", &self.vhorz_y_period)
-            .field("vhorz_u_period", &self.vhorz_u_period)
-            .field("vhorz_v_period", &self.vhorz_v_period)
-            .field("vvert_y_period", &self.vvert_y_period)
-            .field("vvert_u_period", &self.vvert_u_period)
-            .field("vvert_v_period", &self.vvert_v_period)
-            .field("vcomp_order", &&self.vcomp_order[..])
-            .field("vscanline_order", &self.vscanline_order)
-            .field("pad4", &&self.pad4[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_image_format_info_iterator_t<'a> {
@@ -325,6 +222,7 @@ pub struct xcb_xv_image_format_info_iterator_t<'a> {
 
 pub const XCB_XV_BAD_PORT: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_bad_port_error_t {
     pub response_type: u8,
@@ -332,22 +230,9 @@ pub struct xcb_xv_bad_port_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xv_bad_port_error_t {}
-impl Clone for xcb_xv_bad_port_error_t {
-    fn clone(&self) -> xcb_xv_bad_port_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_bad_port_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_bad_port_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_XV_BAD_ENCODING: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_bad_encoding_error_t {
     pub response_type: u8,
@@ -355,22 +240,9 @@ pub struct xcb_xv_bad_encoding_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xv_bad_encoding_error_t {}
-impl Clone for xcb_xv_bad_encoding_error_t {
-    fn clone(&self) -> xcb_xv_bad_encoding_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_bad_encoding_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_bad_encoding_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_XV_BAD_CONTROL: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_bad_control_error_t {
     pub response_type: u8,
@@ -378,22 +250,9 @@ pub struct xcb_xv_bad_control_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_xv_bad_control_error_t {}
-impl Clone for xcb_xv_bad_control_error_t {
-    fn clone(&self) -> xcb_xv_bad_control_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_bad_control_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_bad_control_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_XV_VIDEO_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_video_notify_event_t {
     pub response_type: u8,
@@ -404,25 +263,9 @@ pub struct xcb_xv_video_notify_event_t {
     pub port:          xcb_xv_port_t,
 }
 
-impl Copy for xcb_xv_video_notify_event_t {}
-impl Clone for xcb_xv_video_notify_event_t {
-    fn clone(&self) -> xcb_xv_video_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_video_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_video_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("reason", &self.reason)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("drawable", &self.drawable)
-            .field("port", &self.port)
-            .finish()
-    }
-}
-
 pub const XCB_XV_PORT_NOTIFY: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_port_notify_event_t {
     pub response_type: u8,
@@ -434,45 +277,14 @@ pub struct xcb_xv_port_notify_event_t {
     pub value:         i32,
 }
 
-impl Copy for xcb_xv_port_notify_event_t {}
-impl Clone for xcb_xv_port_notify_event_t {
-    fn clone(&self) -> xcb_xv_port_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_port_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_port_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("port", &self.port)
-            .field("attribute", &self.attribute)
-            .field("value", &self.value)
-            .finish()
-    }
-}
-
 pub const XCB_XV_QUERY_EXTENSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_extension_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_xv_query_extension_request_t {}
-impl Clone for xcb_xv_query_extension_request_t {
-    fn clone(&self) -> xcb_xv_query_extension_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_query_extension_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_extension_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -481,6 +293,7 @@ pub struct xcb_xv_query_extension_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_extension_reply_t {
     pub response_type: u8,
@@ -491,25 +304,9 @@ pub struct xcb_xv_query_extension_reply_t {
     pub minor:         u16,
 }
 
-impl Copy for xcb_xv_query_extension_reply_t {}
-impl Clone for xcb_xv_query_extension_reply_t {
-    fn clone(&self) -> xcb_xv_query_extension_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_query_extension_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_extension_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major", &self.major)
-            .field("minor", &self.minor)
-            .finish()
-    }
-}
-
 pub const XCB_XV_QUERY_ADAPTORS: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_adaptors_request_t {
     pub major_opcode: u8,
@@ -518,27 +315,13 @@ pub struct xcb_xv_query_adaptors_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_xv_query_adaptors_request_t {}
-impl Clone for xcb_xv_query_adaptors_request_t {
-    fn clone(&self) -> xcb_xv_query_adaptors_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_query_adaptors_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_adaptors_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_adaptors_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_adaptors_reply_t {
     pub response_type: u8,
@@ -548,21 +331,10 @@ pub struct xcb_xv_query_adaptors_reply_t {
     pub num_adaptors:  u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_xv_query_adaptors_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_adaptors_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_adaptors", &self.num_adaptors)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XV_QUERY_ENCODINGS: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_encodings_request_t {
     pub major_opcode: u8,
@@ -571,27 +343,13 @@ pub struct xcb_xv_query_encodings_request_t {
     pub port:         xcb_xv_port_t,
 }
 
-impl Copy for xcb_xv_query_encodings_request_t {}
-impl Clone for xcb_xv_query_encodings_request_t {
-    fn clone(&self) -> xcb_xv_query_encodings_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_query_encodings_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_encodings_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_encodings_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_encodings_reply_t {
     pub response_type: u8,
@@ -601,21 +359,10 @@ pub struct xcb_xv_query_encodings_reply_t {
     pub num_encodings: u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_xv_query_encodings_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_encodings_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_encodings", &self.num_encodings)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XV_GRAB_PORT: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_grab_port_request_t {
     pub major_opcode: u8,
@@ -625,28 +372,13 @@ pub struct xcb_xv_grab_port_request_t {
     pub time:         xcb_timestamp_t,
 }
 
-impl Copy for xcb_xv_grab_port_request_t {}
-impl Clone for xcb_xv_grab_port_request_t {
-    fn clone(&self) -> xcb_xv_grab_port_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_grab_port_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_grab_port_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("time", &self.time)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_grab_port_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_grab_port_reply_t {
     pub response_type: u8,
@@ -655,23 +387,9 @@ pub struct xcb_xv_grab_port_reply_t {
     pub length:        u32,
 }
 
-impl Copy for xcb_xv_grab_port_reply_t {}
-impl Clone for xcb_xv_grab_port_reply_t {
-    fn clone(&self) -> xcb_xv_grab_port_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_grab_port_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_grab_port_reply_t")
-            .field("response_type", &self.response_type)
-            .field("result", &self.result)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_XV_UNGRAB_PORT: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_ungrab_port_request_t {
     pub major_opcode: u8,
@@ -681,24 +399,9 @@ pub struct xcb_xv_ungrab_port_request_t {
     pub time:         xcb_timestamp_t,
 }
 
-impl Copy for xcb_xv_ungrab_port_request_t {}
-impl Clone for xcb_xv_ungrab_port_request_t {
-    fn clone(&self) -> xcb_xv_ungrab_port_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_ungrab_port_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_ungrab_port_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("time", &self.time)
-            .finish()
-    }
-}
-
 pub const XCB_XV_PUT_VIDEO: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_put_video_request_t {
     pub major_opcode: u8,
@@ -717,33 +420,9 @@ pub struct xcb_xv_put_video_request_t {
     pub drw_h:        u16,
 }
 
-impl Copy for xcb_xv_put_video_request_t {}
-impl Clone for xcb_xv_put_video_request_t {
-    fn clone(&self) -> xcb_xv_put_video_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_put_video_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_put_video_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("vid_x", &self.vid_x)
-            .field("vid_y", &self.vid_y)
-            .field("vid_w", &self.vid_w)
-            .field("vid_h", &self.vid_h)
-            .field("drw_x", &self.drw_x)
-            .field("drw_y", &self.drw_y)
-            .field("drw_w", &self.drw_w)
-            .field("drw_h", &self.drw_h)
-            .finish()
-    }
-}
-
 pub const XCB_XV_PUT_STILL: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_put_still_request_t {
     pub major_opcode: u8,
@@ -762,33 +441,9 @@ pub struct xcb_xv_put_still_request_t {
     pub drw_h:        u16,
 }
 
-impl Copy for xcb_xv_put_still_request_t {}
-impl Clone for xcb_xv_put_still_request_t {
-    fn clone(&self) -> xcb_xv_put_still_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_put_still_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_put_still_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("vid_x", &self.vid_x)
-            .field("vid_y", &self.vid_y)
-            .field("vid_w", &self.vid_w)
-            .field("vid_h", &self.vid_h)
-            .field("drw_x", &self.drw_x)
-            .field("drw_y", &self.drw_y)
-            .field("drw_w", &self.drw_w)
-            .field("drw_h", &self.drw_h)
-            .finish()
-    }
-}
-
 pub const XCB_XV_GET_VIDEO: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_get_video_request_t {
     pub major_opcode: u8,
@@ -807,33 +462,9 @@ pub struct xcb_xv_get_video_request_t {
     pub drw_h:        u16,
 }
 
-impl Copy for xcb_xv_get_video_request_t {}
-impl Clone for xcb_xv_get_video_request_t {
-    fn clone(&self) -> xcb_xv_get_video_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_get_video_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_get_video_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("vid_x", &self.vid_x)
-            .field("vid_y", &self.vid_y)
-            .field("vid_w", &self.vid_w)
-            .field("vid_h", &self.vid_h)
-            .field("drw_x", &self.drw_x)
-            .field("drw_y", &self.drw_y)
-            .field("drw_w", &self.drw_w)
-            .field("drw_h", &self.drw_h)
-            .finish()
-    }
-}
-
 pub const XCB_XV_GET_STILL: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_get_still_request_t {
     pub major_opcode: u8,
@@ -852,33 +483,9 @@ pub struct xcb_xv_get_still_request_t {
     pub drw_h:        u16,
 }
 
-impl Copy for xcb_xv_get_still_request_t {}
-impl Clone for xcb_xv_get_still_request_t {
-    fn clone(&self) -> xcb_xv_get_still_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_get_still_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_get_still_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("vid_x", &self.vid_x)
-            .field("vid_y", &self.vid_y)
-            .field("vid_w", &self.vid_w)
-            .field("vid_h", &self.vid_h)
-            .field("drw_x", &self.drw_x)
-            .field("drw_y", &self.drw_y)
-            .field("drw_w", &self.drw_w)
-            .field("drw_h", &self.drw_h)
-            .finish()
-    }
-}
-
 pub const XCB_XV_STOP_VIDEO: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_stop_video_request_t {
     pub major_opcode: u8,
@@ -888,24 +495,9 @@ pub struct xcb_xv_stop_video_request_t {
     pub drawable:     xcb_drawable_t,
 }
 
-impl Copy for xcb_xv_stop_video_request_t {}
-impl Clone for xcb_xv_stop_video_request_t {
-    fn clone(&self) -> xcb_xv_stop_video_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_stop_video_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_stop_video_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 pub const XCB_XV_SELECT_VIDEO_NOTIFY: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_select_video_notify_request_t {
     pub major_opcode: u8,
@@ -916,25 +508,9 @@ pub struct xcb_xv_select_video_notify_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_xv_select_video_notify_request_t {}
-impl Clone for xcb_xv_select_video_notify_request_t {
-    fn clone(&self) -> xcb_xv_select_video_notify_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_select_video_notify_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_select_video_notify_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("onoff", &self.onoff)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XV_SELECT_PORT_NOTIFY: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_select_port_notify_request_t {
     pub major_opcode: u8,
@@ -945,25 +521,9 @@ pub struct xcb_xv_select_port_notify_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_xv_select_port_notify_request_t {}
-impl Clone for xcb_xv_select_port_notify_request_t {
-    fn clone(&self) -> xcb_xv_select_port_notify_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_select_port_notify_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_select_port_notify_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("onoff", &self.onoff)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XV_QUERY_BEST_SIZE: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_best_size_request_t {
     pub major_opcode: u8,
@@ -978,33 +538,13 @@ pub struct xcb_xv_query_best_size_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_xv_query_best_size_request_t {}
-impl Clone for xcb_xv_query_best_size_request_t {
-    fn clone(&self) -> xcb_xv_query_best_size_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_query_best_size_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_best_size_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("vid_w", &self.vid_w)
-            .field("vid_h", &self.vid_h)
-            .field("drw_w", &self.drw_w)
-            .field("drw_h", &self.drw_h)
-            .field("motion", &self.motion)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_best_size_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_best_size_reply_t {
     pub response_type: u8,
@@ -1015,25 +555,9 @@ pub struct xcb_xv_query_best_size_reply_t {
     pub actual_height: u16,
 }
 
-impl Copy for xcb_xv_query_best_size_reply_t {}
-impl Clone for xcb_xv_query_best_size_reply_t {
-    fn clone(&self) -> xcb_xv_query_best_size_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_query_best_size_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_best_size_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("actual_width", &self.actual_width)
-            .field("actual_height", &self.actual_height)
-            .finish()
-    }
-}
-
 pub const XCB_XV_SET_PORT_ATTRIBUTE: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_set_port_attribute_request_t {
     pub major_opcode: u8,
@@ -1044,25 +568,9 @@ pub struct xcb_xv_set_port_attribute_request_t {
     pub value:        i32,
 }
 
-impl Copy for xcb_xv_set_port_attribute_request_t {}
-impl Clone for xcb_xv_set_port_attribute_request_t {
-    fn clone(&self) -> xcb_xv_set_port_attribute_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_set_port_attribute_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_set_port_attribute_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("attribute", &self.attribute)
-            .field("value", &self.value)
-            .finish()
-    }
-}
-
 pub const XCB_XV_GET_PORT_ATTRIBUTE: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_get_port_attribute_request_t {
     pub major_opcode: u8,
@@ -1072,28 +580,13 @@ pub struct xcb_xv_get_port_attribute_request_t {
     pub attribute:    xcb_atom_t,
 }
 
-impl Copy for xcb_xv_get_port_attribute_request_t {}
-impl Clone for xcb_xv_get_port_attribute_request_t {
-    fn clone(&self) -> xcb_xv_get_port_attribute_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_get_port_attribute_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_get_port_attribute_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("attribute", &self.attribute)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_get_port_attribute_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_get_port_attribute_reply_t {
     pub response_type: u8,
@@ -1103,24 +596,9 @@ pub struct xcb_xv_get_port_attribute_reply_t {
     pub value:         i32,
 }
 
-impl Copy for xcb_xv_get_port_attribute_reply_t {}
-impl Clone for xcb_xv_get_port_attribute_reply_t {
-    fn clone(&self) -> xcb_xv_get_port_attribute_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_get_port_attribute_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_get_port_attribute_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("value", &self.value)
-            .finish()
-    }
-}
-
 pub const XCB_XV_QUERY_PORT_ATTRIBUTES: u8 = 15;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_port_attributes_request_t {
     pub major_opcode: u8,
@@ -1129,27 +607,13 @@ pub struct xcb_xv_query_port_attributes_request_t {
     pub port:         xcb_xv_port_t,
 }
 
-impl Copy for xcb_xv_query_port_attributes_request_t {}
-impl Clone for xcb_xv_query_port_attributes_request_t {
-    fn clone(&self) -> xcb_xv_query_port_attributes_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_query_port_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_port_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_port_attributes_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_port_attributes_reply_t {
     pub response_type:  u8,
@@ -1160,22 +624,10 @@ pub struct xcb_xv_query_port_attributes_reply_t {
     pub text_size:      u32,
     pub pad1:           [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_xv_query_port_attributes_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_port_attributes_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_attributes", &self.num_attributes)
-            .field("text_size", &self.text_size)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XV_LIST_IMAGE_FORMATS: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_list_image_formats_request_t {
     pub major_opcode: u8,
@@ -1184,27 +636,13 @@ pub struct xcb_xv_list_image_formats_request_t {
     pub port:         xcb_xv_port_t,
 }
 
-impl Copy for xcb_xv_list_image_formats_request_t {}
-impl Clone for xcb_xv_list_image_formats_request_t {
-    fn clone(&self) -> xcb_xv_list_image_formats_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_list_image_formats_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_list_image_formats_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_list_image_formats_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_list_image_formats_reply_t {
     pub response_type: u8,
@@ -1214,21 +652,10 @@ pub struct xcb_xv_list_image_formats_reply_t {
     pub num_formats:   u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_xv_list_image_formats_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_list_image_formats_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_formats", &self.num_formats)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XV_QUERY_IMAGE_ATTRIBUTES: u8 = 17;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_image_attributes_request_t {
     pub major_opcode: u8,
@@ -1240,30 +667,13 @@ pub struct xcb_xv_query_image_attributes_request_t {
     pub height:       u16,
 }
 
-impl Copy for xcb_xv_query_image_attributes_request_t {}
-impl Clone for xcb_xv_query_image_attributes_request_t {
-    fn clone(&self) -> xcb_xv_query_image_attributes_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_query_image_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_image_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("id", &self.id)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_image_attributes_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_query_image_attributes_reply_t {
     pub response_type: u8,
@@ -1276,24 +686,10 @@ pub struct xcb_xv_query_image_attributes_reply_t {
     pub height:        u16,
     pub pad1:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_xv_query_image_attributes_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_query_image_attributes_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("num_planes", &self.num_planes)
-            .field("data_size", &self.data_size)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XV_PUT_IMAGE: u8 = 18;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xv_put_image_request_t {
     pub major_opcode: u8,
@@ -1314,32 +710,10 @@ pub struct xcb_xv_put_image_request_t {
     pub width:        u16,
     pub height:       u16,
 }
-impl ::std::fmt::Debug for xcb_xv_put_image_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_put_image_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("id", &self.id)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .field("src_w", &self.src_w)
-            .field("src_h", &self.src_h)
-            .field("drw_x", &self.drw_x)
-            .field("drw_y", &self.drw_y)
-            .field("drw_w", &self.drw_w)
-            .field("drw_h", &self.drw_h)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
-}
 
 pub const XCB_XV_SHM_PUT_IMAGE: u8 = 19;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xv_shm_put_image_request_t {
     pub major_opcode: u8,
@@ -1363,38 +737,6 @@ pub struct xcb_xv_shm_put_image_request_t {
     pub height:       u16,
     pub send_event:   u8,
     pub pad0:         [u8; 3],
-}
-
-impl Copy for xcb_xv_shm_put_image_request_t {}
-impl Clone for xcb_xv_shm_put_image_request_t {
-    fn clone(&self) -> xcb_xv_shm_put_image_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xv_shm_put_image_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xv_shm_put_image_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("port", &self.port)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("shmseg", &self.shmseg)
-            .field("id", &self.id)
-            .field("offset", &self.offset)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .field("src_w", &self.src_w)
-            .field("src_h", &self.src_h)
-            .field("drw_x", &self.drw_x)
-            .field("drw_y", &self.drw_y)
-            .field("drw_w", &self.drw_w)
-            .field("drw_h", &self.drw_h)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("send_event", &self.send_event)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 

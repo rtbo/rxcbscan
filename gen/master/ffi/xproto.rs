@@ -7,23 +7,11 @@ use libc::{c_char, c_int, c_uint, c_void};
 use std;
 
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_char2b_t {
     pub byte1: u8,
     pub byte2: u8,
-}
-
-impl Copy for xcb_char2b_t {}
-impl Clone for xcb_char2b_t {
-    fn clone(&self) -> xcb_char2b_t { *self }
-}
-impl ::std::fmt::Debug for xcb_char2b_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_char2b_t")
-            .field("byte1", &self.byte1)
-            .field("byte2", &self.byte2)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -174,23 +162,11 @@ pub struct xcb_button_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_point_t {
     pub x: i16,
     pub y: i16,
-}
-
-impl Copy for xcb_point_t {}
-impl Clone for xcb_point_t {
-    fn clone(&self) -> xcb_point_t { *self }
-}
-impl ::std::fmt::Debug for xcb_point_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_point_t")
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -201,27 +177,13 @@ pub struct xcb_point_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_rectangle_t {
     pub x:      i16,
     pub y:      i16,
     pub width:  u16,
     pub height: u16,
-}
-
-impl Copy for xcb_rectangle_t {}
-impl Clone for xcb_rectangle_t {
-    fn clone(&self) -> xcb_rectangle_t { *self }
-}
-impl ::std::fmt::Debug for xcb_rectangle_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_rectangle_t")
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -232,6 +194,7 @@ pub struct xcb_rectangle_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_arc_t {
     pub x:      i16,
@@ -242,23 +205,6 @@ pub struct xcb_arc_t {
     pub angle2: i16,
 }
 
-impl Copy for xcb_arc_t {}
-impl Clone for xcb_arc_t {
-    fn clone(&self) -> xcb_arc_t { *self }
-}
-impl ::std::fmt::Debug for xcb_arc_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_arc_t")
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("angle1", &self.angle1)
-            .field("angle2", &self.angle2)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_arc_iterator_t {
@@ -267,27 +213,13 @@ pub struct xcb_arc_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_format_t {
     pub depth:          u8,
     pub bits_per_pixel: u8,
     pub scanline_pad:   u8,
     pub pad0:           [u8; 5],
-}
-
-impl Copy for xcb_format_t {}
-impl Clone for xcb_format_t {
-    fn clone(&self) -> xcb_format_t { *self }
-}
-impl ::std::fmt::Debug for xcb_format_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_format_t")
-            .field("depth", &self.depth)
-            .field("bits_per_pixel", &self.bits_per_pixel)
-            .field("scanline_pad", &self.scanline_pad)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -306,6 +238,7 @@ pub const XCB_VISUAL_CLASS_PSEUDO_COLOR: xcb_visual_class_t = 0x03;
 pub const XCB_VISUAL_CLASS_TRUE_COLOR  : xcb_visual_class_t = 0x04;
 pub const XCB_VISUAL_CLASS_DIRECT_COLOR: xcb_visual_class_t = 0x05;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_visualtype_t {
     pub visual_id:          xcb_visualid_t,
@@ -318,25 +251,6 @@ pub struct xcb_visualtype_t {
     pub pad0:               [u8; 4],
 }
 
-impl Copy for xcb_visualtype_t {}
-impl Clone for xcb_visualtype_t {
-    fn clone(&self) -> xcb_visualtype_t { *self }
-}
-impl ::std::fmt::Debug for xcb_visualtype_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_visualtype_t")
-            .field("visual_id", &self.visual_id)
-            .field("class", &self.class)
-            .field("bits_per_rgb_value", &self.bits_per_rgb_value)
-            .field("colormap_entries", &self.colormap_entries)
-            .field("red_mask", &self.red_mask)
-            .field("green_mask", &self.green_mask)
-            .field("blue_mask", &self.blue_mask)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_visualtype_iterator_t {
@@ -345,22 +259,13 @@ pub struct xcb_visualtype_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_depth_t {
     pub depth:       u8,
     pub pad0:        u8,
     pub visuals_len: u16,
     pub pad1:        [u8; 4],
-}
-impl ::std::fmt::Debug for xcb_depth_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_depth_t")
-            .field("depth", &self.depth)
-            .field("pad0", &self.pad0)
-            .field("visuals_len", &self.visuals_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -405,6 +310,7 @@ pub const XCB_BACKING_STORE_NOT_USEFUL : xcb_backing_store_t = 0x00;
 pub const XCB_BACKING_STORE_WHEN_MAPPED: xcb_backing_store_t = 0x01;
 pub const XCB_BACKING_STORE_ALWAYS     : xcb_backing_store_t = 0x02;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_screen_t {
     pub root:                  xcb_window_t,
@@ -424,28 +330,6 @@ pub struct xcb_screen_t {
     pub root_depth:            u8,
     pub allowed_depths_len:    u8,
 }
-impl ::std::fmt::Debug for xcb_screen_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screen_t")
-            .field("root", &self.root)
-            .field("default_colormap", &self.default_colormap)
-            .field("white_pixel", &self.white_pixel)
-            .field("black_pixel", &self.black_pixel)
-            .field("current_input_masks", &self.current_input_masks)
-            .field("width_in_pixels", &self.width_in_pixels)
-            .field("height_in_pixels", &self.height_in_pixels)
-            .field("width_in_millimeters", &self.width_in_millimeters)
-            .field("height_in_millimeters", &self.height_in_millimeters)
-            .field("min_installed_maps", &self.min_installed_maps)
-            .field("max_installed_maps", &self.max_installed_maps)
-            .field("root_visual", &self.root_visual)
-            .field("backing_stores", &self.backing_stores)
-            .field("save_unders", &self.save_unders)
-            .field("root_depth", &self.root_depth)
-            .field("allowed_depths_len", &self.allowed_depths_len)
-            .finish()
-    }
-}
 
 #[repr(C)]
 #[derive(Debug)]
@@ -456,6 +340,7 @@ pub struct xcb_screen_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_screen_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_setup_request_t {
     pub byte_order:                      u8,
@@ -465,19 +350,6 @@ pub struct xcb_setup_request_t {
     pub authorization_protocol_name_len: u16,
     pub authorization_protocol_data_len: u16,
     pub pad1:                            [u8; 2],
-}
-impl ::std::fmt::Debug for xcb_setup_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_setup_request_t")
-            .field("byte_order", &self.byte_order)
-            .field("pad0", &self.pad0)
-            .field("protocol_major_version", &self.protocol_major_version)
-            .field("protocol_minor_version", &self.protocol_minor_version)
-            .field("authorization_protocol_name_len", &self.authorization_protocol_name_len)
-            .field("authorization_protocol_data_len", &self.authorization_protocol_data_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -489,6 +361,7 @@ pub struct xcb_setup_request_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_setup_request_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_setup_failed_t {
     pub status:                 u8,
@@ -496,17 +369,6 @@ pub struct xcb_setup_failed_t {
     pub protocol_major_version: u16,
     pub protocol_minor_version: u16,
     pub length:                 u16,
-}
-impl ::std::fmt::Debug for xcb_setup_failed_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_setup_failed_t")
-            .field("status", &self.status)
-            .field("reason_len", &self.reason_len)
-            .field("protocol_major_version", &self.protocol_major_version)
-            .field("protocol_minor_version", &self.protocol_minor_version)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -518,20 +380,12 @@ pub struct xcb_setup_failed_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_setup_failed_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_setup_authenticate_t {
     pub status: u8,
     pub pad0:   [u8; 5],
     pub length: u16,
-}
-impl ::std::fmt::Debug for xcb_setup_authenticate_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_setup_authenticate_t")
-            .field("status", &self.status)
-            .field("pad0", &&self.pad0[..])
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -547,6 +401,7 @@ pub type xcb_image_order_t = u32;
 pub const XCB_IMAGE_ORDER_LSB_FIRST: xcb_image_order_t = 0x00;
 pub const XCB_IMAGE_ORDER_MSB_FIRST: xcb_image_order_t = 0x01;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_setup_t {
     pub status:                      u8,
@@ -569,32 +424,6 @@ pub struct xcb_setup_t {
     pub min_keycode:                 xcb_keycode_t,
     pub max_keycode:                 xcb_keycode_t,
     pub pad1:                        [u8; 4],
-}
-impl ::std::fmt::Debug for xcb_setup_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_setup_t")
-            .field("status", &self.status)
-            .field("pad0", &self.pad0)
-            .field("protocol_major_version", &self.protocol_major_version)
-            .field("protocol_minor_version", &self.protocol_minor_version)
-            .field("length", &self.length)
-            .field("release_number", &self.release_number)
-            .field("resource_id_base", &self.resource_id_base)
-            .field("resource_id_mask", &self.resource_id_mask)
-            .field("motion_buffer_size", &self.motion_buffer_size)
-            .field("vendor_len", &self.vendor_len)
-            .field("maximum_request_length", &self.maximum_request_length)
-            .field("roots_len", &self.roots_len)
-            .field("pixmap_formats_len", &self.pixmap_formats_len)
-            .field("image_byte_order", &self.image_byte_order)
-            .field("bitmap_format_bit_order", &self.bitmap_format_bit_order)
-            .field("bitmap_format_scanline_unit", &self.bitmap_format_scanline_unit)
-            .field("bitmap_format_scanline_pad", &self.bitmap_format_scanline_pad)
-            .field("min_keycode", &self.min_keycode)
-            .field("max_keycode", &self.max_keycode)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -638,6 +467,7 @@ pub const XCB_WINDOW_NONE: xcb_window_enum_t = 0x00;
 pub const XCB_KEY_PRESS: u8 = 2;
 
 /// a key was pressed/released
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_key_press_event_t {
     pub response_type: u8,
@@ -671,31 +501,6 @@ pub struct xcb_key_press_event_t {
     pub pad0:          u8,
 }
 
-impl Copy for xcb_key_press_event_t {}
-impl Clone for xcb_key_press_event_t {
-    fn clone(&self) -> xcb_key_press_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_key_press_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_key_press_event_t")
-            .field("response_type", &self.response_type)
-            .field("detail", &self.detail)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("event_x", &self.event_x)
-            .field("event_y", &self.event_y)
-            .field("state", &self.state)
-            .field("same_screen", &self.same_screen)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
-
 pub const XCB_KEY_RELEASE: u8 = 3;
 
 pub type xcb_key_release_event_t = xcb_key_press_event_t;
@@ -711,6 +516,7 @@ pub const XCB_BUTTON_MASK_ANY: xcb_button_mask_t = 0x8000;
 pub const XCB_BUTTON_PRESS: u8 = 4;
 
 /// a mouse button was pressed/released
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_button_press_event_t {
     pub response_type: u8,
@@ -744,31 +550,6 @@ pub struct xcb_button_press_event_t {
     pub pad0:          u8,
 }
 
-impl Copy for xcb_button_press_event_t {}
-impl Clone for xcb_button_press_event_t {
-    fn clone(&self) -> xcb_button_press_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_button_press_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_button_press_event_t")
-            .field("response_type", &self.response_type)
-            .field("detail", &self.detail)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("event_x", &self.event_x)
-            .field("event_y", &self.event_y)
-            .field("state", &self.state)
-            .field("same_screen", &self.same_screen)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
-
 pub const XCB_BUTTON_RELEASE: u8 = 5;
 
 pub type xcb_button_release_event_t = xcb_button_press_event_t;
@@ -780,6 +561,7 @@ pub const XCB_MOTION_HINT  : xcb_motion_t = 0x01;
 pub const XCB_MOTION_NOTIFY: u8 = 6;
 
 /// a key was pressed
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_motion_notify_event_t {
     pub response_type: u8,
@@ -813,31 +595,6 @@ pub struct xcb_motion_notify_event_t {
     pub pad0:          u8,
 }
 
-impl Copy for xcb_motion_notify_event_t {}
-impl Clone for xcb_motion_notify_event_t {
-    fn clone(&self) -> xcb_motion_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_motion_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_motion_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("detail", &self.detail)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("event_x", &self.event_x)
-            .field("event_y", &self.event_y)
-            .field("state", &self.state)
-            .field("same_screen", &self.same_screen)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
-
 pub type xcb_notify_detail_t = u32;
 pub const XCB_NOTIFY_DETAIL_ANCESTOR         : xcb_notify_detail_t = 0x00;
 pub const XCB_NOTIFY_DETAIL_VIRTUAL          : xcb_notify_detail_t = 0x01;
@@ -857,6 +614,7 @@ pub const XCB_NOTIFY_MODE_WHILE_GRABBED: xcb_notify_mode_t = 0x03;
 pub const XCB_ENTER_NOTIFY: u8 = 7;
 
 /// the pointer is in a different window
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_enter_notify_event_t {
     pub response_type:     u8,
@@ -886,31 +644,6 @@ pub struct xcb_enter_notify_event_t {
     pub same_screen_focus: u8,
 }
 
-impl Copy for xcb_enter_notify_event_t {}
-impl Clone for xcb_enter_notify_event_t {
-    fn clone(&self) -> xcb_enter_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_enter_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_enter_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("detail", &self.detail)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("root", &self.root)
-            .field("event", &self.event)
-            .field("child", &self.child)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("event_x", &self.event_x)
-            .field("event_y", &self.event_y)
-            .field("state", &self.state)
-            .field("mode", &self.mode)
-            .field("same_screen_focus", &self.same_screen_focus)
-            .finish()
-    }
-}
-
 pub const XCB_LEAVE_NOTIFY: u8 = 8;
 
 pub type xcb_leave_notify_event_t = xcb_enter_notify_event_t;
@@ -918,6 +651,7 @@ pub type xcb_leave_notify_event_t = xcb_enter_notify_event_t;
 pub const XCB_FOCUS_IN: u8 = 9;
 
 /// NOT YET DOCUMENTED
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_focus_in_event_t {
     pub response_type: u8,
@@ -932,51 +666,23 @@ pub struct xcb_focus_in_event_t {
     pub pad0:          [u8; 3],
 }
 
-impl Copy for xcb_focus_in_event_t {}
-impl Clone for xcb_focus_in_event_t {
-    fn clone(&self) -> xcb_focus_in_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_focus_in_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_focus_in_event_t")
-            .field("response_type", &self.response_type)
-            .field("detail", &self.detail)
-            .field("sequence", &self.sequence)
-            .field("event", &self.event)
-            .field("mode", &self.mode)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_FOCUS_OUT: u8 = 10;
 
 pub type xcb_focus_out_event_t = xcb_focus_in_event_t;
 
 pub const XCB_KEYMAP_NOTIFY: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_keymap_notify_event_t {
     pub response_type: u8,
     pub keys:          [u8; 31],
 }
 
-impl Copy for xcb_keymap_notify_event_t {}
-impl Clone for xcb_keymap_notify_event_t {
-    fn clone(&self) -> xcb_keymap_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_keymap_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_keymap_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("keys", &&self.keys[..])
-            .finish()
-    }
-}
-
 pub const XCB_EXPOSE: u8 = 12;
 
 /// NOT YET DOCUMENTED
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_expose_event_t {
     pub response_type: u8,
@@ -1002,29 +708,9 @@ pub struct xcb_expose_event_t {
     pub pad1:          [u8; 2],
 }
 
-impl Copy for xcb_expose_event_t {}
-impl Clone for xcb_expose_event_t {
-    fn clone(&self) -> xcb_expose_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_expose_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_expose_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("window", &self.window)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("count", &self.count)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_GRAPHICS_EXPOSURE: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_graphics_exposure_event_t {
     pub response_type: u8,
@@ -1041,31 +727,9 @@ pub struct xcb_graphics_exposure_event_t {
     pub pad1:          [u8; 3],
 }
 
-impl Copy for xcb_graphics_exposure_event_t {}
-impl Clone for xcb_graphics_exposure_event_t {
-    fn clone(&self) -> xcb_graphics_exposure_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_graphics_exposure_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_graphics_exposure_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("drawable", &self.drawable)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("count", &self.count)
-            .field("major_opcode", &self.major_opcode)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_NO_EXPOSURE: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_no_exposure_event_t {
     pub response_type: u8,
@@ -1077,24 +741,6 @@ pub struct xcb_no_exposure_event_t {
     pub pad1:          u8,
 }
 
-impl Copy for xcb_no_exposure_event_t {}
-impl Clone for xcb_no_exposure_event_t {
-    fn clone(&self) -> xcb_no_exposure_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_no_exposure_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_no_exposure_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("drawable", &self.drawable)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("major_opcode", &self.major_opcode)
-            .field("pad1", &self.pad1)
-            .finish()
-    }
-}
-
 pub type xcb_visibility_t = u32;
 pub const XCB_VISIBILITY_UNOBSCURED        : xcb_visibility_t = 0x00;
 pub const XCB_VISIBILITY_PARTIALLY_OBSCURED: xcb_visibility_t = 0x01;
@@ -1102,6 +748,7 @@ pub const XCB_VISIBILITY_FULLY_OBSCURED    : xcb_visibility_t = 0x02;
 
 pub const XCB_VISIBILITY_NOTIFY: u8 = 15;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_visibility_notify_event_t {
     pub response_type: u8,
@@ -1112,25 +759,9 @@ pub struct xcb_visibility_notify_event_t {
     pub pad1:          [u8; 3],
 }
 
-impl Copy for xcb_visibility_notify_event_t {}
-impl Clone for xcb_visibility_notify_event_t {
-    fn clone(&self) -> xcb_visibility_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_visibility_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_visibility_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("window", &self.window)
-            .field("state", &self.state)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_CREATE_NOTIFY: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_create_notify_event_t {
     pub response_type:     u8,
@@ -1147,32 +778,10 @@ pub struct xcb_create_notify_event_t {
     pub pad1:              u8,
 }
 
-impl Copy for xcb_create_notify_event_t {}
-impl Clone for xcb_create_notify_event_t {
-    fn clone(&self) -> xcb_create_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_create_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_create_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("parent", &self.parent)
-            .field("window", &self.window)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("border_width", &self.border_width)
-            .field("override_redirect", &self.override_redirect)
-            .field("pad1", &self.pad1)
-            .finish()
-    }
-}
-
 pub const XCB_DESTROY_NOTIFY: u8 = 17;
 
 /// a window is destroyed
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_destroy_notify_event_t {
     pub response_type: u8,
@@ -1185,25 +794,10 @@ pub struct xcb_destroy_notify_event_t {
     pub window:        xcb_window_t,
 }
 
-impl Copy for xcb_destroy_notify_event_t {}
-impl Clone for xcb_destroy_notify_event_t {
-    fn clone(&self) -> xcb_destroy_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_destroy_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_destroy_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_UNMAP_NOTIFY: u8 = 18;
 
 /// a window is unmapped
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_unmap_notify_event_t {
     pub response_type:  u8,
@@ -1220,27 +814,10 @@ pub struct xcb_unmap_notify_event_t {
     pub pad1:           [u8; 3],
 }
 
-impl Copy for xcb_unmap_notify_event_t {}
-impl Clone for xcb_unmap_notify_event_t {
-    fn clone(&self) -> xcb_unmap_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_unmap_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_unmap_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .field("from_configure", &self.from_configure)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_MAP_NOTIFY: u8 = 19;
 
 /// a window was mapped
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_map_notify_event_t {
     pub response_type:     u8,
@@ -1256,27 +833,10 @@ pub struct xcb_map_notify_event_t {
     pub pad1:              [u8; 3],
 }
 
-impl Copy for xcb_map_notify_event_t {}
-impl Clone for xcb_map_notify_event_t {
-    fn clone(&self) -> xcb_map_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_map_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_map_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .field("override_redirect", &self.override_redirect)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_MAP_REQUEST: u8 = 20;
 
 /// window wants to be mapped
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_map_request_event_t {
     pub response_type: u8,
@@ -1288,24 +848,9 @@ pub struct xcb_map_request_event_t {
     pub window:        xcb_window_t,
 }
 
-impl Copy for xcb_map_request_event_t {}
-impl Clone for xcb_map_request_event_t {
-    fn clone(&self) -> xcb_map_request_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_map_request_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_map_request_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("parent", &self.parent)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_REPARENT_NOTIFY: u8 = 21;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_reparent_notify_event_t {
     pub response_type:     u8,
@@ -1320,30 +865,10 @@ pub struct xcb_reparent_notify_event_t {
     pub pad1:              [u8; 3],
 }
 
-impl Copy for xcb_reparent_notify_event_t {}
-impl Clone for xcb_reparent_notify_event_t {
-    fn clone(&self) -> xcb_reparent_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_reparent_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_reparent_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .field("parent", &self.parent)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("override_redirect", &self.override_redirect)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_CONFIGURE_NOTIFY: u8 = 22;
 
 /// NOT YET DOCUMENTED
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_configure_notify_event_t {
     pub response_type:     u8,
@@ -1375,32 +900,9 @@ pub struct xcb_configure_notify_event_t {
     pub pad1:              u8,
 }
 
-impl Copy for xcb_configure_notify_event_t {}
-impl Clone for xcb_configure_notify_event_t {
-    fn clone(&self) -> xcb_configure_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_configure_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_configure_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .field("above_sibling", &self.above_sibling)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("border_width", &self.border_width)
-            .field("override_redirect", &self.override_redirect)
-            .field("pad1", &self.pad1)
-            .finish()
-    }
-}
-
 pub const XCB_CONFIGURE_REQUEST: u8 = 23;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_configure_request_event_t {
     pub response_type: u8,
@@ -1417,31 +919,9 @@ pub struct xcb_configure_request_event_t {
     pub value_mask:    u16,
 }
 
-impl Copy for xcb_configure_request_event_t {}
-impl Clone for xcb_configure_request_event_t {
-    fn clone(&self) -> xcb_configure_request_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_configure_request_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_configure_request_event_t")
-            .field("response_type", &self.response_type)
-            .field("stack_mode", &self.stack_mode)
-            .field("sequence", &self.sequence)
-            .field("parent", &self.parent)
-            .field("window", &self.window)
-            .field("sibling", &self.sibling)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("border_width", &self.border_width)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
-
 pub const XCB_GRAVITY_NOTIFY: u8 = 24;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_gravity_notify_event_t {
     pub response_type: u8,
@@ -1453,26 +933,9 @@ pub struct xcb_gravity_notify_event_t {
     pub y:             i16,
 }
 
-impl Copy for xcb_gravity_notify_event_t {}
-impl Clone for xcb_gravity_notify_event_t {
-    fn clone(&self) -> xcb_gravity_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_gravity_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_gravity_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
-}
-
 pub const XCB_RESIZE_REQUEST: u8 = 25;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_resize_request_event_t {
     pub response_type: u8,
@@ -1481,23 +944,6 @@ pub struct xcb_resize_request_event_t {
     pub window:        xcb_window_t,
     pub width:         u16,
     pub height:        u16,
-}
-
-impl Copy for xcb_resize_request_event_t {}
-impl Clone for xcb_resize_request_event_t {
-    fn clone(&self) -> xcb_resize_request_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_resize_request_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_resize_request_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("window", &self.window)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
 }
 
 pub type xcb_place_t = u32;
@@ -1509,6 +955,7 @@ pub const XCB_PLACE_ON_BOTTOM: xcb_place_t = 0x01;
 pub const XCB_CIRCULATE_NOTIFY: u8 = 26;
 
 /// NOT YET DOCUMENTED
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_circulate_notify_event_t {
     pub response_type: u8,
@@ -1525,25 +972,6 @@ pub struct xcb_circulate_notify_event_t {
     pub pad2:          [u8; 3],
 }
 
-impl Copy for xcb_circulate_notify_event_t {}
-impl Clone for xcb_circulate_notify_event_t {
-    fn clone(&self) -> xcb_circulate_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_circulate_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_circulate_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("event", &self.event)
-            .field("window", &self.window)
-            .field("pad1", &&self.pad1[..])
-            .field("place", &self.place)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
-
 pub const XCB_CIRCULATE_REQUEST: u8 = 27;
 
 pub type xcb_circulate_request_event_t = xcb_circulate_notify_event_t;
@@ -1555,6 +983,7 @@ pub const XCB_PROPERTY_DELETE   : xcb_property_t = 0x01;
 pub const XCB_PROPERTY_NOTIFY: u8 = 28;
 
 /// a window property changed
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_property_notify_event_t {
     pub response_type: u8,
@@ -1571,27 +1000,9 @@ pub struct xcb_property_notify_event_t {
     pub pad1:          [u8; 3],
 }
 
-impl Copy for xcb_property_notify_event_t {}
-impl Clone for xcb_property_notify_event_t {
-    fn clone(&self) -> xcb_property_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_property_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_property_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("window", &self.window)
-            .field("atom", &self.atom)
-            .field("time", &self.time)
-            .field("state", &self.state)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_SELECTION_CLEAR: u8 = 29;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selection_clear_event_t {
     pub response_type: u8,
@@ -1600,23 +1011,6 @@ pub struct xcb_selection_clear_event_t {
     pub time:          xcb_timestamp_t,
     pub owner:         xcb_window_t,
     pub selection:     xcb_atom_t,
-}
-
-impl Copy for xcb_selection_clear_event_t {}
-impl Clone for xcb_selection_clear_event_t {
-    fn clone(&self) -> xcb_selection_clear_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selection_clear_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selection_clear_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("owner", &self.owner)
-            .field("selection", &self.selection)
-            .finish()
-    }
 }
 
 pub type xcb_time_t = u32;
@@ -1696,6 +1090,7 @@ pub const XCB_ATOM_WM_TRANSIENT_FOR   : xcb_atom_enum_t = 0x44;
 
 pub const XCB_SELECTION_REQUEST: u8 = 30;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selection_request_event_t {
     pub response_type: u8,
@@ -1709,28 +1104,9 @@ pub struct xcb_selection_request_event_t {
     pub property:      xcb_atom_t,
 }
 
-impl Copy for xcb_selection_request_event_t {}
-impl Clone for xcb_selection_request_event_t {
-    fn clone(&self) -> xcb_selection_request_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selection_request_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selection_request_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("owner", &self.owner)
-            .field("requestor", &self.requestor)
-            .field("selection", &self.selection)
-            .field("target", &self.target)
-            .field("property", &self.property)
-            .finish()
-    }
-}
-
 pub const XCB_SELECTION_NOTIFY: u8 = 31;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_selection_notify_event_t {
     pub response_type: u8,
@@ -1741,25 +1117,6 @@ pub struct xcb_selection_notify_event_t {
     pub selection:     xcb_atom_t,
     pub target:        xcb_atom_t,
     pub property:      xcb_atom_t,
-}
-
-impl Copy for xcb_selection_notify_event_t {}
-impl Clone for xcb_selection_notify_event_t {
-    fn clone(&self) -> xcb_selection_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_selection_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_selection_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("requestor", &self.requestor)
-            .field("selection", &self.selection)
-            .field("target", &self.target)
-            .field("property", &self.property)
-            .finish()
-    }
 }
 
 pub type xcb_colormap_state_t = u32;
@@ -1774,6 +1131,7 @@ pub const XCB_COLORMAP_NONE: xcb_colormap_enum_t = 0x00;
 pub const XCB_COLORMAP_NOTIFY: u8 = 32;
 
 /// the colormap for some window changed
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_colormap_notify_event_t {
     pub response_type: u8,
@@ -1788,25 +1146,6 @@ pub struct xcb_colormap_notify_event_t {
     ///
     pub state:         u8,
     pub pad1:          [u8; 2],
-}
-
-impl Copy for xcb_colormap_notify_event_t {}
-impl Clone for xcb_colormap_notify_event_t {
-    fn clone(&self) -> xcb_colormap_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_colormap_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_colormap_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("window", &self.window)
-            .field("colormap", &self.colormap)
-            .field("new_", &self.new_)
-            .field("state", &self.state)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 // union
@@ -1837,6 +1176,7 @@ pub const XCB_CLIENT_MESSAGE: u8 = 33;
 /// is a client sending the `_NET_WM_STATE` ClientMessage to the root window
 /// to indicate the fullscreen window state, effectively requesting that the window
 /// manager puts it into fullscreen mode.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_client_message_event_t {
     pub response_type: u8,
@@ -1851,23 +1191,6 @@ pub struct xcb_client_message_event_t {
     pub data:          xcb_client_message_data_t,
 }
 
-impl Copy for xcb_client_message_event_t {}
-impl Clone for xcb_client_message_event_t {
-    fn clone(&self) -> xcb_client_message_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_client_message_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_client_message_event_t")
-            .field("response_type", &self.response_type)
-            .field("format", &self.format)
-            .field("sequence", &self.sequence)
-            .field("window", &self.window)
-            .field("type_", &self.type_)
-            .field("data", &self.data)
-            .finish()
-    }
-}
-
 pub type xcb_mapping_t = u32;
 pub const XCB_MAPPING_MODIFIER: xcb_mapping_t = 0x00;
 pub const XCB_MAPPING_KEYBOARD: xcb_mapping_t = 0x01;
@@ -1876,6 +1199,7 @@ pub const XCB_MAPPING_POINTER : xcb_mapping_t = 0x02;
 pub const XCB_MAPPING_NOTIFY: u8 = 34;
 
 /// keyboard mapping changed
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_mapping_notify_event_t {
     pub response_type: u8,
@@ -1890,27 +1214,10 @@ pub struct xcb_mapping_notify_event_t {
     pub pad1:          u8,
 }
 
-impl Copy for xcb_mapping_notify_event_t {}
-impl Clone for xcb_mapping_notify_event_t {
-    fn clone(&self) -> xcb_mapping_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_mapping_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_mapping_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("request", &self.request)
-            .field("first_keycode", &self.first_keycode)
-            .field("count", &self.count)
-            .field("pad1", &self.pad1)
-            .finish()
-    }
-}
-
 pub const XCB_GE_GENERIC: u8 = 35;
 
 /// generic event (with length)
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_ge_generic_event_t {
     pub response_type: u8,
@@ -1924,26 +1231,9 @@ pub struct xcb_ge_generic_event_t {
     pub full_sequence: u32,
 }
 
-impl Copy for xcb_ge_generic_event_t {}
-impl Clone for xcb_ge_generic_event_t {
-    fn clone(&self) -> xcb_ge_generic_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_ge_generic_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_ge_generic_event_t")
-            .field("response_type", &self.response_type)
-            .field("extension", &self.extension)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_type", &self.event_type)
-            .field("pad0", &&self.pad0[..])
-            .field("full_sequence", &self.full_sequence)
-            .finish()
-    }
-}
-
 pub const XCB_REQUEST: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_request_error_t {
     pub response_type: u8,
@@ -1955,26 +1245,9 @@ pub struct xcb_request_error_t {
     pub pad0:          u8,
 }
 
-impl Copy for xcb_request_error_t {}
-impl Clone for xcb_request_error_t {
-    fn clone(&self) -> xcb_request_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_request_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_request_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .field("bad_value", &self.bad_value)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
-
 pub const XCB_VALUE: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_value_error_t {
     pub response_type: u8,
@@ -1984,24 +1257,6 @@ pub struct xcb_value_error_t {
     pub minor_opcode:  u16,
     pub major_opcode:  u8,
     pub pad0:          u8,
-}
-
-impl Copy for xcb_value_error_t {}
-impl Clone for xcb_value_error_t {
-    fn clone(&self) -> xcb_value_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_value_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_value_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .field("bad_value", &self.bad_value)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 pub const XCB_WINDOW: u8 = 3;
@@ -2190,6 +1445,7 @@ pub const XCB_CREATE_WINDOW: u8 = 1;
 /// display it.
 ///
 /// The created window will initially use the same cursor as its parent.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_create_window_request_t {
     pub major_opcode: u8,
@@ -2225,31 +1481,13 @@ pub struct xcb_create_window_request_t {
     pub visual:       xcb_visualid_t,
     pub value_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_create_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_create_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("depth", &self.depth)
-            .field("length", &self.length)
-            .field("wid", &self.wid)
-            .field("parent", &self.parent)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("border_width", &self.border_width)
-            .field("class", &self.class)
-            .field("visual", &self.visual)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
 
 pub const XCB_CHANGE_WINDOW_ATTRIBUTES: u8 = 2;
 
 /// change window attributes
 ///
 /// Changes the attributes specified by `value_mask` for the specified `window`.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_change_window_attributes_request_t {
     pub major_opcode: u8,
@@ -2259,17 +1497,6 @@ pub struct xcb_change_window_attributes_request_t {
     pub window:       xcb_window_t,
     ///
     pub value_mask:   u32,
-}
-impl ::std::fmt::Debug for xcb_change_window_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_change_window_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
 }
 
 pub type xcb_map_state_t = u32;
@@ -2282,6 +1509,7 @@ pub const XCB_GET_WINDOW_ATTRIBUTES: u8 = 3;
 /// Gets window attributes
 ///
 /// Gets the current attributes for the specified `window`.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_window_attributes_request_t {
     pub major_opcode: u8,
@@ -2291,27 +1519,13 @@ pub struct xcb_get_window_attributes_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_get_window_attributes_request_t {}
-impl Clone for xcb_get_window_attributes_request_t {
-    fn clone(&self) -> xcb_get_window_attributes_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_window_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_window_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_window_attributes_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_window_attributes_reply_t {
     pub response_type:         u8,
@@ -2349,36 +1563,6 @@ pub struct xcb_get_window_attributes_reply_t {
     pub pad0:                  [u8; 2],
 }
 
-impl Copy for xcb_get_window_attributes_reply_t {}
-impl Clone for xcb_get_window_attributes_reply_t {
-    fn clone(&self) -> xcb_get_window_attributes_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_window_attributes_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_window_attributes_reply_t")
-            .field("response_type", &self.response_type)
-            .field("backing_store", &self.backing_store)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("visual", &self.visual)
-            .field("class", &self.class)
-            .field("bit_gravity", &self.bit_gravity)
-            .field("win_gravity", &self.win_gravity)
-            .field("backing_planes", &self.backing_planes)
-            .field("backing_pixel", &self.backing_pixel)
-            .field("save_under", &self.save_under)
-            .field("map_is_installed", &self.map_is_installed)
-            .field("map_state", &self.map_state)
-            .field("override_redirect", &self.override_redirect)
-            .field("colormap", &self.colormap)
-            .field("all_event_masks", &self.all_event_masks)
-            .field("your_event_mask", &self.your_event_mask)
-            .field("do_not_propagate_mask", &self.do_not_propagate_mask)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_DESTROY_WINDOW: u8 = 4;
 
 /// Destroys a window
@@ -2389,6 +1573,7 @@ pub const XCB_DESTROY_WINDOW: u8 = 4;
 /// automatically unmapped before destroying.
 ///
 /// Calling DestroyWindow on the root window will do nothing.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_destroy_window_request_t {
     pub major_opcode: u8,
@@ -2398,44 +1583,15 @@ pub struct xcb_destroy_window_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_destroy_window_request_t {}
-impl Clone for xcb_destroy_window_request_t {
-    fn clone(&self) -> xcb_destroy_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_destroy_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_destroy_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_DESTROY_SUBWINDOWS: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_destroy_subwindows_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
     pub window:       xcb_window_t,
-}
-
-impl Copy for xcb_destroy_subwindows_request_t {}
-impl Clone for xcb_destroy_subwindows_request_t {
-    fn clone(&self) -> xcb_destroy_subwindows_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_destroy_subwindows_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_destroy_subwindows_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
 }
 
 pub type xcb_set_mode_t = u32;
@@ -2450,6 +1606,7 @@ pub const XCB_CHANGE_SAVE_SET: u8 = 6;
 ///
 /// This function either adds or removes the specified window to the client's (your
 /// application's) save set.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_change_save_set_request_t {
     pub major_opcode: u8,
@@ -2458,21 +1615,6 @@ pub struct xcb_change_save_set_request_t {
     pub length:       u16,
     /// The window to add or delete to/from your save set.
     pub window:       xcb_window_t,
-}
-
-impl Copy for xcb_change_save_set_request_t {}
-impl Clone for xcb_change_save_set_request_t {
-    fn clone(&self) -> xcb_change_save_set_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_change_save_set_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_change_save_set_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("mode", &self.mode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
 }
 
 pub const XCB_REPARENT_WINDOW: u8 = 7;
@@ -2485,6 +1627,7 @@ pub const XCB_REPARENT_WINDOW: u8 = 7;
 /// with respect to sibling windows.
 ///
 /// After reparenting, a ReparentNotify event is generated.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_reparent_window_request_t {
     pub major_opcode: u8,
@@ -2498,24 +1641,6 @@ pub struct xcb_reparent_window_request_t {
     pub x:            i16,
     /// The Y position of the window within its new parent.
     pub y:            i16,
-}
-
-impl Copy for xcb_reparent_window_request_t {}
-impl Clone for xcb_reparent_window_request_t {
-    fn clone(&self) -> xcb_reparent_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_reparent_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_reparent_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("parent", &self.parent)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
 }
 
 pub const XCB_MAP_WINDOW: u8 = 8;
@@ -2541,6 +1666,7 @@ pub const XCB_MAP_WINDOW: u8 = 8;
 /// If the window type is InputOutput, an Expose event will be generated when the
 /// window becomes visible. The normal response to an Expose event should be to
 /// repaint the window.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_map_window_request_t {
     pub major_opcode: u8,
@@ -2550,44 +1676,15 @@ pub struct xcb_map_window_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_map_window_request_t {}
-impl Clone for xcb_map_window_request_t {
-    fn clone(&self) -> xcb_map_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_map_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_map_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_MAP_SUBWINDOWS: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_map_subwindows_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
     pub window:       xcb_window_t,
-}
-
-impl Copy for xcb_map_subwindows_request_t {}
-impl Clone for xcb_map_subwindows_request_t {
-    fn clone(&self) -> xcb_map_subwindows_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_map_subwindows_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_map_subwindows_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
 }
 
 pub const XCB_UNMAP_WINDOW: u8 = 10;
@@ -2599,6 +1696,7 @@ pub const XCB_UNMAP_WINDOW: u8 = 10;
 ///
 /// Unmapping a window leads to the `UnmapNotify` event being generated. Also,
 /// `Expose` events are generated for formerly obscured windows.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_unmap_window_request_t {
     pub major_opcode: u8,
@@ -2608,44 +1706,15 @@ pub struct xcb_unmap_window_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_unmap_window_request_t {}
-impl Clone for xcb_unmap_window_request_t {
-    fn clone(&self) -> xcb_unmap_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_unmap_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_unmap_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_UNMAP_SUBWINDOWS: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_unmap_subwindows_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
     pub window:       xcb_window_t,
-}
-
-impl Copy for xcb_unmap_subwindows_request_t {}
-impl Clone for xcb_unmap_subwindows_request_t {
-    fn clone(&self) -> xcb_unmap_subwindows_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_unmap_subwindows_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_unmap_subwindows_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
 }
 
 pub type xcb_config_window_t = u32;
@@ -2669,6 +1738,7 @@ pub const XCB_CONFIGURE_WINDOW: u8 = 12;
 /// Configures window attributes
 ///
 /// Configures a window's size, position, border width and stacking order.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_configure_window_request_t {
     pub major_opcode: u8,
@@ -2679,18 +1749,6 @@ pub struct xcb_configure_window_request_t {
     /// Bitmask of attributes to change.
     pub value_mask:   u16,
     pub pad1:         [u8; 2],
-}
-impl ::std::fmt::Debug for xcb_configure_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_configure_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("value_mask", &self.value_mask)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub type xcb_circulate_t = u32;
@@ -2706,6 +1764,7 @@ pub const XCB_CIRCULATE_WINDOW: u8 = 13;
 ///
 /// If `direction` is `XCB_CIRCULATE_LOWER_HIGHEST`, the highest mapped child will
 /// be lowered to the bottom of the stack.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_circulate_window_request_t {
     pub major_opcode: u8,
@@ -2716,26 +1775,12 @@ pub struct xcb_circulate_window_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_circulate_window_request_t {}
-impl Clone for xcb_circulate_window_request_t {
-    fn clone(&self) -> xcb_circulate_window_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_circulate_window_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_circulate_window_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("direction", &self.direction)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_GET_GEOMETRY: u8 = 14;
 
 /// Get current window geometry
 ///
 /// Gets the current geometry of the specified drawable (either `Window` or `Pixmap`).
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_geometry_request_t {
     pub major_opcode: u8,
@@ -2745,27 +1790,13 @@ pub struct xcb_get_geometry_request_t {
     pub drawable:     xcb_drawable_t,
 }
 
-impl Copy for xcb_get_geometry_request_t {}
-impl Clone for xcb_get_geometry_request_t {
-    fn clone(&self) -> xcb_get_geometry_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_geometry_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_geometry_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_geometry_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_geometry_reply_t {
     pub response_type: u8,
@@ -2792,34 +1823,13 @@ pub struct xcb_get_geometry_reply_t {
     pub pad0:          [u8; 2],
 }
 
-impl Copy for xcb_get_geometry_reply_t {}
-impl Clone for xcb_get_geometry_reply_t {
-    fn clone(&self) -> xcb_get_geometry_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_geometry_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_geometry_reply_t")
-            .field("response_type", &self.response_type)
-            .field("depth", &self.depth)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("root", &self.root)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("border_width", &self.border_width)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_QUERY_TREE: u8 = 15;
 
 /// query the window tree
 ///
 /// Gets the root window ID, parent window ID and list of children windows for the
 /// specified `window`. The children are listed in bottom-to-top stacking order.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_tree_request_t {
     pub major_opcode: u8,
@@ -2829,27 +1839,13 @@ pub struct xcb_query_tree_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_query_tree_request_t {}
-impl Clone for xcb_query_tree_request_t {
-    fn clone(&self) -> xcb_query_tree_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_tree_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_tree_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_tree_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_query_tree_reply_t {
     pub response_type: u8,
@@ -2864,20 +1860,6 @@ pub struct xcb_query_tree_reply_t {
     pub children_len:  u16,
     pub pad1:          [u8; 14],
 }
-impl ::std::fmt::Debug for xcb_query_tree_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_tree_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("root", &self.root)
-            .field("parent", &self.parent)
-            .field("children_len", &self.children_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_INTERN_ATOM: u8 = 16;
 
@@ -2890,6 +1872,7 @@ pub const XCB_INTERN_ATOM: u8 = 16;
 /// If `only_if_exists` is 0, the atom will be created if it does not already exist.
 /// If `only_if_exists` is 1, `XCB_ATOM_NONE` will be returned if the atom does
 /// not yet exist.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_intern_atom_request_t {
     pub major_opcode:   u8,
@@ -2900,17 +1883,6 @@ pub struct xcb_intern_atom_request_t {
     pub name_len:       u16,
     pub pad0:           [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_intern_atom_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_intern_atom_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("only_if_exists", &self.only_if_exists)
-            .field("length", &self.length)
-            .field("name_len", &self.name_len)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -2918,6 +1890,7 @@ pub struct xcb_intern_atom_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_intern_atom_reply_t {
     pub response_type: u8,
@@ -2927,24 +1900,9 @@ pub struct xcb_intern_atom_reply_t {
     pub atom:          xcb_atom_t,
 }
 
-impl Copy for xcb_intern_atom_reply_t {}
-impl Clone for xcb_intern_atom_reply_t {
-    fn clone(&self) -> xcb_intern_atom_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_intern_atom_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_intern_atom_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("atom", &self.atom)
-            .finish()
-    }
-}
-
 pub const XCB_GET_ATOM_NAME: u8 = 17;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_atom_name_request_t {
     pub major_opcode: u8,
@@ -2953,27 +1911,13 @@ pub struct xcb_get_atom_name_request_t {
     pub atom:         xcb_atom_t,
 }
 
-impl Copy for xcb_get_atom_name_request_t {}
-impl Clone for xcb_get_atom_name_request_t {
-    fn clone(&self) -> xcb_get_atom_name_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_atom_name_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_atom_name_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("atom", &self.atom)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_atom_name_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_get_atom_name_reply_t {
     pub response_type: u8,
@@ -2982,18 +1926,6 @@ pub struct xcb_get_atom_name_reply_t {
     pub length:        u32,
     pub name_len:      u16,
     pub pad1:          [u8; 22],
-}
-impl ::std::fmt::Debug for xcb_get_atom_name_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_atom_name_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("name_len", &self.name_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub type xcb_prop_mode_t = u32;
@@ -3016,6 +1948,7 @@ pub const XCB_CHANGE_PROPERTY: u8 = 18;
 /// example the window title (`WM_NAME`) or its minimum size (`WM_NORMAL_HINTS`).
 /// Protocols such as EWMH also use properties - for example EWMH defines the
 /// window title, encoded as UTF-8 string, in the `_NET_WM_NAME` property.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_change_property_request_t {
     pub major_opcode: u8,
@@ -3036,24 +1969,10 @@ pub struct xcb_change_property_request_t {
     /// Specifies the number of elements (see `format`).
     pub data_len:     u32,
 }
-impl ::std::fmt::Debug for xcb_change_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_change_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("mode", &self.mode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("format", &self.format)
-            .field("pad0", &&self.pad0[..])
-            .field("data_len", &self.data_len)
-            .finish()
-    }
-}
 
 pub const XCB_DELETE_PROPERTY: u8 = 19;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_delete_property_request_t {
     pub major_opcode: u8,
@@ -3061,22 +1980,6 @@ pub struct xcb_delete_property_request_t {
     pub length:       u16,
     pub window:       xcb_window_t,
     pub property:     xcb_atom_t,
-}
-
-impl Copy for xcb_delete_property_request_t {}
-impl Clone for xcb_delete_property_request_t {
-    fn clone(&self) -> xcb_delete_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_delete_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_delete_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("property", &self.property)
-            .finish()
-    }
 }
 
 pub type xcb_get_property_type_t = u32;
@@ -3096,6 +1999,7 @@ pub const XCB_GET_PROPERTY: u8 = 20;
 /// TODO: talk about `delete`
 ///
 /// TODO: talk about the offset/length thing. what's a valid use case?
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_property_request_t {
     pub major_opcode: u8,
@@ -3117,31 +2021,13 @@ pub struct xcb_get_property_request_t {
     pub long_length:  u32,
 }
 
-impl Copy for xcb_get_property_request_t {}
-impl Clone for xcb_get_property_request_t {
-    fn clone(&self) -> xcb_get_property_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_property_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_property_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("delete", &self.delete)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("property", &self.property)
-            .field("type_", &self.type_)
-            .field("long_offset", &self.long_offset)
-            .field("long_length", &self.long_length)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_property_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_get_property_reply_t {
     pub response_type: u8,
@@ -3161,23 +2047,10 @@ pub struct xcb_get_property_reply_t {
     pub value_len:     u32,
     pub pad0:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_get_property_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_property_reply_t")
-            .field("response_type", &self.response_type)
-            .field("format", &self.format)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("type_", &self.type_)
-            .field("bytes_after", &self.bytes_after)
-            .field("value_len", &self.value_len)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_LIST_PROPERTIES: u8 = 21;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_list_properties_request_t {
     pub major_opcode: u8,
@@ -3186,27 +2059,13 @@ pub struct xcb_list_properties_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_list_properties_request_t {}
-impl Clone for xcb_list_properties_request_t {
-    fn clone(&self) -> xcb_list_properties_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_list_properties_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_properties_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_list_properties_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_list_properties_reply_t {
     pub response_type: u8,
@@ -3215,18 +2074,6 @@ pub struct xcb_list_properties_reply_t {
     pub length:        u32,
     pub atoms_len:     u16,
     pub pad1:          [u8; 22],
-}
-impl ::std::fmt::Debug for xcb_list_properties_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_properties_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("atoms_len", &self.atoms_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub const XCB_SET_SELECTION_OWNER: u8 = 22;
@@ -3237,6 +2084,7 @@ pub const XCB_SET_SELECTION_OWNER: u8 = 22;
 /// last-change time of the specified selection.
 ///
 /// TODO: briefly explain what a selection is.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_set_selection_owner_request_t {
     pub major_opcode: u8,
@@ -3259,23 +2107,6 @@ pub struct xcb_set_selection_owner_request_t {
     pub time:         xcb_timestamp_t,
 }
 
-impl Copy for xcb_set_selection_owner_request_t {}
-impl Clone for xcb_set_selection_owner_request_t {
-    fn clone(&self) -> xcb_set_selection_owner_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_set_selection_owner_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_selection_owner_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("owner", &self.owner)
-            .field("selection", &self.selection)
-            .field("time", &self.time)
-            .finish()
-    }
-}
-
 pub const XCB_GET_SELECTION_OWNER: u8 = 23;
 
 /// Gets the owner of a selection
@@ -3283,6 +2114,7 @@ pub const XCB_GET_SELECTION_OWNER: u8 = 23;
 /// Gets the owner of the specified selection.
 ///
 /// TODO: briefly explain what a selection is.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_selection_owner_request_t {
     pub major_opcode: u8,
@@ -3292,27 +2124,13 @@ pub struct xcb_get_selection_owner_request_t {
     pub selection:    xcb_atom_t,
 }
 
-impl Copy for xcb_get_selection_owner_request_t {}
-impl Clone for xcb_get_selection_owner_request_t {
-    fn clone(&self) -> xcb_get_selection_owner_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_selection_owner_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_selection_owner_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("selection", &self.selection)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_selection_owner_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_selection_owner_reply_t {
     pub response_type: u8,
@@ -3323,24 +2141,9 @@ pub struct xcb_get_selection_owner_reply_t {
     pub owner:         xcb_window_t,
 }
 
-impl Copy for xcb_get_selection_owner_reply_t {}
-impl Clone for xcb_get_selection_owner_reply_t {
-    fn clone(&self) -> xcb_get_selection_owner_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_selection_owner_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_selection_owner_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("owner", &self.owner)
-            .finish()
-    }
-}
-
 pub const XCB_CONVERT_SELECTION: u8 = 24;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_convert_selection_request_t {
     pub major_opcode: u8,
@@ -3351,25 +2154,6 @@ pub struct xcb_convert_selection_request_t {
     pub target:       xcb_atom_t,
     pub property:     xcb_atom_t,
     pub time:         xcb_timestamp_t,
-}
-
-impl Copy for xcb_convert_selection_request_t {}
-impl Clone for xcb_convert_selection_request_t {
-    fn clone(&self) -> xcb_convert_selection_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_convert_selection_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_convert_selection_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("requestor", &self.requestor)
-            .field("selection", &self.selection)
-            .field("target", &self.target)
-            .field("property", &self.property)
-            .field("time", &self.time)
-            .finish()
-    }
 }
 
 pub type xcb_send_event_dest_t = u32;
@@ -3387,6 +2171,7 @@ pub const XCB_SEND_EVENT: u8 = 25;
 /// so that the X server can correctly byte-swap the contents as necessary. The
 /// contents of `event` are otherwise unaltered and unchecked except for the
 /// `send_event` field which is forced to 'true'.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_send_event_request_t {
     pub major_opcode: u8,
@@ -3416,23 +2201,6 @@ pub struct xcb_send_event_request_t {
     pub event:        [c_char; 32],
 }
 
-impl Copy for xcb_send_event_request_t {}
-impl Clone for xcb_send_event_request_t {
-    fn clone(&self) -> xcb_send_event_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_send_event_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_send_event_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("propagate", &self.propagate)
-            .field("length", &self.length)
-            .field("destination", &self.destination)
-            .field("event_mask", &self.event_mask)
-            .field("event", &&self.event[..])
-            .finish()
-    }
-}
-
 pub type xcb_grab_mode_t = u32;
 /// The state of the keyboard appears to freeze: No further keyboard events are
 /// generated by the server until the grabbing client issues a releasing
@@ -3456,6 +2224,7 @@ pub const XCB_GRAB_POINTER: u8 = 26;
 /// Grab the pointer
 ///
 /// Actively grabs control of the pointer. Further pointer events are reported only to the grabbing client. Overrides any active pointer grab by this client.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_grab_pointer_request_t {
     pub major_opcode:  u8,
@@ -3495,54 +2264,19 @@ pub struct xcb_grab_pointer_request_t {
     pub time:          xcb_timestamp_t,
 }
 
-impl Copy for xcb_grab_pointer_request_t {}
-impl Clone for xcb_grab_pointer_request_t {
-    fn clone(&self) -> xcb_grab_pointer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_grab_pointer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_grab_pointer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("owner_events", &self.owner_events)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("event_mask", &self.event_mask)
-            .field("pointer_mode", &self.pointer_mode)
-            .field("keyboard_mode", &self.keyboard_mode)
-            .field("confine_to", &self.confine_to)
-            .field("cursor", &self.cursor)
-            .field("time", &self.time)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_grab_pointer_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_grab_pointer_reply_t {
     pub response_type: u8,
     pub status:        u8,
     pub sequence:      u16,
     pub length:        u32,
-}
-
-impl Copy for xcb_grab_pointer_reply_t {}
-impl Clone for xcb_grab_pointer_reply_t {
-    fn clone(&self) -> xcb_grab_pointer_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_grab_pointer_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_grab_pointer_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 pub const XCB_UNGRAB_POINTER: u8 = 27;
@@ -3554,6 +2288,7 @@ pub const XCB_UNGRAB_POINTER: u8 = 27;
 /// press.
 ///
 /// EnterNotify and LeaveNotify events are generated.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_ungrab_pointer_request_t {
     pub major_opcode: u8,
@@ -3564,21 +2299,6 @@ pub struct xcb_ungrab_pointer_request_t {
     /// The pointer will not be released if `time` is earlier than the
     /// last-pointer-grab time or later than the current X server time.
     pub time:         xcb_timestamp_t,
-}
-
-impl Copy for xcb_ungrab_pointer_request_t {}
-impl Clone for xcb_ungrab_pointer_request_t {
-    fn clone(&self) -> xcb_ungrab_pointer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_ungrab_pointer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_ungrab_pointer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("time", &self.time)
-            .finish()
-    }
 }
 
 pub type xcb_button_index_t = u32;
@@ -3634,6 +2354,7 @@ pub const XCB_GRAB_BUTTON: u8 = 28;
 /// When using AnyModifier or AnyButton, the request fails completely (no grabs are
 /// established), and an Access error is generated if there is a conflicting grab
 /// for any combination. The request has no effect on an active grab.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_grab_button_request_t {
     pub major_opcode:  u8,
@@ -3669,31 +2390,9 @@ pub struct xcb_grab_button_request_t {
     pub modifiers:     u16,
 }
 
-impl Copy for xcb_grab_button_request_t {}
-impl Clone for xcb_grab_button_request_t {
-    fn clone(&self) -> xcb_grab_button_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_grab_button_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_grab_button_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("owner_events", &self.owner_events)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("event_mask", &self.event_mask)
-            .field("pointer_mode", &self.pointer_mode)
-            .field("keyboard_mode", &self.keyboard_mode)
-            .field("confine_to", &self.confine_to)
-            .field("cursor", &self.cursor)
-            .field("button", &self.button)
-            .field("pad0", &self.pad0)
-            .field("modifiers", &self.modifiers)
-            .finish()
-    }
-}
-
 pub const XCB_UNGRAB_BUTTON: u8 = 29;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_ungrab_button_request_t {
     pub major_opcode: u8,
@@ -3704,25 +2403,9 @@ pub struct xcb_ungrab_button_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_ungrab_button_request_t {}
-impl Clone for xcb_ungrab_button_request_t {
-    fn clone(&self) -> xcb_ungrab_button_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_ungrab_button_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_ungrab_button_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("button", &self.button)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("modifiers", &self.modifiers)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_CHANGE_ACTIVE_POINTER_GRAB: u8 = 30;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_change_active_pointer_grab_request_t {
     pub major_opcode: u8,
@@ -3732,24 +2415,6 @@ pub struct xcb_change_active_pointer_grab_request_t {
     pub time:         xcb_timestamp_t,
     pub event_mask:   u16,
     pub pad1:         [u8; 2],
-}
-
-impl Copy for xcb_change_active_pointer_grab_request_t {}
-impl Clone for xcb_change_active_pointer_grab_request_t {
-    fn clone(&self) -> xcb_change_active_pointer_grab_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_change_active_pointer_grab_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_change_active_pointer_grab_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cursor", &self.cursor)
-            .field("time", &self.time)
-            .field("event_mask", &self.event_mask)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub const XCB_GRAB_KEYBOARD: u8 = 31;
@@ -3766,6 +2431,7 @@ pub const XCB_GRAB_KEYBOARD: u8 = 31;
 /// specified `time` is earlier than the last-keyboard-grab time or later than the
 /// current X server time, `GrabInvalidTime` is returned. Otherwise, the
 /// last-keyboard-grab time is set to the specified time.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_grab_keyboard_request_t {
     pub major_opcode:  u8,
@@ -3787,31 +2453,13 @@ pub struct xcb_grab_keyboard_request_t {
     pub pad0:          [u8; 2],
 }
 
-impl Copy for xcb_grab_keyboard_request_t {}
-impl Clone for xcb_grab_keyboard_request_t {
-    fn clone(&self) -> xcb_grab_keyboard_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_grab_keyboard_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_grab_keyboard_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("owner_events", &self.owner_events)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("time", &self.time)
-            .field("pointer_mode", &self.pointer_mode)
-            .field("keyboard_mode", &self.keyboard_mode)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_grab_keyboard_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_grab_keyboard_reply_t {
     pub response_type: u8,
@@ -3820,44 +2468,15 @@ pub struct xcb_grab_keyboard_reply_t {
     pub length:        u32,
 }
 
-impl Copy for xcb_grab_keyboard_reply_t {}
-impl Clone for xcb_grab_keyboard_reply_t {
-    fn clone(&self) -> xcb_grab_keyboard_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_grab_keyboard_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_grab_keyboard_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_UNGRAB_KEYBOARD: u8 = 32;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_ungrab_keyboard_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
     pub time:         xcb_timestamp_t,
-}
-
-impl Copy for xcb_ungrab_keyboard_request_t {}
-impl Clone for xcb_ungrab_keyboard_request_t {
-    fn clone(&self) -> xcb_ungrab_keyboard_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_ungrab_keyboard_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_ungrab_keyboard_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("time", &self.time)
-            .finish()
-    }
 }
 
 pub type xcb_grab_t = u32;
@@ -3897,6 +2516,7 @@ pub const XCB_GRAB_KEY: u8 = 33;
 /// If some other client has issued a XGrabKey with the same key combination on the same window, a BadAccess
 /// error results.  When using AnyModifier or AnyKey, the request fails completely, and a BadAccess error
 /// results (no grabs are established) if there is a conflicting grab for any combination.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_grab_key_request_t {
     pub major_opcode:  u8,
@@ -3922,32 +2542,13 @@ pub struct xcb_grab_key_request_t {
     pub pad0:          [u8; 3],
 }
 
-impl Copy for xcb_grab_key_request_t {}
-impl Clone for xcb_grab_key_request_t {
-    fn clone(&self) -> xcb_grab_key_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_grab_key_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_grab_key_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("owner_events", &self.owner_events)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("modifiers", &self.modifiers)
-            .field("key", &self.key)
-            .field("pointer_mode", &self.pointer_mode)
-            .field("keyboard_mode", &self.keyboard_mode)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_UNGRAB_KEY: u8 = 34;
 
 /// release a key combination
 ///
 /// Releases the key combination on `grab_window` if you grabbed it using
 /// `xcb_grab_key` before.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_ungrab_key_request_t {
     pub major_opcode: u8,
@@ -3964,23 +2565,6 @@ pub struct xcb_ungrab_key_request_t {
     /// with every possible modifier combination.
     pub modifiers:    u16,
     pub pad0:         [u8; 2],
-}
-
-impl Copy for xcb_ungrab_key_request_t {}
-impl Clone for xcb_ungrab_key_request_t {
-    fn clone(&self) -> xcb_ungrab_key_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_ungrab_key_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_ungrab_key_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("key", &self.key)
-            .field("length", &self.length)
-            .field("grab_window", &self.grab_window)
-            .field("modifiers", &self.modifiers)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 pub type xcb_allow_t = u32;
@@ -4058,6 +2642,7 @@ pub const XCB_ALLOW_EVENTS: u8 = 35;
 /// freeze due to grabbing it actively. This request has no effect if `time` is
 /// earlier than the last-grab time of the most recent active grab for this client
 /// or if `time` is later than the current X server time.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_allow_events_request_t {
     pub major_opcode: u8,
@@ -4071,23 +2656,9 @@ pub struct xcb_allow_events_request_t {
     pub time:         xcb_timestamp_t,
 }
 
-impl Copy for xcb_allow_events_request_t {}
-impl Clone for xcb_allow_events_request_t {
-    fn clone(&self) -> xcb_allow_events_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_allow_events_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_allow_events_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("mode", &self.mode)
-            .field("length", &self.length)
-            .field("time", &self.time)
-            .finish()
-    }
-}
-
 pub const XCB_GRAB_SERVER: u8 = 36;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_grab_server_request_t {
     pub major_opcode: u8,
@@ -4095,41 +2666,14 @@ pub struct xcb_grab_server_request_t {
     pub length:       u16,
 }
 
-impl Copy for xcb_grab_server_request_t {}
-impl Clone for xcb_grab_server_request_t {
-    fn clone(&self) -> xcb_grab_server_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_grab_server_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_grab_server_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_UNGRAB_SERVER: u8 = 37;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_ungrab_server_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_ungrab_server_request_t {}
-impl Clone for xcb_ungrab_server_request_t {
-    fn clone(&self) -> xcb_ungrab_server_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_ungrab_server_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_ungrab_server_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 pub const XCB_QUERY_POINTER: u8 = 38;
@@ -4138,6 +2682,7 @@ pub const XCB_QUERY_POINTER: u8 = 38;
 ///
 /// Gets the root window the pointer is logically on and the pointer coordinates
 /// relative to the root window's origin.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_pointer_request_t {
     pub major_opcode: u8,
@@ -4148,27 +2693,13 @@ pub struct xcb_query_pointer_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_query_pointer_request_t {}
-impl Clone for xcb_query_pointer_request_t {
-    fn clone(&self) -> xcb_query_pointer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_pointer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_pointer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_pointer_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_pointer_reply_t {
     pub response_type: u8,
@@ -4202,48 +2733,12 @@ pub struct xcb_query_pointer_reply_t {
     pub pad0:          [u8; 2],
 }
 
-impl Copy for xcb_query_pointer_reply_t {}
-impl Clone for xcb_query_pointer_reply_t {
-    fn clone(&self) -> xcb_query_pointer_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_pointer_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_pointer_reply_t")
-            .field("response_type", &self.response_type)
-            .field("same_screen", &self.same_screen)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("root", &self.root)
-            .field("child", &self.child)
-            .field("root_x", &self.root_x)
-            .field("root_y", &self.root_y)
-            .field("win_x", &self.win_x)
-            .field("win_y", &self.win_y)
-            .field("mask", &self.mask)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_timecoord_t {
     pub time: xcb_timestamp_t,
     pub x:    i16,
     pub y:    i16,
-}
-
-impl Copy for xcb_timecoord_t {}
-impl Clone for xcb_timecoord_t {
-    fn clone(&self) -> xcb_timecoord_t { *self }
-}
-impl ::std::fmt::Debug for xcb_timecoord_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_timecoord_t")
-            .field("time", &self.time)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -4256,6 +2751,7 @@ pub struct xcb_timecoord_iterator_t {
 
 pub const XCB_GET_MOTION_EVENTS: u8 = 39;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_motion_events_request_t {
     pub major_opcode: u8,
@@ -4266,29 +2762,13 @@ pub struct xcb_get_motion_events_request_t {
     pub stop:         xcb_timestamp_t,
 }
 
-impl Copy for xcb_get_motion_events_request_t {}
-impl Clone for xcb_get_motion_events_request_t {
-    fn clone(&self) -> xcb_get_motion_events_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_motion_events_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_motion_events_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("start", &self.start)
-            .field("stop", &self.stop)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_motion_events_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_get_motion_events_reply_t {
     pub response_type: u8,
@@ -4298,21 +2778,10 @@ pub struct xcb_get_motion_events_reply_t {
     pub events_len:    u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_get_motion_events_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_motion_events_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("events_len", &self.events_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_TRANSLATE_COORDINATES: u8 = 40;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_translate_coordinates_request_t {
     pub major_opcode: u8,
@@ -4324,30 +2793,13 @@ pub struct xcb_translate_coordinates_request_t {
     pub src_y:        i16,
 }
 
-impl Copy for xcb_translate_coordinates_request_t {}
-impl Clone for xcb_translate_coordinates_request_t {
-    fn clone(&self) -> xcb_translate_coordinates_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_translate_coordinates_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_translate_coordinates_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("src_window", &self.src_window)
-            .field("dst_window", &self.dst_window)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_translate_coordinates_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_translate_coordinates_reply_t {
     pub response_type: u8,
@@ -4357,24 +2809,6 @@ pub struct xcb_translate_coordinates_reply_t {
     pub child:         xcb_window_t,
     pub dst_x:         i16,
     pub dst_y:         i16,
-}
-
-impl Copy for xcb_translate_coordinates_reply_t {}
-impl Clone for xcb_translate_coordinates_reply_t {
-    fn clone(&self) -> xcb_translate_coordinates_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_translate_coordinates_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_translate_coordinates_reply_t")
-            .field("response_type", &self.response_type)
-            .field("same_screen", &self.same_screen)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("child", &self.child)
-            .field("dst_x", &self.dst_x)
-            .field("dst_y", &self.dst_y)
-            .finish()
-    }
 }
 
 pub const XCB_WARP_POINTER: u8 = 41;
@@ -4392,6 +2826,7 @@ pub const XCB_WARP_POINTER: u8 = 41;
 /// offsets (`dst_x`, `dst_y`) relative to `dst_window`. If `dst_window` is
 /// `XCB_NONE` (TODO), the pointer will be moved by the offsets (`dst_x`, `dst_y`)
 /// relative to the current position of the pointer.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_warp_pointer_request_t {
     pub major_opcode: u8,
@@ -4413,28 +2848,6 @@ pub struct xcb_warp_pointer_request_t {
     pub src_height:   u16,
     pub dst_x:        i16,
     pub dst_y:        i16,
-}
-
-impl Copy for xcb_warp_pointer_request_t {}
-impl Clone for xcb_warp_pointer_request_t {
-    fn clone(&self) -> xcb_warp_pointer_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_warp_pointer_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_warp_pointer_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("src_window", &self.src_window)
-            .field("dst_window", &self.dst_window)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .field("src_width", &self.src_width)
-            .field("src_height", &self.src_height)
-            .field("dst_x", &self.dst_x)
-            .field("dst_y", &self.dst_y)
-            .finish()
-    }
 }
 
 pub type xcb_input_focus_t = u32;
@@ -4459,6 +2872,7 @@ pub const XCB_SET_INPUT_FOCUS: u8 = 42;
 /// avoid race conditions when running X over the network).
 ///
 /// A FocusIn and FocusOut event is generated when focus is changed.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_set_input_focus_request_t {
     pub major_opcode: u8,
@@ -4482,43 +2896,14 @@ pub struct xcb_set_input_focus_request_t {
     pub time:         xcb_timestamp_t,
 }
 
-impl Copy for xcb_set_input_focus_request_t {}
-impl Clone for xcb_set_input_focus_request_t {
-    fn clone(&self) -> xcb_set_input_focus_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_set_input_focus_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_input_focus_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("revert_to", &self.revert_to)
-            .field("length", &self.length)
-            .field("focus", &self.focus)
-            .field("time", &self.time)
-            .finish()
-    }
-}
-
 pub const XCB_GET_INPUT_FOCUS: u8 = 43;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_input_focus_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_get_input_focus_request_t {}
-impl Clone for xcb_get_input_focus_request_t {
-    fn clone(&self) -> xcb_get_input_focus_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_input_focus_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_input_focus_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -4527,6 +2912,7 @@ pub struct xcb_get_input_focus_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_input_focus_reply_t {
     pub response_type: u8,
@@ -4536,43 +2922,14 @@ pub struct xcb_get_input_focus_reply_t {
     pub focus:         xcb_window_t,
 }
 
-impl Copy for xcb_get_input_focus_reply_t {}
-impl Clone for xcb_get_input_focus_reply_t {
-    fn clone(&self) -> xcb_get_input_focus_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_input_focus_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_input_focus_reply_t")
-            .field("response_type", &self.response_type)
-            .field("revert_to", &self.revert_to)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("focus", &self.focus)
-            .finish()
-    }
-}
-
 pub const XCB_QUERY_KEYMAP: u8 = 44;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_keymap_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_query_keymap_request_t {}
-impl Clone for xcb_query_keymap_request_t {
-    fn clone(&self) -> xcb_query_keymap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_keymap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_keymap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -4581,6 +2938,7 @@ pub struct xcb_query_keymap_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_keymap_reply_t {
     pub response_type: u8,
@@ -4588,22 +2946,6 @@ pub struct xcb_query_keymap_reply_t {
     pub sequence:      u16,
     pub length:        u32,
     pub keys:          [u8; 32],
-}
-
-impl Copy for xcb_query_keymap_reply_t {}
-impl Clone for xcb_query_keymap_reply_t {
-    fn clone(&self) -> xcb_query_keymap_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_keymap_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_keymap_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("keys", &&self.keys[..])
-            .finish()
-    }
 }
 
 pub const XCB_OPEN_FONT: u8 = 45;
@@ -4614,6 +2956,7 @@ pub const XCB_OPEN_FONT: u8 = 45;
 ///
 /// Note that X core fonts are deprecated (but still supported) in favor of
 /// client-side rendering using Xft.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_open_font_request_t {
     pub major_opcode: u8,
@@ -4625,21 +2968,10 @@ pub struct xcb_open_font_request_t {
     pub name_len:     u16,
     pub pad1:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_open_font_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_open_font_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("fid", &self.fid)
-            .field("name_len", &self.name_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_CLOSE_FONT: u8 = 46;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_close_font_request_t {
     pub major_opcode: u8,
@@ -4648,42 +2980,15 @@ pub struct xcb_close_font_request_t {
     pub font:         xcb_font_t,
 }
 
-impl Copy for xcb_close_font_request_t {}
-impl Clone for xcb_close_font_request_t {
-    fn clone(&self) -> xcb_close_font_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_close_font_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_close_font_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("font", &self.font)
-            .finish()
-    }
-}
-
 pub type xcb_font_draw_t = u32;
 pub const XCB_FONT_DRAW_LEFT_TO_RIGHT: xcb_font_draw_t = 0x00;
 pub const XCB_FONT_DRAW_RIGHT_TO_LEFT: xcb_font_draw_t = 0x01;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_fontprop_t {
     pub name:  xcb_atom_t,
     pub value: u32,
-}
-
-impl Copy for xcb_fontprop_t {}
-impl Clone for xcb_fontprop_t {
-    fn clone(&self) -> xcb_fontprop_t { *self }
-}
-impl ::std::fmt::Debug for xcb_fontprop_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_fontprop_t")
-            .field("name", &self.name)
-            .field("value", &self.value)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -4694,6 +2999,7 @@ pub struct xcb_fontprop_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_charinfo_t {
     pub left_side_bearing:  i16,
@@ -4702,23 +3008,6 @@ pub struct xcb_charinfo_t {
     pub ascent:             i16,
     pub descent:            i16,
     pub attributes:         u16,
-}
-
-impl Copy for xcb_charinfo_t {}
-impl Clone for xcb_charinfo_t {
-    fn clone(&self) -> xcb_charinfo_t { *self }
-}
-impl ::std::fmt::Debug for xcb_charinfo_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_charinfo_t")
-            .field("left_side_bearing", &self.left_side_bearing)
-            .field("right_side_bearing", &self.right_side_bearing)
-            .field("character_width", &self.character_width)
-            .field("ascent", &self.ascent)
-            .field("descent", &self.descent)
-            .field("attributes", &self.attributes)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -4734,6 +3023,7 @@ pub const XCB_QUERY_FONT: u8 = 47;
 /// query font metrics
 ///
 /// Queries information associated with the font.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_font_request_t {
     pub major_opcode: u8,
@@ -4743,27 +3033,13 @@ pub struct xcb_query_font_request_t {
     pub font:         xcb_fontable_t,
 }
 
-impl Copy for xcb_query_font_request_t {}
-impl Clone for xcb_query_font_request_t {
-    fn clone(&self) -> xcb_query_font_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_font_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_font_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("font", &self.font)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_font_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_query_font_reply_t {
     pub response_type:     u8,
@@ -4796,31 +3072,6 @@ pub struct xcb_query_font_reply_t {
     pub font_descent:      i16,
     pub char_infos_len:    u32,
 }
-impl ::std::fmt::Debug for xcb_query_font_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_font_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("min_bounds", &self.min_bounds)
-            .field("pad1", &&self.pad1[..])
-            .field("max_bounds", &self.max_bounds)
-            .field("pad2", &&self.pad2[..])
-            .field("min_char_or_byte2", &self.min_char_or_byte2)
-            .field("max_char_or_byte2", &self.max_char_or_byte2)
-            .field("default_char", &self.default_char)
-            .field("properties_len", &self.properties_len)
-            .field("draw_direction", &self.draw_direction)
-            .field("min_byte1", &self.min_byte1)
-            .field("max_byte1", &self.max_byte1)
-            .field("all_chars_exist", &self.all_chars_exist)
-            .field("font_ascent", &self.font_ascent)
-            .field("font_descent", &self.font_descent)
-            .field("char_infos_len", &self.char_infos_len)
-            .finish()
-    }
-}
 
 pub const XCB_QUERY_TEXT_EXTENTS: u8 = 48;
 
@@ -4847,6 +3098,7 @@ pub const XCB_QUERY_TEXT_EXTENTS: u8 = 48;
 ///
 /// Characters with all zero metrics are ignored. If the font has no defined
 /// default_char, the undefined characters in the string are also ignored.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_query_text_extents_request_t {
     pub major_opcode: u8,
@@ -4855,16 +3107,6 @@ pub struct xcb_query_text_extents_request_t {
     /// The `font` to calculate text extents in. You can also pass a graphics context.
     pub font:         xcb_fontable_t,
 }
-impl ::std::fmt::Debug for xcb_query_text_extents_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_text_extents_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("odd_length", &self.odd_length)
-            .field("length", &self.length)
-            .field("font", &self.font)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -4872,6 +3114,7 @@ pub struct xcb_query_text_extents_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_text_extents_reply_t {
     pub response_type:   u8,
@@ -4887,38 +3130,10 @@ pub struct xcb_query_text_extents_reply_t {
     pub overall_right:   i32,
 }
 
-impl Copy for xcb_query_text_extents_reply_t {}
-impl Clone for xcb_query_text_extents_reply_t {
-    fn clone(&self) -> xcb_query_text_extents_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_text_extents_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_text_extents_reply_t")
-            .field("response_type", &self.response_type)
-            .field("draw_direction", &self.draw_direction)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("font_ascent", &self.font_ascent)
-            .field("font_descent", &self.font_descent)
-            .field("overall_ascent", &self.overall_ascent)
-            .field("overall_descent", &self.overall_descent)
-            .field("overall_width", &self.overall_width)
-            .field("overall_left", &self.overall_left)
-            .field("overall_right", &self.overall_right)
-            .finish()
-    }
-}
-
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_str_t {
     pub name_len: u8,
-}
-impl ::std::fmt::Debug for xcb_str_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_str_t")
-            .field("name_len", &self.name_len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -4935,6 +3150,7 @@ pub const XCB_LIST_FONTS: u8 = 49;
 /// get matching font names
 ///
 /// Gets a list of available font names which match the given `pattern`.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_list_fonts_request_t {
     pub major_opcode: u8,
@@ -4945,17 +3161,6 @@ pub struct xcb_list_fonts_request_t {
     /// The length (in bytes) of `pattern`.
     pub pattern_len:  u16,
 }
-impl ::std::fmt::Debug for xcb_list_fonts_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_fonts_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("max_names", &self.max_names)
-            .field("pattern_len", &self.pattern_len)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -4963,6 +3168,7 @@ pub struct xcb_list_fonts_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_list_fonts_reply_t {
     pub response_type: u8,
@@ -4973,24 +3179,13 @@ pub struct xcb_list_fonts_reply_t {
     pub names_len:     u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_list_fonts_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_fonts_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("names_len", &self.names_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_LIST_FONTS_WITH_INFO: u8 = 50;
 
 /// get matching font names and information
 ///
 /// Gets a list of available font names which match the given `pattern`.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_list_fonts_with_info_request_t {
     pub major_opcode: u8,
@@ -5001,17 +3196,6 @@ pub struct xcb_list_fonts_with_info_request_t {
     /// The length (in bytes) of `pattern`.
     pub pattern_len:  u16,
 }
-impl ::std::fmt::Debug for xcb_list_fonts_with_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_fonts_with_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("max_names", &self.max_names)
-            .field("pattern_len", &self.pattern_len)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -5019,6 +3203,7 @@ pub struct xcb_list_fonts_with_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_list_fonts_with_info_reply_t {
     pub response_type:     u8,
@@ -5055,34 +3240,10 @@ pub struct xcb_list_fonts_with_info_reply_t {
     /// value does not guarantee that no more fonts will be returned.
     pub replies_hint:      u32,
 }
-impl ::std::fmt::Debug for xcb_list_fonts_with_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_fonts_with_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("name_len", &self.name_len)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("min_bounds", &self.min_bounds)
-            .field("pad0", &&self.pad0[..])
-            .field("max_bounds", &self.max_bounds)
-            .field("pad1", &&self.pad1[..])
-            .field("min_char_or_byte2", &self.min_char_or_byte2)
-            .field("max_char_or_byte2", &self.max_char_or_byte2)
-            .field("default_char", &self.default_char)
-            .field("properties_len", &self.properties_len)
-            .field("draw_direction", &self.draw_direction)
-            .field("min_byte1", &self.min_byte1)
-            .field("max_byte1", &self.max_byte1)
-            .field("all_chars_exist", &self.all_chars_exist)
-            .field("font_ascent", &self.font_ascent)
-            .field("font_descent", &self.font_descent)
-            .field("replies_hint", &self.replies_hint)
-            .finish()
-    }
-}
 
 pub const XCB_SET_FONT_PATH: u8 = 51;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_set_font_path_request_t {
     pub major_opcode: u8,
@@ -5091,39 +3252,15 @@ pub struct xcb_set_font_path_request_t {
     pub font_qty:     u16,
     pub pad1:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_set_font_path_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_font_path_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("font_qty", &self.font_qty)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_GET_FONT_PATH: u8 = 52;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_font_path_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_get_font_path_request_t {}
-impl Clone for xcb_get_font_path_request_t {
-    fn clone(&self) -> xcb_get_font_path_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_font_path_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_font_path_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -5132,6 +3269,7 @@ pub struct xcb_get_font_path_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_get_font_path_reply_t {
     pub response_type: u8,
@@ -5141,18 +3279,6 @@ pub struct xcb_get_font_path_reply_t {
     pub path_len:      u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_get_font_path_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_font_path_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("path_len", &self.path_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_CREATE_PIXMAP: u8 = 53;
 
@@ -5160,6 +3286,7 @@ pub const XCB_CREATE_PIXMAP: u8 = 53;
 ///
 /// Creates a pixmap. The pixmap can only be used on the same screen as `drawable`
 /// is on and only with drawables of the same `depth`.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_create_pixmap_request_t {
     pub major_opcode: u8,
@@ -5177,30 +3304,13 @@ pub struct xcb_create_pixmap_request_t {
     pub height:       u16,
 }
 
-impl Copy for xcb_create_pixmap_request_t {}
-impl Clone for xcb_create_pixmap_request_t {
-    fn clone(&self) -> xcb_create_pixmap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_create_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_create_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("depth", &self.depth)
-            .field("length", &self.length)
-            .field("pid", &self.pid)
-            .field("drawable", &self.drawable)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
-}
-
 pub const XCB_FREE_PIXMAP: u8 = 54;
 
 /// Destroys a pixmap
 ///
 /// Deletes the association between the pixmap ID and the pixmap. The pixmap
 /// storage will be freed when there are no more references to it.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_free_pixmap_request_t {
     pub major_opcode: u8,
@@ -5208,21 +3318,6 @@ pub struct xcb_free_pixmap_request_t {
     pub length:       u16,
     /// The pixmap to destroy.
     pub pixmap:       xcb_pixmap_t,
-}
-
-impl Copy for xcb_free_pixmap_request_t {}
-impl Clone for xcb_free_pixmap_request_t {
-    fn clone(&self) -> xcb_free_pixmap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_free_pixmap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_free_pixmap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("pixmap", &self.pixmap)
-            .finish()
-    }
 }
 
 pub type xcb_gc_t = u32;
@@ -5407,6 +3502,7 @@ pub const XCB_CREATE_GC: u8 = 55;
 ///
 /// Creates a graphics context. The graphics context can be used with any drawable
 /// that has the same root and depth as the specified drawable.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_create_gc_request_t {
     pub major_opcode: u8,
@@ -5419,24 +3515,13 @@ pub struct xcb_create_gc_request_t {
     pub drawable:     xcb_drawable_t,
     pub value_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_create_gc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_create_gc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cid", &self.cid)
-            .field("drawable", &self.drawable)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
 
 pub const XCB_CHANGE_GC: u8 = 56;
 
 /// change graphics context components
 ///
 /// Changes the components specified by `value_mask` for the specified graphics context.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_change_gc_request_t {
     pub major_opcode: u8,
@@ -5447,20 +3532,10 @@ pub struct xcb_change_gc_request_t {
     ///
     pub value_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_change_gc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_change_gc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("gc", &self.gc)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
 
 pub const XCB_COPY_GC: u8 = 57;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_copy_gc_request_t {
     pub major_opcode: u8,
@@ -5471,25 +3546,9 @@ pub struct xcb_copy_gc_request_t {
     pub value_mask:   u32,
 }
 
-impl Copy for xcb_copy_gc_request_t {}
-impl Clone for xcb_copy_gc_request_t {
-    fn clone(&self) -> xcb_copy_gc_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_copy_gc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_copy_gc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("src_gc", &self.src_gc)
-            .field("dst_gc", &self.dst_gc)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
-
 pub const XCB_SET_DASHES: u8 = 58;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_set_dashes_request_t {
     pub major_opcode: u8,
@@ -5498,18 +3557,6 @@ pub struct xcb_set_dashes_request_t {
     pub gc:           xcb_gcontext_t,
     pub dash_offset:  u16,
     pub dashes_len:   u16,
-}
-impl ::std::fmt::Debug for xcb_set_dashes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_dashes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("gc", &self.gc)
-            .field("dash_offset", &self.dash_offset)
-            .field("dashes_len", &self.dashes_len)
-            .finish()
-    }
 }
 
 pub type xcb_clip_ordering_t = u32;
@@ -5520,6 +3567,7 @@ pub const XCB_CLIP_ORDERING_YX_BANDED: xcb_clip_ordering_t = 0x03;
 
 pub const XCB_SET_CLIP_RECTANGLES: u8 = 59;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_set_clip_rectangles_request_t {
     pub major_opcode:   u8,
@@ -5529,24 +3577,13 @@ pub struct xcb_set_clip_rectangles_request_t {
     pub clip_x_origin:  i16,
     pub clip_y_origin:  i16,
 }
-impl ::std::fmt::Debug for xcb_set_clip_rectangles_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_clip_rectangles_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("ordering", &self.ordering)
-            .field("length", &self.length)
-            .field("gc", &self.gc)
-            .field("clip_x_origin", &self.clip_x_origin)
-            .field("clip_y_origin", &self.clip_y_origin)
-            .finish()
-    }
-}
 
 pub const XCB_FREE_GC: u8 = 60;
 
 /// Destroys a graphics context
 ///
 /// Destroys the specified `gc` and all associated storage.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_free_gc_request_t {
     pub major_opcode: u8,
@@ -5556,23 +3593,9 @@ pub struct xcb_free_gc_request_t {
     pub gc:           xcb_gcontext_t,
 }
 
-impl Copy for xcb_free_gc_request_t {}
-impl Clone for xcb_free_gc_request_t {
-    fn clone(&self) -> xcb_free_gc_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_free_gc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_free_gc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("gc", &self.gc)
-            .finish()
-    }
-}
-
 pub const XCB_CLEAR_AREA: u8 = 61;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_clear_area_request_t {
     pub major_opcode: u8,
@@ -5585,30 +3608,12 @@ pub struct xcb_clear_area_request_t {
     pub height:       u16,
 }
 
-impl Copy for xcb_clear_area_request_t {}
-impl Clone for xcb_clear_area_request_t {
-    fn clone(&self) -> xcb_clear_area_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_clear_area_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_clear_area_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("exposures", &self.exposures)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
-}
-
 pub const XCB_COPY_AREA: u8 = 62;
 
 /// copy areas
 ///
 /// Copies the specified rectangle from `src_drawable` to `dst_drawable`.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_copy_area_request_t {
     pub major_opcode: u8,
@@ -5634,31 +3639,9 @@ pub struct xcb_copy_area_request_t {
     pub height:       u16,
 }
 
-impl Copy for xcb_copy_area_request_t {}
-impl Clone for xcb_copy_area_request_t {
-    fn clone(&self) -> xcb_copy_area_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_copy_area_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_copy_area_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("src_drawable", &self.src_drawable)
-            .field("dst_drawable", &self.dst_drawable)
-            .field("gc", &self.gc)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .field("dst_x", &self.dst_x)
-            .field("dst_y", &self.dst_y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
-}
-
 pub const XCB_COPY_PLANE: u8 = 63;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_copy_plane_request_t {
     pub major_opcode: u8,
@@ -5676,30 +3659,6 @@ pub struct xcb_copy_plane_request_t {
     pub bit_plane:    u32,
 }
 
-impl Copy for xcb_copy_plane_request_t {}
-impl Clone for xcb_copy_plane_request_t {
-    fn clone(&self) -> xcb_copy_plane_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_copy_plane_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_copy_plane_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("src_drawable", &self.src_drawable)
-            .field("dst_drawable", &self.dst_drawable)
-            .field("gc", &self.gc)
-            .field("src_x", &self.src_x)
-            .field("src_y", &self.src_y)
-            .field("dst_x", &self.dst_x)
-            .field("dst_y", &self.dst_y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("bit_plane", &self.bit_plane)
-            .finish()
-    }
-}
-
 pub type xcb_coord_mode_t = u32;
 /// Treats all coordinates as relative to the origin.
 pub const XCB_COORD_MODE_ORIGIN  : xcb_coord_mode_t = 0x00;
@@ -5708,6 +3667,7 @@ pub const XCB_COORD_MODE_PREVIOUS: xcb_coord_mode_t = 0x01;
 
 pub const XCB_POLY_POINT: u8 = 64;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_poly_point_request_t {
     pub major_opcode:    u8,
@@ -5715,17 +3675,6 @@ pub struct xcb_poly_point_request_t {
     pub length:          u16,
     pub drawable:        xcb_drawable_t,
     pub gc:              xcb_gcontext_t,
-}
-impl ::std::fmt::Debug for xcb_poly_point_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_poly_point_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("coordinate_mode", &self.coordinate_mode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .finish()
-    }
 }
 
 pub const XCB_POLY_LINE: u8 = 65;
@@ -5740,6 +3689,7 @@ pub const XCB_POLY_LINE: u8 = 65;
 /// intersect, the intersecting pixels are drawn multiple times. If wide lines
 /// intersect, the intersecting pixels are drawn only once, as though the entire
 /// request were a single, filled shape.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_poly_line_request_t {
     pub major_opcode:    u8,
@@ -5751,39 +3701,14 @@ pub struct xcb_poly_line_request_t {
     /// The graphics context to use.
     pub gc:              xcb_gcontext_t,
 }
-impl ::std::fmt::Debug for xcb_poly_line_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_poly_line_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("coordinate_mode", &self.coordinate_mode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .finish()
-    }
-}
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_segment_t {
     pub x1: i16,
     pub y1: i16,
     pub x2: i16,
     pub y2: i16,
-}
-
-impl Copy for xcb_segment_t {}
-impl Clone for xcb_segment_t {
-    fn clone(&self) -> xcb_segment_t { *self }
-}
-impl ::std::fmt::Debug for xcb_segment_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_segment_t")
-            .field("x1", &self.x1)
-            .field("y1", &self.y1)
-            .field("x2", &self.x2)
-            .field("y2", &self.y2)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -5807,6 +3732,7 @@ pub const XCB_POLY_SEGMENT: u8 = 66;
 /// TODO: include the xcb_segment_t data structure
 ///
 /// TODO: an example
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_poly_segment_request_t {
     pub major_opcode: u8,
@@ -5819,20 +3745,10 @@ pub struct xcb_poly_segment_request_t {
     /// TODO: document which attributes of a gc are used
     pub gc:           xcb_gcontext_t,
 }
-impl ::std::fmt::Debug for xcb_poly_segment_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_poly_segment_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .finish()
-    }
-}
 
 pub const XCB_POLY_RECTANGLE: u8 = 67;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_poly_rectangle_request_t {
     pub major_opcode:   u8,
@@ -5841,20 +3757,10 @@ pub struct xcb_poly_rectangle_request_t {
     pub drawable:       xcb_drawable_t,
     pub gc:             xcb_gcontext_t,
 }
-impl ::std::fmt::Debug for xcb_poly_rectangle_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_poly_rectangle_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .finish()
-    }
-}
 
 pub const XCB_POLY_ARC: u8 = 68;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_poly_arc_request_t {
     pub major_opcode: u8,
@@ -5862,17 +3768,6 @@ pub struct xcb_poly_arc_request_t {
     pub length:       u16,
     pub drawable:     xcb_drawable_t,
     pub gc:           xcb_gcontext_t,
-}
-impl ::std::fmt::Debug for xcb_poly_arc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_poly_arc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .finish()
-    }
 }
 
 pub type xcb_poly_shape_t = u32;
@@ -5882,6 +3777,7 @@ pub const XCB_POLY_SHAPE_CONVEX   : xcb_poly_shape_t = 0x02;
 
 pub const XCB_FILL_POLY: u8 = 69;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_fill_poly_request_t {
     pub major_opcode:    u8,
@@ -5893,20 +3789,6 @@ pub struct xcb_fill_poly_request_t {
     pub coordinate_mode: u8,
     pub pad1:            [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_fill_poly_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_fill_poly_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("shape", &self.shape)
-            .field("coordinate_mode", &self.coordinate_mode)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_POLY_FILL_RECTANGLE: u8 = 70;
 
@@ -5915,6 +3797,7 @@ pub const XCB_POLY_FILL_RECTANGLE: u8 = 70;
 /// Fills the specified rectangle(s) in the order listed in the array. For any
 /// given rectangle, each pixel is not drawn more than once. If rectangles
 /// intersect, the intersecting pixels are drawn multiple times.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_poly_fill_rectangle_request_t {
     pub major_opcode:   u8,
@@ -5932,20 +3815,10 @@ pub struct xcb_poly_fill_rectangle_request_t {
     /// tile-stipple-y-origin.
     pub gc:             xcb_gcontext_t,
 }
-impl ::std::fmt::Debug for xcb_poly_fill_rectangle_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_poly_fill_rectangle_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .finish()
-    }
-}
 
 pub const XCB_POLY_FILL_ARC: u8 = 71;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_poly_fill_arc_request_t {
     pub major_opcode: u8,
@@ -5953,17 +3826,6 @@ pub struct xcb_poly_fill_arc_request_t {
     pub length:       u16,
     pub drawable:     xcb_drawable_t,
     pub gc:           xcb_gcontext_t,
-}
-impl ::std::fmt::Debug for xcb_poly_fill_arc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_poly_fill_arc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .finish()
-    }
 }
 
 pub type xcb_image_format_t = u32;
@@ -5973,6 +3835,7 @@ pub const XCB_IMAGE_FORMAT_Z_PIXMAP : xcb_image_format_t = 0x02;
 
 pub const XCB_PUT_IMAGE: u8 = 72;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_put_image_request_t {
     pub major_opcode: u8,
@@ -5988,27 +3851,10 @@ pub struct xcb_put_image_request_t {
     pub depth:        u8,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_put_image_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_put_image_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("format", &self.format)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("dst_x", &self.dst_x)
-            .field("dst_y", &self.dst_y)
-            .field("left_pad", &self.left_pad)
-            .field("depth", &self.depth)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_GET_IMAGE: u8 = 73;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_image_request_t {
     pub major_opcode: u8,
@@ -6022,32 +3868,13 @@ pub struct xcb_get_image_request_t {
     pub plane_mask:   u32,
 }
 
-impl Copy for xcb_get_image_request_t {}
-impl Clone for xcb_get_image_request_t {
-    fn clone(&self) -> xcb_get_image_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_image_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_image_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("format", &self.format)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("plane_mask", &self.plane_mask)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_image_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_get_image_reply_t {
     pub response_type: u8,
@@ -6057,21 +3884,10 @@ pub struct xcb_get_image_reply_t {
     pub visual:        xcb_visualid_t,
     pub pad0:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_get_image_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_image_reply_t")
-            .field("response_type", &self.response_type)
-            .field("depth", &self.depth)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("visual", &self.visual)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_POLY_TEXT_8: u8 = 74;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_poly_text_8_request_t {
     pub major_opcode: u8,
@@ -6082,22 +3898,10 @@ pub struct xcb_poly_text_8_request_t {
     pub x:            i16,
     pub y:            i16,
 }
-impl ::std::fmt::Debug for xcb_poly_text_8_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_poly_text_8_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
-}
 
 pub const XCB_POLY_TEXT_16: u8 = 75;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_poly_text_16_request_t {
     pub major_opcode: u8,
@@ -6107,19 +3911,6 @@ pub struct xcb_poly_text_16_request_t {
     pub gc:           xcb_gcontext_t,
     pub x:            i16,
     pub y:            i16,
-}
-impl ::std::fmt::Debug for xcb_poly_text_16_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_poly_text_16_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
 }
 
 pub const XCB_IMAGE_TEXT_8: u8 = 76;
@@ -6134,6 +3925,7 @@ pub const XCB_IMAGE_TEXT_8: u8 = 76;
 ///
 /// Note that using X core fonts is deprecated (but still supported) in favor of
 /// client-side rendering using Xft.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_image_text_8_request_t {
     pub major_opcode: u8,
@@ -6153,19 +3945,6 @@ pub struct xcb_image_text_8_request_t {
     /// The y coordinate of the first character, relative to the origin of `drawable`.
     pub y:            i16,
 }
-impl ::std::fmt::Debug for xcb_image_text_8_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_image_text_8_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("string_len", &self.string_len)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
-}
 
 pub const XCB_IMAGE_TEXT_16: u8 = 77;
 
@@ -6179,6 +3958,7 @@ pub const XCB_IMAGE_TEXT_16: u8 = 77;
 ///
 /// Note that using X core fonts is deprecated (but still supported) in favor of
 /// client-side rendering using Xft.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_image_text_16_request_t {
     pub major_opcode: u8,
@@ -6198,19 +3978,6 @@ pub struct xcb_image_text_16_request_t {
     /// The y coordinate of the first character, relative to the origin of `drawable`.
     pub y:            i16,
 }
-impl ::std::fmt::Debug for xcb_image_text_16_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_image_text_16_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("string_len", &self.string_len)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("gc", &self.gc)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
-}
 
 pub type xcb_colormap_alloc_t = u32;
 pub const XCB_COLORMAP_ALLOC_NONE: xcb_colormap_alloc_t = 0x00;
@@ -6218,6 +3985,7 @@ pub const XCB_COLORMAP_ALLOC_ALL : xcb_colormap_alloc_t = 0x01;
 
 pub const XCB_CREATE_COLORMAP: u8 = 78;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_create_colormap_request_t {
     pub major_opcode: u8,
@@ -6228,25 +3996,9 @@ pub struct xcb_create_colormap_request_t {
     pub visual:       xcb_visualid_t,
 }
 
-impl Copy for xcb_create_colormap_request_t {}
-impl Clone for xcb_create_colormap_request_t {
-    fn clone(&self) -> xcb_create_colormap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_create_colormap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_create_colormap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("alloc", &self.alloc)
-            .field("length", &self.length)
-            .field("mid", &self.mid)
-            .field("window", &self.window)
-            .field("visual", &self.visual)
-            .finish()
-    }
-}
-
 pub const XCB_FREE_COLORMAP: u8 = 79;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_free_colormap_request_t {
     pub major_opcode: u8,
@@ -6255,23 +4007,9 @@ pub struct xcb_free_colormap_request_t {
     pub cmap:         xcb_colormap_t,
 }
 
-impl Copy for xcb_free_colormap_request_t {}
-impl Clone for xcb_free_colormap_request_t {
-    fn clone(&self) -> xcb_free_colormap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_free_colormap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_free_colormap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .finish()
-    }
-}
-
 pub const XCB_COPY_COLORMAP_AND_FREE: u8 = 80;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_copy_colormap_and_free_request_t {
     pub major_opcode: u8,
@@ -6281,24 +4019,9 @@ pub struct xcb_copy_colormap_and_free_request_t {
     pub src_cmap:     xcb_colormap_t,
 }
 
-impl Copy for xcb_copy_colormap_and_free_request_t {}
-impl Clone for xcb_copy_colormap_and_free_request_t {
-    fn clone(&self) -> xcb_copy_colormap_and_free_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_copy_colormap_and_free_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_copy_colormap_and_free_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("mid", &self.mid)
-            .field("src_cmap", &self.src_cmap)
-            .finish()
-    }
-}
-
 pub const XCB_INSTALL_COLORMAP: u8 = 81;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_install_colormap_request_t {
     pub major_opcode: u8,
@@ -6307,23 +4030,9 @@ pub struct xcb_install_colormap_request_t {
     pub cmap:         xcb_colormap_t,
 }
 
-impl Copy for xcb_install_colormap_request_t {}
-impl Clone for xcb_install_colormap_request_t {
-    fn clone(&self) -> xcb_install_colormap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_install_colormap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_install_colormap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .finish()
-    }
-}
-
 pub const XCB_UNINSTALL_COLORMAP: u8 = 82;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_uninstall_colormap_request_t {
     pub major_opcode: u8,
@@ -6332,23 +4041,9 @@ pub struct xcb_uninstall_colormap_request_t {
     pub cmap:         xcb_colormap_t,
 }
 
-impl Copy for xcb_uninstall_colormap_request_t {}
-impl Clone for xcb_uninstall_colormap_request_t {
-    fn clone(&self) -> xcb_uninstall_colormap_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_uninstall_colormap_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_uninstall_colormap_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .finish()
-    }
-}
-
 pub const XCB_LIST_INSTALLED_COLORMAPS: u8 = 83;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_list_installed_colormaps_request_t {
     pub major_opcode: u8,
@@ -6357,27 +4052,13 @@ pub struct xcb_list_installed_colormaps_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_list_installed_colormaps_request_t {}
-impl Clone for xcb_list_installed_colormaps_request_t {
-    fn clone(&self) -> xcb_list_installed_colormaps_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_list_installed_colormaps_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_installed_colormaps_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_list_installed_colormaps_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_list_installed_colormaps_reply_t {
     pub response_type: u8,
@@ -6386,18 +4067,6 @@ pub struct xcb_list_installed_colormaps_reply_t {
     pub length:        u32,
     pub cmaps_len:     u16,
     pub pad1:          [u8; 22],
-}
-impl ::std::fmt::Debug for xcb_list_installed_colormaps_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_installed_colormaps_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("cmaps_len", &self.cmaps_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub const XCB_ALLOC_COLOR: u8 = 84;
@@ -6409,6 +4078,7 @@ pub const XCB_ALLOC_COLOR: u8 = 84;
 /// and directly calculate the color pixel value to avoid the round trip. But, for
 /// example, on 16-bit color setups (VNC), you can easily get the closest supported
 /// RGB value to the RGB value you are specifying.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_alloc_color_request_t {
     pub major_opcode: u8,
@@ -6425,31 +4095,13 @@ pub struct xcb_alloc_color_request_t {
     pub pad1:         [u8; 2],
 }
 
-impl Copy for xcb_alloc_color_request_t {}
-impl Clone for xcb_alloc_color_request_t {
-    fn clone(&self) -> xcb_alloc_color_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_alloc_color_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_alloc_color_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .field("red", &self.red)
-            .field("green", &self.green)
-            .field("blue", &self.blue)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_alloc_color_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_alloc_color_reply_t {
     pub response_type: u8,
@@ -6463,28 +4115,9 @@ pub struct xcb_alloc_color_reply_t {
     pub pixel:         u32,
 }
 
-impl Copy for xcb_alloc_color_reply_t {}
-impl Clone for xcb_alloc_color_reply_t {
-    fn clone(&self) -> xcb_alloc_color_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_alloc_color_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_alloc_color_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("red", &self.red)
-            .field("green", &self.green)
-            .field("blue", &self.blue)
-            .field("pad1", &&self.pad1[..])
-            .field("pixel", &self.pixel)
-            .finish()
-    }
-}
-
 pub const XCB_ALLOC_NAMED_COLOR: u8 = 85;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_alloc_named_color_request_t {
     pub major_opcode: u8,
@@ -6494,18 +4127,6 @@ pub struct xcb_alloc_named_color_request_t {
     pub name_len:     u16,
     pub pad1:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_alloc_named_color_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_alloc_named_color_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .field("name_len", &self.name_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -6513,6 +4134,7 @@ pub struct xcb_alloc_named_color_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_alloc_named_color_reply_t {
     pub response_type: u8,
@@ -6528,30 +4150,9 @@ pub struct xcb_alloc_named_color_reply_t {
     pub visual_blue:   u16,
 }
 
-impl Copy for xcb_alloc_named_color_reply_t {}
-impl Clone for xcb_alloc_named_color_reply_t {
-    fn clone(&self) -> xcb_alloc_named_color_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_alloc_named_color_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_alloc_named_color_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pixel", &self.pixel)
-            .field("exact_red", &self.exact_red)
-            .field("exact_green", &self.exact_green)
-            .field("exact_blue", &self.exact_blue)
-            .field("visual_red", &self.visual_red)
-            .field("visual_green", &self.visual_green)
-            .field("visual_blue", &self.visual_blue)
-            .finish()
-    }
-}
-
 pub const XCB_ALLOC_COLOR_CELLS: u8 = 86;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_alloc_color_cells_request_t {
     pub major_opcode: u8,
@@ -6562,29 +4163,13 @@ pub struct xcb_alloc_color_cells_request_t {
     pub planes:       u16,
 }
 
-impl Copy for xcb_alloc_color_cells_request_t {}
-impl Clone for xcb_alloc_color_cells_request_t {
-    fn clone(&self) -> xcb_alloc_color_cells_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_alloc_color_cells_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_alloc_color_cells_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("contiguous", &self.contiguous)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .field("colors", &self.colors)
-            .field("planes", &self.planes)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_alloc_color_cells_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_alloc_color_cells_reply_t {
     pub response_type: u8,
@@ -6595,22 +4180,10 @@ pub struct xcb_alloc_color_cells_reply_t {
     pub masks_len:     u16,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_alloc_color_cells_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_alloc_color_cells_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pixels_len", &self.pixels_len)
-            .field("masks_len", &self.masks_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_ALLOC_COLOR_PLANES: u8 = 87;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_alloc_color_planes_request_t {
     pub major_opcode: u8,
@@ -6623,31 +4196,13 @@ pub struct xcb_alloc_color_planes_request_t {
     pub blues:        u16,
 }
 
-impl Copy for xcb_alloc_color_planes_request_t {}
-impl Clone for xcb_alloc_color_planes_request_t {
-    fn clone(&self) -> xcb_alloc_color_planes_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_alloc_color_planes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_alloc_color_planes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("contiguous", &self.contiguous)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .field("colors", &self.colors)
-            .field("reds", &self.reds)
-            .field("greens", &self.greens)
-            .field("blues", &self.blues)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_alloc_color_planes_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_alloc_color_planes_reply_t {
     pub response_type: u8,
@@ -6661,25 +4216,10 @@ pub struct xcb_alloc_color_planes_reply_t {
     pub blue_mask:     u32,
     pub pad2:          [u8; 8],
 }
-impl ::std::fmt::Debug for xcb_alloc_color_planes_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_alloc_color_planes_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pixels_len", &self.pixels_len)
-            .field("pad1", &&self.pad1[..])
-            .field("red_mask", &self.red_mask)
-            .field("green_mask", &self.green_mask)
-            .field("blue_mask", &self.blue_mask)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
 
 pub const XCB_FREE_COLORS: u8 = 88;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_free_colors_request_t {
     pub major_opcode: u8,
@@ -6688,23 +4228,13 @@ pub struct xcb_free_colors_request_t {
     pub cmap:         xcb_colormap_t,
     pub plane_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_free_colors_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_free_colors_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .field("plane_mask", &self.plane_mask)
-            .finish()
-    }
-}
 
 pub type xcb_color_flag_t = u32;
 pub const XCB_COLOR_FLAG_RED  : xcb_color_flag_t = 0x01;
 pub const XCB_COLOR_FLAG_GREEN: xcb_color_flag_t = 0x02;
 pub const XCB_COLOR_FLAG_BLUE : xcb_color_flag_t = 0x04;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_coloritem_t {
     pub pixel: u32,
@@ -6713,23 +4243,6 @@ pub struct xcb_coloritem_t {
     pub blue:  u16,
     pub flags: u8,
     pub pad0:  u8,
-}
-
-impl Copy for xcb_coloritem_t {}
-impl Clone for xcb_coloritem_t {
-    fn clone(&self) -> xcb_coloritem_t { *self }
-}
-impl ::std::fmt::Debug for xcb_coloritem_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_coloritem_t")
-            .field("pixel", &self.pixel)
-            .field("red", &self.red)
-            .field("green", &self.green)
-            .field("blue", &self.blue)
-            .field("flags", &self.flags)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -6742,6 +4255,7 @@ pub struct xcb_coloritem_iterator_t {
 
 pub const XCB_STORE_COLORS: u8 = 89;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_store_colors_request_t {
     pub major_opcode: u8,
@@ -6749,19 +4263,10 @@ pub struct xcb_store_colors_request_t {
     pub length:       u16,
     pub cmap:         xcb_colormap_t,
 }
-impl ::std::fmt::Debug for xcb_store_colors_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_store_colors_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .finish()
-    }
-}
 
 pub const XCB_STORE_NAMED_COLOR: u8 = 90;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_store_named_color_request_t {
     pub major_opcode: u8,
@@ -6772,41 +4277,14 @@ pub struct xcb_store_named_color_request_t {
     pub name_len:     u16,
     pub pad0:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_store_named_color_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_store_named_color_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("flags", &self.flags)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .field("pixel", &self.pixel)
-            .field("name_len", &self.name_len)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_rgb_t {
     pub red:   u16,
     pub green: u16,
     pub blue:  u16,
     pub pad0:  [u8; 2],
-}
-
-impl Copy for xcb_rgb_t {}
-impl Clone for xcb_rgb_t {
-    fn clone(&self) -> xcb_rgb_t { *self }
-}
-impl ::std::fmt::Debug for xcb_rgb_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_rgb_t")
-            .field("red", &self.red)
-            .field("green", &self.green)
-            .field("blue", &self.blue)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -6819,22 +4297,13 @@ pub struct xcb_rgb_iterator_t {
 
 pub const XCB_QUERY_COLORS: u8 = 91;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_query_colors_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
     pub cmap:         xcb_colormap_t,
-}
-impl ::std::fmt::Debug for xcb_query_colors_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_colors_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -6843,6 +4312,7 @@ pub struct xcb_query_colors_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_query_colors_reply_t {
     pub response_type: u8,
@@ -6852,21 +4322,10 @@ pub struct xcb_query_colors_reply_t {
     pub colors_len:    u16,
     pub pad1:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_query_colors_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_colors_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("colors_len", &self.colors_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_LOOKUP_COLOR: u8 = 92;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_lookup_color_request_t {
     pub major_opcode: u8,
@@ -6876,18 +4335,6 @@ pub struct xcb_lookup_color_request_t {
     pub name_len:     u16,
     pub pad1:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_lookup_color_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_lookup_color_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cmap", &self.cmap)
-            .field("name_len", &self.name_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -6895,6 +4342,7 @@ pub struct xcb_lookup_color_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_lookup_color_reply_t {
     pub response_type: u8,
@@ -6909,32 +4357,12 @@ pub struct xcb_lookup_color_reply_t {
     pub visual_blue:   u16,
 }
 
-impl Copy for xcb_lookup_color_reply_t {}
-impl Clone for xcb_lookup_color_reply_t {
-    fn clone(&self) -> xcb_lookup_color_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_lookup_color_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_lookup_color_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("exact_red", &self.exact_red)
-            .field("exact_green", &self.exact_green)
-            .field("exact_blue", &self.exact_blue)
-            .field("visual_red", &self.visual_red)
-            .field("visual_green", &self.visual_green)
-            .field("visual_blue", &self.visual_blue)
-            .finish()
-    }
-}
-
 pub type xcb_pixmap_enum_t = u32;
 pub const XCB_PIXMAP_NONE: xcb_pixmap_enum_t = 0x00;
 
 pub const XCB_CREATE_CURSOR: u8 = 93;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_create_cursor_request_t {
     pub major_opcode: u8,
@@ -6953,31 +4381,6 @@ pub struct xcb_create_cursor_request_t {
     pub y:            u16,
 }
 
-impl Copy for xcb_create_cursor_request_t {}
-impl Clone for xcb_create_cursor_request_t {
-    fn clone(&self) -> xcb_create_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_create_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_create_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cid", &self.cid)
-            .field("source", &self.source)
-            .field("mask", &self.mask)
-            .field("fore_red", &self.fore_red)
-            .field("fore_green", &self.fore_green)
-            .field("fore_blue", &self.fore_blue)
-            .field("back_red", &self.back_red)
-            .field("back_green", &self.back_green)
-            .field("back_blue", &self.back_blue)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .finish()
-    }
-}
-
 pub type xcb_font_enum_t = u32;
 pub const XCB_FONT_NONE: xcb_font_enum_t = 0x00;
 
@@ -6994,6 +4397,7 @@ pub const XCB_CREATE_GLYPH_CURSOR: u8 = 94;
 /// specified by `fore_red`, `fore_green` and `fore_blue`). All pixels set to 0
 /// will use the background color (as specified by `back_red`, `back_green` and
 /// `back_blue`).
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_create_glyph_cursor_request_t {
     pub major_opcode: u8,
@@ -7025,37 +4429,13 @@ pub struct xcb_create_glyph_cursor_request_t {
     pub back_blue:    u16,
 }
 
-impl Copy for xcb_create_glyph_cursor_request_t {}
-impl Clone for xcb_create_glyph_cursor_request_t {
-    fn clone(&self) -> xcb_create_glyph_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_create_glyph_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_create_glyph_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cid", &self.cid)
-            .field("source_font", &self.source_font)
-            .field("mask_font", &self.mask_font)
-            .field("source_char", &self.source_char)
-            .field("mask_char", &self.mask_char)
-            .field("fore_red", &self.fore_red)
-            .field("fore_green", &self.fore_green)
-            .field("fore_blue", &self.fore_blue)
-            .field("back_red", &self.back_red)
-            .field("back_green", &self.back_green)
-            .field("back_blue", &self.back_blue)
-            .finish()
-    }
-}
-
 pub const XCB_FREE_CURSOR: u8 = 95;
 
 /// Deletes a cursor
 ///
 /// Deletes the association between the cursor resource ID and the specified
 /// cursor. The cursor is freed when no other resource references it.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_free_cursor_request_t {
     pub major_opcode: u8,
@@ -7065,23 +4445,9 @@ pub struct xcb_free_cursor_request_t {
     pub cursor:       xcb_cursor_t,
 }
 
-impl Copy for xcb_free_cursor_request_t {}
-impl Clone for xcb_free_cursor_request_t {
-    fn clone(&self) -> xcb_free_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_free_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_free_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cursor", &self.cursor)
-            .finish()
-    }
-}
-
 pub const XCB_RECOLOR_CURSOR: u8 = 96;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_recolor_cursor_request_t {
     pub major_opcode: u8,
@@ -7096,27 +4462,6 @@ pub struct xcb_recolor_cursor_request_t {
     pub back_blue:    u16,
 }
 
-impl Copy for xcb_recolor_cursor_request_t {}
-impl Clone for xcb_recolor_cursor_request_t {
-    fn clone(&self) -> xcb_recolor_cursor_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_recolor_cursor_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_recolor_cursor_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("cursor", &self.cursor)
-            .field("fore_red", &self.fore_red)
-            .field("fore_green", &self.fore_green)
-            .field("fore_blue", &self.fore_blue)
-            .field("back_red", &self.back_red)
-            .field("back_green", &self.back_green)
-            .field("back_blue", &self.back_blue)
-            .finish()
-    }
-}
-
 pub type xcb_query_shape_of_t = u32;
 pub const XCB_QUERY_SHAPE_OF_LARGEST_CURSOR : xcb_query_shape_of_t = 0x00;
 pub const XCB_QUERY_SHAPE_OF_FASTEST_TILE   : xcb_query_shape_of_t = 0x01;
@@ -7124,6 +4469,7 @@ pub const XCB_QUERY_SHAPE_OF_FASTEST_STIPPLE: xcb_query_shape_of_t = 0x02;
 
 pub const XCB_QUERY_BEST_SIZE: u8 = 97;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_best_size_request_t {
     pub major_opcode: u8,
@@ -7134,29 +4480,13 @@ pub struct xcb_query_best_size_request_t {
     pub height:       u16,
 }
 
-impl Copy for xcb_query_best_size_request_t {}
-impl Clone for xcb_query_best_size_request_t {
-    fn clone(&self) -> xcb_query_best_size_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_best_size_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_best_size_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("class", &self.class)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_best_size_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_best_size_reply_t {
     pub response_type: u8,
@@ -7165,23 +4495,6 @@ pub struct xcb_query_best_size_reply_t {
     pub length:        u32,
     pub width:         u16,
     pub height:        u16,
-}
-
-impl Copy for xcb_query_best_size_reply_t {}
-impl Clone for xcb_query_best_size_reply_t {
-    fn clone(&self) -> xcb_query_best_size_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_best_size_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_best_size_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .finish()
-    }
 }
 
 pub const XCB_QUERY_EXTENSION: u8 = 98;
@@ -7197,6 +4510,7 @@ pub const XCB_QUERY_EXTENSION: u8 = 98;
 ///
 /// There should rarely be a need to use this request directly, XCB provides the
 /// `xcb_get_extension_data` function instead.
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_query_extension_request_t {
     pub major_opcode: u8,
@@ -7206,17 +4520,6 @@ pub struct xcb_query_extension_request_t {
     pub name_len:     u16,
     pub pad1:         [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_query_extension_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_extension_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("name_len", &self.name_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -7224,6 +4527,7 @@ pub struct xcb_query_extension_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_query_extension_reply_t {
     pub response_type: u8,
@@ -7240,46 +4544,14 @@ pub struct xcb_query_extension_reply_t {
     pub first_error:   u8,
 }
 
-impl Copy for xcb_query_extension_reply_t {}
-impl Clone for xcb_query_extension_reply_t {
-    fn clone(&self) -> xcb_query_extension_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_query_extension_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_query_extension_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("present", &self.present)
-            .field("major_opcode", &self.major_opcode)
-            .field("first_event", &self.first_event)
-            .field("first_error", &self.first_error)
-            .finish()
-    }
-}
-
 pub const XCB_LIST_EXTENSIONS: u8 = 99;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_list_extensions_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_list_extensions_request_t {}
-impl Clone for xcb_list_extensions_request_t {
-    fn clone(&self) -> xcb_list_extensions_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_list_extensions_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_extensions_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -7288,6 +4560,7 @@ pub struct xcb_list_extensions_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_list_extensions_reply_t {
     pub response_type: u8,
@@ -7296,20 +4569,10 @@ pub struct xcb_list_extensions_reply_t {
     pub length:        u32,
     pub pad0:          [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_list_extensions_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_extensions_reply_t")
-            .field("response_type", &self.response_type)
-            .field("names_len", &self.names_len)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_CHANGE_KEYBOARD_MAPPING: u8 = 100;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_change_keyboard_mapping_request_t {
     pub major_opcode:        u8,
@@ -7319,21 +4582,10 @@ pub struct xcb_change_keyboard_mapping_request_t {
     pub keysyms_per_keycode: u8,
     pub pad0:                [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_change_keyboard_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_change_keyboard_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("keycode_count", &self.keycode_count)
-            .field("length", &self.length)
-            .field("first_keycode", &self.first_keycode)
-            .field("keysyms_per_keycode", &self.keysyms_per_keycode)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_GET_KEYBOARD_MAPPING: u8 = 101;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_keyboard_mapping_request_t {
     pub major_opcode:  u8,
@@ -7343,28 +4595,13 @@ pub struct xcb_get_keyboard_mapping_request_t {
     pub count:         u8,
 }
 
-impl Copy for xcb_get_keyboard_mapping_request_t {}
-impl Clone for xcb_get_keyboard_mapping_request_t {
-    fn clone(&self) -> xcb_get_keyboard_mapping_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_keyboard_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_keyboard_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("first_keycode", &self.first_keycode)
-            .field("count", &self.count)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_keyboard_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_get_keyboard_mapping_reply_t {
     pub response_type:       u8,
@@ -7372,17 +4609,6 @@ pub struct xcb_get_keyboard_mapping_reply_t {
     pub sequence:            u16,
     pub length:              u32,
     pub pad0:                [u8; 24],
-}
-impl ::std::fmt::Debug for xcb_get_keyboard_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_keyboard_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("keysyms_per_keycode", &self.keysyms_per_keycode)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 pub type xcb_kb_t = u32;
@@ -7406,6 +4632,7 @@ pub const XCB_AUTO_REPEAT_MODE_DEFAULT: xcb_auto_repeat_mode_t = 0x02;
 
 pub const XCB_CHANGE_KEYBOARD_CONTROL: u8 = 102;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_change_keyboard_control_request_t {
     pub major_opcode: u8,
@@ -7413,38 +4640,15 @@ pub struct xcb_change_keyboard_control_request_t {
     pub length:       u16,
     pub value_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_change_keyboard_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_change_keyboard_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
 
 pub const XCB_GET_KEYBOARD_CONTROL: u8 = 103;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_keyboard_control_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_get_keyboard_control_request_t {}
-impl Clone for xcb_get_keyboard_control_request_t {
-    fn clone(&self) -> xcb_get_keyboard_control_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_keyboard_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_keyboard_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -7453,6 +4657,7 @@ pub struct xcb_get_keyboard_control_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_keyboard_control_reply_t {
     pub response_type:      u8,
@@ -7468,30 +4673,9 @@ pub struct xcb_get_keyboard_control_reply_t {
     pub auto_repeats:       [u8; 32],
 }
 
-impl Copy for xcb_get_keyboard_control_reply_t {}
-impl Clone for xcb_get_keyboard_control_reply_t {
-    fn clone(&self) -> xcb_get_keyboard_control_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_keyboard_control_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_keyboard_control_reply_t")
-            .field("response_type", &self.response_type)
-            .field("global_auto_repeat", &self.global_auto_repeat)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("led_mask", &self.led_mask)
-            .field("key_click_percent", &self.key_click_percent)
-            .field("bell_percent", &self.bell_percent)
-            .field("bell_pitch", &self.bell_pitch)
-            .field("bell_duration", &self.bell_duration)
-            .field("pad0", &&self.pad0[..])
-            .field("auto_repeats", &&self.auto_repeats[..])
-            .finish()
-    }
-}
-
 pub const XCB_BELL: u8 = 104;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_bell_request_t {
     pub major_opcode: u8,
@@ -7499,22 +4683,9 @@ pub struct xcb_bell_request_t {
     pub length:       u16,
 }
 
-impl Copy for xcb_bell_request_t {}
-impl Clone for xcb_bell_request_t {
-    fn clone(&self) -> xcb_bell_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_bell_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_bell_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("percent", &self.percent)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_CHANGE_POINTER_CONTROL: u8 = 105;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_change_pointer_control_request_t {
     pub major_opcode:             u8,
@@ -7527,46 +4698,14 @@ pub struct xcb_change_pointer_control_request_t {
     pub do_threshold:             u8,
 }
 
-impl Copy for xcb_change_pointer_control_request_t {}
-impl Clone for xcb_change_pointer_control_request_t {
-    fn clone(&self) -> xcb_change_pointer_control_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_change_pointer_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_change_pointer_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("acceleration_numerator", &self.acceleration_numerator)
-            .field("acceleration_denominator", &self.acceleration_denominator)
-            .field("threshold", &self.threshold)
-            .field("do_acceleration", &self.do_acceleration)
-            .field("do_threshold", &self.do_threshold)
-            .finish()
-    }
-}
-
 pub const XCB_GET_POINTER_CONTROL: u8 = 106;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_pointer_control_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_get_pointer_control_request_t {}
-impl Clone for xcb_get_pointer_control_request_t {
-    fn clone(&self) -> xcb_get_pointer_control_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_pointer_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_pointer_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -7575,6 +4714,7 @@ pub struct xcb_get_pointer_control_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_pointer_control_reply_t {
     pub response_type:            u8,
@@ -7585,25 +4725,6 @@ pub struct xcb_get_pointer_control_reply_t {
     pub acceleration_denominator: u16,
     pub threshold:                u16,
     pub pad1:                     [u8; 18],
-}
-
-impl Copy for xcb_get_pointer_control_reply_t {}
-impl Clone for xcb_get_pointer_control_reply_t {
-    fn clone(&self) -> xcb_get_pointer_control_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_pointer_control_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_pointer_control_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("acceleration_numerator", &self.acceleration_numerator)
-            .field("acceleration_denominator", &self.acceleration_denominator)
-            .field("threshold", &self.threshold)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub type xcb_blanking_t = u32;
@@ -7618,6 +4739,7 @@ pub const XCB_EXPOSURES_DEFAULT    : xcb_exposures_t = 0x02;
 
 pub const XCB_SET_SCREEN_SAVER: u8 = 107;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_set_screen_saver_request_t {
     pub major_opcode:    u8,
@@ -7629,45 +4751,14 @@ pub struct xcb_set_screen_saver_request_t {
     pub allow_exposures: u8,
 }
 
-impl Copy for xcb_set_screen_saver_request_t {}
-impl Clone for xcb_set_screen_saver_request_t {
-    fn clone(&self) -> xcb_set_screen_saver_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_set_screen_saver_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_screen_saver_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("timeout", &self.timeout)
-            .field("interval", &self.interval)
-            .field("prefer_blanking", &self.prefer_blanking)
-            .field("allow_exposures", &self.allow_exposures)
-            .finish()
-    }
-}
-
 pub const XCB_GET_SCREEN_SAVER: u8 = 108;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_screen_saver_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_get_screen_saver_request_t {}
-impl Clone for xcb_get_screen_saver_request_t {
-    fn clone(&self) -> xcb_get_screen_saver_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_screen_saver_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_screen_saver_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -7676,6 +4767,7 @@ pub struct xcb_get_screen_saver_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_screen_saver_reply_t {
     pub response_type:   u8,
@@ -7687,26 +4779,6 @@ pub struct xcb_get_screen_saver_reply_t {
     pub prefer_blanking: u8,
     pub allow_exposures: u8,
     pub pad1:            [u8; 18],
-}
-
-impl Copy for xcb_get_screen_saver_reply_t {}
-impl Clone for xcb_get_screen_saver_reply_t {
-    fn clone(&self) -> xcb_get_screen_saver_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_screen_saver_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_screen_saver_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("timeout", &self.timeout)
-            .field("interval", &self.interval)
-            .field("prefer_blanking", &self.prefer_blanking)
-            .field("allow_exposures", &self.allow_exposures)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 pub type xcb_host_mode_t = u32;
@@ -7722,6 +4794,7 @@ pub const XCB_FAMILY_INTERNET_6        : xcb_family_t = 0x06;
 
 pub const XCB_CHANGE_HOSTS: u8 = 109;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_change_hosts_request_t {
     pub major_opcode: u8,
@@ -7731,33 +4804,13 @@ pub struct xcb_change_hosts_request_t {
     pub pad0:         u8,
     pub address_len:  u16,
 }
-impl ::std::fmt::Debug for xcb_change_hosts_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_change_hosts_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("mode", &self.mode)
-            .field("length", &self.length)
-            .field("family", &self.family)
-            .field("pad0", &self.pad0)
-            .field("address_len", &self.address_len)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_host_t {
     pub family:      u8,
     pub pad0:        u8,
     pub address_len: u16,
-}
-impl ::std::fmt::Debug for xcb_host_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_host_t")
-            .field("family", &self.family)
-            .field("pad0", &self.pad0)
-            .field("address_len", &self.address_len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -7771,25 +4824,12 @@ pub struct xcb_host_iterator_t<'a> {
 
 pub const XCB_LIST_HOSTS: u8 = 110;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_list_hosts_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_list_hosts_request_t {}
-impl Clone for xcb_list_hosts_request_t {
-    fn clone(&self) -> xcb_list_hosts_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_list_hosts_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_hosts_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -7798,6 +4838,7 @@ pub struct xcb_list_hosts_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_list_hosts_reply_t {
     pub response_type: u8,
@@ -7807,18 +4848,6 @@ pub struct xcb_list_hosts_reply_t {
     pub hosts_len:     u16,
     pub pad0:          [u8; 22],
 }
-impl ::std::fmt::Debug for xcb_list_hosts_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_list_hosts_reply_t")
-            .field("response_type", &self.response_type)
-            .field("mode", &self.mode)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("hosts_len", &self.hosts_len)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub type xcb_access_control_t = u32;
 pub const XCB_ACCESS_CONTROL_DISABLE: xcb_access_control_t = 0x00;
@@ -7826,25 +4855,12 @@ pub const XCB_ACCESS_CONTROL_ENABLE : xcb_access_control_t = 0x01;
 
 pub const XCB_SET_ACCESS_CONTROL: u8 = 111;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_set_access_control_request_t {
     pub major_opcode: u8,
     pub mode:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_set_access_control_request_t {}
-impl Clone for xcb_set_access_control_request_t {
-    fn clone(&self) -> xcb_set_access_control_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_set_access_control_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_access_control_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("mode", &self.mode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 pub type xcb_close_down_t = u32;
@@ -7854,25 +4870,12 @@ pub const XCB_CLOSE_DOWN_RETAIN_TEMPORARY: xcb_close_down_t = 0x02;
 
 pub const XCB_SET_CLOSE_DOWN_MODE: u8 = 112;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_set_close_down_mode_request_t {
     pub major_opcode: u8,
     pub mode:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_set_close_down_mode_request_t {}
-impl Clone for xcb_set_close_down_mode_request_t {
-    fn clone(&self) -> xcb_set_close_down_mode_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_set_close_down_mode_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_close_down_mode_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("mode", &self.mode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 pub type xcb_kill_t = u32;
@@ -7883,6 +4886,7 @@ pub const XCB_KILL_CLIENT: u8 = 113;
 /// kills a client
 ///
 /// Forces a close down of the client that created the specified `resource`.
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_kill_client_request_t {
     pub major_opcode: u8,
@@ -7896,23 +4900,9 @@ pub struct xcb_kill_client_request_t {
     pub resource:     u32,
 }
 
-impl Copy for xcb_kill_client_request_t {}
-impl Clone for xcb_kill_client_request_t {
-    fn clone(&self) -> xcb_kill_client_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_kill_client_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_kill_client_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("resource", &self.resource)
-            .finish()
-    }
-}
-
 pub const XCB_ROTATE_PROPERTIES: u8 = 114;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_rotate_properties_request_t {
     pub major_opcode: u8,
@@ -7922,18 +4912,6 @@ pub struct xcb_rotate_properties_request_t {
     pub atoms_len:    u16,
     pub delta:        i16,
 }
-impl ::std::fmt::Debug for xcb_rotate_properties_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_rotate_properties_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("atoms_len", &self.atoms_len)
-            .field("delta", &self.delta)
-            .finish()
-    }
-}
 
 pub type xcb_screen_saver_t = u32;
 pub const XCB_SCREEN_SAVER_RESET : xcb_screen_saver_t = 0x00;
@@ -7941,25 +4919,12 @@ pub const XCB_SCREEN_SAVER_ACTIVE: xcb_screen_saver_t = 0x01;
 
 pub const XCB_FORCE_SCREEN_SAVER: u8 = 115;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_force_screen_saver_request_t {
     pub major_opcode: u8,
     pub mode:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_force_screen_saver_request_t {}
-impl Clone for xcb_force_screen_saver_request_t {
-    fn clone(&self) -> xcb_force_screen_saver_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_force_screen_saver_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_force_screen_saver_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("mode", &self.mode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 pub type xcb_mapping_status_t = u32;
@@ -7969,20 +4934,12 @@ pub const XCB_MAPPING_STATUS_FAILURE: xcb_mapping_status_t = 0x02;
 
 pub const XCB_SET_POINTER_MAPPING: u8 = 116;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_set_pointer_mapping_request_t {
     pub major_opcode: u8,
     pub map_len:      u8,
     pub length:       u16,
-}
-impl ::std::fmt::Debug for xcb_set_pointer_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_pointer_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("map_len", &self.map_len)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -7991,6 +4948,7 @@ pub struct xcb_set_pointer_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_set_pointer_mapping_reply_t {
     pub response_type: u8,
@@ -7999,42 +4957,14 @@ pub struct xcb_set_pointer_mapping_reply_t {
     pub length:        u32,
 }
 
-impl Copy for xcb_set_pointer_mapping_reply_t {}
-impl Clone for xcb_set_pointer_mapping_reply_t {
-    fn clone(&self) -> xcb_set_pointer_mapping_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_set_pointer_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_pointer_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_GET_POINTER_MAPPING: u8 = 117;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_pointer_mapping_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_get_pointer_mapping_request_t {}
-impl Clone for xcb_get_pointer_mapping_request_t {
-    fn clone(&self) -> xcb_get_pointer_mapping_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_pointer_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_pointer_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -8043,6 +4973,7 @@ pub struct xcb_get_pointer_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_get_pointer_mapping_reply_t {
     pub response_type: u8,
@@ -8050,17 +4981,6 @@ pub struct xcb_get_pointer_mapping_reply_t {
     pub sequence:      u16,
     pub length:        u32,
     pub pad0:          [u8; 24],
-}
-impl ::std::fmt::Debug for xcb_get_pointer_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_pointer_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("map_len", &self.map_len)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 pub type xcb_map_index_t = u32;
@@ -8075,20 +4995,12 @@ pub const XCB_MAP_INDEX_5      : xcb_map_index_t = 0x07;
 
 pub const XCB_SET_MODIFIER_MAPPING: u8 = 118;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_set_modifier_mapping_request_t {
     pub major_opcode:          u8,
     pub keycodes_per_modifier: u8,
     pub length:                u16,
-}
-impl ::std::fmt::Debug for xcb_set_modifier_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_modifier_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("keycodes_per_modifier", &self.keycodes_per_modifier)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -8097,6 +5009,7 @@ pub struct xcb_set_modifier_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_set_modifier_mapping_reply_t {
     pub response_type: u8,
@@ -8105,42 +5018,14 @@ pub struct xcb_set_modifier_mapping_reply_t {
     pub length:        u32,
 }
 
-impl Copy for xcb_set_modifier_mapping_reply_t {}
-impl Clone for xcb_set_modifier_mapping_reply_t {
-    fn clone(&self) -> xcb_set_modifier_mapping_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_set_modifier_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_set_modifier_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_GET_MODIFIER_MAPPING: u8 = 119;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_get_modifier_mapping_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_get_modifier_mapping_request_t {}
-impl Clone for xcb_get_modifier_mapping_request_t {
-    fn clone(&self) -> xcb_get_modifier_mapping_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_get_modifier_mapping_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_modifier_mapping_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -8149,6 +5034,7 @@ pub struct xcb_get_modifier_mapping_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_get_modifier_mapping_reply_t {
     pub response_type:         u8,
@@ -8157,39 +5043,15 @@ pub struct xcb_get_modifier_mapping_reply_t {
     pub length:                u32,
     pub pad0:                  [u8; 24],
 }
-impl ::std::fmt::Debug for xcb_get_modifier_mapping_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_get_modifier_mapping_reply_t")
-            .field("response_type", &self.response_type)
-            .field("keycodes_per_modifier", &self.keycodes_per_modifier)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_NO_OPERATION: u8 = 127;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_no_operation_request_t {
     pub major_opcode: u8,
     pub pad0:         u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_no_operation_request_t {}
-impl Clone for xcb_no_operation_request_t {
-    fn clone(&self) -> xcb_no_operation_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_no_operation_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_no_operation_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("pad0", &self.pad0)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 

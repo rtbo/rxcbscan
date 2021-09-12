@@ -281,6 +281,7 @@ pub const XCB_XKB_IM_GROUPS_WHICH_USE_LOCKED   : xcb_xkb_im_groups_which_t = 0x0
 pub const XCB_XKB_IM_GROUPS_WHICH_USE_LATCHED  : xcb_xkb_im_groups_which_t = 0x02;
 pub const XCB_XKB_IM_GROUPS_WHICH_USE_BASE     : xcb_xkb_im_groups_which_t = 0x01;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_indicator_map_t {
     pub flags:       u8,
@@ -291,25 +292,6 @@ pub struct xcb_xkb_indicator_map_t {
     pub realMods:    u8,
     pub vmods:       u16,
     pub ctrls:       u32,
-}
-
-impl Copy for xcb_xkb_indicator_map_t {}
-impl Clone for xcb_xkb_indicator_map_t {
-    fn clone(&self) -> xcb_xkb_indicator_map_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_indicator_map_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_indicator_map_t")
-            .field("flags", &self.flags)
-            .field("whichGroups", &self.whichGroups)
-            .field("groups", &self.groups)
-            .field("whichMods", &self.whichMods)
-            .field("mods", &self.mods)
-            .field("realMods", &self.realMods)
-            .field("vmods", &self.vmods)
-            .field("ctrls", &self.ctrls)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -364,25 +346,12 @@ pub const XCB_XKB_PER_CLIENT_FLAG_AUTO_RESET_CONTROLS      : xcb_xkb_per_client_
 pub const XCB_XKB_PER_CLIENT_FLAG_LOOKUP_STATE_WHEN_GRABBED: xcb_xkb_per_client_flag_t = 0x08;
 pub const XCB_XKB_PER_CLIENT_FLAG_SEND_EVENT_USES_XKB_STATE: xcb_xkb_per_client_flag_t = 0x10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_mod_def_t {
     pub mask:     u8,
     pub realMods: u8,
     pub vmods:    u16,
-}
-
-impl Copy for xcb_xkb_mod_def_t {}
-impl Clone for xcb_xkb_mod_def_t {
-    fn clone(&self) -> xcb_xkb_mod_def_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_mod_def_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_mod_def_t")
-            .field("mask", &self.mask)
-            .field("realMods", &self.realMods)
-            .field("vmods", &self.vmods)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -393,21 +362,10 @@ pub struct xcb_xkb_mod_def_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_key_name_t {
     pub name: [c_char; 4],
-}
-
-impl Copy for xcb_xkb_key_name_t {}
-impl Clone for xcb_xkb_key_name_t {
-    fn clone(&self) -> xcb_xkb_key_name_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_key_name_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_key_name_t")
-            .field("name", &&self.name[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -419,23 +377,11 @@ pub struct xcb_xkb_key_name_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_key_name_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_key_alias_t {
     pub real:  [c_char; 4],
     pub alias: [c_char; 4],
-}
-
-impl Copy for xcb_xkb_key_alias_t {}
-impl Clone for xcb_xkb_key_alias_t {
-    fn clone(&self) -> xcb_xkb_key_alias_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_key_alias_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_key_alias_t")
-            .field("real", &&self.real[..])
-            .field("alias", &&self.alias[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -447,16 +393,10 @@ pub struct xcb_xkb_key_alias_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_key_alias_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_counted_string_16_t {
     pub length:        u16,
-}
-impl ::std::fmt::Debug for xcb_xkb_counted_string_16_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_counted_string_16_t")
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -468,6 +408,7 @@ pub struct xcb_xkb_counted_string_16_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_counted_string_16_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_kt_map_entry_t {
     pub active:     u8,
@@ -478,23 +419,6 @@ pub struct xcb_xkb_kt_map_entry_t {
     pub pad0:       [u8; 2],
 }
 
-impl Copy for xcb_xkb_kt_map_entry_t {}
-impl Clone for xcb_xkb_kt_map_entry_t {
-    fn clone(&self) -> xcb_xkb_kt_map_entry_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_kt_map_entry_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_kt_map_entry_t")
-            .field("active", &self.active)
-            .field("mods_mask", &self.mods_mask)
-            .field("level", &self.level)
-            .field("mods_mods", &self.mods_mods)
-            .field("mods_vmods", &self.mods_vmods)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_kt_map_entry_iterator_t {
@@ -503,6 +427,7 @@ pub struct xcb_xkb_kt_map_entry_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_key_type_t {
     pub mods_mask:   u8,
@@ -512,19 +437,6 @@ pub struct xcb_xkb_key_type_t {
     pub nMapEntries: u8,
     pub hasPreserve: u8,
     pub pad0:        u8,
-}
-impl ::std::fmt::Debug for xcb_xkb_key_type_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_key_type_t")
-            .field("mods_mask", &self.mods_mask)
-            .field("mods_mods", &self.mods_mods)
-            .field("mods_vmods", &self.mods_vmods)
-            .field("numLevels", &self.numLevels)
-            .field("nMapEntries", &self.nMapEntries)
-            .field("hasPreserve", &self.hasPreserve)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -536,22 +448,13 @@ pub struct xcb_xkb_key_type_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_key_type_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_key_sym_map_t {
     pub kt_index:  [u8; 4],
     pub groupInfo: u8,
     pub width:     u8,
     pub nSyms:     u16,
-}
-impl ::std::fmt::Debug for xcb_xkb_key_sym_map_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_key_sym_map_t")
-            .field("kt_index", &&self.kt_index[..])
-            .field("groupInfo", &self.groupInfo)
-            .field("width", &self.width)
-            .field("nSyms", &self.nSyms)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -563,23 +466,11 @@ pub struct xcb_xkb_key_sym_map_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_key_sym_map_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_common_behavior_t {
     pub type_: u8,
     pub data:  u8,
-}
-
-impl Copy for xcb_xkb_common_behavior_t {}
-impl Clone for xcb_xkb_common_behavior_t {
-    fn clone(&self) -> xcb_xkb_common_behavior_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_common_behavior_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_common_behavior_t")
-            .field("type_", &self.type_)
-            .field("data", &self.data)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -590,23 +481,11 @@ pub struct xcb_xkb_common_behavior_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_default_behavior_t {
     pub type_: u8,
     pub pad0:  u8,
-}
-
-impl Copy for xcb_xkb_default_behavior_t {}
-impl Clone for xcb_xkb_default_behavior_t {
-    fn clone(&self) -> xcb_xkb_default_behavior_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_default_behavior_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_default_behavior_t")
-            .field("type_", &self.type_)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -617,23 +496,11 @@ pub struct xcb_xkb_default_behavior_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_lock_behavior_t {
     pub type_: u8,
     pub pad0:  u8,
-}
-
-impl Copy for xcb_xkb_lock_behavior_t {}
-impl Clone for xcb_xkb_lock_behavior_t {
-    fn clone(&self) -> xcb_xkb_lock_behavior_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_lock_behavior_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_lock_behavior_t")
-            .field("type_", &self.type_)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -644,23 +511,11 @@ pub struct xcb_xkb_lock_behavior_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_radio_group_behavior_t {
     pub type_: u8,
     pub group: u8,
-}
-
-impl Copy for xcb_xkb_radio_group_behavior_t {}
-impl Clone for xcb_xkb_radio_group_behavior_t {
-    fn clone(&self) -> xcb_xkb_radio_group_behavior_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_radio_group_behavior_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_radio_group_behavior_t")
-            .field("type_", &self.type_)
-            .field("group", &self.group)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -671,23 +526,11 @@ pub struct xcb_xkb_radio_group_behavior_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_overlay_behavior_t {
     pub type_: u8,
     pub key:   xcb_keycode_t,
-}
-
-impl Copy for xcb_xkb_overlay_behavior_t {}
-impl Clone for xcb_xkb_overlay_behavior_t {
-    fn clone(&self) -> xcb_xkb_overlay_behavior_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_overlay_behavior_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_overlay_behavior_t")
-            .field("type_", &self.type_)
-            .field("key", &self.key)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -698,23 +541,11 @@ pub struct xcb_xkb_overlay_behavior_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_permament_lock_behavior_t {
     pub type_: u8,
     pub pad0:  u8,
-}
-
-impl Copy for xcb_xkb_permament_lock_behavior_t {}
-impl Clone for xcb_xkb_permament_lock_behavior_t {
-    fn clone(&self) -> xcb_xkb_permament_lock_behavior_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_permament_lock_behavior_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_permament_lock_behavior_t")
-            .field("type_", &self.type_)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -725,23 +556,11 @@ pub struct xcb_xkb_permament_lock_behavior_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_permament_radio_group_behavior_t {
     pub type_: u8,
     pub group: u8,
-}
-
-impl Copy for xcb_xkb_permament_radio_group_behavior_t {}
-impl Clone for xcb_xkb_permament_radio_group_behavior_t {
-    fn clone(&self) -> xcb_xkb_permament_radio_group_behavior_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_permament_radio_group_behavior_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_permament_radio_group_behavior_t")
-            .field("type_", &self.type_)
-            .field("group", &self.group)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -752,23 +571,11 @@ pub struct xcb_xkb_permament_radio_group_behavior_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_permament_overlay_behavior_t {
     pub type_: u8,
     pub key:   xcb_keycode_t,
-}
-
-impl Copy for xcb_xkb_permament_overlay_behavior_t {}
-impl Clone for xcb_xkb_permament_overlay_behavior_t {
-    fn clone(&self) -> xcb_xkb_permament_overlay_behavior_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_permament_overlay_behavior_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_permament_overlay_behavior_t")
-            .field("type_", &self.type_)
-            .field("key", &self.key)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -810,25 +617,12 @@ pub const XCB_XKB_BEHAVIOR_TYPE_PERMAMENT_RADIO_GROUP: xcb_xkb_behavior_type_t =
 pub const XCB_XKB_BEHAVIOR_TYPE_PERMAMENT_OVERLAY_1  : xcb_xkb_behavior_type_t = 0x83;
 pub const XCB_XKB_BEHAVIOR_TYPE_PERMAMENT_OVERLAY_2  : xcb_xkb_behavior_type_t = 0x84;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_behavior_t {
     pub keycode:  xcb_keycode_t,
     pub behavior: xcb_xkb_behavior_t,
     pub pad0:     u8,
-}
-
-impl Copy for xcb_xkb_set_behavior_t {}
-impl Clone for xcb_xkb_set_behavior_t {
-    fn clone(&self) -> xcb_xkb_set_behavior_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_set_behavior_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_behavior_t")
-            .field("keycode", &self.keycode)
-            .field("behavior", &self.behavior)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -840,23 +634,11 @@ pub struct xcb_xkb_set_behavior_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_set_behavior_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_explicit_t {
     pub keycode:  xcb_keycode_t,
     pub explicit: u8,
-}
-
-impl Copy for xcb_xkb_set_explicit_t {}
-impl Clone for xcb_xkb_set_explicit_t {
-    fn clone(&self) -> xcb_xkb_set_explicit_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_set_explicit_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_explicit_t")
-            .field("keycode", &self.keycode)
-            .field("explicit", &self.explicit)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -867,23 +649,11 @@ pub struct xcb_xkb_set_explicit_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_key_mod_map_t {
     pub keycode: xcb_keycode_t,
     pub mods:    u8,
-}
-
-impl Copy for xcb_xkb_key_mod_map_t {}
-impl Clone for xcb_xkb_key_mod_map_t {
-    fn clone(&self) -> xcb_xkb_key_mod_map_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_key_mod_map_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_key_mod_map_t")
-            .field("keycode", &self.keycode)
-            .field("mods", &self.mods)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -894,25 +664,12 @@ pub struct xcb_xkb_key_mod_map_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_key_v_mod_map_t {
     pub keycode: xcb_keycode_t,
     pub pad0:    u8,
     pub vmods:   u16,
-}
-
-impl Copy for xcb_xkb_key_v_mod_map_t {}
-impl Clone for xcb_xkb_key_v_mod_map_t {
-    fn clone(&self) -> xcb_xkb_key_v_mod_map_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_key_v_mod_map_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_key_v_mod_map_t")
-            .field("keycode", &self.keycode)
-            .field("pad0", &self.pad0)
-            .field("vmods", &self.vmods)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -923,25 +680,12 @@ pub struct xcb_xkb_key_v_mod_map_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_kt_set_map_entry_t {
     pub level:       u8,
     pub realMods:    u8,
     pub virtualMods: u16,
-}
-
-impl Copy for xcb_xkb_kt_set_map_entry_t {}
-impl Clone for xcb_xkb_kt_set_map_entry_t {
-    fn clone(&self) -> xcb_xkb_kt_set_map_entry_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_kt_set_map_entry_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_kt_set_map_entry_t")
-            .field("level", &self.level)
-            .field("realMods", &self.realMods)
-            .field("virtualMods", &self.virtualMods)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -952,6 +696,7 @@ pub struct xcb_xkb_kt_set_map_entry_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_key_type_t {
     pub mask:             u8,
@@ -961,19 +706,6 @@ pub struct xcb_xkb_set_key_type_t {
     pub nMapEntries:      u8,
     pub preserve:         u8,
     pub pad0:             u8,
-}
-impl ::std::fmt::Debug for xcb_xkb_set_key_type_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_key_type_t")
-            .field("mask", &self.mask)
-            .field("realMods", &self.realMods)
-            .field("virtualMods", &self.virtualMods)
-            .field("numLevels", &self.numLevels)
-            .field("nMapEntries", &self.nMapEntries)
-            .field("preserve", &self.preserve)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -995,20 +727,12 @@ pub struct xcb_xkb_string8_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_outline_t {
     pub nPoints:      u8,
     pub cornerRadius: u8,
     pub pad0:         [u8; 2],
-}
-impl ::std::fmt::Debug for xcb_xkb_outline_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_outline_t")
-            .field("nPoints", &self.nPoints)
-            .field("cornerRadius", &self.cornerRadius)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1020,6 +744,7 @@ pub struct xcb_xkb_outline_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_outline_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_shape_t {
     pub name:       xcb_atom_t,
@@ -1027,17 +752,6 @@ pub struct xcb_xkb_shape_t {
     pub primaryNdx: u8,
     pub approxNdx:  u8,
     pub pad0:       u8,
-}
-impl ::std::fmt::Debug for xcb_xkb_shape_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_shape_t")
-            .field("name", &self.name)
-            .field("nOutlines", &self.nOutlines)
-            .field("primaryNdx", &self.primaryNdx)
-            .field("approxNdx", &self.approxNdx)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1049,27 +763,13 @@ pub struct xcb_xkb_shape_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_shape_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_key_t {
     pub name:     [xcb_xkb_string8_t; 4],
     pub gap:      i16,
     pub shapeNdx: u8,
     pub colorNdx: u8,
-}
-
-impl Copy for xcb_xkb_key_t {}
-impl Clone for xcb_xkb_key_t {
-    fn clone(&self) -> xcb_xkb_key_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_key_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_key_t")
-            .field("name", &&self.name[..])
-            .field("gap", &self.gap)
-            .field("shapeNdx", &self.shapeNdx)
-            .field("colorNdx", &self.colorNdx)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1081,23 +781,11 @@ pub struct xcb_xkb_key_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_key_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_overlay_key_t {
     pub over:  [xcb_xkb_string8_t; 4],
     pub under: [xcb_xkb_string8_t; 4],
-}
-
-impl Copy for xcb_xkb_overlay_key_t {}
-impl Clone for xcb_xkb_overlay_key_t {
-    fn clone(&self) -> xcb_xkb_overlay_key_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_overlay_key_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_overlay_key_t")
-            .field("over", &&self.over[..])
-            .field("under", &&self.under[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1109,20 +797,12 @@ pub struct xcb_xkb_overlay_key_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_overlay_key_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_overlay_row_t {
     pub rowUnder: u8,
     pub nKeys:    u8,
     pub pad0:     [u8; 2],
-}
-impl ::std::fmt::Debug for xcb_xkb_overlay_row_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_overlay_row_t")
-            .field("rowUnder", &self.rowUnder)
-            .field("nKeys", &self.nKeys)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1134,20 +814,12 @@ pub struct xcb_xkb_overlay_row_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_overlay_row_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_overlay_t {
     pub name:  xcb_atom_t,
     pub nRows: u8,
     pub pad0:  [u8; 3],
-}
-impl ::std::fmt::Debug for xcb_xkb_overlay_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_overlay_t")
-            .field("name", &self.name)
-            .field("nRows", &self.nRows)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1159,6 +831,7 @@ pub struct xcb_xkb_overlay_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_overlay_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_row_t {
     pub top:      i16,
@@ -1166,17 +839,6 @@ pub struct xcb_xkb_row_t {
     pub nKeys:    u8,
     pub vertical: u8,
     pub pad0:     [u8; 2],
-}
-impl ::std::fmt::Debug for xcb_xkb_row_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_row_t")
-            .field("top", &self.top)
-            .field("left", &self.left)
-            .field("nKeys", &self.nKeys)
-            .field("vertical", &self.vertical)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1195,18 +857,11 @@ pub const XCB_XKB_DOODAD_TYPE_TEXT     : xcb_xkb_doodad_type_t = 0x03;
 pub const XCB_XKB_DOODAD_TYPE_INDICATOR: xcb_xkb_doodad_type_t = 0x04;
 pub const XCB_XKB_DOODAD_TYPE_LOGO     : xcb_xkb_doodad_type_t = 0x05;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_listing_t {
     pub flags:  u16,
     pub length: u16,
-}
-impl ::std::fmt::Debug for xcb_xkb_listing_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_listing_t")
-            .field("flags", &self.flags)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1218,6 +873,7 @@ pub struct xcb_xkb_listing_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_listing_t>,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_device_led_info_t {
     pub ledClass:       xcb_xkb_led_class_spec_t,
@@ -1226,18 +882,6 @@ pub struct xcb_xkb_device_led_info_t {
     pub mapsPresent:    u32,
     pub physIndicators: u32,
     pub state:          u32,
-}
-impl ::std::fmt::Debug for xcb_xkb_device_led_info_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_device_led_info_t")
-            .field("ledClass", &self.ledClass)
-            .field("ledID", &self.ledID)
-            .field("namesPresent", &self.namesPresent)
-            .field("mapsPresent", &self.mapsPresent)
-            .field("physIndicators", &self.physIndicators)
-            .field("state", &self.state)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1256,6 +900,7 @@ pub const XCB_XKB_ERROR_BAD_ID    : xcb_xkb_error_t = 0xfd;
 
 pub const XCB_XKB_KEYBOARD: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_keyboard_error_t {
     pub response_type: u8,
@@ -1265,24 +910,6 @@ pub struct xcb_xkb_keyboard_error_t {
     pub minorOpcode:   u16,
     pub majorOpcode:   u8,
     pub pad0:          [u8; 21],
-}
-
-impl Copy for xcb_xkb_keyboard_error_t {}
-impl Clone for xcb_xkb_keyboard_error_t {
-    fn clone(&self) -> xcb_xkb_keyboard_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_keyboard_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_keyboard_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .field("value", &self.value)
-            .field("minorOpcode", &self.minorOpcode)
-            .field("majorOpcode", &self.majorOpcode)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 pub type xcb_xkb_sa_t = u32;
@@ -1314,23 +941,11 @@ pub const XCB_XKB_SA_TYPE_DEVICE_BTN     : xcb_xkb_sa_type_t = 0x12;
 pub const XCB_XKB_SA_TYPE_LOCK_DEVICE_BTN: xcb_xkb_sa_type_t = 0x13;
 pub const XCB_XKB_SA_TYPE_DEVICE_VALUATOR: xcb_xkb_sa_type_t = 0x14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_no_action_t {
     pub type_: u8,
     pub pad0:  [u8; 7],
-}
-
-impl Copy for xcb_xkb_sa_no_action_t {}
-impl Clone for xcb_xkb_sa_no_action_t {
-    fn clone(&self) -> xcb_xkb_sa_no_action_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_no_action_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_no_action_t")
-            .field("type_", &self.type_)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1341,6 +956,7 @@ pub struct xcb_xkb_sa_no_action_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_set_mods_t {
     pub type_:     u8,
@@ -1352,24 +968,6 @@ pub struct xcb_xkb_sa_set_mods_t {
     pub pad0:      [u8; 2],
 }
 
-impl Copy for xcb_xkb_sa_set_mods_t {}
-impl Clone for xcb_xkb_sa_set_mods_t {
-    fn clone(&self) -> xcb_xkb_sa_set_mods_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_set_mods_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_set_mods_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("mask", &self.mask)
-            .field("realMods", &self.realMods)
-            .field("vmodsHigh", &self.vmodsHigh)
-            .field("vmodsLow", &self.vmodsLow)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_set_mods_iterator_t {
@@ -1378,6 +976,7 @@ pub struct xcb_xkb_sa_set_mods_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_latch_mods_t {
     pub type_:     u8,
@@ -1389,24 +988,6 @@ pub struct xcb_xkb_sa_latch_mods_t {
     pub pad0:      [u8; 2],
 }
 
-impl Copy for xcb_xkb_sa_latch_mods_t {}
-impl Clone for xcb_xkb_sa_latch_mods_t {
-    fn clone(&self) -> xcb_xkb_sa_latch_mods_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_latch_mods_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_latch_mods_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("mask", &self.mask)
-            .field("realMods", &self.realMods)
-            .field("vmodsHigh", &self.vmodsHigh)
-            .field("vmodsLow", &self.vmodsLow)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_latch_mods_iterator_t {
@@ -1415,6 +996,7 @@ pub struct xcb_xkb_sa_latch_mods_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_lock_mods_t {
     pub type_:     u8,
@@ -1426,24 +1008,6 @@ pub struct xcb_xkb_sa_lock_mods_t {
     pub pad0:      [u8; 2],
 }
 
-impl Copy for xcb_xkb_sa_lock_mods_t {}
-impl Clone for xcb_xkb_sa_lock_mods_t {
-    fn clone(&self) -> xcb_xkb_sa_lock_mods_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_lock_mods_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_lock_mods_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("mask", &self.mask)
-            .field("realMods", &self.realMods)
-            .field("vmodsHigh", &self.vmodsHigh)
-            .field("vmodsLow", &self.vmodsLow)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_lock_mods_iterator_t {
@@ -1452,27 +1016,13 @@ pub struct xcb_xkb_sa_lock_mods_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_set_group_t {
     pub type_: u8,
     pub flags: u8,
     pub group: i8,
     pub pad0:  [u8; 5],
-}
-
-impl Copy for xcb_xkb_sa_set_group_t {}
-impl Clone for xcb_xkb_sa_set_group_t {
-    fn clone(&self) -> xcb_xkb_sa_set_group_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_set_group_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_set_group_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("group", &self.group)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1483,27 +1033,13 @@ pub struct xcb_xkb_sa_set_group_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_latch_group_t {
     pub type_: u8,
     pub flags: u8,
     pub group: i8,
     pub pad0:  [u8; 5],
-}
-
-impl Copy for xcb_xkb_sa_latch_group_t {}
-impl Clone for xcb_xkb_sa_latch_group_t {
-    fn clone(&self) -> xcb_xkb_sa_latch_group_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_latch_group_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_latch_group_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("group", &self.group)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1514,27 +1050,13 @@ pub struct xcb_xkb_sa_latch_group_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_lock_group_t {
     pub type_: u8,
     pub flags: u8,
     pub group: i8,
     pub pad0:  [u8; 5],
-}
-
-impl Copy for xcb_xkb_sa_lock_group_t {}
-impl Clone for xcb_xkb_sa_lock_group_t {
-    fn clone(&self) -> xcb_xkb_sa_lock_group_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_lock_group_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_lock_group_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("group", &self.group)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1550,6 +1072,7 @@ pub const XCB_XKB_SA_MOVE_PTR_FLAG_NO_ACCELERATION: xcb_xkb_sa_move_ptr_flag_t =
 pub const XCB_XKB_SA_MOVE_PTR_FLAG_MOVE_ABSOLUTE_X: xcb_xkb_sa_move_ptr_flag_t = 0x02;
 pub const XCB_XKB_SA_MOVE_PTR_FLAG_MOVE_ABSOLUTE_Y: xcb_xkb_sa_move_ptr_flag_t = 0x04;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_move_ptr_t {
     pub type_: u8,
@@ -1561,24 +1084,6 @@ pub struct xcb_xkb_sa_move_ptr_t {
     pub pad0:  [u8; 2],
 }
 
-impl Copy for xcb_xkb_sa_move_ptr_t {}
-impl Clone for xcb_xkb_sa_move_ptr_t {
-    fn clone(&self) -> xcb_xkb_sa_move_ptr_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_move_ptr_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_move_ptr_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("xHigh", &self.xHigh)
-            .field("xLow", &self.xLow)
-            .field("yHigh", &self.yHigh)
-            .field("yLow", &self.yLow)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_move_ptr_iterator_t {
@@ -1587,6 +1092,7 @@ pub struct xcb_xkb_sa_move_ptr_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_ptr_btn_t {
     pub type_:  u8,
@@ -1594,22 +1100,6 @@ pub struct xcb_xkb_sa_ptr_btn_t {
     pub count:  u8,
     pub button: u8,
     pub pad0:   [u8; 4],
-}
-
-impl Copy for xcb_xkb_sa_ptr_btn_t {}
-impl Clone for xcb_xkb_sa_ptr_btn_t {
-    fn clone(&self) -> xcb_xkb_sa_ptr_btn_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_ptr_btn_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_ptr_btn_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("count", &self.count)
-            .field("button", &self.button)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1620,6 +1110,7 @@ pub struct xcb_xkb_sa_ptr_btn_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_lock_ptr_btn_t {
     pub type_:  u8,
@@ -1627,22 +1118,6 @@ pub struct xcb_xkb_sa_lock_ptr_btn_t {
     pub pad0:   u8,
     pub button: u8,
     pub pad1:   [u8; 4],
-}
-
-impl Copy for xcb_xkb_sa_lock_ptr_btn_t {}
-impl Clone for xcb_xkb_sa_lock_ptr_btn_t {
-    fn clone(&self) -> xcb_xkb_sa_lock_ptr_btn_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_lock_ptr_btn_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_lock_ptr_btn_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("pad0", &self.pad0)
-            .field("button", &self.button)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1657,6 +1132,7 @@ pub type xcb_xkb_sa_set_ptr_dflt_flag_t = u32;
 pub const XCB_XKB_SA_SET_PTR_DFLT_FLAG_DFLT_BTN_ABSOLUTE : xcb_xkb_sa_set_ptr_dflt_flag_t = 0x04;
 pub const XCB_XKB_SA_SET_PTR_DFLT_FLAG_AFFECT_DFLT_BUTTON: xcb_xkb_sa_set_ptr_dflt_flag_t = 0x01;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_set_ptr_dflt_t {
     pub type_:  u8,
@@ -1664,22 +1140,6 @@ pub struct xcb_xkb_sa_set_ptr_dflt_t {
     pub affect: u8,
     pub value:  i8,
     pub pad0:   [u8; 4],
-}
-
-impl Copy for xcb_xkb_sa_set_ptr_dflt_t {}
-impl Clone for xcb_xkb_sa_set_ptr_dflt_t {
-    fn clone(&self) -> xcb_xkb_sa_set_ptr_dflt_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_set_ptr_dflt_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_set_ptr_dflt_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("affect", &self.affect)
-            .field("value", &self.value)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1703,6 +1163,7 @@ pub const XCB_XKB_SA_ISO_LOCK_NO_AFFECT_PTR  : xcb_xkb_sa_iso_lock_no_affect_t =
 pub const XCB_XKB_SA_ISO_LOCK_NO_AFFECT_GROUP: xcb_xkb_sa_iso_lock_no_affect_t = 0x20;
 pub const XCB_XKB_SA_ISO_LOCK_NO_AFFECT_MODS : xcb_xkb_sa_iso_lock_no_affect_t = 0x40;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_iso_lock_t {
     pub type_:     u8,
@@ -1715,25 +1176,6 @@ pub struct xcb_xkb_sa_iso_lock_t {
     pub vmodsLow:  u8,
 }
 
-impl Copy for xcb_xkb_sa_iso_lock_t {}
-impl Clone for xcb_xkb_sa_iso_lock_t {
-    fn clone(&self) -> xcb_xkb_sa_iso_lock_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_iso_lock_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_iso_lock_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("mask", &self.mask)
-            .field("realMods", &self.realMods)
-            .field("group", &self.group)
-            .field("affect", &self.affect)
-            .field("vmodsHigh", &self.vmodsHigh)
-            .field("vmodsLow", &self.vmodsLow)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_iso_lock_iterator_t {
@@ -1742,23 +1184,11 @@ pub struct xcb_xkb_sa_iso_lock_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_terminate_t {
     pub type_: u8,
     pub pad0:  [u8; 7],
-}
-
-impl Copy for xcb_xkb_sa_terminate_t {}
-impl Clone for xcb_xkb_sa_terminate_t {
-    fn clone(&self) -> xcb_xkb_sa_terminate_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_terminate_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_terminate_t")
-            .field("type_", &self.type_)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1773,27 +1203,13 @@ pub type xcb_xkb_switch_screen_flag_t = u32;
 pub const XCB_XKB_SWITCH_SCREEN_FLAG_APPLICATION: xcb_xkb_switch_screen_flag_t = 0x01;
 pub const XCB_XKB_SWITCH_SCREEN_FLAG_ABSOLUTE   : xcb_xkb_switch_screen_flag_t = 0x04;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_switch_screen_t {
     pub type_:     u8,
     pub flags:     u8,
     pub newScreen: i8,
     pub pad0:      [u8; 5],
-}
-
-impl Copy for xcb_xkb_sa_switch_screen_t {}
-impl Clone for xcb_xkb_sa_switch_screen_t {
-    fn clone(&self) -> xcb_xkb_sa_switch_screen_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_switch_screen_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_switch_screen_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("newScreen", &self.newScreen)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1821,6 +1237,7 @@ pub const XCB_XKB_BOOL_CTRLS_LOW_MOUSE_KEYS_ACCEL: xcb_xkb_bool_ctrls_low_t = 0x
 pub const XCB_XKB_BOOL_CTRLS_LOW_ACCESS_X_KEYS   : xcb_xkb_bool_ctrls_low_t = 0x40;
 pub const XCB_XKB_BOOL_CTRLS_LOW_ACCESS_X_TIMEOUT: xcb_xkb_bool_ctrls_low_t = 0x80;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_set_controls_t {
     pub type_:         u8,
@@ -1828,22 +1245,6 @@ pub struct xcb_xkb_sa_set_controls_t {
     pub boolCtrlsHigh: u8,
     pub boolCtrlsLow:  u8,
     pub pad1:          [u8; 2],
-}
-
-impl Copy for xcb_xkb_sa_set_controls_t {}
-impl Clone for xcb_xkb_sa_set_controls_t {
-    fn clone(&self) -> xcb_xkb_sa_set_controls_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_set_controls_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_set_controls_t")
-            .field("type_", &self.type_)
-            .field("pad0", &&self.pad0[..])
-            .field("boolCtrlsHigh", &self.boolCtrlsHigh)
-            .field("boolCtrlsLow", &self.boolCtrlsLow)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1854,6 +1255,7 @@ pub struct xcb_xkb_sa_set_controls_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_lock_controls_t {
     pub type_:         u8,
@@ -1861,22 +1263,6 @@ pub struct xcb_xkb_sa_lock_controls_t {
     pub boolCtrlsHigh: u8,
     pub boolCtrlsLow:  u8,
     pub pad1:          [u8; 2],
-}
-
-impl Copy for xcb_xkb_sa_lock_controls_t {}
-impl Clone for xcb_xkb_sa_lock_controls_t {
-    fn clone(&self) -> xcb_xkb_sa_lock_controls_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_lock_controls_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_lock_controls_t")
-            .field("type_", &self.type_)
-            .field("pad0", &&self.pad0[..])
-            .field("boolCtrlsHigh", &self.boolCtrlsHigh)
-            .field("boolCtrlsLow", &self.boolCtrlsLow)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1892,25 +1278,12 @@ pub const XCB_XKB_ACTION_MESSAGE_FLAG_ON_PRESS     : xcb_xkb_action_message_flag
 pub const XCB_XKB_ACTION_MESSAGE_FLAG_ON_RELEASE   : xcb_xkb_action_message_flag_t = 0x02;
 pub const XCB_XKB_ACTION_MESSAGE_FLAG_GEN_KEY_EVENT: xcb_xkb_action_message_flag_t = 0x04;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_action_message_t {
     pub type_:   u8,
     pub flags:   u8,
     pub message: [u8; 6],
-}
-
-impl Copy for xcb_xkb_sa_action_message_t {}
-impl Clone for xcb_xkb_sa_action_message_t {
-    fn clone(&self) -> xcb_xkb_sa_action_message_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_action_message_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_action_message_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("message", &&self.message[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -1922,6 +1295,7 @@ pub struct xcb_xkb_sa_action_message_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_sa_action_message_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_redirect_key_t {
     pub type_:         u8,
@@ -1934,25 +1308,6 @@ pub struct xcb_xkb_sa_redirect_key_t {
     pub vmodsLow:      u8,
 }
 
-impl Copy for xcb_xkb_sa_redirect_key_t {}
-impl Clone for xcb_xkb_sa_redirect_key_t {
-    fn clone(&self) -> xcb_xkb_sa_redirect_key_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_redirect_key_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_redirect_key_t")
-            .field("type_", &self.type_)
-            .field("newkey", &self.newkey)
-            .field("mask", &self.mask)
-            .field("realModifiers", &self.realModifiers)
-            .field("vmodsMaskHigh", &self.vmodsMaskHigh)
-            .field("vmodsMaskLow", &self.vmodsMaskLow)
-            .field("vmodsHigh", &self.vmodsHigh)
-            .field("vmodsLow", &self.vmodsLow)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_redirect_key_iterator_t {
@@ -1961,6 +1316,7 @@ pub struct xcb_xkb_sa_redirect_key_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_device_btn_t {
     pub type_:  u8,
@@ -1969,23 +1325,6 @@ pub struct xcb_xkb_sa_device_btn_t {
     pub button: u8,
     pub device: u8,
     pub pad0:   [u8; 3],
-}
-
-impl Copy for xcb_xkb_sa_device_btn_t {}
-impl Clone for xcb_xkb_sa_device_btn_t {
-    fn clone(&self) -> xcb_xkb_sa_device_btn_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_device_btn_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_device_btn_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("count", &self.count)
-            .field("button", &self.button)
-            .field("device", &self.device)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2000,6 +1339,7 @@ pub type xcb_xkb_lock_device_flags_t = u32;
 pub const XCB_XKB_LOCK_DEVICE_FLAGS_NO_LOCK  : xcb_xkb_lock_device_flags_t = 0x01;
 pub const XCB_XKB_LOCK_DEVICE_FLAGS_NO_UNLOCK: xcb_xkb_lock_device_flags_t = 0x02;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_lock_device_btn_t {
     pub type_:  u8,
@@ -2008,23 +1348,6 @@ pub struct xcb_xkb_sa_lock_device_btn_t {
     pub button: u8,
     pub device: u8,
     pub pad1:   [u8; 3],
-}
-
-impl Copy for xcb_xkb_sa_lock_device_btn_t {}
-impl Clone for xcb_xkb_sa_lock_device_btn_t {
-    fn clone(&self) -> xcb_xkb_sa_lock_device_btn_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_lock_device_btn_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_lock_device_btn_t")
-            .field("type_", &self.type_)
-            .field("flags", &self.flags)
-            .field("pad0", &self.pad0)
-            .field("button", &self.button)
-            .field("device", &self.device)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2043,6 +1366,7 @@ pub const XCB_XKB_SA_VAL_WHAT_SET_VAL_MAX     : xcb_xkb_sa_val_what_t = 0x03;
 pub const XCB_XKB_SA_VAL_WHAT_SET_VAL_RELATIVE: xcb_xkb_sa_val_what_t = 0x04;
 pub const XCB_XKB_SA_VAL_WHAT_SET_VAL_ABSOLUTE: xcb_xkb_sa_val_what_t = 0x05;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sa_device_valuator_t {
     pub type_:     u8,
@@ -2055,25 +1379,6 @@ pub struct xcb_xkb_sa_device_valuator_t {
     pub val2value: u8,
 }
 
-impl Copy for xcb_xkb_sa_device_valuator_t {}
-impl Clone for xcb_xkb_sa_device_valuator_t {
-    fn clone(&self) -> xcb_xkb_sa_device_valuator_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sa_device_valuator_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sa_device_valuator_t")
-            .field("type_", &self.type_)
-            .field("device", &self.device)
-            .field("val1what", &self.val1what)
-            .field("val1index", &self.val1index)
-            .field("val1value", &self.val1value)
-            .field("val2what", &self.val2what)
-            .field("val2index", &self.val2index)
-            .field("val2value", &self.val2value)
-            .finish()
-    }
-}
-
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_device_valuator_iterator_t {
@@ -2082,23 +1387,11 @@ pub struct xcb_xkb_sa_device_valuator_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_si_action_t {
     pub type_: u8,
     pub data:  [u8; 7],
-}
-
-impl Copy for xcb_xkb_si_action_t {}
-impl Clone for xcb_xkb_si_action_t {
-    fn clone(&self) -> xcb_xkb_si_action_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_si_action_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_si_action_t")
-            .field("type_", &self.type_)
-            .field("data", &&self.data[..])
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2110,6 +1403,7 @@ pub struct xcb_xkb_si_action_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_xkb_si_action_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_sym_interpret_t {
     pub sym:        xcb_keysym_t,
@@ -2118,23 +1412,6 @@ pub struct xcb_xkb_sym_interpret_t {
     pub virtualMod: u8,
     pub flags:      u8,
     pub action:     xcb_xkb_si_action_t,
-}
-
-impl Copy for xcb_xkb_sym_interpret_t {}
-impl Clone for xcb_xkb_sym_interpret_t {
-    fn clone(&self) -> xcb_xkb_sym_interpret_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_sym_interpret_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_sym_interpret_t")
-            .field("sym", &self.sym)
-            .field("mods", &self.mods)
-            .field("match_", &self.match_)
-            .field("virtualMod", &self.virtualMod)
-            .field("flags", &self.flags)
-            .field("action", &self.action)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -2168,6 +1445,7 @@ pub struct xcb_xkb_action_iterator_t {
 
 pub const XCB_XKB_USE_EXTENSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_use_extension_request_t {
     pub major_opcode: u8,
@@ -2177,28 +1455,13 @@ pub struct xcb_xkb_use_extension_request_t {
     pub wantedMinor:  u16,
 }
 
-impl Copy for xcb_xkb_use_extension_request_t {}
-impl Clone for xcb_xkb_use_extension_request_t {
-    fn clone(&self) -> xcb_xkb_use_extension_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_use_extension_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_use_extension_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("wantedMajor", &self.wantedMajor)
-            .field("wantedMinor", &self.wantedMinor)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_use_extension_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_use_extension_reply_t {
     pub response_type: u8,
@@ -2210,24 +1473,7 @@ pub struct xcb_xkb_use_extension_reply_t {
     pub pad0:          [u8; 20],
 }
 
-impl Copy for xcb_xkb_use_extension_reply_t {}
-impl Clone for xcb_xkb_use_extension_reply_t {
-    fn clone(&self) -> xcb_xkb_use_extension_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_use_extension_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_use_extension_reply_t")
-            .field("response_type", &self.response_type)
-            .field("supported", &self.supported)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("serverMajor", &self.serverMajor)
-            .field("serverMinor", &self.serverMinor)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_select_events_details_t {
     pub affectNewKeyboard:     u16,
@@ -2253,37 +1499,10 @@ pub struct xcb_xkb_select_events_details_t {
     pub affectExtDev:          u16,
     pub extdevDetails:         u16,
 }
-impl ::std::fmt::Debug for xcb_xkb_select_events_details_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_select_events_details_t")
-            .field("affectNewKeyboard", &self.affectNewKeyboard)
-            .field("newKeyboardDetails", &self.newKeyboardDetails)
-            .field("affectState", &self.affectState)
-            .field("stateDetails", &self.stateDetails)
-            .field("affectCtrls", &self.affectCtrls)
-            .field("ctrlDetails", &self.ctrlDetails)
-            .field("affectIndicatorState", &self.affectIndicatorState)
-            .field("indicatorStateDetails", &self.indicatorStateDetails)
-            .field("affectIndicatorMap", &self.affectIndicatorMap)
-            .field("indicatorMapDetails", &self.indicatorMapDetails)
-            .field("affectNames", &self.affectNames)
-            .field("namesDetails", &self.namesDetails)
-            .field("affectCompat", &self.affectCompat)
-            .field("compatDetails", &self.compatDetails)
-            .field("affectBell", &self.affectBell)
-            .field("bellDetails", &self.bellDetails)
-            .field("affectMsgDetails", &self.affectMsgDetails)
-            .field("msgDetails", &self.msgDetails)
-            .field("affectAccessX", &self.affectAccessX)
-            .field("accessXDetails", &self.accessXDetails)
-            .field("affectExtDev", &self.affectExtDev)
-            .field("extdevDetails", &self.extdevDetails)
-            .finish()
-    }
-}
 
 pub const XCB_XKB_SELECT_EVENTS: u8 = 1;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_select_events_request_t {
     pub major_opcode: u8,
@@ -2296,24 +1515,10 @@ pub struct xcb_xkb_select_events_request_t {
     pub affectMap:    u16,
     pub map:          u16,
 }
-impl ::std::fmt::Debug for xcb_xkb_select_events_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_select_events_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("affectWhich", &self.affectWhich)
-            .field("clear", &self.clear)
-            .field("selectAll", &self.selectAll)
-            .field("affectMap", &self.affectMap)
-            .field("map", &self.map)
-            .finish()
-    }
-}
 
 pub const XCB_XKB_BELL: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_bell_request_t {
     pub major_opcode: u8,
@@ -2333,34 +1538,9 @@ pub struct xcb_xkb_bell_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_xkb_bell_request_t {}
-impl Clone for xcb_xkb_bell_request_t {
-    fn clone(&self) -> xcb_xkb_bell_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_bell_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_bell_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("bellClass", &self.bellClass)
-            .field("bellID", &self.bellID)
-            .field("percent", &self.percent)
-            .field("forceSound", &self.forceSound)
-            .field("eventOnly", &self.eventOnly)
-            .field("pad0", &self.pad0)
-            .field("pitch", &self.pitch)
-            .field("duration", &self.duration)
-            .field("pad1", &&self.pad1[..])
-            .field("name", &self.name)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_XKB_GET_STATE: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_state_request_t {
     pub major_opcode: u8,
@@ -2370,28 +1550,13 @@ pub struct xcb_xkb_get_state_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xkb_get_state_request_t {}
-impl Clone for xcb_xkb_get_state_request_t {
-    fn clone(&self) -> xcb_xkb_get_state_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_state_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_state_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_state_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_state_reply_t {
     pub response_type:    u8,
@@ -2416,39 +1581,9 @@ pub struct xcb_xkb_get_state_reply_t {
     pub pad1:             [u8; 6],
 }
 
-impl Copy for xcb_xkb_get_state_reply_t {}
-impl Clone for xcb_xkb_get_state_reply_t {
-    fn clone(&self) -> xcb_xkb_get_state_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_state_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_state_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("mods", &self.mods)
-            .field("baseMods", &self.baseMods)
-            .field("latchedMods", &self.latchedMods)
-            .field("lockedMods", &self.lockedMods)
-            .field("group", &self.group)
-            .field("lockedGroup", &self.lockedGroup)
-            .field("baseGroup", &self.baseGroup)
-            .field("latchedGroup", &self.latchedGroup)
-            .field("compatState", &self.compatState)
-            .field("grabMods", &self.grabMods)
-            .field("compatGrabMods", &self.compatGrabMods)
-            .field("lookupMods", &self.lookupMods)
-            .field("compatLookupMods", &self.compatLookupMods)
-            .field("pad0", &self.pad0)
-            .field("ptrBtnState", &self.ptrBtnState)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_LATCH_LOCK_STATE: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_latch_lock_state_request_t {
     pub major_opcode:     u8,
@@ -2466,32 +1601,9 @@ pub struct xcb_xkb_latch_lock_state_request_t {
     pub groupLatch:       u16,
 }
 
-impl Copy for xcb_xkb_latch_lock_state_request_t {}
-impl Clone for xcb_xkb_latch_lock_state_request_t {
-    fn clone(&self) -> xcb_xkb_latch_lock_state_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_latch_lock_state_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_latch_lock_state_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("affectModLocks", &self.affectModLocks)
-            .field("modLocks", &self.modLocks)
-            .field("lockGroup", &self.lockGroup)
-            .field("groupLock", &self.groupLock)
-            .field("affectModLatches", &self.affectModLatches)
-            .field("pad0", &self.pad0)
-            .field("pad1", &self.pad1)
-            .field("latchGroup", &self.latchGroup)
-            .field("groupLatch", &self.groupLatch)
-            .finish()
-    }
-}
-
 pub const XCB_XKB_GET_CONTROLS: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_controls_request_t {
     pub major_opcode: u8,
@@ -2501,28 +1613,13 @@ pub struct xcb_xkb_get_controls_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xkb_get_controls_request_t {}
-impl Clone for xcb_xkb_get_controls_request_t {
-    fn clone(&self) -> xcb_xkb_get_controls_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_controls_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_controls_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_controls_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_controls_reply_t {
     pub response_type:               u8,
@@ -2559,51 +1656,9 @@ pub struct xcb_xkb_get_controls_reply_t {
     pub perKeyRepeat:                [u8; 32],
 }
 
-impl Copy for xcb_xkb_get_controls_reply_t {}
-impl Clone for xcb_xkb_get_controls_reply_t {
-    fn clone(&self) -> xcb_xkb_get_controls_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_controls_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_controls_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("mouseKeysDfltBtn", &self.mouseKeysDfltBtn)
-            .field("numGroups", &self.numGroups)
-            .field("groupsWrap", &self.groupsWrap)
-            .field("internalModsMask", &self.internalModsMask)
-            .field("ignoreLockModsMask", &self.ignoreLockModsMask)
-            .field("internalModsRealMods", &self.internalModsRealMods)
-            .field("ignoreLockModsRealMods", &self.ignoreLockModsRealMods)
-            .field("pad0", &self.pad0)
-            .field("internalModsVmods", &self.internalModsVmods)
-            .field("ignoreLockModsVmods", &self.ignoreLockModsVmods)
-            .field("repeatDelay", &self.repeatDelay)
-            .field("repeatInterval", &self.repeatInterval)
-            .field("slowKeysDelay", &self.slowKeysDelay)
-            .field("debounceDelay", &self.debounceDelay)
-            .field("mouseKeysDelay", &self.mouseKeysDelay)
-            .field("mouseKeysInterval", &self.mouseKeysInterval)
-            .field("mouseKeysTimeToMax", &self.mouseKeysTimeToMax)
-            .field("mouseKeysMaxSpeed", &self.mouseKeysMaxSpeed)
-            .field("mouseKeysCurve", &self.mouseKeysCurve)
-            .field("accessXOption", &self.accessXOption)
-            .field("accessXTimeout", &self.accessXTimeout)
-            .field("accessXTimeoutOptionsMask", &self.accessXTimeoutOptionsMask)
-            .field("accessXTimeoutOptionsValues", &self.accessXTimeoutOptionsValues)
-            .field("pad1", &&self.pad1[..])
-            .field("accessXTimeoutMask", &self.accessXTimeoutMask)
-            .field("accessXTimeoutValues", &self.accessXTimeoutValues)
-            .field("enabledControls", &self.enabledControls)
-            .field("perKeyRepeat", &&self.perKeyRepeat[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_SET_CONTROLS: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_controls_request_t {
     pub major_opcode:                u8,
@@ -2642,53 +1697,9 @@ pub struct xcb_xkb_set_controls_request_t {
     pub perKeyRepeat:                [u8; 32],
 }
 
-impl Copy for xcb_xkb_set_controls_request_t {}
-impl Clone for xcb_xkb_set_controls_request_t {
-    fn clone(&self) -> xcb_xkb_set_controls_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_set_controls_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_controls_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("affectInternalRealMods", &self.affectInternalRealMods)
-            .field("internalRealMods", &self.internalRealMods)
-            .field("affectIgnoreLockRealMods", &self.affectIgnoreLockRealMods)
-            .field("ignoreLockRealMods", &self.ignoreLockRealMods)
-            .field("affectInternalVirtualMods", &self.affectInternalVirtualMods)
-            .field("internalVirtualMods", &self.internalVirtualMods)
-            .field("affectIgnoreLockVirtualMods", &self.affectIgnoreLockVirtualMods)
-            .field("ignoreLockVirtualMods", &self.ignoreLockVirtualMods)
-            .field("mouseKeysDfltBtn", &self.mouseKeysDfltBtn)
-            .field("groupsWrap", &self.groupsWrap)
-            .field("accessXOptions", &self.accessXOptions)
-            .field("pad0", &&self.pad0[..])
-            .field("affectEnabledControls", &self.affectEnabledControls)
-            .field("enabledControls", &self.enabledControls)
-            .field("changeControls", &self.changeControls)
-            .field("repeatDelay", &self.repeatDelay)
-            .field("repeatInterval", &self.repeatInterval)
-            .field("slowKeysDelay", &self.slowKeysDelay)
-            .field("debounceDelay", &self.debounceDelay)
-            .field("mouseKeysDelay", &self.mouseKeysDelay)
-            .field("mouseKeysInterval", &self.mouseKeysInterval)
-            .field("mouseKeysTimeToMax", &self.mouseKeysTimeToMax)
-            .field("mouseKeysMaxSpeed", &self.mouseKeysMaxSpeed)
-            .field("mouseKeysCurve", &self.mouseKeysCurve)
-            .field("accessXTimeout", &self.accessXTimeout)
-            .field("accessXTimeoutMask", &self.accessXTimeoutMask)
-            .field("accessXTimeoutValues", &self.accessXTimeoutValues)
-            .field("accessXTimeoutOptionsMask", &self.accessXTimeoutOptionsMask)
-            .field("accessXTimeoutOptionsValues", &self.accessXTimeoutOptionsValues)
-            .field("perKeyRepeat", &&self.perKeyRepeat[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_GET_MAP: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_map_request_t {
     pub major_opcode:     u8,
@@ -2715,45 +1726,13 @@ pub struct xcb_xkb_get_map_request_t {
     pub pad0:             [u8; 2],
 }
 
-impl Copy for xcb_xkb_get_map_request_t {}
-impl Clone for xcb_xkb_get_map_request_t {
-    fn clone(&self) -> xcb_xkb_get_map_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_map_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_map_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("full", &self.full)
-            .field("partial", &self.partial)
-            .field("firstType", &self.firstType)
-            .field("nTypes", &self.nTypes)
-            .field("firstKeySym", &self.firstKeySym)
-            .field("nKeySyms", &self.nKeySyms)
-            .field("firstKeyAction", &self.firstKeyAction)
-            .field("nKeyActions", &self.nKeyActions)
-            .field("firstKeyBehavior", &self.firstKeyBehavior)
-            .field("nKeyBehaviors", &self.nKeyBehaviors)
-            .field("virtualMods", &self.virtualMods)
-            .field("firstKeyExplicit", &self.firstKeyExplicit)
-            .field("nKeyExplicit", &self.nKeyExplicit)
-            .field("firstModMapKey", &self.firstModMapKey)
-            .field("nModMapKeys", &self.nModMapKeys)
-            .field("firstVModMapKey", &self.firstVModMapKey)
-            .field("nVModMapKeys", &self.nVModMapKeys)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_map_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_map_map_t {
     pub types_rtrn:      *mut xcb_xkb_key_type_t,
@@ -2770,26 +1749,8 @@ pub struct xcb_xkb_get_map_map_t {
     pub pad5:            *mut u8,
     pub vmodmap_rtrn:    *mut xcb_xkb_key_v_mod_map_t,
 }
-impl ::std::fmt::Debug for xcb_xkb_get_map_map_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_map_map_t")
-            .field("types_rtrn", &self.types_rtrn)
-            .field("syms_rtrn", &self.syms_rtrn)
-            .field("acts_rtrn_count", &self.acts_rtrn_count)
-            .field("pad2", &self.pad2)
-            .field("acts_rtrn_acts", &self.acts_rtrn_acts)
-            .field("behaviors_rtrn", &self.behaviors_rtrn)
-            .field("vmods_rtrn", &self.vmods_rtrn)
-            .field("pad3", &self.pad3)
-            .field("explicit_rtrn", &self.explicit_rtrn)
-            .field("pad4", &self.pad4)
-            .field("modmap_rtrn", &self.modmap_rtrn)
-            .field("pad5", &self.pad5)
-            .field("vmodmap_rtrn", &self.vmodmap_rtrn)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_map_reply_t {
     pub response_type:     u8,
@@ -2824,44 +1785,8 @@ pub struct xcb_xkb_get_map_reply_t {
     pub pad1:              u8,
     pub virtualMods:       u16,
 }
-impl ::std::fmt::Debug for xcb_xkb_get_map_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_map_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("pad0", &&self.pad0[..])
-            .field("minKeyCode", &self.minKeyCode)
-            .field("maxKeyCode", &self.maxKeyCode)
-            .field("present", &self.present)
-            .field("firstType", &self.firstType)
-            .field("nTypes", &self.nTypes)
-            .field("totalTypes", &self.totalTypes)
-            .field("firstKeySym", &self.firstKeySym)
-            .field("totalSyms", &self.totalSyms)
-            .field("nKeySyms", &self.nKeySyms)
-            .field("firstKeyAction", &self.firstKeyAction)
-            .field("totalActions", &self.totalActions)
-            .field("nKeyActions", &self.nKeyActions)
-            .field("firstKeyBehavior", &self.firstKeyBehavior)
-            .field("nKeyBehaviors", &self.nKeyBehaviors)
-            .field("totalKeyBehaviors", &self.totalKeyBehaviors)
-            .field("firstKeyExplicit", &self.firstKeyExplicit)
-            .field("nKeyExplicit", &self.nKeyExplicit)
-            .field("totalKeyExplicit", &self.totalKeyExplicit)
-            .field("firstModMapKey", &self.firstModMapKey)
-            .field("nModMapKeys", &self.nModMapKeys)
-            .field("totalModMapKeys", &self.totalModMapKeys)
-            .field("firstVModMapKey", &self.firstVModMapKey)
-            .field("nVModMapKeys", &self.nVModMapKeys)
-            .field("totalVModMapKeys", &self.totalVModMapKeys)
-            .field("pad1", &self.pad1)
-            .field("virtualMods", &self.virtualMods)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_map_values_t {
     pub types:        *mut xcb_xkb_set_key_type_t,
@@ -2874,24 +1799,10 @@ pub struct xcb_xkb_set_map_values_t {
     pub modmap:       *mut xcb_xkb_key_mod_map_t,
     pub vmodmap:      *mut xcb_xkb_key_v_mod_map_t,
 }
-impl ::std::fmt::Debug for xcb_xkb_set_map_values_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_map_values_t")
-            .field("types", &self.types)
-            .field("syms", &self.syms)
-            .field("actionsCount", &self.actionsCount)
-            .field("actions", &self.actions)
-            .field("behaviors", &self.behaviors)
-            .field("vmods", &self.vmods)
-            .field("explicit", &self.explicit)
-            .field("modmap", &self.modmap)
-            .field("vmodmap", &self.vmodmap)
-            .finish()
-    }
-}
 
 pub const XCB_XKB_SET_MAP: u8 = 9;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_map_request_t {
     pub major_opcode:      u8,
@@ -2924,44 +1835,10 @@ pub struct xcb_xkb_set_map_request_t {
     pub totalVModMapKeys:  u8,
     pub virtualMods:       u16,
 }
-impl ::std::fmt::Debug for xcb_xkb_set_map_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_map_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("present", &self.present)
-            .field("flags", &self.flags)
-            .field("minKeyCode", &self.minKeyCode)
-            .field("maxKeyCode", &self.maxKeyCode)
-            .field("firstType", &self.firstType)
-            .field("nTypes", &self.nTypes)
-            .field("firstKeySym", &self.firstKeySym)
-            .field("nKeySyms", &self.nKeySyms)
-            .field("totalSyms", &self.totalSyms)
-            .field("firstKeyAction", &self.firstKeyAction)
-            .field("nKeyActions", &self.nKeyActions)
-            .field("totalActions", &self.totalActions)
-            .field("firstKeyBehavior", &self.firstKeyBehavior)
-            .field("nKeyBehaviors", &self.nKeyBehaviors)
-            .field("totalKeyBehaviors", &self.totalKeyBehaviors)
-            .field("firstKeyExplicit", &self.firstKeyExplicit)
-            .field("nKeyExplicit", &self.nKeyExplicit)
-            .field("totalKeyExplicit", &self.totalKeyExplicit)
-            .field("firstModMapKey", &self.firstModMapKey)
-            .field("nModMapKeys", &self.nModMapKeys)
-            .field("totalModMapKeys", &self.totalModMapKeys)
-            .field("firstVModMapKey", &self.firstVModMapKey)
-            .field("nVModMapKeys", &self.nVModMapKeys)
-            .field("totalVModMapKeys", &self.totalVModMapKeys)
-            .field("virtualMods", &self.virtualMods)
-            .finish()
-    }
-}
 
 pub const XCB_XKB_GET_COMPAT_MAP: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_compat_map_request_t {
     pub major_opcode: u8,
@@ -2974,31 +1851,13 @@ pub struct xcb_xkb_get_compat_map_request_t {
     pub nSI:          u16,
 }
 
-impl Copy for xcb_xkb_get_compat_map_request_t {}
-impl Clone for xcb_xkb_get_compat_map_request_t {
-    fn clone(&self) -> xcb_xkb_get_compat_map_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_compat_map_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_compat_map_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("groups", &self.groups)
-            .field("getAllSI", &self.getAllSI)
-            .field("firstSI", &self.firstSI)
-            .field("nSI", &self.nSI)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_compat_map_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_compat_map_reply_t {
     pub response_type: u8,
@@ -3012,25 +1871,10 @@ pub struct xcb_xkb_get_compat_map_reply_t {
     pub nTotalSI:      u16,
     pub pad1:          [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_xkb_get_compat_map_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_compat_map_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("groupsRtrn", &self.groupsRtrn)
-            .field("pad0", &self.pad0)
-            .field("firstSIRtrn", &self.firstSIRtrn)
-            .field("nSIRtrn", &self.nSIRtrn)
-            .field("nTotalSI", &self.nTotalSI)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XKB_SET_COMPAT_MAP: u8 = 11;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_compat_map_request_t {
     pub major_opcode:     u8,
@@ -3045,26 +1889,10 @@ pub struct xcb_xkb_set_compat_map_request_t {
     pub nSI:              u16,
     pub pad1:             [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_xkb_set_compat_map_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_compat_map_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("pad0", &self.pad0)
-            .field("recomputeActions", &self.recomputeActions)
-            .field("truncateSI", &self.truncateSI)
-            .field("groups", &self.groups)
-            .field("firstSI", &self.firstSI)
-            .field("nSI", &self.nSI)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_XKB_GET_INDICATOR_STATE: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_indicator_state_request_t {
     pub major_opcode: u8,
@@ -3074,28 +1902,13 @@ pub struct xcb_xkb_get_indicator_state_request_t {
     pub pad0:         [u8; 2],
 }
 
-impl Copy for xcb_xkb_get_indicator_state_request_t {}
-impl Clone for xcb_xkb_get_indicator_state_request_t {
-    fn clone(&self) -> xcb_xkb_get_indicator_state_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_indicator_state_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_indicator_state_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_indicator_state_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_indicator_state_reply_t {
     pub response_type: u8,
@@ -3106,25 +1919,9 @@ pub struct xcb_xkb_get_indicator_state_reply_t {
     pub pad0:          [u8; 20],
 }
 
-impl Copy for xcb_xkb_get_indicator_state_reply_t {}
-impl Clone for xcb_xkb_get_indicator_state_reply_t {
-    fn clone(&self) -> xcb_xkb_get_indicator_state_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_indicator_state_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_indicator_state_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("state", &self.state)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_GET_INDICATOR_MAP: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_indicator_map_request_t {
     pub major_opcode: u8,
@@ -3135,29 +1932,13 @@ pub struct xcb_xkb_get_indicator_map_request_t {
     pub which:        u32,
 }
 
-impl Copy for xcb_xkb_get_indicator_map_request_t {}
-impl Clone for xcb_xkb_get_indicator_map_request_t {
-    fn clone(&self) -> xcb_xkb_get_indicator_map_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_indicator_map_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_indicator_map_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("pad0", &&self.pad0[..])
-            .field("which", &self.which)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_indicator_map_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_indicator_map_reply_t {
     pub response_type:  u8,
@@ -3169,23 +1950,10 @@ pub struct xcb_xkb_get_indicator_map_reply_t {
     pub nIndicators:    u8,
     pub pad0:           [u8; 15],
 }
-impl ::std::fmt::Debug for xcb_xkb_get_indicator_map_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_indicator_map_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("which", &self.which)
-            .field("realIndicators", &self.realIndicators)
-            .field("nIndicators", &self.nIndicators)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_XKB_SET_INDICATOR_MAP: u8 = 14;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_indicator_map_request_t {
     pub major_opcode: u8,
@@ -3195,21 +1963,10 @@ pub struct xcb_xkb_set_indicator_map_request_t {
     pub pad0:         [u8; 2],
     pub which:        u32,
 }
-impl ::std::fmt::Debug for xcb_xkb_set_indicator_map_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_indicator_map_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("pad0", &&self.pad0[..])
-            .field("which", &self.which)
-            .finish()
-    }
-}
 
 pub const XCB_XKB_GET_NAMED_INDICATOR: u8 = 15;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_named_indicator_request_t {
     pub major_opcode: u8,
@@ -3222,31 +1979,13 @@ pub struct xcb_xkb_get_named_indicator_request_t {
     pub indicator:    xcb_atom_t,
 }
 
-impl Copy for xcb_xkb_get_named_indicator_request_t {}
-impl Clone for xcb_xkb_get_named_indicator_request_t {
-    fn clone(&self) -> xcb_xkb_get_named_indicator_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_named_indicator_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_named_indicator_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("ledClass", &self.ledClass)
-            .field("ledID", &self.ledID)
-            .field("pad0", &&self.pad0[..])
-            .field("indicator", &self.indicator)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_named_indicator_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_named_indicator_reply_t {
     pub response_type:   u8,
@@ -3270,38 +2009,9 @@ pub struct xcb_xkb_get_named_indicator_reply_t {
     pub pad0:            [u8; 3],
 }
 
-impl Copy for xcb_xkb_get_named_indicator_reply_t {}
-impl Clone for xcb_xkb_get_named_indicator_reply_t {
-    fn clone(&self) -> xcb_xkb_get_named_indicator_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_named_indicator_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_named_indicator_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("indicator", &self.indicator)
-            .field("found", &self.found)
-            .field("on", &self.on)
-            .field("realIndicator", &self.realIndicator)
-            .field("ndx", &self.ndx)
-            .field("map_flags", &self.map_flags)
-            .field("map_whichGroups", &self.map_whichGroups)
-            .field("map_groups", &self.map_groups)
-            .field("map_whichMods", &self.map_whichMods)
-            .field("map_mods", &self.map_mods)
-            .field("map_realMods", &self.map_realMods)
-            .field("map_vmod", &self.map_vmod)
-            .field("map_ctrls", &self.map_ctrls)
-            .field("supported", &self.supported)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_SET_NAMED_INDICATOR: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_named_indicator_request_t {
     pub major_opcode:    u8,
@@ -3326,39 +2036,9 @@ pub struct xcb_xkb_set_named_indicator_request_t {
     pub map_ctrls:       u32,
 }
 
-impl Copy for xcb_xkb_set_named_indicator_request_t {}
-impl Clone for xcb_xkb_set_named_indicator_request_t {
-    fn clone(&self) -> xcb_xkb_set_named_indicator_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_set_named_indicator_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_named_indicator_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("ledClass", &self.ledClass)
-            .field("ledID", &self.ledID)
-            .field("pad0", &&self.pad0[..])
-            .field("indicator", &self.indicator)
-            .field("setState", &self.setState)
-            .field("on", &self.on)
-            .field("setMap", &self.setMap)
-            .field("createMap", &self.createMap)
-            .field("pad1", &self.pad1)
-            .field("map_flags", &self.map_flags)
-            .field("map_whichGroups", &self.map_whichGroups)
-            .field("map_groups", &self.map_groups)
-            .field("map_whichMods", &self.map_whichMods)
-            .field("map_realMods", &self.map_realMods)
-            .field("map_vmods", &self.map_vmods)
-            .field("map_ctrls", &self.map_ctrls)
-            .finish()
-    }
-}
-
 pub const XCB_XKB_GET_NAMES: u8 = 17;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_names_request_t {
     pub major_opcode: u8,
@@ -3369,29 +2049,13 @@ pub struct xcb_xkb_get_names_request_t {
     pub which:        u32,
 }
 
-impl Copy for xcb_xkb_get_names_request_t {}
-impl Clone for xcb_xkb_get_names_request_t {
-    fn clone(&self) -> xcb_xkb_get_names_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_names_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_names_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("pad0", &&self.pad0[..])
-            .field("which", &self.which)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_names_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_names_value_list_t {
     pub keycodesName:    xcb_atom_t,
@@ -3411,29 +2075,8 @@ pub struct xcb_xkb_get_names_value_list_t {
     pub keyAliases:      *mut xcb_xkb_key_alias_t,
     pub radioGroupNames: *mut xcb_atom_t,
 }
-impl ::std::fmt::Debug for xcb_xkb_get_names_value_list_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_names_value_list_t")
-            .field("keycodesName", &self.keycodesName)
-            .field("geometryName", &self.geometryName)
-            .field("symbolsName", &self.symbolsName)
-            .field("physSymbolsName", &self.physSymbolsName)
-            .field("typesName", &self.typesName)
-            .field("compatName", &self.compatName)
-            .field("typeNames", &self.typeNames)
-            .field("nLevelsPerType", &self.nLevelsPerType)
-            .field("alignment_pad", &self.alignment_pad)
-            .field("ktLevelNames", &self.ktLevelNames)
-            .field("indicatorNames", &self.indicatorNames)
-            .field("virtualModNames", &self.virtualModNames)
-            .field("groups", &self.groups)
-            .field("keyNames", &self.keyNames)
-            .field("keyAliases", &self.keyAliases)
-            .field("radioGroupNames", &self.radioGroupNames)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_names_reply_t {
     pub response_type: u8,
@@ -3454,30 +2097,8 @@ pub struct xcb_xkb_get_names_reply_t {
     pub nKTLevels:     u16,
     pub pad0:          [u8; 4],
 }
-impl ::std::fmt::Debug for xcb_xkb_get_names_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_names_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("which", &self.which)
-            .field("minKeyCode", &self.minKeyCode)
-            .field("maxKeyCode", &self.maxKeyCode)
-            .field("nTypes", &self.nTypes)
-            .field("groupNames", &self.groupNames)
-            .field("virtualMods", &self.virtualMods)
-            .field("firstKey", &self.firstKey)
-            .field("nKeys", &self.nKeys)
-            .field("indicators", &self.indicators)
-            .field("nRadioGroups", &self.nRadioGroups)
-            .field("nKeyAliases", &self.nKeyAliases)
-            .field("nKTLevels", &self.nKTLevels)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_names_values_t {
     pub keycodesName:    xcb_atom_t,
@@ -3496,30 +2117,10 @@ pub struct xcb_xkb_set_names_values_t {
     pub keyAliases:      *mut xcb_xkb_key_alias_t,
     pub radioGroupNames: *mut xcb_atom_t,
 }
-impl ::std::fmt::Debug for xcb_xkb_set_names_values_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_names_values_t")
-            .field("keycodesName", &self.keycodesName)
-            .field("geometryName", &self.geometryName)
-            .field("symbolsName", &self.symbolsName)
-            .field("physSymbolsName", &self.physSymbolsName)
-            .field("typesName", &self.typesName)
-            .field("compatName", &self.compatName)
-            .field("typeNames", &self.typeNames)
-            .field("nLevelsPerType", &self.nLevelsPerType)
-            .field("ktLevelNames", &self.ktLevelNames)
-            .field("indicatorNames", &self.indicatorNames)
-            .field("virtualModNames", &self.virtualModNames)
-            .field("groups", &self.groups)
-            .field("keyNames", &self.keyNames)
-            .field("keyAliases", &self.keyAliases)
-            .field("radioGroupNames", &self.radioGroupNames)
-            .finish()
-    }
-}
 
 pub const XCB_XKB_SET_NAMES: u8 = 18;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_names_request_t {
     pub major_opcode:      u8,
@@ -3541,33 +2142,10 @@ pub struct xcb_xkb_set_names_request_t {
     pub pad0:              u8,
     pub totalKTLevelNames: u16,
 }
-impl ::std::fmt::Debug for xcb_xkb_set_names_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_names_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("virtualMods", &self.virtualMods)
-            .field("which", &self.which)
-            .field("firstType", &self.firstType)
-            .field("nTypes", &self.nTypes)
-            .field("firstKTLevelt", &self.firstKTLevelt)
-            .field("nKTLevels", &self.nKTLevels)
-            .field("indicators", &self.indicators)
-            .field("groupNames", &self.groupNames)
-            .field("nRadioGroups", &self.nRadioGroups)
-            .field("firstKey", &self.firstKey)
-            .field("nKeys", &self.nKeys)
-            .field("nKeyAliases", &self.nKeyAliases)
-            .field("pad0", &self.pad0)
-            .field("totalKTLevelNames", &self.totalKTLevelNames)
-            .finish()
-    }
-}
 
 pub const XCB_XKB_PER_CLIENT_FLAGS: u8 = 21;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_per_client_flags_request_t {
     pub major_opcode:    u8,
@@ -3582,33 +2160,13 @@ pub struct xcb_xkb_per_client_flags_request_t {
     pub autoCtrlsValues: u32,
 }
 
-impl Copy for xcb_xkb_per_client_flags_request_t {}
-impl Clone for xcb_xkb_per_client_flags_request_t {
-    fn clone(&self) -> xcb_xkb_per_client_flags_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_per_client_flags_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_per_client_flags_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("pad0", &&self.pad0[..])
-            .field("change", &self.change)
-            .field("value", &self.value)
-            .field("ctrlsToChange", &self.ctrlsToChange)
-            .field("autoCtrls", &self.autoCtrls)
-            .field("autoCtrlsValues", &self.autoCtrlsValues)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_per_client_flags_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_per_client_flags_reply_t {
     pub response_type:   u8,
@@ -3622,28 +2180,9 @@ pub struct xcb_xkb_per_client_flags_reply_t {
     pub pad0:            [u8; 8],
 }
 
-impl Copy for xcb_xkb_per_client_flags_reply_t {}
-impl Clone for xcb_xkb_per_client_flags_reply_t {
-    fn clone(&self) -> xcb_xkb_per_client_flags_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_per_client_flags_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_per_client_flags_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("supported", &self.supported)
-            .field("value", &self.value)
-            .field("autoCtrls", &self.autoCtrls)
-            .field("autoCtrlsValues", &self.autoCtrlsValues)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_LIST_COMPONENTS: u8 = 22;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_list_components_request_t {
     pub major_opcode: u8,
@@ -3653,28 +2192,13 @@ pub struct xcb_xkb_list_components_request_t {
     pub maxNames:     u16,
 }
 
-impl Copy for xcb_xkb_list_components_request_t {}
-impl Clone for xcb_xkb_list_components_request_t {
-    fn clone(&self) -> xcb_xkb_list_components_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_list_components_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_list_components_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("maxNames", &self.maxNames)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_list_components_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_list_components_reply_t {
     pub response_type: u8,
@@ -3690,27 +2214,10 @@ pub struct xcb_xkb_list_components_reply_t {
     pub extra:         u16,
     pub pad0:          [u8; 10],
 }
-impl ::std::fmt::Debug for xcb_xkb_list_components_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_list_components_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("nKeymaps", &self.nKeymaps)
-            .field("nKeycodes", &self.nKeycodes)
-            .field("nTypes", &self.nTypes)
-            .field("nCompatMaps", &self.nCompatMaps)
-            .field("nSymbols", &self.nSymbols)
-            .field("nGeometries", &self.nGeometries)
-            .field("extra", &self.extra)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_XKB_GET_KBD_BY_NAME: u8 = 23;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_kbd_by_name_request_t {
     pub major_opcode: u8,
@@ -3723,31 +2230,13 @@ pub struct xcb_xkb_get_kbd_by_name_request_t {
     pub pad0:         u8,
 }
 
-impl Copy for xcb_xkb_get_kbd_by_name_request_t {}
-impl Clone for xcb_xkb_get_kbd_by_name_request_t {
-    fn clone(&self) -> xcb_xkb_get_kbd_by_name_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_kbd_by_name_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_kbd_by_name_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("need", &self.need)
-            .field("want", &self.want)
-            .field("load", &self.load)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_kbd_by_name_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_kbd_by_name_replies_t {
     pub types:          _xcb_xkb_get_kbd_by_name_replies__types,
@@ -3756,18 +2245,8 @@ pub struct xcb_xkb_get_kbd_by_name_replies_t {
     pub key_names:      _xcb_xkb_get_kbd_by_name_replies__key_names,
     pub geometry:       _xcb_xkb_get_kbd_by_name_replies__geometry,
 }
-impl ::std::fmt::Debug for xcb_xkb_get_kbd_by_name_replies_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_kbd_by_name_replies_t")
-            .field("types", &self.types)
-            .field("compat_map", &self.compat_map)
-            .field("indicator_maps", &self.indicator_maps)
-            .field("key_names", &self.key_names)
-            .field("geometry", &self.geometry)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct _xcb_xkb_get_kbd_by_name_replies__types {
     pub getmap_type:       u8,
@@ -3803,45 +2282,8 @@ pub struct _xcb_xkb_get_kbd_by_name_replies__types {
     pub virtualMods:       u16,
     pub map:               xcb_xkb_get_kbd_by_name_replies_types_map_t,
 }
-impl ::std::fmt::Debug for _xcb_xkb_get_kbd_by_name_replies__types {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("_xcb_xkb_get_kbd_by_name_replies__types")
-            .field("getmap_type", &self.getmap_type)
-            .field("typeDeviceID", &self.typeDeviceID)
-            .field("getmap_sequence", &self.getmap_sequence)
-            .field("getmap_length", &self.getmap_length)
-            .field("pad1", &&self.pad1[..])
-            .field("typeMinKeyCode", &self.typeMinKeyCode)
-            .field("typeMaxKeyCode", &self.typeMaxKeyCode)
-            .field("present", &self.present)
-            .field("firstType", &self.firstType)
-            .field("nTypes", &self.nTypes)
-            .field("totalTypes", &self.totalTypes)
-            .field("firstKeySym", &self.firstKeySym)
-            .field("totalSyms", &self.totalSyms)
-            .field("nKeySyms", &self.nKeySyms)
-            .field("firstKeyAction", &self.firstKeyAction)
-            .field("totalActions", &self.totalActions)
-            .field("nKeyActions", &self.nKeyActions)
-            .field("firstKeyBehavior", &self.firstKeyBehavior)
-            .field("nKeyBehaviors", &self.nKeyBehaviors)
-            .field("totalKeyBehaviors", &self.totalKeyBehaviors)
-            .field("firstKeyExplicit", &self.firstKeyExplicit)
-            .field("nKeyExplicit", &self.nKeyExplicit)
-            .field("totalKeyExplicit", &self.totalKeyExplicit)
-            .field("firstModMapKey", &self.firstModMapKey)
-            .field("nModMapKeys", &self.nModMapKeys)
-            .field("totalModMapKeys", &self.totalModMapKeys)
-            .field("firstVModMapKey", &self.firstVModMapKey)
-            .field("nVModMapKeys", &self.nVModMapKeys)
-            .field("totalVModMapKeys", &self.totalVModMapKeys)
-            .field("pad2", &self.pad2)
-            .field("virtualMods", &self.virtualMods)
-            .field("map", &self.map)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct _xcb_xkb_get_kbd_by_name_replies__compat_map {
     pub compatmap_type:     u8,
@@ -3857,25 +2299,8 @@ pub struct _xcb_xkb_get_kbd_by_name_replies__compat_map {
     pub si_rtrn:            *mut xcb_xkb_sym_interpret_t,
     pub group_rtrn:         *mut xcb_xkb_mod_def_t,
 }
-impl ::std::fmt::Debug for _xcb_xkb_get_kbd_by_name_replies__compat_map {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("_xcb_xkb_get_kbd_by_name_replies__compat_map")
-            .field("compatmap_type", &self.compatmap_type)
-            .field("compatDeviceID", &self.compatDeviceID)
-            .field("compatmap_sequence", &self.compatmap_sequence)
-            .field("compatmap_length", &self.compatmap_length)
-            .field("groupsRtrn", &self.groupsRtrn)
-            .field("pad3", &self.pad3)
-            .field("firstSIRtrn", &self.firstSIRtrn)
-            .field("nSIRtrn", &self.nSIRtrn)
-            .field("nTotalSI", &self.nTotalSI)
-            .field("pad4", &&self.pad4[..])
-            .field("si_rtrn", &self.si_rtrn)
-            .field("group_rtrn", &self.group_rtrn)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct _xcb_xkb_get_kbd_by_name_replies__indicator_maps {
     pub indicatormap_type:     u8,
@@ -3888,22 +2313,8 @@ pub struct _xcb_xkb_get_kbd_by_name_replies__indicator_maps {
     pub pad5:                  [u8; 15],
     pub maps:                  *mut xcb_xkb_indicator_map_t,
 }
-impl ::std::fmt::Debug for _xcb_xkb_get_kbd_by_name_replies__indicator_maps {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("_xcb_xkb_get_kbd_by_name_replies__indicator_maps")
-            .field("indicatormap_type", &self.indicatormap_type)
-            .field("indicatorDeviceID", &self.indicatorDeviceID)
-            .field("indicatormap_sequence", &self.indicatormap_sequence)
-            .field("indicatormap_length", &self.indicatormap_length)
-            .field("which", &self.which)
-            .field("realIndicators", &self.realIndicators)
-            .field("nIndicators", &self.nIndicators)
-            .field("pad5", &&self.pad5[..])
-            .field("maps", &self.maps)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct _xcb_xkb_get_kbd_by_name_replies__key_names {
     pub keyname_type:     u8,
@@ -3925,31 +2336,8 @@ pub struct _xcb_xkb_get_kbd_by_name_replies__key_names {
     pub pad6:             [u8; 4],
     pub valueList:        xcb_xkb_get_kbd_by_name_replies_key_names_value_list_t,
 }
-impl ::std::fmt::Debug for _xcb_xkb_get_kbd_by_name_replies__key_names {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("_xcb_xkb_get_kbd_by_name_replies__key_names")
-            .field("keyname_type", &self.keyname_type)
-            .field("keyDeviceID", &self.keyDeviceID)
-            .field("keyname_sequence", &self.keyname_sequence)
-            .field("keyname_length", &self.keyname_length)
-            .field("which", &self.which)
-            .field("keyMinKeyCode", &self.keyMinKeyCode)
-            .field("keyMaxKeyCode", &self.keyMaxKeyCode)
-            .field("nTypes", &self.nTypes)
-            .field("groupNames", &self.groupNames)
-            .field("virtualMods", &self.virtualMods)
-            .field("firstKey", &self.firstKey)
-            .field("nKeys", &self.nKeys)
-            .field("indicators", &self.indicators)
-            .field("nRadioGroups", &self.nRadioGroups)
-            .field("nKeyAliases", &self.nKeyAliases)
-            .field("nKTLevels", &self.nKTLevels)
-            .field("pad6", &&self.pad6[..])
-            .field("valueList", &self.valueList)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct _xcb_xkb_get_kbd_by_name_replies__geometry {
     pub geometry_type:     u8,
@@ -3971,31 +2359,8 @@ pub struct _xcb_xkb_get_kbd_by_name_replies__geometry {
     pub labelColorNdx:     u8,
     pub labelFont:         *mut xcb_xkb_counted_string_16_t,
 }
-impl ::std::fmt::Debug for _xcb_xkb_get_kbd_by_name_replies__geometry {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("_xcb_xkb_get_kbd_by_name_replies__geometry")
-            .field("geometry_type", &self.geometry_type)
-            .field("geometryDeviceID", &self.geometryDeviceID)
-            .field("geometry_sequence", &self.geometry_sequence)
-            .field("geometry_length", &self.geometry_length)
-            .field("name", &self.name)
-            .field("geometryFound", &self.geometryFound)
-            .field("pad7", &self.pad7)
-            .field("widthMM", &self.widthMM)
-            .field("heightMM", &self.heightMM)
-            .field("nProperties", &self.nProperties)
-            .field("nColors", &self.nColors)
-            .field("nShapes", &self.nShapes)
-            .field("nSections", &self.nSections)
-            .field("nDoodads", &self.nDoodads)
-            .field("nKeyAliases", &self.nKeyAliases)
-            .field("baseColorNdx", &self.baseColorNdx)
-            .field("labelColorNdx", &self.labelColorNdx)
-            .field("labelFont", &self.labelFont)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_kbd_by_name_replies_types_map_t {
     pub types_rtrn:      *mut xcb_xkb_key_type_t,
@@ -4008,22 +2373,8 @@ pub struct xcb_xkb_get_kbd_by_name_replies_types_map_t {
     pub modmap_rtrn:     *mut xcb_xkb_key_mod_map_t,
     pub vmodmap_rtrn:    *mut xcb_xkb_key_v_mod_map_t,
 }
-impl ::std::fmt::Debug for xcb_xkb_get_kbd_by_name_replies_types_map_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_kbd_by_name_replies_types_map_t")
-            .field("types_rtrn", &self.types_rtrn)
-            .field("syms_rtrn", &self.syms_rtrn)
-            .field("acts_rtrn_count", &self.acts_rtrn_count)
-            .field("acts_rtrn_acts", &self.acts_rtrn_acts)
-            .field("behaviors_rtrn", &self.behaviors_rtrn)
-            .field("vmods_rtrn", &self.vmods_rtrn)
-            .field("explicit_rtrn", &self.explicit_rtrn)
-            .field("modmap_rtrn", &self.modmap_rtrn)
-            .field("vmodmap_rtrn", &self.vmodmap_rtrn)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_kbd_by_name_replies_key_names_value_list_t {
     pub keycodesName:    xcb_atom_t,
@@ -4042,28 +2393,8 @@ pub struct xcb_xkb_get_kbd_by_name_replies_key_names_value_list_t {
     pub keyAliases:      *mut xcb_xkb_key_alias_t,
     pub radioGroupNames: *mut xcb_atom_t,
 }
-impl ::std::fmt::Debug for xcb_xkb_get_kbd_by_name_replies_key_names_value_list_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_kbd_by_name_replies_key_names_value_list_t")
-            .field("keycodesName", &self.keycodesName)
-            .field("geometryName", &self.geometryName)
-            .field("symbolsName", &self.symbolsName)
-            .field("physSymbolsName", &self.physSymbolsName)
-            .field("typesName", &self.typesName)
-            .field("compatName", &self.compatName)
-            .field("typeNames", &self.typeNames)
-            .field("nLevelsPerType", &self.nLevelsPerType)
-            .field("ktLevelNames", &self.ktLevelNames)
-            .field("indicatorNames", &self.indicatorNames)
-            .field("virtualModNames", &self.virtualModNames)
-            .field("groups", &self.groups)
-            .field("keyNames", &self.keyNames)
-            .field("keyAliases", &self.keyAliases)
-            .field("radioGroupNames", &self.radioGroupNames)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_kbd_by_name_reply_t {
     pub response_type: u8,
@@ -4078,26 +2409,10 @@ pub struct xcb_xkb_get_kbd_by_name_reply_t {
     pub reported:      u16,
     pub pad0:          [u8; 16],
 }
-impl ::std::fmt::Debug for xcb_xkb_get_kbd_by_name_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_kbd_by_name_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("minKeyCode", &self.minKeyCode)
-            .field("maxKeyCode", &self.maxKeyCode)
-            .field("loaded", &self.loaded)
-            .field("newKeyboard", &self.newKeyboard)
-            .field("found", &self.found)
-            .field("reported", &self.reported)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_XKB_GET_DEVICE_INFO: u8 = 24;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_device_info_request_t {
     pub major_opcode: u8,
@@ -4113,34 +2428,13 @@ pub struct xcb_xkb_get_device_info_request_t {
     pub ledID:        xcb_xkb_id_spec_t,
 }
 
-impl Copy for xcb_xkb_get_device_info_request_t {}
-impl Clone for xcb_xkb_get_device_info_request_t {
-    fn clone(&self) -> xcb_xkb_get_device_info_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_get_device_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_device_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("wanted", &self.wanted)
-            .field("allButtons", &self.allButtons)
-            .field("firstButton", &self.firstButton)
-            .field("nButtons", &self.nButtons)
-            .field("pad0", &self.pad0)
-            .field("ledClass", &self.ledClass)
-            .field("ledID", &self.ledID)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_device_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_get_device_info_reply_t {
     pub response_type:  u8,
@@ -4163,34 +2457,10 @@ pub struct xcb_xkb_get_device_info_reply_t {
     pub devType:        xcb_atom_t,
     pub nameLen:        u16,
 }
-impl ::std::fmt::Debug for xcb_xkb_get_device_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_get_device_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("deviceID", &self.deviceID)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("present", &self.present)
-            .field("supported", &self.supported)
-            .field("unsupported", &self.unsupported)
-            .field("nDeviceLedFBs", &self.nDeviceLedFBs)
-            .field("firstBtnWanted", &self.firstBtnWanted)
-            .field("nBtnsWanted", &self.nBtnsWanted)
-            .field("firstBtnRtrn", &self.firstBtnRtrn)
-            .field("nBtnsRtrn", &self.nBtnsRtrn)
-            .field("totalBtns", &self.totalBtns)
-            .field("hasOwnState", &self.hasOwnState)
-            .field("dfltKbdFB", &self.dfltKbdFB)
-            .field("dfltLedFB", &self.dfltLedFB)
-            .field("pad0", &&self.pad0[..])
-            .field("devType", &self.devType)
-            .field("nameLen", &self.nameLen)
-            .finish()
-    }
-}
 
 pub const XCB_XKB_SET_DEVICE_INFO: u8 = 25;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_device_info_request_t {
     pub major_opcode:  u8,
@@ -4202,23 +2472,10 @@ pub struct xcb_xkb_set_device_info_request_t {
     pub change:        u16,
     pub nDeviceLedFBs: u16,
 }
-impl ::std::fmt::Debug for xcb_xkb_set_device_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_device_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("deviceSpec", &self.deviceSpec)
-            .field("firstBtn", &self.firstBtn)
-            .field("nBtns", &self.nBtns)
-            .field("change", &self.change)
-            .field("nDeviceLedFBs", &self.nDeviceLedFBs)
-            .finish()
-    }
-}
 
 pub const XCB_XKB_SET_DEBUGGING_FLAGS: u8 = 101;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_debugging_flags_request_t {
     pub major_opcode: u8,
@@ -4231,21 +2488,6 @@ pub struct xcb_xkb_set_debugging_flags_request_t {
     pub affectCtrls:  u32,
     pub ctrls:        u32,
 }
-impl ::std::fmt::Debug for xcb_xkb_set_debugging_flags_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_debugging_flags_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("msgLength", &self.msgLength)
-            .field("pad0", &&self.pad0[..])
-            .field("affectFlags", &self.affectFlags)
-            .field("flags", &self.flags)
-            .field("affectCtrls", &self.affectCtrls)
-            .field("ctrls", &self.ctrls)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -4253,6 +2495,7 @@ pub struct xcb_xkb_set_debugging_flags_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_set_debugging_flags_reply_t {
     pub response_type:  u8,
@@ -4266,28 +2509,9 @@ pub struct xcb_xkb_set_debugging_flags_reply_t {
     pub pad1:           [u8; 8],
 }
 
-impl Copy for xcb_xkb_set_debugging_flags_reply_t {}
-impl Clone for xcb_xkb_set_debugging_flags_reply_t {
-    fn clone(&self) -> xcb_xkb_set_debugging_flags_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_set_debugging_flags_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_set_debugging_flags_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("currentFlags", &self.currentFlags)
-            .field("currentCtrls", &self.currentCtrls)
-            .field("supportedFlags", &self.supportedFlags)
-            .field("supportedCtrls", &self.supportedCtrls)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_NEW_KEYBOARD_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_new_keyboard_notify_event_t {
     pub response_type: u8,
@@ -4306,33 +2530,9 @@ pub struct xcb_xkb_new_keyboard_notify_event_t {
     pub pad0:          [u8; 14],
 }
 
-impl Copy for xcb_xkb_new_keyboard_notify_event_t {}
-impl Clone for xcb_xkb_new_keyboard_notify_event_t {
-    fn clone(&self) -> xcb_xkb_new_keyboard_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_new_keyboard_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_new_keyboard_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("oldDeviceID", &self.oldDeviceID)
-            .field("minKeyCode", &self.minKeyCode)
-            .field("maxKeyCode", &self.maxKeyCode)
-            .field("oldMinKeyCode", &self.oldMinKeyCode)
-            .field("oldMaxKeyCode", &self.oldMaxKeyCode)
-            .field("requestMajor", &self.requestMajor)
-            .field("requestMinor", &self.requestMinor)
-            .field("changed", &self.changed)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_MAP_NOTIFY: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_map_notify_event_t {
     pub response_type:    u8,
@@ -4362,44 +2562,9 @@ pub struct xcb_xkb_map_notify_event_t {
     pub pad0:             [u8; 2],
 }
 
-impl Copy for xcb_xkb_map_notify_event_t {}
-impl Clone for xcb_xkb_map_notify_event_t {
-    fn clone(&self) -> xcb_xkb_map_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_map_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_map_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("ptrBtnActions", &self.ptrBtnActions)
-            .field("changed", &self.changed)
-            .field("minKeyCode", &self.minKeyCode)
-            .field("maxKeyCode", &self.maxKeyCode)
-            .field("firstType", &self.firstType)
-            .field("nTypes", &self.nTypes)
-            .field("firstKeySym", &self.firstKeySym)
-            .field("nKeySyms", &self.nKeySyms)
-            .field("firstKeyAct", &self.firstKeyAct)
-            .field("nKeyActs", &self.nKeyActs)
-            .field("firstKeyBehavior", &self.firstKeyBehavior)
-            .field("nKeyBehavior", &self.nKeyBehavior)
-            .field("firstKeyExplicit", &self.firstKeyExplicit)
-            .field("nKeyExplicit", &self.nKeyExplicit)
-            .field("firstModMapKey", &self.firstModMapKey)
-            .field("nModMapKeys", &self.nModMapKeys)
-            .field("firstVModMapKey", &self.firstVModMapKey)
-            .field("nVModMapKeys", &self.nVModMapKeys)
-            .field("virtualMods", &self.virtualMods)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_STATE_NOTIFY: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_state_notify_event_t {
     pub response_type:     u8,
@@ -4428,43 +2593,9 @@ pub struct xcb_xkb_state_notify_event_t {
     pub requestMinor:      u8,
 }
 
-impl Copy for xcb_xkb_state_notify_event_t {}
-impl Clone for xcb_xkb_state_notify_event_t {
-    fn clone(&self) -> xcb_xkb_state_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_state_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_state_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("mods", &self.mods)
-            .field("baseMods", &self.baseMods)
-            .field("latchedMods", &self.latchedMods)
-            .field("lockedMods", &self.lockedMods)
-            .field("group", &self.group)
-            .field("baseGroup", &self.baseGroup)
-            .field("latchedGroup", &self.latchedGroup)
-            .field("lockedGroup", &self.lockedGroup)
-            .field("compatState", &self.compatState)
-            .field("grabMods", &self.grabMods)
-            .field("compatGrabMods", &self.compatGrabMods)
-            .field("lookupMods", &self.lookupMods)
-            .field("compatLoockupMods", &self.compatLoockupMods)
-            .field("ptrBtnState", &self.ptrBtnState)
-            .field("changed", &self.changed)
-            .field("keycode", &self.keycode)
-            .field("eventType", &self.eventType)
-            .field("requestMajor", &self.requestMajor)
-            .field("requestMinor", &self.requestMinor)
-            .finish()
-    }
-}
-
 pub const XCB_XKB_CONTROLS_NOTIFY: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_controls_notify_event_t {
     pub response_type:         u8,
@@ -4484,34 +2615,9 @@ pub struct xcb_xkb_controls_notify_event_t {
     pub pad1:                  [u8; 4],
 }
 
-impl Copy for xcb_xkb_controls_notify_event_t {}
-impl Clone for xcb_xkb_controls_notify_event_t {
-    fn clone(&self) -> xcb_xkb_controls_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_controls_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_controls_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("numGroups", &self.numGroups)
-            .field("pad0", &&self.pad0[..])
-            .field("changedControls", &self.changedControls)
-            .field("enabledControls", &self.enabledControls)
-            .field("enabledControlChanges", &self.enabledControlChanges)
-            .field("keycode", &self.keycode)
-            .field("eventType", &self.eventType)
-            .field("requestMajor", &self.requestMajor)
-            .field("requestMinor", &self.requestMinor)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_INDICATOR_STATE_NOTIFY: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_indicator_state_notify_event_t {
     pub response_type: u8,
@@ -4525,28 +2631,9 @@ pub struct xcb_xkb_indicator_state_notify_event_t {
     pub pad1:          [u8; 12],
 }
 
-impl Copy for xcb_xkb_indicator_state_notify_event_t {}
-impl Clone for xcb_xkb_indicator_state_notify_event_t {
-    fn clone(&self) -> xcb_xkb_indicator_state_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_indicator_state_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_indicator_state_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("pad0", &&self.pad0[..])
-            .field("state", &self.state)
-            .field("stateChanged", &self.stateChanged)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_INDICATOR_MAP_NOTIFY: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_indicator_map_notify_event_t {
     pub response_type: u8,
@@ -4560,28 +2647,9 @@ pub struct xcb_xkb_indicator_map_notify_event_t {
     pub pad1:          [u8; 12],
 }
 
-impl Copy for xcb_xkb_indicator_map_notify_event_t {}
-impl Clone for xcb_xkb_indicator_map_notify_event_t {
-    fn clone(&self) -> xcb_xkb_indicator_map_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_indicator_map_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_indicator_map_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("pad0", &&self.pad0[..])
-            .field("state", &self.state)
-            .field("mapChanged", &self.mapChanged)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_NAMES_NOTIFY: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_names_notify_event_t {
     pub response_type:      u8,
@@ -4606,39 +2674,9 @@ pub struct xcb_xkb_names_notify_event_t {
     pub pad2:               [u8; 4],
 }
 
-impl Copy for xcb_xkb_names_notify_event_t {}
-impl Clone for xcb_xkb_names_notify_event_t {
-    fn clone(&self) -> xcb_xkb_names_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_names_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_names_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("pad0", &self.pad0)
-            .field("changed", &self.changed)
-            .field("firstType", &self.firstType)
-            .field("nTypes", &self.nTypes)
-            .field("firstLevelName", &self.firstLevelName)
-            .field("nLevelNames", &self.nLevelNames)
-            .field("pad1", &self.pad1)
-            .field("nRadioGroups", &self.nRadioGroups)
-            .field("nKeyAliases", &self.nKeyAliases)
-            .field("changedGroupNames", &self.changedGroupNames)
-            .field("changedVirtualMods", &self.changedVirtualMods)
-            .field("firstKey", &self.firstKey)
-            .field("nKeys", &self.nKeys)
-            .field("changedIndicators", &self.changedIndicators)
-            .field("pad2", &&self.pad2[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_COMPAT_MAP_NOTIFY: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_compat_map_notify_event_t {
     pub response_type: u8,
@@ -4653,29 +2691,9 @@ pub struct xcb_xkb_compat_map_notify_event_t {
     pub pad0:          [u8; 16],
 }
 
-impl Copy for xcb_xkb_compat_map_notify_event_t {}
-impl Clone for xcb_xkb_compat_map_notify_event_t {
-    fn clone(&self) -> xcb_xkb_compat_map_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_compat_map_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_compat_map_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("changedGroups", &self.changedGroups)
-            .field("firstSI", &self.firstSI)
-            .field("nSI", &self.nSI)
-            .field("nTotalSI", &self.nTotalSI)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_BELL_NOTIFY: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_bell_notify_event_t {
     pub response_type: u8,
@@ -4694,33 +2712,9 @@ pub struct xcb_xkb_bell_notify_event_t {
     pub pad0:          [u8; 7],
 }
 
-impl Copy for xcb_xkb_bell_notify_event_t {}
-impl Clone for xcb_xkb_bell_notify_event_t {
-    fn clone(&self) -> xcb_xkb_bell_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_bell_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_bell_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("bellClass", &self.bellClass)
-            .field("bellID", &self.bellID)
-            .field("percent", &self.percent)
-            .field("pitch", &self.pitch)
-            .field("duration", &self.duration)
-            .field("name", &self.name)
-            .field("window", &self.window)
-            .field("eventOnly", &self.eventOnly)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_ACTION_MESSAGE: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_action_message_event_t {
     pub response_type:   u8,
@@ -4737,31 +2731,9 @@ pub struct xcb_xkb_action_message_event_t {
     pub pad0:            [u8; 10],
 }
 
-impl Copy for xcb_xkb_action_message_event_t {}
-impl Clone for xcb_xkb_action_message_event_t {
-    fn clone(&self) -> xcb_xkb_action_message_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_action_message_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_action_message_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("keycode", &self.keycode)
-            .field("press", &self.press)
-            .field("keyEventFollows", &self.keyEventFollows)
-            .field("mods", &self.mods)
-            .field("group", &self.group)
-            .field("message", &&self.message[..])
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_ACCESS_X_NOTIFY: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_access_x_notify_event_t {
     pub response_type: u8,
@@ -4776,29 +2748,9 @@ pub struct xcb_xkb_access_x_notify_event_t {
     pub pad0:          [u8; 16],
 }
 
-impl Copy for xcb_xkb_access_x_notify_event_t {}
-impl Clone for xcb_xkb_access_x_notify_event_t {
-    fn clone(&self) -> xcb_xkb_access_x_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_access_x_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_access_x_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("keycode", &self.keycode)
-            .field("detailt", &self.detailt)
-            .field("slowKeysDelay", &self.slowKeysDelay)
-            .field("debounceDelay", &self.debounceDelay)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_XKB_EXTENSION_DEVICE_NOTIFY: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xkb_extension_device_notify_event_t {
     pub response_type: u8,
@@ -4817,33 +2769,6 @@ pub struct xcb_xkb_extension_device_notify_event_t {
     pub supported:     u16,
     pub unsupported:   u16,
     pub pad1:          [u8; 2],
-}
-
-impl Copy for xcb_xkb_extension_device_notify_event_t {}
-impl Clone for xcb_xkb_extension_device_notify_event_t {
-    fn clone(&self) -> xcb_xkb_extension_device_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xkb_extension_device_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xkb_extension_device_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("xkbType", &self.xkbType)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("deviceID", &self.deviceID)
-            .field("pad0", &self.pad0)
-            .field("reason", &self.reason)
-            .field("ledClass", &self.ledClass)
-            .field("ledID", &self.ledID)
-            .field("ledsDefined", &self.ledsDefined)
-            .field("ledState", &self.ledState)
-            .field("firstButton", &self.firstButton)
-            .field("nButtons", &self.nButtons)
-            .field("supported", &self.supported)
-            .field("unsupported", &self.unsupported)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 

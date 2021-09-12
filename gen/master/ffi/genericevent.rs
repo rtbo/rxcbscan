@@ -13,6 +13,7 @@ pub const XCB_GENERICEVENT_MINOR_VERSION: u32 = 0;
 
 pub const XCB_GENERICEVENT_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_genericevent_query_version_request_t {
     pub major_opcode:         u8,
@@ -22,28 +23,13 @@ pub struct xcb_genericevent_query_version_request_t {
     pub client_minor_version: u16,
 }
 
-impl Copy for xcb_genericevent_query_version_request_t {}
-impl Clone for xcb_genericevent_query_version_request_t {
-    fn clone(&self) -> xcb_genericevent_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_genericevent_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_genericevent_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major_version", &self.client_major_version)
-            .field("client_minor_version", &self.client_minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_genericevent_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_genericevent_query_version_reply_t {
     pub response_type: u8,
@@ -53,24 +39,6 @@ pub struct xcb_genericevent_query_version_reply_t {
     pub major_version: u16,
     pub minor_version: u16,
     pub pad1:          [u8; 20],
-}
-
-impl Copy for xcb_genericevent_query_version_reply_t {}
-impl Clone for xcb_genericevent_query_version_reply_t {
-    fn clone(&self) -> xcb_genericevent_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_genericevent_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_genericevent_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 

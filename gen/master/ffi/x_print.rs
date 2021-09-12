@@ -22,18 +22,11 @@ pub struct xcb_x_print_string8_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_printer_t {
     pub nameLen:     u32,
     pub descLen:     u32,
-}
-impl ::std::fmt::Debug for xcb_x_print_printer_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_printer_t")
-            .field("nameLen", &self.nameLen)
-            .field("descLen", &self.descLen)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -83,25 +76,12 @@ pub const XCB_X_PRINT_ATTR_SPOOLER_ATTR: xcb_x_print_attr_t = 0x07;
 
 pub const XCB_X_PRINT_PRINT_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_query_version_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_x_print_print_query_version_request_t {}
-impl Clone for xcb_x_print_print_query_version_request_t {
-    fn clone(&self) -> xcb_x_print_print_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -110,6 +90,7 @@ pub struct xcb_x_print_print_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_query_version_reply_t {
     pub response_type: u8,
@@ -120,25 +101,9 @@ pub struct xcb_x_print_print_query_version_reply_t {
     pub minor_version: u16,
 }
 
-impl Copy for xcb_x_print_print_query_version_reply_t {}
-impl Clone for xcb_x_print_print_query_version_reply_t {
-    fn clone(&self) -> xcb_x_print_print_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_GET_PRINTER_LIST: u8 = 1;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_printer_list_request_t {
     pub major_opcode:   u8,
@@ -147,17 +112,6 @@ pub struct xcb_x_print_print_get_printer_list_request_t {
     pub printerNameLen: u32,
     pub localeLen:      u32,
 }
-impl ::std::fmt::Debug for xcb_x_print_print_get_printer_list_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_printer_list_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("printerNameLen", &self.printerNameLen)
-            .field("localeLen", &self.localeLen)
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -165,6 +119,7 @@ pub struct xcb_x_print_print_get_printer_list_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_printer_list_reply_t {
     pub response_type: u8,
@@ -174,21 +129,10 @@ pub struct xcb_x_print_print_get_printer_list_reply_t {
     pub listCount:     u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_x_print_print_get_printer_list_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_printer_list_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("listCount", &self.listCount)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_REHASH_PRINTER_LIST: u8 = 20;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_rehash_printer_list_request_t {
     pub major_opcode: u8,
@@ -196,22 +140,9 @@ pub struct xcb_x_print_print_rehash_printer_list_request_t {
     pub length:       u16,
 }
 
-impl Copy for xcb_x_print_print_rehash_printer_list_request_t {}
-impl Clone for xcb_x_print_print_rehash_printer_list_request_t {
-    fn clone(&self) -> xcb_x_print_print_rehash_printer_list_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_rehash_printer_list_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_rehash_printer_list_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_CREATE_CONTEXT: u8 = 2;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_create_context_request_t {
     pub major_opcode:   u8,
@@ -221,21 +152,10 @@ pub struct xcb_x_print_create_context_request_t {
     pub printerNameLen: u32,
     pub localeLen:      u32,
 }
-impl ::std::fmt::Debug for xcb_x_print_create_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_create_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context_id", &self.context_id)
-            .field("printerNameLen", &self.printerNameLen)
-            .field("localeLen", &self.localeLen)
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_SET_CONTEXT: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_set_context_request_t {
     pub major_opcode: u8,
@@ -244,42 +164,14 @@ pub struct xcb_x_print_print_set_context_request_t {
     pub context:      u32,
 }
 
-impl Copy for xcb_x_print_print_set_context_request_t {}
-impl Clone for xcb_x_print_print_set_context_request_t {
-    fn clone(&self) -> xcb_x_print_print_set_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_set_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_set_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_GET_CONTEXT: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_context_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_x_print_print_get_context_request_t {}
-impl Clone for xcb_x_print_print_get_context_request_t {
-    fn clone(&self) -> xcb_x_print_print_get_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -288,6 +180,7 @@ pub struct xcb_x_print_print_get_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_context_reply_t {
     pub response_type: u8,
@@ -297,24 +190,9 @@ pub struct xcb_x_print_print_get_context_reply_t {
     pub context:       u32,
 }
 
-impl Copy for xcb_x_print_print_get_context_reply_t {}
-impl Clone for xcb_x_print_print_get_context_reply_t {
-    fn clone(&self) -> xcb_x_print_print_get_context_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_DESTROY_CONTEXT: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_destroy_context_request_t {
     pub major_opcode: u8,
@@ -323,42 +201,14 @@ pub struct xcb_x_print_print_destroy_context_request_t {
     pub context:      u32,
 }
 
-impl Copy for xcb_x_print_print_destroy_context_request_t {}
-impl Clone for xcb_x_print_print_destroy_context_request_t {
-    fn clone(&self) -> xcb_x_print_print_destroy_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_destroy_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_destroy_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_GET_SCREEN_OF_CONTEXT: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_screen_of_context_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_x_print_print_get_screen_of_context_request_t {}
-impl Clone for xcb_x_print_print_get_screen_of_context_request_t {
-    fn clone(&self) -> xcb_x_print_print_get_screen_of_context_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_screen_of_context_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_screen_of_context_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -367,6 +217,7 @@ pub struct xcb_x_print_print_get_screen_of_context_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_screen_of_context_reply_t {
     pub response_type: u8,
@@ -376,24 +227,9 @@ pub struct xcb_x_print_print_get_screen_of_context_reply_t {
     pub root:          xcb_window_t,
 }
 
-impl Copy for xcb_x_print_print_get_screen_of_context_reply_t {}
-impl Clone for xcb_x_print_print_get_screen_of_context_reply_t {
-    fn clone(&self) -> xcb_x_print_print_get_screen_of_context_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_screen_of_context_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_screen_of_context_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("root", &self.root)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_START_JOB: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_start_job_request_t {
     pub major_opcode: u8,
@@ -402,23 +238,9 @@ pub struct xcb_x_print_print_start_job_request_t {
     pub output_mode:  u8,
 }
 
-impl Copy for xcb_x_print_print_start_job_request_t {}
-impl Clone for xcb_x_print_print_start_job_request_t {
-    fn clone(&self) -> xcb_x_print_print_start_job_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_start_job_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_start_job_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("output_mode", &self.output_mode)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_END_JOB: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_end_job_request_t {
     pub major_opcode: u8,
@@ -427,23 +249,9 @@ pub struct xcb_x_print_print_end_job_request_t {
     pub cancel:       u8,
 }
 
-impl Copy for xcb_x_print_print_end_job_request_t {}
-impl Clone for xcb_x_print_print_end_job_request_t {
-    fn clone(&self) -> xcb_x_print_print_end_job_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_end_job_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_end_job_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("cancel", &self.cancel)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_START_DOC: u8 = 9;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_start_doc_request_t {
     pub major_opcode: u8,
@@ -452,23 +260,9 @@ pub struct xcb_x_print_print_start_doc_request_t {
     pub driver_mode:  u8,
 }
 
-impl Copy for xcb_x_print_print_start_doc_request_t {}
-impl Clone for xcb_x_print_print_start_doc_request_t {
-    fn clone(&self) -> xcb_x_print_print_start_doc_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_start_doc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_start_doc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("driver_mode", &self.driver_mode)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_END_DOC: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_end_doc_request_t {
     pub major_opcode: u8,
@@ -477,23 +271,9 @@ pub struct xcb_x_print_print_end_doc_request_t {
     pub cancel:       u8,
 }
 
-impl Copy for xcb_x_print_print_end_doc_request_t {}
-impl Clone for xcb_x_print_print_end_doc_request_t {
-    fn clone(&self) -> xcb_x_print_print_end_doc_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_end_doc_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_end_doc_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("cancel", &self.cancel)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_PUT_DOCUMENT_DATA: u8 = 11;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_put_document_data_request_t {
     pub major_opcode:   u8,
@@ -504,22 +284,10 @@ pub struct xcb_x_print_print_put_document_data_request_t {
     pub len_fmt:        u16,
     pub len_options:    u16,
 }
-impl ::std::fmt::Debug for xcb_x_print_print_put_document_data_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_put_document_data_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("len_data", &self.len_data)
-            .field("len_fmt", &self.len_fmt)
-            .field("len_options", &self.len_options)
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_GET_DOCUMENT_DATA: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_document_data_request_t {
     pub major_opcode: u8,
@@ -529,28 +297,13 @@ pub struct xcb_x_print_print_get_document_data_request_t {
     pub max_bytes:    u32,
 }
 
-impl Copy for xcb_x_print_print_get_document_data_request_t {}
-impl Clone for xcb_x_print_print_get_document_data_request_t {
-    fn clone(&self) -> xcb_x_print_print_get_document_data_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_document_data_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_document_data_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("max_bytes", &self.max_bytes)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_document_data_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_document_data_reply_t {
     pub response_type: u8,
@@ -562,23 +315,10 @@ pub struct xcb_x_print_print_get_document_data_reply_t {
     pub dataLen:       u32,
     pub pad1:          [u8; 12],
 }
-impl ::std::fmt::Debug for xcb_x_print_print_get_document_data_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_document_data_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("status_code", &self.status_code)
-            .field("finished_flag", &self.finished_flag)
-            .field("dataLen", &self.dataLen)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_START_PAGE: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_start_page_request_t {
     pub major_opcode: u8,
@@ -587,23 +327,9 @@ pub struct xcb_x_print_print_start_page_request_t {
     pub window:       xcb_window_t,
 }
 
-impl Copy for xcb_x_print_print_start_page_request_t {}
-impl Clone for xcb_x_print_print_start_page_request_t {
-    fn clone(&self) -> xcb_x_print_print_start_page_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_start_page_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_start_page_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_END_PAGE: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_end_page_request_t {
     pub major_opcode: u8,
@@ -613,24 +339,9 @@ pub struct xcb_x_print_print_end_page_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_x_print_print_end_page_request_t {}
-impl Clone for xcb_x_print_print_end_page_request_t {
-    fn clone(&self) -> xcb_x_print_print_end_page_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_end_page_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_end_page_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("cancel", &self.cancel)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_SELECT_INPUT: u8 = 15;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_select_input_request_t {
     pub major_opcode: u8,
@@ -639,20 +350,10 @@ pub struct xcb_x_print_print_select_input_request_t {
     pub context:      xcb_x_print_pcontext_t,
     pub event_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_x_print_print_select_input_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_select_input_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("event_mask", &self.event_mask)
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_INPUT_SELECTED: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_input_selected_request_t {
     pub major_opcode: u8,
@@ -661,27 +362,13 @@ pub struct xcb_x_print_print_input_selected_request_t {
     pub context:      xcb_x_print_pcontext_t,
 }
 
-impl Copy for xcb_x_print_print_input_selected_request_t {}
-impl Clone for xcb_x_print_print_input_selected_request_t {
-    fn clone(&self) -> xcb_x_print_print_input_selected_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_input_selected_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_input_selected_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_input_selected_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_input_selected_reply_t {
     pub response_type:   u8,
@@ -691,21 +378,10 @@ pub struct xcb_x_print_print_input_selected_reply_t {
     pub event_mask:      u32,
     pub all_events_mask: u32,
 }
-impl ::std::fmt::Debug for xcb_x_print_print_input_selected_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_input_selected_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("event_mask", &self.event_mask)
-            .field("all_events_mask", &self.all_events_mask)
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_GET_ATTRIBUTES: u8 = 17;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_attributes_request_t {
     pub major_opcode: u8,
@@ -716,29 +392,13 @@ pub struct xcb_x_print_print_get_attributes_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_x_print_print_get_attributes_request_t {}
-impl Clone for xcb_x_print_print_get_attributes_request_t {
-    fn clone(&self) -> xcb_x_print_print_get_attributes_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("pool", &self.pool)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_attributes_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_attributes_reply_t {
     pub response_type: u8,
@@ -748,21 +408,10 @@ pub struct xcb_x_print_print_get_attributes_reply_t {
     pub stringLen:     u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_x_print_print_get_attributes_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_attributes_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("stringLen", &self.stringLen)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_GET_ONE_ATTRIBUTES: u8 = 19;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_one_attributes_request_t {
     pub major_opcode: u8,
@@ -773,19 +422,6 @@ pub struct xcb_x_print_print_get_one_attributes_request_t {
     pub pool:         u8,
     pub pad0:         [u8; 3],
 }
-impl ::std::fmt::Debug for xcb_x_print_print_get_one_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_one_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("nameLen", &self.nameLen)
-            .field("pool", &self.pool)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
@@ -793,6 +429,7 @@ pub struct xcb_x_print_print_get_one_attributes_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_one_attributes_reply_t {
     pub response_type: u8,
@@ -802,21 +439,10 @@ pub struct xcb_x_print_print_get_one_attributes_reply_t {
     pub valueLen:      u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_x_print_print_get_one_attributes_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_one_attributes_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("valueLen", &self.valueLen)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_SET_ATTRIBUTES: u8 = 18;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_set_attributes_request_t {
     pub major_opcode:   u8,
@@ -828,23 +454,10 @@ pub struct xcb_x_print_print_set_attributes_request_t {
     pub rule:           u8,
     pub pad0:           [u8; 2],
 }
-impl ::std::fmt::Debug for xcb_x_print_print_set_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_set_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("stringLen", &self.stringLen)
-            .field("pool", &self.pool)
-            .field("rule", &self.rule)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_GET_PAGE_DIMENSIONS: u8 = 21;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_page_dimensions_request_t {
     pub major_opcode: u8,
@@ -853,27 +466,13 @@ pub struct xcb_x_print_print_get_page_dimensions_request_t {
     pub context:      xcb_x_print_pcontext_t,
 }
 
-impl Copy for xcb_x_print_print_get_page_dimensions_request_t {}
-impl Clone for xcb_x_print_print_get_page_dimensions_request_t {
-    fn clone(&self) -> xcb_x_print_print_get_page_dimensions_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_page_dimensions_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_page_dimensions_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_page_dimensions_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_page_dimensions_reply_t {
     pub response_type:       u8,
@@ -888,48 +487,14 @@ pub struct xcb_x_print_print_get_page_dimensions_reply_t {
     pub reproducible_height: u16,
 }
 
-impl Copy for xcb_x_print_print_get_page_dimensions_reply_t {}
-impl Clone for xcb_x_print_print_get_page_dimensions_reply_t {
-    fn clone(&self) -> xcb_x_print_print_get_page_dimensions_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_page_dimensions_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_page_dimensions_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("offset_x", &self.offset_x)
-            .field("offset_y", &self.offset_y)
-            .field("reproducible_width", &self.reproducible_width)
-            .field("reproducible_height", &self.reproducible_height)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_QUERY_SCREENS: u8 = 22;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_query_screens_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_x_print_print_query_screens_request_t {}
-impl Clone for xcb_x_print_print_query_screens_request_t {
-    fn clone(&self) -> xcb_x_print_print_query_screens_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_query_screens_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_query_screens_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -938,6 +503,7 @@ pub struct xcb_x_print_print_query_screens_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_query_screens_reply_t {
     pub response_type: u8,
@@ -947,21 +513,10 @@ pub struct xcb_x_print_print_query_screens_reply_t {
     pub listCount:     u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_x_print_print_query_screens_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_query_screens_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("listCount", &self.listCount)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_X_PRINT_PRINT_SET_IMAGE_RESOLUTION: u8 = 23;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_set_image_resolution_request_t {
     pub major_opcode:     u8,
@@ -971,28 +526,13 @@ pub struct xcb_x_print_print_set_image_resolution_request_t {
     pub image_resolution: u16,
 }
 
-impl Copy for xcb_x_print_print_set_image_resolution_request_t {}
-impl Clone for xcb_x_print_print_set_image_resolution_request_t {
-    fn clone(&self) -> xcb_x_print_print_set_image_resolution_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_set_image_resolution_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_set_image_resolution_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .field("image_resolution", &self.image_resolution)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_set_image_resolution_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_set_image_resolution_reply_t {
     pub response_type:        u8,
@@ -1002,24 +542,9 @@ pub struct xcb_x_print_print_set_image_resolution_reply_t {
     pub previous_resolutions: u16,
 }
 
-impl Copy for xcb_x_print_print_set_image_resolution_reply_t {}
-impl Clone for xcb_x_print_print_set_image_resolution_reply_t {
-    fn clone(&self) -> xcb_x_print_print_set_image_resolution_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_set_image_resolution_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_set_image_resolution_reply_t")
-            .field("response_type", &self.response_type)
-            .field("status", &self.status)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("previous_resolutions", &self.previous_resolutions)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_PRINT_GET_IMAGE_RESOLUTION: u8 = 24;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_image_resolution_request_t {
     pub major_opcode: u8,
@@ -1028,27 +553,13 @@ pub struct xcb_x_print_print_get_image_resolution_request_t {
     pub context:      xcb_x_print_pcontext_t,
 }
 
-impl Copy for xcb_x_print_print_get_image_resolution_request_t {}
-impl Clone for xcb_x_print_print_get_image_resolution_request_t {
-    fn clone(&self) -> xcb_x_print_print_get_image_resolution_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_image_resolution_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_image_resolution_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_image_resolution_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_print_get_image_resolution_reply_t {
     pub response_type:    u8,
@@ -1058,24 +569,9 @@ pub struct xcb_x_print_print_get_image_resolution_reply_t {
     pub image_resolution: u16,
 }
 
-impl Copy for xcb_x_print_print_get_image_resolution_reply_t {}
-impl Clone for xcb_x_print_print_get_image_resolution_reply_t {
-    fn clone(&self) -> xcb_x_print_print_get_image_resolution_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_print_get_image_resolution_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_print_get_image_resolution_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("image_resolution", &self.image_resolution)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_notify_event_t {
     pub response_type: u8,
@@ -1085,24 +581,9 @@ pub struct xcb_x_print_notify_event_t {
     pub cancel:        u8,
 }
 
-impl Copy for xcb_x_print_notify_event_t {}
-impl Clone for xcb_x_print_notify_event_t {
-    fn clone(&self) -> xcb_x_print_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("detail", &self.detail)
-            .field("sequence", &self.sequence)
-            .field("context", &self.context)
-            .field("cancel", &self.cancel)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_ATTRIBUT_NOTIFY: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_attribut_notify_event_t {
     pub response_type: u8,
@@ -1111,23 +592,9 @@ pub struct xcb_x_print_attribut_notify_event_t {
     pub context:       xcb_x_print_pcontext_t,
 }
 
-impl Copy for xcb_x_print_attribut_notify_event_t {}
-impl Clone for xcb_x_print_attribut_notify_event_t {
-    fn clone(&self) -> xcb_x_print_attribut_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_attribut_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_attribut_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("detail", &self.detail)
-            .field("sequence", &self.sequence)
-            .field("context", &self.context)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_BAD_CONTEXT: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_bad_context_error_t {
     pub response_type: u8,
@@ -1135,41 +602,14 @@ pub struct xcb_x_print_bad_context_error_t {
     pub sequence:      u16,
 }
 
-impl Copy for xcb_x_print_bad_context_error_t {}
-impl Clone for xcb_x_print_bad_context_error_t {
-    fn clone(&self) -> xcb_x_print_bad_context_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_bad_context_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_bad_context_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
-}
-
 pub const XCB_X_PRINT_BAD_SEQUENCE: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_x_print_bad_sequence_error_t {
     pub response_type: u8,
     pub error_code:    u8,
     pub sequence:      u16,
-}
-
-impl Copy for xcb_x_print_bad_sequence_error_t {}
-impl Clone for xcb_x_print_bad_sequence_error_t {
-    fn clone(&self) -> xcb_x_print_bad_sequence_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_x_print_bad_sequence_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_x_print_bad_sequence_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .finish()
-    }
 }
 
 

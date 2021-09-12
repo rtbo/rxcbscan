@@ -29,6 +29,7 @@ pub const XCB_SCREENSAVER_STATE_DISABLED: xcb_screensaver_state_t = 0x03;
 
 pub const XCB_SCREENSAVER_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_query_version_request_t {
     pub major_opcode:         u8,
@@ -39,29 +40,13 @@ pub struct xcb_screensaver_query_version_request_t {
     pub pad0:                 [u8; 2],
 }
 
-impl Copy for xcb_screensaver_query_version_request_t {}
-impl Clone for xcb_screensaver_query_version_request_t {
-    fn clone(&self) -> xcb_screensaver_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_screensaver_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screensaver_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major_version", &self.client_major_version)
-            .field("client_minor_version", &self.client_minor_version)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_query_version_reply_t {
     pub response_type:        u8,
@@ -73,26 +58,9 @@ pub struct xcb_screensaver_query_version_reply_t {
     pub pad1:                 [u8; 20],
 }
 
-impl Copy for xcb_screensaver_query_version_reply_t {}
-impl Clone for xcb_screensaver_query_version_reply_t {
-    fn clone(&self) -> xcb_screensaver_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_screensaver_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screensaver_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("server_major_version", &self.server_major_version)
-            .field("server_minor_version", &self.server_minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_SCREENSAVER_QUERY_INFO: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_query_info_request_t {
     pub major_opcode: u8,
@@ -101,27 +69,13 @@ pub struct xcb_screensaver_query_info_request_t {
     pub drawable:     xcb_drawable_t,
 }
 
-impl Copy for xcb_screensaver_query_info_request_t {}
-impl Clone for xcb_screensaver_query_info_request_t {
-    fn clone(&self) -> xcb_screensaver_query_info_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_screensaver_query_info_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screensaver_query_info_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_query_info_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_query_info_reply_t {
     pub response_type:       u8,
@@ -136,29 +90,9 @@ pub struct xcb_screensaver_query_info_reply_t {
     pub pad0:                [u8; 7],
 }
 
-impl Copy for xcb_screensaver_query_info_reply_t {}
-impl Clone for xcb_screensaver_query_info_reply_t {
-    fn clone(&self) -> xcb_screensaver_query_info_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_screensaver_query_info_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screensaver_query_info_reply_t")
-            .field("response_type", &self.response_type)
-            .field("state", &self.state)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("saver_window", &self.saver_window)
-            .field("ms_until_server", &self.ms_until_server)
-            .field("ms_since_user_input", &self.ms_since_user_input)
-            .field("event_mask", &self.event_mask)
-            .field("kind", &self.kind)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_SCREENSAVER_SELECT_INPUT: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_select_input_request_t {
     pub major_opcode: u8,
@@ -168,24 +102,9 @@ pub struct xcb_screensaver_select_input_request_t {
     pub event_mask:   u32,
 }
 
-impl Copy for xcb_screensaver_select_input_request_t {}
-impl Clone for xcb_screensaver_select_input_request_t {
-    fn clone(&self) -> xcb_screensaver_select_input_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_screensaver_select_input_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screensaver_select_input_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("event_mask", &self.event_mask)
-            .finish()
-    }
-}
-
 pub const XCB_SCREENSAVER_SET_ATTRIBUTES: u8 = 3;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_set_attributes_request_t {
     pub major_opcode: u8,
@@ -202,28 +121,10 @@ pub struct xcb_screensaver_set_attributes_request_t {
     pub visual:       xcb_visualid_t,
     pub value_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_screensaver_set_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screensaver_set_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("x", &self.x)
-            .field("y", &self.y)
-            .field("width", &self.width)
-            .field("height", &self.height)
-            .field("border_width", &self.border_width)
-            .field("class", &self.class)
-            .field("depth", &self.depth)
-            .field("visual", &self.visual)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
 
 pub const XCB_SCREENSAVER_UNSET_ATTRIBUTES: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_unset_attributes_request_t {
     pub major_opcode: u8,
@@ -232,23 +133,9 @@ pub struct xcb_screensaver_unset_attributes_request_t {
     pub drawable:     xcb_drawable_t,
 }
 
-impl Copy for xcb_screensaver_unset_attributes_request_t {}
-impl Clone for xcb_screensaver_unset_attributes_request_t {
-    fn clone(&self) -> xcb_screensaver_unset_attributes_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_screensaver_unset_attributes_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screensaver_unset_attributes_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .finish()
-    }
-}
-
 pub const XCB_SCREENSAVER_SUSPEND: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_suspend_request_t {
     pub major_opcode: u8,
@@ -258,24 +145,9 @@ pub struct xcb_screensaver_suspend_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_screensaver_suspend_request_t {}
-impl Clone for xcb_screensaver_suspend_request_t {
-    fn clone(&self) -> xcb_screensaver_suspend_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_screensaver_suspend_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screensaver_suspend_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("suspend", &self.suspend)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_SCREENSAVER_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_screensaver_notify_event_t {
     pub response_type: u8,
@@ -287,26 +159,6 @@ pub struct xcb_screensaver_notify_event_t {
     pub kind:          u8,
     pub forced:        u8,
     pub pad0:          [u8; 14],
-}
-
-impl Copy for xcb_screensaver_notify_event_t {}
-impl Clone for xcb_screensaver_notify_event_t {
-    fn clone(&self) -> xcb_screensaver_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_screensaver_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_screensaver_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("state", &self.state)
-            .field("sequence", &self.sequence)
-            .field("time", &self.time)
-            .field("root", &self.root)
-            .field("window", &self.window)
-            .field("kind", &self.kind)
-            .field("forced", &self.forced)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 

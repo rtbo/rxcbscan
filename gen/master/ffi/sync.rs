@@ -65,23 +65,11 @@ pub const XCB_SYNC_CA_TEST_TYPE : xcb_sync_ca_t = 0x08;
 pub const XCB_SYNC_CA_DELTA     : xcb_sync_ca_t = 0x10;
 pub const XCB_SYNC_CA_EVENTS    : xcb_sync_ca_t = 0x20;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_int64_t {
     pub hi: i32,
     pub lo: u32,
-}
-
-impl Copy for xcb_sync_int64_t {}
-impl Clone for xcb_sync_int64_t {
-    fn clone(&self) -> xcb_sync_int64_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_int64_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_int64_t")
-            .field("hi", &self.hi)
-            .field("lo", &self.lo)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -92,20 +80,12 @@ pub struct xcb_sync_int64_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_sync_systemcounter_t {
     pub counter:    xcb_sync_counter_t,
     pub resolution: xcb_sync_int64_t,
     pub name_len:   u16,
-}
-impl ::std::fmt::Debug for xcb_sync_systemcounter_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_systemcounter_t")
-            .field("counter", &self.counter)
-            .field("resolution", &self.resolution)
-            .field("name_len", &self.name_len)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -117,27 +97,13 @@ pub struct xcb_sync_systemcounter_iterator_t<'a> {
     _phantom:  std::marker::PhantomData<&'a xcb_sync_systemcounter_t>,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_trigger_t {
     pub counter:    xcb_sync_counter_t,
     pub wait_type:  u32,
     pub wait_value: xcb_sync_int64_t,
     pub test_type:  u32,
-}
-
-impl Copy for xcb_sync_trigger_t {}
-impl Clone for xcb_sync_trigger_t {
-    fn clone(&self) -> xcb_sync_trigger_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_trigger_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_trigger_t")
-            .field("counter", &self.counter)
-            .field("wait_type", &self.wait_type)
-            .field("wait_value", &self.wait_value)
-            .field("test_type", &self.test_type)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -148,23 +114,11 @@ pub struct xcb_sync_trigger_iterator_t {
     pub index: c_int,
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_waitcondition_t {
     pub trigger:         xcb_sync_trigger_t,
     pub event_threshold: xcb_sync_int64_t,
-}
-
-impl Copy for xcb_sync_waitcondition_t {}
-impl Clone for xcb_sync_waitcondition_t {
-    fn clone(&self) -> xcb_sync_waitcondition_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_waitcondition_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_waitcondition_t")
-            .field("trigger", &self.trigger)
-            .field("event_threshold", &self.event_threshold)
-            .finish()
-    }
 }
 
 #[repr(C)]
@@ -177,6 +131,7 @@ pub struct xcb_sync_waitcondition_iterator_t {
 
 pub const XCB_SYNC_COUNTER: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_counter_error_t {
     pub response_type: u8,
@@ -187,25 +142,9 @@ pub struct xcb_sync_counter_error_t {
     pub major_opcode:  u8,
 }
 
-impl Copy for xcb_sync_counter_error_t {}
-impl Clone for xcb_sync_counter_error_t {
-    fn clone(&self) -> xcb_sync_counter_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_counter_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_counter_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .field("bad_counter", &self.bad_counter)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("major_opcode", &self.major_opcode)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_ALARM: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_alarm_error_t {
     pub response_type: u8,
@@ -216,25 +155,9 @@ pub struct xcb_sync_alarm_error_t {
     pub major_opcode:  u8,
 }
 
-impl Copy for xcb_sync_alarm_error_t {}
-impl Clone for xcb_sync_alarm_error_t {
-    fn clone(&self) -> xcb_sync_alarm_error_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_alarm_error_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_alarm_error_t")
-            .field("response_type", &self.response_type)
-            .field("error_code", &self.error_code)
-            .field("sequence", &self.sequence)
-            .field("bad_alarm", &self.bad_alarm)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("major_opcode", &self.major_opcode)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_INITIALIZE: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_initialize_request_t {
     pub major_opcode:          u8,
@@ -244,28 +167,13 @@ pub struct xcb_sync_initialize_request_t {
     pub desired_minor_version: u8,
 }
 
-impl Copy for xcb_sync_initialize_request_t {}
-impl Clone for xcb_sync_initialize_request_t {
-    fn clone(&self) -> xcb_sync_initialize_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_initialize_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_initialize_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("desired_major_version", &self.desired_major_version)
-            .field("desired_minor_version", &self.desired_minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_initialize_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_initialize_reply_t {
     pub response_type: u8,
@@ -277,45 +185,14 @@ pub struct xcb_sync_initialize_reply_t {
     pub pad1:          [u8; 22],
 }
 
-impl Copy for xcb_sync_initialize_reply_t {}
-impl Clone for xcb_sync_initialize_reply_t {
-    fn clone(&self) -> xcb_sync_initialize_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_initialize_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_initialize_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_LIST_SYSTEM_COUNTERS: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_list_system_counters_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_sync_list_system_counters_request_t {}
-impl Clone for xcb_sync_list_system_counters_request_t {
-    fn clone(&self) -> xcb_sync_list_system_counters_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_list_system_counters_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_list_system_counters_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -324,6 +201,7 @@ pub struct xcb_sync_list_system_counters_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_sync_list_system_counters_reply_t {
     pub response_type: u8,
@@ -333,21 +211,10 @@ pub struct xcb_sync_list_system_counters_reply_t {
     pub counters_len:  u32,
     pub pad1:          [u8; 20],
 }
-impl ::std::fmt::Debug for xcb_sync_list_system_counters_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_list_system_counters_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("counters_len", &self.counters_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
 
 pub const XCB_SYNC_CREATE_COUNTER: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_create_counter_request_t {
     pub major_opcode:  u8,
@@ -357,24 +224,9 @@ pub struct xcb_sync_create_counter_request_t {
     pub initial_value: xcb_sync_int64_t,
 }
 
-impl Copy for xcb_sync_create_counter_request_t {}
-impl Clone for xcb_sync_create_counter_request_t {
-    fn clone(&self) -> xcb_sync_create_counter_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_create_counter_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_create_counter_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("id", &self.id)
-            .field("initial_value", &self.initial_value)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_DESTROY_COUNTER: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_destroy_counter_request_t {
     pub major_opcode: u8,
@@ -383,23 +235,9 @@ pub struct xcb_sync_destroy_counter_request_t {
     pub counter:      xcb_sync_counter_t,
 }
 
-impl Copy for xcb_sync_destroy_counter_request_t {}
-impl Clone for xcb_sync_destroy_counter_request_t {
-    fn clone(&self) -> xcb_sync_destroy_counter_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_destroy_counter_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_destroy_counter_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("counter", &self.counter)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_QUERY_COUNTER: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_query_counter_request_t {
     pub major_opcode: u8,
@@ -408,27 +246,13 @@ pub struct xcb_sync_query_counter_request_t {
     pub counter:      xcb_sync_counter_t,
 }
 
-impl Copy for xcb_sync_query_counter_request_t {}
-impl Clone for xcb_sync_query_counter_request_t {
-    fn clone(&self) -> xcb_sync_query_counter_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_query_counter_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_query_counter_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("counter", &self.counter)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_query_counter_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_query_counter_reply_t {
     pub response_type: u8,
@@ -438,42 +262,19 @@ pub struct xcb_sync_query_counter_reply_t {
     pub counter_value: xcb_sync_int64_t,
 }
 
-impl Copy for xcb_sync_query_counter_reply_t {}
-impl Clone for xcb_sync_query_counter_reply_t {
-    fn clone(&self) -> xcb_sync_query_counter_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_query_counter_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_query_counter_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("counter_value", &self.counter_value)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_AWAIT: u8 = 7;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_sync_await_request_t {
     pub major_opcode:  u8,
     pub minor_opcode:  u8,
     pub length:        u16,
 }
-impl ::std::fmt::Debug for xcb_sync_await_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_await_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
-}
 
 pub const XCB_SYNC_CHANGE_COUNTER: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_change_counter_request_t {
     pub major_opcode: u8,
@@ -483,24 +284,9 @@ pub struct xcb_sync_change_counter_request_t {
     pub amount:       xcb_sync_int64_t,
 }
 
-impl Copy for xcb_sync_change_counter_request_t {}
-impl Clone for xcb_sync_change_counter_request_t {
-    fn clone(&self) -> xcb_sync_change_counter_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_change_counter_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_change_counter_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("counter", &self.counter)
-            .field("amount", &self.amount)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_SET_COUNTER: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_set_counter_request_t {
     pub major_opcode: u8,
@@ -510,22 +296,7 @@ pub struct xcb_sync_set_counter_request_t {
     pub value:        xcb_sync_int64_t,
 }
 
-impl Copy for xcb_sync_set_counter_request_t {}
-impl Clone for xcb_sync_set_counter_request_t {
-    fn clone(&self) -> xcb_sync_set_counter_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_set_counter_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_set_counter_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("counter", &self.counter)
-            .field("value", &self.value)
-            .finish()
-    }
-}
-
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_sync_create_alarm_value_list_t {
     pub counter:   xcb_sync_counter_t,
@@ -535,21 +306,10 @@ pub struct xcb_sync_create_alarm_value_list_t {
     pub delta:     xcb_sync_int64_t,
     pub events:    u32,
 }
-impl ::std::fmt::Debug for xcb_sync_create_alarm_value_list_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_create_alarm_value_list_t")
-            .field("counter", &self.counter)
-            .field("valueType", &self.valueType)
-            .field("value", &self.value)
-            .field("testType", &self.testType)
-            .field("delta", &self.delta)
-            .field("events", &self.events)
-            .finish()
-    }
-}
 
 pub const XCB_SYNC_CREATE_ALARM: u8 = 8;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_sync_create_alarm_request_t {
     pub major_opcode: u8,
@@ -558,18 +318,8 @@ pub struct xcb_sync_create_alarm_request_t {
     pub id:           xcb_sync_alarm_t,
     pub value_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_sync_create_alarm_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_create_alarm_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("id", &self.id)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_sync_change_alarm_value_list_t {
     pub counter:   xcb_sync_counter_t,
@@ -579,21 +329,10 @@ pub struct xcb_sync_change_alarm_value_list_t {
     pub delta:     xcb_sync_int64_t,
     pub events:    u32,
 }
-impl ::std::fmt::Debug for xcb_sync_change_alarm_value_list_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_change_alarm_value_list_t")
-            .field("counter", &self.counter)
-            .field("valueType", &self.valueType)
-            .field("value", &self.value)
-            .field("testType", &self.testType)
-            .field("delta", &self.delta)
-            .field("events", &self.events)
-            .finish()
-    }
-}
 
 pub const XCB_SYNC_CHANGE_ALARM: u8 = 9;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_sync_change_alarm_request_t {
     pub major_opcode: u8,
@@ -602,20 +341,10 @@ pub struct xcb_sync_change_alarm_request_t {
     pub id:           xcb_sync_alarm_t,
     pub value_mask:   u32,
 }
-impl ::std::fmt::Debug for xcb_sync_change_alarm_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_change_alarm_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("id", &self.id)
-            .field("value_mask", &self.value_mask)
-            .finish()
-    }
-}
 
 pub const XCB_SYNC_DESTROY_ALARM: u8 = 11;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_destroy_alarm_request_t {
     pub major_opcode: u8,
@@ -624,23 +353,9 @@ pub struct xcb_sync_destroy_alarm_request_t {
     pub alarm:        xcb_sync_alarm_t,
 }
 
-impl Copy for xcb_sync_destroy_alarm_request_t {}
-impl Clone for xcb_sync_destroy_alarm_request_t {
-    fn clone(&self) -> xcb_sync_destroy_alarm_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_destroy_alarm_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_destroy_alarm_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("alarm", &self.alarm)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_QUERY_ALARM: u8 = 10;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_query_alarm_request_t {
     pub major_opcode: u8,
@@ -649,27 +364,13 @@ pub struct xcb_sync_query_alarm_request_t {
     pub alarm:        xcb_sync_alarm_t,
 }
 
-impl Copy for xcb_sync_query_alarm_request_t {}
-impl Clone for xcb_sync_query_alarm_request_t {
-    fn clone(&self) -> xcb_sync_query_alarm_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_query_alarm_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_query_alarm_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("alarm", &self.alarm)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_query_alarm_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_query_alarm_reply_t {
     pub response_type: u8,
@@ -683,28 +384,9 @@ pub struct xcb_sync_query_alarm_reply_t {
     pub pad1:          [u8; 2],
 }
 
-impl Copy for xcb_sync_query_alarm_reply_t {}
-impl Clone for xcb_sync_query_alarm_reply_t {
-    fn clone(&self) -> xcb_sync_query_alarm_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_query_alarm_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_query_alarm_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("trigger", &self.trigger)
-            .field("delta", &self.delta)
-            .field("events", &self.events)
-            .field("state", &self.state)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_SET_PRIORITY: u8 = 12;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_set_priority_request_t {
     pub major_opcode: u8,
@@ -714,24 +396,9 @@ pub struct xcb_sync_set_priority_request_t {
     pub priority:     i32,
 }
 
-impl Copy for xcb_sync_set_priority_request_t {}
-impl Clone for xcb_sync_set_priority_request_t {
-    fn clone(&self) -> xcb_sync_set_priority_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_set_priority_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_set_priority_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("id", &self.id)
-            .field("priority", &self.priority)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_GET_PRIORITY: u8 = 13;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_get_priority_request_t {
     pub major_opcode: u8,
@@ -740,27 +407,13 @@ pub struct xcb_sync_get_priority_request_t {
     pub id:           u32,
 }
 
-impl Copy for xcb_sync_get_priority_request_t {}
-impl Clone for xcb_sync_get_priority_request_t {
-    fn clone(&self) -> xcb_sync_get_priority_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_get_priority_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_get_priority_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("id", &self.id)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_get_priority_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_get_priority_reply_t {
     pub response_type: u8,
@@ -770,24 +423,9 @@ pub struct xcb_sync_get_priority_reply_t {
     pub priority:      i32,
 }
 
-impl Copy for xcb_sync_get_priority_reply_t {}
-impl Clone for xcb_sync_get_priority_reply_t {
-    fn clone(&self) -> xcb_sync_get_priority_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_get_priority_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_get_priority_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("priority", &self.priority)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_CREATE_FENCE: u8 = 14;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_create_fence_request_t {
     pub major_opcode:        u8,
@@ -798,25 +436,9 @@ pub struct xcb_sync_create_fence_request_t {
     pub initially_triggered: u8,
 }
 
-impl Copy for xcb_sync_create_fence_request_t {}
-impl Clone for xcb_sync_create_fence_request_t {
-    fn clone(&self) -> xcb_sync_create_fence_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_create_fence_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_create_fence_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("drawable", &self.drawable)
-            .field("fence", &self.fence)
-            .field("initially_triggered", &self.initially_triggered)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_TRIGGER_FENCE: u8 = 15;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_trigger_fence_request_t {
     pub major_opcode: u8,
@@ -825,23 +447,9 @@ pub struct xcb_sync_trigger_fence_request_t {
     pub fence:        xcb_sync_fence_t,
 }
 
-impl Copy for xcb_sync_trigger_fence_request_t {}
-impl Clone for xcb_sync_trigger_fence_request_t {
-    fn clone(&self) -> xcb_sync_trigger_fence_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_trigger_fence_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_trigger_fence_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("fence", &self.fence)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_RESET_FENCE: u8 = 16;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_reset_fence_request_t {
     pub major_opcode: u8,
@@ -850,23 +458,9 @@ pub struct xcb_sync_reset_fence_request_t {
     pub fence:        xcb_sync_fence_t,
 }
 
-impl Copy for xcb_sync_reset_fence_request_t {}
-impl Clone for xcb_sync_reset_fence_request_t {
-    fn clone(&self) -> xcb_sync_reset_fence_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_reset_fence_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_reset_fence_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("fence", &self.fence)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_DESTROY_FENCE: u8 = 17;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_destroy_fence_request_t {
     pub major_opcode: u8,
@@ -875,23 +469,9 @@ pub struct xcb_sync_destroy_fence_request_t {
     pub fence:        xcb_sync_fence_t,
 }
 
-impl Copy for xcb_sync_destroy_fence_request_t {}
-impl Clone for xcb_sync_destroy_fence_request_t {
-    fn clone(&self) -> xcb_sync_destroy_fence_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_destroy_fence_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_destroy_fence_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("fence", &self.fence)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_QUERY_FENCE: u8 = 18;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_query_fence_request_t {
     pub major_opcode: u8,
@@ -900,27 +480,13 @@ pub struct xcb_sync_query_fence_request_t {
     pub fence:        xcb_sync_fence_t,
 }
 
-impl Copy for xcb_sync_query_fence_request_t {}
-impl Clone for xcb_sync_query_fence_request_t {
-    fn clone(&self) -> xcb_sync_query_fence_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_query_fence_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_query_fence_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("fence", &self.fence)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_query_fence_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_query_fence_reply_t {
     pub response_type: u8,
@@ -931,43 +497,19 @@ pub struct xcb_sync_query_fence_reply_t {
     pub pad1:          [u8; 23],
 }
 
-impl Copy for xcb_sync_query_fence_reply_t {}
-impl Clone for xcb_sync_query_fence_reply_t {
-    fn clone(&self) -> xcb_sync_query_fence_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_query_fence_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_query_fence_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("triggered", &self.triggered)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_AWAIT_FENCE: u8 = 19;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_sync_await_fence_request_t {
     pub major_opcode:   u8,
     pub minor_opcode:   u8,
     pub length:         u16,
 }
-impl ::std::fmt::Debug for xcb_sync_await_fence_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_await_fence_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
-}
 
 pub const XCB_SYNC_COUNTER_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_counter_notify_event_t {
     pub response_type: u8,
@@ -982,29 +524,9 @@ pub struct xcb_sync_counter_notify_event_t {
     pub pad0:          u8,
 }
 
-impl Copy for xcb_sync_counter_notify_event_t {}
-impl Clone for xcb_sync_counter_notify_event_t {
-    fn clone(&self) -> xcb_sync_counter_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_counter_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_counter_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("kind", &self.kind)
-            .field("sequence", &self.sequence)
-            .field("counter", &self.counter)
-            .field("wait_value", &self.wait_value)
-            .field("counter_value", &self.counter_value)
-            .field("timestamp", &self.timestamp)
-            .field("count", &self.count)
-            .field("destroyed", &self.destroyed)
-            .field("pad0", &self.pad0)
-            .finish()
-    }
-}
-
 pub const XCB_SYNC_ALARM_NOTIFY: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_sync_alarm_notify_event_t {
     pub response_type: u8,
@@ -1016,26 +538,6 @@ pub struct xcb_sync_alarm_notify_event_t {
     pub timestamp:     xcb_timestamp_t,
     pub state:         u8,
     pub pad0:          [u8; 3],
-}
-
-impl Copy for xcb_sync_alarm_notify_event_t {}
-impl Clone for xcb_sync_alarm_notify_event_t {
-    fn clone(&self) -> xcb_sync_alarm_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_sync_alarm_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_sync_alarm_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("kind", &self.kind)
-            .field("sequence", &self.sequence)
-            .field("alarm", &self.alarm)
-            .field("counter_value", &self.counter_value)
-            .field("alarm_value", &self.alarm_value)
-            .field("timestamp", &self.timestamp)
-            .field("state", &self.state)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 

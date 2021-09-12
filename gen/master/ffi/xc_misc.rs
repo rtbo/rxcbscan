@@ -13,6 +13,7 @@ pub const XCB_XC_MISC_MINOR_VERSION: u32 = 1;
 
 pub const XCB_XC_MISC_GET_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xc_misc_get_version_request_t {
     pub major_opcode:         u8,
@@ -22,28 +23,13 @@ pub struct xcb_xc_misc_get_version_request_t {
     pub client_minor_version: u16,
 }
 
-impl Copy for xcb_xc_misc_get_version_request_t {}
-impl Clone for xcb_xc_misc_get_version_request_t {
-    fn clone(&self) -> xcb_xc_misc_get_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xc_misc_get_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xc_misc_get_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("client_major_version", &self.client_major_version)
-            .field("client_minor_version", &self.client_minor_version)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xc_misc_get_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xc_misc_get_version_reply_t {
     pub response_type:        u8,
@@ -54,44 +40,14 @@ pub struct xcb_xc_misc_get_version_reply_t {
     pub server_minor_version: u16,
 }
 
-impl Copy for xcb_xc_misc_get_version_reply_t {}
-impl Clone for xcb_xc_misc_get_version_reply_t {
-    fn clone(&self) -> xcb_xc_misc_get_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xc_misc_get_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xc_misc_get_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("server_major_version", &self.server_major_version)
-            .field("server_minor_version", &self.server_minor_version)
-            .finish()
-    }
-}
-
 pub const XCB_XC_MISC_GET_XID_RANGE: u8 = 1;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xc_misc_get_xid_range_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_xc_misc_get_xid_range_request_t {}
-impl Clone for xcb_xc_misc_get_xid_range_request_t {
-    fn clone(&self) -> xcb_xc_misc_get_xid_range_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xc_misc_get_xid_range_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xc_misc_get_xid_range_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -100,6 +56,7 @@ pub struct xcb_xc_misc_get_xid_range_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xc_misc_get_xid_range_reply_t {
     pub response_type: u8,
@@ -110,25 +67,9 @@ pub struct xcb_xc_misc_get_xid_range_reply_t {
     pub count:         u32,
 }
 
-impl Copy for xcb_xc_misc_get_xid_range_reply_t {}
-impl Clone for xcb_xc_misc_get_xid_range_reply_t {
-    fn clone(&self) -> xcb_xc_misc_get_xid_range_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xc_misc_get_xid_range_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xc_misc_get_xid_range_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("start_id", &self.start_id)
-            .field("count", &self.count)
-            .finish()
-    }
-}
-
 pub const XCB_XC_MISC_GET_XID_LIST: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xc_misc_get_xid_list_request_t {
     pub major_opcode: u8,
@@ -137,27 +78,13 @@ pub struct xcb_xc_misc_get_xid_list_request_t {
     pub count:        u32,
 }
 
-impl Copy for xcb_xc_misc_get_xid_list_request_t {}
-impl Clone for xcb_xc_misc_get_xid_list_request_t {
-    fn clone(&self) -> xcb_xc_misc_get_xid_list_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_xc_misc_get_xid_list_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xc_misc_get_xid_list_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("count", &self.count)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_xc_misc_get_xid_list_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_xc_misc_get_xid_list_reply_t {
     pub response_type: u8,
@@ -166,18 +93,6 @@ pub struct xcb_xc_misc_get_xid_list_reply_t {
     pub length:        u32,
     pub ids_len:       u32,
     pub pad1:          [u8; 20],
-}
-impl ::std::fmt::Debug for xcb_xc_misc_get_xid_list_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_xc_misc_get_xid_list_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("ids_len", &self.ids_len)
-            .field("pad1", &&self.pad1[..])
-            .finish()
-    }
 }
 
 

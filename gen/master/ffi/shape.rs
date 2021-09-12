@@ -46,6 +46,7 @@ pub const XCB_SHAPE_SK_INPUT   : xcb_shape_sk_t = 0x02;
 
 pub const XCB_SHAPE_NOTIFY: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_notify_event_t {
     pub response_type:   u8,
@@ -61,49 +62,14 @@ pub struct xcb_shape_notify_event_t {
     pub pad0:            [u8; 11],
 }
 
-impl Copy for xcb_shape_notify_event_t {}
-impl Clone for xcb_shape_notify_event_t {
-    fn clone(&self) -> xcb_shape_notify_event_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_notify_event_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_notify_event_t")
-            .field("response_type", &self.response_type)
-            .field("shape_kind", &self.shape_kind)
-            .field("sequence", &self.sequence)
-            .field("affected_window", &self.affected_window)
-            .field("extents_x", &self.extents_x)
-            .field("extents_y", &self.extents_y)
-            .field("extents_width", &self.extents_width)
-            .field("extents_height", &self.extents_height)
-            .field("server_time", &self.server_time)
-            .field("shaped", &self.shaped)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_SHAPE_QUERY_VERSION: u8 = 0;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_query_version_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length:       u16,
-}
-
-impl Copy for xcb_shape_query_version_request_t {}
-impl Clone for xcb_shape_query_version_request_t {
-    fn clone(&self) -> xcb_shape_query_version_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_query_version_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_query_version_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .finish()
-    }
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -112,6 +78,7 @@ pub struct xcb_shape_query_version_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_query_version_reply_t {
     pub response_type: u8,
@@ -122,25 +89,9 @@ pub struct xcb_shape_query_version_reply_t {
     pub minor_version: u16,
 }
 
-impl Copy for xcb_shape_query_version_reply_t {}
-impl Clone for xcb_shape_query_version_reply_t {
-    fn clone(&self) -> xcb_shape_query_version_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_query_version_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_query_version_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("major_version", &self.major_version)
-            .field("minor_version", &self.minor_version)
-            .finish()
-    }
-}
-
 pub const XCB_SHAPE_RECTANGLES: u8 = 1;
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_shape_rectangles_request_t {
     pub major_opcode:       u8,
@@ -154,25 +105,10 @@ pub struct xcb_shape_rectangles_request_t {
     pub x_offset:           i16,
     pub y_offset:           i16,
 }
-impl ::std::fmt::Debug for xcb_shape_rectangles_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_rectangles_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("operation", &self.operation)
-            .field("destination_kind", &self.destination_kind)
-            .field("ordering", &self.ordering)
-            .field("pad0", &self.pad0)
-            .field("destination_window", &self.destination_window)
-            .field("x_offset", &self.x_offset)
-            .field("y_offset", &self.y_offset)
-            .finish()
-    }
-}
 
 pub const XCB_SHAPE_MASK: u8 = 2;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_mask_request_t {
     pub major_opcode:       u8,
@@ -187,29 +123,9 @@ pub struct xcb_shape_mask_request_t {
     pub source_bitmap:      xcb_pixmap_t,
 }
 
-impl Copy for xcb_shape_mask_request_t {}
-impl Clone for xcb_shape_mask_request_t {
-    fn clone(&self) -> xcb_shape_mask_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_mask_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_mask_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("operation", &self.operation)
-            .field("destination_kind", &self.destination_kind)
-            .field("pad0", &&self.pad0[..])
-            .field("destination_window", &self.destination_window)
-            .field("x_offset", &self.x_offset)
-            .field("y_offset", &self.y_offset)
-            .field("source_bitmap", &self.source_bitmap)
-            .finish()
-    }
-}
-
 pub const XCB_SHAPE_COMBINE: u8 = 3;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_combine_request_t {
     pub major_opcode:       u8,
@@ -225,30 +141,9 @@ pub struct xcb_shape_combine_request_t {
     pub source_window:      xcb_window_t,
 }
 
-impl Copy for xcb_shape_combine_request_t {}
-impl Clone for xcb_shape_combine_request_t {
-    fn clone(&self) -> xcb_shape_combine_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_combine_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_combine_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("operation", &self.operation)
-            .field("destination_kind", &self.destination_kind)
-            .field("source_kind", &self.source_kind)
-            .field("pad0", &self.pad0)
-            .field("destination_window", &self.destination_window)
-            .field("x_offset", &self.x_offset)
-            .field("y_offset", &self.y_offset)
-            .field("source_window", &self.source_window)
-            .finish()
-    }
-}
-
 pub const XCB_SHAPE_OFFSET: u8 = 4;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_offset_request_t {
     pub major_opcode:       u8,
@@ -261,27 +156,9 @@ pub struct xcb_shape_offset_request_t {
     pub y_offset:           i16,
 }
 
-impl Copy for xcb_shape_offset_request_t {}
-impl Clone for xcb_shape_offset_request_t {
-    fn clone(&self) -> xcb_shape_offset_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_offset_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_offset_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("destination_kind", &self.destination_kind)
-            .field("pad0", &&self.pad0[..])
-            .field("destination_window", &self.destination_window)
-            .field("x_offset", &self.x_offset)
-            .field("y_offset", &self.y_offset)
-            .finish()
-    }
-}
-
 pub const XCB_SHAPE_QUERY_EXTENTS: u8 = 5;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_query_extents_request_t {
     pub major_opcode:       u8,
@@ -290,27 +167,13 @@ pub struct xcb_shape_query_extents_request_t {
     pub destination_window: xcb_window_t,
 }
 
-impl Copy for xcb_shape_query_extents_request_t {}
-impl Clone for xcb_shape_query_extents_request_t {
-    fn clone(&self) -> xcb_shape_query_extents_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_query_extents_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_query_extents_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("destination_window", &self.destination_window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_query_extents_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_query_extents_reply_t {
     pub response_type:                 u8,
@@ -330,34 +193,9 @@ pub struct xcb_shape_query_extents_reply_t {
     pub clip_shape_extents_height:     u16,
 }
 
-impl Copy for xcb_shape_query_extents_reply_t {}
-impl Clone for xcb_shape_query_extents_reply_t {
-    fn clone(&self) -> xcb_shape_query_extents_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_query_extents_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_query_extents_reply_t")
-            .field("response_type", &self.response_type)
-            .field("pad0", &self.pad0)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("bounding_shaped", &self.bounding_shaped)
-            .field("clip_shaped", &self.clip_shaped)
-            .field("pad1", &&self.pad1[..])
-            .field("bounding_shape_extents_x", &self.bounding_shape_extents_x)
-            .field("bounding_shape_extents_y", &self.bounding_shape_extents_y)
-            .field("bounding_shape_extents_width", &self.bounding_shape_extents_width)
-            .field("bounding_shape_extents_height", &self.bounding_shape_extents_height)
-            .field("clip_shape_extents_x", &self.clip_shape_extents_x)
-            .field("clip_shape_extents_y", &self.clip_shape_extents_y)
-            .field("clip_shape_extents_width", &self.clip_shape_extents_width)
-            .field("clip_shape_extents_height", &self.clip_shape_extents_height)
-            .finish()
-    }
-}
-
 pub const XCB_SHAPE_SELECT_INPUT: u8 = 6;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_select_input_request_t {
     pub major_opcode:       u8,
@@ -368,25 +206,9 @@ pub struct xcb_shape_select_input_request_t {
     pub pad0:               [u8; 3],
 }
 
-impl Copy for xcb_shape_select_input_request_t {}
-impl Clone for xcb_shape_select_input_request_t {
-    fn clone(&self) -> xcb_shape_select_input_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_select_input_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_select_input_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("destination_window", &self.destination_window)
-            .field("enable", &self.enable)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 pub const XCB_SHAPE_INPUT_SELECTED: u8 = 7;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_input_selected_request_t {
     pub major_opcode:       u8,
@@ -395,27 +217,13 @@ pub struct xcb_shape_input_selected_request_t {
     pub destination_window: xcb_window_t,
 }
 
-impl Copy for xcb_shape_input_selected_request_t {}
-impl Clone for xcb_shape_input_selected_request_t {
-    fn clone(&self) -> xcb_shape_input_selected_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_input_selected_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_input_selected_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("destination_window", &self.destination_window)
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_input_selected_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_input_selected_reply_t {
     pub response_type: u8,
@@ -424,23 +232,9 @@ pub struct xcb_shape_input_selected_reply_t {
     pub length:        u32,
 }
 
-impl Copy for xcb_shape_input_selected_reply_t {}
-impl Clone for xcb_shape_input_selected_reply_t {
-    fn clone(&self) -> xcb_shape_input_selected_reply_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_input_selected_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_input_selected_reply_t")
-            .field("response_type", &self.response_type)
-            .field("enabled", &self.enabled)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .finish()
-    }
-}
-
 pub const XCB_SHAPE_GET_RECTANGLES: u8 = 8;
 
+#[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_get_rectangles_request_t {
     pub major_opcode: u8,
@@ -451,29 +245,13 @@ pub struct xcb_shape_get_rectangles_request_t {
     pub pad0:         [u8; 3],
 }
 
-impl Copy for xcb_shape_get_rectangles_request_t {}
-impl Clone for xcb_shape_get_rectangles_request_t {
-    fn clone(&self) -> xcb_shape_get_rectangles_request_t { *self }
-}
-impl ::std::fmt::Debug for xcb_shape_get_rectangles_request_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_get_rectangles_request_t")
-            .field("major_opcode", &self.major_opcode)
-            .field("minor_opcode", &self.minor_opcode)
-            .field("length", &self.length)
-            .field("window", &self.window)
-            .field("source_kind", &self.source_kind)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
-}
-
 #[derive(Copy, Clone, Debug)]
 #[repr(C)]
 pub struct xcb_shape_get_rectangles_cookie_t {
     pub(crate) sequence: c_uint
 }
 
+#[derive(Debug)]
 #[repr(C)]
 pub struct xcb_shape_get_rectangles_reply_t {
     pub response_type:  u8,
@@ -482,18 +260,6 @@ pub struct xcb_shape_get_rectangles_reply_t {
     pub length:         u32,
     pub rectangles_len: u32,
     pub pad0:           [u8; 20],
-}
-impl ::std::fmt::Debug for xcb_shape_get_rectangles_reply_t {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        fmt.debug_struct("xcb_shape_get_rectangles_reply_t")
-            .field("response_type", &self.response_type)
-            .field("ordering", &self.ordering)
-            .field("sequence", &self.sequence)
-            .field("length", &self.length)
-            .field("rectangles_len", &self.rectangles_len)
-            .field("pad0", &&self.pad0[..])
-            .finish()
-    }
 }
 
 
