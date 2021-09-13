@@ -1792,7 +1792,7 @@ pub fn grab_device_key_checked<'a>(c                : &'a base::Connection,
 pub const UNGRAB_DEVICE_KEY: u8 = 16;
 
 pub fn ungrab_device_key<'a>(c              : &'a base::Connection,
-                             grab_window    : xproto::Window,
+                             grabWindow     : xproto::Window,
                              modifiers      : u16,
                              modifier_device: u8,
                              key            : u8,
@@ -1800,7 +1800,7 @@ pub fn ungrab_device_key<'a>(c              : &'a base::Connection,
         -> base::VoidCookie<'a> {
     unsafe {
         let cookie = xcb_input_ungrab_device_key(c.get_raw_conn(),
-                                                 grab_window as xcb_window_t,  // 0
+                                                 grabWindow as xcb_window_t,  // 0
                                                  modifiers as u16,  // 1
                                                  modifier_device as u8,  // 2
                                                  key as u8,  // 3
@@ -1814,7 +1814,7 @@ pub fn ungrab_device_key<'a>(c              : &'a base::Connection,
 }
 
 pub fn ungrab_device_key_checked<'a>(c              : &'a base::Connection,
-                                     grab_window    : xproto::Window,
+                                     grabWindow     : xproto::Window,
                                      modifiers      : u16,
                                      modifier_device: u8,
                                      key            : u8,
@@ -1822,7 +1822,7 @@ pub fn ungrab_device_key_checked<'a>(c              : &'a base::Connection,
         -> base::VoidCookie<'a> {
     unsafe {
         let cookie = xcb_input_ungrab_device_key_checked(c.get_raw_conn(),
-                                                         grab_window as xcb_window_t,  // 0
+                                                         grabWindow as xcb_window_t,  // 0
                                                          modifiers as u16,  // 1
                                                          modifier_device as u8,  // 2
                                                          key as u8,  // 3

@@ -185,7 +185,7 @@ impl Iterator for ScreenSizeIterator {
 pub type RefreshRates<'a> = base::StructPtr<'a, xcb_randr_refresh_rates_t>;
 
 impl<'a> RefreshRates<'a> {
-    pub fn n_rates(&self) -> u16 {
+    pub fn nRates(&self) -> u16 {
         unsafe {
             (*self.ptr).nRates
         }
@@ -358,7 +358,7 @@ pub fn set_screen_config<'a>(c               : &'a base::Connection,
                              window          : xproto::Window,
                              timestamp       : xproto::Timestamp,
                              config_timestamp: xproto::Timestamp,
-                             size_i_d        : u16,
+                             sizeID          : u16,
                              rotation        : u16,
                              rate            : u16)
         -> SetScreenConfigCookie<'a> {
@@ -367,7 +367,7 @@ pub fn set_screen_config<'a>(c               : &'a base::Connection,
                                                  window as xcb_window_t,  // 0
                                                  timestamp as xcb_timestamp_t,  // 1
                                                  config_timestamp as xcb_timestamp_t,  // 2
-                                                 size_i_d as u16,  // 3
+                                                 sizeID as u16,  // 3
                                                  rotation as u16,  // 4
                                                  rate as u16);  // 5
         SetScreenConfigCookie {
@@ -382,7 +382,7 @@ pub fn set_screen_config_unchecked<'a>(c               : &'a base::Connection,
                                        window          : xproto::Window,
                                        timestamp       : xproto::Timestamp,
                                        config_timestamp: xproto::Timestamp,
-                                       size_i_d        : u16,
+                                       sizeID          : u16,
                                        rotation        : u16,
                                        rate            : u16)
         -> SetScreenConfigCookie<'a> {
@@ -391,7 +391,7 @@ pub fn set_screen_config_unchecked<'a>(c               : &'a base::Connection,
                                                            window as xcb_window_t,  // 0
                                                            timestamp as xcb_timestamp_t,  // 1
                                                            config_timestamp as xcb_timestamp_t,  // 2
-                                                           size_i_d as u16,  // 3
+                                                           sizeID as u16,  // 3
                                                            rotation as u16,  // 4
                                                            rate as u16);  // 5
         SetScreenConfigCookie {
@@ -489,12 +489,12 @@ impl GetScreenInfoReply {
             (*self.ptr).config_timestamp
         }
     }
-    pub fn n_sizes(&self) -> u16 {
+    pub fn nSizes(&self) -> u16 {
         unsafe {
             (*self.ptr).nSizes
         }
     }
-    pub fn size_i_d(&self) -> u16 {
+    pub fn sizeID(&self) -> u16 {
         unsafe {
             (*self.ptr).sizeID
         }
@@ -509,7 +509,7 @@ impl GetScreenInfoReply {
             (*self.ptr).rate
         }
     }
-    pub fn n_info(&self) -> u16 {
+    pub fn nInfo(&self) -> u16 {
         unsafe {
             (*self.ptr).nInfo
         }
@@ -1213,7 +1213,7 @@ impl QueryOutputPropertyReply {
             (*self.ptr).immutable != 0
         }
     }
-    pub fn valid_values(&self) -> &[i32] {
+    pub fn validValues(&self) -> &[i32] {
         unsafe {
             let field = self.ptr;
             let len = xcb_randr_query_output_property_valid_values_length(field) as usize;
@@ -3578,7 +3578,7 @@ impl ScreenChangeNotifyEvent {
             (*self.ptr).request_window
         }
     }
-    pub fn size_i_d(&self) -> u16 {
+    pub fn sizeID(&self) -> u16 {
         unsafe {
             (*self.ptr).sizeID
         }
@@ -3615,7 +3615,7 @@ impl ScreenChangeNotifyEvent {
                config_timestamp: xproto::Timestamp,
                root: xproto::Window,
                request_window: xproto::Window,
-               size_i_d: u16,
+               sizeID: u16,
                subpixel_order: u16,
                width: u16,
                height: u16,
@@ -3630,7 +3630,7 @@ impl ScreenChangeNotifyEvent {
             (*raw).config_timestamp = config_timestamp;
             (*raw).root = root;
             (*raw).request_window = request_window;
-            (*raw).sizeID = size_i_d;
+            (*raw).sizeID = sizeID;
             (*raw).subpixel_order = subpixel_order;
             (*raw).width = width;
             (*raw).height = height;
@@ -4194,7 +4194,7 @@ pub const NOTIFY: u8 = 1;
 pub type NotifyEvent = base::Event<xcb_randr_notify_event_t>;
 
 impl NotifyEvent {
-    pub fn sub_code(&self) -> u8 {
+    pub fn subCode(&self) -> u8 {
         unsafe {
             (*self.ptr).subCode
         }
@@ -4206,13 +4206,13 @@ impl NotifyEvent {
     }
     /// Constructs a new NotifyEvent
     /// `response_type` will be set automatically to NOTIFY
-    pub fn new(sub_code: u8,
+    pub fn new(subCode: u8,
                u: NotifyData)
             -> NotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_randr_notify_event_t;
             (*raw).response_type = NOTIFY;
-            (*raw).subCode = sub_code;
+            (*raw).subCode = subCode;
             (*raw).u = u;
             NotifyEvent {
                 ptr: raw

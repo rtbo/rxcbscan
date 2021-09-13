@@ -1411,7 +1411,7 @@ impl<'a> GetFbConfigsCookie<'a> {
 pub type GetFbConfigsReply = base::Reply<xcb_glx_get_fb_configs_reply_t>;
 
 impl GetFbConfigsReply {
-    pub fn num__f_b_configs(&self) -> u32 {
+    pub fn num_FB_configs(&self) -> u32 {
         unsafe {
             (*self.ptr).num_FB_configs
         }
@@ -2843,9 +2843,9 @@ impl GetBooleanvReply {
     pub fn data(&self) -> Vec<bool> {
         unsafe {
             let field = self.ptr;
-            let len = xcb_glx_get_booleanv_data_length(field);
+            let len = xcb_glx_get_booleanv_data_length(field) as usize;
             let data = xcb_glx_get_booleanv_data(field);
-            let slice = std::slice::from_raw_parts(data, len as usize);
+            let slice = std::slice::from_raw_parts(data, len);
             slice.iter().map(|el| if *el == 0 {false} else{true}).collect()
         }
     }
@@ -5374,9 +5374,9 @@ impl AreTexturesResidentReply {
     pub fn data(&self) -> Vec<bool> {
         unsafe {
             let field = self.ptr;
-            let len = xcb_glx_are_textures_resident_data_length(field);
+            let len = xcb_glx_are_textures_resident_data_length(field) as usize;
             let data = xcb_glx_are_textures_resident_data(field);
-            let slice = std::slice::from_raw_parts(data, len as usize);
+            let slice = std::slice::from_raw_parts(data, len);
             slice.iter().map(|el| if *el == 0 {false} else{true}).collect()
         }
     }

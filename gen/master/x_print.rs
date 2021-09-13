@@ -63,7 +63,7 @@ pub struct BadSequenceError {
 pub type Printer<'a> = base::StructPtr<'a, xcb_x_print_printer_t>;
 
 impl<'a> Printer<'a> {
-    pub fn name_len(&self) -> u32 {
+    pub fn nameLen(&self) -> u32 {
         unsafe {
             (*self.ptr).nameLen
         }
@@ -76,7 +76,7 @@ impl<'a> Printer<'a> {
             std::slice::from_raw_parts(data, len)
         }
     }
-    pub fn desc_len(&self) -> u32 {
+    pub fn descLen(&self) -> u32 {
         unsafe {
             (*self.ptr).descLen
         }
@@ -210,7 +210,7 @@ impl<'a> PrintGetPrinterListCookie<'a> {
 pub type PrintGetPrinterListReply = base::Reply<xcb_x_print_print_get_printer_list_reply_t>;
 
 impl PrintGetPrinterListReply {
-    pub fn list_count(&self) -> u32 {
+    pub fn listCount(&self) -> u32 {
         unsafe {
             (*self.ptr).listCount
         }
@@ -294,21 +294,21 @@ pub fn print_rehash_printer_list_checked<'a>(c: &'a base::Connection)
 
 pub const CREATE_CONTEXT: u8 = 2;
 
-pub fn create_context<'a>(c           : &'a base::Connection,
-                          context_id  : u32,
-                          printer_name: &[String8],
-                          locale      : &[String8])
+pub fn create_context<'a>(c          : &'a base::Connection,
+                          context_id : u32,
+                          printerName: &[String8],
+                          locale     : &[String8])
         -> base::VoidCookie<'a> {
     unsafe {
-        let printer_name_len = printer_name.len();
-        let printer_name_ptr = printer_name.as_ptr();
+        let printerName_len = printerName.len();
+        let printerName_ptr = printerName.as_ptr();
         let locale_len = locale.len();
         let locale_ptr = locale.as_ptr();
         let cookie = xcb_x_print_create_context(c.get_raw_conn(),
                                                 context_id as u32,  // 0
-                                                printer_name_len as u32,  // 1
+                                                printerName_len as u32,  // 1
                                                 locale_len as u32,  // 2
-                                                printer_name_ptr as *const xcb_x_print_string8_t,  // 3
+                                                printerName_ptr as *const xcb_x_print_string8_t,  // 3
                                                 locale_ptr as *const xcb_x_print_string8_t);  // 4
         base::VoidCookie {
             cookie:  cookie,
@@ -318,21 +318,21 @@ pub fn create_context<'a>(c           : &'a base::Connection,
     }
 }
 
-pub fn create_context_checked<'a>(c           : &'a base::Connection,
-                                  context_id  : u32,
-                                  printer_name: &[String8],
-                                  locale      : &[String8])
+pub fn create_context_checked<'a>(c          : &'a base::Connection,
+                                  context_id : u32,
+                                  printerName: &[String8],
+                                  locale     : &[String8])
         -> base::VoidCookie<'a> {
     unsafe {
-        let printer_name_len = printer_name.len();
-        let printer_name_ptr = printer_name.as_ptr();
+        let printerName_len = printerName.len();
+        let printerName_ptr = printerName.as_ptr();
         let locale_len = locale.len();
         let locale_ptr = locale.as_ptr();
         let cookie = xcb_x_print_create_context_checked(c.get_raw_conn(),
                                                         context_id as u32,  // 0
-                                                        printer_name_len as u32,  // 1
+                                                        printerName_len as u32,  // 1
                                                         locale_len as u32,  // 2
-                                                        printer_name_ptr as *const xcb_x_print_string8_t,  // 3
+                                                        printerName_ptr as *const xcb_x_print_string8_t,  // 3
                                                         locale_ptr as *const xcb_x_print_string8_t);  // 4
         base::VoidCookie {
             cookie:  cookie,
@@ -761,7 +761,7 @@ impl PrintGetDocumentDataReply {
             (*self.ptr).finished_flag
         }
     }
-    pub fn data_len(&self) -> u32 {
+    pub fn dataLen(&self) -> u32 {
         unsafe {
             (*self.ptr).dataLen
         }
@@ -1032,7 +1032,7 @@ impl<'a> PrintGetAttributesCookie<'a> {
 pub type PrintGetAttributesReply = base::Reply<xcb_x_print_print_get_attributes_reply_t>;
 
 impl PrintGetAttributesReply {
-    pub fn string_len(&self) -> u32 {
+    pub fn stringLen(&self) -> u32 {
         unsafe {
             (*self.ptr).stringLen
         }
@@ -1112,7 +1112,7 @@ impl<'a> PrintGetOneAttributesCookie<'a> {
 pub type PrintGetOneAttributesReply = base::Reply<xcb_x_print_print_get_one_attributes_reply_t>;
 
 impl PrintGetOneAttributesReply {
-    pub fn value_len(&self) -> u32 {
+    pub fn valueLen(&self) -> u32 {
         unsafe {
             (*self.ptr).valueLen
         }
@@ -1173,7 +1173,7 @@ pub const PRINT_SET_ATTRIBUTES: u8 = 18;
 
 pub fn print_set_attributes<'a>(c         : &'a base::Connection,
                                 context   : Pcontext,
-                                string_len: u32,
+                                stringLen : u32,
                                 pool      : u8,
                                 rule      : u8,
                                 attributes: &[String8])
@@ -1183,7 +1183,7 @@ pub fn print_set_attributes<'a>(c         : &'a base::Connection,
         let attributes_ptr = attributes.as_ptr();
         let cookie = xcb_x_print_print_set_attributes(c.get_raw_conn(),
                                                       context as xcb_x_print_pcontext_t,  // 0
-                                                      string_len as u32,  // 1
+                                                      stringLen as u32,  // 1
                                                       pool as u8,  // 2
                                                       rule as u8,  // 3
                                                       attributes_len as u32,  // 4
@@ -1198,7 +1198,7 @@ pub fn print_set_attributes<'a>(c         : &'a base::Connection,
 
 pub fn print_set_attributes_checked<'a>(c         : &'a base::Connection,
                                         context   : Pcontext,
-                                        string_len: u32,
+                                        stringLen : u32,
                                         pool      : u8,
                                         rule      : u8,
                                         attributes: &[String8])
@@ -1208,7 +1208,7 @@ pub fn print_set_attributes_checked<'a>(c         : &'a base::Connection,
         let attributes_ptr = attributes.as_ptr();
         let cookie = xcb_x_print_print_set_attributes_checked(c.get_raw_conn(),
                                                               context as xcb_x_print_pcontext_t,  // 0
-                                                              string_len as u32,  // 1
+                                                              stringLen as u32,  // 1
                                                               pool as u8,  // 2
                                                               rule as u8,  // 3
                                                               attributes_len as u32,  // 4
@@ -1347,7 +1347,7 @@ impl<'a> PrintQueryScreensCookie<'a> {
 pub type PrintQueryScreensReply = base::Reply<xcb_x_print_print_query_screens_reply_t>;
 
 impl PrintQueryScreensReply {
-    pub fn list_count(&self) -> u32 {
+    pub fn listCount(&self) -> u32 {
         unsafe {
             (*self.ptr).listCount
         }
