@@ -52,11 +52,16 @@ impl CodeGen {
         accessor: &str,
         skip_fields: &[&str],
         has_lifetime: bool,
+        is_reply: bool,
     ) -> io::Result<()> {
+        let has_reply_fd_nfd = is_reply && has_fd_nfd(&stru.fields);
         for f in stru.fields.iter() {
             match f {
                 StructField::Field { name, typ, .. } => {
                     if skip_fields.iter().find(|skip| skip == &name).is_some() {
+                        continue;
+                    }
+                    if has_reply_fd_nfd && name == "nfd" {
                         continue;
                     }
                     let is_simple = self.typ_is_simple(&typ);
@@ -226,6 +231,25 @@ impl CodeGen {
             }
         }
 
+        if has_reply_fd_nfd {
+            for f in stru.fields.iter() {
+                match f {
+                    StructField::Fd(name) => {
+                        let getter = ffi::reply_fds_fn_name(&self.xcb_mod_prefix, &stru.name);
+                        let out = &mut self.rs_buf;
+                        writeln!(out, "    pub fn {}s(&self, c: &base::Connection) -> &[i32] {{", name)?;
+                        writeln!(out, "        unsafe {{")?;
+                        writeln!(out, "            let nfd = {}.nfd as usize;", &accessor)?;
+                        writeln!(out, "            let ptr = {}(c.get_raw_conn(), self.ptr);", &getter)?;
+                        writeln!(out, "            std::slice::from_raw_parts(ptr, nfd)")?;
+                        writeln!(out, "        }}")?;
+                        writeln!(out, "    }}")?;
+                    }
+                    _ => {}
+                }
+            }
+        }
+
         Ok(())
     }
 
@@ -312,7 +336,7 @@ impl CodeGen {
         }
 
         // emitting accessors
-        self.emit_rs_struct_field_accessors(&stru, accessor, &[], has_lifetime)?;
+        self.emit_rs_struct_field_accessors(&stru, accessor, &[], has_lifetime, false)?;
 
         writeln!(&mut self.rs_buf, "}}")?;
 
@@ -562,7 +586,7 @@ impl CodeGen {
         {
             let mut fs = field_skip.clone();
             fs.push("response_type");
-            self.emit_rs_struct_field_accessors(&stru, "(*self.ptr)", &fs, false)?;
+            self.emit_rs_struct_field_accessors(&stru, "(*self.ptr)", &fs, false, false)?;
         }
 
         // emitting ctor
@@ -792,6 +816,10 @@ impl CodeGen {
                     let out = &mut self.rs_buf;
                     writeln!(out, "    {}: {},", name, typ)?;
                 }
+                StructField::Fd(name) => {
+                    let name = symbol(&name);
+                    writeln!(&mut self.rs_buf, "    {}: i32,", name)?;
+                }
                 StructField::List { name, typ, .. } | StructField::ListNoLen { name, typ } => {
                     let name = symbol(&name);
                     let typ = match (send_event, name, typ.as_str()) {
@@ -893,6 +921,10 @@ impl CodeGen {
                         let out = &mut self.rs_buf;
                         writeln!(out, "            {} as {},", &name, &ffi_typ)?;
                     }
+                }
+                StructField::Fd(name) => {
+                    let name = symbol(name);
+                    writeln!(&mut self.rs_buf, "            {} as i32,", &name)?;
                 }
                 StructField::List { name, typ, .. } => {
                     if send_event && name == "event" {
@@ -1032,7 +1064,7 @@ impl CodeGen {
             doc: reply.doc,
         };
 
-        self.emit_rs_struct_field_accessors(&stru, "(*self.ptr)", &[], false)?;
+        self.emit_rs_struct_field_accessors(&stru, "(*self.ptr)", &[], false, true)?;
 
         {
             let out = &mut self.rs_buf;
@@ -1041,6 +1073,25 @@ impl CodeGen {
 
         Ok(())
     }
+}
+
+fn has_fd_nfd(fields: &[StructField]) -> bool {
+    let mut has_fd = false;
+    let mut has_nfd = false;
+
+    for f in fields.iter() {
+        match f {
+            StructField::Field{name, ..} if name == "nfd" => {
+                has_nfd = true;
+            }
+            StructField::Fd(_) => {
+                has_fd = true;
+            }
+            _ => {}
+        }
+    }
+
+    has_fd && has_nfd
 }
 
 pub fn type_name(typ: &str) -> String {
