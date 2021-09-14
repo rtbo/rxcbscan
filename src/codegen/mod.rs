@@ -216,8 +216,16 @@ impl CodeGen {
             writeln!(out, "    }}")?;
             writeln!(out, "}}")?;
             writeln!(out)?;
-            writeln!(out, "pub const MAJOR_VERSION: u32 = {};", ext_info.major_version)?;
-            writeln!(out, "pub const MINOR_VERSION: u32 = {};", ext_info.minor_version)?;
+            writeln!(
+                out,
+                "pub const MAJOR_VERSION: u32 = {};",
+                ext_info.major_version
+            )?;
+            writeln!(
+                out,
+                "pub const MINOR_VERSION: u32 = {};",
+                ext_info.minor_version
+            )?;
         }
 
         Ok(())
@@ -831,10 +839,11 @@ impl CodeGen {
         };
 
         let rs_cookie = if ffi_cookie == "VoidCookie" {
-            "base::VoidCookie"
+            String::from("base::VoidCookie")
         } else {
-            &ffi_cookie
+            rs::type_name(&ffi_cookie)
         };
+
         rs::emit_opcode(&mut self.rs_buf, &req.name, req.opcode)?;
 
         if let Some(reply) = req.reply.take() {
@@ -958,6 +967,7 @@ fn tit_split(name: &str) -> String {
 /// said otherwise: every upper preceded by another upper and followed by a upper is turned to lower
 /// assert!(tit_cap("SomeString") == "SomeString")
 /// assert!(tit_cap("WINDOW") == "Window")
+/// assert!(tit_cap("CONTEXT_TAG") == "ContextTag")
 /// assert!(tit_cap("GContext") == "GContext")
 /// assert!(tit_cap("IDChoice") == "IdChoice")
 fn tit_cap(name: &str) -> String {
@@ -974,10 +984,12 @@ fn tit_cap(name: &str) -> String {
     let mut c = ch.next().unwrap();
 
     for next in ch {
-        if is_high(c) && is_high(prev) && is_high(next) {
-            res.push(c.to_ascii_lowercase())
-        } else {
-            res.push(c)
+        if c != '_' {
+            if is_high(c) && is_high(prev) && (is_high(next) || next == '_') {
+                res.push(c.to_ascii_lowercase())
+            } else {
+                res.push(c)
+            }
         }
         prev = c;
         c = next;
@@ -1200,4 +1212,12 @@ fn request_has_template(params: &[StructField]) -> bool {
         }
     }
     false
+}
+
+fn enum_suffix_exception(xcb_mod: &str, enum_typ: &str) -> bool {
+    match (xcb_mod, enum_typ) {
+        ("render", "Picture") => true,
+        ("present", "Event") => true,
+        _ => false,
+    }
 }

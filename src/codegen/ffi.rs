@@ -1,8 +1,8 @@
 use std::io::{self, Write};
 
 use super::{
-    capitalize, emit_doc_field, emit_doc_text, expr_fixed_length, extract_module, has_fd,
-    make_field, symbol, tit_split, CodeGen,
+    capitalize, emit_doc_field, emit_doc_text, enum_suffix_exception, expr_fixed_length,
+    extract_module, has_fd, make_field, symbol, tit_split, CodeGen,
 };
 use crate::ast::{Doc, Expr, Reply, Struct, StructField, SwitchCase};
 
@@ -123,20 +123,10 @@ impl CodeGen {
     }
 
     pub fn ffi_enum_type_name(&mut self, typ: &str) -> String {
-        let typ = tit_split(typ).to_ascii_lowercase();
-        let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, typ);
-        // hardcoded exceptions: enum are defined before the homonym type
-        match try1.as_str() {
-            "xcb_render_picture_t" => {
-                return "xcb_render_picture_enum_t".into();
-            }
-            "xcb_present_event_t" => {
-                return "xcb_present_event_enum_t".into();
-            }
-            _ => {}
-        }
-        if self.has_ffi_type(&try1) {
-            format!("xcb_{}{}_enum_t", self.xcb_mod_prefix, typ)
+        let base = tit_split(typ).to_ascii_lowercase();
+        let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, base);
+        if self.has_ffi_type(&try1) || enum_suffix_exception(&self.xcb_mod, &typ) {
+            format!("xcb_{}{}_enum_t", self.xcb_mod_prefix, base)
         } else {
             try1
         }
@@ -302,8 +292,7 @@ impl CodeGen {
 
         if accessor_needed {
             let ftyp = self.ffi_use_type_name(ftyp);
-            let acc_fn =
-                field_list_iterator_acc_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
+            let acc_fn = field_list_iterator_acc_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
             // the following only for diff equality with Python code
             let param = if toplevel_typ.is_some() { "S" } else { "R" };
             let out = &mut self.ffi_buf;
@@ -316,16 +305,14 @@ impl CodeGen {
         }
 
         if length_needed {
-            let len_fn =
-                field_list_iterator_len_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
+            let len_fn = field_list_iterator_len_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
             let out = &mut self.ffi_buf;
             writeln!(out)?;
             writeln!(out, "pub fn {}({}) -> c_int;", &len_fn, &args)?;
         }
 
         if end_needed {
-            let end_fn =
-                field_list_iterator_end_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
+            let end_fn = field_list_iterator_end_fn_name(&self.xcb_mod_prefix, &xcb_name, &fname);
             let out = &mut self.ffi_buf;
             writeln!(out)?;
             writeln!(
@@ -589,8 +576,7 @@ impl CodeGen {
 
         for c in cases.iter() {
             if let Some(name) = &c.name {
-                let typ =
-                    switch_named_case(&self.xcb_mod_prefix, &typ_name, &switch_name, &name);
+                let typ = switch_named_case(&self.xcb_mod_prefix, &typ_name, &switch_name, &name);
                 let stru = Struct {
                     name: typ.clone(),
                     fields: c.fields.clone(),
