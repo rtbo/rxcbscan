@@ -48,6 +48,7 @@ impl CodeGen {
 
     fn emit_rs_struct_field_accessors(
         &mut self,
+        rs_name: &str,
         stru: &Struct,
         accessor: &str,
         skip_fields: &[&str],
@@ -178,7 +179,7 @@ impl CodeGen {
                         let it_typ = self.rs_use_type_name(&typ) + "Iterator";
                         let ffi_it_fn_name = ffi::field_list_iterator_it_fn_name(
                             &self.xcb_mod_prefix,
-                            &stru.name,
+                            &rs_name,
                             &name,
                         );
                         let out = &mut self.rs_buf;
@@ -190,6 +191,25 @@ impl CodeGen {
                         writeln!(out, "        unsafe {{ {}(self.ptr) }}", &ffi_it_fn_name)?;
                         writeln!(out, "    }}")?;
                     }
+                }
+                StructField::ListNoLen { name, typ } => {
+                    let has_lifetime = has_lifetime && self.typ_with_lifetime.contains(typ);
+                    let lifetime = if has_lifetime { "<'a>" } else { "" };
+                    let len_name = name.clone() + "_len";
+                    let name = symbol(&name);
+                    let it_typ = self.rs_use_type_name(&typ) + "Iterator";
+                    let ffi_it_fn_name = ffi::field_list_iterator_it_fn_name(
+                        &self.xcb_mod_prefix,
+                        &rs_name,
+                        &name,
+                    );
+                    let out = &mut self.rs_buf;
+                    writeln!(out, "    pub fn {}(&self) -> u32 {{", &len_name)?;
+                    writeln!(out, "        unsafe {{ {}.{} }}", &accessor, &len_name)?;
+                    writeln!(out, "    }}")?;
+                    writeln!(out, "    pub fn {}(&self) -> {}{} {{", &name, &it_typ, &lifetime)?;
+                    writeln!(out, "        unsafe {{ {}(self.ptr) }}", &ffi_it_fn_name)?;
+                    writeln!(out, "    }}")?;
                 }
                 StructField::ValueParam {
                     mask_typ,
@@ -237,10 +257,18 @@ impl CodeGen {
                     StructField::Fd(name) => {
                         let getter = ffi::reply_fds_fn_name(&self.xcb_mod_prefix, &stru.name);
                         let out = &mut self.rs_buf;
-                        writeln!(out, "    pub fn {}s(&self, c: &base::Connection) -> &[i32] {{", name)?;
+                        writeln!(
+                            out,
+                            "    pub fn {}s(&self, c: &base::Connection) -> &[i32] {{",
+                            name
+                        )?;
                         writeln!(out, "        unsafe {{")?;
                         writeln!(out, "            let nfd = {}.nfd as usize;", &accessor)?;
-                        writeln!(out, "            let ptr = {}(c.get_raw_conn(), self.ptr);", &getter)?;
+                        writeln!(
+                            out,
+                            "            let ptr = {}(c.get_raw_conn(), self.ptr);",
+                            &getter
+                        )?;
                         writeln!(out, "            std::slice::from_raw_parts(ptr, nfd)")?;
                         writeln!(out, "        }}")?;
                         writeln!(out, "    }}")?;
@@ -305,7 +333,11 @@ impl CodeGen {
                         let is_simple = self.typ_is_simple(&typ);
                         let out = &mut self.rs_buf;
                         if typ == "BOOL" {
-                            writeln!(out, "                    {}: {} != 0,", &name, &name)?;
+                            writeln!(
+                                out,
+                                "                    {}: if {} {{ 1 }} else {{ 0 }},",
+                                &name, &name
+                            )?;
                         } else if is_pod && !is_simple {
                             writeln!(
                                 out,
@@ -336,7 +368,7 @@ impl CodeGen {
         }
 
         // emitting accessors
-        self.emit_rs_struct_field_accessors(&stru, accessor, &[], has_lifetime, false)?;
+        self.emit_rs_struct_field_accessors(&stru.name, &stru, accessor, &[], has_lifetime, false)?;
 
         writeln!(&mut self.rs_buf, "}}")?;
 
@@ -586,7 +618,7 @@ impl CodeGen {
         {
             let mut fs = field_skip.clone();
             fs.push("response_type");
-            self.emit_rs_struct_field_accessors(&stru, "(*self.ptr)", &fs, false, false)?;
+            self.emit_rs_struct_field_accessors(&name, &stru, "(*self.ptr)", &fs, false, false)?;
         }
 
         // emitting ctor
@@ -644,7 +676,12 @@ impl CodeGen {
                     };
                     writeln!(&mut self.rs_buf, "        {}: {},", symbol(name), &typ)?;
                 }
-                StructField::ListNoLen { .. } => {}
+                StructField::ListNoLen { name, typ } => {
+                    let len_name = name.clone() + "_len";
+                    let typ = self.rs_use_type_name(&typ);
+                    writeln!(&mut self.rs_buf, "        {}: u32,", len_name)?;
+                    writeln!(&mut self.rs_buf, "        {}: {},", symbol(&name), typ)?;
+                }
                 _ => unimplemented!("{}::{}::{:?}", self.xcb_mod, &rs_typ, f),
             }
         }
@@ -696,6 +733,12 @@ impl CodeGen {
                 }
                 StructField::List { name, .. } => {
                     let name = symbol(name);
+                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, name)?;
+                }
+                StructField::ListNoLen { name, .. } => {
+                    let len_name = name.clone() + "_len";
+                    let name= symbol(&name);
+                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", len_name, len_name)?;
                     writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, name)?;
                 }
                 _ => {}
@@ -1064,7 +1107,7 @@ impl CodeGen {
             doc: reply.doc,
         };
 
-        self.emit_rs_struct_field_accessors(&stru, "(*self.ptr)", &[], false, true)?;
+        self.emit_rs_struct_field_accessors(&stru.name, &stru, "(*self.ptr)", &[], false, true)?;
 
         {
             let out = &mut self.rs_buf;
@@ -1081,7 +1124,7 @@ fn has_fd_nfd(fields: &[StructField]) -> bool {
 
     for f in fields.iter() {
         match f {
-            StructField::Field{name, ..} if name == "nfd" => {
+            StructField::Field { name, .. } if name == "nfd" => {
                 has_nfd = true;
             }
             StructField::Fd(_) => {
