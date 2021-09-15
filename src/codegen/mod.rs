@@ -815,6 +815,7 @@ impl CodeGen {
                 let toplevel = req.name.to_string() + "Request";
                 self.notify_typ(toplevel.clone());
                 self.emit_ffi_switch_struct(&req.name, &name, &expr, &cases, &toplevel, None)?;
+                self.emit_rs_switch_typedef(&req.name, &name, &cases, &toplevel, None)?;
             }
         }
 
@@ -863,6 +864,8 @@ impl CodeGen {
 
         let ffi_fn_name = ffi::request_fn_name(&self.xcb_mod_prefix, &req.name);
         let ffi_check_fn_name = ffi::request_fn_name(&self.xcb_mod_prefix, &check_name);
+        let rs_fn_name = rs::request_fn_name(&req.name);
+        let rs_check_fn_name = rs::request_fn_name(&check_name);
 
         self.emit_ffi_req_fn(&req.name, &ffi_fn_name, &ffi_cookie, &req.params, &stru.doc)?;
         self.emit_ffi_req_fn(
@@ -872,8 +875,24 @@ impl CodeGen {
             &req.params,
             &stru.doc,
         )?;
-        self.emit_rs_req_fn(&req.name, &rs_cookie, &req.params, &stru.doc, !checked)?;
-        self.emit_rs_req_fn(&check_name, &rs_cookie, &req.params, &stru.doc, checked)?;
+        self.emit_rs_req_fn(
+            &req.name,
+            &rs_fn_name,
+            &ffi_fn_name,
+            &rs_cookie,
+            &req.params,
+            &stru.doc,
+            !checked,
+        )?;
+        self.emit_rs_req_fn(
+            &req.name,
+            &rs_check_fn_name,
+            &ffi_check_fn_name,
+            &rs_cookie,
+            &req.params,
+            &stru.doc,
+            checked,
+        )?;
 
         Ok(())
     }
@@ -968,6 +987,7 @@ fn tit_split(name: &str) -> String {
 /// assert!(tit_cap("SomeString") == "SomeString")
 /// assert!(tit_cap("WINDOW") == "Window")
 /// assert!(tit_cap("CONTEXT_TAG") == "ContextTag")
+/// assert!(tit_cap("value_list") == "ValueList")
 /// assert!(tit_cap("GContext") == "GContext")
 /// assert!(tit_cap("IDChoice") == "IdChoice")
 fn tit_cap(name: &str) -> String {
@@ -980,13 +1000,15 @@ fn tit_cap(name: &str) -> String {
     let mut res = String::new();
     let mut ch = name.chars();
     let mut prev = ch.next().unwrap();
-    res.push(prev);
+    res.push(prev.to_ascii_uppercase());
     let mut c = ch.next().unwrap();
 
     for next in ch {
         if c != '_' {
             if is_high(c) && is_high(prev) && (is_high(next) || next == '_') {
                 res.push(c.to_ascii_lowercase())
+            } else if prev == '_' && c != '_' {
+                res.push(c.to_ascii_uppercase())
             } else {
                 res.push(c)
             }

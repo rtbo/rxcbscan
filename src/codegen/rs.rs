@@ -7,7 +7,7 @@ use super::{
     extract_module, qualified_name, request_has_template, symbol, tit_cap, tit_split, CodeGen,
     ListField,
 };
-use crate::ast::{Doc, OpCopy, Reply, Struct, StructField};
+use crate::ast::{Doc, OpCopy, Reply, Struct, StructField, SwitchCase};
 
 impl CodeGen {
     fn has_rs_type(&self, typ: &str) -> bool {
@@ -198,16 +198,17 @@ impl CodeGen {
                     let len_name = name.clone() + "_len";
                     let name = symbol(&name);
                     let it_typ = self.rs_use_type_name(&typ) + "Iterator";
-                    let ffi_it_fn_name = ffi::field_list_iterator_it_fn_name(
-                        &self.xcb_mod_prefix,
-                        &rs_name,
-                        &name,
-                    );
+                    let ffi_it_fn_name =
+                        ffi::field_list_iterator_it_fn_name(&self.xcb_mod_prefix, &rs_name, &name);
                     let out = &mut self.rs_buf;
                     writeln!(out, "    pub fn {}(&self) -> u32 {{", &len_name)?;
                     writeln!(out, "        unsafe {{ {}.{} }}", &accessor, &len_name)?;
                     writeln!(out, "    }}")?;
-                    writeln!(out, "    pub fn {}(&self) -> {}{} {{", &name, &it_typ, &lifetime)?;
+                    writeln!(
+                        out,
+                        "    pub fn {}(&self) -> {}{} {{",
+                        &name, &it_typ, &lifetime
+                    )?;
                     writeln!(out, "        unsafe {{ {}(self.ptr) }}", &ffi_it_fn_name)?;
                     writeln!(out, "    }}")?;
                 }
@@ -737,8 +738,12 @@ impl CodeGen {
                 }
                 StructField::ListNoLen { name, .. } => {
                     let len_name = name.clone() + "_len";
-                    let name= symbol(&name);
-                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", len_name, len_name)?;
+                    let name = symbol(&name);
+                    writeln!(
+                        &mut self.rs_buf,
+                        "            (*raw).{} = {};",
+                        len_name, len_name
+                    )?;
                     writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, name)?;
                 }
                 _ => {}
@@ -771,9 +776,33 @@ impl CodeGen {
         Ok(rs_typ)
     }
 
+    pub fn emit_rs_switch_typedef(
+        &mut self,
+        req_name: &str,
+        switch_name: &str,
+        _cases: &[SwitchCase],
+        _toplevel: &str,
+        _parent_switch: Option<&str>,
+    ) -> io::Result<()> {
+        let ffi_typ = ffi::switch_struct_name(&self.xcb_mod_prefix, &req_name, &switch_name);
+        let rs_typ = switch_type_name(&req_name, &switch_name);
+
+        let out = &mut self.rs_buf;
+
+        writeln!(
+            out,
+            "pub type {}<'a> = base::StructPtr<'a, {}>;",
+            &rs_typ, &ffi_typ
+        )?;
+
+        Ok(())
+    }
+
     pub fn emit_rs_req_fn(
         &mut self,
         req_name: &str,
+        fn_name: &str,
+        ffi_fn_name: &str,
         cookie_name: &str,
         params: &[StructField],
         doc: &Option<Doc>,
@@ -782,9 +811,7 @@ impl CodeGen {
         // special case for the send_event request
         let send_event = match (req_name, self.xcb_mod.as_str()) {
             ("SendEvent", "xproto") => true,
-            ("SendEventChecked", "xproto") => true,
             ("Send", "xevie") => true,
-            ("SendUnchecked", "xevie") => true,
             (_, _) => false,
         };
         let event_is_list = if send_event {
@@ -816,8 +843,6 @@ impl CodeGen {
             sf
         };
 
-        let fn_name = request_fn_name(&req_name);
-        let ffi_fn_name = ffi::request_fn_name(&self.xcb_mod_prefix, &req_name);
         let template = if has_template { ", T" } else { "" };
 
         {
@@ -886,6 +911,12 @@ impl CodeGen {
                     let out = &mut self.rs_buf;
                     writeln!(out, "    {}: &[({}, u32)],", &name, &typ)?;
                 }
+                StructField::Switch(name, ..) => {
+                    let rs_typ = switch_type_name(req_name, name);
+                    let name = symbol(&name);
+                    let out = &mut self.rs_buf;
+                    writeln!(out, "    {}: std::option::Option<{}>,", &name, &rs_typ)?;
+                }
                 _ => {}
             }
         }
@@ -920,23 +951,35 @@ impl CodeGen {
             writeln!(out, "        let {}_ptr = {}.as_ptr();", &name, &name)?;
         }
         for f in params.iter() {
-            if let StructField::ValueParam { list_name, .. } = f {
-                let list_sym = symbol(&list_name);
-                writeln!(
-                    out,
-                    "        let mut {}_copy = {}.to_vec();",
-                    &list_name, &list_sym
-                )?;
-                writeln!(
-                    out,
-                    "        let ({}_mask, {}_vec) = base::pack_bitfield(&mut {}_copy);",
-                    &list_name, &list_name, &list_name
-                )?;
-                writeln!(
-                    out,
-                    "        let {}_ptr = {}_vec.as_ptr();",
-                    &list_name, &list_name
-                )?;
+            match f {
+                StructField::ValueParam { list_name, .. } => {
+                    let list_sym = symbol(&list_name);
+                    writeln!(
+                        out,
+                        "        let mut {}_copy = {}.to_vec();",
+                        &list_name, &list_sym
+                    )?;
+                    writeln!(
+                        out,
+                        "        let ({}_mask, {}_vec) = base::pack_bitfield(&mut {}_copy);",
+                        &list_name, &list_name, &list_name
+                    )?;
+                    writeln!(
+                        out,
+                        "        let {}_ptr = {}_vec.as_ptr();",
+                        &list_name, &list_name
+                    )?;
+                }
+                StructField::Switch(name, ..) => {
+                    let ptr_name = format!("{}_ptr", &name);
+                    let ffi_typ = ffi::switch_struct_name(&self.xcb_mod_prefix, &req_name, &name);
+                    let name = symbol(&name);
+                    writeln!(out, "        let {} = match {} {{", &ptr_name, name)?;
+                    writeln!(out, "            Some(p) => p.ptr as *const {},", &ffi_typ)?;
+                    writeln!(out, "            None => std::ptr::null(),")?;
+                    writeln!(out, "        }};")?;
+                }
+                _ => {}
             }
         }
         writeln!(out, "        let cookie = {}(", &ffi_fn_name)?;
@@ -995,7 +1038,11 @@ impl CodeGen {
                     let typ = self.rs_use_type_name(&mask_typ);
                     let out = &mut self.rs_buf;
                     writeln!(out, "            {}_mask as {},", &list_name, &typ)?;
-                    writeln!(out, "             {}_ptr as *const u32,", &list_name)?;
+                    writeln!(out, "            {}_ptr as *const u32,", &list_name)?;
+                }
+                StructField::Switch(name, ..) => {
+                    let out = &mut self.rs_buf;
+                    writeln!(out, "            {}_ptr,", &name)?;
                 }
                 _ => {}
             }
@@ -1177,12 +1224,12 @@ pub fn opname(name: &str) -> String {
     tit_split(&name).to_ascii_uppercase()
 }
 
-fn request_fn_name(name: &str) -> String {
-    let fn_name = tit_split(&name).to_ascii_lowercase();
-    match fn_name.as_str() {
-        "await" => "await_".into(),
-        _ => fn_name,
-    }
+pub fn switch_type_name(req_name: &str, switch_name: &str) -> String {
+    format!("{}{}", tit_cap(&req_name), tit_cap(&switch_name))
+}
+
+pub fn request_fn_name(name: &str) -> String {
+    tit_split(&name).to_ascii_lowercase()
 }
 
 pub fn emit_opcode<Out: Write>(out: &mut Out, name: &str, opcode: i32) -> io::Result<()> {
