@@ -1195,6 +1195,7 @@ pub fn type_name(typ: &str) -> String {
         "INT32" => "i32".into(),
         "BYTE" => "u8".into(),
         "BOOL" => "bool".into(),
+        "char" => "c_char".into(),
         "float" => "f32".into(),
         "double" => "f64".into(),
         typ => tit_cap(typ),
