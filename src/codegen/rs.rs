@@ -516,7 +516,7 @@ impl CodeGen {
                     )?;
                     writeln!(
                         out,
-                        "            let res_ptr = self.data.as_mut_ptr() as *mut {};",
+                        "            let res_ptr = res.data.as_mut_ptr() as *mut {};",
                         &f_rs_typ
                     )?;
                     writeln!(out, "            *res_ptr = {};", &name)?;
