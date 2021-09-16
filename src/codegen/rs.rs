@@ -48,7 +48,7 @@ impl CodeGen {
 
     fn emit_rs_struct_field_accessors(
         &mut self,
-        rs_name: &str,
+        typ_name: &str,
         stru: &Struct,
         accessor: &str,
         skip_fields: &[&str],
@@ -117,7 +117,8 @@ impl CodeGen {
                     if skip_fields.iter().find(|skip| skip == &name).is_some() {
                         continue;
                     }
-                    let name = symbol(name);
+                    let rs_name = field_name(name);
+                    let ffi_name = symbol(name);
                     let is_simple = self.typ_is_simple(&typ);
                     let is_string = typ == "char";
                     let fixed_len = expr_fixed_length(len_expr);
@@ -126,8 +127,8 @@ impl CodeGen {
 
                     if fixed_len.is_some() {
                         let out = &mut self.rs_buf;
-                        writeln!(out, "    pub fn {}(&self) -> &[{}] {{", &name, &rs_typ)?;
-                        writeln!(out, "        unsafe {{ &(*self.ptr).{} }}", &name)?;
+                        writeln!(out, "    pub fn {}(&self) -> &[{}] {{", &rs_name, &rs_typ)?;
+                        writeln!(out, "        unsafe {{ &(*self.ptr).{} }}", &ffi_name)?;
                         writeln!(out, "    }}")?;
                     } else if is_simple {
                         let len_fn = ffi::field_list_iterator_len_fn_name(
@@ -152,7 +153,7 @@ impl CodeGen {
                         writeln!(
                             out,
                             "    pub fn {}{}(&self) -> {} {{",
-                            &name, &template, &ret
+                            &rs_name, &template, &ret
                         )?;
                         writeln!(out, "        unsafe {{")?;
                         writeln!(out, "            let field = self.ptr;")?;
@@ -185,14 +186,14 @@ impl CodeGen {
                         let it_typ = self.rs_use_type_name(&typ) + "Iterator";
                         let ffi_it_fn_name = ffi::field_list_iterator_it_fn_name(
                             &self.xcb_mod_prefix,
-                            &rs_name,
+                            &typ_name,
                             &name,
                         );
                         let out = &mut self.rs_buf;
                         writeln!(
                             out,
                             "    pub fn {}(&self) -> {}{} {{",
-                            &name, &it_typ, &lifetime
+                            &rs_name, &it_typ, &lifetime
                         )?;
                         writeln!(out, "        unsafe {{ {}(self.ptr) }}", &ffi_it_fn_name)?;
                         writeln!(out, "    }}")?;
@@ -202,10 +203,10 @@ impl CodeGen {
                     let has_lifetime = has_lifetime && self.typ_with_lifetime.contains(typ);
                     let lifetime = if has_lifetime { "<'a>" } else { "" };
                     let len_name = name.clone() + "_len";
-                    let name = symbol(&name);
+                    let rs_name = field_name(&name);
                     let it_typ = self.rs_use_type_name(&typ) + "Iterator";
                     let ffi_it_fn_name =
-                        ffi::field_list_iterator_it_fn_name(&self.xcb_mod_prefix, &rs_name, &name);
+                        ffi::field_list_iterator_it_fn_name(&self.xcb_mod_prefix, &typ_name, &name);
                     let out = &mut self.rs_buf;
                     writeln!(out, "    pub fn {}(&self) -> u32 {{", &len_name)?;
                     writeln!(out, "        unsafe {{ {}.{} }}", &accessor, &len_name)?;
@@ -213,7 +214,7 @@ impl CodeGen {
                     writeln!(
                         out,
                         "    pub fn {}(&self) -> {}{} {{",
-                        &name, &it_typ, &lifetime
+                        &rs_name, &it_typ, &lifetime
                     )?;
                     writeln!(out, "        unsafe {{ {}(self.ptr) }}", &ffi_it_fn_name)?;
                     writeln!(out, "    }}")?;
@@ -320,7 +321,8 @@ impl CodeGen {
                 match f {
                     StructField::Field { name, typ, .. } => {
                         let rs_typ = self.rs_use_type_name(&typ);
-                        write!(&mut self.rs_buf, "{}: {},", symbol(&name), rs_typ)?;
+                        let name = field_name(name);
+                        write!(&mut self.rs_buf, "{}: {},", name, rs_typ)?;
                     }
                     _ => {}
                 }
@@ -335,7 +337,8 @@ impl CodeGen {
             for f in stru.fields.iter() {
                 match f {
                     StructField::Field { name, typ, .. } => {
-                        let name = symbol(name);
+                        let ffi_name = symbol(name);
+                        let name = field_name(name);
                         let is_pod = self.typ_is_pod(&typ);
                         let is_simple = self.typ_is_simple(&typ);
                         let out = &mut self.rs_buf;
@@ -343,16 +346,16 @@ impl CodeGen {
                             writeln!(
                                 out,
                                 "                    {}: if {} {{ 1 }} else {{ 0 }},",
-                                &name, &name
+                                &ffi_name, &name
                             )?;
                         } else if is_pod && !is_simple {
                             writeln!(
                                 out,
                                 "                    {}: std::mem::transmute({}),",
-                                &name, &name
+                                &ffi_name, &name
                             )?;
                         } else {
-                            writeln!(out, "                    {}: {},", &name, &name)?;
+                            writeln!(out, "                    {}: {},", &ffi_name, &name)?;
                         }
                     }
                     StructField::Pad(name, sz) => {
@@ -492,7 +495,7 @@ impl CodeGen {
         for f in fields.iter() {
             match f {
                 StructField::Field { name, typ, .. } => {
-                    let name = symbol(name);
+                    let rs_name = field_name(name);
                     let f_rs_typ = self.rs_use_type_name(&typ);
                     let has_lifetime = self.type_has_lifetime(&typ);
 
@@ -503,13 +506,13 @@ impl CodeGen {
                         writeln!(
                             out,
                             "    pub fn {}<'a> (&'a self) -> {}<'a> {{",
-                            &name, &f_rs_typ
+                            &rs_name, &f_rs_typ
                         )?;
                         writeln!(out, "        unsafe {{ std::mem::transmute(self) }}")?;
                         writeln!(out, "    }}")?;
                     } else {
                         writeln!(out)?;
-                        writeln!(out, "    pub fn {}(&self) -> {} {{", &name, &f_rs_typ)?;
+                        writeln!(out, "    pub fn {}(&self) -> {} {{", &rs_name, &f_rs_typ)?;
                         writeln!(out, "        unsafe {{")?;
                         writeln!(
                             out,
@@ -522,7 +525,7 @@ impl CodeGen {
                         writeln!(
                             out,
                             "    pub fn from_{}({}: {}) -> {} {{",
-                            &name, &name, &f_rs_typ, &rs_typ
+                            &rs_name, &rs_name, &f_rs_typ, &rs_typ
                         )?;
                         writeln!(out, "        unsafe {{")?;
                         writeln!(
@@ -535,7 +538,7 @@ impl CodeGen {
                             "            let res_ptr = res.data.as_mut_ptr() as *mut {};",
                             &f_rs_typ
                         )?;
-                        writeln!(out, "            *res_ptr = {};", &name)?;
+                        writeln!(out, "            *res_ptr = {};", &rs_name)?;
                         writeln!(out, "            res")?;
                         writeln!(out, "        }}")?;
                         writeln!(out, "    }}")?;
@@ -546,7 +549,7 @@ impl CodeGen {
                     typ,
                     len_expr,
                 } => {
-                    let name = symbol(name);
+                    let rs_name = field_name(name);
                     let f_rs_typ = self.rs_use_type_name(&typ);
                     let len =
                         expr_fixed_length(len_expr).expect("union list field with variable length");
@@ -554,7 +557,7 @@ impl CodeGen {
                     let out = &mut self.rs_buf;
                     emit_doc_field(out, &doc, &name)?;
                     // accessor
-                    writeln!(out, "    pub fn {}(&self) -> &[{}] {{", &name, &f_rs_typ)?;
+                    writeln!(out, "    pub fn {}(&self) -> &[{}] {{", &rs_name, &f_rs_typ)?;
                     writeln!(out, "        unsafe {{")?;
                     writeln!(
                         out,
@@ -568,11 +571,11 @@ impl CodeGen {
                     writeln!(
                         out,
                         "    pub fn from_{}({}: [{}; {}]) -> {} {{",
-                        &name, &name, &f_rs_typ, len, &rs_typ
+                        &rs_name, &rs_name, &f_rs_typ, len, &rs_typ
                     )?;
                     writeln!(out, "        unsafe {{")?;
                     writeln!(out, "            {} {{", &rs_typ)?;
-                    writeln!(out, "                data: std::mem::transmute({})", &name)?;
+                    writeln!(out, "                data: std::mem::transmute({})", &rs_name)?;
                     writeln!(out, "            }}")?;
                     writeln!(out, "        }}")?;
                     writeln!(out, "    }}")?;
@@ -670,7 +673,7 @@ impl CodeGen {
                         continue;
                     }
                     let rs_typ = self.rs_use_type_name(&typ);
-                    writeln!(&mut self.rs_buf, "        {}: {},", symbol(name), &rs_typ)?;
+                    writeln!(&mut self.rs_buf, "        {}: {},", field_name(name), &rs_typ)?;
                 }
                 StructField::Pad(_, _) => {}
                 StructField::List {
@@ -692,13 +695,13 @@ impl CodeGen {
                             }
                         }
                     };
-                    writeln!(&mut self.rs_buf, "        {}: {},", symbol(name), &typ)?;
+                    writeln!(&mut self.rs_buf, "        {}: {},", field_name(name), &typ)?;
                 }
                 StructField::ListNoLen { name, typ } => {
                     let len_name = name.clone() + "_len";
                     let typ = self.rs_use_type_name(&typ);
                     writeln!(&mut self.rs_buf, "        {}: u32,", len_name)?;
-                    writeln!(&mut self.rs_buf, "        {}: {},", symbol(&name), typ)?;
+                    writeln!(&mut self.rs_buf, "        {}: {},", field_name(&name), typ)?;
                 }
                 _ => unimplemented!("{}::{}::{:?}", self.xcb_mod, &rs_typ, f),
             }
@@ -737,31 +740,34 @@ impl CodeGen {
                     if field_skip.iter().find(|skip| skip == &name).is_some() {
                         continue;
                     }
-                    let name = symbol(name);
+                    let rs_name = field_name(name);
+                    let name = symbol(&name);
 
                     let expr = if !self.typ_is_simple(&typ) && self.typ_is_pod(&typ) {
-                        format!("{}.base", name)
+                        format!("{}.base", &rs_name)
                     } else if typ == "BOOL" {
-                        format!("if {} {{ 1 }} else {{ 0 }}", name)
+                        format!("if {} {{ 1 }} else {{ 0 }}", &rs_name)
                     } else {
-                        name.into()
+                        rs_name
                     };
 
                     writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, expr)?;
                 }
                 StructField::List { name, .. } => {
-                    let name = symbol(name);
-                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, name)?;
+                    let rs_name = field_name(name);
+                    let name = symbol(&name);
+                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, rs_name)?;
                 }
                 StructField::ListNoLen { name, .. } => {
                     let len_name = name.clone() + "_len";
+                    let rs_name = field_name(&name);
                     let name = symbol(&name);
                     writeln!(
                         &mut self.rs_buf,
                         "            (*raw).{} = {};",
                         len_name, len_name
                     )?;
-                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, name)?;
+                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, rs_name)?;
                 }
                 _ => {}
             }
@@ -915,18 +921,18 @@ impl CodeGen {
                     if list_fields.iter().any(|lf| &lf.lenfield == name) {
                         continue;
                     }
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     let typ = self.rs_use_type_name(&typ);
                     let out = &mut self.rs_buf;
                     writeln!(out, "    {}: {},", name, typ)?;
                 }
                 StructField::Fd(name) => {
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     writeln!(&mut self.rs_buf, "    {}: i32,", name)?;
                 }
                 StructField::List { name, typ, .. } | StructField::ListNoLen { name, typ } => {
-                    let name = symbol(&name);
-                    let typ = match (send_event, name, typ.as_str()) {
+                    let name = field_name(&name);
+                    let typ = match (send_event, name.as_str(), typ.as_str()) {
                         (true, "event", _) => "&base::Event<T>".to_string(),
                         (_, _, "char") => "&str".to_string(),
                         (_, _, "void") => "&[T]".to_string(),
@@ -942,14 +948,14 @@ impl CodeGen {
                     mask_typ,
                     ..
                 } => {
-                    let name = symbol(&list_name);
+                    let name = field_name(&list_name);
                     let typ = self.rs_use_type_name(&mask_typ);
                     let out = &mut self.rs_buf;
                     writeln!(out, "    {}: &[({}, u32)],", &name, &typ)?;
                 }
                 StructField::Switch(name, ..) => {
                     let rs_typ = switch_type_name(req_name, name);
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     let out = &mut self.rs_buf;
                     writeln!(out, "    {}: std::option::Option<{}>,", &name, &rs_typ)?;
                 }
@@ -978,7 +984,7 @@ impl CodeGen {
         } in list_fields.iter()
         {
             issued_list_vars.push(name);
-            let name = symbol(&name);
+            let name = field_name(&name);
             if typ == "char" {
                 writeln!(out, "        let {} = {}.as_bytes();", &name, &name)?;
             }
@@ -997,11 +1003,11 @@ impl CodeGen {
                     if send_event && name == "event" {
                         continue;
                     }
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     writeln!(out, "        let {}_ptr = {}.as_ptr();", &name, &name)?;
                 }
                 StructField::ValueParam { list_name, .. } => {
-                    let list_sym = symbol(&list_name);
+                    let list_sym = field_name(&list_name);
                     writeln!(
                         out,
                         "        let mut {}_copy = {}.to_vec();",
@@ -1021,7 +1027,7 @@ impl CodeGen {
                 StructField::Switch(name, ..) => {
                     let ptr_name = format!("{}_ptr", &name);
                     let ffi_typ = ffi::switch_struct_name(&self.xcb_mod_prefix, &req_name, &name);
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     writeln!(out, "        let {} = match {} {{", &ptr_name, name)?;
                     writeln!(out, "            Some(p) => p.ptr as *const {},", &ffi_typ)?;
                     writeln!(out, "            None => std::ptr::null(),")?;
@@ -1042,22 +1048,23 @@ impl CodeGen {
                     }
                     let is_pod = self.typ_is_pod(&typ);
                     let is_simple = self.typ_is_simple(&typ);
-                    let mut name = symbol(&name).to_string();
                     if send_event && name == "event" || is_pod && !is_simple {
+                        let rs_name = field_name(&name);
                         let out = &mut self.rs_buf;
-                        writeln!(out, "            {}.base,", &name)?;
+                        writeln!(out, "            {}.base,", &rs_name)?;
                     } else {
                         let ffi_typ = self.ffi_use_type_name(&typ);
+                        let mut rs_name = field_name(&name);
 
-                        if let Some(lf) = list_fields.iter().find(|lf| lf.lenfield == name) {
-                            name = lf.name.clone() + "_len";
+                        if let Some(lf) = list_fields.iter().find(|lf| &lf.lenfield == name) {
+                            rs_name = field_name(&lf.name) + "_len";
                         }
                         let out = &mut self.rs_buf;
-                        writeln!(out, "            {} as {},", &name, &ffi_typ)?;
+                        writeln!(out, "            {} as {},", &rs_name, &ffi_typ)?;
                     }
                 }
                 StructField::Fd(name) => {
-                    let name = symbol(name);
+                    let name = field_name(name);
                     writeln!(&mut self.rs_buf, "            {} as i32,", &name)?;
                 }
                 StructField::List { name, typ, .. } => {
@@ -1065,32 +1072,34 @@ impl CodeGen {
                         let out = &mut self.rs_buf;
                         writeln!(out, "            event_ptr")?;
                     } else {
-                        let name = symbol(&name);
+                        let rs_name = field_name(&name);
                         let ffi_typ = self.ffi_use_type_name(&typ);
                         let out = &mut self.rs_buf;
-                        writeln!(out, "            {}_ptr as *const {},", &name, &ffi_typ)?;
+                        writeln!(out, "            {}_ptr as *const {},", &rs_name, &ffi_typ)?;
                     }
                 }
                 StructField::ListNoLen { name, typ } => {
-                    let name = symbol(&name);
+                    let rs_name = field_name(&name);
                     let ffi_typ = self.ffi_use_type_name(&typ);
                     let out = &mut self.rs_buf;
-                    writeln!(out, "            {}_len as u32,", &name)?;
-                    writeln!(out, "            {}_ptr as *const {},", &name, &ffi_typ)?;
+                    writeln!(out, "            {}_len as u32,", &rs_name)?;
+                    writeln!(out, "            {}_ptr as *const {},", &rs_name, &ffi_typ)?;
                 }
                 StructField::ValueParam {
                     list_name,
                     mask_typ,
                     ..
                 } => {
+                    let rs_list_name = field_name(&list_name);
                     let typ = self.rs_use_type_name(&mask_typ);
                     let out = &mut self.rs_buf;
-                    writeln!(out, "            {}_mask as {},", &list_name, &typ)?;
-                    writeln!(out, "            {}_ptr as *const u32,", &list_name)?;
+                    writeln!(out, "            {}_mask as {},", &rs_list_name, &typ)?;
+                    writeln!(out, "            {}_ptr as *const u32,", &rs_list_name)?;
                 }
                 StructField::Switch(name, ..) => {
+                    let rs_name = field_name(&name);
                     let out = &mut self.rs_buf;
-                    writeln!(out, "            {}_ptr,", &name)?;
+                    writeln!(out, "            {}_ptr,", &rs_name)?;
                 }
                 _ => {}
             }
@@ -1271,26 +1280,25 @@ fn field_doc_name(f: &StructField) -> Option<&str> {
     }
 }
 
-fn field_name(name: &str) -> &str {
-    symbol(name)
-    // let is_high = |c: char| c.is_ascii_uppercase();
-    // let keywords = ["type", "new", "match", "str"];
+fn field_name(name: &str) -> String {
+    let is_high = |c: char| c.is_ascii_uppercase();
+    let keywords = ["type", "new", "match", "str"];
 
-    // let mut res = String::new();
+    let mut res = String::new();
 
-    // for c in name.chars() {
-    //     if is_high(c) {
-    //         res.push('_');
-    //         res.push(c.to_ascii_lowercase());
-    //     } else {
-    //         res.push(c);
-    //     }
-    // }
+    for c in name.chars() {
+        if is_high(c) {
+            res.push('_');
+            res.push(c.to_ascii_lowercase());
+        } else {
+            res.push(c);
+        }
+    }
 
-    // if keywords.contains(&res.as_str()) {
-    //     res.push('_');
-    // }
-    // res
+    if keywords.contains(&res.as_str()) {
+        res.push('_');
+    }
+    res
 }
 
 pub fn enum_item_name(name: &str, item: &str) -> String {
