@@ -182,8 +182,8 @@ pub fn fake_input<'a>(c       : &'a base::Connection,
                       detail  : u8,
                       time    : u32,
                       root    : xproto::Window,
-                      rootX   : i16,
-                      rootY   : i16,
+                      root_x  : i16,
+                      root_y  : i16,
                       deviceid: u8)
         -> base::VoidCookie<'a> {
     unsafe {
@@ -192,8 +192,8 @@ pub fn fake_input<'a>(c       : &'a base::Connection,
                                          detail as u8,  // 1
                                          time as u32,  // 2
                                          root as xcb_window_t,  // 3
-                                         rootX as i16,  // 4
-                                         rootY as i16,  // 5
+                                         root_x as i16,  // 4
+                                         root_y as i16,  // 5
                                          deviceid as u8);  // 6
         base::VoidCookie {
             cookie:  cookie,
@@ -208,8 +208,8 @@ pub fn fake_input_checked<'a>(c       : &'a base::Connection,
                               detail  : u8,
                               time    : u32,
                               root    : xproto::Window,
-                              rootX   : i16,
-                              rootY   : i16,
+                              root_x  : i16,
+                              root_y  : i16,
                               deviceid: u8)
         -> base::VoidCookie<'a> {
     unsafe {
@@ -218,8 +218,8 @@ pub fn fake_input_checked<'a>(c       : &'a base::Connection,
                                                  detail as u8,  // 1
                                                  time as u32,  // 2
                                                  root as xcb_window_t,  // 3
-                                                 rootX as i16,  // 4
-                                                 rootY as i16,  // 5
+                                                 root_x as i16,  // 4
+                                                 root_y as i16,  // 5
                                                  deviceid as u8);  // 6
         base::VoidCookie {
             cookie:  cookie,

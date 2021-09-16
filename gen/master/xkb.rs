@@ -428,26 +428,26 @@ pub struct IndicatorMap {
 
 impl IndicatorMap {
     #[allow(unused_unsafe)]
-    pub fn new(flags:       u8,
-               whichGroups: u8,
-               groups:      u8,
-               whichMods:   u8,
-               mods:        u8,
-               realMods:    u8,
-               vmods:       u16,
-               ctrls:       u32)
+    pub fn new(flags:        u8,
+               which_groups: u8,
+               groups:       u8,
+               which_mods:   u8,
+               mods:         u8,
+               real_mods:    u8,
+               vmods:        u16,
+               ctrls:        u32)
             -> IndicatorMap {
         unsafe {
             IndicatorMap {
                 base: xcb_xkb_indicator_map_t {
-                    flags:       flags,
-                    whichGroups: whichGroups,
-                    groups:      groups,
-                    whichMods:   whichMods,
-                    mods:        mods,
-                    realMods:    realMods,
-                    vmods:       vmods,
-                    ctrls:       ctrls,
+                    flags:        flags,
+                    whichGroups: which_groups,
+                    groups:       groups,
+                    whichMods:   which_mods,
+                    mods:         mods,
+                    realMods:    real_mods,
+                    vmods:        vmods,
+                    ctrls:        ctrls,
                 }
             }
         }
@@ -457,7 +457,7 @@ impl IndicatorMap {
             self.base.flags
         }
     }
-    pub fn whichGroups(&self) -> u8 {
+    pub fn which_groups(&self) -> u8 {
         unsafe {
             self.base.whichGroups
         }
@@ -467,7 +467,7 @@ impl IndicatorMap {
             self.base.groups
         }
     }
-    pub fn whichMods(&self) -> u8 {
+    pub fn which_mods(&self) -> u8 {
         unsafe {
             self.base.whichMods
         }
@@ -477,7 +477,7 @@ impl IndicatorMap {
             self.base.mods
         }
     }
-    pub fn realMods(&self) -> u8 {
+    pub fn real_mods(&self) -> u8 {
         unsafe {
             self.base.realMods
         }
@@ -518,16 +518,16 @@ pub struct ModDef {
 
 impl ModDef {
     #[allow(unused_unsafe)]
-    pub fn new(mask:     u8,
-               realMods: u8,
-               vmods:    u16)
+    pub fn new(mask:      u8,
+               real_mods: u8,
+               vmods:     u16)
             -> ModDef {
         unsafe {
             ModDef {
                 base: xcb_xkb_mod_def_t {
-                    mask:     mask,
-                    realMods: realMods,
-                    vmods:    vmods,
+                    mask:      mask,
+                    realMods: real_mods,
+                    vmods:     vmods,
                 }
             }
         }
@@ -537,7 +537,7 @@ impl ModDef {
             self.base.mask
         }
     }
-    pub fn realMods(&self) -> u8 {
+    pub fn real_mods(&self) -> u8 {
         unsafe {
             self.base.realMods
         }
@@ -759,17 +759,17 @@ impl<'a> KeyType<'a> {
             (*self.ptr).mods_vmods
         }
     }
-    pub fn numLevels(&self) -> u8 {
+    pub fn num_levels(&self) -> u8 {
         unsafe {
             (*self.ptr).numLevels
         }
     }
-    pub fn nMapEntries(&self) -> u8 {
+    pub fn n_map_entries(&self) -> u8 {
         unsafe {
             (*self.ptr).nMapEntries
         }
     }
-    pub fn hasPreserve(&self) -> bool {
+    pub fn has_preserve(&self) -> bool {
         unsafe {
             (*self.ptr).hasPreserve != 0
         }
@@ -811,7 +811,7 @@ impl<'a> KeySymMap<'a> {
             &(*self.ptr).kt_index
         }
     }
-    pub fn groupInfo(&self) -> u8 {
+    pub fn group_info(&self) -> u8 {
         unsafe {
             (*self.ptr).groupInfo
         }
@@ -821,7 +821,7 @@ impl<'a> KeySymMap<'a> {
             (*self.ptr).width
         }
     }
-    pub fn nSyms(&self) -> u16 {
+    pub fn n_syms(&self) -> u16 {
         unsafe {
             (*self.ptr).nSyms
         }
@@ -1264,17 +1264,17 @@ impl Behavior {
             res
         }
     }
-    pub fn radioGroup(&self) -> RadioGroupBehavior {
+    pub fn radio_group(&self) -> RadioGroupBehavior {
         unsafe {
             let _ptr = self.data.as_ptr() as *const RadioGroupBehavior;
             *_ptr
         }
     }
-    pub fn from_radioGroup(radioGroup: RadioGroupBehavior) -> Behavior {
+    pub fn from_radio_group(radio_group: RadioGroupBehavior) -> Behavior {
         unsafe {
             let mut res = Behavior { data: [0; 2] };
             let res_ptr = res.data.as_mut_ptr() as *mut RadioGroupBehavior;
-            *res_ptr = radioGroup;
+            *res_ptr = radio_group;
             res
         }
     }
@@ -1306,59 +1306,59 @@ impl Behavior {
             res
         }
     }
-    pub fn permamentLock(&self) -> PermamentLockBehavior {
+    pub fn permament_lock(&self) -> PermamentLockBehavior {
         unsafe {
             let _ptr = self.data.as_ptr() as *const PermamentLockBehavior;
             *_ptr
         }
     }
-    pub fn from_permamentLock(permamentLock: PermamentLockBehavior) -> Behavior {
+    pub fn from_permament_lock(permament_lock: PermamentLockBehavior) -> Behavior {
         unsafe {
             let mut res = Behavior { data: [0; 2] };
             let res_ptr = res.data.as_mut_ptr() as *mut PermamentLockBehavior;
-            *res_ptr = permamentLock;
+            *res_ptr = permament_lock;
             res
         }
     }
-    pub fn permamentRadioGroup(&self) -> PermamentRadioGroupBehavior {
+    pub fn permament_radio_group(&self) -> PermamentRadioGroupBehavior {
         unsafe {
             let _ptr = self.data.as_ptr() as *const PermamentRadioGroupBehavior;
             *_ptr
         }
     }
-    pub fn from_permamentRadioGroup(permamentRadioGroup: PermamentRadioGroupBehavior) -> Behavior {
+    pub fn from_permament_radio_group(permament_radio_group: PermamentRadioGroupBehavior) -> Behavior {
         unsafe {
             let mut res = Behavior { data: [0; 2] };
             let res_ptr = res.data.as_mut_ptr() as *mut PermamentRadioGroupBehavior;
-            *res_ptr = permamentRadioGroup;
+            *res_ptr = permament_radio_group;
             res
         }
     }
-    pub fn permamentOverlay1(&self) -> PermamentOverlayBehavior {
+    pub fn permament_overlay1(&self) -> PermamentOverlayBehavior {
         unsafe {
             let _ptr = self.data.as_ptr() as *const PermamentOverlayBehavior;
             *_ptr
         }
     }
-    pub fn from_permamentOverlay1(permamentOverlay1: PermamentOverlayBehavior) -> Behavior {
+    pub fn from_permament_overlay1(permament_overlay1: PermamentOverlayBehavior) -> Behavior {
         unsafe {
             let mut res = Behavior { data: [0; 2] };
             let res_ptr = res.data.as_mut_ptr() as *mut PermamentOverlayBehavior;
-            *res_ptr = permamentOverlay1;
+            *res_ptr = permament_overlay1;
             res
         }
     }
-    pub fn permamentOverlay2(&self) -> PermamentOverlayBehavior {
+    pub fn permament_overlay2(&self) -> PermamentOverlayBehavior {
         unsafe {
             let _ptr = self.data.as_ptr() as *const PermamentOverlayBehavior;
             *_ptr
         }
     }
-    pub fn from_permamentOverlay2(permamentOverlay2: PermamentOverlayBehavior) -> Behavior {
+    pub fn from_permament_overlay2(permament_overlay2: PermamentOverlayBehavior) -> Behavior {
         unsafe {
             let mut res = Behavior { data: [0; 2] };
             let res_ptr = res.data.as_mut_ptr() as *mut PermamentOverlayBehavior;
-            *res_ptr = permamentOverlay2;
+            *res_ptr = permament_overlay2;
             res
         }
     }
@@ -1579,16 +1579,16 @@ pub struct KtSetMapEntry {
 
 impl KtSetMapEntry {
     #[allow(unused_unsafe)]
-    pub fn new(level:       u8,
-               realMods:    u8,
-               virtualMods: u16)
+    pub fn new(level:        u8,
+               real_mods:    u8,
+               virtual_mods: u16)
             -> KtSetMapEntry {
         unsafe {
             KtSetMapEntry {
                 base: xcb_xkb_kt_set_map_entry_t {
-                    level:       level,
-                    realMods:    realMods,
-                    virtualMods: virtualMods,
+                    level:        level,
+                    realMods:    real_mods,
+                    virtualMods: virtual_mods,
                 }
             }
         }
@@ -1598,12 +1598,12 @@ impl KtSetMapEntry {
             self.base.level
         }
     }
-    pub fn realMods(&self) -> u8 {
+    pub fn real_mods(&self) -> u8 {
         unsafe {
             self.base.realMods
         }
     }
-    pub fn virtualMods(&self) -> u16 {
+    pub fn virtual_mods(&self) -> u16 {
         unsafe {
             self.base.virtualMods
         }
@@ -1635,22 +1635,22 @@ impl<'a> SetKeyType<'a> {
             (*self.ptr).mask
         }
     }
-    pub fn realMods(&self) -> u8 {
+    pub fn real_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).realMods
         }
     }
-    pub fn virtualMods(&self) -> u16 {
+    pub fn virtual_mods(&self) -> u16 {
         unsafe {
             (*self.ptr).virtualMods
         }
     }
-    pub fn numLevels(&self) -> u8 {
+    pub fn num_levels(&self) -> u8 {
         unsafe {
             (*self.ptr).numLevels
         }
     }
-    pub fn nMapEntries(&self) -> u8 {
+    pub fn n_map_entries(&self) -> u8 {
         unsafe {
             (*self.ptr).nMapEntries
         }
@@ -1692,12 +1692,12 @@ impl<'a> Iterator for SetKeyTypeIterator<'a> {
 pub type Outline<'a> = base::StructPtr<'a, xcb_xkb_outline_t>;
 
 impl<'a> Outline<'a> {
-    pub fn nPoints(&self) -> u8 {
+    pub fn n_points(&self) -> u8 {
         unsafe {
             (*self.ptr).nPoints
         }
     }
-    pub fn cornerRadius(&self) -> u8 {
+    pub fn corner_radius(&self) -> u8 {
         unsafe {
             (*self.ptr).cornerRadius
         }
@@ -1734,17 +1734,17 @@ impl<'a> Shape<'a> {
             (*self.ptr).name
         }
     }
-    pub fn nOutlines(&self) -> u8 {
+    pub fn n_outlines(&self) -> u8 {
         unsafe {
             (*self.ptr).nOutlines
         }
     }
-    pub fn primaryNdx(&self) -> u8 {
+    pub fn primary_ndx(&self) -> u8 {
         unsafe {
             (*self.ptr).primaryNdx
         }
     }
-    pub fn approxNdx(&self) -> u8 {
+    pub fn approx_ndx(&self) -> u8 {
         unsafe {
             (*self.ptr).approxNdx
         }
@@ -1786,12 +1786,12 @@ impl<'a> Key<'a> {
             (*self.ptr).gap
         }
     }
-    pub fn shapeNdx(&self) -> u8 {
+    pub fn shape_ndx(&self) -> u8 {
         unsafe {
             (*self.ptr).shapeNdx
         }
     }
-    pub fn colorNdx(&self) -> u8 {
+    pub fn color_ndx(&self) -> u8 {
         unsafe {
             (*self.ptr).colorNdx
         }
@@ -1850,12 +1850,12 @@ impl<'a> Iterator for OverlayKeyIterator<'a> {
 pub type OverlayRow<'a> = base::StructPtr<'a, xcb_xkb_overlay_row_t>;
 
 impl<'a> OverlayRow<'a> {
-    pub fn rowUnder(&self) -> u8 {
+    pub fn row_under(&self) -> u8 {
         unsafe {
             (*self.ptr).rowUnder
         }
     }
-    pub fn nKeys(&self) -> u8 {
+    pub fn n_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeys
         }
@@ -1892,7 +1892,7 @@ impl<'a> Overlay<'a> {
             (*self.ptr).name
         }
     }
-    pub fn nRows(&self) -> u8 {
+    pub fn n_rows(&self) -> u8 {
         unsafe {
             (*self.ptr).nRows
         }
@@ -1934,7 +1934,7 @@ impl<'a> Row<'a> {
             (*self.ptr).left
         }
     }
-    pub fn nKeys(&self) -> u8 {
+    pub fn n_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeys
         }
@@ -2011,27 +2011,27 @@ impl<'a> Iterator for ListingIterator<'a> {
 pub type DeviceLedInfo<'a> = base::StructPtr<'a, xcb_xkb_device_led_info_t>;
 
 impl<'a> DeviceLedInfo<'a> {
-    pub fn ledClass(&self) -> LedClassSpec {
+    pub fn led_class(&self) -> LedClassSpec {
         unsafe {
             (*self.ptr).ledClass
         }
     }
-    pub fn ledID(&self) -> IdSpec {
+    pub fn led_i_d(&self) -> IdSpec {
         unsafe {
             (*self.ptr).ledID
         }
     }
-    pub fn namesPresent(&self) -> u32 {
+    pub fn names_present(&self) -> u32 {
         unsafe {
             (*self.ptr).namesPresent
         }
     }
-    pub fn mapsPresent(&self) -> u32 {
+    pub fn maps_present(&self) -> u32 {
         unsafe {
             (*self.ptr).mapsPresent
         }
     }
-    pub fn physIndicators(&self) -> u32 {
+    pub fn phys_indicators(&self) -> u32 {
         unsafe {
             (*self.ptr).physIndicators
         }
@@ -2124,23 +2124,23 @@ pub struct SaSetMods {
 
 impl SaSetMods {
     #[allow(unused_unsafe)]
-    pub fn new(type_:     u8,
-               flags:     u8,
-               mask:      u8,
-               realMods:  u8,
-               vmodsHigh: u8,
-               vmodsLow:  u8)
+    pub fn new(type_:      u8,
+               flags:      u8,
+               mask:       u8,
+               real_mods:  u8,
+               vmods_high: u8,
+               vmods_low:  u8)
             -> SaSetMods {
         unsafe {
             SaSetMods {
                 base: xcb_xkb_sa_set_mods_t {
-                    type_:     type_,
-                    flags:     flags,
-                    mask:      mask,
-                    realMods:  realMods,
-                    vmodsHigh: vmodsHigh,
-                    vmodsLow:  vmodsLow,
-                    pad0:      [0; 2],
+                    type_:      type_,
+                    flags:      flags,
+                    mask:       mask,
+                    realMods:  real_mods,
+                    vmodsHigh: vmods_high,
+                    vmodsLow:  vmods_low,
+                    pad0:       [0; 2],
                 }
             }
         }
@@ -2160,17 +2160,17 @@ impl SaSetMods {
             self.base.mask
         }
     }
-    pub fn realMods(&self) -> u8 {
+    pub fn real_mods(&self) -> u8 {
         unsafe {
             self.base.realMods
         }
     }
-    pub fn vmodsHigh(&self) -> u8 {
+    pub fn vmods_high(&self) -> u8 {
         unsafe {
             self.base.vmodsHigh
         }
     }
-    pub fn vmodsLow(&self) -> u8 {
+    pub fn vmods_low(&self) -> u8 {
         unsafe {
             self.base.vmodsLow
         }
@@ -2201,23 +2201,23 @@ pub struct SaLatchMods {
 
 impl SaLatchMods {
     #[allow(unused_unsafe)]
-    pub fn new(type_:     u8,
-               flags:     u8,
-               mask:      u8,
-               realMods:  u8,
-               vmodsHigh: u8,
-               vmodsLow:  u8)
+    pub fn new(type_:      u8,
+               flags:      u8,
+               mask:       u8,
+               real_mods:  u8,
+               vmods_high: u8,
+               vmods_low:  u8)
             -> SaLatchMods {
         unsafe {
             SaLatchMods {
                 base: xcb_xkb_sa_latch_mods_t {
-                    type_:     type_,
-                    flags:     flags,
-                    mask:      mask,
-                    realMods:  realMods,
-                    vmodsHigh: vmodsHigh,
-                    vmodsLow:  vmodsLow,
-                    pad0:      [0; 2],
+                    type_:      type_,
+                    flags:      flags,
+                    mask:       mask,
+                    realMods:  real_mods,
+                    vmodsHigh: vmods_high,
+                    vmodsLow:  vmods_low,
+                    pad0:       [0; 2],
                 }
             }
         }
@@ -2237,17 +2237,17 @@ impl SaLatchMods {
             self.base.mask
         }
     }
-    pub fn realMods(&self) -> u8 {
+    pub fn real_mods(&self) -> u8 {
         unsafe {
             self.base.realMods
         }
     }
-    pub fn vmodsHigh(&self) -> u8 {
+    pub fn vmods_high(&self) -> u8 {
         unsafe {
             self.base.vmodsHigh
         }
     }
-    pub fn vmodsLow(&self) -> u8 {
+    pub fn vmods_low(&self) -> u8 {
         unsafe {
             self.base.vmodsLow
         }
@@ -2278,23 +2278,23 @@ pub struct SaLockMods {
 
 impl SaLockMods {
     #[allow(unused_unsafe)]
-    pub fn new(type_:     u8,
-               flags:     u8,
-               mask:      u8,
-               realMods:  u8,
-               vmodsHigh: u8,
-               vmodsLow:  u8)
+    pub fn new(type_:      u8,
+               flags:      u8,
+               mask:       u8,
+               real_mods:  u8,
+               vmods_high: u8,
+               vmods_low:  u8)
             -> SaLockMods {
         unsafe {
             SaLockMods {
                 base: xcb_xkb_sa_lock_mods_t {
-                    type_:     type_,
-                    flags:     flags,
-                    mask:      mask,
-                    realMods:  realMods,
-                    vmodsHigh: vmodsHigh,
-                    vmodsLow:  vmodsLow,
-                    pad0:      [0; 2],
+                    type_:      type_,
+                    flags:      flags,
+                    mask:       mask,
+                    realMods:  real_mods,
+                    vmodsHigh: vmods_high,
+                    vmodsLow:  vmods_low,
+                    pad0:       [0; 2],
                 }
             }
         }
@@ -2314,17 +2314,17 @@ impl SaLockMods {
             self.base.mask
         }
     }
-    pub fn realMods(&self) -> u8 {
+    pub fn real_mods(&self) -> u8 {
         unsafe {
             self.base.realMods
         }
     }
-    pub fn vmodsHigh(&self) -> u8 {
+    pub fn vmods_high(&self) -> u8 {
         unsafe {
             self.base.vmodsHigh
         }
     }
-    pub fn vmodsLow(&self) -> u8 {
+    pub fn vmods_low(&self) -> u8 {
         unsafe {
             self.base.vmodsLow
         }
@@ -2523,23 +2523,23 @@ pub struct SaMovePtr {
 
 impl SaMovePtr {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,
-               flags: u8,
-               xHigh: i8,
-               xLow:  u8,
-               yHigh: i8,
-               yLow:  u8)
+    pub fn new(type_:  u8,
+               flags:  u8,
+               x_high: i8,
+               x_low:  u8,
+               y_high: i8,
+               y_low:  u8)
             -> SaMovePtr {
         unsafe {
             SaMovePtr {
                 base: xcb_xkb_sa_move_ptr_t {
-                    type_: type_,
-                    flags: flags,
-                    xHigh: xHigh,
-                    xLow:  xLow,
-                    yHigh: yHigh,
-                    yLow:  yLow,
-                    pad0:  [0; 2],
+                    type_:  type_,
+                    flags:  flags,
+                    xHigh: x_high,
+                    xLow:  x_low,
+                    yHigh: y_high,
+                    yLow:  y_low,
+                    pad0:   [0; 2],
                 }
             }
         }
@@ -2554,22 +2554,22 @@ impl SaMovePtr {
             self.base.flags
         }
     }
-    pub fn xHigh(&self) -> i8 {
+    pub fn x_high(&self) -> i8 {
         unsafe {
             self.base.xHigh
         }
     }
-    pub fn xLow(&self) -> u8 {
+    pub fn x_low(&self) -> u8 {
         unsafe {
             self.base.xLow
         }
     }
-    pub fn yHigh(&self) -> i8 {
+    pub fn y_high(&self) -> i8 {
         unsafe {
             self.base.yHigh
         }
     }
-    pub fn yLow(&self) -> u8 {
+    pub fn y_low(&self) -> u8 {
         unsafe {
             self.base.yLow
         }
@@ -2783,26 +2783,26 @@ pub struct SaIsoLock {
 
 impl SaIsoLock {
     #[allow(unused_unsafe)]
-    pub fn new(type_:     u8,
-               flags:     u8,
-               mask:      u8,
-               realMods:  u8,
-               group:     i8,
-               affect:    u8,
-               vmodsHigh: u8,
-               vmodsLow:  u8)
+    pub fn new(type_:      u8,
+               flags:      u8,
+               mask:       u8,
+               real_mods:  u8,
+               group:      i8,
+               affect:     u8,
+               vmods_high: u8,
+               vmods_low:  u8)
             -> SaIsoLock {
         unsafe {
             SaIsoLock {
                 base: xcb_xkb_sa_iso_lock_t {
-                    type_:     type_,
-                    flags:     flags,
-                    mask:      mask,
-                    realMods:  realMods,
-                    group:     group,
-                    affect:    affect,
-                    vmodsHigh: vmodsHigh,
-                    vmodsLow:  vmodsLow,
+                    type_:      type_,
+                    flags:      flags,
+                    mask:       mask,
+                    realMods:  real_mods,
+                    group:      group,
+                    affect:     affect,
+                    vmodsHigh: vmods_high,
+                    vmodsLow:  vmods_low,
                 }
             }
         }
@@ -2822,7 +2822,7 @@ impl SaIsoLock {
             self.base.mask
         }
     }
-    pub fn realMods(&self) -> u8 {
+    pub fn real_mods(&self) -> u8 {
         unsafe {
             self.base.realMods
         }
@@ -2837,12 +2837,12 @@ impl SaIsoLock {
             self.base.affect
         }
     }
-    pub fn vmodsHigh(&self) -> u8 {
+    pub fn vmods_high(&self) -> u8 {
         unsafe {
             self.base.vmodsHigh
         }
     }
-    pub fn vmodsLow(&self) -> u8 {
+    pub fn vmods_low(&self) -> u8 {
         unsafe {
             self.base.vmodsLow
         }
@@ -2915,17 +2915,17 @@ pub struct SaSwitchScreen {
 
 impl SaSwitchScreen {
     #[allow(unused_unsafe)]
-    pub fn new(type_:     u8,
-               flags:     u8,
-               newScreen: i8)
+    pub fn new(type_:      u8,
+               flags:      u8,
+               new_screen: i8)
             -> SaSwitchScreen {
         unsafe {
             SaSwitchScreen {
                 base: xcb_xkb_sa_switch_screen_t {
-                    type_:     type_,
-                    flags:     flags,
-                    newScreen: newScreen,
-                    pad0:      [0; 5],
+                    type_:      type_,
+                    flags:      flags,
+                    newScreen: new_screen,
+                    pad0:       [0; 5],
                 }
             }
         }
@@ -2940,7 +2940,7 @@ impl SaSwitchScreen {
             self.base.flags
         }
     }
-    pub fn newScreen(&self) -> i8 {
+    pub fn new_screen(&self) -> i8 {
         unsafe {
             self.base.newScreen
         }
@@ -2971,18 +2971,18 @@ pub struct SaSetControls {
 
 impl SaSetControls {
     #[allow(unused_unsafe)]
-    pub fn new(type_:         u8,
-               boolCtrlsHigh: u8,
-               boolCtrlsLow:  u8)
+    pub fn new(type_:           u8,
+               bool_ctrls_high: u8,
+               bool_ctrls_low:  u8)
             -> SaSetControls {
         unsafe {
             SaSetControls {
                 base: xcb_xkb_sa_set_controls_t {
-                    type_:         type_,
-                    pad0:          [0; 3],
-                    boolCtrlsHigh: boolCtrlsHigh,
-                    boolCtrlsLow:  boolCtrlsLow,
-                    pad1:          [0; 2],
+                    type_:           type_,
+                    pad0:            [0; 3],
+                    boolCtrlsHigh: bool_ctrls_high,
+                    boolCtrlsLow:  bool_ctrls_low,
+                    pad1:            [0; 2],
                 }
             }
         }
@@ -2992,12 +2992,12 @@ impl SaSetControls {
             self.base.type_
         }
     }
-    pub fn boolCtrlsHigh(&self) -> u8 {
+    pub fn bool_ctrls_high(&self) -> u8 {
         unsafe {
             self.base.boolCtrlsHigh
         }
     }
-    pub fn boolCtrlsLow(&self) -> u8 {
+    pub fn bool_ctrls_low(&self) -> u8 {
         unsafe {
             self.base.boolCtrlsLow
         }
@@ -3028,18 +3028,18 @@ pub struct SaLockControls {
 
 impl SaLockControls {
     #[allow(unused_unsafe)]
-    pub fn new(type_:         u8,
-               boolCtrlsHigh: u8,
-               boolCtrlsLow:  u8)
+    pub fn new(type_:           u8,
+               bool_ctrls_high: u8,
+               bool_ctrls_low:  u8)
             -> SaLockControls {
         unsafe {
             SaLockControls {
                 base: xcb_xkb_sa_lock_controls_t {
-                    type_:         type_,
-                    pad0:          [0; 3],
-                    boolCtrlsHigh: boolCtrlsHigh,
-                    boolCtrlsLow:  boolCtrlsLow,
-                    pad1:          [0; 2],
+                    type_:           type_,
+                    pad0:            [0; 3],
+                    boolCtrlsHigh: bool_ctrls_high,
+                    boolCtrlsLow:  bool_ctrls_low,
+                    pad1:            [0; 2],
                 }
             }
         }
@@ -3049,12 +3049,12 @@ impl SaLockControls {
             self.base.type_
         }
     }
-    pub fn boolCtrlsHigh(&self) -> u8 {
+    pub fn bool_ctrls_high(&self) -> u8 {
         unsafe {
             self.base.boolCtrlsHigh
         }
     }
-    pub fn boolCtrlsLow(&self) -> u8 {
+    pub fn bool_ctrls_low(&self) -> u8 {
         unsafe {
             self.base.boolCtrlsLow
         }
@@ -3122,26 +3122,26 @@ pub struct SaRedirectKey {
 
 impl SaRedirectKey {
     #[allow(unused_unsafe)]
-    pub fn new(type_:         u8,
-               newkey:        xproto::Keycode,
-               mask:          u8,
-               realModifiers: u8,
-               vmodsMaskHigh: u8,
-               vmodsMaskLow:  u8,
-               vmodsHigh:     u8,
-               vmodsLow:      u8)
+    pub fn new(type_:           u8,
+               newkey:          xproto::Keycode,
+               mask:            u8,
+               real_modifiers:  u8,
+               vmods_mask_high: u8,
+               vmods_mask_low:  u8,
+               vmods_high:      u8,
+               vmods_low:       u8)
             -> SaRedirectKey {
         unsafe {
             SaRedirectKey {
                 base: xcb_xkb_sa_redirect_key_t {
-                    type_:         type_,
-                    newkey:        newkey,
-                    mask:          mask,
-                    realModifiers: realModifiers,
-                    vmodsMaskHigh: vmodsMaskHigh,
-                    vmodsMaskLow:  vmodsMaskLow,
-                    vmodsHigh:     vmodsHigh,
-                    vmodsLow:      vmodsLow,
+                    type_:           type_,
+                    newkey:          newkey,
+                    mask:            mask,
+                    realModifiers:  real_modifiers,
+                    vmodsMaskHigh: vmods_mask_high,
+                    vmodsMaskLow:  vmods_mask_low,
+                    vmodsHigh:      vmods_high,
+                    vmodsLow:       vmods_low,
                 }
             }
         }
@@ -3161,27 +3161,27 @@ impl SaRedirectKey {
             self.base.mask
         }
     }
-    pub fn realModifiers(&self) -> u8 {
+    pub fn real_modifiers(&self) -> u8 {
         unsafe {
             self.base.realModifiers
         }
     }
-    pub fn vmodsMaskHigh(&self) -> u8 {
+    pub fn vmods_mask_high(&self) -> u8 {
         unsafe {
             self.base.vmodsMaskHigh
         }
     }
-    pub fn vmodsMaskLow(&self) -> u8 {
+    pub fn vmods_mask_low(&self) -> u8 {
         unsafe {
             self.base.vmodsMaskLow
         }
     }
-    pub fn vmodsHigh(&self) -> u8 {
+    pub fn vmods_high(&self) -> u8 {
         unsafe {
             self.base.vmodsHigh
         }
     }
-    pub fn vmodsLow(&self) -> u8 {
+    pub fn vmods_low(&self) -> u8 {
         unsafe {
             self.base.vmodsLow
         }
@@ -3479,7 +3479,7 @@ impl<'a> SymInterpret<'a> {
             (*self.ptr).match_
         }
     }
-    pub fn virtualMod(&self) -> u8 {
+    pub fn virtual_mod(&self) -> u8 {
         unsafe {
             (*self.ptr).virtualMod
         }
@@ -3872,26 +3872,26 @@ impl UseExtensionReply {
             (*self.ptr).supported != 0
         }
     }
-    pub fn serverMajor(&self) -> u16 {
+    pub fn server_major(&self) -> u16 {
         unsafe {
             (*self.ptr).serverMajor
         }
     }
-    pub fn serverMinor(&self) -> u16 {
+    pub fn server_minor(&self) -> u16 {
         unsafe {
             (*self.ptr).serverMinor
         }
     }
 }
 
-pub fn use_extension<'a>(c          : &'a base::Connection,
-                         wantedMajor: u16,
-                         wantedMinor: u16)
+pub fn use_extension<'a>(c           : &'a base::Connection,
+                         wanted_major: u16,
+                         wanted_minor: u16)
         -> UseExtensionCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_use_extension(c.get_raw_conn(),
-                                           wantedMajor as u16,  // 0
-                                           wantedMinor as u16);  // 1
+                                           wanted_major as u16,  // 0
+                                           wanted_minor as u16);  // 1
         UseExtensionCookie {
             cookie:  cookie,
             conn:    c,
@@ -3900,14 +3900,14 @@ pub fn use_extension<'a>(c          : &'a base::Connection,
     }
 }
 
-pub fn use_extension_unchecked<'a>(c          : &'a base::Connection,
-                                   wantedMajor: u16,
-                                   wantedMinor: u16)
+pub fn use_extension_unchecked<'a>(c           : &'a base::Connection,
+                                   wanted_major: u16,
+                                   wanted_minor: u16)
         -> UseExtensionCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_use_extension_unchecked(c.get_raw_conn(),
-                                                     wantedMajor as u16,  // 0
-                                                     wantedMinor as u16);  // 1
+                                                     wanted_major as u16,  // 0
+                                                     wanted_minor as u16);  // 1
         UseExtensionCookie {
             cookie:  cookie,
             conn:    c,
@@ -3920,14 +3920,14 @@ pub type SelectEventsDetails<'a> = base::StructPtr<'a, xcb_xkb_select_events_det
 
 pub const SELECT_EVENTS: u8 = 1;
 
-pub fn select_events<'a>(c          : &'a base::Connection,
-                         deviceSpec : DeviceSpec,
-                         affectWhich: u16,
-                         clear      : u16,
-                         selectAll  : u16,
-                         affectMap  : u16,
-                         map        : u16,
-                         details    : std::option::Option<SelectEventsDetails>)
+pub fn select_events<'a>(c           : &'a base::Connection,
+                         device_spec : DeviceSpec,
+                         affect_which: u16,
+                         clear       : u16,
+                         select_all  : u16,
+                         affect_map  : u16,
+                         map         : u16,
+                         details     : std::option::Option<SelectEventsDetails>)
         -> base::VoidCookie<'a> {
     unsafe {
         let details_ptr = match details {
@@ -3935,11 +3935,11 @@ pub fn select_events<'a>(c          : &'a base::Connection,
             None => std::ptr::null()
         };
         let cookie = xcb_xkb_select_events(c.get_raw_conn(),
-                                           deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                           affectWhich as u16,  // 1
+                                           device_spec as xcb_xkb_device_spec_t,  // 0
+                                           affect_which as u16,  // 1
                                            clear as u16,  // 2
-                                           selectAll as u16,  // 3
-                                           affectMap as u16,  // 4
+                                           select_all as u16,  // 3
+                                           affect_map as u16,  // 4
                                            map as u16,  // 5
                                            details_ptr);  // 6
         base::VoidCookie {
@@ -3950,14 +3950,14 @@ pub fn select_events<'a>(c          : &'a base::Connection,
     }
 }
 
-pub fn select_events_checked<'a>(c          : &'a base::Connection,
-                                 deviceSpec : DeviceSpec,
-                                 affectWhich: u16,
-                                 clear      : u16,
-                                 selectAll  : u16,
-                                 affectMap  : u16,
-                                 map        : u16,
-                                 details    : std::option::Option<SelectEventsDetails>)
+pub fn select_events_checked<'a>(c           : &'a base::Connection,
+                                 device_spec : DeviceSpec,
+                                 affect_which: u16,
+                                 clear       : u16,
+                                 select_all  : u16,
+                                 affect_map  : u16,
+                                 map         : u16,
+                                 details     : std::option::Option<SelectEventsDetails>)
         -> base::VoidCookie<'a> {
     unsafe {
         let details_ptr = match details {
@@ -3965,11 +3965,11 @@ pub fn select_events_checked<'a>(c          : &'a base::Connection,
             None => std::ptr::null()
         };
         let cookie = xcb_xkb_select_events_checked(c.get_raw_conn(),
-                                                   deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                   affectWhich as u16,  // 1
+                                                   device_spec as xcb_xkb_device_spec_t,  // 0
+                                                   affect_which as u16,  // 1
                                                    clear as u16,  // 2
-                                                   selectAll as u16,  // 3
-                                                   affectMap as u16,  // 4
+                                                   select_all as u16,  // 3
+                                                   affect_map as u16,  // 4
                                                    map as u16,  // 5
                                                    details_ptr);  // 6
         base::VoidCookie {
@@ -3982,26 +3982,26 @@ pub fn select_events_checked<'a>(c          : &'a base::Connection,
 
 pub const BELL: u8 = 3;
 
-pub fn bell<'a>(c         : &'a base::Connection,
-                deviceSpec: DeviceSpec,
-                bellClass : BellClassSpec,
-                bellID    : IdSpec,
-                percent   : i8,
-                forceSound: bool,
-                eventOnly : bool,
-                pitch     : i16,
-                duration  : i16,
-                name      : xproto::Atom,
-                window    : xproto::Window)
+pub fn bell<'a>(c          : &'a base::Connection,
+                device_spec: DeviceSpec,
+                bell_class : BellClassSpec,
+                bell_i_d   : IdSpec,
+                percent    : i8,
+                force_sound: bool,
+                event_only : bool,
+                pitch      : i16,
+                duration   : i16,
+                name       : xproto::Atom,
+                window     : xproto::Window)
         -> base::VoidCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_bell(c.get_raw_conn(),
-                                  deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                  bellClass as xcb_xkb_bell_class_spec_t,  // 1
-                                  bellID as xcb_xkb_id_spec_t,  // 2
+                                  device_spec as xcb_xkb_device_spec_t,  // 0
+                                  bell_class as xcb_xkb_bell_class_spec_t,  // 1
+                                  bell_i_d as xcb_xkb_id_spec_t,  // 2
                                   percent as i8,  // 3
-                                  forceSound as u8,  // 4
-                                  eventOnly as u8,  // 5
+                                  force_sound as u8,  // 4
+                                  event_only as u8,  // 5
                                   pitch as i16,  // 6
                                   duration as i16,  // 7
                                   name as xcb_atom_t,  // 8
@@ -4014,26 +4014,26 @@ pub fn bell<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn bell_checked<'a>(c         : &'a base::Connection,
-                        deviceSpec: DeviceSpec,
-                        bellClass : BellClassSpec,
-                        bellID    : IdSpec,
-                        percent   : i8,
-                        forceSound: bool,
-                        eventOnly : bool,
-                        pitch     : i16,
-                        duration  : i16,
-                        name      : xproto::Atom,
-                        window    : xproto::Window)
+pub fn bell_checked<'a>(c          : &'a base::Connection,
+                        device_spec: DeviceSpec,
+                        bell_class : BellClassSpec,
+                        bell_i_d   : IdSpec,
+                        percent    : i8,
+                        force_sound: bool,
+                        event_only : bool,
+                        pitch      : i16,
+                        duration   : i16,
+                        name       : xproto::Atom,
+                        window     : xproto::Window)
         -> base::VoidCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_bell_checked(c.get_raw_conn(),
-                                          deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                          bellClass as xcb_xkb_bell_class_spec_t,  // 1
-                                          bellID as xcb_xkb_id_spec_t,  // 2
+                                          device_spec as xcb_xkb_device_spec_t,  // 0
+                                          bell_class as xcb_xkb_bell_class_spec_t,  // 1
+                                          bell_i_d as xcb_xkb_id_spec_t,  // 2
                                           percent as i8,  // 3
-                                          forceSound as u8,  // 4
-                                          eventOnly as u8,  // 5
+                                          force_sound as u8,  // 4
+                                          event_only as u8,  // 5
                                           pitch as i16,  // 6
                                           duration as i16,  // 7
                                           name as xcb_atom_t,  // 8
@@ -4079,7 +4079,7 @@ impl<'a> GetStateCookie<'a> {
 pub type GetStateReply = base::Reply<xcb_xkb_get_state_reply_t>;
 
 impl GetStateReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -4089,17 +4089,17 @@ impl GetStateReply {
             (*self.ptr).mods
         }
     }
-    pub fn baseMods(&self) -> u8 {
+    pub fn base_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).baseMods
         }
     }
-    pub fn latchedMods(&self) -> u8 {
+    pub fn latched_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).latchedMods
         }
     }
-    pub fn lockedMods(&self) -> u8 {
+    pub fn locked_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).lockedMods
         }
@@ -4109,59 +4109,59 @@ impl GetStateReply {
             (*self.ptr).group
         }
     }
-    pub fn lockedGroup(&self) -> u8 {
+    pub fn locked_group(&self) -> u8 {
         unsafe {
             (*self.ptr).lockedGroup
         }
     }
-    pub fn baseGroup(&self) -> i16 {
+    pub fn base_group(&self) -> i16 {
         unsafe {
             (*self.ptr).baseGroup
         }
     }
-    pub fn latchedGroup(&self) -> i16 {
+    pub fn latched_group(&self) -> i16 {
         unsafe {
             (*self.ptr).latchedGroup
         }
     }
-    pub fn compatState(&self) -> u8 {
+    pub fn compat_state(&self) -> u8 {
         unsafe {
             (*self.ptr).compatState
         }
     }
-    pub fn grabMods(&self) -> u8 {
+    pub fn grab_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).grabMods
         }
     }
-    pub fn compatGrabMods(&self) -> u8 {
+    pub fn compat_grab_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).compatGrabMods
         }
     }
-    pub fn lookupMods(&self) -> u8 {
+    pub fn lookup_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).lookupMods
         }
     }
-    pub fn compatLookupMods(&self) -> u8 {
+    pub fn compat_lookup_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).compatLookupMods
         }
     }
-    pub fn ptrBtnState(&self) -> u16 {
+    pub fn ptr_btn_state(&self) -> u16 {
         unsafe {
             (*self.ptr).ptrBtnState
         }
     }
 }
 
-pub fn get_state<'a>(c         : &'a base::Connection,
-                     deviceSpec: DeviceSpec)
+pub fn get_state<'a>(c          : &'a base::Connection,
+                     device_spec: DeviceSpec)
         -> GetStateCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_state(c.get_raw_conn(),
-                                       deviceSpec as xcb_xkb_device_spec_t);  // 0
+                                       device_spec as xcb_xkb_device_spec_t);  // 0
         GetStateCookie {
             cookie:  cookie,
             conn:    c,
@@ -4170,12 +4170,12 @@ pub fn get_state<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn get_state_unchecked<'a>(c         : &'a base::Connection,
-                               deviceSpec: DeviceSpec)
+pub fn get_state_unchecked<'a>(c          : &'a base::Connection,
+                               device_spec: DeviceSpec)
         -> GetStateCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_state_unchecked(c.get_raw_conn(),
-                                                 deviceSpec as xcb_xkb_device_spec_t);  // 0
+                                                 device_spec as xcb_xkb_device_spec_t);  // 0
         GetStateCookie {
             cookie:  cookie,
             conn:    c,
@@ -4186,26 +4186,26 @@ pub fn get_state_unchecked<'a>(c         : &'a base::Connection,
 
 pub const LATCH_LOCK_STATE: u8 = 5;
 
-pub fn latch_lock_state<'a>(c               : &'a base::Connection,
-                            deviceSpec      : DeviceSpec,
-                            affectModLocks  : u8,
-                            modLocks        : u8,
-                            lockGroup       : bool,
-                            groupLock       : u8,
-                            affectModLatches: u8,
-                            latchGroup      : bool,
-                            groupLatch      : u16)
+pub fn latch_lock_state<'a>(c                 : &'a base::Connection,
+                            device_spec       : DeviceSpec,
+                            affect_mod_locks  : u8,
+                            mod_locks         : u8,
+                            lock_group        : bool,
+                            group_lock        : u8,
+                            affect_mod_latches: u8,
+                            latch_group       : bool,
+                            group_latch       : u16)
         -> base::VoidCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_latch_lock_state(c.get_raw_conn(),
-                                              deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                              affectModLocks as u8,  // 1
-                                              modLocks as u8,  // 2
-                                              lockGroup as u8,  // 3
-                                              groupLock as u8,  // 4
-                                              affectModLatches as u8,  // 5
-                                              latchGroup as u8,  // 6
-                                              groupLatch as u16);  // 7
+                                              device_spec as xcb_xkb_device_spec_t,  // 0
+                                              affect_mod_locks as u8,  // 1
+                                              mod_locks as u8,  // 2
+                                              lock_group as u8,  // 3
+                                              group_lock as u8,  // 4
+                                              affect_mod_latches as u8,  // 5
+                                              latch_group as u8,  // 6
+                                              group_latch as u16);  // 7
         base::VoidCookie {
             cookie:  cookie,
             conn:    c,
@@ -4214,26 +4214,26 @@ pub fn latch_lock_state<'a>(c               : &'a base::Connection,
     }
 }
 
-pub fn latch_lock_state_checked<'a>(c               : &'a base::Connection,
-                                    deviceSpec      : DeviceSpec,
-                                    affectModLocks  : u8,
-                                    modLocks        : u8,
-                                    lockGroup       : bool,
-                                    groupLock       : u8,
-                                    affectModLatches: u8,
-                                    latchGroup      : bool,
-                                    groupLatch      : u16)
+pub fn latch_lock_state_checked<'a>(c                 : &'a base::Connection,
+                                    device_spec       : DeviceSpec,
+                                    affect_mod_locks  : u8,
+                                    mod_locks         : u8,
+                                    lock_group        : bool,
+                                    group_lock        : u8,
+                                    affect_mod_latches: u8,
+                                    latch_group       : bool,
+                                    group_latch       : u16)
         -> base::VoidCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_latch_lock_state_checked(c.get_raw_conn(),
-                                                      deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                      affectModLocks as u8,  // 1
-                                                      modLocks as u8,  // 2
-                                                      lockGroup as u8,  // 3
-                                                      groupLock as u8,  // 4
-                                                      affectModLatches as u8,  // 5
-                                                      latchGroup as u8,  // 6
-                                                      groupLatch as u16);  // 7
+                                                      device_spec as xcb_xkb_device_spec_t,  // 0
+                                                      affect_mod_locks as u8,  // 1
+                                                      mod_locks as u8,  // 2
+                                                      lock_group as u8,  // 3
+                                                      group_lock as u8,  // 4
+                                                      affect_mod_latches as u8,  // 5
+                                                      latch_group as u8,  // 6
+                                                      group_latch as u16);  // 7
         base::VoidCookie {
             cookie:  cookie,
             conn:    c,
@@ -4275,149 +4275,149 @@ impl<'a> GetControlsCookie<'a> {
 pub type GetControlsReply = base::Reply<xcb_xkb_get_controls_reply_t>;
 
 impl GetControlsReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn mouseKeysDfltBtn(&self) -> u8 {
+    pub fn mouse_keys_dflt_btn(&self) -> u8 {
         unsafe {
             (*self.ptr).mouseKeysDfltBtn
         }
     }
-    pub fn numGroups(&self) -> u8 {
+    pub fn num_groups(&self) -> u8 {
         unsafe {
             (*self.ptr).numGroups
         }
     }
-    pub fn groupsWrap(&self) -> u8 {
+    pub fn groups_wrap(&self) -> u8 {
         unsafe {
             (*self.ptr).groupsWrap
         }
     }
-    pub fn internalModsMask(&self) -> u8 {
+    pub fn internal_mods_mask(&self) -> u8 {
         unsafe {
             (*self.ptr).internalModsMask
         }
     }
-    pub fn ignoreLockModsMask(&self) -> u8 {
+    pub fn ignore_lock_mods_mask(&self) -> u8 {
         unsafe {
             (*self.ptr).ignoreLockModsMask
         }
     }
-    pub fn internalModsRealMods(&self) -> u8 {
+    pub fn internal_mods_real_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).internalModsRealMods
         }
     }
-    pub fn ignoreLockModsRealMods(&self) -> u8 {
+    pub fn ignore_lock_mods_real_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).ignoreLockModsRealMods
         }
     }
-    pub fn internalModsVmods(&self) -> u16 {
+    pub fn internal_mods_vmods(&self) -> u16 {
         unsafe {
             (*self.ptr).internalModsVmods
         }
     }
-    pub fn ignoreLockModsVmods(&self) -> u16 {
+    pub fn ignore_lock_mods_vmods(&self) -> u16 {
         unsafe {
             (*self.ptr).ignoreLockModsVmods
         }
     }
-    pub fn repeatDelay(&self) -> u16 {
+    pub fn repeat_delay(&self) -> u16 {
         unsafe {
             (*self.ptr).repeatDelay
         }
     }
-    pub fn repeatInterval(&self) -> u16 {
+    pub fn repeat_interval(&self) -> u16 {
         unsafe {
             (*self.ptr).repeatInterval
         }
     }
-    pub fn slowKeysDelay(&self) -> u16 {
+    pub fn slow_keys_delay(&self) -> u16 {
         unsafe {
             (*self.ptr).slowKeysDelay
         }
     }
-    pub fn debounceDelay(&self) -> u16 {
+    pub fn debounce_delay(&self) -> u16 {
         unsafe {
             (*self.ptr).debounceDelay
         }
     }
-    pub fn mouseKeysDelay(&self) -> u16 {
+    pub fn mouse_keys_delay(&self) -> u16 {
         unsafe {
             (*self.ptr).mouseKeysDelay
         }
     }
-    pub fn mouseKeysInterval(&self) -> u16 {
+    pub fn mouse_keys_interval(&self) -> u16 {
         unsafe {
             (*self.ptr).mouseKeysInterval
         }
     }
-    pub fn mouseKeysTimeToMax(&self) -> u16 {
+    pub fn mouse_keys_time_to_max(&self) -> u16 {
         unsafe {
             (*self.ptr).mouseKeysTimeToMax
         }
     }
-    pub fn mouseKeysMaxSpeed(&self) -> u16 {
+    pub fn mouse_keys_max_speed(&self) -> u16 {
         unsafe {
             (*self.ptr).mouseKeysMaxSpeed
         }
     }
-    pub fn mouseKeysCurve(&self) -> i16 {
+    pub fn mouse_keys_curve(&self) -> i16 {
         unsafe {
             (*self.ptr).mouseKeysCurve
         }
     }
-    pub fn accessXOption(&self) -> u16 {
+    pub fn access_x_option(&self) -> u16 {
         unsafe {
             (*self.ptr).accessXOption
         }
     }
-    pub fn accessXTimeout(&self) -> u16 {
+    pub fn access_x_timeout(&self) -> u16 {
         unsafe {
             (*self.ptr).accessXTimeout
         }
     }
-    pub fn accessXTimeoutOptionsMask(&self) -> u16 {
+    pub fn access_x_timeout_options_mask(&self) -> u16 {
         unsafe {
             (*self.ptr).accessXTimeoutOptionsMask
         }
     }
-    pub fn accessXTimeoutOptionsValues(&self) -> u16 {
+    pub fn access_x_timeout_options_values(&self) -> u16 {
         unsafe {
             (*self.ptr).accessXTimeoutOptionsValues
         }
     }
-    pub fn accessXTimeoutMask(&self) -> u32 {
+    pub fn access_x_timeout_mask(&self) -> u32 {
         unsafe {
             (*self.ptr).accessXTimeoutMask
         }
     }
-    pub fn accessXTimeoutValues(&self) -> u32 {
+    pub fn access_x_timeout_values(&self) -> u32 {
         unsafe {
             (*self.ptr).accessXTimeoutValues
         }
     }
-    pub fn enabledControls(&self) -> u32 {
+    pub fn enabled_controls(&self) -> u32 {
         unsafe {
             (*self.ptr).enabledControls
         }
     }
-    pub fn perKeyRepeat(&self) -> &[u8] {
+    pub fn per_key_repeat(&self) -> &[u8] {
         unsafe {
             &(*self.ptr).perKeyRepeat
         }
     }
 }
 
-pub fn get_controls<'a>(c         : &'a base::Connection,
-                        deviceSpec: DeviceSpec)
+pub fn get_controls<'a>(c          : &'a base::Connection,
+                        device_spec: DeviceSpec)
         -> GetControlsCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_controls(c.get_raw_conn(),
-                                          deviceSpec as xcb_xkb_device_spec_t);  // 0
+                                          device_spec as xcb_xkb_device_spec_t);  // 0
         GetControlsCookie {
             cookie:  cookie,
             conn:    c,
@@ -4426,12 +4426,12 @@ pub fn get_controls<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn get_controls_unchecked<'a>(c         : &'a base::Connection,
-                                  deviceSpec: DeviceSpec)
+pub fn get_controls_unchecked<'a>(c          : &'a base::Connection,
+                                  device_spec: DeviceSpec)
         -> GetControlsCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_controls_unchecked(c.get_raw_conn(),
-                                                    deviceSpec as xcb_xkb_device_spec_t);  // 0
+                                                    device_spec as xcb_xkb_device_spec_t);  // 0
         GetControlsCookie {
             cookie:  cookie,
             conn:    c,
@@ -4442,71 +4442,71 @@ pub fn get_controls_unchecked<'a>(c         : &'a base::Connection,
 
 pub const SET_CONTROLS: u8 = 7;
 
-pub fn set_controls<'a>(c                          : &'a base::Connection,
-                        deviceSpec                 : DeviceSpec,
-                        affectInternalRealMods     : u8,
-                        internalRealMods           : u8,
-                        affectIgnoreLockRealMods   : u8,
-                        ignoreLockRealMods         : u8,
-                        affectInternalVirtualMods  : u16,
-                        internalVirtualMods        : u16,
-                        affectIgnoreLockVirtualMods: u16,
-                        ignoreLockVirtualMods      : u16,
-                        mouseKeysDfltBtn           : u8,
-                        groupsWrap                 : u8,
-                        accessXOptions             : u16,
-                        affectEnabledControls      : u32,
-                        enabledControls            : u32,
-                        changeControls             : u32,
-                        repeatDelay                : u16,
-                        repeatInterval             : u16,
-                        slowKeysDelay              : u16,
-                        debounceDelay              : u16,
-                        mouseKeysDelay             : u16,
-                        mouseKeysInterval          : u16,
-                        mouseKeysTimeToMax         : u16,
-                        mouseKeysMaxSpeed          : u16,
-                        mouseKeysCurve             : i16,
-                        accessXTimeout             : u16,
-                        accessXTimeoutMask         : u32,
-                        accessXTimeoutValues       : u32,
-                        accessXTimeoutOptionsMask  : u16,
-                        accessXTimeoutOptionsValues: u16,
-                        perKeyRepeat               : &[u8])
+pub fn set_controls<'a>(c                              : &'a base::Connection,
+                        device_spec                    : DeviceSpec,
+                        affect_internal_real_mods      : u8,
+                        internal_real_mods             : u8,
+                        affect_ignore_lock_real_mods   : u8,
+                        ignore_lock_real_mods          : u8,
+                        affect_internal_virtual_mods   : u16,
+                        internal_virtual_mods          : u16,
+                        affect_ignore_lock_virtual_mods: u16,
+                        ignore_lock_virtual_mods       : u16,
+                        mouse_keys_dflt_btn            : u8,
+                        groups_wrap                    : u8,
+                        access_x_options               : u16,
+                        affect_enabled_controls        : u32,
+                        enabled_controls               : u32,
+                        change_controls                : u32,
+                        repeat_delay                   : u16,
+                        repeat_interval                : u16,
+                        slow_keys_delay                : u16,
+                        debounce_delay                 : u16,
+                        mouse_keys_delay               : u16,
+                        mouse_keys_interval            : u16,
+                        mouse_keys_time_to_max         : u16,
+                        mouse_keys_max_speed           : u16,
+                        mouse_keys_curve               : i16,
+                        access_x_timeout               : u16,
+                        access_x_timeout_mask          : u32,
+                        access_x_timeout_values        : u32,
+                        access_x_timeout_options_mask  : u16,
+                        access_x_timeout_options_values: u16,
+                        per_key_repeat                 : &[u8])
         -> base::VoidCookie<'a> {
     unsafe {
-        let perKeyRepeat_ptr = perKeyRepeat.as_ptr();
+        let per_key_repeat_ptr = per_key_repeat.as_ptr();
         let cookie = xcb_xkb_set_controls(c.get_raw_conn(),
-                                          deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                          affectInternalRealMods as u8,  // 1
-                                          internalRealMods as u8,  // 2
-                                          affectIgnoreLockRealMods as u8,  // 3
-                                          ignoreLockRealMods as u8,  // 4
-                                          affectInternalVirtualMods as u16,  // 5
-                                          internalVirtualMods as u16,  // 6
-                                          affectIgnoreLockVirtualMods as u16,  // 7
-                                          ignoreLockVirtualMods as u16,  // 8
-                                          mouseKeysDfltBtn as u8,  // 9
-                                          groupsWrap as u8,  // 10
-                                          accessXOptions as u16,  // 11
-                                          affectEnabledControls as u32,  // 12
-                                          enabledControls as u32,  // 13
-                                          changeControls as u32,  // 14
-                                          repeatDelay as u16,  // 15
-                                          repeatInterval as u16,  // 16
-                                          slowKeysDelay as u16,  // 17
-                                          debounceDelay as u16,  // 18
-                                          mouseKeysDelay as u16,  // 19
-                                          mouseKeysInterval as u16,  // 20
-                                          mouseKeysTimeToMax as u16,  // 21
-                                          mouseKeysMaxSpeed as u16,  // 22
-                                          mouseKeysCurve as i16,  // 23
-                                          accessXTimeout as u16,  // 24
-                                          accessXTimeoutMask as u32,  // 25
-                                          accessXTimeoutValues as u32,  // 26
-                                          accessXTimeoutOptionsMask as u16,  // 27
-                                          accessXTimeoutOptionsValues as u16,  // 28
-                                          perKeyRepeat_ptr as *const u8);  // 29
+                                          device_spec as xcb_xkb_device_spec_t,  // 0
+                                          affect_internal_real_mods as u8,  // 1
+                                          internal_real_mods as u8,  // 2
+                                          affect_ignore_lock_real_mods as u8,  // 3
+                                          ignore_lock_real_mods as u8,  // 4
+                                          affect_internal_virtual_mods as u16,  // 5
+                                          internal_virtual_mods as u16,  // 6
+                                          affect_ignore_lock_virtual_mods as u16,  // 7
+                                          ignore_lock_virtual_mods as u16,  // 8
+                                          mouse_keys_dflt_btn as u8,  // 9
+                                          groups_wrap as u8,  // 10
+                                          access_x_options as u16,  // 11
+                                          affect_enabled_controls as u32,  // 12
+                                          enabled_controls as u32,  // 13
+                                          change_controls as u32,  // 14
+                                          repeat_delay as u16,  // 15
+                                          repeat_interval as u16,  // 16
+                                          slow_keys_delay as u16,  // 17
+                                          debounce_delay as u16,  // 18
+                                          mouse_keys_delay as u16,  // 19
+                                          mouse_keys_interval as u16,  // 20
+                                          mouse_keys_time_to_max as u16,  // 21
+                                          mouse_keys_max_speed as u16,  // 22
+                                          mouse_keys_curve as i16,  // 23
+                                          access_x_timeout as u16,  // 24
+                                          access_x_timeout_mask as u32,  // 25
+                                          access_x_timeout_values as u32,  // 26
+                                          access_x_timeout_options_mask as u16,  // 27
+                                          access_x_timeout_options_values as u16,  // 28
+                                          per_key_repeat_ptr as *const u8);  // 29
         base::VoidCookie {
             cookie:  cookie,
             conn:    c,
@@ -4515,71 +4515,71 @@ pub fn set_controls<'a>(c                          : &'a base::Connection,
     }
 }
 
-pub fn set_controls_checked<'a>(c                          : &'a base::Connection,
-                                deviceSpec                 : DeviceSpec,
-                                affectInternalRealMods     : u8,
-                                internalRealMods           : u8,
-                                affectIgnoreLockRealMods   : u8,
-                                ignoreLockRealMods         : u8,
-                                affectInternalVirtualMods  : u16,
-                                internalVirtualMods        : u16,
-                                affectIgnoreLockVirtualMods: u16,
-                                ignoreLockVirtualMods      : u16,
-                                mouseKeysDfltBtn           : u8,
-                                groupsWrap                 : u8,
-                                accessXOptions             : u16,
-                                affectEnabledControls      : u32,
-                                enabledControls            : u32,
-                                changeControls             : u32,
-                                repeatDelay                : u16,
-                                repeatInterval             : u16,
-                                slowKeysDelay              : u16,
-                                debounceDelay              : u16,
-                                mouseKeysDelay             : u16,
-                                mouseKeysInterval          : u16,
-                                mouseKeysTimeToMax         : u16,
-                                mouseKeysMaxSpeed          : u16,
-                                mouseKeysCurve             : i16,
-                                accessXTimeout             : u16,
-                                accessXTimeoutMask         : u32,
-                                accessXTimeoutValues       : u32,
-                                accessXTimeoutOptionsMask  : u16,
-                                accessXTimeoutOptionsValues: u16,
-                                perKeyRepeat               : &[u8])
+pub fn set_controls_checked<'a>(c                              : &'a base::Connection,
+                                device_spec                    : DeviceSpec,
+                                affect_internal_real_mods      : u8,
+                                internal_real_mods             : u8,
+                                affect_ignore_lock_real_mods   : u8,
+                                ignore_lock_real_mods          : u8,
+                                affect_internal_virtual_mods   : u16,
+                                internal_virtual_mods          : u16,
+                                affect_ignore_lock_virtual_mods: u16,
+                                ignore_lock_virtual_mods       : u16,
+                                mouse_keys_dflt_btn            : u8,
+                                groups_wrap                    : u8,
+                                access_x_options               : u16,
+                                affect_enabled_controls        : u32,
+                                enabled_controls               : u32,
+                                change_controls                : u32,
+                                repeat_delay                   : u16,
+                                repeat_interval                : u16,
+                                slow_keys_delay                : u16,
+                                debounce_delay                 : u16,
+                                mouse_keys_delay               : u16,
+                                mouse_keys_interval            : u16,
+                                mouse_keys_time_to_max         : u16,
+                                mouse_keys_max_speed           : u16,
+                                mouse_keys_curve               : i16,
+                                access_x_timeout               : u16,
+                                access_x_timeout_mask          : u32,
+                                access_x_timeout_values        : u32,
+                                access_x_timeout_options_mask  : u16,
+                                access_x_timeout_options_values: u16,
+                                per_key_repeat                 : &[u8])
         -> base::VoidCookie<'a> {
     unsafe {
-        let perKeyRepeat_ptr = perKeyRepeat.as_ptr();
+        let per_key_repeat_ptr = per_key_repeat.as_ptr();
         let cookie = xcb_xkb_set_controls_checked(c.get_raw_conn(),
-                                                  deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                  affectInternalRealMods as u8,  // 1
-                                                  internalRealMods as u8,  // 2
-                                                  affectIgnoreLockRealMods as u8,  // 3
-                                                  ignoreLockRealMods as u8,  // 4
-                                                  affectInternalVirtualMods as u16,  // 5
-                                                  internalVirtualMods as u16,  // 6
-                                                  affectIgnoreLockVirtualMods as u16,  // 7
-                                                  ignoreLockVirtualMods as u16,  // 8
-                                                  mouseKeysDfltBtn as u8,  // 9
-                                                  groupsWrap as u8,  // 10
-                                                  accessXOptions as u16,  // 11
-                                                  affectEnabledControls as u32,  // 12
-                                                  enabledControls as u32,  // 13
-                                                  changeControls as u32,  // 14
-                                                  repeatDelay as u16,  // 15
-                                                  repeatInterval as u16,  // 16
-                                                  slowKeysDelay as u16,  // 17
-                                                  debounceDelay as u16,  // 18
-                                                  mouseKeysDelay as u16,  // 19
-                                                  mouseKeysInterval as u16,  // 20
-                                                  mouseKeysTimeToMax as u16,  // 21
-                                                  mouseKeysMaxSpeed as u16,  // 22
-                                                  mouseKeysCurve as i16,  // 23
-                                                  accessXTimeout as u16,  // 24
-                                                  accessXTimeoutMask as u32,  // 25
-                                                  accessXTimeoutValues as u32,  // 26
-                                                  accessXTimeoutOptionsMask as u16,  // 27
-                                                  accessXTimeoutOptionsValues as u16,  // 28
-                                                  perKeyRepeat_ptr as *const u8);  // 29
+                                                  device_spec as xcb_xkb_device_spec_t,  // 0
+                                                  affect_internal_real_mods as u8,  // 1
+                                                  internal_real_mods as u8,  // 2
+                                                  affect_ignore_lock_real_mods as u8,  // 3
+                                                  ignore_lock_real_mods as u8,  // 4
+                                                  affect_internal_virtual_mods as u16,  // 5
+                                                  internal_virtual_mods as u16,  // 6
+                                                  affect_ignore_lock_virtual_mods as u16,  // 7
+                                                  ignore_lock_virtual_mods as u16,  // 8
+                                                  mouse_keys_dflt_btn as u8,  // 9
+                                                  groups_wrap as u8,  // 10
+                                                  access_x_options as u16,  // 11
+                                                  affect_enabled_controls as u32,  // 12
+                                                  enabled_controls as u32,  // 13
+                                                  change_controls as u32,  // 14
+                                                  repeat_delay as u16,  // 15
+                                                  repeat_interval as u16,  // 16
+                                                  slow_keys_delay as u16,  // 17
+                                                  debounce_delay as u16,  // 18
+                                                  mouse_keys_delay as u16,  // 19
+                                                  mouse_keys_interval as u16,  // 20
+                                                  mouse_keys_time_to_max as u16,  // 21
+                                                  mouse_keys_max_speed as u16,  // 22
+                                                  mouse_keys_curve as i16,  // 23
+                                                  access_x_timeout as u16,  // 24
+                                                  access_x_timeout_mask as u32,  // 25
+                                                  access_x_timeout_values as u32,  // 26
+                                                  access_x_timeout_options_mask as u16,  // 27
+                                                  access_x_timeout_options_values as u16,  // 28
+                                                  per_key_repeat_ptr as *const u8);  // 29
         base::VoidCookie {
             cookie:  cookie,
             conn:    c,
@@ -4623,17 +4623,17 @@ pub type GetMapMap<'a> = base::StructPtr<'a, xcb_xkb_get_map_map_t>;
 pub type GetMapReply = base::Reply<xcb_xkb_get_map_reply_t>;
 
 impl GetMapReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn minKeyCode(&self) -> xproto::Keycode {
+    pub fn min_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).minKeyCode
         }
     }
-    pub fn maxKeyCode(&self) -> xproto::Keycode {
+    pub fn max_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).maxKeyCode
         }
@@ -4643,158 +4643,158 @@ impl GetMapReply {
             (*self.ptr).present
         }
     }
-    pub fn firstType(&self) -> u8 {
+    pub fn first_type(&self) -> u8 {
         unsafe {
             (*self.ptr).firstType
         }
     }
-    pub fn nTypes(&self) -> u8 {
+    pub fn n_types(&self) -> u8 {
         unsafe {
             (*self.ptr).nTypes
         }
     }
-    pub fn totalTypes(&self) -> u8 {
+    pub fn total_types(&self) -> u8 {
         unsafe {
             (*self.ptr).totalTypes
         }
     }
-    pub fn firstKeySym(&self) -> xproto::Keycode {
+    pub fn first_key_sym(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKeySym
         }
     }
-    pub fn totalSyms(&self) -> u16 {
+    pub fn total_syms(&self) -> u16 {
         unsafe {
             (*self.ptr).totalSyms
         }
     }
-    pub fn nKeySyms(&self) -> u8 {
+    pub fn n_key_syms(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeySyms
         }
     }
-    pub fn firstKeyAction(&self) -> xproto::Keycode {
+    pub fn first_key_action(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKeyAction
         }
     }
-    pub fn totalActions(&self) -> u16 {
+    pub fn total_actions(&self) -> u16 {
         unsafe {
             (*self.ptr).totalActions
         }
     }
-    pub fn nKeyActions(&self) -> u8 {
+    pub fn n_key_actions(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeyActions
         }
     }
-    pub fn firstKeyBehavior(&self) -> xproto::Keycode {
+    pub fn first_key_behavior(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKeyBehavior
         }
     }
-    pub fn nKeyBehaviors(&self) -> u8 {
+    pub fn n_key_behaviors(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeyBehaviors
         }
     }
-    pub fn totalKeyBehaviors(&self) -> u8 {
+    pub fn total_key_behaviors(&self) -> u8 {
         unsafe {
             (*self.ptr).totalKeyBehaviors
         }
     }
-    pub fn firstKeyExplicit(&self) -> xproto::Keycode {
+    pub fn first_key_explicit(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKeyExplicit
         }
     }
-    pub fn nKeyExplicit(&self) -> u8 {
+    pub fn n_key_explicit(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeyExplicit
         }
     }
-    pub fn totalKeyExplicit(&self) -> u8 {
+    pub fn total_key_explicit(&self) -> u8 {
         unsafe {
             (*self.ptr).totalKeyExplicit
         }
     }
-    pub fn firstModMapKey(&self) -> xproto::Keycode {
+    pub fn first_mod_map_key(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstModMapKey
         }
     }
-    pub fn nModMapKeys(&self) -> u8 {
+    pub fn n_mod_map_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).nModMapKeys
         }
     }
-    pub fn totalModMapKeys(&self) -> u8 {
+    pub fn total_mod_map_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).totalModMapKeys
         }
     }
-    pub fn firstVModMapKey(&self) -> xproto::Keycode {
+    pub fn first_v_mod_map_key(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstVModMapKey
         }
     }
-    pub fn nVModMapKeys(&self) -> u8 {
+    pub fn n_v_mod_map_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).nVModMapKeys
         }
     }
-    pub fn totalVModMapKeys(&self) -> u8 {
+    pub fn total_v_mod_map_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).totalVModMapKeys
         }
     }
-    pub fn virtualMods(&self) -> u16 {
+    pub fn virtual_mods(&self) -> u16 {
         unsafe {
             (*self.ptr).virtualMods
         }
     }
 }
 
-pub fn get_map<'a>(c               : &'a base::Connection,
-                   deviceSpec      : DeviceSpec,
-                   full            : u16,
-                   partial         : u16,
-                   firstType       : u8,
-                   nTypes          : u8,
-                   firstKeySym     : xproto::Keycode,
-                   nKeySyms        : u8,
-                   firstKeyAction  : xproto::Keycode,
-                   nKeyActions     : u8,
-                   firstKeyBehavior: xproto::Keycode,
-                   nKeyBehaviors   : u8,
-                   virtualMods     : u16,
-                   firstKeyExplicit: xproto::Keycode,
-                   nKeyExplicit    : u8,
-                   firstModMapKey  : xproto::Keycode,
-                   nModMapKeys     : u8,
-                   firstVModMapKey : xproto::Keycode,
-                   nVModMapKeys    : u8)
+pub fn get_map<'a>(c                  : &'a base::Connection,
+                   device_spec        : DeviceSpec,
+                   full               : u16,
+                   partial            : u16,
+                   first_type         : u8,
+                   n_types            : u8,
+                   first_key_sym      : xproto::Keycode,
+                   n_key_syms         : u8,
+                   first_key_action   : xproto::Keycode,
+                   n_key_actions      : u8,
+                   first_key_behavior : xproto::Keycode,
+                   n_key_behaviors    : u8,
+                   virtual_mods       : u16,
+                   first_key_explicit : xproto::Keycode,
+                   n_key_explicit     : u8,
+                   first_mod_map_key  : xproto::Keycode,
+                   n_mod_map_keys     : u8,
+                   first_v_mod_map_key: xproto::Keycode,
+                   n_v_mod_map_keys   : u8)
         -> GetMapCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_map(c.get_raw_conn(),
-                                     deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                     device_spec as xcb_xkb_device_spec_t,  // 0
                                      full as u16,  // 1
                                      partial as u16,  // 2
-                                     firstType as u8,  // 3
-                                     nTypes as u8,  // 4
-                                     firstKeySym as xcb_keycode_t,  // 5
-                                     nKeySyms as u8,  // 6
-                                     firstKeyAction as xcb_keycode_t,  // 7
-                                     nKeyActions as u8,  // 8
-                                     firstKeyBehavior as xcb_keycode_t,  // 9
-                                     nKeyBehaviors as u8,  // 10
-                                     virtualMods as u16,  // 11
-                                     firstKeyExplicit as xcb_keycode_t,  // 12
-                                     nKeyExplicit as u8,  // 13
-                                     firstModMapKey as xcb_keycode_t,  // 14
-                                     nModMapKeys as u8,  // 15
-                                     firstVModMapKey as xcb_keycode_t,  // 16
-                                     nVModMapKeys as u8);  // 17
+                                     first_type as u8,  // 3
+                                     n_types as u8,  // 4
+                                     first_key_sym as xcb_keycode_t,  // 5
+                                     n_key_syms as u8,  // 6
+                                     first_key_action as xcb_keycode_t,  // 7
+                                     n_key_actions as u8,  // 8
+                                     first_key_behavior as xcb_keycode_t,  // 9
+                                     n_key_behaviors as u8,  // 10
+                                     virtual_mods as u16,  // 11
+                                     first_key_explicit as xcb_keycode_t,  // 12
+                                     n_key_explicit as u8,  // 13
+                                     first_mod_map_key as xcb_keycode_t,  // 14
+                                     n_mod_map_keys as u8,  // 15
+                                     first_v_mod_map_key as xcb_keycode_t,  // 16
+                                     n_v_mod_map_keys as u8);  // 17
         GetMapCookie {
             cookie:  cookie,
             conn:    c,
@@ -4803,46 +4803,46 @@ pub fn get_map<'a>(c               : &'a base::Connection,
     }
 }
 
-pub fn get_map_unchecked<'a>(c               : &'a base::Connection,
-                             deviceSpec      : DeviceSpec,
-                             full            : u16,
-                             partial         : u16,
-                             firstType       : u8,
-                             nTypes          : u8,
-                             firstKeySym     : xproto::Keycode,
-                             nKeySyms        : u8,
-                             firstKeyAction  : xproto::Keycode,
-                             nKeyActions     : u8,
-                             firstKeyBehavior: xproto::Keycode,
-                             nKeyBehaviors   : u8,
-                             virtualMods     : u16,
-                             firstKeyExplicit: xproto::Keycode,
-                             nKeyExplicit    : u8,
-                             firstModMapKey  : xproto::Keycode,
-                             nModMapKeys     : u8,
-                             firstVModMapKey : xproto::Keycode,
-                             nVModMapKeys    : u8)
+pub fn get_map_unchecked<'a>(c                  : &'a base::Connection,
+                             device_spec        : DeviceSpec,
+                             full               : u16,
+                             partial            : u16,
+                             first_type         : u8,
+                             n_types            : u8,
+                             first_key_sym      : xproto::Keycode,
+                             n_key_syms         : u8,
+                             first_key_action   : xproto::Keycode,
+                             n_key_actions      : u8,
+                             first_key_behavior : xproto::Keycode,
+                             n_key_behaviors    : u8,
+                             virtual_mods       : u16,
+                             first_key_explicit : xproto::Keycode,
+                             n_key_explicit     : u8,
+                             first_mod_map_key  : xproto::Keycode,
+                             n_mod_map_keys     : u8,
+                             first_v_mod_map_key: xproto::Keycode,
+                             n_v_mod_map_keys   : u8)
         -> GetMapCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_map_unchecked(c.get_raw_conn(),
-                                               deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                               device_spec as xcb_xkb_device_spec_t,  // 0
                                                full as u16,  // 1
                                                partial as u16,  // 2
-                                               firstType as u8,  // 3
-                                               nTypes as u8,  // 4
-                                               firstKeySym as xcb_keycode_t,  // 5
-                                               nKeySyms as u8,  // 6
-                                               firstKeyAction as xcb_keycode_t,  // 7
-                                               nKeyActions as u8,  // 8
-                                               firstKeyBehavior as xcb_keycode_t,  // 9
-                                               nKeyBehaviors as u8,  // 10
-                                               virtualMods as u16,  // 11
-                                               firstKeyExplicit as xcb_keycode_t,  // 12
-                                               nKeyExplicit as u8,  // 13
-                                               firstModMapKey as xcb_keycode_t,  // 14
-                                               nModMapKeys as u8,  // 15
-                                               firstVModMapKey as xcb_keycode_t,  // 16
-                                               nVModMapKeys as u8);  // 17
+                                               first_type as u8,  // 3
+                                               n_types as u8,  // 4
+                                               first_key_sym as xcb_keycode_t,  // 5
+                                               n_key_syms as u8,  // 6
+                                               first_key_action as xcb_keycode_t,  // 7
+                                               n_key_actions as u8,  // 8
+                                               first_key_behavior as xcb_keycode_t,  // 9
+                                               n_key_behaviors as u8,  // 10
+                                               virtual_mods as u16,  // 11
+                                               first_key_explicit as xcb_keycode_t,  // 12
+                                               n_key_explicit as u8,  // 13
+                                               first_mod_map_key as xcb_keycode_t,  // 14
+                                               n_mod_map_keys as u8,  // 15
+                                               first_v_mod_map_key as xcb_keycode_t,  // 16
+                                               n_v_mod_map_keys as u8);  // 17
         GetMapCookie {
             cookie:  cookie,
             conn:    c,
@@ -4855,34 +4855,34 @@ pub type SetMapValues<'a> = base::StructPtr<'a, xcb_xkb_set_map_values_t>;
 
 pub const SET_MAP: u8 = 9;
 
-pub fn set_map<'a>(c                : &'a base::Connection,
-                   deviceSpec       : DeviceSpec,
-                   present          : u16,
-                   flags            : u16,
-                   minKeyCode       : xproto::Keycode,
-                   maxKeyCode       : xproto::Keycode,
-                   firstType        : u8,
-                   nTypes           : u8,
-                   firstKeySym      : xproto::Keycode,
-                   nKeySyms         : u8,
-                   totalSyms        : u16,
-                   firstKeyAction   : xproto::Keycode,
-                   nKeyActions      : u8,
-                   totalActions     : u16,
-                   firstKeyBehavior : xproto::Keycode,
-                   nKeyBehaviors    : u8,
-                   totalKeyBehaviors: u8,
-                   firstKeyExplicit : xproto::Keycode,
-                   nKeyExplicit     : u8,
-                   totalKeyExplicit : u8,
-                   firstModMapKey   : xproto::Keycode,
-                   nModMapKeys      : u8,
-                   totalModMapKeys  : u8,
-                   firstVModMapKey  : xproto::Keycode,
-                   nVModMapKeys     : u8,
-                   totalVModMapKeys : u8,
-                   virtualMods      : u16,
-                   values           : std::option::Option<SetMapValues>)
+pub fn set_map<'a>(c                   : &'a base::Connection,
+                   device_spec         : DeviceSpec,
+                   present             : u16,
+                   flags               : u16,
+                   min_key_code        : xproto::Keycode,
+                   max_key_code        : xproto::Keycode,
+                   first_type          : u8,
+                   n_types             : u8,
+                   first_key_sym       : xproto::Keycode,
+                   n_key_syms          : u8,
+                   total_syms          : u16,
+                   first_key_action    : xproto::Keycode,
+                   n_key_actions       : u8,
+                   total_actions       : u16,
+                   first_key_behavior  : xproto::Keycode,
+                   n_key_behaviors     : u8,
+                   total_key_behaviors : u8,
+                   first_key_explicit  : xproto::Keycode,
+                   n_key_explicit      : u8,
+                   total_key_explicit  : u8,
+                   first_mod_map_key   : xproto::Keycode,
+                   n_mod_map_keys      : u8,
+                   total_mod_map_keys  : u8,
+                   first_v_mod_map_key : xproto::Keycode,
+                   n_v_mod_map_keys    : u8,
+                   total_v_mod_map_keys: u8,
+                   virtual_mods        : u16,
+                   values              : std::option::Option<SetMapValues>)
         -> base::VoidCookie<'a> {
     unsafe {
         let values_ptr = match values {
@@ -4890,32 +4890,32 @@ pub fn set_map<'a>(c                : &'a base::Connection,
             None => std::ptr::null()
         };
         let cookie = xcb_xkb_set_map(c.get_raw_conn(),
-                                     deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                     device_spec as xcb_xkb_device_spec_t,  // 0
                                      present as u16,  // 1
                                      flags as u16,  // 2
-                                     minKeyCode as xcb_keycode_t,  // 3
-                                     maxKeyCode as xcb_keycode_t,  // 4
-                                     firstType as u8,  // 5
-                                     nTypes as u8,  // 6
-                                     firstKeySym as xcb_keycode_t,  // 7
-                                     nKeySyms as u8,  // 8
-                                     totalSyms as u16,  // 9
-                                     firstKeyAction as xcb_keycode_t,  // 10
-                                     nKeyActions as u8,  // 11
-                                     totalActions as u16,  // 12
-                                     firstKeyBehavior as xcb_keycode_t,  // 13
-                                     nKeyBehaviors as u8,  // 14
-                                     totalKeyBehaviors as u8,  // 15
-                                     firstKeyExplicit as xcb_keycode_t,  // 16
-                                     nKeyExplicit as u8,  // 17
-                                     totalKeyExplicit as u8,  // 18
-                                     firstModMapKey as xcb_keycode_t,  // 19
-                                     nModMapKeys as u8,  // 20
-                                     totalModMapKeys as u8,  // 21
-                                     firstVModMapKey as xcb_keycode_t,  // 22
-                                     nVModMapKeys as u8,  // 23
-                                     totalVModMapKeys as u8,  // 24
-                                     virtualMods as u16,  // 25
+                                     min_key_code as xcb_keycode_t,  // 3
+                                     max_key_code as xcb_keycode_t,  // 4
+                                     first_type as u8,  // 5
+                                     n_types as u8,  // 6
+                                     first_key_sym as xcb_keycode_t,  // 7
+                                     n_key_syms as u8,  // 8
+                                     total_syms as u16,  // 9
+                                     first_key_action as xcb_keycode_t,  // 10
+                                     n_key_actions as u8,  // 11
+                                     total_actions as u16,  // 12
+                                     first_key_behavior as xcb_keycode_t,  // 13
+                                     n_key_behaviors as u8,  // 14
+                                     total_key_behaviors as u8,  // 15
+                                     first_key_explicit as xcb_keycode_t,  // 16
+                                     n_key_explicit as u8,  // 17
+                                     total_key_explicit as u8,  // 18
+                                     first_mod_map_key as xcb_keycode_t,  // 19
+                                     n_mod_map_keys as u8,  // 20
+                                     total_mod_map_keys as u8,  // 21
+                                     first_v_mod_map_key as xcb_keycode_t,  // 22
+                                     n_v_mod_map_keys as u8,  // 23
+                                     total_v_mod_map_keys as u8,  // 24
+                                     virtual_mods as u16,  // 25
                                      values_ptr);  // 26
         base::VoidCookie {
             cookie:  cookie,
@@ -4925,34 +4925,34 @@ pub fn set_map<'a>(c                : &'a base::Connection,
     }
 }
 
-pub fn set_map_checked<'a>(c                : &'a base::Connection,
-                           deviceSpec       : DeviceSpec,
-                           present          : u16,
-                           flags            : u16,
-                           minKeyCode       : xproto::Keycode,
-                           maxKeyCode       : xproto::Keycode,
-                           firstType        : u8,
-                           nTypes           : u8,
-                           firstKeySym      : xproto::Keycode,
-                           nKeySyms         : u8,
-                           totalSyms        : u16,
-                           firstKeyAction   : xproto::Keycode,
-                           nKeyActions      : u8,
-                           totalActions     : u16,
-                           firstKeyBehavior : xproto::Keycode,
-                           nKeyBehaviors    : u8,
-                           totalKeyBehaviors: u8,
-                           firstKeyExplicit : xproto::Keycode,
-                           nKeyExplicit     : u8,
-                           totalKeyExplicit : u8,
-                           firstModMapKey   : xproto::Keycode,
-                           nModMapKeys      : u8,
-                           totalModMapKeys  : u8,
-                           firstVModMapKey  : xproto::Keycode,
-                           nVModMapKeys     : u8,
-                           totalVModMapKeys : u8,
-                           virtualMods      : u16,
-                           values           : std::option::Option<SetMapValues>)
+pub fn set_map_checked<'a>(c                   : &'a base::Connection,
+                           device_spec         : DeviceSpec,
+                           present             : u16,
+                           flags               : u16,
+                           min_key_code        : xproto::Keycode,
+                           max_key_code        : xproto::Keycode,
+                           first_type          : u8,
+                           n_types             : u8,
+                           first_key_sym       : xproto::Keycode,
+                           n_key_syms          : u8,
+                           total_syms          : u16,
+                           first_key_action    : xproto::Keycode,
+                           n_key_actions       : u8,
+                           total_actions       : u16,
+                           first_key_behavior  : xproto::Keycode,
+                           n_key_behaviors     : u8,
+                           total_key_behaviors : u8,
+                           first_key_explicit  : xproto::Keycode,
+                           n_key_explicit      : u8,
+                           total_key_explicit  : u8,
+                           first_mod_map_key   : xproto::Keycode,
+                           n_mod_map_keys      : u8,
+                           total_mod_map_keys  : u8,
+                           first_v_mod_map_key : xproto::Keycode,
+                           n_v_mod_map_keys    : u8,
+                           total_v_mod_map_keys: u8,
+                           virtual_mods        : u16,
+                           values              : std::option::Option<SetMapValues>)
         -> base::VoidCookie<'a> {
     unsafe {
         let values_ptr = match values {
@@ -4960,32 +4960,32 @@ pub fn set_map_checked<'a>(c                : &'a base::Connection,
             None => std::ptr::null()
         };
         let cookie = xcb_xkb_set_map_checked(c.get_raw_conn(),
-                                             deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                             device_spec as xcb_xkb_device_spec_t,  // 0
                                              present as u16,  // 1
                                              flags as u16,  // 2
-                                             minKeyCode as xcb_keycode_t,  // 3
-                                             maxKeyCode as xcb_keycode_t,  // 4
-                                             firstType as u8,  // 5
-                                             nTypes as u8,  // 6
-                                             firstKeySym as xcb_keycode_t,  // 7
-                                             nKeySyms as u8,  // 8
-                                             totalSyms as u16,  // 9
-                                             firstKeyAction as xcb_keycode_t,  // 10
-                                             nKeyActions as u8,  // 11
-                                             totalActions as u16,  // 12
-                                             firstKeyBehavior as xcb_keycode_t,  // 13
-                                             nKeyBehaviors as u8,  // 14
-                                             totalKeyBehaviors as u8,  // 15
-                                             firstKeyExplicit as xcb_keycode_t,  // 16
-                                             nKeyExplicit as u8,  // 17
-                                             totalKeyExplicit as u8,  // 18
-                                             firstModMapKey as xcb_keycode_t,  // 19
-                                             nModMapKeys as u8,  // 20
-                                             totalModMapKeys as u8,  // 21
-                                             firstVModMapKey as xcb_keycode_t,  // 22
-                                             nVModMapKeys as u8,  // 23
-                                             totalVModMapKeys as u8,  // 24
-                                             virtualMods as u16,  // 25
+                                             min_key_code as xcb_keycode_t,  // 3
+                                             max_key_code as xcb_keycode_t,  // 4
+                                             first_type as u8,  // 5
+                                             n_types as u8,  // 6
+                                             first_key_sym as xcb_keycode_t,  // 7
+                                             n_key_syms as u8,  // 8
+                                             total_syms as u16,  // 9
+                                             first_key_action as xcb_keycode_t,  // 10
+                                             n_key_actions as u8,  // 11
+                                             total_actions as u16,  // 12
+                                             first_key_behavior as xcb_keycode_t,  // 13
+                                             n_key_behaviors as u8,  // 14
+                                             total_key_behaviors as u8,  // 15
+                                             first_key_explicit as xcb_keycode_t,  // 16
+                                             n_key_explicit as u8,  // 17
+                                             total_key_explicit as u8,  // 18
+                                             first_mod_map_key as xcb_keycode_t,  // 19
+                                             n_mod_map_keys as u8,  // 20
+                                             total_mod_map_keys as u8,  // 21
+                                             first_v_mod_map_key as xcb_keycode_t,  // 22
+                                             n_v_mod_map_keys as u8,  // 23
+                                             total_v_mod_map_keys as u8,  // 24
+                                             virtual_mods as u16,  // 25
                                              values_ptr);  // 26
         base::VoidCookie {
             cookie:  cookie,
@@ -5028,27 +5028,27 @@ impl<'a> GetCompatMapCookie<'a> {
 pub type GetCompatMapReply = base::Reply<xcb_xkb_get_compat_map_reply_t>;
 
 impl GetCompatMapReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn groupsRtrn(&self) -> u8 {
+    pub fn groups_rtrn(&self) -> u8 {
         unsafe {
             (*self.ptr).groupsRtrn
         }
     }
-    pub fn firstSIRtrn(&self) -> u16 {
+    pub fn first_s_i_rtrn(&self) -> u16 {
         unsafe {
             (*self.ptr).firstSIRtrn
         }
     }
-    pub fn nSIRtrn(&self) -> u16 {
+    pub fn n_s_i_rtrn(&self) -> u16 {
         unsafe {
             (*self.ptr).nSIRtrn
         }
     }
-    pub fn nTotalSI(&self) -> u16 {
+    pub fn n_total_s_i(&self) -> u16 {
         unsafe {
             (*self.ptr).nTotalSI
         }
@@ -5065,20 +5065,20 @@ impl GetCompatMapReply {
     }
 }
 
-pub fn get_compat_map<'a>(c         : &'a base::Connection,
-                          deviceSpec: DeviceSpec,
-                          groups    : u8,
-                          getAllSI  : bool,
-                          firstSI   : u16,
-                          nSI       : u16)
+pub fn get_compat_map<'a>(c          : &'a base::Connection,
+                          device_spec: DeviceSpec,
+                          groups     : u8,
+                          get_all_s_i: bool,
+                          first_s_i  : u16,
+                          n_s_i      : u16)
         -> GetCompatMapCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_compat_map(c.get_raw_conn(),
-                                            deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                            device_spec as xcb_xkb_device_spec_t,  // 0
                                             groups as u8,  // 1
-                                            getAllSI as u8,  // 2
-                                            firstSI as u16,  // 3
-                                            nSI as u16);  // 4
+                                            get_all_s_i as u8,  // 2
+                                            first_s_i as u16,  // 3
+                                            n_s_i as u16);  // 4
         GetCompatMapCookie {
             cookie:  cookie,
             conn:    c,
@@ -5087,20 +5087,20 @@ pub fn get_compat_map<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn get_compat_map_unchecked<'a>(c         : &'a base::Connection,
-                                    deviceSpec: DeviceSpec,
-                                    groups    : u8,
-                                    getAllSI  : bool,
-                                    firstSI   : u16,
-                                    nSI       : u16)
+pub fn get_compat_map_unchecked<'a>(c          : &'a base::Connection,
+                                    device_spec: DeviceSpec,
+                                    groups     : u8,
+                                    get_all_s_i: bool,
+                                    first_s_i  : u16,
+                                    n_s_i      : u16)
         -> GetCompatMapCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_compat_map_unchecked(c.get_raw_conn(),
-                                                      deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                                      device_spec as xcb_xkb_device_spec_t,  // 0
                                                       groups as u8,  // 1
-                                                      getAllSI as u8,  // 2
-                                                      firstSI as u16,  // 3
-                                                      nSI as u16);  // 4
+                                                      get_all_s_i as u8,  // 2
+                                                      first_s_i as u16,  // 3
+                                                      n_s_i as u16);  // 4
         GetCompatMapCookie {
             cookie:  cookie,
             conn:    c,
@@ -5111,28 +5111,28 @@ pub fn get_compat_map_unchecked<'a>(c         : &'a base::Connection,
 
 pub const SET_COMPAT_MAP: u8 = 11;
 
-pub fn set_compat_map<'a>(c               : &'a base::Connection,
-                          deviceSpec      : DeviceSpec,
-                          recomputeActions: bool,
-                          truncateSI      : bool,
-                          firstSI         : u16,
-                          si              : &[SymInterpret],
-                          groupMaps       : &[ModDef])
+pub fn set_compat_map<'a>(c                : &'a base::Connection,
+                          device_spec      : DeviceSpec,
+                          recompute_actions: bool,
+                          truncate_s_i     : bool,
+                          first_s_i        : u16,
+                          si               : &[SymInterpret],
+                          group_maps       : &[ModDef])
         -> base::VoidCookie<'a> {
     unsafe {
         let si_len = si.len();
         let si_ptr = si.as_ptr();
-        let groupMaps_len = groupMaps.len();
-        let groupMaps_ptr = groupMaps.as_ptr();
+        let group_maps_len = group_maps.len();
+        let group_maps_ptr = group_maps.as_ptr();
         let cookie = xcb_xkb_set_compat_map(c.get_raw_conn(),
-                                            deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                            recomputeActions as u8,  // 1
-                                            truncateSI as u8,  // 2
-                                            groupMaps_len as u8,  // 3
-                                            firstSI as u16,  // 4
+                                            device_spec as xcb_xkb_device_spec_t,  // 0
+                                            recompute_actions as u8,  // 1
+                                            truncate_s_i as u8,  // 2
+                                            group_maps_len as u8,  // 3
+                                            first_s_i as u16,  // 4
                                             si_len as u16,  // 5
                                             si_ptr as *const xcb_xkb_sym_interpret_t,  // 6
-                                            groupMaps_ptr as *const xcb_xkb_mod_def_t);  // 7
+                                            group_maps_ptr as *const xcb_xkb_mod_def_t);  // 7
         base::VoidCookie {
             cookie:  cookie,
             conn:    c,
@@ -5141,28 +5141,28 @@ pub fn set_compat_map<'a>(c               : &'a base::Connection,
     }
 }
 
-pub fn set_compat_map_checked<'a>(c               : &'a base::Connection,
-                                  deviceSpec      : DeviceSpec,
-                                  recomputeActions: bool,
-                                  truncateSI      : bool,
-                                  firstSI         : u16,
-                                  si              : &[SymInterpret],
-                                  groupMaps       : &[ModDef])
+pub fn set_compat_map_checked<'a>(c                : &'a base::Connection,
+                                  device_spec      : DeviceSpec,
+                                  recompute_actions: bool,
+                                  truncate_s_i     : bool,
+                                  first_s_i        : u16,
+                                  si               : &[SymInterpret],
+                                  group_maps       : &[ModDef])
         -> base::VoidCookie<'a> {
     unsafe {
         let si_len = si.len();
         let si_ptr = si.as_ptr();
-        let groupMaps_len = groupMaps.len();
-        let groupMaps_ptr = groupMaps.as_ptr();
+        let group_maps_len = group_maps.len();
+        let group_maps_ptr = group_maps.as_ptr();
         let cookie = xcb_xkb_set_compat_map_checked(c.get_raw_conn(),
-                                                    deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                    recomputeActions as u8,  // 1
-                                                    truncateSI as u8,  // 2
-                                                    groupMaps_len as u8,  // 3
-                                                    firstSI as u16,  // 4
+                                                    device_spec as xcb_xkb_device_spec_t,  // 0
+                                                    recompute_actions as u8,  // 1
+                                                    truncate_s_i as u8,  // 2
+                                                    group_maps_len as u8,  // 3
+                                                    first_s_i as u16,  // 4
                                                     si_len as u16,  // 5
                                                     si_ptr as *const xcb_xkb_sym_interpret_t,  // 6
-                                                    groupMaps_ptr as *const xcb_xkb_mod_def_t);  // 7
+                                                    group_maps_ptr as *const xcb_xkb_mod_def_t);  // 7
         base::VoidCookie {
             cookie:  cookie,
             conn:    c,
@@ -5204,7 +5204,7 @@ impl<'a> GetIndicatorStateCookie<'a> {
 pub type GetIndicatorStateReply = base::Reply<xcb_xkb_get_indicator_state_reply_t>;
 
 impl GetIndicatorStateReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -5216,12 +5216,12 @@ impl GetIndicatorStateReply {
     }
 }
 
-pub fn get_indicator_state<'a>(c         : &'a base::Connection,
-                               deviceSpec: DeviceSpec)
+pub fn get_indicator_state<'a>(c          : &'a base::Connection,
+                               device_spec: DeviceSpec)
         -> GetIndicatorStateCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_indicator_state(c.get_raw_conn(),
-                                                 deviceSpec as xcb_xkb_device_spec_t);  // 0
+                                                 device_spec as xcb_xkb_device_spec_t);  // 0
         GetIndicatorStateCookie {
             cookie:  cookie,
             conn:    c,
@@ -5230,12 +5230,12 @@ pub fn get_indicator_state<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn get_indicator_state_unchecked<'a>(c         : &'a base::Connection,
-                                         deviceSpec: DeviceSpec)
+pub fn get_indicator_state_unchecked<'a>(c          : &'a base::Connection,
+                                         device_spec: DeviceSpec)
         -> GetIndicatorStateCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_indicator_state_unchecked(c.get_raw_conn(),
-                                                           deviceSpec as xcb_xkb_device_spec_t);  // 0
+                                                           device_spec as xcb_xkb_device_spec_t);  // 0
         GetIndicatorStateCookie {
             cookie:  cookie,
             conn:    c,
@@ -5277,7 +5277,7 @@ impl<'a> GetIndicatorMapCookie<'a> {
 pub type GetIndicatorMapReply = base::Reply<xcb_xkb_get_indicator_map_reply_t>;
 
 impl GetIndicatorMapReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -5287,12 +5287,12 @@ impl GetIndicatorMapReply {
             (*self.ptr).which
         }
     }
-    pub fn realIndicators(&self) -> u32 {
+    pub fn real_indicators(&self) -> u32 {
         unsafe {
             (*self.ptr).realIndicators
         }
     }
-    pub fn nIndicators(&self) -> u8 {
+    pub fn n_indicators(&self) -> u8 {
         unsafe {
             (*self.ptr).nIndicators
         }
@@ -5304,13 +5304,13 @@ impl GetIndicatorMapReply {
     }
 }
 
-pub fn get_indicator_map<'a>(c         : &'a base::Connection,
-                             deviceSpec: DeviceSpec,
-                             which     : u32)
+pub fn get_indicator_map<'a>(c          : &'a base::Connection,
+                             device_spec: DeviceSpec,
+                             which      : u32)
         -> GetIndicatorMapCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_indicator_map(c.get_raw_conn(),
-                                               deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                               device_spec as xcb_xkb_device_spec_t,  // 0
                                                which as u32);  // 1
         GetIndicatorMapCookie {
             cookie:  cookie,
@@ -5320,13 +5320,13 @@ pub fn get_indicator_map<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn get_indicator_map_unchecked<'a>(c         : &'a base::Connection,
-                                       deviceSpec: DeviceSpec,
-                                       which     : u32)
+pub fn get_indicator_map_unchecked<'a>(c          : &'a base::Connection,
+                                       device_spec: DeviceSpec,
+                                       which      : u32)
         -> GetIndicatorMapCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_indicator_map_unchecked(c.get_raw_conn(),
-                                                         deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                                         device_spec as xcb_xkb_device_spec_t,  // 0
                                                          which as u32);  // 1
         GetIndicatorMapCookie {
             cookie:  cookie,
@@ -5338,15 +5338,15 @@ pub fn get_indicator_map_unchecked<'a>(c         : &'a base::Connection,
 
 pub const SET_INDICATOR_MAP: u8 = 14;
 
-pub fn set_indicator_map<'a>(c         : &'a base::Connection,
-                             deviceSpec: DeviceSpec,
-                             maps      : &[IndicatorMap])
+pub fn set_indicator_map<'a>(c          : &'a base::Connection,
+                             device_spec: DeviceSpec,
+                             maps       : &[IndicatorMap])
         -> base::VoidCookie<'a> {
     unsafe {
         let maps_len = maps.len();
         let maps_ptr = maps.as_ptr();
         let cookie = xcb_xkb_set_indicator_map(c.get_raw_conn(),
-                                               deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                               device_spec as xcb_xkb_device_spec_t,  // 0
                                                maps_len as u32,  // 1
                                                maps_ptr as *const xcb_xkb_indicator_map_t);  // 2
         base::VoidCookie {
@@ -5357,15 +5357,15 @@ pub fn set_indicator_map<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn set_indicator_map_checked<'a>(c         : &'a base::Connection,
-                                     deviceSpec: DeviceSpec,
-                                     maps      : &[IndicatorMap])
+pub fn set_indicator_map_checked<'a>(c          : &'a base::Connection,
+                                     device_spec: DeviceSpec,
+                                     maps       : &[IndicatorMap])
         -> base::VoidCookie<'a> {
     unsafe {
         let maps_len = maps.len();
         let maps_ptr = maps.as_ptr();
         let cookie = xcb_xkb_set_indicator_map_checked(c.get_raw_conn(),
-                                                       deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                                       device_spec as xcb_xkb_device_spec_t,  // 0
                                                        maps_len as u32,  // 1
                                                        maps_ptr as *const xcb_xkb_indicator_map_t);  // 2
         base::VoidCookie {
@@ -5409,7 +5409,7 @@ impl<'a> GetNamedIndicatorCookie<'a> {
 pub type GetNamedIndicatorReply = base::Reply<xcb_xkb_get_named_indicator_reply_t>;
 
 impl GetNamedIndicatorReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -5429,7 +5429,7 @@ impl GetNamedIndicatorReply {
             (*self.ptr).on != 0
         }
     }
-    pub fn realIndicator(&self) -> bool {
+    pub fn real_indicator(&self) -> bool {
         unsafe {
             (*self.ptr).realIndicator != 0
         }
@@ -5444,7 +5444,7 @@ impl GetNamedIndicatorReply {
             (*self.ptr).map_flags
         }
     }
-    pub fn map_whichGroups(&self) -> u8 {
+    pub fn map_which_groups(&self) -> u8 {
         unsafe {
             (*self.ptr).map_whichGroups
         }
@@ -5454,7 +5454,7 @@ impl GetNamedIndicatorReply {
             (*self.ptr).map_groups
         }
     }
-    pub fn map_whichMods(&self) -> u8 {
+    pub fn map_which_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).map_whichMods
         }
@@ -5464,7 +5464,7 @@ impl GetNamedIndicatorReply {
             (*self.ptr).map_mods
         }
     }
-    pub fn map_realMods(&self) -> u8 {
+    pub fn map_real_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).map_realMods
         }
@@ -5486,17 +5486,17 @@ impl GetNamedIndicatorReply {
     }
 }
 
-pub fn get_named_indicator<'a>(c         : &'a base::Connection,
-                               deviceSpec: DeviceSpec,
-                               ledClass  : LedClassSpec,
-                               ledID     : IdSpec,
-                               indicator : xproto::Atom)
+pub fn get_named_indicator<'a>(c          : &'a base::Connection,
+                               device_spec: DeviceSpec,
+                               led_class  : LedClassSpec,
+                               led_i_d    : IdSpec,
+                               indicator  : xproto::Atom)
         -> GetNamedIndicatorCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_named_indicator(c.get_raw_conn(),
-                                                 deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                 ledClass as xcb_xkb_led_class_spec_t,  // 1
-                                                 ledID as xcb_xkb_id_spec_t,  // 2
+                                                 device_spec as xcb_xkb_device_spec_t,  // 0
+                                                 led_class as xcb_xkb_led_class_spec_t,  // 1
+                                                 led_i_d as xcb_xkb_id_spec_t,  // 2
                                                  indicator as xcb_atom_t);  // 3
         GetNamedIndicatorCookie {
             cookie:  cookie,
@@ -5506,17 +5506,17 @@ pub fn get_named_indicator<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn get_named_indicator_unchecked<'a>(c         : &'a base::Connection,
-                                         deviceSpec: DeviceSpec,
-                                         ledClass  : LedClassSpec,
-                                         ledID     : IdSpec,
-                                         indicator : xproto::Atom)
+pub fn get_named_indicator_unchecked<'a>(c          : &'a base::Connection,
+                                         device_spec: DeviceSpec,
+                                         led_class  : LedClassSpec,
+                                         led_i_d    : IdSpec,
+                                         indicator  : xproto::Atom)
         -> GetNamedIndicatorCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_named_indicator_unchecked(c.get_raw_conn(),
-                                                           deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                           ledClass as xcb_xkb_led_class_spec_t,  // 1
-                                                           ledID as xcb_xkb_id_spec_t,  // 2
+                                                           device_spec as xcb_xkb_device_spec_t,  // 0
+                                                           led_class as xcb_xkb_led_class_spec_t,  // 1
+                                                           led_i_d as xcb_xkb_id_spec_t,  // 2
                                                            indicator as xcb_atom_t);  // 3
         GetNamedIndicatorCookie {
             cookie:  cookie,
@@ -5528,38 +5528,38 @@ pub fn get_named_indicator_unchecked<'a>(c         : &'a base::Connection,
 
 pub const SET_NAMED_INDICATOR: u8 = 16;
 
-pub fn set_named_indicator<'a>(c              : &'a base::Connection,
-                               deviceSpec     : DeviceSpec,
-                               ledClass       : LedClassSpec,
-                               ledID          : IdSpec,
-                               indicator      : xproto::Atom,
-                               setState       : bool,
-                               on             : bool,
-                               setMap         : bool,
-                               createMap      : bool,
-                               map_flags      : u8,
-                               map_whichGroups: u8,
-                               map_groups     : u8,
-                               map_whichMods  : u8,
-                               map_realMods   : u8,
-                               map_vmods      : u16,
-                               map_ctrls      : u32)
+pub fn set_named_indicator<'a>(c               : &'a base::Connection,
+                               device_spec     : DeviceSpec,
+                               led_class       : LedClassSpec,
+                               led_i_d         : IdSpec,
+                               indicator       : xproto::Atom,
+                               set_state       : bool,
+                               on              : bool,
+                               set_map         : bool,
+                               create_map      : bool,
+                               map_flags       : u8,
+                               map_which_groups: u8,
+                               map_groups      : u8,
+                               map_which_mods  : u8,
+                               map_real_mods   : u8,
+                               map_vmods       : u16,
+                               map_ctrls       : u32)
         -> base::VoidCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_set_named_indicator(c.get_raw_conn(),
-                                                 deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                 ledClass as xcb_xkb_led_class_spec_t,  // 1
-                                                 ledID as xcb_xkb_id_spec_t,  // 2
+                                                 device_spec as xcb_xkb_device_spec_t,  // 0
+                                                 led_class as xcb_xkb_led_class_spec_t,  // 1
+                                                 led_i_d as xcb_xkb_id_spec_t,  // 2
                                                  indicator as xcb_atom_t,  // 3
-                                                 setState as u8,  // 4
+                                                 set_state as u8,  // 4
                                                  on as u8,  // 5
-                                                 setMap as u8,  // 6
-                                                 createMap as u8,  // 7
+                                                 set_map as u8,  // 6
+                                                 create_map as u8,  // 7
                                                  map_flags as u8,  // 8
-                                                 map_whichGroups as u8,  // 9
+                                                 map_which_groups as u8,  // 9
                                                  map_groups as u8,  // 10
-                                                 map_whichMods as u8,  // 11
-                                                 map_realMods as u8,  // 12
+                                                 map_which_mods as u8,  // 11
+                                                 map_real_mods as u8,  // 12
                                                  map_vmods as u16,  // 13
                                                  map_ctrls as u32);  // 14
         base::VoidCookie {
@@ -5570,38 +5570,38 @@ pub fn set_named_indicator<'a>(c              : &'a base::Connection,
     }
 }
 
-pub fn set_named_indicator_checked<'a>(c              : &'a base::Connection,
-                                       deviceSpec     : DeviceSpec,
-                                       ledClass       : LedClassSpec,
-                                       ledID          : IdSpec,
-                                       indicator      : xproto::Atom,
-                                       setState       : bool,
-                                       on             : bool,
-                                       setMap         : bool,
-                                       createMap      : bool,
-                                       map_flags      : u8,
-                                       map_whichGroups: u8,
-                                       map_groups     : u8,
-                                       map_whichMods  : u8,
-                                       map_realMods   : u8,
-                                       map_vmods      : u16,
-                                       map_ctrls      : u32)
+pub fn set_named_indicator_checked<'a>(c               : &'a base::Connection,
+                                       device_spec     : DeviceSpec,
+                                       led_class       : LedClassSpec,
+                                       led_i_d         : IdSpec,
+                                       indicator       : xproto::Atom,
+                                       set_state       : bool,
+                                       on              : bool,
+                                       set_map         : bool,
+                                       create_map      : bool,
+                                       map_flags       : u8,
+                                       map_which_groups: u8,
+                                       map_groups      : u8,
+                                       map_which_mods  : u8,
+                                       map_real_mods   : u8,
+                                       map_vmods       : u16,
+                                       map_ctrls       : u32)
         -> base::VoidCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_set_named_indicator_checked(c.get_raw_conn(),
-                                                         deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                         ledClass as xcb_xkb_led_class_spec_t,  // 1
-                                                         ledID as xcb_xkb_id_spec_t,  // 2
+                                                         device_spec as xcb_xkb_device_spec_t,  // 0
+                                                         led_class as xcb_xkb_led_class_spec_t,  // 1
+                                                         led_i_d as xcb_xkb_id_spec_t,  // 2
                                                          indicator as xcb_atom_t,  // 3
-                                                         setState as u8,  // 4
+                                                         set_state as u8,  // 4
                                                          on as u8,  // 5
-                                                         setMap as u8,  // 6
-                                                         createMap as u8,  // 7
+                                                         set_map as u8,  // 6
+                                                         create_map as u8,  // 7
                                                          map_flags as u8,  // 8
-                                                         map_whichGroups as u8,  // 9
+                                                         map_which_groups as u8,  // 9
                                                          map_groups as u8,  // 10
-                                                         map_whichMods as u8,  // 11
-                                                         map_realMods as u8,  // 12
+                                                         map_which_mods as u8,  // 11
+                                                         map_real_mods as u8,  // 12
                                                          map_vmods as u16,  // 13
                                                          map_ctrls as u32);  // 14
         base::VoidCookie {
@@ -5647,7 +5647,7 @@ pub type GetNamesValueList<'a> = base::StructPtr<'a, xcb_xkb_get_names_value_lis
 pub type GetNamesReply = base::Reply<xcb_xkb_get_names_reply_t>;
 
 impl GetNamesReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -5657,37 +5657,37 @@ impl GetNamesReply {
             (*self.ptr).which
         }
     }
-    pub fn minKeyCode(&self) -> xproto::Keycode {
+    pub fn min_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).minKeyCode
         }
     }
-    pub fn maxKeyCode(&self) -> xproto::Keycode {
+    pub fn max_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).maxKeyCode
         }
     }
-    pub fn nTypes(&self) -> u8 {
+    pub fn n_types(&self) -> u8 {
         unsafe {
             (*self.ptr).nTypes
         }
     }
-    pub fn groupNames(&self) -> u8 {
+    pub fn group_names(&self) -> u8 {
         unsafe {
             (*self.ptr).groupNames
         }
     }
-    pub fn virtualMods(&self) -> u16 {
+    pub fn virtual_mods(&self) -> u16 {
         unsafe {
             (*self.ptr).virtualMods
         }
     }
-    pub fn firstKey(&self) -> xproto::Keycode {
+    pub fn first_key(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKey
         }
     }
-    pub fn nKeys(&self) -> u8 {
+    pub fn n_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeys
         }
@@ -5697,30 +5697,30 @@ impl GetNamesReply {
             (*self.ptr).indicators
         }
     }
-    pub fn nRadioGroups(&self) -> u8 {
+    pub fn n_radio_groups(&self) -> u8 {
         unsafe {
             (*self.ptr).nRadioGroups
         }
     }
-    pub fn nKeyAliases(&self) -> u8 {
+    pub fn n_key_aliases(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeyAliases
         }
     }
-    pub fn nKTLevels(&self) -> u16 {
+    pub fn n_k_t_levels(&self) -> u16 {
         unsafe {
             (*self.ptr).nKTLevels
         }
     }
 }
 
-pub fn get_names<'a>(c         : &'a base::Connection,
-                     deviceSpec: DeviceSpec,
-                     which     : u32)
+pub fn get_names<'a>(c          : &'a base::Connection,
+                     device_spec: DeviceSpec,
+                     which      : u32)
         -> GetNamesCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_names(c.get_raw_conn(),
-                                       deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                       device_spec as xcb_xkb_device_spec_t,  // 0
                                        which as u32);  // 1
         GetNamesCookie {
             cookie:  cookie,
@@ -5730,13 +5730,13 @@ pub fn get_names<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn get_names_unchecked<'a>(c         : &'a base::Connection,
-                               deviceSpec: DeviceSpec,
-                               which     : u32)
+pub fn get_names_unchecked<'a>(c          : &'a base::Connection,
+                               device_spec: DeviceSpec,
+                               which      : u32)
         -> GetNamesCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_names_unchecked(c.get_raw_conn(),
-                                                 deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                                 device_spec as xcb_xkb_device_spec_t,  // 0
                                                  which as u32);  // 1
         GetNamesCookie {
             cookie:  cookie,
@@ -5750,22 +5750,22 @@ pub type SetNamesValues<'a> = base::StructPtr<'a, xcb_xkb_set_names_values_t>;
 
 pub const SET_NAMES: u8 = 18;
 
-pub fn set_names<'a>(c                : &'a base::Connection,
-                     deviceSpec       : DeviceSpec,
-                     virtualMods      : u16,
-                     which            : u32,
-                     firstType        : u8,
-                     nTypes           : u8,
-                     firstKTLevelt    : u8,
-                     nKTLevels        : u8,
-                     indicators       : u32,
-                     groupNames       : u8,
-                     nRadioGroups     : u8,
-                     firstKey         : xproto::Keycode,
-                     nKeys            : u8,
-                     nKeyAliases      : u8,
-                     totalKTLevelNames: u16,
-                     values           : std::option::Option<SetNamesValues>)
+pub fn set_names<'a>(c                    : &'a base::Connection,
+                     device_spec          : DeviceSpec,
+                     virtual_mods         : u16,
+                     which                : u32,
+                     first_type           : u8,
+                     n_types              : u8,
+                     first_k_t_levelt     : u8,
+                     n_k_t_levels         : u8,
+                     indicators           : u32,
+                     group_names          : u8,
+                     n_radio_groups       : u8,
+                     first_key            : xproto::Keycode,
+                     n_keys               : u8,
+                     n_key_aliases        : u8,
+                     total_k_t_level_names: u16,
+                     values               : std::option::Option<SetNamesValues>)
         -> base::VoidCookie<'a> {
     unsafe {
         let values_ptr = match values {
@@ -5773,20 +5773,20 @@ pub fn set_names<'a>(c                : &'a base::Connection,
             None => std::ptr::null()
         };
         let cookie = xcb_xkb_set_names(c.get_raw_conn(),
-                                       deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                       virtualMods as u16,  // 1
+                                       device_spec as xcb_xkb_device_spec_t,  // 0
+                                       virtual_mods as u16,  // 1
                                        which as u32,  // 2
-                                       firstType as u8,  // 3
-                                       nTypes as u8,  // 4
-                                       firstKTLevelt as u8,  // 5
-                                       nKTLevels as u8,  // 6
+                                       first_type as u8,  // 3
+                                       n_types as u8,  // 4
+                                       first_k_t_levelt as u8,  // 5
+                                       n_k_t_levels as u8,  // 6
                                        indicators as u32,  // 7
-                                       groupNames as u8,  // 8
-                                       nRadioGroups as u8,  // 9
-                                       firstKey as xcb_keycode_t,  // 10
-                                       nKeys as u8,  // 11
-                                       nKeyAliases as u8,  // 12
-                                       totalKTLevelNames as u16,  // 13
+                                       group_names as u8,  // 8
+                                       n_radio_groups as u8,  // 9
+                                       first_key as xcb_keycode_t,  // 10
+                                       n_keys as u8,  // 11
+                                       n_key_aliases as u8,  // 12
+                                       total_k_t_level_names as u16,  // 13
                                        values_ptr);  // 14
         base::VoidCookie {
             cookie:  cookie,
@@ -5796,22 +5796,22 @@ pub fn set_names<'a>(c                : &'a base::Connection,
     }
 }
 
-pub fn set_names_checked<'a>(c                : &'a base::Connection,
-                             deviceSpec       : DeviceSpec,
-                             virtualMods      : u16,
-                             which            : u32,
-                             firstType        : u8,
-                             nTypes           : u8,
-                             firstKTLevelt    : u8,
-                             nKTLevels        : u8,
-                             indicators       : u32,
-                             groupNames       : u8,
-                             nRadioGroups     : u8,
-                             firstKey         : xproto::Keycode,
-                             nKeys            : u8,
-                             nKeyAliases      : u8,
-                             totalKTLevelNames: u16,
-                             values           : std::option::Option<SetNamesValues>)
+pub fn set_names_checked<'a>(c                    : &'a base::Connection,
+                             device_spec          : DeviceSpec,
+                             virtual_mods         : u16,
+                             which                : u32,
+                             first_type           : u8,
+                             n_types              : u8,
+                             first_k_t_levelt     : u8,
+                             n_k_t_levels         : u8,
+                             indicators           : u32,
+                             group_names          : u8,
+                             n_radio_groups       : u8,
+                             first_key            : xproto::Keycode,
+                             n_keys               : u8,
+                             n_key_aliases        : u8,
+                             total_k_t_level_names: u16,
+                             values               : std::option::Option<SetNamesValues>)
         -> base::VoidCookie<'a> {
     unsafe {
         let values_ptr = match values {
@@ -5819,20 +5819,20 @@ pub fn set_names_checked<'a>(c                : &'a base::Connection,
             None => std::ptr::null()
         };
         let cookie = xcb_xkb_set_names_checked(c.get_raw_conn(),
-                                               deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                               virtualMods as u16,  // 1
+                                               device_spec as xcb_xkb_device_spec_t,  // 0
+                                               virtual_mods as u16,  // 1
                                                which as u32,  // 2
-                                               firstType as u8,  // 3
-                                               nTypes as u8,  // 4
-                                               firstKTLevelt as u8,  // 5
-                                               nKTLevels as u8,  // 6
+                                               first_type as u8,  // 3
+                                               n_types as u8,  // 4
+                                               first_k_t_levelt as u8,  // 5
+                                               n_k_t_levels as u8,  // 6
                                                indicators as u32,  // 7
-                                               groupNames as u8,  // 8
-                                               nRadioGroups as u8,  // 9
-                                               firstKey as xcb_keycode_t,  // 10
-                                               nKeys as u8,  // 11
-                                               nKeyAliases as u8,  // 12
-                                               totalKTLevelNames as u16,  // 13
+                                               group_names as u8,  // 8
+                                               n_radio_groups as u8,  // 9
+                                               first_key as xcb_keycode_t,  // 10
+                                               n_keys as u8,  // 11
+                                               n_key_aliases as u8,  // 12
+                                               total_k_t_level_names as u16,  // 13
                                                values_ptr);  // 14
         base::VoidCookie {
             cookie:  cookie,
@@ -5875,7 +5875,7 @@ impl<'a> PerClientFlagsCookie<'a> {
 pub type PerClientFlagsReply = base::Reply<xcb_xkb_per_client_flags_reply_t>;
 
 impl PerClientFlagsReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -5890,34 +5890,34 @@ impl PerClientFlagsReply {
             (*self.ptr).value
         }
     }
-    pub fn autoCtrls(&self) -> u32 {
+    pub fn auto_ctrls(&self) -> u32 {
         unsafe {
             (*self.ptr).autoCtrls
         }
     }
-    pub fn autoCtrlsValues(&self) -> u32 {
+    pub fn auto_ctrls_values(&self) -> u32 {
         unsafe {
             (*self.ptr).autoCtrlsValues
         }
     }
 }
 
-pub fn per_client_flags<'a>(c              : &'a base::Connection,
-                            deviceSpec     : DeviceSpec,
-                            change         : u32,
-                            value          : u32,
-                            ctrlsToChange  : u32,
-                            autoCtrls      : u32,
-                            autoCtrlsValues: u32)
+pub fn per_client_flags<'a>(c                : &'a base::Connection,
+                            device_spec      : DeviceSpec,
+                            change           : u32,
+                            value            : u32,
+                            ctrls_to_change  : u32,
+                            auto_ctrls       : u32,
+                            auto_ctrls_values: u32)
         -> PerClientFlagsCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_per_client_flags(c.get_raw_conn(),
-                                              deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                              device_spec as xcb_xkb_device_spec_t,  // 0
                                               change as u32,  // 1
                                               value as u32,  // 2
-                                              ctrlsToChange as u32,  // 3
-                                              autoCtrls as u32,  // 4
-                                              autoCtrlsValues as u32);  // 5
+                                              ctrls_to_change as u32,  // 3
+                                              auto_ctrls as u32,  // 4
+                                              auto_ctrls_values as u32);  // 5
         PerClientFlagsCookie {
             cookie:  cookie,
             conn:    c,
@@ -5926,22 +5926,22 @@ pub fn per_client_flags<'a>(c              : &'a base::Connection,
     }
 }
 
-pub fn per_client_flags_unchecked<'a>(c              : &'a base::Connection,
-                                      deviceSpec     : DeviceSpec,
-                                      change         : u32,
-                                      value          : u32,
-                                      ctrlsToChange  : u32,
-                                      autoCtrls      : u32,
-                                      autoCtrlsValues: u32)
+pub fn per_client_flags_unchecked<'a>(c                : &'a base::Connection,
+                                      device_spec      : DeviceSpec,
+                                      change           : u32,
+                                      value            : u32,
+                                      ctrls_to_change  : u32,
+                                      auto_ctrls       : u32,
+                                      auto_ctrls_values: u32)
         -> PerClientFlagsCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_per_client_flags_unchecked(c.get_raw_conn(),
-                                                        deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                                        device_spec as xcb_xkb_device_spec_t,  // 0
                                                         change as u32,  // 1
                                                         value as u32,  // 2
-                                                        ctrlsToChange as u32,  // 3
-                                                        autoCtrls as u32,  // 4
-                                                        autoCtrlsValues as u32);  // 5
+                                                        ctrls_to_change as u32,  // 3
+                                                        auto_ctrls as u32,  // 4
+                                                        auto_ctrls_values as u32);  // 5
         PerClientFlagsCookie {
             cookie:  cookie,
             conn:    c,
@@ -5983,37 +5983,37 @@ impl<'a> ListComponentsCookie<'a> {
 pub type ListComponentsReply = base::Reply<xcb_xkb_list_components_reply_t>;
 
 impl ListComponentsReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn nKeymaps(&self) -> u16 {
+    pub fn n_keymaps(&self) -> u16 {
         unsafe {
             (*self.ptr).nKeymaps
         }
     }
-    pub fn nKeycodes(&self) -> u16 {
+    pub fn n_keycodes(&self) -> u16 {
         unsafe {
             (*self.ptr).nKeycodes
         }
     }
-    pub fn nTypes(&self) -> u16 {
+    pub fn n_types(&self) -> u16 {
         unsafe {
             (*self.ptr).nTypes
         }
     }
-    pub fn nCompatMaps(&self) -> u16 {
+    pub fn n_compat_maps(&self) -> u16 {
         unsafe {
             (*self.ptr).nCompatMaps
         }
     }
-    pub fn nSymbols(&self) -> u16 {
+    pub fn n_symbols(&self) -> u16 {
         unsafe {
             (*self.ptr).nSymbols
         }
     }
-    pub fn nGeometries(&self) -> u16 {
+    pub fn n_geometries(&self) -> u16 {
         unsafe {
             (*self.ptr).nGeometries
         }
@@ -6038,7 +6038,7 @@ impl ListComponentsReply {
             xcb_xkb_list_components_types_iterator(self.ptr)
         }
     }
-    pub fn compatMaps(&self) -> ListingIterator {
+    pub fn compat_maps(&self) -> ListingIterator {
         unsafe {
             xcb_xkb_list_components_compat_maps_iterator(self.ptr)
         }
@@ -6055,14 +6055,14 @@ impl ListComponentsReply {
     }
 }
 
-pub fn list_components<'a>(c         : &'a base::Connection,
-                           deviceSpec: DeviceSpec,
-                           maxNames  : u16)
+pub fn list_components<'a>(c          : &'a base::Connection,
+                           device_spec: DeviceSpec,
+                           max_names  : u16)
         -> ListComponentsCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_list_components(c.get_raw_conn(),
-                                             deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                             maxNames as u16);  // 1
+                                             device_spec as xcb_xkb_device_spec_t,  // 0
+                                             max_names as u16);  // 1
         ListComponentsCookie {
             cookie:  cookie,
             conn:    c,
@@ -6071,14 +6071,14 @@ pub fn list_components<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn list_components_unchecked<'a>(c         : &'a base::Connection,
-                                     deviceSpec: DeviceSpec,
-                                     maxNames  : u16)
+pub fn list_components_unchecked<'a>(c          : &'a base::Connection,
+                                     device_spec: DeviceSpec,
+                                     max_names  : u16)
         -> ListComponentsCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_list_components_unchecked(c.get_raw_conn(),
-                                                       deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                       maxNames as u16);  // 1
+                                                       device_spec as xcb_xkb_device_spec_t,  // 0
+                                                       max_names as u16);  // 1
         ListComponentsCookie {
             cookie:  cookie,
             conn:    c,
@@ -6126,17 +6126,17 @@ pub type GetKbdByNameRepliesKeyNamesValueList<'a> = base::StructPtr<'a, xcb_xkb_
 pub type GetKbdByNameReply = base::Reply<xcb_xkb_get_kbd_by_name_reply_t>;
 
 impl GetKbdByNameReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn minKeyCode(&self) -> xproto::Keycode {
+    pub fn min_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).minKeyCode
         }
     }
-    pub fn maxKeyCode(&self) -> xproto::Keycode {
+    pub fn max_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).maxKeyCode
         }
@@ -6146,7 +6146,7 @@ impl GetKbdByNameReply {
             (*self.ptr).loaded != 0
         }
     }
-    pub fn newKeyboard(&self) -> bool {
+    pub fn new_keyboard(&self) -> bool {
         unsafe {
             (*self.ptr).newKeyboard != 0
         }
@@ -6163,15 +6163,15 @@ impl GetKbdByNameReply {
     }
 }
 
-pub fn get_kbd_by_name<'a>(c         : &'a base::Connection,
-                           deviceSpec: DeviceSpec,
-                           need      : u16,
-                           want      : u16,
-                           load      : bool)
+pub fn get_kbd_by_name<'a>(c          : &'a base::Connection,
+                           device_spec: DeviceSpec,
+                           need       : u16,
+                           want       : u16,
+                           load       : bool)
         -> GetKbdByNameCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_kbd_by_name(c.get_raw_conn(),
-                                             deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                             device_spec as xcb_xkb_device_spec_t,  // 0
                                              need as u16,  // 1
                                              want as u16,  // 2
                                              load as u8);  // 3
@@ -6183,15 +6183,15 @@ pub fn get_kbd_by_name<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn get_kbd_by_name_unchecked<'a>(c         : &'a base::Connection,
-                                     deviceSpec: DeviceSpec,
-                                     need      : u16,
-                                     want      : u16,
-                                     load      : bool)
+pub fn get_kbd_by_name_unchecked<'a>(c          : &'a base::Connection,
+                                     device_spec: DeviceSpec,
+                                     need       : u16,
+                                     want       : u16,
+                                     load       : bool)
         -> GetKbdByNameCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_kbd_by_name_unchecked(c.get_raw_conn(),
-                                                       deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                                       device_spec as xcb_xkb_device_spec_t,  // 0
                                                        need as u16,  // 1
                                                        want as u16,  // 2
                                                        load as u8);  // 3
@@ -6236,7 +6236,7 @@ impl<'a> GetDeviceInfoCookie<'a> {
 pub type GetDeviceInfoReply = base::Reply<xcb_xkb_get_device_info_reply_t>;
 
 impl GetDeviceInfoReply {
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -6256,57 +6256,57 @@ impl GetDeviceInfoReply {
             (*self.ptr).unsupported
         }
     }
-    pub fn nDeviceLedFBs(&self) -> u16 {
+    pub fn n_device_led_f_bs(&self) -> u16 {
         unsafe {
             (*self.ptr).nDeviceLedFBs
         }
     }
-    pub fn firstBtnWanted(&self) -> u8 {
+    pub fn first_btn_wanted(&self) -> u8 {
         unsafe {
             (*self.ptr).firstBtnWanted
         }
     }
-    pub fn nBtnsWanted(&self) -> u8 {
+    pub fn n_btns_wanted(&self) -> u8 {
         unsafe {
             (*self.ptr).nBtnsWanted
         }
     }
-    pub fn firstBtnRtrn(&self) -> u8 {
+    pub fn first_btn_rtrn(&self) -> u8 {
         unsafe {
             (*self.ptr).firstBtnRtrn
         }
     }
-    pub fn nBtnsRtrn(&self) -> u8 {
+    pub fn n_btns_rtrn(&self) -> u8 {
         unsafe {
             (*self.ptr).nBtnsRtrn
         }
     }
-    pub fn totalBtns(&self) -> u8 {
+    pub fn total_btns(&self) -> u8 {
         unsafe {
             (*self.ptr).totalBtns
         }
     }
-    pub fn hasOwnState(&self) -> bool {
+    pub fn has_own_state(&self) -> bool {
         unsafe {
             (*self.ptr).hasOwnState != 0
         }
     }
-    pub fn dfltKbdFB(&self) -> u16 {
+    pub fn dflt_kbd_f_b(&self) -> u16 {
         unsafe {
             (*self.ptr).dfltKbdFB
         }
     }
-    pub fn dfltLedFB(&self) -> u16 {
+    pub fn dflt_led_f_b(&self) -> u16 {
         unsafe {
             (*self.ptr).dfltLedFB
         }
     }
-    pub fn devType(&self) -> xproto::Atom {
+    pub fn dev_type(&self) -> xproto::Atom {
         unsafe {
             (*self.ptr).devType
         }
     }
-    pub fn nameLen(&self) -> u16 {
+    pub fn name_len(&self) -> u16 {
         unsafe {
             (*self.ptr).nameLen
         }
@@ -6319,7 +6319,7 @@ impl GetDeviceInfoReply {
             std::slice::from_raw_parts(data, len)
         }
     }
-    pub fn btnActions(&self) -> ActionIterator {
+    pub fn btn_actions(&self) -> ActionIterator {
         unsafe {
             xcb_xkb_get_device_info_btn_actions_iterator(self.ptr)
         }
@@ -6331,24 +6331,24 @@ impl GetDeviceInfoReply {
     }
 }
 
-pub fn get_device_info<'a>(c          : &'a base::Connection,
-                           deviceSpec : DeviceSpec,
-                           wanted     : u16,
-                           allButtons : bool,
-                           firstButton: u8,
-                           nButtons   : u8,
-                           ledClass   : LedClassSpec,
-                           ledID      : IdSpec)
+pub fn get_device_info<'a>(c           : &'a base::Connection,
+                           device_spec : DeviceSpec,
+                           wanted      : u16,
+                           all_buttons : bool,
+                           first_button: u8,
+                           n_buttons   : u8,
+                           led_class   : LedClassSpec,
+                           led_i_d     : IdSpec)
         -> GetDeviceInfoCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_device_info(c.get_raw_conn(),
-                                             deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                             device_spec as xcb_xkb_device_spec_t,  // 0
                                              wanted as u16,  // 1
-                                             allButtons as u8,  // 2
-                                             firstButton as u8,  // 3
-                                             nButtons as u8,  // 4
-                                             ledClass as xcb_xkb_led_class_spec_t,  // 5
-                                             ledID as xcb_xkb_id_spec_t);  // 6
+                                             all_buttons as u8,  // 2
+                                             first_button as u8,  // 3
+                                             n_buttons as u8,  // 4
+                                             led_class as xcb_xkb_led_class_spec_t,  // 5
+                                             led_i_d as xcb_xkb_id_spec_t);  // 6
         GetDeviceInfoCookie {
             cookie:  cookie,
             conn:    c,
@@ -6357,24 +6357,24 @@ pub fn get_device_info<'a>(c          : &'a base::Connection,
     }
 }
 
-pub fn get_device_info_unchecked<'a>(c          : &'a base::Connection,
-                                     deviceSpec : DeviceSpec,
-                                     wanted     : u16,
-                                     allButtons : bool,
-                                     firstButton: u8,
-                                     nButtons   : u8,
-                                     ledClass   : LedClassSpec,
-                                     ledID      : IdSpec)
+pub fn get_device_info_unchecked<'a>(c           : &'a base::Connection,
+                                     device_spec : DeviceSpec,
+                                     wanted      : u16,
+                                     all_buttons : bool,
+                                     first_button: u8,
+                                     n_buttons   : u8,
+                                     led_class   : LedClassSpec,
+                                     led_i_d     : IdSpec)
         -> GetDeviceInfoCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_device_info_unchecked(c.get_raw_conn(),
-                                                       deviceSpec as xcb_xkb_device_spec_t,  // 0
+                                                       device_spec as xcb_xkb_device_spec_t,  // 0
                                                        wanted as u16,  // 1
-                                                       allButtons as u8,  // 2
-                                                       firstButton as u8,  // 3
-                                                       nButtons as u8,  // 4
-                                                       ledClass as xcb_xkb_led_class_spec_t,  // 5
-                                                       ledID as xcb_xkb_id_spec_t);  // 6
+                                                       all_buttons as u8,  // 2
+                                                       first_button as u8,  // 3
+                                                       n_buttons as u8,  // 4
+                                                       led_class as xcb_xkb_led_class_spec_t,  // 5
+                                                       led_i_d as xcb_xkb_id_spec_t);  // 6
         GetDeviceInfoCookie {
             cookie:  cookie,
             conn:    c,
@@ -6385,25 +6385,25 @@ pub fn get_device_info_unchecked<'a>(c          : &'a base::Connection,
 
 pub const SET_DEVICE_INFO: u8 = 25;
 
-pub fn set_device_info<'a>(c         : &'a base::Connection,
-                           deviceSpec: DeviceSpec,
-                           firstBtn  : u8,
-                           change    : u16,
-                           btnActions: &[Action],
-                           leds      : &[DeviceLedInfo])
+pub fn set_device_info<'a>(c          : &'a base::Connection,
+                           device_spec: DeviceSpec,
+                           first_btn  : u8,
+                           change     : u16,
+                           btn_actions: &[Action],
+                           leds       : &[DeviceLedInfo])
         -> base::VoidCookie<'a> {
     unsafe {
-        let btnActions_len = btnActions.len();
-        let btnActions_ptr = btnActions.as_ptr();
+        let btn_actions_len = btn_actions.len();
+        let btn_actions_ptr = btn_actions.as_ptr();
         let leds_len = leds.len();
         let leds_ptr = leds.as_ptr();
         let cookie = xcb_xkb_set_device_info(c.get_raw_conn(),
-                                             deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                             firstBtn as u8,  // 1
-                                             btnActions_len as u8,  // 2
+                                             device_spec as xcb_xkb_device_spec_t,  // 0
+                                             first_btn as u8,  // 1
+                                             btn_actions_len as u8,  // 2
                                              change as u16,  // 3
                                              leds_len as u16,  // 4
-                                             btnActions_ptr as *const xcb_xkb_action_t,  // 5
+                                             btn_actions_ptr as *const xcb_xkb_action_t,  // 5
                                              leds_ptr as *const xcb_xkb_device_led_info_t);  // 6
         base::VoidCookie {
             cookie:  cookie,
@@ -6413,25 +6413,25 @@ pub fn set_device_info<'a>(c         : &'a base::Connection,
     }
 }
 
-pub fn set_device_info_checked<'a>(c         : &'a base::Connection,
-                                   deviceSpec: DeviceSpec,
-                                   firstBtn  : u8,
-                                   change    : u16,
-                                   btnActions: &[Action],
-                                   leds      : &[DeviceLedInfo])
+pub fn set_device_info_checked<'a>(c          : &'a base::Connection,
+                                   device_spec: DeviceSpec,
+                                   first_btn  : u8,
+                                   change     : u16,
+                                   btn_actions: &[Action],
+                                   leds       : &[DeviceLedInfo])
         -> base::VoidCookie<'a> {
     unsafe {
-        let btnActions_len = btnActions.len();
-        let btnActions_ptr = btnActions.as_ptr();
+        let btn_actions_len = btn_actions.len();
+        let btn_actions_ptr = btn_actions.as_ptr();
         let leds_len = leds.len();
         let leds_ptr = leds.as_ptr();
         let cookie = xcb_xkb_set_device_info_checked(c.get_raw_conn(),
-                                                     deviceSpec as xcb_xkb_device_spec_t,  // 0
-                                                     firstBtn as u8,  // 1
-                                                     btnActions_len as u8,  // 2
+                                                     device_spec as xcb_xkb_device_spec_t,  // 0
+                                                     first_btn as u8,  // 1
+                                                     btn_actions_len as u8,  // 2
                                                      change as u16,  // 3
                                                      leds_len as u16,  // 4
-                                                     btnActions_ptr as *const xcb_xkb_action_t,  // 5
+                                                     btn_actions_ptr as *const xcb_xkb_action_t,  // 5
                                                      leds_ptr as *const xcb_xkb_device_led_info_t);  // 6
         base::VoidCookie {
             cookie:  cookie,
@@ -6474,43 +6474,43 @@ impl<'a> SetDebuggingFlagsCookie<'a> {
 pub type SetDebuggingFlagsReply = base::Reply<xcb_xkb_set_debugging_flags_reply_t>;
 
 impl SetDebuggingFlagsReply {
-    pub fn currentFlags(&self) -> u32 {
+    pub fn current_flags(&self) -> u32 {
         unsafe {
             (*self.ptr).currentFlags
         }
     }
-    pub fn currentCtrls(&self) -> u32 {
+    pub fn current_ctrls(&self) -> u32 {
         unsafe {
             (*self.ptr).currentCtrls
         }
     }
-    pub fn supportedFlags(&self) -> u32 {
+    pub fn supported_flags(&self) -> u32 {
         unsafe {
             (*self.ptr).supportedFlags
         }
     }
-    pub fn supportedCtrls(&self) -> u32 {
+    pub fn supported_ctrls(&self) -> u32 {
         unsafe {
             (*self.ptr).supportedCtrls
         }
     }
 }
 
-pub fn set_debugging_flags<'a>(c          : &'a base::Connection,
-                               affectFlags: u32,
-                               flags      : u32,
-                               affectCtrls: u32,
-                               ctrls      : u32,
-                               message    : &[String8])
+pub fn set_debugging_flags<'a>(c           : &'a base::Connection,
+                               affect_flags: u32,
+                               flags       : u32,
+                               affect_ctrls: u32,
+                               ctrls       : u32,
+                               message     : &[String8])
         -> SetDebuggingFlagsCookie<'a> {
     unsafe {
         let message_len = message.len();
         let message_ptr = message.as_ptr();
         let cookie = xcb_xkb_set_debugging_flags(c.get_raw_conn(),
                                                  message_len as u16,  // 0
-                                                 affectFlags as u32,  // 1
+                                                 affect_flags as u32,  // 1
                                                  flags as u32,  // 2
-                                                 affectCtrls as u32,  // 3
+                                                 affect_ctrls as u32,  // 3
                                                  ctrls as u32,  // 4
                                                  message_ptr as *const xcb_xkb_string8_t);  // 5
         SetDebuggingFlagsCookie {
@@ -6521,21 +6521,21 @@ pub fn set_debugging_flags<'a>(c          : &'a base::Connection,
     }
 }
 
-pub fn set_debugging_flags_unchecked<'a>(c          : &'a base::Connection,
-                                         affectFlags: u32,
-                                         flags      : u32,
-                                         affectCtrls: u32,
-                                         ctrls      : u32,
-                                         message    : &[String8])
+pub fn set_debugging_flags_unchecked<'a>(c           : &'a base::Connection,
+                                         affect_flags: u32,
+                                         flags       : u32,
+                                         affect_ctrls: u32,
+                                         ctrls       : u32,
+                                         message     : &[String8])
         -> SetDebuggingFlagsCookie<'a> {
     unsafe {
         let message_len = message.len();
         let message_ptr = message.as_ptr();
         let cookie = xcb_xkb_set_debugging_flags_unchecked(c.get_raw_conn(),
                                                            message_len as u16,  // 0
-                                                           affectFlags as u32,  // 1
+                                                           affect_flags as u32,  // 1
                                                            flags as u32,  // 2
-                                                           affectCtrls as u32,  // 3
+                                                           affect_ctrls as u32,  // 3
                                                            ctrls as u32,  // 4
                                                            message_ptr as *const xcb_xkb_string8_t);  // 5
         SetDebuggingFlagsCookie {
@@ -6551,7 +6551,7 @@ pub const NEW_KEYBOARD_NOTIFY: u8 = 0;
 pub type NewKeyboardNotifyEvent = base::Event<xcb_xkb_new_keyboard_notify_event_t>;
 
 impl NewKeyboardNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -6561,42 +6561,42 @@ impl NewKeyboardNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn oldDeviceID(&self) -> u8 {
+    pub fn old_device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).oldDeviceID
         }
     }
-    pub fn minKeyCode(&self) -> xproto::Keycode {
+    pub fn min_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).minKeyCode
         }
     }
-    pub fn maxKeyCode(&self) -> xproto::Keycode {
+    pub fn max_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).maxKeyCode
         }
     }
-    pub fn oldMinKeyCode(&self) -> xproto::Keycode {
+    pub fn old_min_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).oldMinKeyCode
         }
     }
-    pub fn oldMaxKeyCode(&self) -> xproto::Keycode {
+    pub fn old_max_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).oldMaxKeyCode
         }
     }
-    pub fn requestMajor(&self) -> u8 {
+    pub fn request_major(&self) -> u8 {
         unsafe {
             (*self.ptr).requestMajor
         }
     }
-    pub fn requestMinor(&self) -> u8 {
+    pub fn request_minor(&self) -> u8 {
         unsafe {
             (*self.ptr).requestMinor
         }
@@ -6608,31 +6608,31 @@ impl NewKeyboardNotifyEvent {
     }
     /// Constructs a new NewKeyboardNotifyEvent
     /// `response_type` will be set automatically to NEW_KEYBOARD_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
-               oldDeviceID: u8,
-               minKeyCode: xproto::Keycode,
-               maxKeyCode: xproto::Keycode,
-               oldMinKeyCode: xproto::Keycode,
-               oldMaxKeyCode: xproto::Keycode,
-               requestMajor: u8,
-               requestMinor: u8,
+               device_i_d: u8,
+               old_device_i_d: u8,
+               min_key_code: xproto::Keycode,
+               max_key_code: xproto::Keycode,
+               old_min_key_code: xproto::Keycode,
+               old_max_key_code: xproto::Keycode,
+               request_major: u8,
+               request_minor: u8,
                changed: u16)
             -> NewKeyboardNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_new_keyboard_notify_event_t;
             (*raw).response_type = NEW_KEYBOARD_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
-            (*raw).oldDeviceID = oldDeviceID;
-            (*raw).minKeyCode = minKeyCode;
-            (*raw).maxKeyCode = maxKeyCode;
-            (*raw).oldMinKeyCode = oldMinKeyCode;
-            (*raw).oldMaxKeyCode = oldMaxKeyCode;
-            (*raw).requestMajor = requestMajor;
-            (*raw).requestMinor = requestMinor;
+            (*raw).deviceID = device_i_d;
+            (*raw).oldDeviceID = old_device_i_d;
+            (*raw).minKeyCode = min_key_code;
+            (*raw).maxKeyCode = max_key_code;
+            (*raw).oldMinKeyCode = old_min_key_code;
+            (*raw).oldMaxKeyCode = old_max_key_code;
+            (*raw).requestMajor = request_major;
+            (*raw).requestMinor = request_minor;
             (*raw).changed = changed;
             NewKeyboardNotifyEvent {
                 ptr: raw
@@ -6646,7 +6646,7 @@ pub const MAP_NOTIFY: u8 = 1;
 pub type MapNotifyEvent = base::Event<xcb_xkb_map_notify_event_t>;
 
 impl MapNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -6656,12 +6656,12 @@ impl MapNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn ptrBtnActions(&self) -> u8 {
+    pub fn ptr_btn_actions(&self) -> u8 {
         unsafe {
             (*self.ptr).ptrBtnActions
         }
@@ -6671,141 +6671,141 @@ impl MapNotifyEvent {
             (*self.ptr).changed
         }
     }
-    pub fn minKeyCode(&self) -> xproto::Keycode {
+    pub fn min_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).minKeyCode
         }
     }
-    pub fn maxKeyCode(&self) -> xproto::Keycode {
+    pub fn max_key_code(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).maxKeyCode
         }
     }
-    pub fn firstType(&self) -> u8 {
+    pub fn first_type(&self) -> u8 {
         unsafe {
             (*self.ptr).firstType
         }
     }
-    pub fn nTypes(&self) -> u8 {
+    pub fn n_types(&self) -> u8 {
         unsafe {
             (*self.ptr).nTypes
         }
     }
-    pub fn firstKeySym(&self) -> xproto::Keycode {
+    pub fn first_key_sym(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKeySym
         }
     }
-    pub fn nKeySyms(&self) -> u8 {
+    pub fn n_key_syms(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeySyms
         }
     }
-    pub fn firstKeyAct(&self) -> xproto::Keycode {
+    pub fn first_key_act(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKeyAct
         }
     }
-    pub fn nKeyActs(&self) -> u8 {
+    pub fn n_key_acts(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeyActs
         }
     }
-    pub fn firstKeyBehavior(&self) -> xproto::Keycode {
+    pub fn first_key_behavior(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKeyBehavior
         }
     }
-    pub fn nKeyBehavior(&self) -> u8 {
+    pub fn n_key_behavior(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeyBehavior
         }
     }
-    pub fn firstKeyExplicit(&self) -> xproto::Keycode {
+    pub fn first_key_explicit(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKeyExplicit
         }
     }
-    pub fn nKeyExplicit(&self) -> u8 {
+    pub fn n_key_explicit(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeyExplicit
         }
     }
-    pub fn firstModMapKey(&self) -> xproto::Keycode {
+    pub fn first_mod_map_key(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstModMapKey
         }
     }
-    pub fn nModMapKeys(&self) -> u8 {
+    pub fn n_mod_map_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).nModMapKeys
         }
     }
-    pub fn firstVModMapKey(&self) -> xproto::Keycode {
+    pub fn first_v_mod_map_key(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstVModMapKey
         }
     }
-    pub fn nVModMapKeys(&self) -> u8 {
+    pub fn n_v_mod_map_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).nVModMapKeys
         }
     }
-    pub fn virtualMods(&self) -> u16 {
+    pub fn virtual_mods(&self) -> u16 {
         unsafe {
             (*self.ptr).virtualMods
         }
     }
     /// Constructs a new MapNotifyEvent
     /// `response_type` will be set automatically to MAP_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
-               ptrBtnActions: u8,
+               device_i_d: u8,
+               ptr_btn_actions: u8,
                changed: u16,
-               minKeyCode: xproto::Keycode,
-               maxKeyCode: xproto::Keycode,
-               firstType: u8,
-               nTypes: u8,
-               firstKeySym: xproto::Keycode,
-               nKeySyms: u8,
-               firstKeyAct: xproto::Keycode,
-               nKeyActs: u8,
-               firstKeyBehavior: xproto::Keycode,
-               nKeyBehavior: u8,
-               firstKeyExplicit: xproto::Keycode,
-               nKeyExplicit: u8,
-               firstModMapKey: xproto::Keycode,
-               nModMapKeys: u8,
-               firstVModMapKey: xproto::Keycode,
-               nVModMapKeys: u8,
-               virtualMods: u16)
+               min_key_code: xproto::Keycode,
+               max_key_code: xproto::Keycode,
+               first_type: u8,
+               n_types: u8,
+               first_key_sym: xproto::Keycode,
+               n_key_syms: u8,
+               first_key_act: xproto::Keycode,
+               n_key_acts: u8,
+               first_key_behavior: xproto::Keycode,
+               n_key_behavior: u8,
+               first_key_explicit: xproto::Keycode,
+               n_key_explicit: u8,
+               first_mod_map_key: xproto::Keycode,
+               n_mod_map_keys: u8,
+               first_v_mod_map_key: xproto::Keycode,
+               n_v_mod_map_keys: u8,
+               virtual_mods: u16)
             -> MapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_map_notify_event_t;
             (*raw).response_type = MAP_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
-            (*raw).ptrBtnActions = ptrBtnActions;
+            (*raw).deviceID = device_i_d;
+            (*raw).ptrBtnActions = ptr_btn_actions;
             (*raw).changed = changed;
-            (*raw).minKeyCode = minKeyCode;
-            (*raw).maxKeyCode = maxKeyCode;
-            (*raw).firstType = firstType;
-            (*raw).nTypes = nTypes;
-            (*raw).firstKeySym = firstKeySym;
-            (*raw).nKeySyms = nKeySyms;
-            (*raw).firstKeyAct = firstKeyAct;
-            (*raw).nKeyActs = nKeyActs;
-            (*raw).firstKeyBehavior = firstKeyBehavior;
-            (*raw).nKeyBehavior = nKeyBehavior;
-            (*raw).firstKeyExplicit = firstKeyExplicit;
-            (*raw).nKeyExplicit = nKeyExplicit;
-            (*raw).firstModMapKey = firstModMapKey;
-            (*raw).nModMapKeys = nModMapKeys;
-            (*raw).firstVModMapKey = firstVModMapKey;
-            (*raw).nVModMapKeys = nVModMapKeys;
-            (*raw).virtualMods = virtualMods;
+            (*raw).minKeyCode = min_key_code;
+            (*raw).maxKeyCode = max_key_code;
+            (*raw).firstType = first_type;
+            (*raw).nTypes = n_types;
+            (*raw).firstKeySym = first_key_sym;
+            (*raw).nKeySyms = n_key_syms;
+            (*raw).firstKeyAct = first_key_act;
+            (*raw).nKeyActs = n_key_acts;
+            (*raw).firstKeyBehavior = first_key_behavior;
+            (*raw).nKeyBehavior = n_key_behavior;
+            (*raw).firstKeyExplicit = first_key_explicit;
+            (*raw).nKeyExplicit = n_key_explicit;
+            (*raw).firstModMapKey = first_mod_map_key;
+            (*raw).nModMapKeys = n_mod_map_keys;
+            (*raw).firstVModMapKey = first_v_mod_map_key;
+            (*raw).nVModMapKeys = n_v_mod_map_keys;
+            (*raw).virtualMods = virtual_mods;
             MapNotifyEvent {
                 ptr: raw
             }
@@ -6818,7 +6818,7 @@ pub const STATE_NOTIFY: u8 = 2;
 pub type StateNotifyEvent = base::Event<xcb_xkb_state_notify_event_t>;
 
 impl StateNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -6828,7 +6828,7 @@ impl StateNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -6838,17 +6838,17 @@ impl StateNotifyEvent {
             (*self.ptr).mods
         }
     }
-    pub fn baseMods(&self) -> u8 {
+    pub fn base_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).baseMods
         }
     }
-    pub fn latchedMods(&self) -> u8 {
+    pub fn latched_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).latchedMods
         }
     }
-    pub fn lockedMods(&self) -> u8 {
+    pub fn locked_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).lockedMods
         }
@@ -6858,47 +6858,47 @@ impl StateNotifyEvent {
             (*self.ptr).group
         }
     }
-    pub fn baseGroup(&self) -> i16 {
+    pub fn base_group(&self) -> i16 {
         unsafe {
             (*self.ptr).baseGroup
         }
     }
-    pub fn latchedGroup(&self) -> i16 {
+    pub fn latched_group(&self) -> i16 {
         unsafe {
             (*self.ptr).latchedGroup
         }
     }
-    pub fn lockedGroup(&self) -> u8 {
+    pub fn locked_group(&self) -> u8 {
         unsafe {
             (*self.ptr).lockedGroup
         }
     }
-    pub fn compatState(&self) -> u8 {
+    pub fn compat_state(&self) -> u8 {
         unsafe {
             (*self.ptr).compatState
         }
     }
-    pub fn grabMods(&self) -> u8 {
+    pub fn grab_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).grabMods
         }
     }
-    pub fn compatGrabMods(&self) -> u8 {
+    pub fn compat_grab_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).compatGrabMods
         }
     }
-    pub fn lookupMods(&self) -> u8 {
+    pub fn lookup_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).lookupMods
         }
     }
-    pub fn compatLoockupMods(&self) -> u8 {
+    pub fn compat_loockup_mods(&self) -> u8 {
         unsafe {
             (*self.ptr).compatLoockupMods
         }
     }
-    pub fn ptrBtnState(&self) -> u16 {
+    pub fn ptr_btn_state(&self) -> u16 {
         unsafe {
             (*self.ptr).ptrBtnState
         }
@@ -6913,71 +6913,71 @@ impl StateNotifyEvent {
             (*self.ptr).keycode
         }
     }
-    pub fn eventType(&self) -> u8 {
+    pub fn event_type(&self) -> u8 {
         unsafe {
             (*self.ptr).eventType
         }
     }
-    pub fn requestMajor(&self) -> u8 {
+    pub fn request_major(&self) -> u8 {
         unsafe {
             (*self.ptr).requestMajor
         }
     }
-    pub fn requestMinor(&self) -> u8 {
+    pub fn request_minor(&self) -> u8 {
         unsafe {
             (*self.ptr).requestMinor
         }
     }
     /// Constructs a new StateNotifyEvent
     /// `response_type` will be set automatically to STATE_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
+               device_i_d: u8,
                mods: u8,
-               baseMods: u8,
-               latchedMods: u8,
-               lockedMods: u8,
+               base_mods: u8,
+               latched_mods: u8,
+               locked_mods: u8,
                group: u8,
-               baseGroup: i16,
-               latchedGroup: i16,
-               lockedGroup: u8,
-               compatState: u8,
-               grabMods: u8,
-               compatGrabMods: u8,
-               lookupMods: u8,
-               compatLoockupMods: u8,
-               ptrBtnState: u16,
+               base_group: i16,
+               latched_group: i16,
+               locked_group: u8,
+               compat_state: u8,
+               grab_mods: u8,
+               compat_grab_mods: u8,
+               lookup_mods: u8,
+               compat_loockup_mods: u8,
+               ptr_btn_state: u16,
                changed: u16,
                keycode: xproto::Keycode,
-               eventType: u8,
-               requestMajor: u8,
-               requestMinor: u8)
+               event_type: u8,
+               request_major: u8,
+               request_minor: u8)
             -> StateNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_state_notify_event_t;
             (*raw).response_type = STATE_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
+            (*raw).deviceID = device_i_d;
             (*raw).mods = mods;
-            (*raw).baseMods = baseMods;
-            (*raw).latchedMods = latchedMods;
-            (*raw).lockedMods = lockedMods;
+            (*raw).baseMods = base_mods;
+            (*raw).latchedMods = latched_mods;
+            (*raw).lockedMods = locked_mods;
             (*raw).group = group;
-            (*raw).baseGroup = baseGroup;
-            (*raw).latchedGroup = latchedGroup;
-            (*raw).lockedGroup = lockedGroup;
-            (*raw).compatState = compatState;
-            (*raw).grabMods = grabMods;
-            (*raw).compatGrabMods = compatGrabMods;
-            (*raw).lookupMods = lookupMods;
-            (*raw).compatLoockupMods = compatLoockupMods;
-            (*raw).ptrBtnState = ptrBtnState;
+            (*raw).baseGroup = base_group;
+            (*raw).latchedGroup = latched_group;
+            (*raw).lockedGroup = locked_group;
+            (*raw).compatState = compat_state;
+            (*raw).grabMods = grab_mods;
+            (*raw).compatGrabMods = compat_grab_mods;
+            (*raw).lookupMods = lookup_mods;
+            (*raw).compatLoockupMods = compat_loockup_mods;
+            (*raw).ptrBtnState = ptr_btn_state;
             (*raw).changed = changed;
             (*raw).keycode = keycode;
-            (*raw).eventType = eventType;
-            (*raw).requestMajor = requestMajor;
-            (*raw).requestMinor = requestMinor;
+            (*raw).eventType = event_type;
+            (*raw).requestMajor = request_major;
+            (*raw).requestMinor = request_minor;
             StateNotifyEvent {
                 ptr: raw
             }
@@ -6990,7 +6990,7 @@ pub const CONTROLS_NOTIFY: u8 = 3;
 pub type ControlsNotifyEvent = base::Event<xcb_xkb_controls_notify_event_t>;
 
 impl ControlsNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -7000,27 +7000,27 @@ impl ControlsNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn numGroups(&self) -> u8 {
+    pub fn num_groups(&self) -> u8 {
         unsafe {
             (*self.ptr).numGroups
         }
     }
-    pub fn changedControls(&self) -> u32 {
+    pub fn changed_controls(&self) -> u32 {
         unsafe {
             (*self.ptr).changedControls
         }
     }
-    pub fn enabledControls(&self) -> u32 {
+    pub fn enabled_controls(&self) -> u32 {
         unsafe {
             (*self.ptr).enabledControls
         }
     }
-    pub fn enabledControlChanges(&self) -> u32 {
+    pub fn enabled_control_changes(&self) -> u32 {
         unsafe {
             (*self.ptr).enabledControlChanges
         }
@@ -7030,49 +7030,49 @@ impl ControlsNotifyEvent {
             (*self.ptr).keycode
         }
     }
-    pub fn eventType(&self) -> u8 {
+    pub fn event_type(&self) -> u8 {
         unsafe {
             (*self.ptr).eventType
         }
     }
-    pub fn requestMajor(&self) -> u8 {
+    pub fn request_major(&self) -> u8 {
         unsafe {
             (*self.ptr).requestMajor
         }
     }
-    pub fn requestMinor(&self) -> u8 {
+    pub fn request_minor(&self) -> u8 {
         unsafe {
             (*self.ptr).requestMinor
         }
     }
     /// Constructs a new ControlsNotifyEvent
     /// `response_type` will be set automatically to CONTROLS_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
-               numGroups: u8,
-               changedControls: u32,
-               enabledControls: u32,
-               enabledControlChanges: u32,
+               device_i_d: u8,
+               num_groups: u8,
+               changed_controls: u32,
+               enabled_controls: u32,
+               enabled_control_changes: u32,
                keycode: xproto::Keycode,
-               eventType: u8,
-               requestMajor: u8,
-               requestMinor: u8)
+               event_type: u8,
+               request_major: u8,
+               request_minor: u8)
             -> ControlsNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_controls_notify_event_t;
             (*raw).response_type = CONTROLS_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
-            (*raw).numGroups = numGroups;
-            (*raw).changedControls = changedControls;
-            (*raw).enabledControls = enabledControls;
-            (*raw).enabledControlChanges = enabledControlChanges;
+            (*raw).deviceID = device_i_d;
+            (*raw).numGroups = num_groups;
+            (*raw).changedControls = changed_controls;
+            (*raw).enabledControls = enabled_controls;
+            (*raw).enabledControlChanges = enabled_control_changes;
             (*raw).keycode = keycode;
-            (*raw).eventType = eventType;
-            (*raw).requestMajor = requestMajor;
-            (*raw).requestMinor = requestMinor;
+            (*raw).eventType = event_type;
+            (*raw).requestMajor = request_major;
+            (*raw).requestMinor = request_minor;
             ControlsNotifyEvent {
                 ptr: raw
             }
@@ -7085,7 +7085,7 @@ pub const INDICATOR_STATE_NOTIFY: u8 = 4;
 pub type IndicatorStateNotifyEvent = base::Event<xcb_xkb_indicator_state_notify_event_t>;
 
 impl IndicatorStateNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -7095,7 +7095,7 @@ impl IndicatorStateNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -7105,27 +7105,27 @@ impl IndicatorStateNotifyEvent {
             (*self.ptr).state
         }
     }
-    pub fn stateChanged(&self) -> u32 {
+    pub fn state_changed(&self) -> u32 {
         unsafe {
             (*self.ptr).stateChanged
         }
     }
     /// Constructs a new IndicatorStateNotifyEvent
     /// `response_type` will be set automatically to INDICATOR_STATE_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
+               device_i_d: u8,
                state: u32,
-               stateChanged: u32)
+               state_changed: u32)
             -> IndicatorStateNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_indicator_state_notify_event_t;
             (*raw).response_type = INDICATOR_STATE_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
+            (*raw).deviceID = device_i_d;
             (*raw).state = state;
-            (*raw).stateChanged = stateChanged;
+            (*raw).stateChanged = state_changed;
             IndicatorStateNotifyEvent {
                 ptr: raw
             }
@@ -7138,7 +7138,7 @@ pub const INDICATOR_MAP_NOTIFY: u8 = 5;
 pub type IndicatorMapNotifyEvent = base::Event<xcb_xkb_indicator_map_notify_event_t>;
 
 impl IndicatorMapNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -7148,7 +7148,7 @@ impl IndicatorMapNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -7158,27 +7158,27 @@ impl IndicatorMapNotifyEvent {
             (*self.ptr).state
         }
     }
-    pub fn mapChanged(&self) -> u32 {
+    pub fn map_changed(&self) -> u32 {
         unsafe {
             (*self.ptr).mapChanged
         }
     }
     /// Constructs a new IndicatorMapNotifyEvent
     /// `response_type` will be set automatically to INDICATOR_MAP_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
+               device_i_d: u8,
                state: u32,
-               mapChanged: u32)
+               map_changed: u32)
             -> IndicatorMapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_indicator_map_notify_event_t;
             (*raw).response_type = INDICATOR_MAP_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
+            (*raw).deviceID = device_i_d;
             (*raw).state = state;
-            (*raw).mapChanged = mapChanged;
+            (*raw).mapChanged = map_changed;
             IndicatorMapNotifyEvent {
                 ptr: raw
             }
@@ -7191,7 +7191,7 @@ pub const NAMES_NOTIFY: u8 = 6;
 pub type NamesNotifyEvent = base::Event<xcb_xkb_names_notify_event_t>;
 
 impl NamesNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -7201,7 +7201,7 @@ impl NamesNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -7211,97 +7211,97 @@ impl NamesNotifyEvent {
             (*self.ptr).changed
         }
     }
-    pub fn firstType(&self) -> u8 {
+    pub fn first_type(&self) -> u8 {
         unsafe {
             (*self.ptr).firstType
         }
     }
-    pub fn nTypes(&self) -> u8 {
+    pub fn n_types(&self) -> u8 {
         unsafe {
             (*self.ptr).nTypes
         }
     }
-    pub fn firstLevelName(&self) -> u8 {
+    pub fn first_level_name(&self) -> u8 {
         unsafe {
             (*self.ptr).firstLevelName
         }
     }
-    pub fn nLevelNames(&self) -> u8 {
+    pub fn n_level_names(&self) -> u8 {
         unsafe {
             (*self.ptr).nLevelNames
         }
     }
-    pub fn nRadioGroups(&self) -> u8 {
+    pub fn n_radio_groups(&self) -> u8 {
         unsafe {
             (*self.ptr).nRadioGroups
         }
     }
-    pub fn nKeyAliases(&self) -> u8 {
+    pub fn n_key_aliases(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeyAliases
         }
     }
-    pub fn changedGroupNames(&self) -> u8 {
+    pub fn changed_group_names(&self) -> u8 {
         unsafe {
             (*self.ptr).changedGroupNames
         }
     }
-    pub fn changedVirtualMods(&self) -> u16 {
+    pub fn changed_virtual_mods(&self) -> u16 {
         unsafe {
             (*self.ptr).changedVirtualMods
         }
     }
-    pub fn firstKey(&self) -> xproto::Keycode {
+    pub fn first_key(&self) -> xproto::Keycode {
         unsafe {
             (*self.ptr).firstKey
         }
     }
-    pub fn nKeys(&self) -> u8 {
+    pub fn n_keys(&self) -> u8 {
         unsafe {
             (*self.ptr).nKeys
         }
     }
-    pub fn changedIndicators(&self) -> u32 {
+    pub fn changed_indicators(&self) -> u32 {
         unsafe {
             (*self.ptr).changedIndicators
         }
     }
     /// Constructs a new NamesNotifyEvent
     /// `response_type` will be set automatically to NAMES_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
+               device_i_d: u8,
                changed: u16,
-               firstType: u8,
-               nTypes: u8,
-               firstLevelName: u8,
-               nLevelNames: u8,
-               nRadioGroups: u8,
-               nKeyAliases: u8,
-               changedGroupNames: u8,
-               changedVirtualMods: u16,
-               firstKey: xproto::Keycode,
-               nKeys: u8,
-               changedIndicators: u32)
+               first_type: u8,
+               n_types: u8,
+               first_level_name: u8,
+               n_level_names: u8,
+               n_radio_groups: u8,
+               n_key_aliases: u8,
+               changed_group_names: u8,
+               changed_virtual_mods: u16,
+               first_key: xproto::Keycode,
+               n_keys: u8,
+               changed_indicators: u32)
             -> NamesNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_names_notify_event_t;
             (*raw).response_type = NAMES_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
+            (*raw).deviceID = device_i_d;
             (*raw).changed = changed;
-            (*raw).firstType = firstType;
-            (*raw).nTypes = nTypes;
-            (*raw).firstLevelName = firstLevelName;
-            (*raw).nLevelNames = nLevelNames;
-            (*raw).nRadioGroups = nRadioGroups;
-            (*raw).nKeyAliases = nKeyAliases;
-            (*raw).changedGroupNames = changedGroupNames;
-            (*raw).changedVirtualMods = changedVirtualMods;
-            (*raw).firstKey = firstKey;
-            (*raw).nKeys = nKeys;
-            (*raw).changedIndicators = changedIndicators;
+            (*raw).firstType = first_type;
+            (*raw).nTypes = n_types;
+            (*raw).firstLevelName = first_level_name;
+            (*raw).nLevelNames = n_level_names;
+            (*raw).nRadioGroups = n_radio_groups;
+            (*raw).nKeyAliases = n_key_aliases;
+            (*raw).changedGroupNames = changed_group_names;
+            (*raw).changedVirtualMods = changed_virtual_mods;
+            (*raw).firstKey = first_key;
+            (*raw).nKeys = n_keys;
+            (*raw).changedIndicators = changed_indicators;
             NamesNotifyEvent {
                 ptr: raw
             }
@@ -7314,7 +7314,7 @@ pub const COMPAT_MAP_NOTIFY: u8 = 7;
 pub type CompatMapNotifyEvent = base::Event<xcb_xkb_compat_map_notify_event_t>;
 
 impl CompatMapNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -7324,51 +7324,51 @@ impl CompatMapNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn changedGroups(&self) -> u8 {
+    pub fn changed_groups(&self) -> u8 {
         unsafe {
             (*self.ptr).changedGroups
         }
     }
-    pub fn firstSI(&self) -> u16 {
+    pub fn first_s_i(&self) -> u16 {
         unsafe {
             (*self.ptr).firstSI
         }
     }
-    pub fn nSI(&self) -> u16 {
+    pub fn n_s_i(&self) -> u16 {
         unsafe {
             (*self.ptr).nSI
         }
     }
-    pub fn nTotalSI(&self) -> u16 {
+    pub fn n_total_s_i(&self) -> u16 {
         unsafe {
             (*self.ptr).nTotalSI
         }
     }
     /// Constructs a new CompatMapNotifyEvent
     /// `response_type` will be set automatically to COMPAT_MAP_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
-               changedGroups: u8,
-               firstSI: u16,
-               nSI: u16,
-               nTotalSI: u16)
+               device_i_d: u8,
+               changed_groups: u8,
+               first_s_i: u16,
+               n_s_i: u16,
+               n_total_s_i: u16)
             -> CompatMapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_compat_map_notify_event_t;
             (*raw).response_type = COMPAT_MAP_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
-            (*raw).changedGroups = changedGroups;
-            (*raw).firstSI = firstSI;
-            (*raw).nSI = nSI;
-            (*raw).nTotalSI = nTotalSI;
+            (*raw).deviceID = device_i_d;
+            (*raw).changedGroups = changed_groups;
+            (*raw).firstSI = first_s_i;
+            (*raw).nSI = n_s_i;
+            (*raw).nTotalSI = n_total_s_i;
             CompatMapNotifyEvent {
                 ptr: raw
             }
@@ -7381,7 +7381,7 @@ pub const BELL_NOTIFY: u8 = 8;
 pub type BellNotifyEvent = base::Event<xcb_xkb_bell_notify_event_t>;
 
 impl BellNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -7391,17 +7391,17 @@ impl BellNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
     }
-    pub fn bellClass(&self) -> u8 {
+    pub fn bell_class(&self) -> u8 {
         unsafe {
             (*self.ptr).bellClass
         }
     }
-    pub fn bellID(&self) -> u8 {
+    pub fn bell_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).bellID
         }
@@ -7431,39 +7431,39 @@ impl BellNotifyEvent {
             (*self.ptr).window
         }
     }
-    pub fn eventOnly(&self) -> bool {
+    pub fn event_only(&self) -> bool {
         unsafe {
             (*self.ptr).eventOnly != 0
         }
     }
     /// Constructs a new BellNotifyEvent
     /// `response_type` will be set automatically to BELL_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
-               bellClass: u8,
-               bellID: u8,
+               device_i_d: u8,
+               bell_class: u8,
+               bell_i_d: u8,
                percent: u8,
                pitch: u16,
                duration: u16,
                name: xproto::Atom,
                window: xproto::Window,
-               eventOnly: bool)
+               event_only: bool)
             -> BellNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_bell_notify_event_t;
             (*raw).response_type = BELL_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
-            (*raw).bellClass = bellClass;
-            (*raw).bellID = bellID;
+            (*raw).deviceID = device_i_d;
+            (*raw).bellClass = bell_class;
+            (*raw).bellID = bell_i_d;
             (*raw).percent = percent;
             (*raw).pitch = pitch;
             (*raw).duration = duration;
             (*raw).name = name;
             (*raw).window = window;
-            (*raw).eventOnly = if eventOnly { 1 } else { 0 };
+            (*raw).eventOnly = if event_only { 1 } else { 0 };
             BellNotifyEvent {
                 ptr: raw
             }
@@ -7476,7 +7476,7 @@ pub const ACTION_MESSAGE: u8 = 9;
 pub type ActionMessageEvent = base::Event<xcb_xkb_action_message_event_t>;
 
 impl ActionMessageEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -7486,7 +7486,7 @@ impl ActionMessageEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -7501,7 +7501,7 @@ impl ActionMessageEvent {
             (*self.ptr).press != 0
         }
     }
-    pub fn keyEventFollows(&self) -> bool {
+    pub fn key_event_follows(&self) -> bool {
         unsafe {
             (*self.ptr).keyEventFollows != 0
         }
@@ -7523,12 +7523,12 @@ impl ActionMessageEvent {
     }
     /// Constructs a new ActionMessageEvent
     /// `response_type` will be set automatically to ACTION_MESSAGE
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
+               device_i_d: u8,
                keycode: xproto::Keycode,
                press: bool,
-               keyEventFollows: bool,
+               key_event_follows: bool,
                mods: u8,
                group: u8,
                message: [String8; 8])
@@ -7536,12 +7536,12 @@ impl ActionMessageEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_action_message_event_t;
             (*raw).response_type = ACTION_MESSAGE;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
+            (*raw).deviceID = device_i_d;
             (*raw).keycode = keycode;
             (*raw).press = if press { 1 } else { 0 };
-            (*raw).keyEventFollows = if keyEventFollows { 1 } else { 0 };
+            (*raw).keyEventFollows = if key_event_follows { 1 } else { 0 };
             (*raw).mods = mods;
             (*raw).group = group;
             (*raw).message = message;
@@ -7557,7 +7557,7 @@ pub const ACCESS_X_NOTIFY: u8 = 10;
 pub type AccessXNotifyEvent = base::Event<xcb_xkb_access_x_notify_event_t>;
 
 impl AccessXNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -7567,7 +7567,7 @@ impl AccessXNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -7582,36 +7582,36 @@ impl AccessXNotifyEvent {
             (*self.ptr).detailt
         }
     }
-    pub fn slowKeysDelay(&self) -> u16 {
+    pub fn slow_keys_delay(&self) -> u16 {
         unsafe {
             (*self.ptr).slowKeysDelay
         }
     }
-    pub fn debounceDelay(&self) -> u16 {
+    pub fn debounce_delay(&self) -> u16 {
         unsafe {
             (*self.ptr).debounceDelay
         }
     }
     /// Constructs a new AccessXNotifyEvent
     /// `response_type` will be set automatically to ACCESS_X_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
+               device_i_d: u8,
                keycode: xproto::Keycode,
                detailt: u16,
-               slowKeysDelay: u16,
-               debounceDelay: u16)
+               slow_keys_delay: u16,
+               debounce_delay: u16)
             -> AccessXNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_access_x_notify_event_t;
             (*raw).response_type = ACCESS_X_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
+            (*raw).deviceID = device_i_d;
             (*raw).keycode = keycode;
             (*raw).detailt = detailt;
-            (*raw).slowKeysDelay = slowKeysDelay;
-            (*raw).debounceDelay = debounceDelay;
+            (*raw).slowKeysDelay = slow_keys_delay;
+            (*raw).debounceDelay = debounce_delay;
             AccessXNotifyEvent {
                 ptr: raw
             }
@@ -7624,7 +7624,7 @@ pub const EXTENSION_DEVICE_NOTIFY: u8 = 11;
 pub type ExtensionDeviceNotifyEvent = base::Event<xcb_xkb_extension_device_notify_event_t>;
 
 impl ExtensionDeviceNotifyEvent {
-    pub fn xkbType(&self) -> u8 {
+    pub fn xkb_type(&self) -> u8 {
         unsafe {
             (*self.ptr).xkbType
         }
@@ -7634,7 +7634,7 @@ impl ExtensionDeviceNotifyEvent {
             (*self.ptr).time
         }
     }
-    pub fn deviceID(&self) -> u8 {
+    pub fn device_i_d(&self) -> u8 {
         unsafe {
             (*self.ptr).deviceID
         }
@@ -7644,32 +7644,32 @@ impl ExtensionDeviceNotifyEvent {
             (*self.ptr).reason
         }
     }
-    pub fn ledClass(&self) -> u16 {
+    pub fn led_class(&self) -> u16 {
         unsafe {
             (*self.ptr).ledClass
         }
     }
-    pub fn ledID(&self) -> u16 {
+    pub fn led_i_d(&self) -> u16 {
         unsafe {
             (*self.ptr).ledID
         }
     }
-    pub fn ledsDefined(&self) -> u32 {
+    pub fn leds_defined(&self) -> u32 {
         unsafe {
             (*self.ptr).ledsDefined
         }
     }
-    pub fn ledState(&self) -> u32 {
+    pub fn led_state(&self) -> u32 {
         unsafe {
             (*self.ptr).ledState
         }
     }
-    pub fn firstButton(&self) -> u8 {
+    pub fn first_button(&self) -> u8 {
         unsafe {
             (*self.ptr).firstButton
         }
     }
-    pub fn nButtons(&self) -> u8 {
+    pub fn n_buttons(&self) -> u8 {
         unsafe {
             (*self.ptr).nButtons
         }
@@ -7686,32 +7686,32 @@ impl ExtensionDeviceNotifyEvent {
     }
     /// Constructs a new ExtensionDeviceNotifyEvent
     /// `response_type` will be set automatically to EXTENSION_DEVICE_NOTIFY
-    pub fn new(xkbType: u8,
+    pub fn new(xkb_type: u8,
                time: xproto::Timestamp,
-               deviceID: u8,
+               device_i_d: u8,
                reason: u16,
-               ledClass: u16,
-               ledID: u16,
-               ledsDefined: u32,
-               ledState: u32,
-               firstButton: u8,
-               nButtons: u8,
+               led_class: u16,
+               led_i_d: u16,
+               leds_defined: u32,
+               led_state: u32,
+               first_button: u8,
+               n_buttons: u8,
                supported: u16,
                unsupported: u16)
             -> ExtensionDeviceNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_extension_device_notify_event_t;
             (*raw).response_type = EXTENSION_DEVICE_NOTIFY;
-            (*raw).xkbType = xkbType;
+            (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = deviceID;
+            (*raw).deviceID = device_i_d;
             (*raw).reason = reason;
-            (*raw).ledClass = ledClass;
-            (*raw).ledID = ledID;
-            (*raw).ledsDefined = ledsDefined;
-            (*raw).ledState = ledState;
-            (*raw).firstButton = firstButton;
-            (*raw).nButtons = nButtons;
+            (*raw).ledClass = led_class;
+            (*raw).ledID = led_i_d;
+            (*raw).ledsDefined = leds_defined;
+            (*raw).ledState = led_state;
+            (*raw).firstButton = first_button;
+            (*raw).nButtons = n_buttons;
             (*raw).supported = supported;
             (*raw).unsupported = unsupported;
             ExtensionDeviceNotifyEvent {

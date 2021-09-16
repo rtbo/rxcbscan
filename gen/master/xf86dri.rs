@@ -694,22 +694,22 @@ impl GetDrawableInfoReply {
             (*self.ptr).drawable_table_stamp
         }
     }
-    pub fn drawable_origin_X(&self) -> i16 {
+    pub fn drawable_origin__x(&self) -> i16 {
         unsafe {
             (*self.ptr).drawable_origin_X
         }
     }
-    pub fn drawable_origin_Y(&self) -> i16 {
+    pub fn drawable_origin__y(&self) -> i16 {
         unsafe {
             (*self.ptr).drawable_origin_Y
         }
     }
-    pub fn drawable_size_W(&self) -> i16 {
+    pub fn drawable_size__w(&self) -> i16 {
         unsafe {
             (*self.ptr).drawable_size_W
         }
     }
-    pub fn drawable_size_H(&self) -> i16 {
+    pub fn drawable_size__h(&self) -> i16 {
         unsafe {
             (*self.ptr).drawable_size_H
         }
