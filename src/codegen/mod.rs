@@ -1221,6 +1221,7 @@ fn expr_lenfield(expr: &Expr<usize>) -> Option<&str> {
         Expr::FieldRef(name) => Some(name),
         Expr::Op(_, lhs, rhs) => expr_lenfield(&lhs).or_else(|| expr_lenfield(&rhs)),
         Expr::Unop(_, rhs) => expr_lenfield(&rhs),
+        Expr::Popcount(e) => expr_lenfield(&e),
         _ => None,
     }
 }

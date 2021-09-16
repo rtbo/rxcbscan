@@ -86,6 +86,12 @@ impl CodeGen {
                                 "        unsafe {{ std::mem::transmute({}.{}) }}",
                                 &accessor, &ffi_name
                             )?;
+                        } else if !is_pod && !is_simple {
+                            writeln!(
+                                out,
+                                "        unsafe {{ std::mem::transmute(&{}.{}) }}",
+                                &accessor, &ffi_name
+                            )?;
                         } else {
                             writeln!(out, "        unsafe {{ {}.{} }}", &accessor, &ffi_name)?;
                         }
@@ -488,41 +494,52 @@ impl CodeGen {
                 StructField::Field { name, typ, .. } => {
                     let name = symbol(name);
                     let f_rs_typ = self.rs_use_type_name(&typ);
+                    let has_lifetime = self.type_has_lifetime(&typ);
 
                     let out = &mut self.rs_buf;
                     emit_doc_field(out, &doc, &name)?;
 
-                    writeln!(out)?;
-                    writeln!(out, "    pub fn {}(&self) -> {} {{", &name, &f_rs_typ)?;
-                    writeln!(out, "        unsafe {{")?;
-                    writeln!(
-                        out,
-                        "            let _ptr = self.data.as_ptr() as *const {};",
-                        &f_rs_typ
-                    )?;
-                    writeln!(out, "            *_ptr")?;
-                    writeln!(out, "        }}")?;
-                    writeln!(out, "    }}")?;
-                    writeln!(
-                        out,
-                        "    pub fn from_{}({}: {}) -> {} {{",
-                        &name, &name, &f_rs_typ, &rs_typ
-                    )?;
-                    writeln!(out, "        unsafe {{")?;
-                    writeln!(
-                        out,
-                        "            let mut res = {} {{ data: [0; {}] }};",
-                        &rs_typ, ffi_sz
-                    )?;
-                    writeln!(
-                        out,
-                        "            let res_ptr = res.data.as_mut_ptr() as *mut {};",
-                        &f_rs_typ
-                    )?;
-                    writeln!(out, "            *res_ptr = {};", &name)?;
-                    writeln!(out, "            res")?;
-                    writeln!(out, "        }}")?;
-                    writeln!(out, "    }}")?;
+                    if has_lifetime {
+                        writeln!(
+                            out,
+                            "    pub fn {}<'a> (&'a self) -> {}<'a> {{",
+                            &name, &f_rs_typ
+                        )?;
+                        writeln!(out, "        unsafe {{ std::mem::transmute(self) }}")?;
+                        writeln!(out, "    }}")?;
+                    } else {
+                        writeln!(out)?;
+                        writeln!(out, "    pub fn {}(&self) -> {} {{", &name, &f_rs_typ)?;
+                        writeln!(out, "        unsafe {{")?;
+                        writeln!(
+                            out,
+                            "            let _ptr = self.data.as_ptr() as *const {};",
+                            &f_rs_typ
+                        )?;
+                        writeln!(out, "            *_ptr")?;
+                        writeln!(out, "        }}")?;
+                        writeln!(out, "    }}")?;
+                        writeln!(
+                            out,
+                            "    pub fn from_{}({}: {}) -> {} {{",
+                            &name, &name, &f_rs_typ, &rs_typ
+                        )?;
+                        writeln!(out, "        unsafe {{")?;
+                        writeln!(
+                            out,
+                            "            let mut res = {} {{ data: [0; {}] }};",
+                            &rs_typ, ffi_sz
+                        )?;
+                        writeln!(
+                            out,
+                            "            let res_ptr = res.data.as_mut_ptr() as *mut {};",
+                            &f_rs_typ
+                        )?;
+                        writeln!(out, "            *res_ptr = {};", &name)?;
+                        writeln!(out, "            res")?;
+                        writeln!(out, "        }}")?;
+                        writeln!(out, "    }}")?;
+                    }
                 }
                 StructField::List {
                     name,
@@ -780,8 +797,8 @@ impl CodeGen {
         &mut self,
         req_name: &str,
         switch_name: &str,
-        _cases: &[SwitchCase],
-        _toplevel: &str,
+        cases: &[SwitchCase],
+        toplevel_typ: &str,
         _parent_switch: Option<&str>,
     ) -> io::Result<()> {
         let ffi_typ = ffi::switch_struct_name(&self.xcb_mod_prefix, &req_name, &switch_name);
@@ -794,6 +811,25 @@ impl CodeGen {
             "pub type {}<'a> = base::StructPtr<'a, {}>;",
             &rs_typ, &ffi_typ
         )?;
+
+        for c in cases.iter() {
+            for f in c.fields.iter() {
+                if let StructField::Switch(cname, _, ccases) = f {
+                    let rs_typ = if let Some(name) = &c.name {
+                        rs_typ.clone() + &tit_cap(&name)
+                    } else {
+                        rs_typ.clone()
+                    };
+                    self.emit_rs_switch_typedef(
+                        &rs_typ,
+                        cname,
+                        ccases,
+                        &toplevel_typ,
+                        Some(&ffi_typ),
+                    )?;
+                }
+            }
+        }
 
         Ok(())
     }
@@ -926,6 +962,7 @@ impl CodeGen {
         writeln!(out, "    unsafe {{")?;
 
         let mut issued_len_vars = Vec::new();
+        let mut issued_list_vars = Vec::new();
 
         // local variables
         if event_is_list {
@@ -940,6 +977,7 @@ impl CodeGen {
             lenfield,
         } in list_fields.iter()
         {
+            issued_list_vars.push(name);
             let name = symbol(&name);
             if typ == "char" {
                 writeln!(out, "        let {} = {}.as_bytes();", &name, &name)?;
@@ -952,6 +990,16 @@ impl CodeGen {
         }
         for f in params.iter() {
             match f {
+                StructField::List { name, .. } => {
+                    if issued_list_vars.contains(&name) {
+                        continue;
+                    }
+                    if send_event && name == "event" {
+                        continue;
+                    }
+                    let name = symbol(&name);
+                    writeln!(out, "        let {}_ptr = {}.as_ptr();", &name, &name)?;
+                }
                 StructField::ValueParam { list_name, .. } => {
                     let list_sym = symbol(&list_name);
                     writeln!(
@@ -1137,7 +1185,17 @@ impl CodeGen {
             writeln!(out, "        }}")?;
             writeln!(out, "    }}")?;
             writeln!(out, "}}")?;
+        }
 
+        for f in &reply.fields {
+            if let StructField::Switch(name, _, cases) = f {
+                let toplevel = req_name.to_string() + "Reply";
+                self.emit_rs_switch_typedef(&req_name, name, &cases, &toplevel, None)?;
+            }
+        }
+
+        {
+            let out = &mut self.rs_buf;
             writeln!(out)?;
             writeln!(
                 out,
@@ -1215,6 +1273,24 @@ fn field_doc_name(f: &StructField) -> Option<&str> {
 
 fn field_name(name: &str) -> &str {
     symbol(name)
+    // let is_high = |c: char| c.is_ascii_uppercase();
+    // let keywords = ["type", "new", "match", "str"];
+
+    // let mut res = String::new();
+
+    // for c in name.chars() {
+    //     if is_high(c) {
+    //         res.push('_');
+    //         res.push(c.to_ascii_lowercase());
+    //     } else {
+    //         res.push(c);
+    //     }
+    // }
+
+    // if keywords.contains(&res.as_str()) {
+    //     res.push('_');
+    // }
+    // res
 }
 
 pub fn enum_item_name(name: &str, item: &str) -> String {
