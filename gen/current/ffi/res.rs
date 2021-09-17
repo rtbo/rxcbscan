@@ -19,8 +19,8 @@ pub struct xcb_res_client_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_res_client_iterator_t {
-    pub data:  *mut xcb_res_client_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_res_client_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -34,8 +34,8 @@ pub struct xcb_res_type_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_res_type_iterator_t {
-    pub data:  *mut xcb_res_type_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_res_type_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -53,8 +53,8 @@ pub struct xcb_res_client_id_spec_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_res_client_id_spec_iterator_t {
-    pub data:  *mut xcb_res_client_id_spec_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_res_client_id_spec_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -68,8 +68,8 @@ pub struct xcb_res_client_id_value_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_res_client_id_value_iterator_t<'a> {
-    pub data:  *mut xcb_res_client_id_value_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_res_client_id_value_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_res_client_id_value_t>,
 }
@@ -84,8 +84,8 @@ pub struct xcb_res_resource_id_spec_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_res_resource_id_spec_iterator_t {
-    pub data:  *mut xcb_res_resource_id_spec_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_res_resource_id_spec_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -101,8 +101,8 @@ pub struct xcb_res_resource_size_spec_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_res_resource_size_spec_iterator_t {
-    pub data:  *mut xcb_res_resource_size_spec_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_res_resource_size_spec_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -116,8 +116,8 @@ pub struct xcb_res_resource_size_value_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_res_resource_size_value_iterator_t<'a> {
-    pub data:  *mut xcb_res_resource_size_value_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_res_resource_size_value_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_res_resource_size_value_t>,
 }
@@ -292,172 +292,205 @@ pub struct xcb_res_query_resource_bytes_reply_t {
 }
 
 #[link(name = "xcb-res")]
-extern {
+extern "C" {
 
-pub static mut xcb_res_id: xcb_extension_t;
+    pub static mut xcb_res_id: xcb_extension_t;
 
-pub fn xcb_res_client_next(i: *mut xcb_res_client_iterator_t);
+    pub fn xcb_res_client_next(i: *mut xcb_res_client_iterator_t);
 
-pub fn xcb_res_client_end(i: *mut xcb_res_client_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_res_client_end(i: *mut xcb_res_client_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_res_type_next(i: *mut xcb_res_type_iterator_t);
+    pub fn xcb_res_type_next(i: *mut xcb_res_type_iterator_t);
 
-pub fn xcb_res_type_end(i: *mut xcb_res_type_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_res_type_end(i: *mut xcb_res_type_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_res_client_id_spec_next(i: *mut xcb_res_client_id_spec_iterator_t);
+    pub fn xcb_res_client_id_spec_next(i: *mut xcb_res_client_id_spec_iterator_t);
 
-pub fn xcb_res_client_id_spec_end(i: *mut xcb_res_client_id_spec_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_res_client_id_spec_end(
+        i: *mut xcb_res_client_id_spec_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_res_client_id_value_value(R: *const xcb_res_client_id_value_t) -> *mut u32;
+    pub fn xcb_res_client_id_value_value(R: *const xcb_res_client_id_value_t) -> *mut u32;
 
-pub fn xcb_res_client_id_value_value_length(R: *const xcb_res_client_id_value_t) -> c_int;
+    pub fn xcb_res_client_id_value_value_length(R: *const xcb_res_client_id_value_t) -> c_int;
 
-pub fn xcb_res_client_id_value_value_end(R: *const xcb_res_client_id_value_t) -> xcb_generic_iterator_t;
+    pub fn xcb_res_client_id_value_value_end(
+        R: *const xcb_res_client_id_value_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_res_client_id_value_next(i: *mut xcb_res_client_id_value_iterator_t);
+    pub fn xcb_res_client_id_value_next(i: *mut xcb_res_client_id_value_iterator_t);
 
-pub fn xcb_res_client_id_value_end(i: *mut xcb_res_client_id_value_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_res_client_id_value_end(
+        i: *mut xcb_res_client_id_value_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_res_resource_id_spec_next(i: *mut xcb_res_resource_id_spec_iterator_t);
+    pub fn xcb_res_resource_id_spec_next(i: *mut xcb_res_resource_id_spec_iterator_t);
 
-pub fn xcb_res_resource_id_spec_end(i: *mut xcb_res_resource_id_spec_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_res_resource_id_spec_end(
+        i: *mut xcb_res_resource_id_spec_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_res_resource_size_spec_next(i: *mut xcb_res_resource_size_spec_iterator_t);
+    pub fn xcb_res_resource_size_spec_next(i: *mut xcb_res_resource_size_spec_iterator_t);
 
-pub fn xcb_res_resource_size_spec_end(i: *mut xcb_res_resource_size_spec_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_res_resource_size_spec_end(
+        i: *mut xcb_res_resource_size_spec_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_res_resource_size_value_cross_references(R: *const xcb_res_resource_size_value_t) -> *mut xcb_res_resource_size_spec_t;
+    pub fn xcb_res_resource_size_value_cross_references(
+        R: *const xcb_res_resource_size_value_t,
+    ) -> *mut xcb_res_resource_size_spec_t;
 
-pub fn xcb_res_resource_size_value_cross_references_length(R: *const xcb_res_resource_size_value_t) -> c_int;
+    pub fn xcb_res_resource_size_value_cross_references_length(
+        R: *const xcb_res_resource_size_value_t,
+    ) -> c_int;
 
-pub fn xcb_res_resource_size_value_cross_references_iterator(R: *const xcb_res_resource_size_value_t) -> xcb_res_resource_size_spec_iterator_t;
+    pub fn xcb_res_resource_size_value_cross_references_iterator(
+        R: *const xcb_res_resource_size_value_t,
+    ) -> xcb_res_resource_size_spec_iterator_t;
 
-pub fn xcb_res_resource_size_value_next(i: *mut xcb_res_resource_size_value_iterator_t);
+    pub fn xcb_res_resource_size_value_next(i: *mut xcb_res_resource_size_value_iterator_t);
 
-pub fn xcb_res_resource_size_value_end(i: *mut xcb_res_resource_size_value_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_res_resource_size_value_end(
+        i: *mut xcb_res_resource_size_value_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_res_query_version_reply (
+    pub fn xcb_res_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_res_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_res_query_version_reply_t;
 
-    pub fn xcb_res_query_version (
+    pub fn xcb_res_query_version(
         c: *mut xcb_connection_t,
         client_major: u8,
         client_minor: u8,
     ) -> xcb_res_query_version_cookie_t;
 
-    pub fn xcb_res_query_version_unchecked (
+    pub fn xcb_res_query_version_unchecked(
         c: *mut xcb_connection_t,
         client_major: u8,
         client_minor: u8,
     ) -> xcb_res_query_version_cookie_t;
 
-pub fn xcb_res_query_clients_clients(R: *const xcb_res_query_clients_reply_t) -> *mut xcb_res_client_t;
+    pub fn xcb_res_query_clients_clients(
+        R: *const xcb_res_query_clients_reply_t,
+    ) -> *mut xcb_res_client_t;
 
-pub fn xcb_res_query_clients_clients_length(R: *const xcb_res_query_clients_reply_t) -> c_int;
+    pub fn xcb_res_query_clients_clients_length(R: *const xcb_res_query_clients_reply_t) -> c_int;
 
-pub fn xcb_res_query_clients_clients_iterator(R: *const xcb_res_query_clients_reply_t) -> xcb_res_client_iterator_t;
+    pub fn xcb_res_query_clients_clients_iterator(
+        R: *const xcb_res_query_clients_reply_t,
+    ) -> xcb_res_client_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_res_query_clients_reply (
+    pub fn xcb_res_query_clients_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_res_query_clients_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_res_query_clients_reply_t;
 
-    pub fn xcb_res_query_clients (
+    pub fn xcb_res_query_clients(c: *mut xcb_connection_t) -> xcb_res_query_clients_cookie_t;
+
+    pub fn xcb_res_query_clients_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_res_query_clients_cookie_t;
 
-    pub fn xcb_res_query_clients_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_res_query_clients_cookie_t;
+    pub fn xcb_res_query_client_resources_types(
+        R: *const xcb_res_query_client_resources_reply_t,
+    ) -> *mut xcb_res_type_t;
 
-pub fn xcb_res_query_client_resources_types(R: *const xcb_res_query_client_resources_reply_t) -> *mut xcb_res_type_t;
+    pub fn xcb_res_query_client_resources_types_length(
+        R: *const xcb_res_query_client_resources_reply_t,
+    ) -> c_int;
 
-pub fn xcb_res_query_client_resources_types_length(R: *const xcb_res_query_client_resources_reply_t) -> c_int;
-
-pub fn xcb_res_query_client_resources_types_iterator(R: *const xcb_res_query_client_resources_reply_t) -> xcb_res_type_iterator_t;
+    pub fn xcb_res_query_client_resources_types_iterator(
+        R: *const xcb_res_query_client_resources_reply_t,
+    ) -> xcb_res_type_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_res_query_client_resources_reply (
+    pub fn xcb_res_query_client_resources_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_res_query_client_resources_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_res_query_client_resources_reply_t;
 
-    pub fn xcb_res_query_client_resources (
+    pub fn xcb_res_query_client_resources(
         c: *mut xcb_connection_t,
         xid: u32,
     ) -> xcb_res_query_client_resources_cookie_t;
 
-    pub fn xcb_res_query_client_resources_unchecked (
+    pub fn xcb_res_query_client_resources_unchecked(
         c: *mut xcb_connection_t,
         xid: u32,
     ) -> xcb_res_query_client_resources_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_res_query_client_pixmap_bytes_reply (
+    pub fn xcb_res_query_client_pixmap_bytes_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_res_query_client_pixmap_bytes_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_res_query_client_pixmap_bytes_reply_t;
 
-    pub fn xcb_res_query_client_pixmap_bytes (
+    pub fn xcb_res_query_client_pixmap_bytes(
         c: *mut xcb_connection_t,
         xid: u32,
     ) -> xcb_res_query_client_pixmap_bytes_cookie_t;
 
-    pub fn xcb_res_query_client_pixmap_bytes_unchecked (
+    pub fn xcb_res_query_client_pixmap_bytes_unchecked(
         c: *mut xcb_connection_t,
         xid: u32,
     ) -> xcb_res_query_client_pixmap_bytes_cookie_t;
 
-pub fn xcb_res_query_client_ids_ids_length(R: *const xcb_res_query_client_ids_reply_t) -> c_int;
+    pub fn xcb_res_query_client_ids_ids_length(R: *const xcb_res_query_client_ids_reply_t)
+        -> c_int;
 
-pub fn xcb_res_query_client_ids_ids_iterator<'a>(R: *const xcb_res_query_client_ids_reply_t) -> xcb_res_client_id_value_iterator_t<'a>;
+    pub fn xcb_res_query_client_ids_ids_iterator<'a>(
+        R: *const xcb_res_query_client_ids_reply_t,
+    ) -> xcb_res_client_id_value_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_res_query_client_ids_reply (
+    pub fn xcb_res_query_client_ids_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_res_query_client_ids_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_res_query_client_ids_reply_t;
 
-    pub fn xcb_res_query_client_ids (
+    pub fn xcb_res_query_client_ids(
         c: *mut xcb_connection_t,
         num_specs: u32,
         specs: *const xcb_res_client_id_spec_t,
     ) -> xcb_res_query_client_ids_cookie_t;
 
-    pub fn xcb_res_query_client_ids_unchecked (
+    pub fn xcb_res_query_client_ids_unchecked(
         c: *mut xcb_connection_t,
         num_specs: u32,
         specs: *const xcb_res_client_id_spec_t,
     ) -> xcb_res_query_client_ids_cookie_t;
 
-pub fn xcb_res_query_resource_bytes_sizes_length(R: *const xcb_res_query_resource_bytes_reply_t) -> c_int;
+    pub fn xcb_res_query_resource_bytes_sizes_length(
+        R: *const xcb_res_query_resource_bytes_reply_t,
+    ) -> c_int;
 
-pub fn xcb_res_query_resource_bytes_sizes_iterator<'a>(R: *const xcb_res_query_resource_bytes_reply_t) -> xcb_res_resource_size_value_iterator_t<'a>;
+    pub fn xcb_res_query_resource_bytes_sizes_iterator<'a>(
+        R: *const xcb_res_query_resource_bytes_reply_t,
+    ) -> xcb_res_resource_size_value_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_res_query_resource_bytes_reply (
+    pub fn xcb_res_query_resource_bytes_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_res_query_resource_bytes_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_res_query_resource_bytes_reply_t;
 
-    pub fn xcb_res_query_resource_bytes (
+    pub fn xcb_res_query_resource_bytes(
         c: *mut xcb_connection_t,
         client: u32,
         num_specs: u32,
         specs: *const xcb_res_resource_id_spec_t,
     ) -> xcb_res_query_resource_bytes_cookie_t;
 
-    pub fn xcb_res_query_resource_bytes_unchecked (
+    pub fn xcb_res_query_resource_bytes_unchecked(
         c: *mut xcb_connection_t,
         client: u32,
         num_specs: u32,

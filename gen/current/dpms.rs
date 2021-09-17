@@ -8,11 +8,8 @@ use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
 
-
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_dpms_id
-    }
+    unsafe { &mut xcb_dpms_id }
 }
 
 pub const MAJOR_VERSION: u32 = 0;
@@ -37,14 +34,14 @@ pub type GetVersionCookie<'a> = base::Cookie<'a, xcb_dpms_get_version_cookie_t>;
 impl<'a> GetVersionCookie<'a> {
     pub fn get_reply(self) -> Result<GetVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetVersionReply {
-                ptr: xcb_dpms_get_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_dpms_get_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -53,7 +50,9 @@ impl<'a> GetVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -122,14 +121,14 @@ pub type CapableCookie<'a> = base::Cookie<'a, xcb_dpms_capable_cookie_t>;
 impl<'a> CapableCookie<'a> {
     pub fn get_reply(self) -> Result<CapableReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             CapableReply {
-                ptr: xcb_dpms_capable_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_dpms_capable_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -138,7 +137,9 @@ impl<'a> CapableCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -153,13 +154,9 @@ impl CapableReply {
     }
 }
 
-pub fn capable<'a>(
-    c: &'a base::Connection,
-) -> CapableCookie<'a> {
+pub fn capable<'a>(c: &'a base::Connection) -> CapableCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_capable(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_capable(c.get_raw_conn());
         CapableCookie {
             cookie: cookie,
             conn: c,
@@ -168,13 +165,9 @@ pub fn capable<'a>(
     }
 }
 
-pub fn capable_unchecked<'a>(
-    c: &'a base::Connection,
-) -> CapableCookie<'a> {
+pub fn capable_unchecked<'a>(c: &'a base::Connection) -> CapableCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_capable_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_capable_unchecked(c.get_raw_conn());
         CapableCookie {
             cookie: cookie,
             conn: c,
@@ -196,14 +189,14 @@ pub type GetTimeoutsCookie<'a> = base::Cookie<'a, xcb_dpms_get_timeouts_cookie_t
 impl<'a> GetTimeoutsCookie<'a> {
     pub fn get_reply(self) -> Result<GetTimeoutsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTimeoutsReply {
-                ptr: xcb_dpms_get_timeouts_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_dpms_get_timeouts_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -212,7 +205,9 @@ impl<'a> GetTimeoutsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -233,13 +228,9 @@ impl GetTimeoutsReply {
     }
 }
 
-pub fn get_timeouts<'a>(
-    c: &'a base::Connection,
-) -> GetTimeoutsCookie<'a> {
+pub fn get_timeouts<'a>(c: &'a base::Connection) -> GetTimeoutsCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_get_timeouts(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_get_timeouts(c.get_raw_conn());
         GetTimeoutsCookie {
             cookie: cookie,
             conn: c,
@@ -248,13 +239,9 @@ pub fn get_timeouts<'a>(
     }
 }
 
-pub fn get_timeouts_unchecked<'a>(
-    c: &'a base::Connection,
-) -> GetTimeoutsCookie<'a> {
+pub fn get_timeouts_unchecked<'a>(c: &'a base::Connection) -> GetTimeoutsCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_get_timeouts_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_get_timeouts_unchecked(c.get_raw_conn());
         GetTimeoutsCookie {
             cookie: cookie,
             conn: c,
@@ -309,13 +296,9 @@ pub fn set_timeouts_checked<'a>(
 
 pub const ENABLE: u8 = 4;
 
-pub fn enable<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn enable<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_enable(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_enable(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -324,13 +307,9 @@ pub fn enable<'a>(
     }
 }
 
-pub fn enable_checked<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn enable_checked<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_enable_checked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_enable_checked(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -341,13 +320,9 @@ pub fn enable_checked<'a>(
 
 pub const DISABLE: u8 = 5;
 
-pub fn disable<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn disable<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_disable(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_disable(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -356,13 +331,9 @@ pub fn disable<'a>(
     }
 }
 
-pub fn disable_checked<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn disable_checked<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_disable_checked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_disable_checked(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -373,15 +344,9 @@ pub fn disable_checked<'a>(
 
 pub const FORCE_LEVEL: u8 = 6;
 
-pub fn force_level<'a>(
-    c: &'a base::Connection,
-    power_level: u16,
-) -> base::VoidCookie<'a> {
+pub fn force_level<'a>(c: &'a base::Connection, power_level: u16) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_force_level(
-            c.get_raw_conn(),
-            power_level as u16,
-        );
+        let cookie = xcb_dpms_force_level(c.get_raw_conn(), power_level as u16);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -390,15 +355,9 @@ pub fn force_level<'a>(
     }
 }
 
-pub fn force_level_checked<'a>(
-    c: &'a base::Connection,
-    power_level: u16,
-) -> base::VoidCookie<'a> {
+pub fn force_level_checked<'a>(c: &'a base::Connection, power_level: u16) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_force_level_checked(
-            c.get_raw_conn(),
-            power_level as u16,
-        );
+        let cookie = xcb_dpms_force_level_checked(c.get_raw_conn(), power_level as u16);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -420,14 +379,14 @@ pub type InfoCookie<'a> = base::Cookie<'a, xcb_dpms_info_cookie_t>;
 impl<'a> InfoCookie<'a> {
     pub fn get_reply(self) -> Result<InfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             InfoReply {
-                ptr: xcb_dpms_info_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_dpms_info_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -436,7 +395,9 @@ impl<'a> InfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -454,13 +415,9 @@ impl InfoReply {
     }
 }
 
-pub fn info<'a>(
-    c: &'a base::Connection,
-) -> InfoCookie<'a> {
+pub fn info<'a>(c: &'a base::Connection) -> InfoCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_info(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_info(c.get_raw_conn());
         InfoCookie {
             cookie: cookie,
             conn: c,
@@ -469,13 +426,9 @@ pub fn info<'a>(
     }
 }
 
-pub fn info_unchecked<'a>(
-    c: &'a base::Connection,
-) -> InfoCookie<'a> {
+pub fn info_unchecked<'a>(c: &'a base::Connection) -> InfoCookie<'a> {
     unsafe {
-        let cookie = xcb_dpms_info_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_dpms_info_unchecked(c.get_raw_conn());
         InfoCookie {
             cookie: cookie,
             conn: c,

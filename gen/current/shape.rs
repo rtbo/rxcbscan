@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::shape::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_shape_id
-    }
+    unsafe { &mut xcb_shape_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -67,7 +64,7 @@ impl NotifyEvent {
     }
     /// Constructs a new NotifyEvent
     /// `response_type` will be set automatically to NOTIFY
-    pub fn new (
+    pub fn new(
         shape_kind: Kind,
         affected_window: xproto::Window,
         extents_x: i16,
@@ -106,14 +103,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_shape_query_version_cooki
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_shape_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_shape_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -122,7 +119,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -140,13 +139,9 @@ impl QueryVersionReply {
     }
 }
 
-pub fn query_version<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_shape_query_version(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_shape_query_version(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -155,13 +150,9 @@ pub fn query_version<'a>(
     }
 }
 
-pub fn query_version_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version_unchecked<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_shape_query_version_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_shape_query_version_unchecked(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -413,14 +404,14 @@ pub type QueryExtentsCookie<'a> = base::Cookie<'a, xcb_shape_query_extents_cooki
 impl<'a> QueryExtentsCookie<'a> {
     pub fn get_reply(self) -> Result<QueryExtentsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryExtentsReply {
-                ptr: xcb_shape_query_extents_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_shape_query_extents_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -429,7 +420,9 @@ impl<'a> QueryExtentsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -476,10 +469,7 @@ pub fn query_extents<'a>(
     destination_window: xproto::Window,
 ) -> QueryExtentsCookie<'a> {
     unsafe {
-        let cookie = xcb_shape_query_extents(
-            c.get_raw_conn(),
-            destination_window as xcb_window_t,
-        );
+        let cookie = xcb_shape_query_extents(c.get_raw_conn(), destination_window as xcb_window_t);
         QueryExtentsCookie {
             cookie: cookie,
             conn: c,
@@ -493,10 +483,8 @@ pub fn query_extents_unchecked<'a>(
     destination_window: xproto::Window,
 ) -> QueryExtentsCookie<'a> {
     unsafe {
-        let cookie = xcb_shape_query_extents_unchecked(
-            c.get_raw_conn(),
-            destination_window as xcb_window_t,
-        );
+        let cookie =
+            xcb_shape_query_extents_unchecked(c.get_raw_conn(), destination_window as xcb_window_t);
         QueryExtentsCookie {
             cookie: cookie,
             conn: c,
@@ -558,14 +546,14 @@ pub type InputSelectedCookie<'a> = base::Cookie<'a, xcb_shape_input_selected_coo
 impl<'a> InputSelectedCookie<'a> {
     pub fn get_reply(self) -> Result<InputSelectedReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             InputSelectedReply {
-                ptr: xcb_shape_input_selected_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_shape_input_selected_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -574,7 +562,9 @@ impl<'a> InputSelectedCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -594,10 +584,7 @@ pub fn input_selected<'a>(
     destination_window: xproto::Window,
 ) -> InputSelectedCookie<'a> {
     unsafe {
-        let cookie = xcb_shape_input_selected(
-            c.get_raw_conn(),
-            destination_window as xcb_window_t,
-        );
+        let cookie = xcb_shape_input_selected(c.get_raw_conn(), destination_window as xcb_window_t);
         InputSelectedCookie {
             cookie: cookie,
             conn: c,
@@ -636,14 +623,14 @@ pub type GetRectanglesCookie<'a> = base::Cookie<'a, xcb_shape_get_rectangles_coo
 impl<'a> GetRectanglesCookie<'a> {
     pub fn get_reply(self) -> Result<GetRectanglesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetRectanglesReply {
-                ptr: xcb_shape_get_rectangles_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_shape_get_rectangles_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -652,7 +639,9 @@ impl<'a> GetRectanglesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }

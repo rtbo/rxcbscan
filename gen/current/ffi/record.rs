@@ -13,8 +13,8 @@ pub type xcb_record_context_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_record_context_iterator_t {
-    pub data:  *mut xcb_record_context_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_record_context_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -28,8 +28,8 @@ pub struct xcb_record_range_8_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_record_range_8_iterator_t {
-    pub data:  *mut xcb_record_range_8_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_record_range_8_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -43,8 +43,8 @@ pub struct xcb_record_range_16_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_record_range_16_iterator_t {
-    pub data:  *mut xcb_record_range_16_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_record_range_16_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -58,8 +58,8 @@ pub struct xcb_record_ext_range_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_record_ext_range_iterator_t {
-    pub data:  *mut xcb_record_ext_range_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_record_ext_range_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -80,8 +80,8 @@ pub struct xcb_record_range_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_record_range_iterator_t {
-    pub data:  *mut xcb_record_range_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_record_range_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -90,8 +90,8 @@ pub type xcb_record_element_header_t = u8;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_record_element_header_iterator_t {
-    pub data:  *mut xcb_record_element_header_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_record_element_header_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -105,8 +105,8 @@ pub type xcb_record_client_spec_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_record_client_spec_iterator_t {
-    pub data:  *mut xcb_record_client_spec_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_record_client_spec_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -125,8 +125,8 @@ pub struct xcb_record_client_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_record_client_info_iterator_t<'a> {
-    pub data:  *mut xcb_record_client_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_record_client_info_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_record_client_info_t>,
 }
@@ -299,68 +299,82 @@ pub struct xcb_record_free_context_request_t {
 }
 
 #[link(name = "xcb-record")]
-extern {
+extern "C" {
 
-pub static mut xcb_record_id: xcb_extension_t;
+    pub static mut xcb_record_id: xcb_extension_t;
 
-pub fn xcb_record_context_next(i: *mut xcb_record_context_iterator_t);
+    pub fn xcb_record_context_next(i: *mut xcb_record_context_iterator_t);
 
-pub fn xcb_record_context_end(i: *mut xcb_record_context_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_record_context_end(i: *mut xcb_record_context_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_record_range_8_next(i: *mut xcb_record_range_8_iterator_t);
+    pub fn xcb_record_range_8_next(i: *mut xcb_record_range_8_iterator_t);
 
-pub fn xcb_record_range_8_end(i: *mut xcb_record_range_8_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_record_range_8_end(i: *mut xcb_record_range_8_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_record_range_16_next(i: *mut xcb_record_range_16_iterator_t);
+    pub fn xcb_record_range_16_next(i: *mut xcb_record_range_16_iterator_t);
 
-pub fn xcb_record_range_16_end(i: *mut xcb_record_range_16_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_record_range_16_end(
+        i: *mut xcb_record_range_16_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_record_ext_range_next(i: *mut xcb_record_ext_range_iterator_t);
+    pub fn xcb_record_ext_range_next(i: *mut xcb_record_ext_range_iterator_t);
 
-pub fn xcb_record_ext_range_end(i: *mut xcb_record_ext_range_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_record_ext_range_end(
+        i: *mut xcb_record_ext_range_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_record_range_next(i: *mut xcb_record_range_iterator_t);
+    pub fn xcb_record_range_next(i: *mut xcb_record_range_iterator_t);
 
-pub fn xcb_record_range_end(i: *mut xcb_record_range_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_record_range_end(i: *mut xcb_record_range_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_record_element_header_next(i: *mut xcb_record_element_header_iterator_t);
+    pub fn xcb_record_element_header_next(i: *mut xcb_record_element_header_iterator_t);
 
-pub fn xcb_record_element_header_end(i: *mut xcb_record_element_header_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_record_element_header_end(
+        i: *mut xcb_record_element_header_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_record_client_spec_next(i: *mut xcb_record_client_spec_iterator_t);
+    pub fn xcb_record_client_spec_next(i: *mut xcb_record_client_spec_iterator_t);
 
-pub fn xcb_record_client_spec_end(i: *mut xcb_record_client_spec_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_record_client_spec_end(
+        i: *mut xcb_record_client_spec_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_record_client_info_ranges(R: *const xcb_record_client_info_t) -> *mut xcb_record_range_t;
+    pub fn xcb_record_client_info_ranges(
+        R: *const xcb_record_client_info_t,
+    ) -> *mut xcb_record_range_t;
 
-pub fn xcb_record_client_info_ranges_length(R: *const xcb_record_client_info_t) -> c_int;
+    pub fn xcb_record_client_info_ranges_length(R: *const xcb_record_client_info_t) -> c_int;
 
-pub fn xcb_record_client_info_ranges_iterator(R: *const xcb_record_client_info_t) -> xcb_record_range_iterator_t;
+    pub fn xcb_record_client_info_ranges_iterator(
+        R: *const xcb_record_client_info_t,
+    ) -> xcb_record_range_iterator_t;
 
-pub fn xcb_record_client_info_next(i: *mut xcb_record_client_info_iterator_t);
+    pub fn xcb_record_client_info_next(i: *mut xcb_record_client_info_iterator_t);
 
-pub fn xcb_record_client_info_end(i: *mut xcb_record_client_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_record_client_info_end(
+        i: *mut xcb_record_client_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_record_query_version_reply (
+    pub fn xcb_record_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_record_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_record_query_version_reply_t;
 
-    pub fn xcb_record_query_version (
+    pub fn xcb_record_query_version(
         c: *mut xcb_connection_t,
         major_version: u16,
         minor_version: u16,
     ) -> xcb_record_query_version_cookie_t;
 
-    pub fn xcb_record_query_version_unchecked (
+    pub fn xcb_record_query_version_unchecked(
         c: *mut xcb_connection_t,
         major_version: u16,
         minor_version: u16,
     ) -> xcb_record_query_version_cookie_t;
 
-    pub fn xcb_record_create_context (
+    pub fn xcb_record_create_context(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
         element_header: xcb_record_element_header_t,
@@ -370,7 +384,7 @@ pub fn xcb_record_client_info_end(i: *mut xcb_record_client_info_iterator_t) -> 
         ranges: *const xcb_record_range_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_record_create_context_checked (
+    pub fn xcb_record_create_context_checked(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
         element_header: xcb_record_element_header_t,
@@ -380,7 +394,7 @@ pub fn xcb_record_client_info_end(i: *mut xcb_record_client_info_iterator_t) -> 
         ranges: *const xcb_record_range_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_record_register_clients (
+    pub fn xcb_record_register_clients(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
         element_header: xcb_record_element_header_t,
@@ -390,7 +404,7 @@ pub fn xcb_record_client_info_end(i: *mut xcb_record_client_info_iterator_t) -> 
         ranges: *const xcb_record_range_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_record_register_clients_checked (
+    pub fn xcb_record_register_clients_checked(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
         element_header: xcb_record_element_header_t,
@@ -400,80 +414,88 @@ pub fn xcb_record_client_info_end(i: *mut xcb_record_client_info_iterator_t) -> 
         ranges: *const xcb_record_range_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_record_unregister_clients (
+    pub fn xcb_record_unregister_clients(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
         num_client_specs: u32,
         client_specs: *const xcb_record_client_spec_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_record_unregister_clients_checked (
+    pub fn xcb_record_unregister_clients_checked(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
         num_client_specs: u32,
         client_specs: *const xcb_record_client_spec_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_record_get_context_intercepted_clients_length(R: *const xcb_record_get_context_reply_t) -> c_int;
+    pub fn xcb_record_get_context_intercepted_clients_length(
+        R: *const xcb_record_get_context_reply_t,
+    ) -> c_int;
 
-pub fn xcb_record_get_context_intercepted_clients_iterator<'a>(R: *const xcb_record_get_context_reply_t) -> xcb_record_client_info_iterator_t<'a>;
+    pub fn xcb_record_get_context_intercepted_clients_iterator<'a>(
+        R: *const xcb_record_get_context_reply_t,
+    ) -> xcb_record_client_info_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_record_get_context_reply (
+    pub fn xcb_record_get_context_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_record_get_context_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_record_get_context_reply_t;
 
-    pub fn xcb_record_get_context (
+    pub fn xcb_record_get_context(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
     ) -> xcb_record_get_context_cookie_t;
 
-    pub fn xcb_record_get_context_unchecked (
+    pub fn xcb_record_get_context_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
     ) -> xcb_record_get_context_cookie_t;
 
-pub fn xcb_record_enable_context_data(R: *const xcb_record_enable_context_reply_t) -> *mut u8;
+    pub fn xcb_record_enable_context_data(R: *const xcb_record_enable_context_reply_t) -> *mut u8;
 
-pub fn xcb_record_enable_context_data_length(R: *const xcb_record_enable_context_reply_t) -> c_int;
+    pub fn xcb_record_enable_context_data_length(
+        R: *const xcb_record_enable_context_reply_t,
+    ) -> c_int;
 
-pub fn xcb_record_enable_context_data_end(R: *const xcb_record_enable_context_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_record_enable_context_data_end(
+        R: *const xcb_record_enable_context_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_record_enable_context_reply (
+    pub fn xcb_record_enable_context_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_record_enable_context_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_record_enable_context_reply_t;
 
-    pub fn xcb_record_enable_context (
+    pub fn xcb_record_enable_context(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
     ) -> xcb_record_enable_context_cookie_t;
 
-    pub fn xcb_record_enable_context_unchecked (
+    pub fn xcb_record_enable_context_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
     ) -> xcb_record_enable_context_cookie_t;
 
-    pub fn xcb_record_disable_context (
+    pub fn xcb_record_disable_context(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_record_disable_context_checked (
+    pub fn xcb_record_disable_context_checked(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_record_free_context (
+    pub fn xcb_record_free_context(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_record_free_context_checked (
+    pub fn xcb_record_free_context_checked(
         c: *mut xcb_connection_t,
         context: xcb_record_context_t,
     ) -> xcb_void_cookie_t;

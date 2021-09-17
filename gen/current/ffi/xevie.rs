@@ -105,8 +105,8 @@ pub struct xcb_xevie_event_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xevie_event_iterator_t {
-    pub data:  *mut xcb_xevie_event_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xevie_event_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -167,99 +167,90 @@ pub struct xcb_xevie_select_input_reply_t {
 }
 
 #[link(name = "xcb-xevie")]
-extern {
+extern "C" {
 
-pub static mut xcb_xevie_id: xcb_extension_t;
+    pub static mut xcb_xevie_id: xcb_extension_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xevie_query_version_reply (
+    pub fn xcb_xevie_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xevie_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xevie_query_version_reply_t;
 
-    pub fn xcb_xevie_query_version (
+    pub fn xcb_xevie_query_version(
         c: *mut xcb_connection_t,
         client_major_version: u16,
         client_minor_version: u16,
     ) -> xcb_xevie_query_version_cookie_t;
 
-    pub fn xcb_xevie_query_version_unchecked (
+    pub fn xcb_xevie_query_version_unchecked(
         c: *mut xcb_connection_t,
         client_major_version: u16,
         client_minor_version: u16,
     ) -> xcb_xevie_query_version_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xevie_start_reply (
+    pub fn xcb_xevie_start_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xevie_start_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xevie_start_reply_t;
 
-    pub fn xcb_xevie_start (
-        c: *mut xcb_connection_t,
-        screen: u32,
-    ) -> xcb_xevie_start_cookie_t;
+    pub fn xcb_xevie_start(c: *mut xcb_connection_t, screen: u32) -> xcb_xevie_start_cookie_t;
 
-    pub fn xcb_xevie_start_unchecked (
+    pub fn xcb_xevie_start_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_xevie_start_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xevie_end_reply (
+    pub fn xcb_xevie_end_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xevie_end_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xevie_end_reply_t;
 
-    pub fn xcb_xevie_end (
-        c: *mut xcb_connection_t,
-        cmap: u32,
-    ) -> xcb_xevie_end_cookie_t;
+    pub fn xcb_xevie_end(c: *mut xcb_connection_t, cmap: u32) -> xcb_xevie_end_cookie_t;
 
-    pub fn xcb_xevie_end_unchecked (
-        c: *mut xcb_connection_t,
-        cmap: u32,
-    ) -> xcb_xevie_end_cookie_t;
+    pub fn xcb_xevie_end_unchecked(c: *mut xcb_connection_t, cmap: u32) -> xcb_xevie_end_cookie_t;
 
-pub fn xcb_xevie_event_next(i: *mut xcb_xevie_event_iterator_t);
+    pub fn xcb_xevie_event_next(i: *mut xcb_xevie_event_iterator_t);
 
-pub fn xcb_xevie_event_end(i: *mut xcb_xevie_event_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xevie_event_end(i: *mut xcb_xevie_event_iterator_t) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xevie_send_reply (
+    pub fn xcb_xevie_send_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xevie_send_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xevie_send_reply_t;
 
-    pub fn xcb_xevie_send (
+    pub fn xcb_xevie_send(
         c: *mut xcb_connection_t,
         event: xcb_xevie_event_t,
         data_type: u32,
     ) -> xcb_xevie_send_cookie_t;
 
-    pub fn xcb_xevie_send_unchecked (
+    pub fn xcb_xevie_send_unchecked(
         c: *mut xcb_connection_t,
         event: xcb_xevie_event_t,
         data_type: u32,
     ) -> xcb_xevie_send_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xevie_select_input_reply (
+    pub fn xcb_xevie_select_input_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xevie_select_input_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xevie_select_input_reply_t;
 
-    pub fn xcb_xevie_select_input (
+    pub fn xcb_xevie_select_input(
         c: *mut xcb_connection_t,
         event_mask: u32,
     ) -> xcb_xevie_select_input_cookie_t;
 
-    pub fn xcb_xevie_select_input_unchecked (
+    pub fn xcb_xevie_select_input_unchecked(
         c: *mut xcb_connection_t,
         event_mask: u32,
     ) -> xcb_xevie_select_input_cookie_t;

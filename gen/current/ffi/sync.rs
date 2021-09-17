@@ -14,8 +14,8 @@ pub type xcb_sync_alarm_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_sync_alarm_iterator_t {
-    pub data:  *mut xcb_sync_alarm_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_sync_alarm_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -29,8 +29,8 @@ pub type xcb_sync_counter_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_sync_counter_iterator_t {
-    pub data:  *mut xcb_sync_counter_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_sync_counter_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -39,8 +39,8 @@ pub type xcb_sync_fence_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_sync_fence_iterator_t {
-    pub data:  *mut xcb_sync_fence_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_sync_fence_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -72,8 +72,8 @@ pub struct xcb_sync_int64_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_sync_int64_iterator_t {
-    pub data:  *mut xcb_sync_int64_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_sync_int64_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -88,8 +88,8 @@ pub struct xcb_sync_systemcounter_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_sync_systemcounter_iterator_t<'a> {
-    pub data:  *mut xcb_sync_systemcounter_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_sync_systemcounter_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_sync_systemcounter_t>,
 }
@@ -106,8 +106,8 @@ pub struct xcb_sync_trigger_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_sync_trigger_iterator_t {
-    pub data:  *mut xcb_sync_trigger_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_sync_trigger_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -121,8 +121,8 @@ pub struct xcb_sync_waitcondition_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_sync_waitcondition_iterator_t {
-    pub data:  *mut xcb_sync_waitcondition_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_sync_waitcondition_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -538,309 +538,319 @@ pub struct xcb_sync_alarm_notify_event_t {
 }
 
 #[link(name = "xcb-sync")]
-extern {
+extern "C" {
 
-pub static mut xcb_sync_id: xcb_extension_t;
+    pub static mut xcb_sync_id: xcb_extension_t;
 
-pub fn xcb_sync_alarm_next(i: *mut xcb_sync_alarm_iterator_t);
+    pub fn xcb_sync_alarm_next(i: *mut xcb_sync_alarm_iterator_t);
 
-pub fn xcb_sync_alarm_end(i: *mut xcb_sync_alarm_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_sync_alarm_end(i: *mut xcb_sync_alarm_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_sync_counter_next(i: *mut xcb_sync_counter_iterator_t);
+    pub fn xcb_sync_counter_next(i: *mut xcb_sync_counter_iterator_t);
 
-pub fn xcb_sync_counter_end(i: *mut xcb_sync_counter_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_sync_counter_end(i: *mut xcb_sync_counter_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_sync_fence_next(i: *mut xcb_sync_fence_iterator_t);
+    pub fn xcb_sync_fence_next(i: *mut xcb_sync_fence_iterator_t);
 
-pub fn xcb_sync_fence_end(i: *mut xcb_sync_fence_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_sync_fence_end(i: *mut xcb_sync_fence_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_sync_int64_next(i: *mut xcb_sync_int64_iterator_t);
+    pub fn xcb_sync_int64_next(i: *mut xcb_sync_int64_iterator_t);
 
-pub fn xcb_sync_int64_end(i: *mut xcb_sync_int64_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_sync_int64_end(i: *mut xcb_sync_int64_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_sync_systemcounter_name(R: *const xcb_sync_systemcounter_t) -> *mut c_char;
+    pub fn xcb_sync_systemcounter_name(R: *const xcb_sync_systemcounter_t) -> *mut c_char;
 
-pub fn xcb_sync_systemcounter_name_length(R: *const xcb_sync_systemcounter_t) -> c_int;
+    pub fn xcb_sync_systemcounter_name_length(R: *const xcb_sync_systemcounter_t) -> c_int;
 
-pub fn xcb_sync_systemcounter_name_end(R: *const xcb_sync_systemcounter_t) -> xcb_generic_iterator_t;
+    pub fn xcb_sync_systemcounter_name_end(
+        R: *const xcb_sync_systemcounter_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_sync_systemcounter_next(i: *mut xcb_sync_systemcounter_iterator_t);
+    pub fn xcb_sync_systemcounter_next(i: *mut xcb_sync_systemcounter_iterator_t);
 
-pub fn xcb_sync_systemcounter_end(i: *mut xcb_sync_systemcounter_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_sync_systemcounter_end(
+        i: *mut xcb_sync_systemcounter_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_sync_trigger_next(i: *mut xcb_sync_trigger_iterator_t);
+    pub fn xcb_sync_trigger_next(i: *mut xcb_sync_trigger_iterator_t);
 
-pub fn xcb_sync_trigger_end(i: *mut xcb_sync_trigger_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_sync_trigger_end(i: *mut xcb_sync_trigger_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_sync_waitcondition_next(i: *mut xcb_sync_waitcondition_iterator_t);
+    pub fn xcb_sync_waitcondition_next(i: *mut xcb_sync_waitcondition_iterator_t);
 
-pub fn xcb_sync_waitcondition_end(i: *mut xcb_sync_waitcondition_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_sync_waitcondition_end(
+        i: *mut xcb_sync_waitcondition_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_sync_initialize_reply (
+    pub fn xcb_sync_initialize_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_sync_initialize_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_sync_initialize_reply_t;
 
-    pub fn xcb_sync_initialize (
+    pub fn xcb_sync_initialize(
         c: *mut xcb_connection_t,
         desired_major_version: u8,
         desired_minor_version: u8,
     ) -> xcb_sync_initialize_cookie_t;
 
-    pub fn xcb_sync_initialize_unchecked (
+    pub fn xcb_sync_initialize_unchecked(
         c: *mut xcb_connection_t,
         desired_major_version: u8,
         desired_minor_version: u8,
     ) -> xcb_sync_initialize_cookie_t;
 
-pub fn xcb_sync_list_system_counters_counters_length(R: *const xcb_sync_list_system_counters_reply_t) -> c_int;
+    pub fn xcb_sync_list_system_counters_counters_length(
+        R: *const xcb_sync_list_system_counters_reply_t,
+    ) -> c_int;
 
-pub fn xcb_sync_list_system_counters_counters_iterator<'a>(R: *const xcb_sync_list_system_counters_reply_t) -> xcb_sync_systemcounter_iterator_t<'a>;
+    pub fn xcb_sync_list_system_counters_counters_iterator<'a>(
+        R: *const xcb_sync_list_system_counters_reply_t,
+    ) -> xcb_sync_systemcounter_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_sync_list_system_counters_reply (
+    pub fn xcb_sync_list_system_counters_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_sync_list_system_counters_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_sync_list_system_counters_reply_t;
 
-    pub fn xcb_sync_list_system_counters (
+    pub fn xcb_sync_list_system_counters(
         c: *mut xcb_connection_t,
     ) -> xcb_sync_list_system_counters_cookie_t;
 
-    pub fn xcb_sync_list_system_counters_unchecked (
+    pub fn xcb_sync_list_system_counters_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_sync_list_system_counters_cookie_t;
 
-    pub fn xcb_sync_create_counter (
+    pub fn xcb_sync_create_counter(
         c: *mut xcb_connection_t,
         id: xcb_sync_counter_t,
         initial_value: xcb_sync_int64_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_create_counter_checked (
+    pub fn xcb_sync_create_counter_checked(
         c: *mut xcb_connection_t,
         id: xcb_sync_counter_t,
         initial_value: xcb_sync_int64_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_destroy_counter (
+    pub fn xcb_sync_destroy_counter(
         c: *mut xcb_connection_t,
         counter: xcb_sync_counter_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_destroy_counter_checked (
+    pub fn xcb_sync_destroy_counter_checked(
         c: *mut xcb_connection_t,
         counter: xcb_sync_counter_t,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_sync_query_counter_reply (
+    pub fn xcb_sync_query_counter_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_sync_query_counter_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_sync_query_counter_reply_t;
 
-    pub fn xcb_sync_query_counter (
+    pub fn xcb_sync_query_counter(
         c: *mut xcb_connection_t,
         counter: xcb_sync_counter_t,
     ) -> xcb_sync_query_counter_cookie_t;
 
-    pub fn xcb_sync_query_counter_unchecked (
+    pub fn xcb_sync_query_counter_unchecked(
         c: *mut xcb_connection_t,
         counter: xcb_sync_counter_t,
     ) -> xcb_sync_query_counter_cookie_t;
 
-    pub fn xcb_sync_await (
+    pub fn xcb_sync_await(
         c: *mut xcb_connection_t,
         wait_list_len: u32,
         wait_list: *const xcb_sync_waitcondition_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_await_checked (
+    pub fn xcb_sync_await_checked(
         c: *mut xcb_connection_t,
         wait_list_len: u32,
         wait_list: *const xcb_sync_waitcondition_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_change_counter (
+    pub fn xcb_sync_change_counter(
         c: *mut xcb_connection_t,
         counter: xcb_sync_counter_t,
         amount: xcb_sync_int64_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_change_counter_checked (
+    pub fn xcb_sync_change_counter_checked(
         c: *mut xcb_connection_t,
         counter: xcb_sync_counter_t,
         amount: xcb_sync_int64_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_set_counter (
+    pub fn xcb_sync_set_counter(
         c: *mut xcb_connection_t,
         counter: xcb_sync_counter_t,
         value: xcb_sync_int64_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_set_counter_checked (
+    pub fn xcb_sync_set_counter_checked(
         c: *mut xcb_connection_t,
         counter: xcb_sync_counter_t,
         value: xcb_sync_int64_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_create_alarm (
+    pub fn xcb_sync_create_alarm(
         c: *mut xcb_connection_t,
         id: xcb_sync_alarm_t,
         value_mask: u32,
         value_list: *const xcb_sync_create_alarm_value_list_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_create_alarm_checked (
+    pub fn xcb_sync_create_alarm_checked(
         c: *mut xcb_connection_t,
         id: xcb_sync_alarm_t,
         value_mask: u32,
         value_list: *const xcb_sync_create_alarm_value_list_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_change_alarm (
+    pub fn xcb_sync_change_alarm(
         c: *mut xcb_connection_t,
         id: xcb_sync_alarm_t,
         value_mask: u32,
         value_list: *const xcb_sync_change_alarm_value_list_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_change_alarm_checked (
+    pub fn xcb_sync_change_alarm_checked(
         c: *mut xcb_connection_t,
         id: xcb_sync_alarm_t,
         value_mask: u32,
         value_list: *const xcb_sync_change_alarm_value_list_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_destroy_alarm (
+    pub fn xcb_sync_destroy_alarm(
         c: *mut xcb_connection_t,
         alarm: xcb_sync_alarm_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_destroy_alarm_checked (
+    pub fn xcb_sync_destroy_alarm_checked(
         c: *mut xcb_connection_t,
         alarm: xcb_sync_alarm_t,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_sync_query_alarm_reply (
+    pub fn xcb_sync_query_alarm_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_sync_query_alarm_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_sync_query_alarm_reply_t;
 
-    pub fn xcb_sync_query_alarm (
+    pub fn xcb_sync_query_alarm(
         c: *mut xcb_connection_t,
         alarm: xcb_sync_alarm_t,
     ) -> xcb_sync_query_alarm_cookie_t;
 
-    pub fn xcb_sync_query_alarm_unchecked (
+    pub fn xcb_sync_query_alarm_unchecked(
         c: *mut xcb_connection_t,
         alarm: xcb_sync_alarm_t,
     ) -> xcb_sync_query_alarm_cookie_t;
 
-    pub fn xcb_sync_set_priority (
+    pub fn xcb_sync_set_priority(
         c: *mut xcb_connection_t,
         id: u32,
         priority: i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_set_priority_checked (
+    pub fn xcb_sync_set_priority_checked(
         c: *mut xcb_connection_t,
         id: u32,
         priority: i32,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_sync_get_priority_reply (
+    pub fn xcb_sync_get_priority_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_sync_get_priority_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_sync_get_priority_reply_t;
 
-    pub fn xcb_sync_get_priority (
+    pub fn xcb_sync_get_priority(
         c: *mut xcb_connection_t,
         id: u32,
     ) -> xcb_sync_get_priority_cookie_t;
 
-    pub fn xcb_sync_get_priority_unchecked (
+    pub fn xcb_sync_get_priority_unchecked(
         c: *mut xcb_connection_t,
         id: u32,
     ) -> xcb_sync_get_priority_cookie_t;
 
-    pub fn xcb_sync_create_fence (
+    pub fn xcb_sync_create_fence(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         fence: xcb_sync_fence_t,
         initially_triggered: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_create_fence_checked (
+    pub fn xcb_sync_create_fence_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         fence: xcb_sync_fence_t,
         initially_triggered: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_trigger_fence (
+    pub fn xcb_sync_trigger_fence(
         c: *mut xcb_connection_t,
         fence: xcb_sync_fence_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_trigger_fence_checked (
+    pub fn xcb_sync_trigger_fence_checked(
         c: *mut xcb_connection_t,
         fence: xcb_sync_fence_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_reset_fence (
+    pub fn xcb_sync_reset_fence(
         c: *mut xcb_connection_t,
         fence: xcb_sync_fence_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_reset_fence_checked (
+    pub fn xcb_sync_reset_fence_checked(
         c: *mut xcb_connection_t,
         fence: xcb_sync_fence_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_destroy_fence (
+    pub fn xcb_sync_destroy_fence(
         c: *mut xcb_connection_t,
         fence: xcb_sync_fence_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_destroy_fence_checked (
+    pub fn xcb_sync_destroy_fence_checked(
         c: *mut xcb_connection_t,
         fence: xcb_sync_fence_t,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_sync_query_fence_reply (
+    pub fn xcb_sync_query_fence_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_sync_query_fence_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_sync_query_fence_reply_t;
 
-    pub fn xcb_sync_query_fence (
+    pub fn xcb_sync_query_fence(
         c: *mut xcb_connection_t,
         fence: xcb_sync_fence_t,
     ) -> xcb_sync_query_fence_cookie_t;
 
-    pub fn xcb_sync_query_fence_unchecked (
+    pub fn xcb_sync_query_fence_unchecked(
         c: *mut xcb_connection_t,
         fence: xcb_sync_fence_t,
     ) -> xcb_sync_query_fence_cookie_t;
 
-    pub fn xcb_sync_await_fence (
+    pub fn xcb_sync_await_fence(
         c: *mut xcb_connection_t,
         fence_list_len: u32,
         fence_list: *const xcb_sync_fence_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_sync_await_fence_checked (
+    pub fn xcb_sync_await_fence_checked(
         c: *mut xcb_connection_t,
         fence_list_len: u32,
         fence_list: *const xcb_sync_fence_t,

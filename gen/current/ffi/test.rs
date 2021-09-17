@@ -102,49 +102,49 @@ pub struct xcb_test_grab_control_request_t {
 }
 
 #[link(name = "xcb-xtest")]
-extern {
+extern "C" {
 
-pub static mut xcb_test_id: xcb_extension_t;
+    pub static mut xcb_test_id: xcb_extension_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_test_get_version_reply (
+    pub fn xcb_test_get_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_test_get_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_test_get_version_reply_t;
 
-    pub fn xcb_test_get_version (
+    pub fn xcb_test_get_version(
         c: *mut xcb_connection_t,
         major_version: u8,
         minor_version: u16,
     ) -> xcb_test_get_version_cookie_t;
 
-    pub fn xcb_test_get_version_unchecked (
+    pub fn xcb_test_get_version_unchecked(
         c: *mut xcb_connection_t,
         major_version: u8,
         minor_version: u16,
     ) -> xcb_test_get_version_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_test_compare_cursor_reply (
+    pub fn xcb_test_compare_cursor_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_test_compare_cursor_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_test_compare_cursor_reply_t;
 
-    pub fn xcb_test_compare_cursor (
+    pub fn xcb_test_compare_cursor(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         cursor: xcb_cursor_t,
     ) -> xcb_test_compare_cursor_cookie_t;
 
-    pub fn xcb_test_compare_cursor_unchecked (
+    pub fn xcb_test_compare_cursor_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         cursor: xcb_cursor_t,
     ) -> xcb_test_compare_cursor_cookie_t;
 
-    pub fn xcb_test_fake_input (
+    pub fn xcb_test_fake_input(
         c: *mut xcb_connection_t,
         type_: u8,
         detail: u8,
@@ -155,7 +155,7 @@ pub static mut xcb_test_id: xcb_extension_t;
         deviceid: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_test_fake_input_checked (
+    pub fn xcb_test_fake_input_checked(
         c: *mut xcb_connection_t,
         type_: u8,
         detail: u8,
@@ -166,12 +166,9 @@ pub static mut xcb_test_id: xcb_extension_t;
         deviceid: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_test_grab_control (
-        c: *mut xcb_connection_t,
-        impervious: u8,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_test_grab_control(c: *mut xcb_connection_t, impervious: u8) -> xcb_void_cookie_t;
 
-    pub fn xcb_test_grab_control_checked (
+    pub fn xcb_test_grab_control_checked(
         c: *mut xcb_connection_t,
         impervious: u8,
     ) -> xcb_void_cookie_t;

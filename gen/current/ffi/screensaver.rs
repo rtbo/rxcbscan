@@ -159,59 +159,59 @@ pub struct xcb_screensaver_notify_event_t {
 }
 
 #[link(name = "xcb-screensaver")]
-extern {
+extern "C" {
 
-pub static mut xcb_screensaver_id: xcb_extension_t;
+    pub static mut xcb_screensaver_id: xcb_extension_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_screensaver_query_version_reply (
+    pub fn xcb_screensaver_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_screensaver_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_screensaver_query_version_reply_t;
 
-    pub fn xcb_screensaver_query_version (
+    pub fn xcb_screensaver_query_version(
         c: *mut xcb_connection_t,
         client_major_version: u8,
         client_minor_version: u8,
     ) -> xcb_screensaver_query_version_cookie_t;
 
-    pub fn xcb_screensaver_query_version_unchecked (
+    pub fn xcb_screensaver_query_version_unchecked(
         c: *mut xcb_connection_t,
         client_major_version: u8,
         client_minor_version: u8,
     ) -> xcb_screensaver_query_version_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_screensaver_query_info_reply (
+    pub fn xcb_screensaver_query_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_screensaver_query_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_screensaver_query_info_reply_t;
 
-    pub fn xcb_screensaver_query_info (
+    pub fn xcb_screensaver_query_info(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_screensaver_query_info_cookie_t;
 
-    pub fn xcb_screensaver_query_info_unchecked (
+    pub fn xcb_screensaver_query_info_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_screensaver_query_info_cookie_t;
 
-    pub fn xcb_screensaver_select_input (
+    pub fn xcb_screensaver_select_input(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         event_mask: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_screensaver_select_input_checked (
+    pub fn xcb_screensaver_select_input_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         event_mask: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_screensaver_set_attributes (
+    pub fn xcb_screensaver_set_attributes(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         x: i16,
@@ -226,7 +226,7 @@ pub static mut xcb_screensaver_id: xcb_extension_t;
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_screensaver_set_attributes_checked (
+    pub fn xcb_screensaver_set_attributes_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         x: i16,
@@ -241,22 +241,19 @@ pub static mut xcb_screensaver_id: xcb_extension_t;
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_screensaver_unset_attributes (
+    pub fn xcb_screensaver_unset_attributes(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_screensaver_unset_attributes_checked (
+    pub fn xcb_screensaver_unset_attributes_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_screensaver_suspend (
-        c: *mut xcb_connection_t,
-        suspend: u8,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_screensaver_suspend(c: *mut xcb_connection_t, suspend: u8) -> xcb_void_cookie_t;
 
-    pub fn xcb_screensaver_suspend_checked (
+    pub fn xcb_screensaver_suspend_checked(
         c: *mut xcb_connection_t,
         suspend: u8,
     ) -> xcb_void_cookie_t;

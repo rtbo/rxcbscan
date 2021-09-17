@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::render::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_render_id
-    }
+    unsafe { &mut xcb_render_id }
 }
 
 pub const MAJOR_VERSION: u32 = 0;
@@ -166,7 +163,16 @@ pub struct Directformat {
 
 impl Directformat {
     #[allow(unused_unsafe)]
-    pub fn new(red_shift: u16,red_mask: u16,green_shift: u16,green_mask: u16,blue_shift: u16,blue_mask: u16,alpha_shift: u16,alpha_mask: u16,) -> Directformat {
+    pub fn new(
+        red_shift: u16,
+        red_mask: u16,
+        green_shift: u16,
+        green_mask: u16,
+        blue_shift: u16,
+        blue_mask: u16,
+        alpha_shift: u16,
+        alpha_mask: u16,
+    ) -> Directformat {
         unsafe {
             Directformat {
                 base: xcb_render_directformat_t {
@@ -178,7 +184,7 @@ impl Directformat {
                     blue_mask: blue_mask,
                     alpha_shift: alpha_shift,
                     alpha_mask: alpha_mask,
-                }
+                },
             }
         }
     }
@@ -233,17 +239,23 @@ pub struct Pictforminfo {
 
 impl Pictforminfo {
     #[allow(unused_unsafe)]
-    pub fn new(id: Pictformat,type_: u8,depth: u8,direct: Directformat,colormap: xproto::Colormap,) -> Pictforminfo {
+    pub fn new(
+        id: Pictformat,
+        type_: u8,
+        depth: u8,
+        direct: Directformat,
+        colormap: xproto::Colormap,
+    ) -> Pictforminfo {
         unsafe {
             Pictforminfo {
                 base: xcb_render_pictforminfo_t {
                     id: id,
                     type_: type_,
                     depth: depth,
-                pad0: [0; 2],
+                    pad0: [0; 2],
                     direct: std::mem::transmute(direct),
                     colormap: colormap,
-                }
+                },
             }
         }
     }
@@ -289,13 +301,13 @@ pub struct Pictvisual {
 
 impl Pictvisual {
     #[allow(unused_unsafe)]
-    pub fn new(visual: xproto::Visualid,format: Pictformat,) -> Pictvisual {
+    pub fn new(visual: xproto::Visualid, format: Pictformat) -> Pictvisual {
         unsafe {
             Pictvisual {
                 base: xcb_render_pictvisual_t {
                     visual: visual,
                     format: format,
-                }
+                },
             }
         }
     }
@@ -396,7 +408,7 @@ pub struct Indexvalue {
 
 impl Indexvalue {
     #[allow(unused_unsafe)]
-    pub fn new(pixel: u32,red: u16,green: u16,blue: u16,alpha: u16,) -> Indexvalue {
+    pub fn new(pixel: u32, red: u16, green: u16, blue: u16, alpha: u16) -> Indexvalue {
         unsafe {
             Indexvalue {
                 base: xcb_render_indexvalue_t {
@@ -405,7 +417,7 @@ impl Indexvalue {
                     green: green,
                     blue: blue,
                     alpha: alpha,
-                }
+                },
             }
         }
     }
@@ -451,7 +463,7 @@ pub struct Color {
 
 impl Color {
     #[allow(unused_unsafe)]
-    pub fn new(red: u16,green: u16,blue: u16,alpha: u16,) -> Color {
+    pub fn new(red: u16, green: u16, blue: u16, alpha: u16) -> Color {
         unsafe {
             Color {
                 base: xcb_render_color_t {
@@ -459,7 +471,7 @@ impl Color {
                     green: green,
                     blue: blue,
                     alpha: alpha,
-                }
+                },
             }
         }
     }
@@ -502,13 +514,10 @@ pub struct Pointfix {
 
 impl Pointfix {
     #[allow(unused_unsafe)]
-    pub fn new(x: Fixed,y: Fixed,) -> Pointfix {
+    pub fn new(x: Fixed, y: Fixed) -> Pointfix {
         unsafe {
             Pointfix {
-                base: xcb_render_pointfix_t {
-                    x: x,
-                    y: y,
-                }
+                base: xcb_render_pointfix_t { x: x, y: y },
             }
         }
     }
@@ -545,13 +554,13 @@ pub struct Linefix {
 
 impl Linefix {
     #[allow(unused_unsafe)]
-    pub fn new(p1: Pointfix,p2: Pointfix,) -> Linefix {
+    pub fn new(p1: Pointfix, p2: Pointfix) -> Linefix {
         unsafe {
             Linefix {
                 base: xcb_render_linefix_t {
                     p1: std::mem::transmute(p1),
                     p2: std::mem::transmute(p2),
-                }
+                },
             }
         }
     }
@@ -588,14 +597,14 @@ pub struct Triangle {
 
 impl Triangle {
     #[allow(unused_unsafe)]
-    pub fn new(p1: Pointfix,p2: Pointfix,p3: Pointfix,) -> Triangle {
+    pub fn new(p1: Pointfix, p2: Pointfix, p3: Pointfix) -> Triangle {
         unsafe {
             Triangle {
                 base: xcb_render_triangle_t {
                     p1: std::mem::transmute(p1),
                     p2: std::mem::transmute(p2),
                     p3: std::mem::transmute(p3),
-                }
+                },
             }
         }
     }
@@ -635,7 +644,7 @@ pub struct Trapezoid {
 
 impl Trapezoid {
     #[allow(unused_unsafe)]
-    pub fn new(top: Fixed,bottom: Fixed,left: Linefix,right: Linefix,) -> Trapezoid {
+    pub fn new(top: Fixed, bottom: Fixed, left: Linefix, right: Linefix) -> Trapezoid {
         unsafe {
             Trapezoid {
                 base: xcb_render_trapezoid_t {
@@ -643,7 +652,7 @@ impl Trapezoid {
                     bottom: bottom,
                     left: std::mem::transmute(left),
                     right: std::mem::transmute(right),
-                }
+                },
             }
         }
     }
@@ -686,7 +695,7 @@ pub struct Glyphinfo {
 
 impl Glyphinfo {
     #[allow(unused_unsafe)]
-    pub fn new(width: u16,height: u16,x: i16,y: i16,x_off: i16,y_off: i16,) -> Glyphinfo {
+    pub fn new(width: u16, height: u16, x: i16, y: i16, x_off: i16, y_off: i16) -> Glyphinfo {
         unsafe {
             Glyphinfo {
                 base: xcb_render_glyphinfo_t {
@@ -696,7 +705,7 @@ impl Glyphinfo {
                     y: y,
                     x_off: x_off,
                     y_off: y_off,
-                }
+                },
             }
         }
     }
@@ -751,14 +760,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_render_query_version_cook
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_render_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_render_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -767,7 +776,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -836,7 +847,11 @@ pub type QueryPictFormatsCookie<'a> = base::Cookie<'a, xcb_render_query_pict_for
 impl<'a> QueryPictFormatsCookie<'a> {
     pub fn get_reply(self) -> Result<QueryPictFormatsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryPictFormatsReply {
                 ptr: xcb_render_query_pict_formats_reply(
@@ -852,7 +867,9 @@ impl<'a> QueryPictFormatsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -893,13 +910,9 @@ impl QueryPictFormatsReply {
     }
 }
 
-pub fn query_pict_formats<'a>(
-    c: &'a base::Connection,
-) -> QueryPictFormatsCookie<'a> {
+pub fn query_pict_formats<'a>(c: &'a base::Connection) -> QueryPictFormatsCookie<'a> {
     unsafe {
-        let cookie = xcb_render_query_pict_formats(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_render_query_pict_formats(c.get_raw_conn());
         QueryPictFormatsCookie {
             cookie: cookie,
             conn: c,
@@ -908,13 +921,9 @@ pub fn query_pict_formats<'a>(
     }
 }
 
-pub fn query_pict_formats_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryPictFormatsCookie<'a> {
+pub fn query_pict_formats_unchecked<'a>(c: &'a base::Connection) -> QueryPictFormatsCookie<'a> {
     unsafe {
-        let cookie = xcb_render_query_pict_formats_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_render_query_pict_formats_unchecked(c.get_raw_conn());
         QueryPictFormatsCookie {
             cookie: cookie,
             conn: c,
@@ -931,12 +940,17 @@ impl base::CookieSeq for xcb_render_query_pict_index_values_cookie_t {
     }
 }
 
-pub type QueryPictIndexValuesCookie<'a> = base::Cookie<'a, xcb_render_query_pict_index_values_cookie_t>;
+pub type QueryPictIndexValuesCookie<'a> =
+    base::Cookie<'a, xcb_render_query_pict_index_values_cookie_t>;
 
 impl<'a> QueryPictIndexValuesCookie<'a> {
     pub fn get_reply(self) -> Result<QueryPictIndexValuesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryPictIndexValuesReply {
                 ptr: xcb_render_query_pict_index_values_reply(
@@ -952,7 +966,9 @@ impl<'a> QueryPictIndexValuesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -975,10 +991,8 @@ pub fn query_pict_index_values<'a>(
     format: Pictformat,
 ) -> QueryPictIndexValuesCookie<'a> {
     unsafe {
-        let cookie = xcb_render_query_pict_index_values(
-            c.get_raw_conn(),
-            format as xcb_render_pictformat_t,
-        );
+        let cookie =
+            xcb_render_query_pict_index_values(c.get_raw_conn(), format as xcb_render_pictformat_t);
         QueryPictIndexValuesCookie {
             cookie: cookie,
             conn: c,
@@ -1164,15 +1178,9 @@ pub fn set_picture_clip_rectangles_checked<'a>(
 
 pub const FREE_PICTURE: u8 = 7;
 
-pub fn free_picture<'a>(
-    c: &'a base::Connection,
-    picture: Picture,
-) -> base::VoidCookie<'a> {
+pub fn free_picture<'a>(c: &'a base::Connection, picture: Picture) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_render_free_picture(
-            c.get_raw_conn(),
-            picture as xcb_render_picture_t,
-        );
+        let cookie = xcb_render_free_picture(c.get_raw_conn(), picture as xcb_render_picture_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1181,15 +1189,10 @@ pub fn free_picture<'a>(
     }
 }
 
-pub fn free_picture_checked<'a>(
-    c: &'a base::Connection,
-    picture: Picture,
-) -> base::VoidCookie<'a> {
+pub fn free_picture_checked<'a>(c: &'a base::Connection, picture: Picture) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_render_free_picture_checked(
-            c.get_raw_conn(),
-            picture as xcb_render_picture_t,
-        );
+        let cookie =
+            xcb_render_free_picture_checked(c.get_raw_conn(), picture as xcb_render_picture_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1624,15 +1627,9 @@ pub fn reference_glyph_set_checked<'a>(
 
 pub const FREE_GLYPH_SET: u8 = 19;
 
-pub fn free_glyph_set<'a>(
-    c: &'a base::Connection,
-    glyphset: Glyphset,
-) -> base::VoidCookie<'a> {
+pub fn free_glyph_set<'a>(c: &'a base::Connection, glyphset: Glyphset) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_render_free_glyph_set(
-            c.get_raw_conn(),
-            glyphset as xcb_render_glyphset_t,
-        );
+        let cookie = xcb_render_free_glyph_set(c.get_raw_conn(), glyphset as xcb_render_glyphset_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1646,10 +1643,8 @@ pub fn free_glyph_set_checked<'a>(
     glyphset: Glyphset,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_render_free_glyph_set_checked(
-            c.get_raw_conn(),
-            glyphset as xcb_render_glyphset_t,
-        );
+        let cookie =
+            xcb_render_free_glyph_set_checked(c.get_raw_conn(), glyphset as xcb_render_glyphset_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -2085,7 +2080,17 @@ pub struct Transform {
 
 impl Transform {
     #[allow(unused_unsafe)]
-    pub fn new(matrix11: Fixed,matrix12: Fixed,matrix13: Fixed,matrix21: Fixed,matrix22: Fixed,matrix23: Fixed,matrix31: Fixed,matrix32: Fixed,matrix33: Fixed,) -> Transform {
+    pub fn new(
+        matrix11: Fixed,
+        matrix12: Fixed,
+        matrix13: Fixed,
+        matrix21: Fixed,
+        matrix22: Fixed,
+        matrix23: Fixed,
+        matrix31: Fixed,
+        matrix32: Fixed,
+        matrix33: Fixed,
+    ) -> Transform {
         unsafe {
             Transform {
                 base: xcb_render_transform_t {
@@ -2098,7 +2103,7 @@ impl Transform {
                     matrix31: matrix31,
                     matrix32: matrix32,
                     matrix33: matrix33,
-                }
+                },
             }
         }
     }
@@ -2202,14 +2207,14 @@ pub type QueryFiltersCookie<'a> = base::Cookie<'a, xcb_render_query_filters_cook
 impl<'a> QueryFiltersCookie<'a> {
     pub fn get_reply(self) -> Result<QueryFiltersReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryFiltersReply {
-                ptr: xcb_render_query_filters_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_render_query_filters_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -2218,7 +2223,9 @@ impl<'a> QueryFiltersCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2252,10 +2259,7 @@ pub fn query_filters<'a>(
     drawable: xproto::Drawable,
 ) -> QueryFiltersCookie<'a> {
     unsafe {
-        let cookie = xcb_render_query_filters(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-        );
+        let cookie = xcb_render_query_filters(c.get_raw_conn(), drawable as xcb_drawable_t);
         QueryFiltersCookie {
             cookie: cookie,
             conn: c,
@@ -2269,10 +2273,8 @@ pub fn query_filters_unchecked<'a>(
     drawable: xproto::Drawable,
 ) -> QueryFiltersCookie<'a> {
     unsafe {
-        let cookie = xcb_render_query_filters_unchecked(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-        );
+        let cookie =
+            xcb_render_query_filters_unchecked(c.get_raw_conn(), drawable as xcb_drawable_t);
         QueryFiltersCookie {
             cookie: cookie,
             conn: c,
@@ -2346,13 +2348,13 @@ pub struct Animcursorelt {
 
 impl Animcursorelt {
     #[allow(unused_unsafe)]
-    pub fn new(cursor: xproto::Cursor,delay: u32,) -> Animcursorelt {
+    pub fn new(cursor: xproto::Cursor, delay: u32) -> Animcursorelt {
         unsafe {
             Animcursorelt {
                 base: xcb_render_animcursorelt_t {
                     cursor: cursor,
                     delay: delay,
-                }
+                },
             }
         }
     }
@@ -2435,14 +2437,10 @@ pub struct Spanfix {
 
 impl Spanfix {
     #[allow(unused_unsafe)]
-    pub fn new(l: Fixed,r: Fixed,y: Fixed,) -> Spanfix {
+    pub fn new(l: Fixed, r: Fixed, y: Fixed) -> Spanfix {
         unsafe {
             Spanfix {
-                base: xcb_render_spanfix_t {
-                    l: l,
-                    r: r,
-                    y: y,
-                }
+                base: xcb_render_spanfix_t { l: l, r: r, y: y },
             }
         }
     }
@@ -2482,13 +2480,13 @@ pub struct Trap {
 
 impl Trap {
     #[allow(unused_unsafe)]
-    pub fn new(top: Spanfix,bot: Spanfix,) -> Trap {
+    pub fn new(top: Spanfix, bot: Spanfix) -> Trap {
         unsafe {
             Trap {
                 base: xcb_render_trap_t {
                     top: std::mem::transmute(top),
                     bot: std::mem::transmute(bot),
-                }
+                },
             }
         }
     }

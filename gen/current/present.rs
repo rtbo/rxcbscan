@@ -2,29 +2,26 @@
 // Do not edit!
 
 use base;
-use xfixes;
-use render;
-use sync;
-use randr;
-use shape;
-use xproto;
 use ffi::base::*;
 use ffi::present::*;
-use ffi::xfixes::*;
-use ffi::render::*;
-use ffi::sync::*;
 use ffi::randr::*;
+use ffi::render::*;
 use ffi::shape::*;
+use ffi::sync::*;
+use ffi::xfixes::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
+use randr;
+use render;
+use shape;
 use std;
 use std::iter::Iterator;
-
+use sync;
+use xfixes;
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_present_id
-    }
+    unsafe { &mut xcb_present_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -73,13 +70,13 @@ pub struct Notify {
 
 impl Notify {
     #[allow(unused_unsafe)]
-    pub fn new(window: xproto::Window,serial: u32,) -> Notify {
+    pub fn new(window: xproto::Window, serial: u32) -> Notify {
         unsafe {
             Notify {
                 base: xcb_present_notify_t {
                     window: window,
                     serial: serial,
-                }
+                },
             }
         }
     }
@@ -122,7 +119,11 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_present_query_version_coo
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
                 ptr: xcb_present_query_version_reply(
@@ -138,7 +139,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -162,11 +165,8 @@ pub fn query_version<'a>(
     minor_version: u32,
 ) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_present_query_version(
-            c.get_raw_conn(),
-            major_version as u32,
-            minor_version as u32,
-        );
+        let cookie =
+            xcb_present_query_version(c.get_raw_conn(), major_version as u32, minor_version as u32);
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -401,7 +401,11 @@ pub type QueryCapabilitiesCookie<'a> = base::Cookie<'a, xcb_present_query_capabi
 impl<'a> QueryCapabilitiesCookie<'a> {
     pub fn get_reply(self) -> Result<QueryCapabilitiesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryCapabilitiesReply {
                 ptr: xcb_present_query_capabilities_reply(
@@ -417,7 +421,9 @@ impl<'a> QueryCapabilitiesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -432,15 +438,9 @@ impl QueryCapabilitiesReply {
     }
 }
 
-pub fn query_capabilities<'a>(
-    c: &'a base::Connection,
-    target: u32,
-) -> QueryCapabilitiesCookie<'a> {
+pub fn query_capabilities<'a>(c: &'a base::Connection, target: u32) -> QueryCapabilitiesCookie<'a> {
     unsafe {
-        let cookie = xcb_present_query_capabilities(
-            c.get_raw_conn(),
-            target as u32,
-        );
+        let cookie = xcb_present_query_capabilities(c.get_raw_conn(), target as u32);
         QueryCapabilitiesCookie {
             cookie: cookie,
             conn: c,
@@ -454,10 +454,7 @@ pub fn query_capabilities_unchecked<'a>(
     target: u32,
 ) -> QueryCapabilitiesCookie<'a> {
     unsafe {
-        let cookie = xcb_present_query_capabilities_unchecked(
-            c.get_raw_conn(),
-            target as u32,
-        );
+        let cookie = xcb_present_query_capabilities_unchecked(c.get_raw_conn(), target as u32);
         QueryCapabilitiesCookie {
             cookie: cookie,
             conn: c,
@@ -485,12 +482,7 @@ impl GenericEvent {
     }
     /// Constructs a new GenericEvent
     /// `response_type` will be set automatically to GENERIC
-    pub fn new (
-        extension: u8,
-        length: u32,
-        evtype: u16,
-        event: Event,
-    ) -> GenericEvent {
+    pub fn new(extension: u8, length: u32, evtype: u16, event: Event) -> GenericEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_present_generic_event_t;
             (*raw).response_type = GENERIC;
@@ -543,7 +535,7 @@ impl ConfigureNotifyEvent {
     }
     /// Constructs a new ConfigureNotifyEvent
     /// `response_type` will be set automatically to CONFIGURE_NOTIFY
-    pub fn new (
+    pub fn new(
         event: Event,
         window: xproto::Window,
         x: i16,
@@ -603,7 +595,7 @@ impl CompleteNotifyEvent {
     }
     /// Constructs a new CompleteNotifyEvent
     /// `response_type` will be set automatically to COMPLETE_NOTIFY
-    pub fn new (
+    pub fn new(
         kind: u8,
         mode: u8,
         event: Event,
@@ -649,7 +641,7 @@ impl IdleNotifyEvent {
     }
     /// Constructs a new IdleNotifyEvent
     /// `response_type` will be set automatically to IDLE_NOTIFY
-    pub fn new (
+    pub fn new(
         event: Event,
         window: xproto::Window,
         serial: u32,
@@ -739,7 +731,7 @@ impl RedirectNotifyEvent {
     }
     /// Constructs a new RedirectNotifyEvent
     /// `response_type` will be set automatically to REDIRECT_NOTIFY
-    pub fn new (
+    pub fn new(
         update_window: bool,
         event: Event,
         event_window: xproto::Window,

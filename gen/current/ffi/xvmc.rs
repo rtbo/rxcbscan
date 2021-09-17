@@ -2,9 +2,9 @@
 // Do not edit!
 
 use ffi::base::*;
-use ffi::xv::*;
 use ffi::shm::*;
 use ffi::xproto::*;
+use ffi::xv::*;
 use libc::{c_char, c_int, c_uint, c_void};
 use std;
 
@@ -16,8 +16,8 @@ pub type xcb_xvmc_context_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xvmc_context_iterator_t {
-    pub data:  *mut xcb_xvmc_context_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xvmc_context_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -26,8 +26,8 @@ pub type xcb_xvmc_surface_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xvmc_surface_iterator_t {
-    pub data:  *mut xcb_xvmc_surface_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xvmc_surface_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -36,8 +36,8 @@ pub type xcb_xvmc_subpicture_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xvmc_subpicture_iterator_t {
-    pub data:  *mut xcb_xvmc_subpicture_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xvmc_subpicture_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -58,8 +58,8 @@ pub struct xcb_xvmc_surface_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xvmc_surface_info_iterator_t {
-    pub data:  *mut xcb_xvmc_surface_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xvmc_surface_info_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -280,78 +280,91 @@ pub struct xcb_xvmc_list_subpicture_types_reply_t {
 }
 
 #[link(name = "xcb-xvmc")]
-extern {
+extern "C" {
 
-pub static mut xcb_xvmc_id: xcb_extension_t;
+    pub static mut xcb_xvmc_id: xcb_extension_t;
 
-pub fn xcb_xvmc_context_next(i: *mut xcb_xvmc_context_iterator_t);
+    pub fn xcb_xvmc_context_next(i: *mut xcb_xvmc_context_iterator_t);
 
-pub fn xcb_xvmc_context_end(i: *mut xcb_xvmc_context_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xvmc_context_end(i: *mut xcb_xvmc_context_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xvmc_surface_next(i: *mut xcb_xvmc_surface_iterator_t);
+    pub fn xcb_xvmc_surface_next(i: *mut xcb_xvmc_surface_iterator_t);
 
-pub fn xcb_xvmc_surface_end(i: *mut xcb_xvmc_surface_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xvmc_surface_end(i: *mut xcb_xvmc_surface_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xvmc_subpicture_next(i: *mut xcb_xvmc_subpicture_iterator_t);
+    pub fn xcb_xvmc_subpicture_next(i: *mut xcb_xvmc_subpicture_iterator_t);
 
-pub fn xcb_xvmc_subpicture_end(i: *mut xcb_xvmc_subpicture_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xvmc_subpicture_end(
+        i: *mut xcb_xvmc_subpicture_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xvmc_surface_info_next(i: *mut xcb_xvmc_surface_info_iterator_t);
+    pub fn xcb_xvmc_surface_info_next(i: *mut xcb_xvmc_surface_info_iterator_t);
 
-pub fn xcb_xvmc_surface_info_end(i: *mut xcb_xvmc_surface_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xvmc_surface_info_end(
+        i: *mut xcb_xvmc_surface_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xvmc_query_version_reply (
+    pub fn xcb_xvmc_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xvmc_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xvmc_query_version_reply_t;
 
-    pub fn xcb_xvmc_query_version (
+    pub fn xcb_xvmc_query_version(c: *mut xcb_connection_t) -> xcb_xvmc_query_version_cookie_t;
+
+    pub fn xcb_xvmc_query_version_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_xvmc_query_version_cookie_t;
 
-    pub fn xcb_xvmc_query_version_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_xvmc_query_version_cookie_t;
+    pub fn xcb_xvmc_list_surface_types_surfaces(
+        R: *const xcb_xvmc_list_surface_types_reply_t,
+    ) -> *mut xcb_xvmc_surface_info_t;
 
-pub fn xcb_xvmc_list_surface_types_surfaces(R: *const xcb_xvmc_list_surface_types_reply_t) -> *mut xcb_xvmc_surface_info_t;
+    pub fn xcb_xvmc_list_surface_types_surfaces_length(
+        R: *const xcb_xvmc_list_surface_types_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xvmc_list_surface_types_surfaces_length(R: *const xcb_xvmc_list_surface_types_reply_t) -> c_int;
-
-pub fn xcb_xvmc_list_surface_types_surfaces_iterator(R: *const xcb_xvmc_list_surface_types_reply_t) -> xcb_xvmc_surface_info_iterator_t;
+    pub fn xcb_xvmc_list_surface_types_surfaces_iterator(
+        R: *const xcb_xvmc_list_surface_types_reply_t,
+    ) -> xcb_xvmc_surface_info_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xvmc_list_surface_types_reply (
+    pub fn xcb_xvmc_list_surface_types_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xvmc_list_surface_types_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xvmc_list_surface_types_reply_t;
 
-    pub fn xcb_xvmc_list_surface_types (
+    pub fn xcb_xvmc_list_surface_types(
         c: *mut xcb_connection_t,
         port_id: xcb_xv_port_t,
     ) -> xcb_xvmc_list_surface_types_cookie_t;
 
-    pub fn xcb_xvmc_list_surface_types_unchecked (
+    pub fn xcb_xvmc_list_surface_types_unchecked(
         c: *mut xcb_connection_t,
         port_id: xcb_xv_port_t,
     ) -> xcb_xvmc_list_surface_types_cookie_t;
 
-pub fn xcb_xvmc_create_context_priv_data(R: *const xcb_xvmc_create_context_reply_t) -> *mut u32;
+    pub fn xcb_xvmc_create_context_priv_data(R: *const xcb_xvmc_create_context_reply_t)
+        -> *mut u32;
 
-pub fn xcb_xvmc_create_context_priv_data_length(R: *const xcb_xvmc_create_context_reply_t) -> c_int;
+    pub fn xcb_xvmc_create_context_priv_data_length(
+        R: *const xcb_xvmc_create_context_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xvmc_create_context_priv_data_end(R: *const xcb_xvmc_create_context_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xvmc_create_context_priv_data_end(
+        R: *const xcb_xvmc_create_context_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xvmc_create_context_reply (
+    pub fn xcb_xvmc_create_context_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xvmc_create_context_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xvmc_create_context_reply_t;
 
-    pub fn xcb_xvmc_create_context (
+    pub fn xcb_xvmc_create_context(
         c: *mut xcb_connection_t,
         context_id: xcb_xvmc_context_t,
         port_id: xcb_xv_port_t,
@@ -361,7 +374,7 @@ pub fn xcb_xvmc_create_context_priv_data_end(R: *const xcb_xvmc_create_context_r
         flags: u32,
     ) -> xcb_xvmc_create_context_cookie_t;
 
-    pub fn xcb_xvmc_create_context_unchecked (
+    pub fn xcb_xvmc_create_context_unchecked(
         c: *mut xcb_connection_t,
         context_id: xcb_xvmc_context_t,
         port_id: xcb_xv_port_t,
@@ -371,65 +384,76 @@ pub fn xcb_xvmc_create_context_priv_data_end(R: *const xcb_xvmc_create_context_r
         flags: u32,
     ) -> xcb_xvmc_create_context_cookie_t;
 
-    pub fn xcb_xvmc_destroy_context (
+    pub fn xcb_xvmc_destroy_context(
         c: *mut xcb_connection_t,
         context_id: xcb_xvmc_context_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xvmc_destroy_context_checked (
+    pub fn xcb_xvmc_destroy_context_checked(
         c: *mut xcb_connection_t,
         context_id: xcb_xvmc_context_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xvmc_create_surface_priv_data(R: *const xcb_xvmc_create_surface_reply_t) -> *mut u32;
+    pub fn xcb_xvmc_create_surface_priv_data(R: *const xcb_xvmc_create_surface_reply_t)
+        -> *mut u32;
 
-pub fn xcb_xvmc_create_surface_priv_data_length(R: *const xcb_xvmc_create_surface_reply_t) -> c_int;
+    pub fn xcb_xvmc_create_surface_priv_data_length(
+        R: *const xcb_xvmc_create_surface_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xvmc_create_surface_priv_data_end(R: *const xcb_xvmc_create_surface_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xvmc_create_surface_priv_data_end(
+        R: *const xcb_xvmc_create_surface_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xvmc_create_surface_reply (
+    pub fn xcb_xvmc_create_surface_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xvmc_create_surface_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xvmc_create_surface_reply_t;
 
-    pub fn xcb_xvmc_create_surface (
+    pub fn xcb_xvmc_create_surface(
         c: *mut xcb_connection_t,
         surface_id: xcb_xvmc_surface_t,
         context_id: xcb_xvmc_context_t,
     ) -> xcb_xvmc_create_surface_cookie_t;
 
-    pub fn xcb_xvmc_create_surface_unchecked (
+    pub fn xcb_xvmc_create_surface_unchecked(
         c: *mut xcb_connection_t,
         surface_id: xcb_xvmc_surface_t,
         context_id: xcb_xvmc_context_t,
     ) -> xcb_xvmc_create_surface_cookie_t;
 
-    pub fn xcb_xvmc_destroy_surface (
+    pub fn xcb_xvmc_destroy_surface(
         c: *mut xcb_connection_t,
         surface_id: xcb_xvmc_surface_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xvmc_destroy_surface_checked (
+    pub fn xcb_xvmc_destroy_surface_checked(
         c: *mut xcb_connection_t,
         surface_id: xcb_xvmc_surface_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xvmc_create_subpicture_priv_data(R: *const xcb_xvmc_create_subpicture_reply_t) -> *mut u32;
+    pub fn xcb_xvmc_create_subpicture_priv_data(
+        R: *const xcb_xvmc_create_subpicture_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_xvmc_create_subpicture_priv_data_length(R: *const xcb_xvmc_create_subpicture_reply_t) -> c_int;
+    pub fn xcb_xvmc_create_subpicture_priv_data_length(
+        R: *const xcb_xvmc_create_subpicture_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xvmc_create_subpicture_priv_data_end(R: *const xcb_xvmc_create_subpicture_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xvmc_create_subpicture_priv_data_end(
+        R: *const xcb_xvmc_create_subpicture_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xvmc_create_subpicture_reply (
+    pub fn xcb_xvmc_create_subpicture_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xvmc_create_subpicture_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xvmc_create_subpicture_reply_t;
 
-    pub fn xcb_xvmc_create_subpicture (
+    pub fn xcb_xvmc_create_subpicture(
         c: *mut xcb_connection_t,
         subpicture_id: xcb_xvmc_subpicture_t,
         context: xcb_xvmc_context_t,
@@ -438,7 +462,7 @@ pub fn xcb_xvmc_create_subpicture_priv_data_end(R: *const xcb_xvmc_create_subpic
         height: u16,
     ) -> xcb_xvmc_create_subpicture_cookie_t;
 
-    pub fn xcb_xvmc_create_subpicture_unchecked (
+    pub fn xcb_xvmc_create_subpicture_unchecked(
         c: *mut xcb_connection_t,
         subpicture_id: xcb_xvmc_subpicture_t,
         context: xcb_xvmc_context_t,
@@ -447,36 +471,42 @@ pub fn xcb_xvmc_create_subpicture_priv_data_end(R: *const xcb_xvmc_create_subpic
         height: u16,
     ) -> xcb_xvmc_create_subpicture_cookie_t;
 
-    pub fn xcb_xvmc_destroy_subpicture (
+    pub fn xcb_xvmc_destroy_subpicture(
         c: *mut xcb_connection_t,
         subpicture_id: xcb_xvmc_subpicture_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xvmc_destroy_subpicture_checked (
+    pub fn xcb_xvmc_destroy_subpicture_checked(
         c: *mut xcb_connection_t,
         subpicture_id: xcb_xvmc_subpicture_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xvmc_list_subpicture_types_types(R: *const xcb_xvmc_list_subpicture_types_reply_t) -> *mut xcb_xv_image_format_info_t;
+    pub fn xcb_xvmc_list_subpicture_types_types(
+        R: *const xcb_xvmc_list_subpicture_types_reply_t,
+    ) -> *mut xcb_xv_image_format_info_t;
 
-pub fn xcb_xvmc_list_subpicture_types_types_length(R: *const xcb_xvmc_list_subpicture_types_reply_t) -> c_int;
+    pub fn xcb_xvmc_list_subpicture_types_types_length(
+        R: *const xcb_xvmc_list_subpicture_types_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xvmc_list_subpicture_types_types_iterator<'a>(R: *const xcb_xvmc_list_subpicture_types_reply_t) -> xcb_xv_image_format_info_iterator_t<'a>;
+    pub fn xcb_xvmc_list_subpicture_types_types_iterator<'a>(
+        R: *const xcb_xvmc_list_subpicture_types_reply_t,
+    ) -> xcb_xv_image_format_info_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xvmc_list_subpicture_types_reply (
+    pub fn xcb_xvmc_list_subpicture_types_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xvmc_list_subpicture_types_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xvmc_list_subpicture_types_reply_t;
 
-    pub fn xcb_xvmc_list_subpicture_types (
+    pub fn xcb_xvmc_list_subpicture_types(
         c: *mut xcb_connection_t,
         port_id: xcb_xv_port_t,
         surface_id: xcb_xvmc_surface_t,
     ) -> xcb_xvmc_list_subpicture_types_cookie_t;
 
-    pub fn xcb_xvmc_list_subpicture_types_unchecked (
+    pub fn xcb_xvmc_list_subpicture_types_unchecked(
         c: *mut xcb_connection_t,
         port_id: xcb_xv_port_t,
         surface_id: xcb_xvmc_surface_t,

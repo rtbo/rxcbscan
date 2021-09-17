@@ -113,8 +113,8 @@ pub type xcb_xkb_device_spec_t = u16;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_device_spec_iterator_t {
-    pub data:  *mut xcb_xkb_device_spec_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_device_spec_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -133,8 +133,8 @@ pub type xcb_xkb_led_class_spec_t = u16;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_led_class_spec_iterator_t {
-    pub data:  *mut xcb_xkb_led_class_spec_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_led_class_spec_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -152,8 +152,8 @@ pub type xcb_xkb_bell_class_spec_t = u16;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_bell_class_spec_iterator_t {
-    pub data:  *mut xcb_xkb_bell_class_spec_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_bell_class_spec_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -171,8 +171,8 @@ pub type xcb_xkb_id_spec_t = u16;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_id_spec_iterator_t {
-    pub data:  *mut xcb_xkb_id_spec_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_id_spec_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -294,8 +294,8 @@ pub struct xcb_xkb_indicator_map_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_indicator_map_iterator_t {
-    pub data:  *mut xcb_xkb_indicator_map_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_indicator_map_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -354,8 +354,8 @@ pub struct xcb_xkb_mod_def_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_mod_def_iterator_t {
-    pub data:  *mut xcb_xkb_mod_def_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_mod_def_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -368,8 +368,8 @@ pub struct xcb_xkb_key_name_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_key_name_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_key_name_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_key_name_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_key_name_t>,
 }
@@ -384,8 +384,8 @@ pub struct xcb_xkb_key_alias_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_key_alias_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_key_alias_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_key_alias_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_key_alias_t>,
 }
@@ -399,8 +399,8 @@ pub struct xcb_xkb_counted_string_16_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_counted_string_16_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_counted_string_16_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_counted_string_16_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_counted_string_16_t>,
 }
@@ -419,8 +419,8 @@ pub struct xcb_xkb_kt_map_entry_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_kt_map_entry_iterator_t {
-    pub data:  *mut xcb_xkb_kt_map_entry_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_kt_map_entry_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -439,8 +439,8 @@ pub struct xcb_xkb_key_type_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_key_type_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_key_type_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_key_type_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_key_type_t>,
 }
@@ -457,8 +457,8 @@ pub struct xcb_xkb_key_sym_map_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_key_sym_map_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_key_sym_map_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_key_sym_map_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_key_sym_map_t>,
 }
@@ -473,8 +473,8 @@ pub struct xcb_xkb_common_behavior_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_common_behavior_iterator_t {
-    pub data:  *mut xcb_xkb_common_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_common_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -488,8 +488,8 @@ pub struct xcb_xkb_default_behavior_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_default_behavior_iterator_t {
-    pub data:  *mut xcb_xkb_default_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_default_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -503,8 +503,8 @@ pub struct xcb_xkb_lock_behavior_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_lock_behavior_iterator_t {
-    pub data:  *mut xcb_xkb_lock_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_lock_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -518,8 +518,8 @@ pub struct xcb_xkb_radio_group_behavior_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_radio_group_behavior_iterator_t {
-    pub data:  *mut xcb_xkb_radio_group_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_radio_group_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -533,8 +533,8 @@ pub struct xcb_xkb_overlay_behavior_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_overlay_behavior_iterator_t {
-    pub data:  *mut xcb_xkb_overlay_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_overlay_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -548,8 +548,8 @@ pub struct xcb_xkb_permament_lock_behavior_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_permament_lock_behavior_iterator_t {
-    pub data:  *mut xcb_xkb_permament_lock_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_permament_lock_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -563,8 +563,8 @@ pub struct xcb_xkb_permament_radio_group_behavior_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_permament_radio_group_behavior_iterator_t {
-    pub data:  *mut xcb_xkb_permament_radio_group_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_permament_radio_group_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -578,8 +578,8 @@ pub struct xcb_xkb_permament_overlay_behavior_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_permament_overlay_behavior_iterator_t {
-    pub data:  *mut xcb_xkb_permament_overlay_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_permament_overlay_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -592,14 +592,16 @@ pub struct xcb_xkb_behavior_t {
 
 impl Copy for xcb_xkb_behavior_t {}
 impl Clone for xcb_xkb_behavior_t {
-    fn clone(&self) -> xcb_xkb_behavior_t { *self }
+    fn clone(&self) -> xcb_xkb_behavior_t {
+        *self
+    }
 }
 
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_behavior_iterator_t {
-    pub data:  *mut xcb_xkb_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -625,8 +627,8 @@ pub struct xcb_xkb_set_behavior_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_set_behavior_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_set_behavior_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_set_behavior_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_set_behavior_t>,
 }
@@ -641,8 +643,8 @@ pub struct xcb_xkb_set_explicit_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_set_explicit_iterator_t {
-    pub data:  *mut xcb_xkb_set_explicit_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_set_explicit_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -656,8 +658,8 @@ pub struct xcb_xkb_key_mod_map_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_key_mod_map_iterator_t {
-    pub data:  *mut xcb_xkb_key_mod_map_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_key_mod_map_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -672,8 +674,8 @@ pub struct xcb_xkb_key_v_mod_map_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_key_v_mod_map_iterator_t {
-    pub data:  *mut xcb_xkb_key_v_mod_map_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_key_v_mod_map_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -688,8 +690,8 @@ pub struct xcb_xkb_kt_set_map_entry_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_kt_set_map_entry_iterator_t {
-    pub data:  *mut xcb_xkb_kt_set_map_entry_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_kt_set_map_entry_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -708,8 +710,8 @@ pub struct xcb_xkb_set_key_type_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_set_key_type_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_set_key_type_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_set_key_type_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_set_key_type_t>,
 }
@@ -719,8 +721,8 @@ pub type xcb_xkb_string8_t = c_char;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_string8_iterator_t {
-    pub data:  *mut xcb_xkb_string8_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_string8_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -735,8 +737,8 @@ pub struct xcb_xkb_outline_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_outline_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_outline_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_outline_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_outline_t>,
 }
@@ -754,8 +756,8 @@ pub struct xcb_xkb_shape_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_shape_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_shape_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_shape_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_shape_t>,
 }
@@ -772,8 +774,8 @@ pub struct xcb_xkb_key_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_key_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_key_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_key_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_key_t>,
 }
@@ -788,8 +790,8 @@ pub struct xcb_xkb_overlay_key_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_overlay_key_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_overlay_key_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_overlay_key_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_overlay_key_t>,
 }
@@ -805,8 +807,8 @@ pub struct xcb_xkb_overlay_row_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_overlay_row_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_overlay_row_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_overlay_row_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_overlay_row_t>,
 }
@@ -822,8 +824,8 @@ pub struct xcb_xkb_overlay_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_overlay_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_overlay_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_overlay_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_overlay_t>,
 }
@@ -841,8 +843,8 @@ pub struct xcb_xkb_row_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_row_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_row_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_row_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_row_t>,
 }
@@ -864,8 +866,8 @@ pub struct xcb_xkb_listing_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_listing_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_listing_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_listing_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_listing_t>,
 }
@@ -884,8 +886,8 @@ pub struct xcb_xkb_device_led_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_device_led_info_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_device_led_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_device_led_info_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_device_led_info_t>,
 }
@@ -948,8 +950,8 @@ pub struct xcb_xkb_sa_no_action_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_no_action_iterator_t {
-    pub data:  *mut xcb_xkb_sa_no_action_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_no_action_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -968,8 +970,8 @@ pub struct xcb_xkb_sa_set_mods_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_set_mods_iterator_t {
-    pub data:  *mut xcb_xkb_sa_set_mods_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_set_mods_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -988,8 +990,8 @@ pub struct xcb_xkb_sa_latch_mods_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_latch_mods_iterator_t {
-    pub data:  *mut xcb_xkb_sa_latch_mods_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_latch_mods_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1008,8 +1010,8 @@ pub struct xcb_xkb_sa_lock_mods_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_lock_mods_iterator_t {
-    pub data:  *mut xcb_xkb_sa_lock_mods_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_lock_mods_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1025,8 +1027,8 @@ pub struct xcb_xkb_sa_set_group_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_set_group_iterator_t {
-    pub data:  *mut xcb_xkb_sa_set_group_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_set_group_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1042,8 +1044,8 @@ pub struct xcb_xkb_sa_latch_group_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_latch_group_iterator_t {
-    pub data:  *mut xcb_xkb_sa_latch_group_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_latch_group_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1059,8 +1061,8 @@ pub struct xcb_xkb_sa_lock_group_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_lock_group_iterator_t {
-    pub data:  *mut xcb_xkb_sa_lock_group_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_lock_group_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1084,8 +1086,8 @@ pub struct xcb_xkb_sa_move_ptr_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_move_ptr_iterator_t {
-    pub data:  *mut xcb_xkb_sa_move_ptr_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_move_ptr_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1102,8 +1104,8 @@ pub struct xcb_xkb_sa_ptr_btn_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_ptr_btn_iterator_t {
-    pub data:  *mut xcb_xkb_sa_ptr_btn_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_ptr_btn_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1120,8 +1122,8 @@ pub struct xcb_xkb_sa_lock_ptr_btn_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_lock_ptr_btn_iterator_t {
-    pub data:  *mut xcb_xkb_sa_lock_ptr_btn_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_lock_ptr_btn_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1142,8 +1144,8 @@ pub struct xcb_xkb_sa_set_ptr_dflt_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_set_ptr_dflt_iterator_t {
-    pub data:  *mut xcb_xkb_sa_set_ptr_dflt_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_set_ptr_dflt_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1176,8 +1178,8 @@ pub struct xcb_xkb_sa_iso_lock_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_iso_lock_iterator_t {
-    pub data:  *mut xcb_xkb_sa_iso_lock_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_iso_lock_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1191,8 +1193,8 @@ pub struct xcb_xkb_sa_terminate_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_terminate_iterator_t {
-    pub data:  *mut xcb_xkb_sa_terminate_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_terminate_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1212,8 +1214,8 @@ pub struct xcb_xkb_sa_switch_screen_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_switch_screen_iterator_t {
-    pub data:  *mut xcb_xkb_sa_switch_screen_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_switch_screen_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1247,8 +1249,8 @@ pub struct xcb_xkb_sa_set_controls_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_set_controls_iterator_t {
-    pub data:  *mut xcb_xkb_sa_set_controls_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_set_controls_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1265,8 +1267,8 @@ pub struct xcb_xkb_sa_lock_controls_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_lock_controls_iterator_t {
-    pub data:  *mut xcb_xkb_sa_lock_controls_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_lock_controls_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1286,8 +1288,8 @@ pub struct xcb_xkb_sa_action_message_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_action_message_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_sa_action_message_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_action_message_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_sa_action_message_t>,
 }
@@ -1308,8 +1310,8 @@ pub struct xcb_xkb_sa_redirect_key_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_redirect_key_iterator_t {
-    pub data:  *mut xcb_xkb_sa_redirect_key_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_redirect_key_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1327,8 +1329,8 @@ pub struct xcb_xkb_sa_device_btn_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_device_btn_iterator_t {
-    pub data:  *mut xcb_xkb_sa_device_btn_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_device_btn_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1350,8 +1352,8 @@ pub struct xcb_xkb_sa_lock_device_btn_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_lock_device_btn_iterator_t {
-    pub data:  *mut xcb_xkb_sa_lock_device_btn_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_lock_device_btn_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1379,8 +1381,8 @@ pub struct xcb_xkb_sa_device_valuator_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sa_device_valuator_iterator_t {
-    pub data:  *mut xcb_xkb_sa_device_valuator_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sa_device_valuator_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1394,8 +1396,8 @@ pub struct xcb_xkb_si_action_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_si_action_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_si_action_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_si_action_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_si_action_t>,
 }
@@ -1414,8 +1416,8 @@ pub struct xcb_xkb_sym_interpret_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_sym_interpret_iterator_t<'a> {
-    pub data:  *mut xcb_xkb_sym_interpret_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_sym_interpret_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xkb_sym_interpret_t>,
 }
@@ -1429,14 +1431,16 @@ pub struct xcb_xkb_action_t {
 
 impl Copy for xcb_xkb_action_t {}
 impl Clone for xcb_xkb_action_t {
-    fn clone(&self) -> xcb_xkb_action_t { *self }
+    fn clone(&self) -> xcb_xkb_action_t {
+        *self
+    }
 }
 
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xkb_action_iterator_t {
-    pub data:  *mut xcb_xkb_action_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xkb_action_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -2769,360 +2773,486 @@ pub struct xcb_xkb_extension_device_notify_event_t {
 }
 
 #[link(name = "xcb-xkb")]
-extern {
+extern "C" {
 
-pub static mut xcb_xkb_id: xcb_extension_t;
+    pub static mut xcb_xkb_id: xcb_extension_t;
 
-pub fn xcb_xkb_device_spec_next(i: *mut xcb_xkb_device_spec_iterator_t);
+    pub fn xcb_xkb_device_spec_next(i: *mut xcb_xkb_device_spec_iterator_t);
 
-pub fn xcb_xkb_device_spec_end(i: *mut xcb_xkb_device_spec_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_device_spec_end(
+        i: *mut xcb_xkb_device_spec_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_led_class_spec_next(i: *mut xcb_xkb_led_class_spec_iterator_t);
+    pub fn xcb_xkb_led_class_spec_next(i: *mut xcb_xkb_led_class_spec_iterator_t);
 
-pub fn xcb_xkb_led_class_spec_end(i: *mut xcb_xkb_led_class_spec_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_led_class_spec_end(
+        i: *mut xcb_xkb_led_class_spec_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_bell_class_spec_next(i: *mut xcb_xkb_bell_class_spec_iterator_t);
+    pub fn xcb_xkb_bell_class_spec_next(i: *mut xcb_xkb_bell_class_spec_iterator_t);
 
-pub fn xcb_xkb_bell_class_spec_end(i: *mut xcb_xkb_bell_class_spec_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_bell_class_spec_end(
+        i: *mut xcb_xkb_bell_class_spec_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_id_spec_next(i: *mut xcb_xkb_id_spec_iterator_t);
+    pub fn xcb_xkb_id_spec_next(i: *mut xcb_xkb_id_spec_iterator_t);
 
-pub fn xcb_xkb_id_spec_end(i: *mut xcb_xkb_id_spec_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_id_spec_end(i: *mut xcb_xkb_id_spec_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_indicator_map_next(i: *mut xcb_xkb_indicator_map_iterator_t);
+    pub fn xcb_xkb_indicator_map_next(i: *mut xcb_xkb_indicator_map_iterator_t);
 
-pub fn xcb_xkb_indicator_map_end(i: *mut xcb_xkb_indicator_map_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_indicator_map_end(
+        i: *mut xcb_xkb_indicator_map_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_mod_def_next(i: *mut xcb_xkb_mod_def_iterator_t);
+    pub fn xcb_xkb_mod_def_next(i: *mut xcb_xkb_mod_def_iterator_t);
 
-pub fn xcb_xkb_mod_def_end(i: *mut xcb_xkb_mod_def_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_mod_def_end(i: *mut xcb_xkb_mod_def_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_key_name_next(i: *mut xcb_xkb_key_name_iterator_t);
+    pub fn xcb_xkb_key_name_next(i: *mut xcb_xkb_key_name_iterator_t);
 
-pub fn xcb_xkb_key_name_end(i: *mut xcb_xkb_key_name_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_key_name_end(i: *mut xcb_xkb_key_name_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_key_alias_next(i: *mut xcb_xkb_key_alias_iterator_t);
+    pub fn xcb_xkb_key_alias_next(i: *mut xcb_xkb_key_alias_iterator_t);
 
-pub fn xcb_xkb_key_alias_end(i: *mut xcb_xkb_key_alias_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_key_alias_end(i: *mut xcb_xkb_key_alias_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_counted_string_16_string(R: *const xcb_xkb_counted_string_16_t) -> *mut c_char;
+    pub fn xcb_xkb_counted_string_16_string(R: *const xcb_xkb_counted_string_16_t) -> *mut c_char;
 
-pub fn xcb_xkb_counted_string_16_string_length(R: *const xcb_xkb_counted_string_16_t) -> c_int;
+    pub fn xcb_xkb_counted_string_16_string_length(R: *const xcb_xkb_counted_string_16_t) -> c_int;
 
-pub fn xcb_xkb_counted_string_16_string_end(R: *const xcb_xkb_counted_string_16_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_counted_string_16_string_end(
+        R: *const xcb_xkb_counted_string_16_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_counted_string_16_alignment_pad(R: *const xcb_xkb_counted_string_16_t) -> *mut c_void;
+    pub fn xcb_xkb_counted_string_16_alignment_pad(
+        R: *const xcb_xkb_counted_string_16_t,
+    ) -> *mut c_void;
 
-pub fn xcb_xkb_counted_string_16_alignment_pad_length(R: *const xcb_xkb_counted_string_16_t) -> c_int;
+    pub fn xcb_xkb_counted_string_16_alignment_pad_length(
+        R: *const xcb_xkb_counted_string_16_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_counted_string_16_alignment_pad_end(R: *const xcb_xkb_counted_string_16_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_counted_string_16_alignment_pad_end(
+        R: *const xcb_xkb_counted_string_16_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_counted_string_16_next(i: *mut xcb_xkb_counted_string_16_iterator_t);
+    pub fn xcb_xkb_counted_string_16_next(i: *mut xcb_xkb_counted_string_16_iterator_t);
 
-pub fn xcb_xkb_counted_string_16_end(i: *mut xcb_xkb_counted_string_16_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_counted_string_16_end(
+        i: *mut xcb_xkb_counted_string_16_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_kt_map_entry_next(i: *mut xcb_xkb_kt_map_entry_iterator_t);
+    pub fn xcb_xkb_kt_map_entry_next(i: *mut xcb_xkb_kt_map_entry_iterator_t);
 
-pub fn xcb_xkb_kt_map_entry_end(i: *mut xcb_xkb_kt_map_entry_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_kt_map_entry_end(
+        i: *mut xcb_xkb_kt_map_entry_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_key_type_map(R: *const xcb_xkb_key_type_t) -> *mut xcb_xkb_kt_map_entry_t;
+    pub fn xcb_xkb_key_type_map(R: *const xcb_xkb_key_type_t) -> *mut xcb_xkb_kt_map_entry_t;
 
-pub fn xcb_xkb_key_type_map_length(R: *const xcb_xkb_key_type_t) -> c_int;
+    pub fn xcb_xkb_key_type_map_length(R: *const xcb_xkb_key_type_t) -> c_int;
 
-pub fn xcb_xkb_key_type_map_iterator(R: *const xcb_xkb_key_type_t) -> xcb_xkb_kt_map_entry_iterator_t;
+    pub fn xcb_xkb_key_type_map_iterator(
+        R: *const xcb_xkb_key_type_t,
+    ) -> xcb_xkb_kt_map_entry_iterator_t;
 
-pub fn xcb_xkb_key_type_preserve(R: *const xcb_xkb_key_type_t) -> *mut xcb_xkb_mod_def_t;
+    pub fn xcb_xkb_key_type_preserve(R: *const xcb_xkb_key_type_t) -> *mut xcb_xkb_mod_def_t;
 
-pub fn xcb_xkb_key_type_preserve_length(R: *const xcb_xkb_key_type_t) -> c_int;
+    pub fn xcb_xkb_key_type_preserve_length(R: *const xcb_xkb_key_type_t) -> c_int;
 
-pub fn xcb_xkb_key_type_preserve_iterator(R: *const xcb_xkb_key_type_t) -> xcb_xkb_mod_def_iterator_t;
+    pub fn xcb_xkb_key_type_preserve_iterator(
+        R: *const xcb_xkb_key_type_t,
+    ) -> xcb_xkb_mod_def_iterator_t;
 
-pub fn xcb_xkb_key_type_next(i: *mut xcb_xkb_key_type_iterator_t);
+    pub fn xcb_xkb_key_type_next(i: *mut xcb_xkb_key_type_iterator_t);
 
-pub fn xcb_xkb_key_type_end(i: *mut xcb_xkb_key_type_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_key_type_end(i: *mut xcb_xkb_key_type_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_key_sym_map_syms(R: *const xcb_xkb_key_sym_map_t) -> *mut xcb_keysym_t;
+    pub fn xcb_xkb_key_sym_map_syms(R: *const xcb_xkb_key_sym_map_t) -> *mut xcb_keysym_t;
 
-pub fn xcb_xkb_key_sym_map_syms_length(R: *const xcb_xkb_key_sym_map_t) -> c_int;
+    pub fn xcb_xkb_key_sym_map_syms_length(R: *const xcb_xkb_key_sym_map_t) -> c_int;
 
-pub fn xcb_xkb_key_sym_map_syms_end(R: *const xcb_xkb_key_sym_map_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_key_sym_map_syms_end(R: *const xcb_xkb_key_sym_map_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_key_sym_map_next(i: *mut xcb_xkb_key_sym_map_iterator_t);
+    pub fn xcb_xkb_key_sym_map_next(i: *mut xcb_xkb_key_sym_map_iterator_t);
 
-pub fn xcb_xkb_key_sym_map_end(i: *mut xcb_xkb_key_sym_map_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_key_sym_map_end(
+        i: *mut xcb_xkb_key_sym_map_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_common_behavior_next(i: *mut xcb_xkb_common_behavior_iterator_t);
+    pub fn xcb_xkb_common_behavior_next(i: *mut xcb_xkb_common_behavior_iterator_t);
 
-pub fn xcb_xkb_common_behavior_end(i: *mut xcb_xkb_common_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_common_behavior_end(
+        i: *mut xcb_xkb_common_behavior_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_default_behavior_next(i: *mut xcb_xkb_default_behavior_iterator_t);
+    pub fn xcb_xkb_default_behavior_next(i: *mut xcb_xkb_default_behavior_iterator_t);
 
-pub fn xcb_xkb_default_behavior_end(i: *mut xcb_xkb_default_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_default_behavior_end(
+        i: *mut xcb_xkb_default_behavior_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_lock_behavior_next(i: *mut xcb_xkb_lock_behavior_iterator_t);
+    pub fn xcb_xkb_lock_behavior_next(i: *mut xcb_xkb_lock_behavior_iterator_t);
 
-pub fn xcb_xkb_lock_behavior_end(i: *mut xcb_xkb_lock_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_lock_behavior_end(
+        i: *mut xcb_xkb_lock_behavior_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_radio_group_behavior_next(i: *mut xcb_xkb_radio_group_behavior_iterator_t);
+    pub fn xcb_xkb_radio_group_behavior_next(i: *mut xcb_xkb_radio_group_behavior_iterator_t);
 
-pub fn xcb_xkb_radio_group_behavior_end(i: *mut xcb_xkb_radio_group_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_radio_group_behavior_end(
+        i: *mut xcb_xkb_radio_group_behavior_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_overlay_behavior_next(i: *mut xcb_xkb_overlay_behavior_iterator_t);
+    pub fn xcb_xkb_overlay_behavior_next(i: *mut xcb_xkb_overlay_behavior_iterator_t);
 
-pub fn xcb_xkb_overlay_behavior_end(i: *mut xcb_xkb_overlay_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_overlay_behavior_end(
+        i: *mut xcb_xkb_overlay_behavior_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_permament_lock_behavior_next(i: *mut xcb_xkb_permament_lock_behavior_iterator_t);
+    pub fn xcb_xkb_permament_lock_behavior_next(i: *mut xcb_xkb_permament_lock_behavior_iterator_t);
 
-pub fn xcb_xkb_permament_lock_behavior_end(i: *mut xcb_xkb_permament_lock_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_permament_lock_behavior_end(
+        i: *mut xcb_xkb_permament_lock_behavior_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_permament_radio_group_behavior_next(i: *mut xcb_xkb_permament_radio_group_behavior_iterator_t);
+    pub fn xcb_xkb_permament_radio_group_behavior_next(
+        i: *mut xcb_xkb_permament_radio_group_behavior_iterator_t,
+    );
 
-pub fn xcb_xkb_permament_radio_group_behavior_end(i: *mut xcb_xkb_permament_radio_group_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_permament_radio_group_behavior_end(
+        i: *mut xcb_xkb_permament_radio_group_behavior_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_permament_overlay_behavior_next(i: *mut xcb_xkb_permament_overlay_behavior_iterator_t);
+    pub fn xcb_xkb_permament_overlay_behavior_next(
+        i: *mut xcb_xkb_permament_overlay_behavior_iterator_t,
+    );
 
-pub fn xcb_xkb_permament_overlay_behavior_end(i: *mut xcb_xkb_permament_overlay_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_permament_overlay_behavior_end(
+        i: *mut xcb_xkb_permament_overlay_behavior_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_behavior_next(i: *mut xcb_xkb_behavior_iterator_t);
+    pub fn xcb_xkb_behavior_next(i: *mut xcb_xkb_behavior_iterator_t);
 
-pub fn xcb_xkb_behavior_end(i: *mut xcb_xkb_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_behavior_end(i: *mut xcb_xkb_behavior_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_behavior_next(i: *mut xcb_xkb_set_behavior_iterator_t);
+    pub fn xcb_xkb_set_behavior_next(i: *mut xcb_xkb_set_behavior_iterator_t);
 
-pub fn xcb_xkb_set_behavior_end(i: *mut xcb_xkb_set_behavior_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_behavior_end(
+        i: *mut xcb_xkb_set_behavior_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_explicit_next(i: *mut xcb_xkb_set_explicit_iterator_t);
+    pub fn xcb_xkb_set_explicit_next(i: *mut xcb_xkb_set_explicit_iterator_t);
 
-pub fn xcb_xkb_set_explicit_end(i: *mut xcb_xkb_set_explicit_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_explicit_end(
+        i: *mut xcb_xkb_set_explicit_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_key_mod_map_next(i: *mut xcb_xkb_key_mod_map_iterator_t);
+    pub fn xcb_xkb_key_mod_map_next(i: *mut xcb_xkb_key_mod_map_iterator_t);
 
-pub fn xcb_xkb_key_mod_map_end(i: *mut xcb_xkb_key_mod_map_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_key_mod_map_end(
+        i: *mut xcb_xkb_key_mod_map_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_key_v_mod_map_next(i: *mut xcb_xkb_key_v_mod_map_iterator_t);
+    pub fn xcb_xkb_key_v_mod_map_next(i: *mut xcb_xkb_key_v_mod_map_iterator_t);
 
-pub fn xcb_xkb_key_v_mod_map_end(i: *mut xcb_xkb_key_v_mod_map_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_key_v_mod_map_end(
+        i: *mut xcb_xkb_key_v_mod_map_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_kt_set_map_entry_next(i: *mut xcb_xkb_kt_set_map_entry_iterator_t);
+    pub fn xcb_xkb_kt_set_map_entry_next(i: *mut xcb_xkb_kt_set_map_entry_iterator_t);
 
-pub fn xcb_xkb_kt_set_map_entry_end(i: *mut xcb_xkb_kt_set_map_entry_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_kt_set_map_entry_end(
+        i: *mut xcb_xkb_kt_set_map_entry_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_key_type_entries(R: *const xcb_xkb_set_key_type_t) -> *mut xcb_xkb_kt_set_map_entry_t;
+    pub fn xcb_xkb_set_key_type_entries(
+        R: *const xcb_xkb_set_key_type_t,
+    ) -> *mut xcb_xkb_kt_set_map_entry_t;
 
-pub fn xcb_xkb_set_key_type_entries_length(R: *const xcb_xkb_set_key_type_t) -> c_int;
+    pub fn xcb_xkb_set_key_type_entries_length(R: *const xcb_xkb_set_key_type_t) -> c_int;
 
-pub fn xcb_xkb_set_key_type_entries_iterator(R: *const xcb_xkb_set_key_type_t) -> xcb_xkb_kt_set_map_entry_iterator_t;
+    pub fn xcb_xkb_set_key_type_entries_iterator(
+        R: *const xcb_xkb_set_key_type_t,
+    ) -> xcb_xkb_kt_set_map_entry_iterator_t;
 
-pub fn xcb_xkb_set_key_type_preserve_entries(R: *const xcb_xkb_set_key_type_t) -> *mut xcb_xkb_kt_set_map_entry_t;
+    pub fn xcb_xkb_set_key_type_preserve_entries(
+        R: *const xcb_xkb_set_key_type_t,
+    ) -> *mut xcb_xkb_kt_set_map_entry_t;
 
-pub fn xcb_xkb_set_key_type_preserve_entries_length(R: *const xcb_xkb_set_key_type_t) -> c_int;
+    pub fn xcb_xkb_set_key_type_preserve_entries_length(R: *const xcb_xkb_set_key_type_t) -> c_int;
 
-pub fn xcb_xkb_set_key_type_preserve_entries_iterator(R: *const xcb_xkb_set_key_type_t) -> xcb_xkb_kt_set_map_entry_iterator_t;
+    pub fn xcb_xkb_set_key_type_preserve_entries_iterator(
+        R: *const xcb_xkb_set_key_type_t,
+    ) -> xcb_xkb_kt_set_map_entry_iterator_t;
 
-pub fn xcb_xkb_set_key_type_next(i: *mut xcb_xkb_set_key_type_iterator_t);
+    pub fn xcb_xkb_set_key_type_next(i: *mut xcb_xkb_set_key_type_iterator_t);
 
-pub fn xcb_xkb_set_key_type_end(i: *mut xcb_xkb_set_key_type_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_key_type_end(
+        i: *mut xcb_xkb_set_key_type_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_string8_next(i: *mut xcb_xkb_string8_iterator_t);
+    pub fn xcb_xkb_string8_next(i: *mut xcb_xkb_string8_iterator_t);
 
-pub fn xcb_xkb_string8_end(i: *mut xcb_xkb_string8_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_string8_end(i: *mut xcb_xkb_string8_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_outline_points(R: *const xcb_xkb_outline_t) -> *mut xcb_point_t;
+    pub fn xcb_xkb_outline_points(R: *const xcb_xkb_outline_t) -> *mut xcb_point_t;
 
-pub fn xcb_xkb_outline_points_length(R: *const xcb_xkb_outline_t) -> c_int;
+    pub fn xcb_xkb_outline_points_length(R: *const xcb_xkb_outline_t) -> c_int;
 
-pub fn xcb_xkb_outline_points_iterator(R: *const xcb_xkb_outline_t) -> xcb_point_iterator_t;
+    pub fn xcb_xkb_outline_points_iterator(R: *const xcb_xkb_outline_t) -> xcb_point_iterator_t;
 
-pub fn xcb_xkb_outline_next(i: *mut xcb_xkb_outline_iterator_t);
+    pub fn xcb_xkb_outline_next(i: *mut xcb_xkb_outline_iterator_t);
 
-pub fn xcb_xkb_outline_end(i: *mut xcb_xkb_outline_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_outline_end(i: *mut xcb_xkb_outline_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_shape_outlines_length(R: *const xcb_xkb_shape_t) -> c_int;
+    pub fn xcb_xkb_shape_outlines_length(R: *const xcb_xkb_shape_t) -> c_int;
 
-pub fn xcb_xkb_shape_outlines_iterator<'a>(R: *const xcb_xkb_shape_t) -> xcb_xkb_outline_iterator_t<'a>;
+    pub fn xcb_xkb_shape_outlines_iterator<'a>(
+        R: *const xcb_xkb_shape_t,
+    ) -> xcb_xkb_outline_iterator_t<'a>;
 
-pub fn xcb_xkb_shape_next(i: *mut xcb_xkb_shape_iterator_t);
+    pub fn xcb_xkb_shape_next(i: *mut xcb_xkb_shape_iterator_t);
 
-pub fn xcb_xkb_shape_end(i: *mut xcb_xkb_shape_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_shape_end(i: *mut xcb_xkb_shape_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_key_next(i: *mut xcb_xkb_key_iterator_t);
+    pub fn xcb_xkb_key_next(i: *mut xcb_xkb_key_iterator_t);
 
-pub fn xcb_xkb_key_end(i: *mut xcb_xkb_key_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_key_end(i: *mut xcb_xkb_key_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_overlay_key_next(i: *mut xcb_xkb_overlay_key_iterator_t);
+    pub fn xcb_xkb_overlay_key_next(i: *mut xcb_xkb_overlay_key_iterator_t);
 
-pub fn xcb_xkb_overlay_key_end(i: *mut xcb_xkb_overlay_key_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_overlay_key_end(
+        i: *mut xcb_xkb_overlay_key_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_overlay_row_keys(R: *const xcb_xkb_overlay_row_t) -> *mut xcb_xkb_overlay_key_t;
+    pub fn xcb_xkb_overlay_row_keys(R: *const xcb_xkb_overlay_row_t) -> *mut xcb_xkb_overlay_key_t;
 
-pub fn xcb_xkb_overlay_row_keys_length(R: *const xcb_xkb_overlay_row_t) -> c_int;
+    pub fn xcb_xkb_overlay_row_keys_length(R: *const xcb_xkb_overlay_row_t) -> c_int;
 
-pub fn xcb_xkb_overlay_row_keys_iterator<'a>(R: *const xcb_xkb_overlay_row_t) -> xcb_xkb_overlay_key_iterator_t<'a>;
+    pub fn xcb_xkb_overlay_row_keys_iterator<'a>(
+        R: *const xcb_xkb_overlay_row_t,
+    ) -> xcb_xkb_overlay_key_iterator_t<'a>;
 
-pub fn xcb_xkb_overlay_row_next(i: *mut xcb_xkb_overlay_row_iterator_t);
+    pub fn xcb_xkb_overlay_row_next(i: *mut xcb_xkb_overlay_row_iterator_t);
 
-pub fn xcb_xkb_overlay_row_end(i: *mut xcb_xkb_overlay_row_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_overlay_row_end(
+        i: *mut xcb_xkb_overlay_row_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_overlay_rows_length(R: *const xcb_xkb_overlay_t) -> c_int;
+    pub fn xcb_xkb_overlay_rows_length(R: *const xcb_xkb_overlay_t) -> c_int;
 
-pub fn xcb_xkb_overlay_rows_iterator<'a>(R: *const xcb_xkb_overlay_t) -> xcb_xkb_overlay_row_iterator_t<'a>;
+    pub fn xcb_xkb_overlay_rows_iterator<'a>(
+        R: *const xcb_xkb_overlay_t,
+    ) -> xcb_xkb_overlay_row_iterator_t<'a>;
 
-pub fn xcb_xkb_overlay_next(i: *mut xcb_xkb_overlay_iterator_t);
+    pub fn xcb_xkb_overlay_next(i: *mut xcb_xkb_overlay_iterator_t);
 
-pub fn xcb_xkb_overlay_end(i: *mut xcb_xkb_overlay_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_overlay_end(i: *mut xcb_xkb_overlay_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_row_keys(R: *const xcb_xkb_row_t) -> *mut xcb_xkb_key_t;
+    pub fn xcb_xkb_row_keys(R: *const xcb_xkb_row_t) -> *mut xcb_xkb_key_t;
 
-pub fn xcb_xkb_row_keys_length(R: *const xcb_xkb_row_t) -> c_int;
+    pub fn xcb_xkb_row_keys_length(R: *const xcb_xkb_row_t) -> c_int;
 
-pub fn xcb_xkb_row_keys_iterator<'a>(R: *const xcb_xkb_row_t) -> xcb_xkb_key_iterator_t<'a>;
+    pub fn xcb_xkb_row_keys_iterator<'a>(R: *const xcb_xkb_row_t) -> xcb_xkb_key_iterator_t<'a>;
 
-pub fn xcb_xkb_row_next(i: *mut xcb_xkb_row_iterator_t);
+    pub fn xcb_xkb_row_next(i: *mut xcb_xkb_row_iterator_t);
 
-pub fn xcb_xkb_row_end(i: *mut xcb_xkb_row_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_row_end(i: *mut xcb_xkb_row_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_listing_string(R: *const xcb_xkb_listing_t) -> *mut xcb_xkb_string8_t;
+    pub fn xcb_xkb_listing_string(R: *const xcb_xkb_listing_t) -> *mut xcb_xkb_string8_t;
 
-pub fn xcb_xkb_listing_string_length(R: *const xcb_xkb_listing_t) -> c_int;
+    pub fn xcb_xkb_listing_string_length(R: *const xcb_xkb_listing_t) -> c_int;
 
-pub fn xcb_xkb_listing_string_end(R: *const xcb_xkb_listing_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_listing_string_end(R: *const xcb_xkb_listing_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_listing_next(i: *mut xcb_xkb_listing_iterator_t);
+    pub fn xcb_xkb_listing_next(i: *mut xcb_xkb_listing_iterator_t);
 
-pub fn xcb_xkb_listing_end(i: *mut xcb_xkb_listing_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_listing_end(i: *mut xcb_xkb_listing_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_device_led_info_names(R: *const xcb_xkb_device_led_info_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_device_led_info_names(R: *const xcb_xkb_device_led_info_t) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_device_led_info_names_length(R: *const xcb_xkb_device_led_info_t) -> c_int;
+    pub fn xcb_xkb_device_led_info_names_length(R: *const xcb_xkb_device_led_info_t) -> c_int;
 
-pub fn xcb_xkb_device_led_info_names_end(R: *const xcb_xkb_device_led_info_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_device_led_info_names_end(
+        R: *const xcb_xkb_device_led_info_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_device_led_info_maps(R: *const xcb_xkb_device_led_info_t) -> *mut xcb_xkb_indicator_map_t;
+    pub fn xcb_xkb_device_led_info_maps(
+        R: *const xcb_xkb_device_led_info_t,
+    ) -> *mut xcb_xkb_indicator_map_t;
 
-pub fn xcb_xkb_device_led_info_maps_length(R: *const xcb_xkb_device_led_info_t) -> c_int;
+    pub fn xcb_xkb_device_led_info_maps_length(R: *const xcb_xkb_device_led_info_t) -> c_int;
 
-pub fn xcb_xkb_device_led_info_maps_iterator(R: *const xcb_xkb_device_led_info_t) -> xcb_xkb_indicator_map_iterator_t;
+    pub fn xcb_xkb_device_led_info_maps_iterator(
+        R: *const xcb_xkb_device_led_info_t,
+    ) -> xcb_xkb_indicator_map_iterator_t;
 
-pub fn xcb_xkb_device_led_info_next(i: *mut xcb_xkb_device_led_info_iterator_t);
+    pub fn xcb_xkb_device_led_info_next(i: *mut xcb_xkb_device_led_info_iterator_t);
 
-pub fn xcb_xkb_device_led_info_end(i: *mut xcb_xkb_device_led_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_device_led_info_end(
+        i: *mut xcb_xkb_device_led_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_no_action_next(i: *mut xcb_xkb_sa_no_action_iterator_t);
+    pub fn xcb_xkb_sa_no_action_next(i: *mut xcb_xkb_sa_no_action_iterator_t);
 
-pub fn xcb_xkb_sa_no_action_end(i: *mut xcb_xkb_sa_no_action_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_no_action_end(
+        i: *mut xcb_xkb_sa_no_action_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_set_mods_next(i: *mut xcb_xkb_sa_set_mods_iterator_t);
+    pub fn xcb_xkb_sa_set_mods_next(i: *mut xcb_xkb_sa_set_mods_iterator_t);
 
-pub fn xcb_xkb_sa_set_mods_end(i: *mut xcb_xkb_sa_set_mods_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_set_mods_end(
+        i: *mut xcb_xkb_sa_set_mods_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_latch_mods_next(i: *mut xcb_xkb_sa_latch_mods_iterator_t);
+    pub fn xcb_xkb_sa_latch_mods_next(i: *mut xcb_xkb_sa_latch_mods_iterator_t);
 
-pub fn xcb_xkb_sa_latch_mods_end(i: *mut xcb_xkb_sa_latch_mods_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_latch_mods_end(
+        i: *mut xcb_xkb_sa_latch_mods_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_lock_mods_next(i: *mut xcb_xkb_sa_lock_mods_iterator_t);
+    pub fn xcb_xkb_sa_lock_mods_next(i: *mut xcb_xkb_sa_lock_mods_iterator_t);
 
-pub fn xcb_xkb_sa_lock_mods_end(i: *mut xcb_xkb_sa_lock_mods_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_lock_mods_end(
+        i: *mut xcb_xkb_sa_lock_mods_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_set_group_next(i: *mut xcb_xkb_sa_set_group_iterator_t);
+    pub fn xcb_xkb_sa_set_group_next(i: *mut xcb_xkb_sa_set_group_iterator_t);
 
-pub fn xcb_xkb_sa_set_group_end(i: *mut xcb_xkb_sa_set_group_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_set_group_end(
+        i: *mut xcb_xkb_sa_set_group_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_latch_group_next(i: *mut xcb_xkb_sa_latch_group_iterator_t);
+    pub fn xcb_xkb_sa_latch_group_next(i: *mut xcb_xkb_sa_latch_group_iterator_t);
 
-pub fn xcb_xkb_sa_latch_group_end(i: *mut xcb_xkb_sa_latch_group_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_latch_group_end(
+        i: *mut xcb_xkb_sa_latch_group_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_lock_group_next(i: *mut xcb_xkb_sa_lock_group_iterator_t);
+    pub fn xcb_xkb_sa_lock_group_next(i: *mut xcb_xkb_sa_lock_group_iterator_t);
 
-pub fn xcb_xkb_sa_lock_group_end(i: *mut xcb_xkb_sa_lock_group_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_lock_group_end(
+        i: *mut xcb_xkb_sa_lock_group_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_move_ptr_next(i: *mut xcb_xkb_sa_move_ptr_iterator_t);
+    pub fn xcb_xkb_sa_move_ptr_next(i: *mut xcb_xkb_sa_move_ptr_iterator_t);
 
-pub fn xcb_xkb_sa_move_ptr_end(i: *mut xcb_xkb_sa_move_ptr_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_move_ptr_end(
+        i: *mut xcb_xkb_sa_move_ptr_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_ptr_btn_next(i: *mut xcb_xkb_sa_ptr_btn_iterator_t);
+    pub fn xcb_xkb_sa_ptr_btn_next(i: *mut xcb_xkb_sa_ptr_btn_iterator_t);
 
-pub fn xcb_xkb_sa_ptr_btn_end(i: *mut xcb_xkb_sa_ptr_btn_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_ptr_btn_end(i: *mut xcb_xkb_sa_ptr_btn_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_lock_ptr_btn_next(i: *mut xcb_xkb_sa_lock_ptr_btn_iterator_t);
+    pub fn xcb_xkb_sa_lock_ptr_btn_next(i: *mut xcb_xkb_sa_lock_ptr_btn_iterator_t);
 
-pub fn xcb_xkb_sa_lock_ptr_btn_end(i: *mut xcb_xkb_sa_lock_ptr_btn_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_lock_ptr_btn_end(
+        i: *mut xcb_xkb_sa_lock_ptr_btn_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_set_ptr_dflt_next(i: *mut xcb_xkb_sa_set_ptr_dflt_iterator_t);
+    pub fn xcb_xkb_sa_set_ptr_dflt_next(i: *mut xcb_xkb_sa_set_ptr_dflt_iterator_t);
 
-pub fn xcb_xkb_sa_set_ptr_dflt_end(i: *mut xcb_xkb_sa_set_ptr_dflt_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_set_ptr_dflt_end(
+        i: *mut xcb_xkb_sa_set_ptr_dflt_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_iso_lock_next(i: *mut xcb_xkb_sa_iso_lock_iterator_t);
+    pub fn xcb_xkb_sa_iso_lock_next(i: *mut xcb_xkb_sa_iso_lock_iterator_t);
 
-pub fn xcb_xkb_sa_iso_lock_end(i: *mut xcb_xkb_sa_iso_lock_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_iso_lock_end(
+        i: *mut xcb_xkb_sa_iso_lock_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_terminate_next(i: *mut xcb_xkb_sa_terminate_iterator_t);
+    pub fn xcb_xkb_sa_terminate_next(i: *mut xcb_xkb_sa_terminate_iterator_t);
 
-pub fn xcb_xkb_sa_terminate_end(i: *mut xcb_xkb_sa_terminate_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_terminate_end(
+        i: *mut xcb_xkb_sa_terminate_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_switch_screen_next(i: *mut xcb_xkb_sa_switch_screen_iterator_t);
+    pub fn xcb_xkb_sa_switch_screen_next(i: *mut xcb_xkb_sa_switch_screen_iterator_t);
 
-pub fn xcb_xkb_sa_switch_screen_end(i: *mut xcb_xkb_sa_switch_screen_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_switch_screen_end(
+        i: *mut xcb_xkb_sa_switch_screen_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_set_controls_next(i: *mut xcb_xkb_sa_set_controls_iterator_t);
+    pub fn xcb_xkb_sa_set_controls_next(i: *mut xcb_xkb_sa_set_controls_iterator_t);
 
-pub fn xcb_xkb_sa_set_controls_end(i: *mut xcb_xkb_sa_set_controls_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_set_controls_end(
+        i: *mut xcb_xkb_sa_set_controls_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_lock_controls_next(i: *mut xcb_xkb_sa_lock_controls_iterator_t);
+    pub fn xcb_xkb_sa_lock_controls_next(i: *mut xcb_xkb_sa_lock_controls_iterator_t);
 
-pub fn xcb_xkb_sa_lock_controls_end(i: *mut xcb_xkb_sa_lock_controls_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_lock_controls_end(
+        i: *mut xcb_xkb_sa_lock_controls_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_action_message_next(i: *mut xcb_xkb_sa_action_message_iterator_t);
+    pub fn xcb_xkb_sa_action_message_next(i: *mut xcb_xkb_sa_action_message_iterator_t);
 
-pub fn xcb_xkb_sa_action_message_end(i: *mut xcb_xkb_sa_action_message_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_action_message_end(
+        i: *mut xcb_xkb_sa_action_message_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_redirect_key_next(i: *mut xcb_xkb_sa_redirect_key_iterator_t);
+    pub fn xcb_xkb_sa_redirect_key_next(i: *mut xcb_xkb_sa_redirect_key_iterator_t);
 
-pub fn xcb_xkb_sa_redirect_key_end(i: *mut xcb_xkb_sa_redirect_key_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_redirect_key_end(
+        i: *mut xcb_xkb_sa_redirect_key_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_device_btn_next(i: *mut xcb_xkb_sa_device_btn_iterator_t);
+    pub fn xcb_xkb_sa_device_btn_next(i: *mut xcb_xkb_sa_device_btn_iterator_t);
 
-pub fn xcb_xkb_sa_device_btn_end(i: *mut xcb_xkb_sa_device_btn_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_device_btn_end(
+        i: *mut xcb_xkb_sa_device_btn_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_lock_device_btn_next(i: *mut xcb_xkb_sa_lock_device_btn_iterator_t);
+    pub fn xcb_xkb_sa_lock_device_btn_next(i: *mut xcb_xkb_sa_lock_device_btn_iterator_t);
 
-pub fn xcb_xkb_sa_lock_device_btn_end(i: *mut xcb_xkb_sa_lock_device_btn_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_lock_device_btn_end(
+        i: *mut xcb_xkb_sa_lock_device_btn_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sa_device_valuator_next(i: *mut xcb_xkb_sa_device_valuator_iterator_t);
+    pub fn xcb_xkb_sa_device_valuator_next(i: *mut xcb_xkb_sa_device_valuator_iterator_t);
 
-pub fn xcb_xkb_sa_device_valuator_end(i: *mut xcb_xkb_sa_device_valuator_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sa_device_valuator_end(
+        i: *mut xcb_xkb_sa_device_valuator_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_si_action_next(i: *mut xcb_xkb_si_action_iterator_t);
+    pub fn xcb_xkb_si_action_next(i: *mut xcb_xkb_si_action_iterator_t);
 
-pub fn xcb_xkb_si_action_end(i: *mut xcb_xkb_si_action_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_si_action_end(i: *mut xcb_xkb_si_action_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_sym_interpret_next(i: *mut xcb_xkb_sym_interpret_iterator_t);
+    pub fn xcb_xkb_sym_interpret_next(i: *mut xcb_xkb_sym_interpret_iterator_t);
 
-pub fn xcb_xkb_sym_interpret_end(i: *mut xcb_xkb_sym_interpret_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_sym_interpret_end(
+        i: *mut xcb_xkb_sym_interpret_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_action_next(i: *mut xcb_xkb_action_iterator_t);
+    pub fn xcb_xkb_action_next(i: *mut xcb_xkb_action_iterator_t);
 
-pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_use_extension_reply (
+    pub fn xcb_xkb_use_extension_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_use_extension_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_use_extension_reply_t;
 
-    pub fn xcb_xkb_use_extension (
+    pub fn xcb_xkb_use_extension(
         c: *mut xcb_connection_t,
         wantedMajor: u16,
         wantedMinor: u16,
     ) -> xcb_xkb_use_extension_cookie_t;
 
-    pub fn xcb_xkb_use_extension_unchecked (
+    pub fn xcb_xkb_use_extension_unchecked(
         c: *mut xcb_connection_t,
         wantedMajor: u16,
         wantedMinor: u16,
     ) -> xcb_xkb_use_extension_cookie_t;
 
-    pub fn xcb_xkb_select_events (
+    pub fn xcb_xkb_select_events(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         affectWhich: u16,
@@ -3133,7 +3263,7 @@ pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iter
         details: *const xcb_xkb_select_events_details_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_select_events_checked (
+    pub fn xcb_xkb_select_events_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         affectWhich: u16,
@@ -3144,7 +3274,7 @@ pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iter
         details: *const xcb_xkb_select_events_details_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_bell (
+    pub fn xcb_xkb_bell(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         bellClass: xcb_xkb_bell_class_spec_t,
@@ -3158,7 +3288,7 @@ pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iter
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_bell_checked (
+    pub fn xcb_xkb_bell_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         bellClass: xcb_xkb_bell_class_spec_t,
@@ -3173,23 +3303,23 @@ pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iter
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_state_reply (
+    pub fn xcb_xkb_get_state_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_state_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_state_reply_t;
 
-    pub fn xcb_xkb_get_state (
+    pub fn xcb_xkb_get_state(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
     ) -> xcb_xkb_get_state_cookie_t;
 
-    pub fn xcb_xkb_get_state_unchecked (
+    pub fn xcb_xkb_get_state_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
     ) -> xcb_xkb_get_state_cookie_t;
 
-    pub fn xcb_xkb_latch_lock_state (
+    pub fn xcb_xkb_latch_lock_state(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         affectModLocks: u8,
@@ -3201,7 +3331,7 @@ pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iter
         groupLatch: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_latch_lock_state_checked (
+    pub fn xcb_xkb_latch_lock_state_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         affectModLocks: u8,
@@ -3214,23 +3344,23 @@ pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iter
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_controls_reply (
+    pub fn xcb_xkb_get_controls_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_controls_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_controls_reply_t;
 
-    pub fn xcb_xkb_get_controls (
+    pub fn xcb_xkb_get_controls(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
     ) -> xcb_xkb_get_controls_cookie_t;
 
-    pub fn xcb_xkb_get_controls_unchecked (
+    pub fn xcb_xkb_get_controls_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
     ) -> xcb_xkb_get_controls_cookie_t;
 
-    pub fn xcb_xkb_set_controls (
+    pub fn xcb_xkb_set_controls(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         affectInternalRealMods: u8,
@@ -3264,7 +3394,7 @@ pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iter
         perKeyRepeat: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_set_controls_checked (
+    pub fn xcb_xkb_set_controls_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         affectInternalRealMods: u8,
@@ -3298,65 +3428,129 @@ pub fn xcb_xkb_action_end(i: *mut xcb_xkb_action_iterator_t) -> xcb_generic_iter
         perKeyRepeat: *const u8,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xkb_get_map_map_types_rtrn_length(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> c_int;
+    pub fn xcb_xkb_get_map_map_types_rtrn_length(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_map_map_types_rtrn_iterator<'a>(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> xcb_xkb_key_type_iterator_t<'a>;
+    pub fn xcb_xkb_get_map_map_types_rtrn_iterator<'a>(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> xcb_xkb_key_type_iterator_t<'a>;
 
-pub fn xcb_xkb_get_map_map_syms_rtrn_length(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> c_int;
+    pub fn xcb_xkb_get_map_map_syms_rtrn_length(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_map_map_syms_rtrn_iterator<'a>(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> xcb_xkb_key_sym_map_iterator_t<'a>;
+    pub fn xcb_xkb_get_map_map_syms_rtrn_iterator<'a>(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> xcb_xkb_key_sym_map_iterator_t<'a>;
 
-pub fn xcb_xkb_get_map_map_acts_rtrn_count(S: *const xcb_xkb_get_map_map_t) -> *mut u8;
+    pub fn xcb_xkb_get_map_map_acts_rtrn_count(S: *const xcb_xkb_get_map_map_t) -> *mut u8;
 
-pub fn xcb_xkb_get_map_map_acts_rtrn_count_length(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> c_int;
+    pub fn xcb_xkb_get_map_map_acts_rtrn_count_length(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_map_map_acts_rtrn_count_end(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_map_map_acts_rtrn_count_end(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_map_map_acts_rtrn_acts(S: *const xcb_xkb_get_map_map_t) -> *mut xcb_xkb_action_t;
+    pub fn xcb_xkb_get_map_map_acts_rtrn_acts(
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> *mut xcb_xkb_action_t;
 
-pub fn xcb_xkb_get_map_map_acts_rtrn_acts_length(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> c_int;
+    pub fn xcb_xkb_get_map_map_acts_rtrn_acts_length(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_map_map_acts_rtrn_acts_iterator(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> xcb_xkb_action_iterator_t;
+    pub fn xcb_xkb_get_map_map_acts_rtrn_acts_iterator(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> xcb_xkb_action_iterator_t;
 
-pub fn xcb_xkb_get_map_map_behaviors_rtrn(S: *const xcb_xkb_get_map_map_t) -> *mut xcb_xkb_set_behavior_t;
+    pub fn xcb_xkb_get_map_map_behaviors_rtrn(
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> *mut xcb_xkb_set_behavior_t;
 
-pub fn xcb_xkb_get_map_map_behaviors_rtrn_length(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> c_int;
+    pub fn xcb_xkb_get_map_map_behaviors_rtrn_length(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_map_map_behaviors_rtrn_iterator<'a>(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> xcb_xkb_set_behavior_iterator_t<'a>;
+    pub fn xcb_xkb_get_map_map_behaviors_rtrn_iterator<'a>(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> xcb_xkb_set_behavior_iterator_t<'a>;
 
-pub fn xcb_xkb_get_map_map_vmods_rtrn(S: *const xcb_xkb_get_map_map_t) -> *mut u8;
+    pub fn xcb_xkb_get_map_map_vmods_rtrn(S: *const xcb_xkb_get_map_map_t) -> *mut u8;
 
-pub fn xcb_xkb_get_map_map_vmods_rtrn_length(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> c_int;
+    pub fn xcb_xkb_get_map_map_vmods_rtrn_length(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_map_map_vmods_rtrn_end(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_map_map_vmods_rtrn_end(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_map_map_explicit_rtrn(S: *const xcb_xkb_get_map_map_t) -> *mut xcb_xkb_set_explicit_t;
+    pub fn xcb_xkb_get_map_map_explicit_rtrn(
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> *mut xcb_xkb_set_explicit_t;
 
-pub fn xcb_xkb_get_map_map_explicit_rtrn_length(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> c_int;
+    pub fn xcb_xkb_get_map_map_explicit_rtrn_length(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_map_map_explicit_rtrn_iterator(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> xcb_xkb_set_explicit_iterator_t;
+    pub fn xcb_xkb_get_map_map_explicit_rtrn_iterator(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> xcb_xkb_set_explicit_iterator_t;
 
-pub fn xcb_xkb_get_map_map_modmap_rtrn(S: *const xcb_xkb_get_map_map_t) -> *mut xcb_xkb_key_mod_map_t;
+    pub fn xcb_xkb_get_map_map_modmap_rtrn(
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> *mut xcb_xkb_key_mod_map_t;
 
-pub fn xcb_xkb_get_map_map_modmap_rtrn_length(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> c_int;
+    pub fn xcb_xkb_get_map_map_modmap_rtrn_length(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_map_map_modmap_rtrn_iterator(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> xcb_xkb_key_mod_map_iterator_t;
+    pub fn xcb_xkb_get_map_map_modmap_rtrn_iterator(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> xcb_xkb_key_mod_map_iterator_t;
 
-pub fn xcb_xkb_get_map_map_vmodmap_rtrn(S: *const xcb_xkb_get_map_map_t) -> *mut xcb_xkb_key_v_mod_map_t;
+    pub fn xcb_xkb_get_map_map_vmodmap_rtrn(
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> *mut xcb_xkb_key_v_mod_map_t;
 
-pub fn xcb_xkb_get_map_map_vmodmap_rtrn_length(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> c_int;
+    pub fn xcb_xkb_get_map_map_vmodmap_rtrn_length(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_map_map_vmodmap_rtrn_iterator(R: *const xcb_xkb_get_map_reply_t, S: *const xcb_xkb_get_map_map_t) -> xcb_xkb_key_v_mod_map_iterator_t;
-pub fn xcb_xkb_get_map_map(R: *const xcb_xkb_get_map_reply_t) -> *mut c_void;
+    pub fn xcb_xkb_get_map_map_vmodmap_rtrn_iterator(
+        R: *const xcb_xkb_get_map_reply_t,
+        S: *const xcb_xkb_get_map_map_t,
+    ) -> xcb_xkb_key_v_mod_map_iterator_t;
+    pub fn xcb_xkb_get_map_map(R: *const xcb_xkb_get_map_reply_t) -> *mut c_void;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_map_reply (
+    pub fn xcb_xkb_get_map_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_map_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_map_reply_t;
 
-    pub fn xcb_xkb_get_map (
+    pub fn xcb_xkb_get_map(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         full: u16,
@@ -3378,7 +3572,7 @@ pub fn xcb_xkb_get_map_map(R: *const xcb_xkb_get_map_reply_t) -> *mut c_void;
         nVModMapKeys: u8,
     ) -> xcb_xkb_get_map_cookie_t;
 
-    pub fn xcb_xkb_get_map_unchecked (
+    pub fn xcb_xkb_get_map_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         full: u16,
@@ -3400,57 +3594,121 @@ pub fn xcb_xkb_get_map_map(R: *const xcb_xkb_get_map_reply_t) -> *mut c_void;
         nVModMapKeys: u8,
     ) -> xcb_xkb_get_map_cookie_t;
 
-pub fn xcb_xkb_set_map_values_types_length(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> c_int;
+    pub fn xcb_xkb_set_map_values_types_length(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_map_values_types_iterator<'a>(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> xcb_xkb_set_key_type_iterator_t<'a>;
+    pub fn xcb_xkb_set_map_values_types_iterator<'a>(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> xcb_xkb_set_key_type_iterator_t<'a>;
 
-pub fn xcb_xkb_set_map_values_syms_length(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> c_int;
+    pub fn xcb_xkb_set_map_values_syms_length(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_map_values_syms_iterator<'a>(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> xcb_xkb_key_sym_map_iterator_t<'a>;
+    pub fn xcb_xkb_set_map_values_syms_iterator<'a>(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> xcb_xkb_key_sym_map_iterator_t<'a>;
 
-pub fn xcb_xkb_set_map_values_actions_count(S: *const xcb_xkb_set_map_values_t) -> *mut u8;
+    pub fn xcb_xkb_set_map_values_actions_count(S: *const xcb_xkb_set_map_values_t) -> *mut u8;
 
-pub fn xcb_xkb_set_map_values_actions_count_length(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> c_int;
+    pub fn xcb_xkb_set_map_values_actions_count_length(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_map_values_actions_count_end(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_map_values_actions_count_end(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_map_values_actions(S: *const xcb_xkb_set_map_values_t) -> *mut xcb_xkb_action_t;
+    pub fn xcb_xkb_set_map_values_actions(
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> *mut xcb_xkb_action_t;
 
-pub fn xcb_xkb_set_map_values_actions_length(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> c_int;
+    pub fn xcb_xkb_set_map_values_actions_length(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_map_values_actions_iterator(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> xcb_xkb_action_iterator_t;
+    pub fn xcb_xkb_set_map_values_actions_iterator(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> xcb_xkb_action_iterator_t;
 
-pub fn xcb_xkb_set_map_values_behaviors(S: *const xcb_xkb_set_map_values_t) -> *mut xcb_xkb_set_behavior_t;
+    pub fn xcb_xkb_set_map_values_behaviors(
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> *mut xcb_xkb_set_behavior_t;
 
-pub fn xcb_xkb_set_map_values_behaviors_length(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> c_int;
+    pub fn xcb_xkb_set_map_values_behaviors_length(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_map_values_behaviors_iterator<'a>(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> xcb_xkb_set_behavior_iterator_t<'a>;
+    pub fn xcb_xkb_set_map_values_behaviors_iterator<'a>(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> xcb_xkb_set_behavior_iterator_t<'a>;
 
-pub fn xcb_xkb_set_map_values_vmods(S: *const xcb_xkb_set_map_values_t) -> *mut u8;
+    pub fn xcb_xkb_set_map_values_vmods(S: *const xcb_xkb_set_map_values_t) -> *mut u8;
 
-pub fn xcb_xkb_set_map_values_vmods_length(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> c_int;
+    pub fn xcb_xkb_set_map_values_vmods_length(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_map_values_vmods_end(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_map_values_vmods_end(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_map_values_explicit(S: *const xcb_xkb_set_map_values_t) -> *mut xcb_xkb_set_explicit_t;
+    pub fn xcb_xkb_set_map_values_explicit(
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> *mut xcb_xkb_set_explicit_t;
 
-pub fn xcb_xkb_set_map_values_explicit_length(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> c_int;
+    pub fn xcb_xkb_set_map_values_explicit_length(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_map_values_explicit_iterator(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> xcb_xkb_set_explicit_iterator_t;
+    pub fn xcb_xkb_set_map_values_explicit_iterator(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> xcb_xkb_set_explicit_iterator_t;
 
-pub fn xcb_xkb_set_map_values_modmap(S: *const xcb_xkb_set_map_values_t) -> *mut xcb_xkb_key_mod_map_t;
+    pub fn xcb_xkb_set_map_values_modmap(
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> *mut xcb_xkb_key_mod_map_t;
 
-pub fn xcb_xkb_set_map_values_modmap_length(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> c_int;
+    pub fn xcb_xkb_set_map_values_modmap_length(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_map_values_modmap_iterator(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> xcb_xkb_key_mod_map_iterator_t;
+    pub fn xcb_xkb_set_map_values_modmap_iterator(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> xcb_xkb_key_mod_map_iterator_t;
 
-pub fn xcb_xkb_set_map_values_vmodmap(S: *const xcb_xkb_set_map_values_t) -> *mut xcb_xkb_key_v_mod_map_t;
+    pub fn xcb_xkb_set_map_values_vmodmap(
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> *mut xcb_xkb_key_v_mod_map_t;
 
-pub fn xcb_xkb_set_map_values_vmodmap_length(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> c_int;
+    pub fn xcb_xkb_set_map_values_vmodmap_length(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_map_values_vmodmap_iterator(R: *const xcb_xkb_set_map_request_t, S: *const xcb_xkb_set_map_values_t) -> xcb_xkb_key_v_mod_map_iterator_t;
+    pub fn xcb_xkb_set_map_values_vmodmap_iterator(
+        R: *const xcb_xkb_set_map_request_t,
+        S: *const xcb_xkb_set_map_values_t,
+    ) -> xcb_xkb_key_v_mod_map_iterator_t;
 
-    pub fn xcb_xkb_set_map (
+    pub fn xcb_xkb_set_map(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         present: u16,
@@ -3481,7 +3739,7 @@ pub fn xcb_xkb_set_map_values_vmodmap_iterator(R: *const xcb_xkb_set_map_request
         values: *const xcb_xkb_set_map_values_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_set_map_checked (
+    pub fn xcb_xkb_set_map_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         present: u16,
@@ -3512,26 +3770,37 @@ pub fn xcb_xkb_set_map_values_vmodmap_iterator(R: *const xcb_xkb_set_map_request
         values: *const xcb_xkb_set_map_values_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xkb_get_compat_map_si_rtrn(R: *const xcb_xkb_get_compat_map_reply_t) -> *mut xcb_xkb_sym_interpret_t;
+    pub fn xcb_xkb_get_compat_map_si_rtrn(
+        R: *const xcb_xkb_get_compat_map_reply_t,
+    ) -> *mut xcb_xkb_sym_interpret_t;
 
-pub fn xcb_xkb_get_compat_map_si_rtrn_length(R: *const xcb_xkb_get_compat_map_reply_t) -> c_int;
+    pub fn xcb_xkb_get_compat_map_si_rtrn_length(R: *const xcb_xkb_get_compat_map_reply_t)
+        -> c_int;
 
-pub fn xcb_xkb_get_compat_map_si_rtrn_iterator<'a>(R: *const xcb_xkb_get_compat_map_reply_t) -> xcb_xkb_sym_interpret_iterator_t<'a>;
+    pub fn xcb_xkb_get_compat_map_si_rtrn_iterator<'a>(
+        R: *const xcb_xkb_get_compat_map_reply_t,
+    ) -> xcb_xkb_sym_interpret_iterator_t<'a>;
 
-pub fn xcb_xkb_get_compat_map_group_rtrn(R: *const xcb_xkb_get_compat_map_reply_t) -> *mut xcb_xkb_mod_def_t;
+    pub fn xcb_xkb_get_compat_map_group_rtrn(
+        R: *const xcb_xkb_get_compat_map_reply_t,
+    ) -> *mut xcb_xkb_mod_def_t;
 
-pub fn xcb_xkb_get_compat_map_group_rtrn_length(R: *const xcb_xkb_get_compat_map_reply_t) -> c_int;
+    pub fn xcb_xkb_get_compat_map_group_rtrn_length(
+        R: *const xcb_xkb_get_compat_map_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_compat_map_group_rtrn_iterator(R: *const xcb_xkb_get_compat_map_reply_t) -> xcb_xkb_mod_def_iterator_t;
+    pub fn xcb_xkb_get_compat_map_group_rtrn_iterator(
+        R: *const xcb_xkb_get_compat_map_reply_t,
+    ) -> xcb_xkb_mod_def_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_compat_map_reply (
+    pub fn xcb_xkb_get_compat_map_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_compat_map_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_compat_map_reply_t;
 
-    pub fn xcb_xkb_get_compat_map (
+    pub fn xcb_xkb_get_compat_map(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         groups: u8,
@@ -3540,7 +3809,7 @@ pub fn xcb_xkb_get_compat_map_group_rtrn_iterator(R: *const xcb_xkb_get_compat_m
         nSI: u16,
     ) -> xcb_xkb_get_compat_map_cookie_t;
 
-    pub fn xcb_xkb_get_compat_map_unchecked (
+    pub fn xcb_xkb_get_compat_map_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         groups: u8,
@@ -3549,7 +3818,7 @@ pub fn xcb_xkb_get_compat_map_group_rtrn_iterator(R: *const xcb_xkb_get_compat_m
         nSI: u16,
     ) -> xcb_xkb_get_compat_map_cookie_t;
 
-    pub fn xcb_xkb_set_compat_map (
+    pub fn xcb_xkb_set_compat_map(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         recomputeActions: u8,
@@ -3561,7 +3830,7 @@ pub fn xcb_xkb_get_compat_map_group_rtrn_iterator(R: *const xcb_xkb_get_compat_m
         groupMaps: *const xcb_xkb_mod_def_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_set_compat_map_checked (
+    pub fn xcb_xkb_set_compat_map_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         recomputeActions: u8,
@@ -3574,55 +3843,61 @@ pub fn xcb_xkb_get_compat_map_group_rtrn_iterator(R: *const xcb_xkb_get_compat_m
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_indicator_state_reply (
+    pub fn xcb_xkb_get_indicator_state_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_indicator_state_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_indicator_state_reply_t;
 
-    pub fn xcb_xkb_get_indicator_state (
+    pub fn xcb_xkb_get_indicator_state(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
     ) -> xcb_xkb_get_indicator_state_cookie_t;
 
-    pub fn xcb_xkb_get_indicator_state_unchecked (
+    pub fn xcb_xkb_get_indicator_state_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
     ) -> xcb_xkb_get_indicator_state_cookie_t;
 
-pub fn xcb_xkb_get_indicator_map_maps(R: *const xcb_xkb_get_indicator_map_reply_t) -> *mut xcb_xkb_indicator_map_t;
+    pub fn xcb_xkb_get_indicator_map_maps(
+        R: *const xcb_xkb_get_indicator_map_reply_t,
+    ) -> *mut xcb_xkb_indicator_map_t;
 
-pub fn xcb_xkb_get_indicator_map_maps_length(R: *const xcb_xkb_get_indicator_map_reply_t) -> c_int;
+    pub fn xcb_xkb_get_indicator_map_maps_length(
+        R: *const xcb_xkb_get_indicator_map_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_indicator_map_maps_iterator(R: *const xcb_xkb_get_indicator_map_reply_t) -> xcb_xkb_indicator_map_iterator_t;
+    pub fn xcb_xkb_get_indicator_map_maps_iterator(
+        R: *const xcb_xkb_get_indicator_map_reply_t,
+    ) -> xcb_xkb_indicator_map_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_indicator_map_reply (
+    pub fn xcb_xkb_get_indicator_map_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_indicator_map_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_indicator_map_reply_t;
 
-    pub fn xcb_xkb_get_indicator_map (
+    pub fn xcb_xkb_get_indicator_map(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         which: u32,
     ) -> xcb_xkb_get_indicator_map_cookie_t;
 
-    pub fn xcb_xkb_get_indicator_map_unchecked (
+    pub fn xcb_xkb_get_indicator_map_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         which: u32,
     ) -> xcb_xkb_get_indicator_map_cookie_t;
 
-    pub fn xcb_xkb_set_indicator_map (
+    pub fn xcb_xkb_set_indicator_map(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         which: u32,
         maps: *const xcb_xkb_indicator_map_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_set_indicator_map_checked (
+    pub fn xcb_xkb_set_indicator_map_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         which: u32,
@@ -3630,13 +3905,13 @@ pub fn xcb_xkb_get_indicator_map_maps_iterator(R: *const xcb_xkb_get_indicator_m
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_named_indicator_reply (
+    pub fn xcb_xkb_get_named_indicator_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_named_indicator_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_named_indicator_reply_t;
 
-    pub fn xcb_xkb_get_named_indicator (
+    pub fn xcb_xkb_get_named_indicator(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         ledClass: xcb_xkb_led_class_spec_t,
@@ -3644,7 +3919,7 @@ pub fn xcb_xkb_get_indicator_map_maps_iterator(R: *const xcb_xkb_get_indicator_m
         indicator: xcb_atom_t,
     ) -> xcb_xkb_get_named_indicator_cookie_t;
 
-    pub fn xcb_xkb_get_named_indicator_unchecked (
+    pub fn xcb_xkb_get_named_indicator_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         ledClass: xcb_xkb_led_class_spec_t,
@@ -3652,7 +3927,7 @@ pub fn xcb_xkb_get_indicator_map_maps_iterator(R: *const xcb_xkb_get_indicator_m
         indicator: xcb_atom_t,
     ) -> xcb_xkb_get_named_indicator_cookie_t;
 
-    pub fn xcb_xkb_set_named_indicator (
+    pub fn xcb_xkb_set_named_indicator(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         ledClass: xcb_xkb_led_class_spec_t,
@@ -3671,7 +3946,7 @@ pub fn xcb_xkb_get_indicator_map_maps_iterator(R: *const xcb_xkb_get_indicator_m
         map_ctrls: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_set_named_indicator_checked (
+    pub fn xcb_xkb_set_named_indicator_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         ledClass: xcb_xkb_led_class_spec_t,
@@ -3690,141 +3965,292 @@ pub fn xcb_xkb_get_indicator_map_maps_iterator(R: *const xcb_xkb_get_indicator_m
         map_ctrls: u32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xkb_get_names_value_list_type_names(S: *const xcb_xkb_get_names_value_list_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_names_value_list_type_names(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_names_value_list_type_names_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_type_names_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_type_names_end(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_names_value_list_type_names_end(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_names_value_list_n_levels_per_type(S: *const xcb_xkb_get_names_value_list_t) -> *mut u8;
+    pub fn xcb_xkb_get_names_value_list_n_levels_per_type(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut u8;
 
-pub fn xcb_xkb_get_names_value_list_n_levels_per_type_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_n_levels_per_type_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_n_levels_per_type_end(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_names_value_list_n_levels_per_type_end(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_names_value_list_alignment_pad(S: *const xcb_xkb_get_names_value_list_t) -> *mut u8;
+    pub fn xcb_xkb_get_names_value_list_alignment_pad(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut u8;
 
-pub fn xcb_xkb_get_names_value_list_alignment_pad_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_alignment_pad_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_alignment_pad_end(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_names_value_list_alignment_pad_end(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_names_value_list_kt_level_names(S: *const xcb_xkb_get_names_value_list_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_names_value_list_kt_level_names(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_names_value_list_kt_level_names_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_kt_level_names_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_kt_level_names_end(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_names_value_list_kt_level_names_end(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_names_value_list_indicator_names(S: *const xcb_xkb_get_names_value_list_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_names_value_list_indicator_names(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_names_value_list_indicator_names_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_indicator_names_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_indicator_names_end(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_names_value_list_indicator_names_end(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_names_value_list_virtual_mod_names(S: *const xcb_xkb_get_names_value_list_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_names_value_list_virtual_mod_names(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_names_value_list_virtual_mod_names_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_virtual_mod_names_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_virtual_mod_names_end(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_names_value_list_virtual_mod_names_end(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_names_value_list_groups(S: *const xcb_xkb_get_names_value_list_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_names_value_list_groups(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_names_value_list_groups_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_groups_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_groups_end(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_names_value_list_groups_end(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_names_value_list_key_names(S: *const xcb_xkb_get_names_value_list_t) -> *mut xcb_xkb_key_name_t;
+    pub fn xcb_xkb_get_names_value_list_key_names(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut xcb_xkb_key_name_t;
 
-pub fn xcb_xkb_get_names_value_list_key_names_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_key_names_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_key_names_iterator<'a>(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_xkb_key_name_iterator_t<'a>;
+    pub fn xcb_xkb_get_names_value_list_key_names_iterator<'a>(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_xkb_key_name_iterator_t<'a>;
 
-pub fn xcb_xkb_get_names_value_list_key_aliases(S: *const xcb_xkb_get_names_value_list_t) -> *mut xcb_xkb_key_alias_t;
+    pub fn xcb_xkb_get_names_value_list_key_aliases(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut xcb_xkb_key_alias_t;
 
-pub fn xcb_xkb_get_names_value_list_key_aliases_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_key_aliases_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_key_aliases_iterator<'a>(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_xkb_key_alias_iterator_t<'a>;
+    pub fn xcb_xkb_get_names_value_list_key_aliases_iterator<'a>(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_xkb_key_alias_iterator_t<'a>;
 
-pub fn xcb_xkb_get_names_value_list_radio_group_names(S: *const xcb_xkb_get_names_value_list_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_names_value_list_radio_group_names(
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_names_value_list_radio_group_names_length(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> c_int;
+    pub fn xcb_xkb_get_names_value_list_radio_group_names_length(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_names_value_list_radio_group_names_end(R: *const xcb_xkb_get_names_reply_t, S: *const xcb_xkb_get_names_value_list_t) -> xcb_generic_iterator_t;
-pub fn xcb_xkb_get_names_value_list(R: *const xcb_xkb_get_names_reply_t) -> *mut c_void;
+    pub fn xcb_xkb_get_names_value_list_radio_group_names_end(
+        R: *const xcb_xkb_get_names_reply_t,
+        S: *const xcb_xkb_get_names_value_list_t,
+    ) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_names_value_list(R: *const xcb_xkb_get_names_reply_t) -> *mut c_void;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_names_reply (
+    pub fn xcb_xkb_get_names_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_names_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_names_reply_t;
 
-    pub fn xcb_xkb_get_names (
+    pub fn xcb_xkb_get_names(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         which: u32,
     ) -> xcb_xkb_get_names_cookie_t;
 
-    pub fn xcb_xkb_get_names_unchecked (
+    pub fn xcb_xkb_get_names_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         which: u32,
     ) -> xcb_xkb_get_names_cookie_t;
 
-pub fn xcb_xkb_set_names_values_type_names(S: *const xcb_xkb_set_names_values_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_set_names_values_type_names(
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_set_names_values_type_names_length(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> c_int;
+    pub fn xcb_xkb_set_names_values_type_names_length(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_names_values_type_names_end(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_names_values_type_names_end(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_names_values_n_levels_per_type(S: *const xcb_xkb_set_names_values_t) -> *mut u8;
+    pub fn xcb_xkb_set_names_values_n_levels_per_type(
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> *mut u8;
 
-pub fn xcb_xkb_set_names_values_n_levels_per_type_length(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> c_int;
+    pub fn xcb_xkb_set_names_values_n_levels_per_type_length(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_names_values_n_levels_per_type_end(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_names_values_n_levels_per_type_end(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_names_values_kt_level_names(S: *const xcb_xkb_set_names_values_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_set_names_values_kt_level_names(
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_set_names_values_kt_level_names_length(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> c_int;
+    pub fn xcb_xkb_set_names_values_kt_level_names_length(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_names_values_kt_level_names_end(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_names_values_kt_level_names_end(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_names_values_indicator_names(S: *const xcb_xkb_set_names_values_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_set_names_values_indicator_names(
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_set_names_values_indicator_names_length(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> c_int;
+    pub fn xcb_xkb_set_names_values_indicator_names_length(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_names_values_indicator_names_end(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_names_values_indicator_names_end(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_names_values_virtual_mod_names(S: *const xcb_xkb_set_names_values_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_set_names_values_virtual_mod_names(
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_set_names_values_virtual_mod_names_length(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> c_int;
+    pub fn xcb_xkb_set_names_values_virtual_mod_names_length(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_names_values_virtual_mod_names_end(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_names_values_virtual_mod_names_end(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_names_values_groups(S: *const xcb_xkb_set_names_values_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_set_names_values_groups(S: *const xcb_xkb_set_names_values_t)
+        -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_set_names_values_groups_length(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> c_int;
+    pub fn xcb_xkb_set_names_values_groups_length(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_names_values_groups_end(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_names_values_groups_end(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_set_names_values_key_names(S: *const xcb_xkb_set_names_values_t) -> *mut xcb_xkb_key_name_t;
+    pub fn xcb_xkb_set_names_values_key_names(
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> *mut xcb_xkb_key_name_t;
 
-pub fn xcb_xkb_set_names_values_key_names_length(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> c_int;
+    pub fn xcb_xkb_set_names_values_key_names_length(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_names_values_key_names_iterator<'a>(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> xcb_xkb_key_name_iterator_t<'a>;
+    pub fn xcb_xkb_set_names_values_key_names_iterator<'a>(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> xcb_xkb_key_name_iterator_t<'a>;
 
-pub fn xcb_xkb_set_names_values_key_aliases(S: *const xcb_xkb_set_names_values_t) -> *mut xcb_xkb_key_alias_t;
+    pub fn xcb_xkb_set_names_values_key_aliases(
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> *mut xcb_xkb_key_alias_t;
 
-pub fn xcb_xkb_set_names_values_key_aliases_length(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> c_int;
+    pub fn xcb_xkb_set_names_values_key_aliases_length(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_names_values_key_aliases_iterator<'a>(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> xcb_xkb_key_alias_iterator_t<'a>;
+    pub fn xcb_xkb_set_names_values_key_aliases_iterator<'a>(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> xcb_xkb_key_alias_iterator_t<'a>;
 
-pub fn xcb_xkb_set_names_values_radio_group_names(S: *const xcb_xkb_set_names_values_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_set_names_values_radio_group_names(
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_set_names_values_radio_group_names_length(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> c_int;
+    pub fn xcb_xkb_set_names_values_radio_group_names_length(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_set_names_values_radio_group_names_end(R: *const xcb_xkb_set_names_request_t, S: *const xcb_xkb_set_names_values_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_set_names_values_radio_group_names_end(
+        R: *const xcb_xkb_set_names_request_t,
+        S: *const xcb_xkb_set_names_values_t,
+    ) -> xcb_generic_iterator_t;
 
-    pub fn xcb_xkb_set_names (
+    pub fn xcb_xkb_set_names(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         virtualMods: u16,
@@ -3843,7 +4269,7 @@ pub fn xcb_xkb_set_names_values_radio_group_names_end(R: *const xcb_xkb_set_name
         values: *const xcb_xkb_set_names_values_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_set_names_checked (
+    pub fn xcb_xkb_set_names_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         virtualMods: u16,
@@ -3863,13 +4289,13 @@ pub fn xcb_xkb_set_names_values_radio_group_names_end(R: *const xcb_xkb_set_name
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_per_client_flags_reply (
+    pub fn xcb_xkb_per_client_flags_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_per_client_flags_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_per_client_flags_reply_t;
 
-    pub fn xcb_xkb_per_client_flags (
+    pub fn xcb_xkb_per_client_flags(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         change: u32,
@@ -3879,7 +4305,7 @@ pub fn xcb_xkb_set_names_values_radio_group_names_end(R: *const xcb_xkb_set_name
         autoCtrlsValues: u32,
     ) -> xcb_xkb_per_client_flags_cookie_t;
 
-    pub fn xcb_xkb_per_client_flags_unchecked (
+    pub fn xcb_xkb_per_client_flags_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         change: u32,
@@ -3889,183 +4315,378 @@ pub fn xcb_xkb_set_names_values_radio_group_names_end(R: *const xcb_xkb_set_name
         autoCtrlsValues: u32,
     ) -> xcb_xkb_per_client_flags_cookie_t;
 
-pub fn xcb_xkb_list_components_keymaps_length(R: *const xcb_xkb_list_components_reply_t) -> c_int;
+    pub fn xcb_xkb_list_components_keymaps_length(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_list_components_keymaps_iterator<'a>(R: *const xcb_xkb_list_components_reply_t) -> xcb_xkb_listing_iterator_t<'a>;
+    pub fn xcb_xkb_list_components_keymaps_iterator<'a>(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> xcb_xkb_listing_iterator_t<'a>;
 
-pub fn xcb_xkb_list_components_keycodes_length(R: *const xcb_xkb_list_components_reply_t) -> c_int;
+    pub fn xcb_xkb_list_components_keycodes_length(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_list_components_keycodes_iterator<'a>(R: *const xcb_xkb_list_components_reply_t) -> xcb_xkb_listing_iterator_t<'a>;
+    pub fn xcb_xkb_list_components_keycodes_iterator<'a>(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> xcb_xkb_listing_iterator_t<'a>;
 
-pub fn xcb_xkb_list_components_types_length(R: *const xcb_xkb_list_components_reply_t) -> c_int;
+    pub fn xcb_xkb_list_components_types_length(R: *const xcb_xkb_list_components_reply_t)
+        -> c_int;
 
-pub fn xcb_xkb_list_components_types_iterator<'a>(R: *const xcb_xkb_list_components_reply_t) -> xcb_xkb_listing_iterator_t<'a>;
+    pub fn xcb_xkb_list_components_types_iterator<'a>(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> xcb_xkb_listing_iterator_t<'a>;
 
-pub fn xcb_xkb_list_components_compat_maps_length(R: *const xcb_xkb_list_components_reply_t) -> c_int;
+    pub fn xcb_xkb_list_components_compat_maps_length(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_list_components_compat_maps_iterator<'a>(R: *const xcb_xkb_list_components_reply_t) -> xcb_xkb_listing_iterator_t<'a>;
+    pub fn xcb_xkb_list_components_compat_maps_iterator<'a>(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> xcb_xkb_listing_iterator_t<'a>;
 
-pub fn xcb_xkb_list_components_symbols_length(R: *const xcb_xkb_list_components_reply_t) -> c_int;
+    pub fn xcb_xkb_list_components_symbols_length(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_list_components_symbols_iterator<'a>(R: *const xcb_xkb_list_components_reply_t) -> xcb_xkb_listing_iterator_t<'a>;
+    pub fn xcb_xkb_list_components_symbols_iterator<'a>(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> xcb_xkb_listing_iterator_t<'a>;
 
-pub fn xcb_xkb_list_components_geometries_length(R: *const xcb_xkb_list_components_reply_t) -> c_int;
+    pub fn xcb_xkb_list_components_geometries_length(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_list_components_geometries_iterator<'a>(R: *const xcb_xkb_list_components_reply_t) -> xcb_xkb_listing_iterator_t<'a>;
+    pub fn xcb_xkb_list_components_geometries_iterator<'a>(
+        R: *const xcb_xkb_list_components_reply_t,
+    ) -> xcb_xkb_listing_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_list_components_reply (
+    pub fn xcb_xkb_list_components_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_list_components_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_list_components_reply_t;
 
-    pub fn xcb_xkb_list_components (
+    pub fn xcb_xkb_list_components(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         maxNames: u16,
     ) -> xcb_xkb_list_components_cookie_t;
 
-    pub fn xcb_xkb_list_components_unchecked (
+    pub fn xcb_xkb_list_components_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         maxNames: u16,
     ) -> xcb_xkb_list_components_cookie_t;
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map(R: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_get_kbd_by_name_replies_types_map_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map(
+        R: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_get_kbd_by_name_replies_types_map_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_si_rtrn(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_sym_interpret_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_si_rtrn(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_sym_interpret_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_si_rtrn_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_si_rtrn_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_si_rtrn_iterator<'a>(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_sym_interpret_iterator_t<'a>;
+    pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_si_rtrn_iterator<'a>(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_sym_interpret_iterator_t<'a>;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_group_rtrn(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_mod_def_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_group_rtrn(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_mod_def_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_group_rtrn_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_group_rtrn_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_group_rtrn_iterator(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_mod_def_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_compat_map_group_rtrn_iterator(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_mod_def_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_indicator_maps_maps(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_indicator_map_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_indicator_maps_maps(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_indicator_map_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_indicator_maps_maps_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_indicator_maps_maps_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_indicator_maps_maps_iterator(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_indicator_map_iterator_t;
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list(R: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_get_kbd_by_name_replies_key_names_value_list_t;
-pub fn xcb_xkb_get_kbd_by_name_replies_geometry_label_font(R: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_counted_string_16_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_indicator_maps_maps_iterator(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_indicator_map_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list(
+        R: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_get_kbd_by_name_replies_key_names_value_list_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_geometry_label_font(
+        R: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_counted_string_16_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_types_rtrn_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_types_rtrn_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_types_rtrn_iterator<'a>(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_key_type_iterator_t<'a>;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_types_rtrn_iterator<'a>(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_key_type_iterator_t<'a>;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_syms_rtrn_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_syms_rtrn_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_syms_rtrn_iterator<'a>(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_key_sym_map_iterator_t<'a>;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_syms_rtrn_iterator<'a>(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_key_sym_map_iterator_t<'a>;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_count(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut u8;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_count(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut u8;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_count_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_count_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_count_end(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_count_end(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_acts(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_action_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_acts(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_action_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_acts_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_acts_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_acts_iterator(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_action_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_acts_rtrn_acts_iterator(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_action_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_behaviors_rtrn(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_set_behavior_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_behaviors_rtrn(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_set_behavior_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_behaviors_rtrn_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_behaviors_rtrn_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_behaviors_rtrn_iterator<'a>(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_set_behavior_iterator_t<'a>;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_behaviors_rtrn_iterator<'a>(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_set_behavior_iterator_t<'a>;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmods_rtrn(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut u8;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmods_rtrn(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut u8;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmods_rtrn_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmods_rtrn_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmods_rtrn_end(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmods_rtrn_end(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_explicit_rtrn(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_set_explicit_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_explicit_rtrn(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_set_explicit_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_explicit_rtrn_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_explicit_rtrn_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_explicit_rtrn_iterator(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_set_explicit_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_explicit_rtrn_iterator(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_set_explicit_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_modmap_rtrn(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_key_mod_map_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_modmap_rtrn(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_key_mod_map_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_modmap_rtrn_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_modmap_rtrn_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_modmap_rtrn_iterator(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_key_mod_map_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_modmap_rtrn_iterator(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_key_mod_map_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmodmap_rtrn(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_key_v_mod_map_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmodmap_rtrn(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_key_v_mod_map_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmodmap_rtrn_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmodmap_rtrn_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmodmap_rtrn_iterator(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_key_v_mod_map_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_types_map_vmodmap_rtrn_iterator(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_key_v_mod_map_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_type_names(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_type_names(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_type_names_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_type_names_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_type_names_end(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_type_names_end(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_n_levels_per_type(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut u8;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_n_levels_per_type(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut u8;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_n_levels_per_type_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_n_levels_per_type_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_n_levels_per_type_end(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_n_levels_per_type_end(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_kt_level_names(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_kt_level_names(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_kt_level_names_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_kt_level_names_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_kt_level_names_end(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_kt_level_names_end(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_indicator_names(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_indicator_names(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_indicator_names_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_indicator_names_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_indicator_names_end(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_indicator_names_end(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_virtual_mod_names(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_virtual_mod_names(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_virtual_mod_names_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_virtual_mod_names_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_virtual_mod_names_end(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_virtual_mod_names_end(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_groups(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_groups(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_groups_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_groups_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_groups_end(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_groups_end(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_names(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_key_name_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_names(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_key_name_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_names_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_names_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_names_iterator<'a>(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_key_name_iterator_t<'a>;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_names_iterator<'a>(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_key_name_iterator_t<'a>;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_aliases(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_xkb_key_alias_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_aliases(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_xkb_key_alias_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_aliases_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_aliases_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_aliases_iterator<'a>(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_xkb_key_alias_iterator_t<'a>;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_key_aliases_iterator<'a>(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_xkb_key_alias_iterator_t<'a>;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_radio_group_names(S: *const xcb_xkb_get_kbd_by_name_replies_t) -> *mut xcb_atom_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_radio_group_names(
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_radio_group_names_length(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> c_int;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_radio_group_names_length(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_radio_group_names_end(R: *const xcb_xkb_get_kbd_by_name_reply_t, S: *const xcb_xkb_get_kbd_by_name_replies_t) -> xcb_generic_iterator_t;
-pub fn xcb_xkb_get_kbd_by_name_replies(R: *const xcb_xkb_get_kbd_by_name_reply_t) -> *mut c_void;
+    pub fn xcb_xkb_get_kbd_by_name_replies_key_names_value_list_radio_group_names_end(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+        S: *const xcb_xkb_get_kbd_by_name_replies_t,
+    ) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_kbd_by_name_replies(
+        R: *const xcb_xkb_get_kbd_by_name_reply_t,
+    ) -> *mut c_void;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_kbd_by_name_reply (
+    pub fn xcb_xkb_get_kbd_by_name_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_kbd_by_name_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_kbd_by_name_reply_t;
 
-    pub fn xcb_xkb_get_kbd_by_name (
+    pub fn xcb_xkb_get_kbd_by_name(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         need: u16,
@@ -4073,7 +4694,7 @@ pub fn xcb_xkb_get_kbd_by_name_replies(R: *const xcb_xkb_get_kbd_by_name_reply_t
         load: u8,
     ) -> xcb_xkb_get_kbd_by_name_cookie_t;
 
-    pub fn xcb_xkb_get_kbd_by_name_unchecked (
+    pub fn xcb_xkb_get_kbd_by_name_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         need: u16,
@@ -4081,30 +4702,42 @@ pub fn xcb_xkb_get_kbd_by_name_replies(R: *const xcb_xkb_get_kbd_by_name_reply_t
         load: u8,
     ) -> xcb_xkb_get_kbd_by_name_cookie_t;
 
-pub fn xcb_xkb_get_device_info_name(R: *const xcb_xkb_get_device_info_reply_t) -> *mut xcb_xkb_string8_t;
+    pub fn xcb_xkb_get_device_info_name(
+        R: *const xcb_xkb_get_device_info_reply_t,
+    ) -> *mut xcb_xkb_string8_t;
 
-pub fn xcb_xkb_get_device_info_name_length(R: *const xcb_xkb_get_device_info_reply_t) -> c_int;
+    pub fn xcb_xkb_get_device_info_name_length(R: *const xcb_xkb_get_device_info_reply_t) -> c_int;
 
-pub fn xcb_xkb_get_device_info_name_end(R: *const xcb_xkb_get_device_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xkb_get_device_info_name_end(
+        R: *const xcb_xkb_get_device_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xkb_get_device_info_btn_actions(R: *const xcb_xkb_get_device_info_reply_t) -> *mut xcb_xkb_action_t;
+    pub fn xcb_xkb_get_device_info_btn_actions(
+        R: *const xcb_xkb_get_device_info_reply_t,
+    ) -> *mut xcb_xkb_action_t;
 
-pub fn xcb_xkb_get_device_info_btn_actions_length(R: *const xcb_xkb_get_device_info_reply_t) -> c_int;
+    pub fn xcb_xkb_get_device_info_btn_actions_length(
+        R: *const xcb_xkb_get_device_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xkb_get_device_info_btn_actions_iterator(R: *const xcb_xkb_get_device_info_reply_t) -> xcb_xkb_action_iterator_t;
+    pub fn xcb_xkb_get_device_info_btn_actions_iterator(
+        R: *const xcb_xkb_get_device_info_reply_t,
+    ) -> xcb_xkb_action_iterator_t;
 
-pub fn xcb_xkb_get_device_info_leds_length(R: *const xcb_xkb_get_device_info_reply_t) -> c_int;
+    pub fn xcb_xkb_get_device_info_leds_length(R: *const xcb_xkb_get_device_info_reply_t) -> c_int;
 
-pub fn xcb_xkb_get_device_info_leds_iterator<'a>(R: *const xcb_xkb_get_device_info_reply_t) -> xcb_xkb_device_led_info_iterator_t<'a>;
+    pub fn xcb_xkb_get_device_info_leds_iterator<'a>(
+        R: *const xcb_xkb_get_device_info_reply_t,
+    ) -> xcb_xkb_device_led_info_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_get_device_info_reply (
+    pub fn xcb_xkb_get_device_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_get_device_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_get_device_info_reply_t;
 
-    pub fn xcb_xkb_get_device_info (
+    pub fn xcb_xkb_get_device_info(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         wanted: u16,
@@ -4115,7 +4748,7 @@ pub fn xcb_xkb_get_device_info_leds_iterator<'a>(R: *const xcb_xkb_get_device_in
         ledID: xcb_xkb_id_spec_t,
     ) -> xcb_xkb_get_device_info_cookie_t;
 
-    pub fn xcb_xkb_get_device_info_unchecked (
+    pub fn xcb_xkb_get_device_info_unchecked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         wanted: u16,
@@ -4126,7 +4759,7 @@ pub fn xcb_xkb_get_device_info_leds_iterator<'a>(R: *const xcb_xkb_get_device_in
         ledID: xcb_xkb_id_spec_t,
     ) -> xcb_xkb_get_device_info_cookie_t;
 
-    pub fn xcb_xkb_set_device_info (
+    pub fn xcb_xkb_set_device_info(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         firstBtn: u8,
@@ -4137,7 +4770,7 @@ pub fn xcb_xkb_get_device_info_leds_iterator<'a>(R: *const xcb_xkb_get_device_in
         leds: *const xcb_xkb_device_led_info_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xkb_set_device_info_checked (
+    pub fn xcb_xkb_set_device_info_checked(
         c: *mut xcb_connection_t,
         deviceSpec: xcb_xkb_device_spec_t,
         firstBtn: u8,
@@ -4149,13 +4782,13 @@ pub fn xcb_xkb_get_device_info_leds_iterator<'a>(R: *const xcb_xkb_get_device_in
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xkb_set_debugging_flags_reply (
+    pub fn xcb_xkb_set_debugging_flags_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xkb_set_debugging_flags_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xkb_set_debugging_flags_reply_t;
 
-    pub fn xcb_xkb_set_debugging_flags (
+    pub fn xcb_xkb_set_debugging_flags(
         c: *mut xcb_connection_t,
         msgLength: u16,
         affectFlags: u32,
@@ -4165,7 +4798,7 @@ pub fn xcb_xkb_get_device_info_leds_iterator<'a>(R: *const xcb_xkb_get_device_in
         message: *const xcb_xkb_string8_t,
     ) -> xcb_xkb_set_debugging_flags_cookie_t;
 
-    pub fn xcb_xkb_set_debugging_flags_unchecked (
+    pub fn xcb_xkb_set_debugging_flags_unchecked(
         c: *mut xcb_connection_t,
         msgLength: u16,
         affectFlags: u32,

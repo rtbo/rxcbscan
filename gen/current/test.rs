@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::test::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_test_id
-    }
+    unsafe { &mut xcb_test_id }
 }
 
 pub const MAJOR_VERSION: u32 = 2;
@@ -37,14 +34,14 @@ pub type GetVersionCookie<'a> = base::Cookie<'a, xcb_test_get_version_cookie_t>;
 impl<'a> GetVersionCookie<'a> {
     pub fn get_reply(self) -> Result<GetVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetVersionReply {
-                ptr: xcb_test_get_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_test_get_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -53,7 +50,9 @@ impl<'a> GetVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -77,11 +76,8 @@ pub fn get_version<'a>(
     minor_version: u16,
 ) -> GetVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_test_get_version(
-            c.get_raw_conn(),
-            major_version as u8,
-            minor_version as u16,
-        );
+        let cookie =
+            xcb_test_get_version(c.get_raw_conn(), major_version as u8, minor_version as u16);
         GetVersionCookie {
             cookie: cookie,
             conn: c,
@@ -122,14 +118,14 @@ pub type CompareCursorCookie<'a> = base::Cookie<'a, xcb_test_compare_cursor_cook
 impl<'a> CompareCursorCookie<'a> {
     pub fn get_reply(self) -> Result<CompareCursorReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             CompareCursorReply {
-                ptr: xcb_test_compare_cursor_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_test_compare_cursor_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -138,7 +134,9 @@ impl<'a> CompareCursorCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -253,15 +251,9 @@ pub fn fake_input_checked<'a>(
 
 pub const GRAB_CONTROL: u8 = 3;
 
-pub fn grab_control<'a>(
-    c: &'a base::Connection,
-    impervious: bool,
-) -> base::VoidCookie<'a> {
+pub fn grab_control<'a>(c: &'a base::Connection, impervious: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_test_grab_control(
-            c.get_raw_conn(),
-            impervious as u8,
-        );
+        let cookie = xcb_test_grab_control(c.get_raw_conn(), impervious as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -270,15 +262,9 @@ pub fn grab_control<'a>(
     }
 }
 
-pub fn grab_control_checked<'a>(
-    c: &'a base::Connection,
-    impervious: bool,
-) -> base::VoidCookie<'a> {
+pub fn grab_control_checked<'a>(c: &'a base::Connection, impervious: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_test_grab_control_checked(
-            c.get_raw_conn(),
-            impervious as u8,
-        );
+        let cookie = xcb_test_grab_control_checked(c.get_raw_conn(), impervious as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,

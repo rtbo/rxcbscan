@@ -13,8 +13,8 @@ pub type xcb_xf86vidmode_syncrange_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xf86vidmode_syncrange_iterator_t {
-    pub data:  *mut xcb_xf86vidmode_syncrange_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xf86vidmode_syncrange_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -23,8 +23,8 @@ pub type xcb_xf86vidmode_dotclock_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xf86vidmode_dotclock_iterator_t {
-    pub data:  *mut xcb_xf86vidmode_dotclock_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xf86vidmode_dotclock_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -72,8 +72,8 @@ pub struct xcb_xf86vidmode_mode_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xf86vidmode_mode_info_iterator_t {
-    pub data:  *mut xcb_xf86vidmode_mode_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xf86vidmode_mode_info_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -688,61 +688,73 @@ pub struct xcb_xf86vidmode_zoom_locked_error_t {
 }
 
 #[link(name = "xcb-xf86vidmode")]
-extern {
+extern "C" {
 
-pub static mut xcb_xf86vidmode_id: xcb_extension_t;
+    pub static mut xcb_xf86vidmode_id: xcb_extension_t;
 
-pub fn xcb_xf86vidmode_syncrange_next(i: *mut xcb_xf86vidmode_syncrange_iterator_t);
+    pub fn xcb_xf86vidmode_syncrange_next(i: *mut xcb_xf86vidmode_syncrange_iterator_t);
 
-pub fn xcb_xf86vidmode_syncrange_end(i: *mut xcb_xf86vidmode_syncrange_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_syncrange_end(
+        i: *mut xcb_xf86vidmode_syncrange_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xf86vidmode_dotclock_next(i: *mut xcb_xf86vidmode_dotclock_iterator_t);
+    pub fn xcb_xf86vidmode_dotclock_next(i: *mut xcb_xf86vidmode_dotclock_iterator_t);
 
-pub fn xcb_xf86vidmode_dotclock_end(i: *mut xcb_xf86vidmode_dotclock_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_dotclock_end(
+        i: *mut xcb_xf86vidmode_dotclock_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xf86vidmode_mode_info_next(i: *mut xcb_xf86vidmode_mode_info_iterator_t);
+    pub fn xcb_xf86vidmode_mode_info_next(i: *mut xcb_xf86vidmode_mode_info_iterator_t);
 
-pub fn xcb_xf86vidmode_mode_info_end(i: *mut xcb_xf86vidmode_mode_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_mode_info_end(
+        i: *mut xcb_xf86vidmode_mode_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_query_version_reply (
+    pub fn xcb_xf86vidmode_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_query_version_reply_t;
 
-    pub fn xcb_xf86vidmode_query_version (
+    pub fn xcb_xf86vidmode_query_version(
         c: *mut xcb_connection_t,
     ) -> xcb_xf86vidmode_query_version_cookie_t;
 
-    pub fn xcb_xf86vidmode_query_version_unchecked (
+    pub fn xcb_xf86vidmode_query_version_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_xf86vidmode_query_version_cookie_t;
 
-pub fn xcb_xf86vidmode_get_mode_line_private(R: *const xcb_xf86vidmode_get_mode_line_reply_t) -> *mut u8;
+    pub fn xcb_xf86vidmode_get_mode_line_private(
+        R: *const xcb_xf86vidmode_get_mode_line_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_xf86vidmode_get_mode_line_private_length(R: *const xcb_xf86vidmode_get_mode_line_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_mode_line_private_length(
+        R: *const xcb_xf86vidmode_get_mode_line_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_mode_line_private_end(R: *const xcb_xf86vidmode_get_mode_line_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_mode_line_private_end(
+        R: *const xcb_xf86vidmode_get_mode_line_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_get_mode_line_reply (
+    pub fn xcb_xf86vidmode_get_mode_line_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_get_mode_line_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_get_mode_line_reply_t;
 
-    pub fn xcb_xf86vidmode_get_mode_line (
+    pub fn xcb_xf86vidmode_get_mode_line(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_mode_line_cookie_t;
 
-    pub fn xcb_xf86vidmode_get_mode_line_unchecked (
+    pub fn xcb_xf86vidmode_get_mode_line_unchecked(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_mode_line_cookie_t;
 
-    pub fn xcb_xf86vidmode_mod_mode_line (
+    pub fn xcb_xf86vidmode_mod_mode_line(
         c: *mut xcb_connection_t,
         screen: u32,
         hdisplay: u16,
@@ -759,7 +771,7 @@ pub fn xcb_xf86vidmode_get_mode_line_private_end(R: *const xcb_xf86vidmode_get_m
         private: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_mod_mode_line_checked (
+    pub fn xcb_xf86vidmode_mod_mode_line_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         hdisplay: u16,
@@ -776,101 +788,137 @@ pub fn xcb_xf86vidmode_get_mode_line_private_end(R: *const xcb_xf86vidmode_get_m
         private: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_switch_mode (
+    pub fn xcb_xf86vidmode_switch_mode(
         c: *mut xcb_connection_t,
         screen: u16,
         zoom: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_switch_mode_checked (
+    pub fn xcb_xf86vidmode_switch_mode_checked(
         c: *mut xcb_connection_t,
         screen: u16,
         zoom: u16,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xf86vidmode_get_monitor_hsync(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> *mut xcb_xf86vidmode_syncrange_t;
+    pub fn xcb_xf86vidmode_get_monitor_hsync(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> *mut xcb_xf86vidmode_syncrange_t;
 
-pub fn xcb_xf86vidmode_get_monitor_hsync_length(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_monitor_hsync_length(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_monitor_hsync_end(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_monitor_hsync_end(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xf86vidmode_get_monitor_vsync(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> *mut xcb_xf86vidmode_syncrange_t;
+    pub fn xcb_xf86vidmode_get_monitor_vsync(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> *mut xcb_xf86vidmode_syncrange_t;
 
-pub fn xcb_xf86vidmode_get_monitor_vsync_length(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_monitor_vsync_length(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_monitor_vsync_end(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_monitor_vsync_end(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xf86vidmode_get_monitor_vendor(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> *mut c_char;
+    pub fn xcb_xf86vidmode_get_monitor_vendor(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_xf86vidmode_get_monitor_vendor_length(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_monitor_vendor_length(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_monitor_vendor_end(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_monitor_vendor_end(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xf86vidmode_get_monitor_alignment_pad(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> *mut c_void;
+    pub fn xcb_xf86vidmode_get_monitor_alignment_pad(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> *mut c_void;
 
-pub fn xcb_xf86vidmode_get_monitor_alignment_pad_length(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_monitor_alignment_pad_length(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_monitor_alignment_pad_end(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_monitor_alignment_pad_end(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xf86vidmode_get_monitor_model(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> *mut c_char;
+    pub fn xcb_xf86vidmode_get_monitor_model(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_xf86vidmode_get_monitor_model_length(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_monitor_model_length(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_monitor_model_end(R: *const xcb_xf86vidmode_get_monitor_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_monitor_model_end(
+        R: *const xcb_xf86vidmode_get_monitor_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_get_monitor_reply (
+    pub fn xcb_xf86vidmode_get_monitor_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_get_monitor_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_get_monitor_reply_t;
 
-    pub fn xcb_xf86vidmode_get_monitor (
+    pub fn xcb_xf86vidmode_get_monitor(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_monitor_cookie_t;
 
-    pub fn xcb_xf86vidmode_get_monitor_unchecked (
+    pub fn xcb_xf86vidmode_get_monitor_unchecked(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_monitor_cookie_t;
 
-    pub fn xcb_xf86vidmode_lock_mode_switch (
+    pub fn xcb_xf86vidmode_lock_mode_switch(
         c: *mut xcb_connection_t,
         screen: u16,
         lock: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_lock_mode_switch_checked (
+    pub fn xcb_xf86vidmode_lock_mode_switch_checked(
         c: *mut xcb_connection_t,
         screen: u16,
         lock: u16,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo(R: *const xcb_xf86vidmode_get_all_mode_lines_reply_t) -> *mut xcb_xf86vidmode_mode_info_t;
+    pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo(
+        R: *const xcb_xf86vidmode_get_all_mode_lines_reply_t,
+    ) -> *mut xcb_xf86vidmode_mode_info_t;
 
-pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_length(R: *const xcb_xf86vidmode_get_all_mode_lines_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_length(
+        R: *const xcb_xf86vidmode_get_all_mode_lines_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(R: *const xcb_xf86vidmode_get_all_mode_lines_reply_t) -> xcb_xf86vidmode_mode_info_iterator_t;
+    pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(
+        R: *const xcb_xf86vidmode_get_all_mode_lines_reply_t,
+    ) -> xcb_xf86vidmode_mode_info_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_get_all_mode_lines_reply (
+    pub fn xcb_xf86vidmode_get_all_mode_lines_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_get_all_mode_lines_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_get_all_mode_lines_reply_t;
 
-    pub fn xcb_xf86vidmode_get_all_mode_lines (
+    pub fn xcb_xf86vidmode_get_all_mode_lines(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_all_mode_lines_cookie_t;
 
-    pub fn xcb_xf86vidmode_get_all_mode_lines_unchecked (
+    pub fn xcb_xf86vidmode_get_all_mode_lines_unchecked(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_all_mode_lines_cookie_t;
 
-    pub fn xcb_xf86vidmode_add_mode_line (
+    pub fn xcb_xf86vidmode_add_mode_line(
         c: *mut xcb_connection_t,
         screen: u32,
         dotclock: xcb_xf86vidmode_dotclock_t,
@@ -899,7 +947,7 @@ pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(R: *const xcb_xf86vi
         private: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_add_mode_line_checked (
+    pub fn xcb_xf86vidmode_add_mode_line_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         dotclock: xcb_xf86vidmode_dotclock_t,
@@ -928,7 +976,7 @@ pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(R: *const xcb_xf86vi
         private: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_delete_mode_line (
+    pub fn xcb_xf86vidmode_delete_mode_line(
         c: *mut xcb_connection_t,
         screen: u32,
         dotclock: xcb_xf86vidmode_dotclock_t,
@@ -946,7 +994,7 @@ pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(R: *const xcb_xf86vi
         private: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_delete_mode_line_checked (
+    pub fn xcb_xf86vidmode_delete_mode_line_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         dotclock: xcb_xf86vidmode_dotclock_t,
@@ -965,13 +1013,13 @@ pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(R: *const xcb_xf86vi
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_validate_mode_line_reply (
+    pub fn xcb_xf86vidmode_validate_mode_line_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_validate_mode_line_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_validate_mode_line_reply_t;
 
-    pub fn xcb_xf86vidmode_validate_mode_line (
+    pub fn xcb_xf86vidmode_validate_mode_line(
         c: *mut xcb_connection_t,
         screen: u32,
         dotclock: xcb_xf86vidmode_dotclock_t,
@@ -989,7 +1037,7 @@ pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(R: *const xcb_xf86vi
         private: *const u8,
     ) -> xcb_xf86vidmode_validate_mode_line_cookie_t;
 
-    pub fn xcb_xf86vidmode_validate_mode_line_unchecked (
+    pub fn xcb_xf86vidmode_validate_mode_line_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
         dotclock: xcb_xf86vidmode_dotclock_t,
@@ -1007,7 +1055,7 @@ pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(R: *const xcb_xf86vi
         private: *const u8,
     ) -> xcb_xf86vidmode_validate_mode_line_cookie_t;
 
-    pub fn xcb_xf86vidmode_switch_to_mode (
+    pub fn xcb_xf86vidmode_switch_to_mode(
         c: *mut xcb_connection_t,
         screen: u32,
         dotclock: xcb_xf86vidmode_dotclock_t,
@@ -1025,7 +1073,7 @@ pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(R: *const xcb_xf86vi
         private: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_switch_to_mode_checked (
+    pub fn xcb_xf86vidmode_switch_to_mode_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         dotclock: xcb_xf86vidmode_dotclock_t,
@@ -1044,72 +1092,78 @@ pub fn xcb_xf86vidmode_get_all_mode_lines_modeinfo_iterator(R: *const xcb_xf86vi
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_get_view_port_reply (
+    pub fn xcb_xf86vidmode_get_view_port_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_get_view_port_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_get_view_port_reply_t;
 
-    pub fn xcb_xf86vidmode_get_view_port (
+    pub fn xcb_xf86vidmode_get_view_port(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_view_port_cookie_t;
 
-    pub fn xcb_xf86vidmode_get_view_port_unchecked (
+    pub fn xcb_xf86vidmode_get_view_port_unchecked(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_view_port_cookie_t;
 
-    pub fn xcb_xf86vidmode_set_view_port (
+    pub fn xcb_xf86vidmode_set_view_port(
         c: *mut xcb_connection_t,
         screen: u16,
         x: u32,
         y: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_set_view_port_checked (
+    pub fn xcb_xf86vidmode_set_view_port_checked(
         c: *mut xcb_connection_t,
         screen: u16,
         x: u32,
         y: u32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xf86vidmode_get_dot_clocks_clock(R: *const xcb_xf86vidmode_get_dot_clocks_reply_t) -> *mut u32;
+    pub fn xcb_xf86vidmode_get_dot_clocks_clock(
+        R: *const xcb_xf86vidmode_get_dot_clocks_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_xf86vidmode_get_dot_clocks_clock_length(R: *const xcb_xf86vidmode_get_dot_clocks_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_dot_clocks_clock_length(
+        R: *const xcb_xf86vidmode_get_dot_clocks_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_dot_clocks_clock_end(R: *const xcb_xf86vidmode_get_dot_clocks_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_dot_clocks_clock_end(
+        R: *const xcb_xf86vidmode_get_dot_clocks_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_get_dot_clocks_reply (
+    pub fn xcb_xf86vidmode_get_dot_clocks_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_get_dot_clocks_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_get_dot_clocks_reply_t;
 
-    pub fn xcb_xf86vidmode_get_dot_clocks (
+    pub fn xcb_xf86vidmode_get_dot_clocks(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_dot_clocks_cookie_t;
 
-    pub fn xcb_xf86vidmode_get_dot_clocks_unchecked (
+    pub fn xcb_xf86vidmode_get_dot_clocks_unchecked(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_dot_clocks_cookie_t;
 
-    pub fn xcb_xf86vidmode_set_client_version (
+    pub fn xcb_xf86vidmode_set_client_version(
         c: *mut xcb_connection_t,
         major: u16,
         minor: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_set_client_version_checked (
+    pub fn xcb_xf86vidmode_set_client_version_checked(
         c: *mut xcb_connection_t,
         major: u16,
         minor: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_set_gamma (
+    pub fn xcb_xf86vidmode_set_gamma(
         c: *mut xcb_connection_t,
         screen: u16,
         red: u32,
@@ -1117,7 +1171,7 @@ pub fn xcb_xf86vidmode_get_dot_clocks_clock_end(R: *const xcb_xf86vidmode_get_do
         blue: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_set_gamma_checked (
+    pub fn xcb_xf86vidmode_set_gamma_checked(
         c: *mut xcb_connection_t,
         screen: u16,
         red: u32,
@@ -1126,60 +1180,78 @@ pub fn xcb_xf86vidmode_get_dot_clocks_clock_end(R: *const xcb_xf86vidmode_get_do
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_get_gamma_reply (
+    pub fn xcb_xf86vidmode_get_gamma_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_get_gamma_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_get_gamma_reply_t;
 
-    pub fn xcb_xf86vidmode_get_gamma (
+    pub fn xcb_xf86vidmode_get_gamma(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_gamma_cookie_t;
 
-    pub fn xcb_xf86vidmode_get_gamma_unchecked (
+    pub fn xcb_xf86vidmode_get_gamma_unchecked(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_gamma_cookie_t;
 
-pub fn xcb_xf86vidmode_get_gamma_ramp_red(R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t) -> *mut u16;
+    pub fn xcb_xf86vidmode_get_gamma_ramp_red(
+        R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t,
+    ) -> *mut u16;
 
-pub fn xcb_xf86vidmode_get_gamma_ramp_red_length(R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_gamma_ramp_red_length(
+        R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_gamma_ramp_red_end(R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_gamma_ramp_red_end(
+        R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xf86vidmode_get_gamma_ramp_green(R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t) -> *mut u16;
+    pub fn xcb_xf86vidmode_get_gamma_ramp_green(
+        R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t,
+    ) -> *mut u16;
 
-pub fn xcb_xf86vidmode_get_gamma_ramp_green_length(R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_gamma_ramp_green_length(
+        R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_gamma_ramp_green_end(R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_gamma_ramp_green_end(
+        R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xf86vidmode_get_gamma_ramp_blue(R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t) -> *mut u16;
+    pub fn xcb_xf86vidmode_get_gamma_ramp_blue(
+        R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t,
+    ) -> *mut u16;
 
-pub fn xcb_xf86vidmode_get_gamma_ramp_blue_length(R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t) -> c_int;
+    pub fn xcb_xf86vidmode_get_gamma_ramp_blue_length(
+        R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86vidmode_get_gamma_ramp_blue_end(R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86vidmode_get_gamma_ramp_blue_end(
+        R: *const xcb_xf86vidmode_get_gamma_ramp_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_get_gamma_ramp_reply (
+    pub fn xcb_xf86vidmode_get_gamma_ramp_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_get_gamma_ramp_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_get_gamma_ramp_reply_t;
 
-    pub fn xcb_xf86vidmode_get_gamma_ramp (
+    pub fn xcb_xf86vidmode_get_gamma_ramp(
         c: *mut xcb_connection_t,
         screen: u16,
         size: u16,
     ) -> xcb_xf86vidmode_get_gamma_ramp_cookie_t;
 
-    pub fn xcb_xf86vidmode_get_gamma_ramp_unchecked (
+    pub fn xcb_xf86vidmode_get_gamma_ramp_unchecked(
         c: *mut xcb_connection_t,
         screen: u16,
         size: u16,
     ) -> xcb_xf86vidmode_get_gamma_ramp_cookie_t;
 
-    pub fn xcb_xf86vidmode_set_gamma_ramp (
+    pub fn xcb_xf86vidmode_set_gamma_ramp(
         c: *mut xcb_connection_t,
         screen: u16,
         size: u16,
@@ -1188,7 +1260,7 @@ pub fn xcb_xf86vidmode_get_gamma_ramp_blue_end(R: *const xcb_xf86vidmode_get_gam
         blue: *const u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86vidmode_set_gamma_ramp_checked (
+    pub fn xcb_xf86vidmode_set_gamma_ramp_checked(
         c: *mut xcb_connection_t,
         screen: u16,
         size: u16,
@@ -1198,35 +1270,35 @@ pub fn xcb_xf86vidmode_get_gamma_ramp_blue_end(R: *const xcb_xf86vidmode_get_gam
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_get_gamma_ramp_size_reply (
+    pub fn xcb_xf86vidmode_get_gamma_ramp_size_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_get_gamma_ramp_size_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_get_gamma_ramp_size_reply_t;
 
-    pub fn xcb_xf86vidmode_get_gamma_ramp_size (
+    pub fn xcb_xf86vidmode_get_gamma_ramp_size(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_gamma_ramp_size_cookie_t;
 
-    pub fn xcb_xf86vidmode_get_gamma_ramp_size_unchecked (
+    pub fn xcb_xf86vidmode_get_gamma_ramp_size_unchecked(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_gamma_ramp_size_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86vidmode_get_permissions_reply (
+    pub fn xcb_xf86vidmode_get_permissions_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86vidmode_get_permissions_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86vidmode_get_permissions_reply_t;
 
-    pub fn xcb_xf86vidmode_get_permissions (
+    pub fn xcb_xf86vidmode_get_permissions(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_permissions_cookie_t;
 
-    pub fn xcb_xf86vidmode_get_permissions_unchecked (
+    pub fn xcb_xf86vidmode_get_permissions_unchecked(
         c: *mut xcb_connection_t,
         screen: u16,
     ) -> xcb_xf86vidmode_get_permissions_cookie_t;

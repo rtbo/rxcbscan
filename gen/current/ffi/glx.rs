@@ -14,8 +14,8 @@ pub type xcb_glx_pixmap_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_pixmap_iterator_t {
-    pub data:  *mut xcb_glx_pixmap_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_pixmap_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -24,8 +24,8 @@ pub type xcb_glx_context_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_context_iterator_t {
-    pub data:  *mut xcb_glx_context_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_context_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -34,8 +34,8 @@ pub type xcb_glx_pbuffer_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_pbuffer_iterator_t {
-    pub data:  *mut xcb_glx_pbuffer_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_pbuffer_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -44,8 +44,8 @@ pub type xcb_glx_window_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_window_iterator_t {
-    pub data:  *mut xcb_glx_window_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_window_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -54,8 +54,8 @@ pub type xcb_glx_fbconfig_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_fbconfig_iterator_t {
-    pub data:  *mut xcb_glx_fbconfig_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_fbconfig_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -64,8 +64,8 @@ pub type xcb_glx_drawable_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_drawable_iterator_t {
-    pub data:  *mut xcb_glx_drawable_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_drawable_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -74,8 +74,8 @@ pub type xcb_glx_float32_t = f32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_float32_iterator_t {
-    pub data:  *mut xcb_glx_float32_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_float32_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -84,8 +84,8 @@ pub type xcb_glx_float64_t = f64;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_float64_iterator_t {
-    pub data:  *mut xcb_glx_float64_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_float64_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -94,8 +94,8 @@ pub type xcb_glx_bool32_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_bool32_iterator_t {
-    pub data:  *mut xcb_glx_bool32_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_bool32_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -104,8 +104,8 @@ pub type xcb_glx_context_tag_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_glx_context_tag_iterator_t {
-    pub data:  *mut xcb_glx_context_tag_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_glx_context_tag_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -2736,74 +2736,67 @@ pub struct xcb_glx_get_query_objectuiv_arb_reply_t {
 }
 
 #[link(name = "xcb-glx")]
-extern {
+extern "C" {
 
-pub static mut xcb_glx_id: xcb_extension_t;
+    pub static mut xcb_glx_id: xcb_extension_t;
 
-pub fn xcb_glx_pixmap_next(i: *mut xcb_glx_pixmap_iterator_t);
+    pub fn xcb_glx_pixmap_next(i: *mut xcb_glx_pixmap_iterator_t);
 
-pub fn xcb_glx_pixmap_end(i: *mut xcb_glx_pixmap_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_pixmap_end(i: *mut xcb_glx_pixmap_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_glx_context_next(i: *mut xcb_glx_context_iterator_t);
+    pub fn xcb_glx_context_next(i: *mut xcb_glx_context_iterator_t);
 
-pub fn xcb_glx_context_end(i: *mut xcb_glx_context_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_context_end(i: *mut xcb_glx_context_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_glx_pbuffer_next(i: *mut xcb_glx_pbuffer_iterator_t);
+    pub fn xcb_glx_pbuffer_next(i: *mut xcb_glx_pbuffer_iterator_t);
 
-pub fn xcb_glx_pbuffer_end(i: *mut xcb_glx_pbuffer_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_pbuffer_end(i: *mut xcb_glx_pbuffer_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_glx_window_next(i: *mut xcb_glx_window_iterator_t);
+    pub fn xcb_glx_window_next(i: *mut xcb_glx_window_iterator_t);
 
-pub fn xcb_glx_window_end(i: *mut xcb_glx_window_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_window_end(i: *mut xcb_glx_window_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_glx_fbconfig_next(i: *mut xcb_glx_fbconfig_iterator_t);
+    pub fn xcb_glx_fbconfig_next(i: *mut xcb_glx_fbconfig_iterator_t);
 
-pub fn xcb_glx_fbconfig_end(i: *mut xcb_glx_fbconfig_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_fbconfig_end(i: *mut xcb_glx_fbconfig_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_glx_drawable_next(i: *mut xcb_glx_drawable_iterator_t);
+    pub fn xcb_glx_drawable_next(i: *mut xcb_glx_drawable_iterator_t);
 
-pub fn xcb_glx_drawable_end(i: *mut xcb_glx_drawable_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_drawable_end(i: *mut xcb_glx_drawable_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_glx_float32_next(i: *mut xcb_glx_float32_iterator_t);
+    pub fn xcb_glx_float32_next(i: *mut xcb_glx_float32_iterator_t);
 
-pub fn xcb_glx_float32_end(i: *mut xcb_glx_float32_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_float32_end(i: *mut xcb_glx_float32_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_glx_float64_next(i: *mut xcb_glx_float64_iterator_t);
+    pub fn xcb_glx_float64_next(i: *mut xcb_glx_float64_iterator_t);
 
-pub fn xcb_glx_float64_end(i: *mut xcb_glx_float64_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_float64_end(i: *mut xcb_glx_float64_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_glx_bool32_next(i: *mut xcb_glx_bool32_iterator_t);
+    pub fn xcb_glx_bool32_next(i: *mut xcb_glx_bool32_iterator_t);
 
-pub fn xcb_glx_bool32_end(i: *mut xcb_glx_bool32_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_bool32_end(i: *mut xcb_glx_bool32_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_glx_context_tag_next(i: *mut xcb_glx_context_tag_iterator_t);
+    pub fn xcb_glx_context_tag_next(i: *mut xcb_glx_context_tag_iterator_t);
 
-pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_context_tag_end(
+        i: *mut xcb_glx_context_tag_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-    pub fn xcb_glx_render (
+    pub fn xcb_glx_render(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         data_len: u32,
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_render_checked (
+    pub fn xcb_glx_render_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         data_len: u32,
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_render_large (
-        c: *mut xcb_connection_t,
-        context_tag: xcb_glx_context_tag_t,
-        request_num: u16,
-        request_total: u16,
-        data_len: u32,
-        data: *const u8,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_glx_render_large_checked (
+    pub fn xcb_glx_render_large(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         request_num: u16,
@@ -2812,7 +2805,16 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_context (
+    pub fn xcb_glx_render_large_checked(
+        c: *mut xcb_connection_t,
+        context_tag: xcb_glx_context_tag_t,
+        request_num: u16,
+        request_total: u16,
+        data_len: u32,
+        data: *const u8,
+    ) -> xcb_void_cookie_t;
+
+    pub fn xcb_glx_create_context(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
         visual: xcb_visualid_t,
@@ -2821,7 +2823,7 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
         is_direct: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_context_checked (
+    pub fn xcb_glx_create_context_checked(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
         visual: xcb_visualid_t,
@@ -2830,31 +2832,31 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
         is_direct: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_destroy_context (
+    pub fn xcb_glx_destroy_context(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_destroy_context_checked (
+    pub fn xcb_glx_destroy_context_checked(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_make_current_reply (
+    pub fn xcb_glx_make_current_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_make_current_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_make_current_reply_t;
 
-    pub fn xcb_glx_make_current (
+    pub fn xcb_glx_make_current(
         c: *mut xcb_connection_t,
         drawable: xcb_glx_drawable_t,
         context: xcb_glx_context_t,
         old_context_tag: xcb_glx_context_tag_t,
     ) -> xcb_glx_make_current_cookie_t;
 
-    pub fn xcb_glx_make_current_unchecked (
+    pub fn xcb_glx_make_current_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_glx_drawable_t,
         context: xcb_glx_context_t,
@@ -2862,62 +2864,62 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
     ) -> xcb_glx_make_current_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_is_direct_reply (
+    pub fn xcb_glx_is_direct_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_is_direct_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_is_direct_reply_t;
 
-    pub fn xcb_glx_is_direct (
+    pub fn xcb_glx_is_direct(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
     ) -> xcb_glx_is_direct_cookie_t;
 
-    pub fn xcb_glx_is_direct_unchecked (
+    pub fn xcb_glx_is_direct_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
     ) -> xcb_glx_is_direct_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_query_version_reply (
+    pub fn xcb_glx_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_query_version_reply_t;
 
-    pub fn xcb_glx_query_version (
+    pub fn xcb_glx_query_version(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_glx_query_version_cookie_t;
 
-    pub fn xcb_glx_query_version_unchecked (
+    pub fn xcb_glx_query_version_unchecked(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_glx_query_version_cookie_t;
 
-    pub fn xcb_glx_wait_gl (
+    pub fn xcb_glx_wait_gl(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_wait_gl_checked (
+    pub fn xcb_glx_wait_gl_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_wait_x (
+    pub fn xcb_glx_wait_x(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_wait_x_checked (
+    pub fn xcb_glx_wait_x_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_copy_context (
+    pub fn xcb_glx_copy_context(
         c: *mut xcb_connection_t,
         src: xcb_glx_context_t,
         dest: xcb_glx_context_t,
@@ -2925,7 +2927,7 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
         src_context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_copy_context_checked (
+    pub fn xcb_glx_copy_context_checked(
         c: *mut xcb_connection_t,
         src: xcb_glx_context_t,
         dest: xcb_glx_context_t,
@@ -2933,19 +2935,19 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
         src_context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_swap_buffers (
+    pub fn xcb_glx_swap_buffers(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         drawable: xcb_glx_drawable_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_swap_buffers_checked (
+    pub fn xcb_glx_swap_buffers_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         drawable: xcb_glx_drawable_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_use_x_font (
+    pub fn xcb_glx_use_x_font(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         font: xcb_font_t,
@@ -2954,7 +2956,7 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
         list_base: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_use_x_font_checked (
+    pub fn xcb_glx_use_x_font_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         font: xcb_font_t,
@@ -2963,7 +2965,7 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
         list_base: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_glx_pixmap (
+    pub fn xcb_glx_create_glx_pixmap(
         c: *mut xcb_connection_t,
         screen: u32,
         visual: xcb_visualid_t,
@@ -2971,7 +2973,7 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
         glx_pixmap: xcb_glx_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_glx_pixmap_checked (
+    pub fn xcb_glx_create_glx_pixmap_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         visual: xcb_visualid_t,
@@ -2979,40 +2981,46 @@ pub fn xcb_glx_context_tag_end(i: *mut xcb_glx_context_tag_iterator_t) -> xcb_ge
         glx_pixmap: xcb_glx_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_get_visual_configs_property_list(R: *const xcb_glx_get_visual_configs_reply_t) -> *mut u32;
+    pub fn xcb_glx_get_visual_configs_property_list(
+        R: *const xcb_glx_get_visual_configs_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_glx_get_visual_configs_property_list_length(R: *const xcb_glx_get_visual_configs_reply_t) -> c_int;
+    pub fn xcb_glx_get_visual_configs_property_list_length(
+        R: *const xcb_glx_get_visual_configs_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_visual_configs_property_list_end(R: *const xcb_glx_get_visual_configs_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_visual_configs_property_list_end(
+        R: *const xcb_glx_get_visual_configs_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_visual_configs_reply (
+    pub fn xcb_glx_get_visual_configs_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_visual_configs_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_visual_configs_reply_t;
 
-    pub fn xcb_glx_get_visual_configs (
+    pub fn xcb_glx_get_visual_configs(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_glx_get_visual_configs_cookie_t;
 
-    pub fn xcb_glx_get_visual_configs_unchecked (
+    pub fn xcb_glx_get_visual_configs_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_glx_get_visual_configs_cookie_t;
 
-    pub fn xcb_glx_destroy_glx_pixmap (
+    pub fn xcb_glx_destroy_glx_pixmap(
         c: *mut xcb_connection_t,
         glx_pixmap: xcb_glx_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_destroy_glx_pixmap_checked (
+    pub fn xcb_glx_destroy_glx_pixmap_checked(
         c: *mut xcb_connection_t,
         glx_pixmap: xcb_glx_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_vendor_private (
+    pub fn xcb_glx_vendor_private(
         c: *mut xcb_connection_t,
         vendor_code: u32,
         context_tag: xcb_glx_context_tag_t,
@@ -3020,7 +3028,7 @@ pub fn xcb_glx_get_visual_configs_property_list_end(R: *const xcb_glx_get_visual
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_vendor_private_checked (
+    pub fn xcb_glx_vendor_private_checked(
         c: *mut xcb_connection_t,
         vendor_code: u32,
         context_tag: xcb_glx_context_tag_t,
@@ -3028,20 +3036,26 @@ pub fn xcb_glx_get_visual_configs_property_list_end(R: *const xcb_glx_get_visual
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_vendor_private_with_reply_data_2(R: *const xcb_glx_vendor_private_with_reply_reply_t) -> *mut u8;
+    pub fn xcb_glx_vendor_private_with_reply_data_2(
+        R: *const xcb_glx_vendor_private_with_reply_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_glx_vendor_private_with_reply_data_2_length(R: *const xcb_glx_vendor_private_with_reply_reply_t) -> c_int;
+    pub fn xcb_glx_vendor_private_with_reply_data_2_length(
+        R: *const xcb_glx_vendor_private_with_reply_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_vendor_private_with_reply_data_2_end(R: *const xcb_glx_vendor_private_with_reply_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_vendor_private_with_reply_data_2_end(
+        R: *const xcb_glx_vendor_private_with_reply_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_vendor_private_with_reply_reply (
+    pub fn xcb_glx_vendor_private_with_reply_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_vendor_private_with_reply_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_vendor_private_with_reply_reply_t;
 
-    pub fn xcb_glx_vendor_private_with_reply (
+    pub fn xcb_glx_vendor_private_with_reply(
         c: *mut xcb_connection_t,
         vendor_code: u32,
         context_tag: xcb_glx_context_tag_t,
@@ -3049,7 +3063,7 @@ pub fn xcb_glx_vendor_private_with_reply_data_2_end(R: *const xcb_glx_vendor_pri
         data: *const u8,
     ) -> xcb_glx_vendor_private_with_reply_cookie_t;
 
-    pub fn xcb_glx_vendor_private_with_reply_unchecked (
+    pub fn xcb_glx_vendor_private_with_reply_unchecked(
         c: *mut xcb_connection_t,
         vendor_code: u32,
         context_tag: xcb_glx_context_tag_t,
@@ -3058,48 +3072,54 @@ pub fn xcb_glx_vendor_private_with_reply_data_2_end(R: *const xcb_glx_vendor_pri
     ) -> xcb_glx_vendor_private_with_reply_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_query_extensions_string_reply (
+    pub fn xcb_glx_query_extensions_string_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_query_extensions_string_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_query_extensions_string_reply_t;
 
-    pub fn xcb_glx_query_extensions_string (
+    pub fn xcb_glx_query_extensions_string(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_glx_query_extensions_string_cookie_t;
 
-    pub fn xcb_glx_query_extensions_string_unchecked (
+    pub fn xcb_glx_query_extensions_string_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_glx_query_extensions_string_cookie_t;
 
-pub fn xcb_glx_query_server_string_string(R: *const xcb_glx_query_server_string_reply_t) -> *mut c_char;
+    pub fn xcb_glx_query_server_string_string(
+        R: *const xcb_glx_query_server_string_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_glx_query_server_string_string_length(R: *const xcb_glx_query_server_string_reply_t) -> c_int;
+    pub fn xcb_glx_query_server_string_string_length(
+        R: *const xcb_glx_query_server_string_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_query_server_string_string_end(R: *const xcb_glx_query_server_string_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_query_server_string_string_end(
+        R: *const xcb_glx_query_server_string_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_query_server_string_reply (
+    pub fn xcb_glx_query_server_string_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_query_server_string_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_query_server_string_reply_t;
 
-    pub fn xcb_glx_query_server_string (
+    pub fn xcb_glx_query_server_string(
         c: *mut xcb_connection_t,
         screen: u32,
         name: u32,
     ) -> xcb_glx_query_server_string_cookie_t;
 
-    pub fn xcb_glx_query_server_string_unchecked (
+    pub fn xcb_glx_query_server_string_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
         name: u32,
     ) -> xcb_glx_query_server_string_cookie_t;
 
-    pub fn xcb_glx_client_info (
+    pub fn xcb_glx_client_info(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
@@ -3107,7 +3127,7 @@ pub fn xcb_glx_query_server_string_string_end(R: *const xcb_glx_query_server_str
         string: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_client_info_checked (
+    pub fn xcb_glx_client_info_checked(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
@@ -3115,30 +3135,36 @@ pub fn xcb_glx_query_server_string_string_end(R: *const xcb_glx_query_server_str
         string: *const c_char,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_get_fb_configs_property_list(R: *const xcb_glx_get_fb_configs_reply_t) -> *mut u32;
+    pub fn xcb_glx_get_fb_configs_property_list(
+        R: *const xcb_glx_get_fb_configs_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_glx_get_fb_configs_property_list_length(R: *const xcb_glx_get_fb_configs_reply_t) -> c_int;
+    pub fn xcb_glx_get_fb_configs_property_list_length(
+        R: *const xcb_glx_get_fb_configs_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_fb_configs_property_list_end(R: *const xcb_glx_get_fb_configs_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_fb_configs_property_list_end(
+        R: *const xcb_glx_get_fb_configs_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_fb_configs_reply (
+    pub fn xcb_glx_get_fb_configs_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_fb_configs_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_fb_configs_reply_t;
 
-    pub fn xcb_glx_get_fb_configs (
+    pub fn xcb_glx_get_fb_configs(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_glx_get_fb_configs_cookie_t;
 
-    pub fn xcb_glx_get_fb_configs_unchecked (
+    pub fn xcb_glx_get_fb_configs_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_glx_get_fb_configs_cookie_t;
 
-    pub fn xcb_glx_create_pixmap (
+    pub fn xcb_glx_create_pixmap(
         c: *mut xcb_connection_t,
         screen: u32,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3148,7 +3174,7 @@ pub fn xcb_glx_get_fb_configs_property_list_end(R: *const xcb_glx_get_fb_configs
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_pixmap_checked (
+    pub fn xcb_glx_create_pixmap_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3158,17 +3184,17 @@ pub fn xcb_glx_get_fb_configs_property_list_end(R: *const xcb_glx_get_fb_configs
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_destroy_pixmap (
+    pub fn xcb_glx_destroy_pixmap(
         c: *mut xcb_connection_t,
         glx_pixmap: xcb_glx_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_destroy_pixmap_checked (
+    pub fn xcb_glx_destroy_pixmap_checked(
         c: *mut xcb_connection_t,
         glx_pixmap: xcb_glx_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_new_context (
+    pub fn xcb_glx_create_new_context(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3178,7 +3204,7 @@ pub fn xcb_glx_get_fb_configs_property_list_end(R: *const xcb_glx_get_fb_configs
         is_direct: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_new_context_checked (
+    pub fn xcb_glx_create_new_context_checked(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3188,37 +3214,39 @@ pub fn xcb_glx_get_fb_configs_property_list_end(R: *const xcb_glx_get_fb_configs
         is_direct: u8,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_query_context_attribs(R: *const xcb_glx_query_context_reply_t) -> *mut u32;
+    pub fn xcb_glx_query_context_attribs(R: *const xcb_glx_query_context_reply_t) -> *mut u32;
 
-pub fn xcb_glx_query_context_attribs_length(R: *const xcb_glx_query_context_reply_t) -> c_int;
+    pub fn xcb_glx_query_context_attribs_length(R: *const xcb_glx_query_context_reply_t) -> c_int;
 
-pub fn xcb_glx_query_context_attribs_end(R: *const xcb_glx_query_context_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_query_context_attribs_end(
+        R: *const xcb_glx_query_context_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_query_context_reply (
+    pub fn xcb_glx_query_context_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_query_context_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_query_context_reply_t;
 
-    pub fn xcb_glx_query_context (
+    pub fn xcb_glx_query_context(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
     ) -> xcb_glx_query_context_cookie_t;
 
-    pub fn xcb_glx_query_context_unchecked (
+    pub fn xcb_glx_query_context_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
     ) -> xcb_glx_query_context_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_make_context_current_reply (
+    pub fn xcb_glx_make_context_current_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_make_context_current_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_make_context_current_reply_t;
 
-    pub fn xcb_glx_make_context_current (
+    pub fn xcb_glx_make_context_current(
         c: *mut xcb_connection_t,
         old_context_tag: xcb_glx_context_tag_t,
         drawable: xcb_glx_drawable_t,
@@ -3226,7 +3254,7 @@ pub fn xcb_glx_query_context_attribs_end(R: *const xcb_glx_query_context_reply_t
         context: xcb_glx_context_t,
     ) -> xcb_glx_make_context_current_cookie_t;
 
-    pub fn xcb_glx_make_context_current_unchecked (
+    pub fn xcb_glx_make_context_current_unchecked(
         c: *mut xcb_connection_t,
         old_context_tag: xcb_glx_context_tag_t,
         drawable: xcb_glx_drawable_t,
@@ -3234,7 +3262,7 @@ pub fn xcb_glx_query_context_attribs_end(R: *const xcb_glx_query_context_reply_t
         context: xcb_glx_context_t,
     ) -> xcb_glx_make_context_current_cookie_t;
 
-    pub fn xcb_glx_create_pbuffer (
+    pub fn xcb_glx_create_pbuffer(
         c: *mut xcb_connection_t,
         screen: u32,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3243,7 +3271,7 @@ pub fn xcb_glx_query_context_attribs_end(R: *const xcb_glx_query_context_reply_t
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_pbuffer_checked (
+    pub fn xcb_glx_create_pbuffer_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3252,54 +3280,60 @@ pub fn xcb_glx_query_context_attribs_end(R: *const xcb_glx_query_context_reply_t
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_destroy_pbuffer (
+    pub fn xcb_glx_destroy_pbuffer(
         c: *mut xcb_connection_t,
         pbuffer: xcb_glx_pbuffer_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_destroy_pbuffer_checked (
+    pub fn xcb_glx_destroy_pbuffer_checked(
         c: *mut xcb_connection_t,
         pbuffer: xcb_glx_pbuffer_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_get_drawable_attributes_attribs(R: *const xcb_glx_get_drawable_attributes_reply_t) -> *mut u32;
+    pub fn xcb_glx_get_drawable_attributes_attribs(
+        R: *const xcb_glx_get_drawable_attributes_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_glx_get_drawable_attributes_attribs_length(R: *const xcb_glx_get_drawable_attributes_reply_t) -> c_int;
+    pub fn xcb_glx_get_drawable_attributes_attribs_length(
+        R: *const xcb_glx_get_drawable_attributes_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawable_attributes_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_drawable_attributes_attribs_end(
+        R: *const xcb_glx_get_drawable_attributes_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_drawable_attributes_reply (
+    pub fn xcb_glx_get_drawable_attributes_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_drawable_attributes_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_drawable_attributes_reply_t;
 
-    pub fn xcb_glx_get_drawable_attributes (
+    pub fn xcb_glx_get_drawable_attributes(
         c: *mut xcb_connection_t,
         drawable: xcb_glx_drawable_t,
     ) -> xcb_glx_get_drawable_attributes_cookie_t;
 
-    pub fn xcb_glx_get_drawable_attributes_unchecked (
+    pub fn xcb_glx_get_drawable_attributes_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_glx_drawable_t,
     ) -> xcb_glx_get_drawable_attributes_cookie_t;
 
-    pub fn xcb_glx_change_drawable_attributes (
+    pub fn xcb_glx_change_drawable_attributes(
         c: *mut xcb_connection_t,
         drawable: xcb_glx_drawable_t,
         num_attribs: u32,
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_change_drawable_attributes_checked (
+    pub fn xcb_glx_change_drawable_attributes_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_glx_drawable_t,
         num_attribs: u32,
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_window (
+    pub fn xcb_glx_create_window(
         c: *mut xcb_connection_t,
         screen: u32,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3309,7 +3343,7 @@ pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawabl
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_window_checked (
+    pub fn xcb_glx_create_window_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3319,17 +3353,17 @@ pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawabl
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_delete_window (
+    pub fn xcb_glx_delete_window(
         c: *mut xcb_connection_t,
         glxwindow: xcb_glx_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_delete_window_checked (
+    pub fn xcb_glx_delete_window_checked(
         c: *mut xcb_connection_t,
         glxwindow: xcb_glx_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_set_client_info_arb (
+    pub fn xcb_glx_set_client_info_arb(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
@@ -3341,7 +3375,7 @@ pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawabl
         glx_extension_string: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_set_client_info_arb_checked (
+    pub fn xcb_glx_set_client_info_arb_checked(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
@@ -3353,7 +3387,7 @@ pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawabl
         glx_extension_string: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_context_attribs_arb (
+    pub fn xcb_glx_create_context_attribs_arb(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3364,7 +3398,7 @@ pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawabl
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_create_context_attribs_arb_checked (
+    pub fn xcb_glx_create_context_attribs_arb_checked(
         c: *mut xcb_connection_t,
         context: xcb_glx_context_t,
         fbconfig: xcb_glx_fbconfig_t,
@@ -3375,7 +3409,7 @@ pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawabl
         attribs: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_set_client_info_2arb (
+    pub fn xcb_glx_set_client_info_2arb(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
@@ -3387,7 +3421,7 @@ pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawabl
         glx_extension_string: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_set_client_info_2arb_checked (
+    pub fn xcb_glx_set_client_info_2arb_checked(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
@@ -3399,38 +3433,38 @@ pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawabl
         glx_extension_string: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_new_list (
+    pub fn xcb_glx_new_list(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         list: u32,
         mode: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_new_list_checked (
+    pub fn xcb_glx_new_list_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         list: u32,
         mode: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_end_list (
+    pub fn xcb_glx_end_list(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_end_list_checked (
+    pub fn xcb_glx_end_list_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_delete_lists (
+    pub fn xcb_glx_delete_lists(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         list: u32,
         range: i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_delete_lists_checked (
+    pub fn xcb_glx_delete_lists_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         list: u32,
@@ -3438,134 +3472,138 @@ pub fn xcb_glx_get_drawable_attributes_attribs_end(R: *const xcb_glx_get_drawabl
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_gen_lists_reply (
+    pub fn xcb_glx_gen_lists_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_gen_lists_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_gen_lists_reply_t;
 
-    pub fn xcb_glx_gen_lists (
+    pub fn xcb_glx_gen_lists(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         range: i32,
     ) -> xcb_glx_gen_lists_cookie_t;
 
-    pub fn xcb_glx_gen_lists_unchecked (
+    pub fn xcb_glx_gen_lists_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         range: i32,
     ) -> xcb_glx_gen_lists_cookie_t;
 
-    pub fn xcb_glx_feedback_buffer (
+    pub fn xcb_glx_feedback_buffer(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         size: i32,
         type_: i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_feedback_buffer_checked (
+    pub fn xcb_glx_feedback_buffer_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         size: i32,
         type_: i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_select_buffer (
+    pub fn xcb_glx_select_buffer(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         size: i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_select_buffer_checked (
+    pub fn xcb_glx_select_buffer_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         size: i32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_render_mode_data(R: *const xcb_glx_render_mode_reply_t) -> *mut u32;
+    pub fn xcb_glx_render_mode_data(R: *const xcb_glx_render_mode_reply_t) -> *mut u32;
 
-pub fn xcb_glx_render_mode_data_length(R: *const xcb_glx_render_mode_reply_t) -> c_int;
+    pub fn xcb_glx_render_mode_data_length(R: *const xcb_glx_render_mode_reply_t) -> c_int;
 
-pub fn xcb_glx_render_mode_data_end(R: *const xcb_glx_render_mode_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_render_mode_data_end(
+        R: *const xcb_glx_render_mode_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_render_mode_reply (
+    pub fn xcb_glx_render_mode_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_render_mode_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_render_mode_reply_t;
 
-    pub fn xcb_glx_render_mode (
+    pub fn xcb_glx_render_mode(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         mode: u32,
     ) -> xcb_glx_render_mode_cookie_t;
 
-    pub fn xcb_glx_render_mode_unchecked (
+    pub fn xcb_glx_render_mode_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         mode: u32,
     ) -> xcb_glx_render_mode_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_finish_reply (
+    pub fn xcb_glx_finish_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_finish_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_finish_reply_t;
 
-    pub fn xcb_glx_finish (
+    pub fn xcb_glx_finish(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_glx_finish_cookie_t;
 
-    pub fn xcb_glx_finish_unchecked (
+    pub fn xcb_glx_finish_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_glx_finish_cookie_t;
 
-    pub fn xcb_glx_pixel_storef (
+    pub fn xcb_glx_pixel_storef(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
         datum: xcb_glx_float32_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_pixel_storef_checked (
+    pub fn xcb_glx_pixel_storef_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
         datum: xcb_glx_float32_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_pixel_storei (
+    pub fn xcb_glx_pixel_storei(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
         datum: i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_pixel_storei_checked (
+    pub fn xcb_glx_pixel_storei_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
         datum: i32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_read_pixels_data(R: *const xcb_glx_read_pixels_reply_t) -> *mut u8;
+    pub fn xcb_glx_read_pixels_data(R: *const xcb_glx_read_pixels_reply_t) -> *mut u8;
 
-pub fn xcb_glx_read_pixels_data_length(R: *const xcb_glx_read_pixels_reply_t) -> c_int;
+    pub fn xcb_glx_read_pixels_data_length(R: *const xcb_glx_read_pixels_reply_t) -> c_int;
 
-pub fn xcb_glx_read_pixels_data_end(R: *const xcb_glx_read_pixels_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_read_pixels_data_end(
+        R: *const xcb_glx_read_pixels_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_read_pixels_reply (
+    pub fn xcb_glx_read_pixels_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_read_pixels_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_read_pixels_reply_t;
 
-    pub fn xcb_glx_read_pixels (
+    pub fn xcb_glx_read_pixels(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         x: i32,
@@ -3578,7 +3616,7 @@ pub fn xcb_glx_read_pixels_data_end(R: *const xcb_glx_read_pixels_reply_t) -> xc
         lsb_first: u8,
     ) -> xcb_glx_read_pixels_cookie_t;
 
-    pub fn xcb_glx_read_pixels_unchecked (
+    pub fn xcb_glx_read_pixels_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         x: i32,
@@ -3591,611 +3629,681 @@ pub fn xcb_glx_read_pixels_data_end(R: *const xcb_glx_read_pixels_reply_t) -> xc
         lsb_first: u8,
     ) -> xcb_glx_read_pixels_cookie_t;
 
-pub fn xcb_glx_get_booleanv_data(R: *const xcb_glx_get_booleanv_reply_t) -> *mut u8;
+    pub fn xcb_glx_get_booleanv_data(R: *const xcb_glx_get_booleanv_reply_t) -> *mut u8;
 
-pub fn xcb_glx_get_booleanv_data_length(R: *const xcb_glx_get_booleanv_reply_t) -> c_int;
+    pub fn xcb_glx_get_booleanv_data_length(R: *const xcb_glx_get_booleanv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_booleanv_data_end(R: *const xcb_glx_get_booleanv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_booleanv_data_end(
+        R: *const xcb_glx_get_booleanv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_booleanv_reply (
+    pub fn xcb_glx_get_booleanv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_booleanv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_booleanv_reply_t;
 
-    pub fn xcb_glx_get_booleanv (
+    pub fn xcb_glx_get_booleanv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: i32,
     ) -> xcb_glx_get_booleanv_cookie_t;
 
-    pub fn xcb_glx_get_booleanv_unchecked (
+    pub fn xcb_glx_get_booleanv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: i32,
     ) -> xcb_glx_get_booleanv_cookie_t;
 
-pub fn xcb_glx_get_clip_plane_data(R: *const xcb_glx_get_clip_plane_reply_t) -> *mut xcb_glx_float64_t;
+    pub fn xcb_glx_get_clip_plane_data(
+        R: *const xcb_glx_get_clip_plane_reply_t,
+    ) -> *mut xcb_glx_float64_t;
 
-pub fn xcb_glx_get_clip_plane_data_length(R: *const xcb_glx_get_clip_plane_reply_t) -> c_int;
+    pub fn xcb_glx_get_clip_plane_data_length(R: *const xcb_glx_get_clip_plane_reply_t) -> c_int;
 
-pub fn xcb_glx_get_clip_plane_data_end(R: *const xcb_glx_get_clip_plane_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_clip_plane_data_end(
+        R: *const xcb_glx_get_clip_plane_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_clip_plane_reply (
+    pub fn xcb_glx_get_clip_plane_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_clip_plane_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_clip_plane_reply_t;
 
-    pub fn xcb_glx_get_clip_plane (
+    pub fn xcb_glx_get_clip_plane(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         plane: i32,
     ) -> xcb_glx_get_clip_plane_cookie_t;
 
-    pub fn xcb_glx_get_clip_plane_unchecked (
+    pub fn xcb_glx_get_clip_plane_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         plane: i32,
     ) -> xcb_glx_get_clip_plane_cookie_t;
 
-pub fn xcb_glx_get_doublev_data(R: *const xcb_glx_get_doublev_reply_t) -> *mut xcb_glx_float64_t;
+    pub fn xcb_glx_get_doublev_data(
+        R: *const xcb_glx_get_doublev_reply_t,
+    ) -> *mut xcb_glx_float64_t;
 
-pub fn xcb_glx_get_doublev_data_length(R: *const xcb_glx_get_doublev_reply_t) -> c_int;
+    pub fn xcb_glx_get_doublev_data_length(R: *const xcb_glx_get_doublev_reply_t) -> c_int;
 
-pub fn xcb_glx_get_doublev_data_end(R: *const xcb_glx_get_doublev_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_doublev_data_end(
+        R: *const xcb_glx_get_doublev_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_doublev_reply (
+    pub fn xcb_glx_get_doublev_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_doublev_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_doublev_reply_t;
 
-    pub fn xcb_glx_get_doublev (
+    pub fn xcb_glx_get_doublev(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
     ) -> xcb_glx_get_doublev_cookie_t;
 
-    pub fn xcb_glx_get_doublev_unchecked (
+    pub fn xcb_glx_get_doublev_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
     ) -> xcb_glx_get_doublev_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_error_reply (
+    pub fn xcb_glx_get_error_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_error_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_error_reply_t;
 
-    pub fn xcb_glx_get_error (
+    pub fn xcb_glx_get_error(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_glx_get_error_cookie_t;
 
-    pub fn xcb_glx_get_error_unchecked (
+    pub fn xcb_glx_get_error_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_glx_get_error_cookie_t;
 
-pub fn xcb_glx_get_floatv_data(R: *const xcb_glx_get_floatv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_floatv_data(R: *const xcb_glx_get_floatv_reply_t) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_floatv_data_length(R: *const xcb_glx_get_floatv_reply_t) -> c_int;
+    pub fn xcb_glx_get_floatv_data_length(R: *const xcb_glx_get_floatv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_floatv_data_end(R: *const xcb_glx_get_floatv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_floatv_data_end(
+        R: *const xcb_glx_get_floatv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_floatv_reply (
+    pub fn xcb_glx_get_floatv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_floatv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_floatv_reply_t;
 
-    pub fn xcb_glx_get_floatv (
+    pub fn xcb_glx_get_floatv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
     ) -> xcb_glx_get_floatv_cookie_t;
 
-    pub fn xcb_glx_get_floatv_unchecked (
+    pub fn xcb_glx_get_floatv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
     ) -> xcb_glx_get_floatv_cookie_t;
 
-pub fn xcb_glx_get_integerv_data(R: *const xcb_glx_get_integerv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_integerv_data(R: *const xcb_glx_get_integerv_reply_t) -> *mut i32;
 
-pub fn xcb_glx_get_integerv_data_length(R: *const xcb_glx_get_integerv_reply_t) -> c_int;
+    pub fn xcb_glx_get_integerv_data_length(R: *const xcb_glx_get_integerv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_integerv_data_end(R: *const xcb_glx_get_integerv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_integerv_data_end(
+        R: *const xcb_glx_get_integerv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_integerv_reply (
+    pub fn xcb_glx_get_integerv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_integerv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_integerv_reply_t;
 
-    pub fn xcb_glx_get_integerv (
+    pub fn xcb_glx_get_integerv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
     ) -> xcb_glx_get_integerv_cookie_t;
 
-    pub fn xcb_glx_get_integerv_unchecked (
+    pub fn xcb_glx_get_integerv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         pname: u32,
     ) -> xcb_glx_get_integerv_cookie_t;
 
-pub fn xcb_glx_get_lightfv_data(R: *const xcb_glx_get_lightfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_lightfv_data(
+        R: *const xcb_glx_get_lightfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_lightfv_data_length(R: *const xcb_glx_get_lightfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_lightfv_data_length(R: *const xcb_glx_get_lightfv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_lightfv_data_end(R: *const xcb_glx_get_lightfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_lightfv_data_end(
+        R: *const xcb_glx_get_lightfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_lightfv_reply (
+    pub fn xcb_glx_get_lightfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_lightfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_lightfv_reply_t;
 
-    pub fn xcb_glx_get_lightfv (
+    pub fn xcb_glx_get_lightfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         light: u32,
         pname: u32,
     ) -> xcb_glx_get_lightfv_cookie_t;
 
-    pub fn xcb_glx_get_lightfv_unchecked (
+    pub fn xcb_glx_get_lightfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         light: u32,
         pname: u32,
     ) -> xcb_glx_get_lightfv_cookie_t;
 
-pub fn xcb_glx_get_lightiv_data(R: *const xcb_glx_get_lightiv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_lightiv_data(R: *const xcb_glx_get_lightiv_reply_t) -> *mut i32;
 
-pub fn xcb_glx_get_lightiv_data_length(R: *const xcb_glx_get_lightiv_reply_t) -> c_int;
+    pub fn xcb_glx_get_lightiv_data_length(R: *const xcb_glx_get_lightiv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_lightiv_data_end(R: *const xcb_glx_get_lightiv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_lightiv_data_end(
+        R: *const xcb_glx_get_lightiv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_lightiv_reply (
+    pub fn xcb_glx_get_lightiv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_lightiv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_lightiv_reply_t;
 
-    pub fn xcb_glx_get_lightiv (
+    pub fn xcb_glx_get_lightiv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         light: u32,
         pname: u32,
     ) -> xcb_glx_get_lightiv_cookie_t;
 
-    pub fn xcb_glx_get_lightiv_unchecked (
+    pub fn xcb_glx_get_lightiv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         light: u32,
         pname: u32,
     ) -> xcb_glx_get_lightiv_cookie_t;
 
-pub fn xcb_glx_get_mapdv_data(R: *const xcb_glx_get_mapdv_reply_t) -> *mut xcb_glx_float64_t;
+    pub fn xcb_glx_get_mapdv_data(R: *const xcb_glx_get_mapdv_reply_t) -> *mut xcb_glx_float64_t;
 
-pub fn xcb_glx_get_mapdv_data_length(R: *const xcb_glx_get_mapdv_reply_t) -> c_int;
+    pub fn xcb_glx_get_mapdv_data_length(R: *const xcb_glx_get_mapdv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_mapdv_data_end(R: *const xcb_glx_get_mapdv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_mapdv_data_end(
+        R: *const xcb_glx_get_mapdv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_mapdv_reply (
+    pub fn xcb_glx_get_mapdv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_mapdv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_mapdv_reply_t;
 
-    pub fn xcb_glx_get_mapdv (
+    pub fn xcb_glx_get_mapdv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         query: u32,
     ) -> xcb_glx_get_mapdv_cookie_t;
 
-    pub fn xcb_glx_get_mapdv_unchecked (
+    pub fn xcb_glx_get_mapdv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         query: u32,
     ) -> xcb_glx_get_mapdv_cookie_t;
 
-pub fn xcb_glx_get_mapfv_data(R: *const xcb_glx_get_mapfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_mapfv_data(R: *const xcb_glx_get_mapfv_reply_t) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_mapfv_data_length(R: *const xcb_glx_get_mapfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_mapfv_data_length(R: *const xcb_glx_get_mapfv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_mapfv_data_end(R: *const xcb_glx_get_mapfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_mapfv_data_end(
+        R: *const xcb_glx_get_mapfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_mapfv_reply (
+    pub fn xcb_glx_get_mapfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_mapfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_mapfv_reply_t;
 
-    pub fn xcb_glx_get_mapfv (
+    pub fn xcb_glx_get_mapfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         query: u32,
     ) -> xcb_glx_get_mapfv_cookie_t;
 
-    pub fn xcb_glx_get_mapfv_unchecked (
+    pub fn xcb_glx_get_mapfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         query: u32,
     ) -> xcb_glx_get_mapfv_cookie_t;
 
-pub fn xcb_glx_get_mapiv_data(R: *const xcb_glx_get_mapiv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_mapiv_data(R: *const xcb_glx_get_mapiv_reply_t) -> *mut i32;
 
-pub fn xcb_glx_get_mapiv_data_length(R: *const xcb_glx_get_mapiv_reply_t) -> c_int;
+    pub fn xcb_glx_get_mapiv_data_length(R: *const xcb_glx_get_mapiv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_mapiv_data_end(R: *const xcb_glx_get_mapiv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_mapiv_data_end(
+        R: *const xcb_glx_get_mapiv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_mapiv_reply (
+    pub fn xcb_glx_get_mapiv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_mapiv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_mapiv_reply_t;
 
-    pub fn xcb_glx_get_mapiv (
+    pub fn xcb_glx_get_mapiv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         query: u32,
     ) -> xcb_glx_get_mapiv_cookie_t;
 
-    pub fn xcb_glx_get_mapiv_unchecked (
+    pub fn xcb_glx_get_mapiv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         query: u32,
     ) -> xcb_glx_get_mapiv_cookie_t;
 
-pub fn xcb_glx_get_materialfv_data(R: *const xcb_glx_get_materialfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_materialfv_data(
+        R: *const xcb_glx_get_materialfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_materialfv_data_length(R: *const xcb_glx_get_materialfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_materialfv_data_length(R: *const xcb_glx_get_materialfv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_materialfv_data_end(R: *const xcb_glx_get_materialfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_materialfv_data_end(
+        R: *const xcb_glx_get_materialfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_materialfv_reply (
+    pub fn xcb_glx_get_materialfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_materialfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_materialfv_reply_t;
 
-    pub fn xcb_glx_get_materialfv (
+    pub fn xcb_glx_get_materialfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         face: u32,
         pname: u32,
     ) -> xcb_glx_get_materialfv_cookie_t;
 
-    pub fn xcb_glx_get_materialfv_unchecked (
+    pub fn xcb_glx_get_materialfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         face: u32,
         pname: u32,
     ) -> xcb_glx_get_materialfv_cookie_t;
 
-pub fn xcb_glx_get_materialiv_data(R: *const xcb_glx_get_materialiv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_materialiv_data(R: *const xcb_glx_get_materialiv_reply_t) -> *mut i32;
 
-pub fn xcb_glx_get_materialiv_data_length(R: *const xcb_glx_get_materialiv_reply_t) -> c_int;
+    pub fn xcb_glx_get_materialiv_data_length(R: *const xcb_glx_get_materialiv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_materialiv_data_end(R: *const xcb_glx_get_materialiv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_materialiv_data_end(
+        R: *const xcb_glx_get_materialiv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_materialiv_reply (
+    pub fn xcb_glx_get_materialiv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_materialiv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_materialiv_reply_t;
 
-    pub fn xcb_glx_get_materialiv (
+    pub fn xcb_glx_get_materialiv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         face: u32,
         pname: u32,
     ) -> xcb_glx_get_materialiv_cookie_t;
 
-    pub fn xcb_glx_get_materialiv_unchecked (
+    pub fn xcb_glx_get_materialiv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         face: u32,
         pname: u32,
     ) -> xcb_glx_get_materialiv_cookie_t;
 
-pub fn xcb_glx_get_pixel_mapfv_data(R: *const xcb_glx_get_pixel_mapfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_pixel_mapfv_data(
+        R: *const xcb_glx_get_pixel_mapfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_pixel_mapfv_data_length(R: *const xcb_glx_get_pixel_mapfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_pixel_mapfv_data_length(R: *const xcb_glx_get_pixel_mapfv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_pixel_mapfv_data_end(R: *const xcb_glx_get_pixel_mapfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_pixel_mapfv_data_end(
+        R: *const xcb_glx_get_pixel_mapfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_pixel_mapfv_reply (
+    pub fn xcb_glx_get_pixel_mapfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_pixel_mapfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_pixel_mapfv_reply_t;
 
-    pub fn xcb_glx_get_pixel_mapfv (
+    pub fn xcb_glx_get_pixel_mapfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         map: u32,
     ) -> xcb_glx_get_pixel_mapfv_cookie_t;
 
-    pub fn xcb_glx_get_pixel_mapfv_unchecked (
+    pub fn xcb_glx_get_pixel_mapfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         map: u32,
     ) -> xcb_glx_get_pixel_mapfv_cookie_t;
 
-pub fn xcb_glx_get_pixel_mapuiv_data(R: *const xcb_glx_get_pixel_mapuiv_reply_t) -> *mut u32;
+    pub fn xcb_glx_get_pixel_mapuiv_data(R: *const xcb_glx_get_pixel_mapuiv_reply_t) -> *mut u32;
 
-pub fn xcb_glx_get_pixel_mapuiv_data_length(R: *const xcb_glx_get_pixel_mapuiv_reply_t) -> c_int;
+    pub fn xcb_glx_get_pixel_mapuiv_data_length(
+        R: *const xcb_glx_get_pixel_mapuiv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_pixel_mapuiv_data_end(R: *const xcb_glx_get_pixel_mapuiv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_pixel_mapuiv_data_end(
+        R: *const xcb_glx_get_pixel_mapuiv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_pixel_mapuiv_reply (
+    pub fn xcb_glx_get_pixel_mapuiv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_pixel_mapuiv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_pixel_mapuiv_reply_t;
 
-    pub fn xcb_glx_get_pixel_mapuiv (
+    pub fn xcb_glx_get_pixel_mapuiv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         map: u32,
     ) -> xcb_glx_get_pixel_mapuiv_cookie_t;
 
-    pub fn xcb_glx_get_pixel_mapuiv_unchecked (
+    pub fn xcb_glx_get_pixel_mapuiv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         map: u32,
     ) -> xcb_glx_get_pixel_mapuiv_cookie_t;
 
-pub fn xcb_glx_get_pixel_mapusv_data(R: *const xcb_glx_get_pixel_mapusv_reply_t) -> *mut u16;
+    pub fn xcb_glx_get_pixel_mapusv_data(R: *const xcb_glx_get_pixel_mapusv_reply_t) -> *mut u16;
 
-pub fn xcb_glx_get_pixel_mapusv_data_length(R: *const xcb_glx_get_pixel_mapusv_reply_t) -> c_int;
+    pub fn xcb_glx_get_pixel_mapusv_data_length(
+        R: *const xcb_glx_get_pixel_mapusv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_pixel_mapusv_data_end(R: *const xcb_glx_get_pixel_mapusv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_pixel_mapusv_data_end(
+        R: *const xcb_glx_get_pixel_mapusv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_pixel_mapusv_reply (
+    pub fn xcb_glx_get_pixel_mapusv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_pixel_mapusv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_pixel_mapusv_reply_t;
 
-    pub fn xcb_glx_get_pixel_mapusv (
+    pub fn xcb_glx_get_pixel_mapusv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         map: u32,
     ) -> xcb_glx_get_pixel_mapusv_cookie_t;
 
-    pub fn xcb_glx_get_pixel_mapusv_unchecked (
+    pub fn xcb_glx_get_pixel_mapusv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         map: u32,
     ) -> xcb_glx_get_pixel_mapusv_cookie_t;
 
-pub fn xcb_glx_get_polygon_stipple_data(R: *const xcb_glx_get_polygon_stipple_reply_t) -> *mut u8;
+    pub fn xcb_glx_get_polygon_stipple_data(
+        R: *const xcb_glx_get_polygon_stipple_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_glx_get_polygon_stipple_data_length(R: *const xcb_glx_get_polygon_stipple_reply_t) -> c_int;
+    pub fn xcb_glx_get_polygon_stipple_data_length(
+        R: *const xcb_glx_get_polygon_stipple_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_polygon_stipple_data_end(R: *const xcb_glx_get_polygon_stipple_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_polygon_stipple_data_end(
+        R: *const xcb_glx_get_polygon_stipple_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_polygon_stipple_reply (
+    pub fn xcb_glx_get_polygon_stipple_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_polygon_stipple_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_polygon_stipple_reply_t;
 
-    pub fn xcb_glx_get_polygon_stipple (
+    pub fn xcb_glx_get_polygon_stipple(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         lsb_first: u8,
     ) -> xcb_glx_get_polygon_stipple_cookie_t;
 
-    pub fn xcb_glx_get_polygon_stipple_unchecked (
+    pub fn xcb_glx_get_polygon_stipple_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         lsb_first: u8,
     ) -> xcb_glx_get_polygon_stipple_cookie_t;
 
-pub fn xcb_glx_get_string_string(R: *const xcb_glx_get_string_reply_t) -> *mut c_char;
+    pub fn xcb_glx_get_string_string(R: *const xcb_glx_get_string_reply_t) -> *mut c_char;
 
-pub fn xcb_glx_get_string_string_length(R: *const xcb_glx_get_string_reply_t) -> c_int;
+    pub fn xcb_glx_get_string_string_length(R: *const xcb_glx_get_string_reply_t) -> c_int;
 
-pub fn xcb_glx_get_string_string_end(R: *const xcb_glx_get_string_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_string_string_end(
+        R: *const xcb_glx_get_string_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_string_reply (
+    pub fn xcb_glx_get_string_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_string_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_string_reply_t;
 
-    pub fn xcb_glx_get_string (
+    pub fn xcb_glx_get_string(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         name: u32,
     ) -> xcb_glx_get_string_cookie_t;
 
-    pub fn xcb_glx_get_string_unchecked (
+    pub fn xcb_glx_get_string_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         name: u32,
     ) -> xcb_glx_get_string_cookie_t;
 
-pub fn xcb_glx_get_tex_envfv_data(R: *const xcb_glx_get_tex_envfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_tex_envfv_data(
+        R: *const xcb_glx_get_tex_envfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_tex_envfv_data_length(R: *const xcb_glx_get_tex_envfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_envfv_data_length(R: *const xcb_glx_get_tex_envfv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_tex_envfv_data_end(R: *const xcb_glx_get_tex_envfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_envfv_data_end(
+        R: *const xcb_glx_get_tex_envfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_envfv_reply (
+    pub fn xcb_glx_get_tex_envfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_envfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_envfv_reply_t;
 
-    pub fn xcb_glx_get_tex_envfv (
+    pub fn xcb_glx_get_tex_envfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_envfv_cookie_t;
 
-    pub fn xcb_glx_get_tex_envfv_unchecked (
+    pub fn xcb_glx_get_tex_envfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_envfv_cookie_t;
 
-pub fn xcb_glx_get_tex_enviv_data(R: *const xcb_glx_get_tex_enviv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_tex_enviv_data(R: *const xcb_glx_get_tex_enviv_reply_t) -> *mut i32;
 
-pub fn xcb_glx_get_tex_enviv_data_length(R: *const xcb_glx_get_tex_enviv_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_enviv_data_length(R: *const xcb_glx_get_tex_enviv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_tex_enviv_data_end(R: *const xcb_glx_get_tex_enviv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_enviv_data_end(
+        R: *const xcb_glx_get_tex_enviv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_enviv_reply (
+    pub fn xcb_glx_get_tex_enviv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_enviv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_enviv_reply_t;
 
-    pub fn xcb_glx_get_tex_enviv (
+    pub fn xcb_glx_get_tex_enviv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_enviv_cookie_t;
 
-    pub fn xcb_glx_get_tex_enviv_unchecked (
+    pub fn xcb_glx_get_tex_enviv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_enviv_cookie_t;
 
-pub fn xcb_glx_get_tex_gendv_data(R: *const xcb_glx_get_tex_gendv_reply_t) -> *mut xcb_glx_float64_t;
+    pub fn xcb_glx_get_tex_gendv_data(
+        R: *const xcb_glx_get_tex_gendv_reply_t,
+    ) -> *mut xcb_glx_float64_t;
 
-pub fn xcb_glx_get_tex_gendv_data_length(R: *const xcb_glx_get_tex_gendv_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_gendv_data_length(R: *const xcb_glx_get_tex_gendv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_tex_gendv_data_end(R: *const xcb_glx_get_tex_gendv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_gendv_data_end(
+        R: *const xcb_glx_get_tex_gendv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_gendv_reply (
+    pub fn xcb_glx_get_tex_gendv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_gendv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_gendv_reply_t;
 
-    pub fn xcb_glx_get_tex_gendv (
+    pub fn xcb_glx_get_tex_gendv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         coord: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_gendv_cookie_t;
 
-    pub fn xcb_glx_get_tex_gendv_unchecked (
+    pub fn xcb_glx_get_tex_gendv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         coord: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_gendv_cookie_t;
 
-pub fn xcb_glx_get_tex_genfv_data(R: *const xcb_glx_get_tex_genfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_tex_genfv_data(
+        R: *const xcb_glx_get_tex_genfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_tex_genfv_data_length(R: *const xcb_glx_get_tex_genfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_genfv_data_length(R: *const xcb_glx_get_tex_genfv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_tex_genfv_data_end(R: *const xcb_glx_get_tex_genfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_genfv_data_end(
+        R: *const xcb_glx_get_tex_genfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_genfv_reply (
+    pub fn xcb_glx_get_tex_genfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_genfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_genfv_reply_t;
 
-    pub fn xcb_glx_get_tex_genfv (
+    pub fn xcb_glx_get_tex_genfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         coord: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_genfv_cookie_t;
 
-    pub fn xcb_glx_get_tex_genfv_unchecked (
+    pub fn xcb_glx_get_tex_genfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         coord: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_genfv_cookie_t;
 
-pub fn xcb_glx_get_tex_geniv_data(R: *const xcb_glx_get_tex_geniv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_tex_geniv_data(R: *const xcb_glx_get_tex_geniv_reply_t) -> *mut i32;
 
-pub fn xcb_glx_get_tex_geniv_data_length(R: *const xcb_glx_get_tex_geniv_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_geniv_data_length(R: *const xcb_glx_get_tex_geniv_reply_t) -> c_int;
 
-pub fn xcb_glx_get_tex_geniv_data_end(R: *const xcb_glx_get_tex_geniv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_geniv_data_end(
+        R: *const xcb_glx_get_tex_geniv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_geniv_reply (
+    pub fn xcb_glx_get_tex_geniv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_geniv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_geniv_reply_t;
 
-    pub fn xcb_glx_get_tex_geniv (
+    pub fn xcb_glx_get_tex_geniv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         coord: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_geniv_cookie_t;
 
-    pub fn xcb_glx_get_tex_geniv_unchecked (
+    pub fn xcb_glx_get_tex_geniv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         coord: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_geniv_cookie_t;
 
-pub fn xcb_glx_get_tex_image_data(R: *const xcb_glx_get_tex_image_reply_t) -> *mut u8;
+    pub fn xcb_glx_get_tex_image_data(R: *const xcb_glx_get_tex_image_reply_t) -> *mut u8;
 
-pub fn xcb_glx_get_tex_image_data_length(R: *const xcb_glx_get_tex_image_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_image_data_length(R: *const xcb_glx_get_tex_image_reply_t) -> c_int;
 
-pub fn xcb_glx_get_tex_image_data_end(R: *const xcb_glx_get_tex_image_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_image_data_end(
+        R: *const xcb_glx_get_tex_image_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_image_reply (
+    pub fn xcb_glx_get_tex_image_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_image_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_image_reply_t;
 
-    pub fn xcb_glx_get_tex_image (
+    pub fn xcb_glx_get_tex_image(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4205,7 +4313,7 @@ pub fn xcb_glx_get_tex_image_data_end(R: *const xcb_glx_get_tex_image_reply_t) -
         swap_bytes: u8,
     ) -> xcb_glx_get_tex_image_cookie_t;
 
-    pub fn xcb_glx_get_tex_image_unchecked (
+    pub fn xcb_glx_get_tex_image_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4215,74 +4323,92 @@ pub fn xcb_glx_get_tex_image_data_end(R: *const xcb_glx_get_tex_image_reply_t) -
         swap_bytes: u8,
     ) -> xcb_glx_get_tex_image_cookie_t;
 
-pub fn xcb_glx_get_tex_parameterfv_data(R: *const xcb_glx_get_tex_parameterfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_tex_parameterfv_data(
+        R: *const xcb_glx_get_tex_parameterfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_tex_parameterfv_data_length(R: *const xcb_glx_get_tex_parameterfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_parameterfv_data_length(
+        R: *const xcb_glx_get_tex_parameterfv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_tex_parameterfv_data_end(R: *const xcb_glx_get_tex_parameterfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_parameterfv_data_end(
+        R: *const xcb_glx_get_tex_parameterfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_parameterfv_reply (
+    pub fn xcb_glx_get_tex_parameterfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_parameterfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_parameterfv_reply_t;
 
-    pub fn xcb_glx_get_tex_parameterfv (
+    pub fn xcb_glx_get_tex_parameterfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_parameterfv_cookie_t;
 
-    pub fn xcb_glx_get_tex_parameterfv_unchecked (
+    pub fn xcb_glx_get_tex_parameterfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_parameterfv_cookie_t;
 
-pub fn xcb_glx_get_tex_parameteriv_data(R: *const xcb_glx_get_tex_parameteriv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_tex_parameteriv_data(
+        R: *const xcb_glx_get_tex_parameteriv_reply_t,
+    ) -> *mut i32;
 
-pub fn xcb_glx_get_tex_parameteriv_data_length(R: *const xcb_glx_get_tex_parameteriv_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_parameteriv_data_length(
+        R: *const xcb_glx_get_tex_parameteriv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_tex_parameteriv_data_end(R: *const xcb_glx_get_tex_parameteriv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_parameteriv_data_end(
+        R: *const xcb_glx_get_tex_parameteriv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_parameteriv_reply (
+    pub fn xcb_glx_get_tex_parameteriv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_parameteriv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_parameteriv_reply_t;
 
-    pub fn xcb_glx_get_tex_parameteriv (
+    pub fn xcb_glx_get_tex_parameteriv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_parameteriv_cookie_t;
 
-    pub fn xcb_glx_get_tex_parameteriv_unchecked (
+    pub fn xcb_glx_get_tex_parameteriv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_tex_parameteriv_cookie_t;
 
-pub fn xcb_glx_get_tex_level_parameterfv_data(R: *const xcb_glx_get_tex_level_parameterfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_tex_level_parameterfv_data(
+        R: *const xcb_glx_get_tex_level_parameterfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_tex_level_parameterfv_data_length(R: *const xcb_glx_get_tex_level_parameterfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_level_parameterfv_data_length(
+        R: *const xcb_glx_get_tex_level_parameterfv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_tex_level_parameterfv_data_end(R: *const xcb_glx_get_tex_level_parameterfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_level_parameterfv_data_end(
+        R: *const xcb_glx_get_tex_level_parameterfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_level_parameterfv_reply (
+    pub fn xcb_glx_get_tex_level_parameterfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_level_parameterfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_level_parameterfv_reply_t;
 
-    pub fn xcb_glx_get_tex_level_parameterfv (
+    pub fn xcb_glx_get_tex_level_parameterfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4290,7 +4416,7 @@ pub fn xcb_glx_get_tex_level_parameterfv_data_end(R: *const xcb_glx_get_tex_leve
         pname: u32,
     ) -> xcb_glx_get_tex_level_parameterfv_cookie_t;
 
-    pub fn xcb_glx_get_tex_level_parameterfv_unchecked (
+    pub fn xcb_glx_get_tex_level_parameterfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4298,20 +4424,26 @@ pub fn xcb_glx_get_tex_level_parameterfv_data_end(R: *const xcb_glx_get_tex_leve
         pname: u32,
     ) -> xcb_glx_get_tex_level_parameterfv_cookie_t;
 
-pub fn xcb_glx_get_tex_level_parameteriv_data(R: *const xcb_glx_get_tex_level_parameteriv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_tex_level_parameteriv_data(
+        R: *const xcb_glx_get_tex_level_parameteriv_reply_t,
+    ) -> *mut i32;
 
-pub fn xcb_glx_get_tex_level_parameteriv_data_length(R: *const xcb_glx_get_tex_level_parameteriv_reply_t) -> c_int;
+    pub fn xcb_glx_get_tex_level_parameteriv_data_length(
+        R: *const xcb_glx_get_tex_level_parameteriv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_tex_level_parameteriv_data_end(R: *const xcb_glx_get_tex_level_parameteriv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_tex_level_parameteriv_data_end(
+        R: *const xcb_glx_get_tex_level_parameteriv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_tex_level_parameteriv_reply (
+    pub fn xcb_glx_get_tex_level_parameteriv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_tex_level_parameteriv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_tex_level_parameteriv_reply_t;
 
-    pub fn xcb_glx_get_tex_level_parameteriv (
+    pub fn xcb_glx_get_tex_level_parameteriv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4319,7 +4451,7 @@ pub fn xcb_glx_get_tex_level_parameteriv_data_end(R: *const xcb_glx_get_tex_leve
         pname: u32,
     ) -> xcb_glx_get_tex_level_parameteriv_cookie_t;
 
-    pub fn xcb_glx_get_tex_level_parameteriv_unchecked (
+    pub fn xcb_glx_get_tex_level_parameteriv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4328,133 +4460,143 @@ pub fn xcb_glx_get_tex_level_parameteriv_data_end(R: *const xcb_glx_get_tex_leve
     ) -> xcb_glx_get_tex_level_parameteriv_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_is_list_reply (
+    pub fn xcb_glx_is_list_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_is_list_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_is_list_reply_t;
 
-    pub fn xcb_glx_is_list (
+    pub fn xcb_glx_is_list(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         list: u32,
     ) -> xcb_glx_is_list_cookie_t;
 
-    pub fn xcb_glx_is_list_unchecked (
+    pub fn xcb_glx_is_list_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         list: u32,
     ) -> xcb_glx_is_list_cookie_t;
 
-    pub fn xcb_glx_flush (
+    pub fn xcb_glx_flush(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_flush_checked (
+    pub fn xcb_glx_flush_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_are_textures_resident_data(R: *const xcb_glx_are_textures_resident_reply_t) -> *mut u8;
+    pub fn xcb_glx_are_textures_resident_data(
+        R: *const xcb_glx_are_textures_resident_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_glx_are_textures_resident_data_length(R: *const xcb_glx_are_textures_resident_reply_t) -> c_int;
+    pub fn xcb_glx_are_textures_resident_data_length(
+        R: *const xcb_glx_are_textures_resident_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_are_textures_resident_data_end(R: *const xcb_glx_are_textures_resident_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_are_textures_resident_data_end(
+        R: *const xcb_glx_are_textures_resident_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_are_textures_resident_reply (
+    pub fn xcb_glx_are_textures_resident_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_are_textures_resident_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_are_textures_resident_reply_t;
 
-    pub fn xcb_glx_are_textures_resident (
+    pub fn xcb_glx_are_textures_resident(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
         textures: *const u32,
     ) -> xcb_glx_are_textures_resident_cookie_t;
 
-    pub fn xcb_glx_are_textures_resident_unchecked (
+    pub fn xcb_glx_are_textures_resident_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
         textures: *const u32,
     ) -> xcb_glx_are_textures_resident_cookie_t;
 
-    pub fn xcb_glx_delete_textures (
+    pub fn xcb_glx_delete_textures(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
         textures: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_delete_textures_checked (
+    pub fn xcb_glx_delete_textures_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
         textures: *const u32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_gen_textures_data(R: *const xcb_glx_gen_textures_reply_t) -> *mut u32;
+    pub fn xcb_glx_gen_textures_data(R: *const xcb_glx_gen_textures_reply_t) -> *mut u32;
 
-pub fn xcb_glx_gen_textures_data_length(R: *const xcb_glx_gen_textures_reply_t) -> c_int;
+    pub fn xcb_glx_gen_textures_data_length(R: *const xcb_glx_gen_textures_reply_t) -> c_int;
 
-pub fn xcb_glx_gen_textures_data_end(R: *const xcb_glx_gen_textures_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_gen_textures_data_end(
+        R: *const xcb_glx_gen_textures_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_gen_textures_reply (
+    pub fn xcb_glx_gen_textures_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_gen_textures_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_gen_textures_reply_t;
 
-    pub fn xcb_glx_gen_textures (
+    pub fn xcb_glx_gen_textures(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
     ) -> xcb_glx_gen_textures_cookie_t;
 
-    pub fn xcb_glx_gen_textures_unchecked (
+    pub fn xcb_glx_gen_textures_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
     ) -> xcb_glx_gen_textures_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_is_texture_reply (
+    pub fn xcb_glx_is_texture_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_is_texture_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_is_texture_reply_t;
 
-    pub fn xcb_glx_is_texture (
+    pub fn xcb_glx_is_texture(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         texture: u32,
     ) -> xcb_glx_is_texture_cookie_t;
 
-    pub fn xcb_glx_is_texture_unchecked (
+    pub fn xcb_glx_is_texture_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         texture: u32,
     ) -> xcb_glx_is_texture_cookie_t;
 
-pub fn xcb_glx_get_color_table_data(R: *const xcb_glx_get_color_table_reply_t) -> *mut u8;
+    pub fn xcb_glx_get_color_table_data(R: *const xcb_glx_get_color_table_reply_t) -> *mut u8;
 
-pub fn xcb_glx_get_color_table_data_length(R: *const xcb_glx_get_color_table_reply_t) -> c_int;
+    pub fn xcb_glx_get_color_table_data_length(R: *const xcb_glx_get_color_table_reply_t) -> c_int;
 
-pub fn xcb_glx_get_color_table_data_end(R: *const xcb_glx_get_color_table_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_color_table_data_end(
+        R: *const xcb_glx_get_color_table_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_color_table_reply (
+    pub fn xcb_glx_get_color_table_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_color_table_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_color_table_reply_t;
 
-    pub fn xcb_glx_get_color_table (
+    pub fn xcb_glx_get_color_table(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4463,7 +4605,7 @@ pub fn xcb_glx_get_color_table_data_end(R: *const xcb_glx_get_color_table_reply_
         swap_bytes: u8,
     ) -> xcb_glx_get_color_table_cookie_t;
 
-    pub fn xcb_glx_get_color_table_unchecked (
+    pub fn xcb_glx_get_color_table_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4472,74 +4614,92 @@ pub fn xcb_glx_get_color_table_data_end(R: *const xcb_glx_get_color_table_reply_
         swap_bytes: u8,
     ) -> xcb_glx_get_color_table_cookie_t;
 
-pub fn xcb_glx_get_color_table_parameterfv_data(R: *const xcb_glx_get_color_table_parameterfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_color_table_parameterfv_data(
+        R: *const xcb_glx_get_color_table_parameterfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_color_table_parameterfv_data_length(R: *const xcb_glx_get_color_table_parameterfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_color_table_parameterfv_data_length(
+        R: *const xcb_glx_get_color_table_parameterfv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_color_table_parameterfv_data_end(R: *const xcb_glx_get_color_table_parameterfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_color_table_parameterfv_data_end(
+        R: *const xcb_glx_get_color_table_parameterfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_color_table_parameterfv_reply (
+    pub fn xcb_glx_get_color_table_parameterfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_color_table_parameterfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_color_table_parameterfv_reply_t;
 
-    pub fn xcb_glx_get_color_table_parameterfv (
+    pub fn xcb_glx_get_color_table_parameterfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_color_table_parameterfv_cookie_t;
 
-    pub fn xcb_glx_get_color_table_parameterfv_unchecked (
+    pub fn xcb_glx_get_color_table_parameterfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_color_table_parameterfv_cookie_t;
 
-pub fn xcb_glx_get_color_table_parameteriv_data(R: *const xcb_glx_get_color_table_parameteriv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_color_table_parameteriv_data(
+        R: *const xcb_glx_get_color_table_parameteriv_reply_t,
+    ) -> *mut i32;
 
-pub fn xcb_glx_get_color_table_parameteriv_data_length(R: *const xcb_glx_get_color_table_parameteriv_reply_t) -> c_int;
+    pub fn xcb_glx_get_color_table_parameteriv_data_length(
+        R: *const xcb_glx_get_color_table_parameteriv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_color_table_parameteriv_data_end(R: *const xcb_glx_get_color_table_parameteriv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_color_table_parameteriv_data_end(
+        R: *const xcb_glx_get_color_table_parameteriv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_color_table_parameteriv_reply (
+    pub fn xcb_glx_get_color_table_parameteriv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_color_table_parameteriv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_color_table_parameteriv_reply_t;
 
-    pub fn xcb_glx_get_color_table_parameteriv (
+    pub fn xcb_glx_get_color_table_parameteriv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_color_table_parameteriv_cookie_t;
 
-    pub fn xcb_glx_get_color_table_parameteriv_unchecked (
+    pub fn xcb_glx_get_color_table_parameteriv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_color_table_parameteriv_cookie_t;
 
-pub fn xcb_glx_get_convolution_filter_data(R: *const xcb_glx_get_convolution_filter_reply_t) -> *mut u8;
+    pub fn xcb_glx_get_convolution_filter_data(
+        R: *const xcb_glx_get_convolution_filter_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_glx_get_convolution_filter_data_length(R: *const xcb_glx_get_convolution_filter_reply_t) -> c_int;
+    pub fn xcb_glx_get_convolution_filter_data_length(
+        R: *const xcb_glx_get_convolution_filter_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_convolution_filter_data_end(R: *const xcb_glx_get_convolution_filter_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_convolution_filter_data_end(
+        R: *const xcb_glx_get_convolution_filter_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_convolution_filter_reply (
+    pub fn xcb_glx_get_convolution_filter_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_convolution_filter_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_convolution_filter_reply_t;
 
-    pub fn xcb_glx_get_convolution_filter (
+    pub fn xcb_glx_get_convolution_filter(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4548,7 +4708,7 @@ pub fn xcb_glx_get_convolution_filter_data_end(R: *const xcb_glx_get_convolution
         swap_bytes: u8,
     ) -> xcb_glx_get_convolution_filter_cookie_t;
 
-    pub fn xcb_glx_get_convolution_filter_unchecked (
+    pub fn xcb_glx_get_convolution_filter_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4557,74 +4717,92 @@ pub fn xcb_glx_get_convolution_filter_data_end(R: *const xcb_glx_get_convolution
         swap_bytes: u8,
     ) -> xcb_glx_get_convolution_filter_cookie_t;
 
-pub fn xcb_glx_get_convolution_parameterfv_data(R: *const xcb_glx_get_convolution_parameterfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_convolution_parameterfv_data(
+        R: *const xcb_glx_get_convolution_parameterfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_convolution_parameterfv_data_length(R: *const xcb_glx_get_convolution_parameterfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_convolution_parameterfv_data_length(
+        R: *const xcb_glx_get_convolution_parameterfv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_convolution_parameterfv_data_end(R: *const xcb_glx_get_convolution_parameterfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_convolution_parameterfv_data_end(
+        R: *const xcb_glx_get_convolution_parameterfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_convolution_parameterfv_reply (
+    pub fn xcb_glx_get_convolution_parameterfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_convolution_parameterfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_convolution_parameterfv_reply_t;
 
-    pub fn xcb_glx_get_convolution_parameterfv (
+    pub fn xcb_glx_get_convolution_parameterfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_convolution_parameterfv_cookie_t;
 
-    pub fn xcb_glx_get_convolution_parameterfv_unchecked (
+    pub fn xcb_glx_get_convolution_parameterfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_convolution_parameterfv_cookie_t;
 
-pub fn xcb_glx_get_convolution_parameteriv_data(R: *const xcb_glx_get_convolution_parameteriv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_convolution_parameteriv_data(
+        R: *const xcb_glx_get_convolution_parameteriv_reply_t,
+    ) -> *mut i32;
 
-pub fn xcb_glx_get_convolution_parameteriv_data_length(R: *const xcb_glx_get_convolution_parameteriv_reply_t) -> c_int;
+    pub fn xcb_glx_get_convolution_parameteriv_data_length(
+        R: *const xcb_glx_get_convolution_parameteriv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_convolution_parameteriv_data_end(R: *const xcb_glx_get_convolution_parameteriv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_convolution_parameteriv_data_end(
+        R: *const xcb_glx_get_convolution_parameteriv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_convolution_parameteriv_reply (
+    pub fn xcb_glx_get_convolution_parameteriv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_convolution_parameteriv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_convolution_parameteriv_reply_t;
 
-    pub fn xcb_glx_get_convolution_parameteriv (
+    pub fn xcb_glx_get_convolution_parameteriv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_convolution_parameteriv_cookie_t;
 
-    pub fn xcb_glx_get_convolution_parameteriv_unchecked (
+    pub fn xcb_glx_get_convolution_parameteriv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_convolution_parameteriv_cookie_t;
 
-pub fn xcb_glx_get_separable_filter_rows_and_cols(R: *const xcb_glx_get_separable_filter_reply_t) -> *mut u8;
+    pub fn xcb_glx_get_separable_filter_rows_and_cols(
+        R: *const xcb_glx_get_separable_filter_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_glx_get_separable_filter_rows_and_cols_length(R: *const xcb_glx_get_separable_filter_reply_t) -> c_int;
+    pub fn xcb_glx_get_separable_filter_rows_and_cols_length(
+        R: *const xcb_glx_get_separable_filter_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_separable_filter_rows_and_cols_end(R: *const xcb_glx_get_separable_filter_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_separable_filter_rows_and_cols_end(
+        R: *const xcb_glx_get_separable_filter_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_separable_filter_reply (
+    pub fn xcb_glx_get_separable_filter_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_separable_filter_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_separable_filter_reply_t;
 
-    pub fn xcb_glx_get_separable_filter (
+    pub fn xcb_glx_get_separable_filter(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4633,7 +4811,7 @@ pub fn xcb_glx_get_separable_filter_rows_and_cols_end(R: *const xcb_glx_get_sepa
         swap_bytes: u8,
     ) -> xcb_glx_get_separable_filter_cookie_t;
 
-    pub fn xcb_glx_get_separable_filter_unchecked (
+    pub fn xcb_glx_get_separable_filter_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4642,20 +4820,22 @@ pub fn xcb_glx_get_separable_filter_rows_and_cols_end(R: *const xcb_glx_get_sepa
         swap_bytes: u8,
     ) -> xcb_glx_get_separable_filter_cookie_t;
 
-pub fn xcb_glx_get_histogram_data(R: *const xcb_glx_get_histogram_reply_t) -> *mut u8;
+    pub fn xcb_glx_get_histogram_data(R: *const xcb_glx_get_histogram_reply_t) -> *mut u8;
 
-pub fn xcb_glx_get_histogram_data_length(R: *const xcb_glx_get_histogram_reply_t) -> c_int;
+    pub fn xcb_glx_get_histogram_data_length(R: *const xcb_glx_get_histogram_reply_t) -> c_int;
 
-pub fn xcb_glx_get_histogram_data_end(R: *const xcb_glx_get_histogram_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_histogram_data_end(
+        R: *const xcb_glx_get_histogram_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_histogram_reply (
+    pub fn xcb_glx_get_histogram_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_histogram_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_histogram_reply_t;
 
-    pub fn xcb_glx_get_histogram (
+    pub fn xcb_glx_get_histogram(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4665,7 +4845,7 @@ pub fn xcb_glx_get_histogram_data_end(R: *const xcb_glx_get_histogram_reply_t) -
         reset: u8,
     ) -> xcb_glx_get_histogram_cookie_t;
 
-    pub fn xcb_glx_get_histogram_unchecked (
+    pub fn xcb_glx_get_histogram_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4675,74 +4855,88 @@ pub fn xcb_glx_get_histogram_data_end(R: *const xcb_glx_get_histogram_reply_t) -
         reset: u8,
     ) -> xcb_glx_get_histogram_cookie_t;
 
-pub fn xcb_glx_get_histogram_parameterfv_data(R: *const xcb_glx_get_histogram_parameterfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_histogram_parameterfv_data(
+        R: *const xcb_glx_get_histogram_parameterfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_histogram_parameterfv_data_length(R: *const xcb_glx_get_histogram_parameterfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_histogram_parameterfv_data_length(
+        R: *const xcb_glx_get_histogram_parameterfv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_histogram_parameterfv_data_end(R: *const xcb_glx_get_histogram_parameterfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_histogram_parameterfv_data_end(
+        R: *const xcb_glx_get_histogram_parameterfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_histogram_parameterfv_reply (
+    pub fn xcb_glx_get_histogram_parameterfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_histogram_parameterfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_histogram_parameterfv_reply_t;
 
-    pub fn xcb_glx_get_histogram_parameterfv (
+    pub fn xcb_glx_get_histogram_parameterfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_histogram_parameterfv_cookie_t;
 
-    pub fn xcb_glx_get_histogram_parameterfv_unchecked (
+    pub fn xcb_glx_get_histogram_parameterfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_histogram_parameterfv_cookie_t;
 
-pub fn xcb_glx_get_histogram_parameteriv_data(R: *const xcb_glx_get_histogram_parameteriv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_histogram_parameteriv_data(
+        R: *const xcb_glx_get_histogram_parameteriv_reply_t,
+    ) -> *mut i32;
 
-pub fn xcb_glx_get_histogram_parameteriv_data_length(R: *const xcb_glx_get_histogram_parameteriv_reply_t) -> c_int;
+    pub fn xcb_glx_get_histogram_parameteriv_data_length(
+        R: *const xcb_glx_get_histogram_parameteriv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_histogram_parameteriv_data_end(R: *const xcb_glx_get_histogram_parameteriv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_histogram_parameteriv_data_end(
+        R: *const xcb_glx_get_histogram_parameteriv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_histogram_parameteriv_reply (
+    pub fn xcb_glx_get_histogram_parameteriv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_histogram_parameteriv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_histogram_parameteriv_reply_t;
 
-    pub fn xcb_glx_get_histogram_parameteriv (
+    pub fn xcb_glx_get_histogram_parameteriv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_histogram_parameteriv_cookie_t;
 
-    pub fn xcb_glx_get_histogram_parameteriv_unchecked (
+    pub fn xcb_glx_get_histogram_parameteriv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_histogram_parameteriv_cookie_t;
 
-pub fn xcb_glx_get_minmax_data(R: *const xcb_glx_get_minmax_reply_t) -> *mut u8;
+    pub fn xcb_glx_get_minmax_data(R: *const xcb_glx_get_minmax_reply_t) -> *mut u8;
 
-pub fn xcb_glx_get_minmax_data_length(R: *const xcb_glx_get_minmax_reply_t) -> c_int;
+    pub fn xcb_glx_get_minmax_data_length(R: *const xcb_glx_get_minmax_reply_t) -> c_int;
 
-pub fn xcb_glx_get_minmax_data_end(R: *const xcb_glx_get_minmax_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_minmax_data_end(
+        R: *const xcb_glx_get_minmax_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_minmax_reply (
+    pub fn xcb_glx_get_minmax_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_minmax_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_minmax_reply_t;
 
-    pub fn xcb_glx_get_minmax (
+    pub fn xcb_glx_get_minmax(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4752,7 +4946,7 @@ pub fn xcb_glx_get_minmax_data_end(R: *const xcb_glx_get_minmax_reply_t) -> xcb_
         reset: u8,
     ) -> xcb_glx_get_minmax_cookie_t;
 
-    pub fn xcb_glx_get_minmax_unchecked (
+    pub fn xcb_glx_get_minmax_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
@@ -4762,220 +4956,254 @@ pub fn xcb_glx_get_minmax_data_end(R: *const xcb_glx_get_minmax_reply_t) -> xcb_
         reset: u8,
     ) -> xcb_glx_get_minmax_cookie_t;
 
-pub fn xcb_glx_get_minmax_parameterfv_data(R: *const xcb_glx_get_minmax_parameterfv_reply_t) -> *mut xcb_glx_float32_t;
+    pub fn xcb_glx_get_minmax_parameterfv_data(
+        R: *const xcb_glx_get_minmax_parameterfv_reply_t,
+    ) -> *mut xcb_glx_float32_t;
 
-pub fn xcb_glx_get_minmax_parameterfv_data_length(R: *const xcb_glx_get_minmax_parameterfv_reply_t) -> c_int;
+    pub fn xcb_glx_get_minmax_parameterfv_data_length(
+        R: *const xcb_glx_get_minmax_parameterfv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_minmax_parameterfv_data_end(R: *const xcb_glx_get_minmax_parameterfv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_minmax_parameterfv_data_end(
+        R: *const xcb_glx_get_minmax_parameterfv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_minmax_parameterfv_reply (
+    pub fn xcb_glx_get_minmax_parameterfv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_minmax_parameterfv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_minmax_parameterfv_reply_t;
 
-    pub fn xcb_glx_get_minmax_parameterfv (
+    pub fn xcb_glx_get_minmax_parameterfv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_minmax_parameterfv_cookie_t;
 
-    pub fn xcb_glx_get_minmax_parameterfv_unchecked (
+    pub fn xcb_glx_get_minmax_parameterfv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_minmax_parameterfv_cookie_t;
 
-pub fn xcb_glx_get_minmax_parameteriv_data(R: *const xcb_glx_get_minmax_parameteriv_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_minmax_parameteriv_data(
+        R: *const xcb_glx_get_minmax_parameteriv_reply_t,
+    ) -> *mut i32;
 
-pub fn xcb_glx_get_minmax_parameteriv_data_length(R: *const xcb_glx_get_minmax_parameteriv_reply_t) -> c_int;
+    pub fn xcb_glx_get_minmax_parameteriv_data_length(
+        R: *const xcb_glx_get_minmax_parameteriv_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_minmax_parameteriv_data_end(R: *const xcb_glx_get_minmax_parameteriv_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_minmax_parameteriv_data_end(
+        R: *const xcb_glx_get_minmax_parameteriv_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_minmax_parameteriv_reply (
+    pub fn xcb_glx_get_minmax_parameteriv_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_minmax_parameteriv_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_minmax_parameteriv_reply_t;
 
-    pub fn xcb_glx_get_minmax_parameteriv (
+    pub fn xcb_glx_get_minmax_parameteriv(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_minmax_parameteriv_cookie_t;
 
-    pub fn xcb_glx_get_minmax_parameteriv_unchecked (
+    pub fn xcb_glx_get_minmax_parameteriv_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_minmax_parameteriv_cookie_t;
 
-pub fn xcb_glx_get_compressed_tex_image_arb_data(R: *const xcb_glx_get_compressed_tex_image_arb_reply_t) -> *mut u8;
+    pub fn xcb_glx_get_compressed_tex_image_arb_data(
+        R: *const xcb_glx_get_compressed_tex_image_arb_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_glx_get_compressed_tex_image_arb_data_length(R: *const xcb_glx_get_compressed_tex_image_arb_reply_t) -> c_int;
+    pub fn xcb_glx_get_compressed_tex_image_arb_data_length(
+        R: *const xcb_glx_get_compressed_tex_image_arb_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_compressed_tex_image_arb_data_end(R: *const xcb_glx_get_compressed_tex_image_arb_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_compressed_tex_image_arb_data_end(
+        R: *const xcb_glx_get_compressed_tex_image_arb_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_compressed_tex_image_arb_reply (
+    pub fn xcb_glx_get_compressed_tex_image_arb_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_compressed_tex_image_arb_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_compressed_tex_image_arb_reply_t;
 
-    pub fn xcb_glx_get_compressed_tex_image_arb (
+    pub fn xcb_glx_get_compressed_tex_image_arb(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         level: i32,
     ) -> xcb_glx_get_compressed_tex_image_arb_cookie_t;
 
-    pub fn xcb_glx_get_compressed_tex_image_arb_unchecked (
+    pub fn xcb_glx_get_compressed_tex_image_arb_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         level: i32,
     ) -> xcb_glx_get_compressed_tex_image_arb_cookie_t;
 
-    pub fn xcb_glx_delete_queries_arb (
+    pub fn xcb_glx_delete_queries_arb(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
         ids: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_glx_delete_queries_arb_checked (
+    pub fn xcb_glx_delete_queries_arb_checked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
         ids: *const u32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_glx_gen_queries_arb_data(R: *const xcb_glx_gen_queries_arb_reply_t) -> *mut u32;
+    pub fn xcb_glx_gen_queries_arb_data(R: *const xcb_glx_gen_queries_arb_reply_t) -> *mut u32;
 
-pub fn xcb_glx_gen_queries_arb_data_length(R: *const xcb_glx_gen_queries_arb_reply_t) -> c_int;
+    pub fn xcb_glx_gen_queries_arb_data_length(R: *const xcb_glx_gen_queries_arb_reply_t) -> c_int;
 
-pub fn xcb_glx_gen_queries_arb_data_end(R: *const xcb_glx_gen_queries_arb_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_gen_queries_arb_data_end(
+        R: *const xcb_glx_gen_queries_arb_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_gen_queries_arb_reply (
+    pub fn xcb_glx_gen_queries_arb_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_gen_queries_arb_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_gen_queries_arb_reply_t;
 
-    pub fn xcb_glx_gen_queries_arb (
+    pub fn xcb_glx_gen_queries_arb(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
     ) -> xcb_glx_gen_queries_arb_cookie_t;
 
-    pub fn xcb_glx_gen_queries_arb_unchecked (
+    pub fn xcb_glx_gen_queries_arb_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         n: i32,
     ) -> xcb_glx_gen_queries_arb_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_is_query_arb_reply (
+    pub fn xcb_glx_is_query_arb_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_is_query_arb_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_is_query_arb_reply_t;
 
-    pub fn xcb_glx_is_query_arb (
+    pub fn xcb_glx_is_query_arb(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         id: u32,
     ) -> xcb_glx_is_query_arb_cookie_t;
 
-    pub fn xcb_glx_is_query_arb_unchecked (
+    pub fn xcb_glx_is_query_arb_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         id: u32,
     ) -> xcb_glx_is_query_arb_cookie_t;
 
-pub fn xcb_glx_get_queryiv_arb_data(R: *const xcb_glx_get_queryiv_arb_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_queryiv_arb_data(R: *const xcb_glx_get_queryiv_arb_reply_t) -> *mut i32;
 
-pub fn xcb_glx_get_queryiv_arb_data_length(R: *const xcb_glx_get_queryiv_arb_reply_t) -> c_int;
+    pub fn xcb_glx_get_queryiv_arb_data_length(R: *const xcb_glx_get_queryiv_arb_reply_t) -> c_int;
 
-pub fn xcb_glx_get_queryiv_arb_data_end(R: *const xcb_glx_get_queryiv_arb_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_queryiv_arb_data_end(
+        R: *const xcb_glx_get_queryiv_arb_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_queryiv_arb_reply (
+    pub fn xcb_glx_get_queryiv_arb_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_queryiv_arb_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_queryiv_arb_reply_t;
 
-    pub fn xcb_glx_get_queryiv_arb (
+    pub fn xcb_glx_get_queryiv_arb(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_queryiv_arb_cookie_t;
 
-    pub fn xcb_glx_get_queryiv_arb_unchecked (
+    pub fn xcb_glx_get_queryiv_arb_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         target: u32,
         pname: u32,
     ) -> xcb_glx_get_queryiv_arb_cookie_t;
 
-pub fn xcb_glx_get_query_objectiv_arb_data(R: *const xcb_glx_get_query_objectiv_arb_reply_t) -> *mut i32;
+    pub fn xcb_glx_get_query_objectiv_arb_data(
+        R: *const xcb_glx_get_query_objectiv_arb_reply_t,
+    ) -> *mut i32;
 
-pub fn xcb_glx_get_query_objectiv_arb_data_length(R: *const xcb_glx_get_query_objectiv_arb_reply_t) -> c_int;
+    pub fn xcb_glx_get_query_objectiv_arb_data_length(
+        R: *const xcb_glx_get_query_objectiv_arb_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_query_objectiv_arb_data_end(R: *const xcb_glx_get_query_objectiv_arb_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_query_objectiv_arb_data_end(
+        R: *const xcb_glx_get_query_objectiv_arb_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_query_objectiv_arb_reply (
+    pub fn xcb_glx_get_query_objectiv_arb_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_query_objectiv_arb_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_query_objectiv_arb_reply_t;
 
-    pub fn xcb_glx_get_query_objectiv_arb (
+    pub fn xcb_glx_get_query_objectiv_arb(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         id: u32,
         pname: u32,
     ) -> xcb_glx_get_query_objectiv_arb_cookie_t;
 
-    pub fn xcb_glx_get_query_objectiv_arb_unchecked (
+    pub fn xcb_glx_get_query_objectiv_arb_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         id: u32,
         pname: u32,
     ) -> xcb_glx_get_query_objectiv_arb_cookie_t;
 
-pub fn xcb_glx_get_query_objectuiv_arb_data(R: *const xcb_glx_get_query_objectuiv_arb_reply_t) -> *mut u32;
+    pub fn xcb_glx_get_query_objectuiv_arb_data(
+        R: *const xcb_glx_get_query_objectuiv_arb_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_glx_get_query_objectuiv_arb_data_length(R: *const xcb_glx_get_query_objectuiv_arb_reply_t) -> c_int;
+    pub fn xcb_glx_get_query_objectuiv_arb_data_length(
+        R: *const xcb_glx_get_query_objectuiv_arb_reply_t,
+    ) -> c_int;
 
-pub fn xcb_glx_get_query_objectuiv_arb_data_end(R: *const xcb_glx_get_query_objectuiv_arb_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_glx_get_query_objectuiv_arb_data_end(
+        R: *const xcb_glx_get_query_objectuiv_arb_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_glx_get_query_objectuiv_arb_reply (
+    pub fn xcb_glx_get_query_objectuiv_arb_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_glx_get_query_objectuiv_arb_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_glx_get_query_objectuiv_arb_reply_t;
 
-    pub fn xcb_glx_get_query_objectuiv_arb (
+    pub fn xcb_glx_get_query_objectuiv_arb(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         id: u32,
         pname: u32,
     ) -> xcb_glx_get_query_objectuiv_arb_cookie_t;
 
-    pub fn xcb_glx_get_query_objectuiv_arb_unchecked (
+    pub fn xcb_glx_get_query_objectuiv_arb_unchecked(
         c: *mut xcb_connection_t,
         context_tag: xcb_glx_context_tag_t,
         id: u32,

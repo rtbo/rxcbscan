@@ -15,8 +15,8 @@ pub struct xcb_char2b_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_char2b_iterator_t {
-    pub data:  *mut xcb_char2b_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_char2b_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -25,8 +25,8 @@ pub type xcb_window_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_window_iterator_t {
-    pub data:  *mut xcb_window_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_window_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -35,8 +35,8 @@ pub type xcb_pixmap_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_pixmap_iterator_t {
-    pub data:  *mut xcb_pixmap_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_pixmap_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -45,8 +45,8 @@ pub type xcb_cursor_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_cursor_iterator_t {
-    pub data:  *mut xcb_cursor_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_cursor_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -55,8 +55,8 @@ pub type xcb_font_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_font_iterator_t {
-    pub data:  *mut xcb_font_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_font_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -65,8 +65,8 @@ pub type xcb_gcontext_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_gcontext_iterator_t {
-    pub data:  *mut xcb_gcontext_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_gcontext_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -75,8 +75,8 @@ pub type xcb_colormap_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_colormap_iterator_t {
-    pub data:  *mut xcb_colormap_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_colormap_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -85,8 +85,8 @@ pub type xcb_atom_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_atom_iterator_t {
-    pub data:  *mut xcb_atom_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_atom_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -95,8 +95,8 @@ pub type xcb_drawable_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_drawable_iterator_t {
-    pub data:  *mut xcb_drawable_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_drawable_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -105,8 +105,8 @@ pub type xcb_fontable_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_fontable_iterator_t {
-    pub data:  *mut xcb_fontable_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_fontable_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -115,8 +115,8 @@ pub type xcb_visualid_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_visualid_iterator_t {
-    pub data:  *mut xcb_visualid_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_visualid_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -125,8 +125,8 @@ pub type xcb_timestamp_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_timestamp_iterator_t {
-    pub data:  *mut xcb_timestamp_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_timestamp_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -135,8 +135,8 @@ pub type xcb_keysym_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_keysym_iterator_t {
-    pub data:  *mut xcb_keysym_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_keysym_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -145,8 +145,8 @@ pub type xcb_keycode_t = u8;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_keycode_iterator_t {
-    pub data:  *mut xcb_keycode_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_keycode_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -155,8 +155,8 @@ pub type xcb_button_t = u8;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_button_iterator_t {
-    pub data:  *mut xcb_button_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_button_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -170,8 +170,8 @@ pub struct xcb_point_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_point_iterator_t {
-    pub data:  *mut xcb_point_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_point_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -187,8 +187,8 @@ pub struct xcb_rectangle_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_rectangle_iterator_t {
-    pub data:  *mut xcb_rectangle_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_rectangle_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -206,8 +206,8 @@ pub struct xcb_arc_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_arc_iterator_t {
-    pub data:  *mut xcb_arc_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_arc_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -223,8 +223,8 @@ pub struct xcb_format_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_format_iterator_t {
-    pub data:  *mut xcb_format_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_format_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -252,8 +252,8 @@ pub struct xcb_visualtype_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_visualtype_iterator_t {
-    pub data:  *mut xcb_visualtype_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_visualtype_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -269,8 +269,8 @@ pub struct xcb_depth_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_depth_iterator_t<'a> {
-    pub data:  *mut xcb_depth_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_depth_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_depth_t>,
 }
@@ -332,8 +332,8 @@ pub struct xcb_screen_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_screen_iterator_t<'a> {
-    pub data:  *mut xcb_screen_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_screen_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_screen_t>,
 }
@@ -353,8 +353,8 @@ pub struct xcb_setup_request_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_setup_request_iterator_t<'a> {
-    pub data:  *mut xcb_setup_request_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_setup_request_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_setup_request_t>,
 }
@@ -372,8 +372,8 @@ pub struct xcb_setup_failed_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_setup_failed_iterator_t<'a> {
-    pub data:  *mut xcb_setup_failed_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_setup_failed_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_setup_failed_t>,
 }
@@ -389,8 +389,8 @@ pub struct xcb_setup_authenticate_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_setup_authenticate_iterator_t<'a> {
-    pub data:  *mut xcb_setup_authenticate_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_setup_authenticate_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_setup_authenticate_t>,
 }
@@ -427,8 +427,8 @@ pub struct xcb_setup_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_setup_iterator_t<'a> {
-    pub data:  *mut xcb_setup_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_setup_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_setup_t>,
 }
@@ -469,32 +469,32 @@ pub const XCB_KEY_PRESS: u8 = 2;
 #[repr(C)]
 pub struct xcb_key_press_event_t {
     pub response_type: u8,
-/// The keycode (a number representing a physical key on the keyboard) of the key
-/// which was pressed.
+    /// The keycode (a number representing a physical key on the keyboard) of the key
+    /// which was pressed.
     pub detail: xcb_keycode_t,
     pub sequence: u16,
-/// Time when the event was generated (in milliseconds).
+    /// Time when the event was generated (in milliseconds).
     pub time: xcb_timestamp_t,
-/// The root window of `child`.
+    /// The root window of `child`.
     pub root: xcb_window_t,
     pub event: xcb_window_t,
     pub child: xcb_window_t,
-/// The X coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The X coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub root_x: i16,
-/// The Y coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The Y coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub root_y: i16,
-/// If `same_screen` is true, this is the X coordinate relative to the `event`
-/// window's origin. Otherwise, `event_x` will be set to zero.
+    /// If `same_screen` is true, this is the X coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_x` will be set to zero.
     pub event_x: i16,
-/// If `same_screen` is true, this is the Y coordinate relative to the `event`
-/// window's origin. Otherwise, `event_y` will be set to zero.
+    /// If `same_screen` is true, this is the Y coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_y` will be set to zero.
     pub event_y: i16,
-/// The logical state of the pointer buttons and modifier keys just prior to the
-/// event.
+    /// The logical state of the pointer buttons and modifier keys just prior to the
+    /// event.
     pub state: u16,
-/// Whether the `event` window is on the same screen as the `root` window.
+    /// Whether the `event` window is on the same screen as the `root` window.
     pub same_screen: u8,
     pub pad0: u8,
 }
@@ -518,32 +518,32 @@ pub const XCB_BUTTON_PRESS: u8 = 4;
 #[repr(C)]
 pub struct xcb_button_press_event_t {
     pub response_type: u8,
-/// The keycode (a number representing a physical key on the keyboard) of the key
-/// which was pressed.
+    /// The keycode (a number representing a physical key on the keyboard) of the key
+    /// which was pressed.
     pub detail: xcb_button_t,
     pub sequence: u16,
-/// Time when the event was generated (in milliseconds).
+    /// Time when the event was generated (in milliseconds).
     pub time: xcb_timestamp_t,
-/// The root window of `child`.
+    /// The root window of `child`.
     pub root: xcb_window_t,
     pub event: xcb_window_t,
     pub child: xcb_window_t,
-/// The X coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The X coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub root_x: i16,
-/// The Y coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The Y coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub root_y: i16,
-/// If `same_screen` is true, this is the X coordinate relative to the `event`
-/// window's origin. Otherwise, `event_x` will be set to zero.
+    /// If `same_screen` is true, this is the X coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_x` will be set to zero.
     pub event_x: i16,
-/// If `same_screen` is true, this is the Y coordinate relative to the `event`
-/// window's origin. Otherwise, `event_y` will be set to zero.
+    /// If `same_screen` is true, this is the Y coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_y` will be set to zero.
     pub event_y: i16,
-/// The logical state of the pointer buttons and modifier keys just prior to the
-/// event.
+    /// The logical state of the pointer buttons and modifier keys just prior to the
+    /// event.
     pub state: u16,
-/// Whether the `event` window is on the same screen as the `root` window.
+    /// Whether the `event` window is on the same screen as the `root` window.
     pub same_screen: u8,
     pub pad0: u8,
 }
@@ -563,32 +563,32 @@ pub const XCB_MOTION_NOTIFY: u8 = 6;
 #[repr(C)]
 pub struct xcb_motion_notify_event_t {
     pub response_type: u8,
-/// The keycode (a number representing a physical key on the keyboard) of the key
-/// which was pressed.
+    /// The keycode (a number representing a physical key on the keyboard) of the key
+    /// which was pressed.
     pub detail: u8,
     pub sequence: u16,
-/// Time when the event was generated (in milliseconds).
+    /// Time when the event was generated (in milliseconds).
     pub time: xcb_timestamp_t,
-/// The root window of `child`.
+    /// The root window of `child`.
     pub root: xcb_window_t,
     pub event: xcb_window_t,
     pub child: xcb_window_t,
-/// The X coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The X coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub root_x: i16,
-/// The Y coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The Y coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub root_y: i16,
-/// If `same_screen` is true, this is the X coordinate relative to the `event`
-/// window's origin. Otherwise, `event_x` will be set to zero.
+    /// If `same_screen` is true, this is the X coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_x` will be set to zero.
     pub event_x: i16,
-/// If `same_screen` is true, this is the Y coordinate relative to the `event`
-/// window's origin. Otherwise, `event_y` will be set to zero.
+    /// If `same_screen` is true, this is the Y coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_y` will be set to zero.
     pub event_y: i16,
-/// The logical state of the pointer buttons and modifier keys just prior to the
-/// event.
+    /// The logical state of the pointer buttons and modifier keys just prior to the
+    /// event.
     pub state: u16,
-/// Whether the `event` window is on the same screen as the `root` window.
+    /// Whether the `event` window is on the same screen as the `root` window.
     pub same_screen: u8,
     pub pad0: u8,
 }
@@ -619,25 +619,25 @@ pub struct xcb_enter_notify_event_t {
     pub detail: u8,
     pub sequence: u16,
     pub time: xcb_timestamp_t,
-/// The root window for the final cursor position.
+    /// The root window for the final cursor position.
     pub root: xcb_window_t,
-/// The window on which the event was generated.
+    /// The window on which the event was generated.
     pub event: xcb_window_t,
-/// If the `event` window has subwindows and the final pointer position is in one
-/// of them, then `child` is set to that subwindow, `XCB_WINDOW_NONE` otherwise.
+    /// If the `event` window has subwindows and the final pointer position is in one
+    /// of them, then `child` is set to that subwindow, `XCB_WINDOW_NONE` otherwise.
     pub child: xcb_window_t,
-/// The pointer X coordinate relative to `root`'s origin at the time of the event.
+    /// The pointer X coordinate relative to `root`'s origin at the time of the event.
     pub root_x: i16,
-/// The pointer Y coordinate relative to `root`'s origin at the time of the event.
+    /// The pointer Y coordinate relative to `root`'s origin at the time of the event.
     pub root_y: i16,
-/// If `event` is on the same screen as `root`, this is the pointer X coordinate
-/// relative to the event window's origin.
+    /// If `event` is on the same screen as `root`, this is the pointer X coordinate
+    /// relative to the event window's origin.
     pub event_x: i16,
-/// If `event` is on the same screen as `root`, this is the pointer Y coordinate
-/// relative to the event window's origin.
+    /// If `event` is on the same screen as `root`, this is the pointer Y coordinate
+    /// relative to the event window's origin.
     pub event_y: i16,
     pub state: u16,
-///
+    ///
     pub mode: u8,
     pub same_screen_focus: u8,
 }
@@ -653,13 +653,13 @@ pub const XCB_FOCUS_IN: u8 = 9;
 #[repr(C)]
 pub struct xcb_focus_in_event_t {
     pub response_type: u8,
-///
+    ///
     pub detail: u8,
     pub sequence: u16,
-/// The window on which the focus event was generated. This is the window used by
-/// the X server to report the event.
+    /// The window on which the focus event was generated. This is the window used by
+    /// the X server to report the event.
     pub event: xcb_window_t,
-///
+    ///
     pub mode: u8,
     pub pad0: [u8; 3],
 }
@@ -686,22 +686,22 @@ pub struct xcb_expose_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-/// The exposed (damaged) window.
+    /// The exposed (damaged) window.
     pub window: xcb_window_t,
-/// The X coordinate of the left-upper corner of the exposed rectangle, relative to
-/// the `window`'s origin.
+    /// The X coordinate of the left-upper corner of the exposed rectangle, relative to
+    /// the `window`'s origin.
     pub x: u16,
-/// The Y coordinate of the left-upper corner of the exposed rectangle, relative to
-/// the `window`'s origin.
+    /// The Y coordinate of the left-upper corner of the exposed rectangle, relative to
+    /// the `window`'s origin.
     pub y: u16,
-/// The width of the exposed rectangle.
+    /// The width of the exposed rectangle.
     pub width: u16,
-/// The height of the exposed rectangle.
+    /// The height of the exposed rectangle.
     pub height: u16,
-/// The amount of `Expose` events following this one. Simple applications that do
-/// not want to optimize redisplay by distinguishing between subareas of its window
-/// can just ignore all Expose events with nonzero counts and perform full
-/// redisplays on events with zero counts.
+    /// The amount of `Expose` events following this one. Simple applications that do
+    /// not want to optimize redisplay by distinguishing between subareas of its window
+    /// can just ignore all Expose events with nonzero counts and perform full
+    /// redisplays on events with zero counts.
     pub count: u16,
     pub pad1: [u8; 2],
 }
@@ -785,10 +785,10 @@ pub struct xcb_destroy_notify_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-/// The reconfigured window or its parent, depending on whether `StructureNotify`
-/// or `SubstructureNotify` was selected.
+    /// The reconfigured window or its parent, depending on whether `StructureNotify`
+    /// or `SubstructureNotify` was selected.
     pub event: xcb_window_t,
-/// The window that is destroyed.
+    /// The window that is destroyed.
     pub window: xcb_window_t,
 }
 
@@ -801,13 +801,13 @@ pub struct xcb_unmap_notify_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-/// The reconfigured window or its parent, depending on whether `StructureNotify`
-/// or `SubstructureNotify` was selected.
+    /// The reconfigured window or its parent, depending on whether `StructureNotify`
+    /// or `SubstructureNotify` was selected.
     pub event: xcb_window_t,
-/// The window that was unmapped.
+    /// The window that was unmapped.
     pub window: xcb_window_t,
-/// Set to 1 if the event was generated as a result of a resizing of the window's
-/// parent when `window` had a win_gravity of `UnmapGravity`.
+    /// Set to 1 if the event was generated as a result of a resizing of the window's
+    /// parent when `window` had a win_gravity of `UnmapGravity`.
     pub from_configure: u8,
     pub pad1: [u8; 3],
 }
@@ -821,12 +821,12 @@ pub struct xcb_map_notify_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-/// The window which was mapped or its parent, depending on whether
-/// `StructureNotify` or `SubstructureNotify` was selected.
+    /// The window which was mapped or its parent, depending on whether
+    /// `StructureNotify` or `SubstructureNotify` was selected.
     pub event: xcb_window_t,
-/// The window that was mapped.
+    /// The window that was mapped.
     pub window: xcb_window_t,
-/// Window managers should ignore this window if `override_redirect` is 1.
+    /// Window managers should ignore this window if `override_redirect` is 1.
     pub override_redirect: u8,
     pub pad1: [u8; 3],
 }
@@ -840,9 +840,9 @@ pub struct xcb_map_request_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-/// The parent of `window`.
+    /// The parent of `window`.
     pub parent: xcb_window_t,
-/// The window to be mapped.
+    /// The window to be mapped.
     pub window: xcb_window_t,
 }
 
@@ -872,28 +872,28 @@ pub struct xcb_configure_notify_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-/// The reconfigured window or its parent, depending on whether `StructureNotify`
-/// or `SubstructureNotify` was selected.
+    /// The reconfigured window or its parent, depending on whether `StructureNotify`
+    /// or `SubstructureNotify` was selected.
     pub event: xcb_window_t,
-/// The window whose size, position, border, and/or stacking order was changed.
+    /// The window whose size, position, border, and/or stacking order was changed.
     pub window: xcb_window_t,
-/// If `XCB_NONE`, the `window` is on the bottom of the stack with respect to
-/// sibling windows. However, if set to a sibling window, the `window` is placed on
-/// top of this sibling window.
+    /// If `XCB_NONE`, the `window` is on the bottom of the stack with respect to
+    /// sibling windows. However, if set to a sibling window, the `window` is placed on
+    /// top of this sibling window.
     pub above_sibling: xcb_window_t,
-/// The X coordinate of the upper-left outside corner of `window`, relative to the
-/// parent window's origin.
+    /// The X coordinate of the upper-left outside corner of `window`, relative to the
+    /// parent window's origin.
     pub x: i16,
-/// The Y coordinate of the upper-left outside corner of `window`, relative to the
-/// parent window's origin.
+    /// The Y coordinate of the upper-left outside corner of `window`, relative to the
+    /// parent window's origin.
     pub y: i16,
-/// The inside width of `window`, not including the border.
+    /// The inside width of `window`, not including the border.
     pub width: u16,
-/// The inside height of `window`, not including the border.
+    /// The inside height of `window`, not including the border.
     pub height: u16,
-/// The border width of `window`.
+    /// The border width of `window`.
     pub border_width: u16,
-/// Window managers should ignore this window if `override_redirect` is 1.
+    /// Window managers should ignore this window if `override_redirect` is 1.
     pub override_redirect: u8,
     pub pad1: u8,
 }
@@ -959,13 +959,13 @@ pub struct xcb_circulate_notify_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-/// Either the restacked window or its parent, depending on whether
-/// `StructureNotify` or `SubstructureNotify` was selected.
+    /// Either the restacked window or its parent, depending on whether
+    /// `StructureNotify` or `SubstructureNotify` was selected.
     pub event: xcb_window_t,
-/// The restacked window.
+    /// The restacked window.
     pub window: xcb_window_t,
     pub pad1: [u8; 4],
-///
+    ///
     pub place: u8,
     pub pad2: [u8; 3],
 }
@@ -987,13 +987,13 @@ pub struct xcb_property_notify_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-/// The window whose associated property was changed.
+    /// The window whose associated property was changed.
     pub window: xcb_window_t,
-/// The property's atom, to indicate which property was changed.
+    /// The property's atom, to indicate which property was changed.
     pub atom: xcb_atom_t,
-/// A timestamp of the server time when the property was changed.
+    /// A timestamp of the server time when the property was changed.
     pub time: xcb_timestamp_t,
-///
+    ///
     pub state: u8,
     pub pad1: [u8; 3],
 }
@@ -1135,13 +1135,13 @@ pub struct xcb_colormap_notify_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-/// The window whose associated colormap is changed, installed or uninstalled.
+    /// The window whose associated colormap is changed, installed or uninstalled.
     pub window: xcb_window_t,
-/// The colormap which is changed, installed or uninstalled. This is `XCB_NONE`
-/// when the colormap is changed by a call to `FreeColormap`.
+    /// The colormap which is changed, installed or uninstalled. This is `XCB_NONE`
+    /// when the colormap is changed by a call to `FreeColormap`.
     pub colormap: xcb_colormap_t,
     pub new_: u8,
-///
+    ///
     pub state: u8,
     pub pad1: [u8; 2],
 }
@@ -1155,14 +1155,16 @@ pub struct xcb_client_message_data_t {
 
 impl Copy for xcb_client_message_data_t {}
 impl Clone for xcb_client_message_data_t {
-    fn clone(&self) -> xcb_client_message_data_t { *self }
+    fn clone(&self) -> xcb_client_message_data_t {
+        *self
+    }
 }
 
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_client_message_data_iterator_t {
-    pub data:  *mut xcb_client_message_data_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_client_message_data_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1178,14 +1180,14 @@ pub const XCB_CLIENT_MESSAGE: u8 = 33;
 #[repr(C)]
 pub struct xcb_client_message_event_t {
     pub response_type: u8,
-/// Specifies how to interpret `data`. Can be either 8, 16 or 32.
+    /// Specifies how to interpret `data`. Can be either 8, 16 or 32.
     pub format: u8,
     pub sequence: u16,
     pub window: xcb_window_t,
-/// An atom which indicates how the data should be interpreted by the receiving
-/// client.
+    /// An atom which indicates how the data should be interpreted by the receiving
+    /// client.
     pub type_: xcb_atom_t,
-/// The data itself (20 bytes max).
+    /// The data itself (20 bytes max).
     pub data: xcb_client_message_data_t,
 }
 
@@ -1203,11 +1205,11 @@ pub struct xcb_mapping_notify_event_t {
     pub response_type: u8,
     pub pad0: u8,
     pub sequence: u16,
-///
+    ///
     pub request: u8,
-/// The first number in the range of the altered mapping.
+    /// The first number in the range of the altered mapping.
     pub first_keycode: xcb_keycode_t,
-/// The number of keycodes altered.
+    /// The number of keycodes altered.
     pub count: u8,
     pub pad1: u8,
 }
@@ -1219,10 +1221,10 @@ pub const XCB_GE_GENERIC: u8 = 35;
 #[repr(C)]
 pub struct xcb_ge_generic_event_t {
     pub response_type: u8,
-/// The major opcode of the extension creating this event
+    /// The major opcode of the extension creating this event
     pub extension: u8,
     pub sequence: u16,
-/// The amount (in 4-byte units) of data beyond 32 bytes
+    /// The amount (in 4-byte units) of data beyond 32 bytes
     pub length: u32,
     pub event_type: u16,
     pub pad0: [u8; 22],
@@ -1447,35 +1449,35 @@ pub const XCB_CREATE_WINDOW: u8 = 1;
 #[repr(C)]
 pub struct xcb_create_window_request_t {
     pub major_opcode: u8,
-/// Specifies the new window's depth (TODO: what unit?).
-///
-/// The special value `XCB_COPY_FROM_PARENT` means the depth is taken from the
-/// `parent` window.
+    /// Specifies the new window's depth (TODO: what unit?).
+    ///
+    /// The special value `XCB_COPY_FROM_PARENT` means the depth is taken from the
+    /// `parent` window.
     pub depth: u8,
     pub length: u16,
-/// The ID with which you will refer to the new window, created by
-/// `xcb_generate_id`.
+    /// The ID with which you will refer to the new window, created by
+    /// `xcb_generate_id`.
     pub wid: xcb_window_t,
-/// The parent window of the new window.
+    /// The parent window of the new window.
     pub parent: xcb_window_t,
-/// The X coordinate of the new window.
+    /// The X coordinate of the new window.
     pub x: i16,
-/// The Y coordinate of the new window.
+    /// The Y coordinate of the new window.
     pub y: i16,
-/// The width of the new window.
+    /// The width of the new window.
     pub width: u16,
-/// The height of the new window.
+    /// The height of the new window.
     pub height: u16,
-/// TODO:
-///
-/// Must be zero if the `class` is `InputOnly` or a `xcb_match_error_t` occurs.
+    /// TODO:
+    ///
+    /// Must be zero if the `class` is `InputOnly` or a `xcb_match_error_t` occurs.
     pub border_width: u16,
-///
+    ///
     pub class: u16,
-/// Specifies the id for the new window's visual.
-///
-/// The special value `XCB_COPY_FROM_PARENT` means the visual is taken from the
-/// `parent` window.
+    /// Specifies the id for the new window's visual.
+    ///
+    /// The special value `XCB_COPY_FROM_PARENT` means the visual is taken from the
+    /// `parent` window.
     pub visual: xcb_visualid_t,
     pub value_mask: u32,
 }
@@ -1491,9 +1493,9 @@ pub struct xcb_change_window_attributes_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The window to change.
+    /// The window to change.
     pub window: xcb_window_t,
-///
+    ///
     pub value_mask: u32,
 }
 
@@ -1513,7 +1515,7 @@ pub struct xcb_get_window_attributes_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The window to get the attributes from.
+    /// The window to get the attributes from.
     pub window: xcb_window_t,
 }
 
@@ -1527,36 +1529,36 @@ pub struct xcb_get_window_attributes_cookie_t {
 #[repr(C)]
 pub struct xcb_get_window_attributes_reply_t {
     pub response_type: u8,
-///
+    ///
     pub backing_store: u8,
     pub sequence: u16,
     pub length: u32,
-/// The associated visual structure of `window`.
+    /// The associated visual structure of `window`.
     pub visual: xcb_visualid_t,
-///
+    ///
     pub class: u16,
-///
+    ///
     pub bit_gravity: u8,
-///
+    ///
     pub win_gravity: u8,
-/// Planes to be preserved if possible.
+    /// Planes to be preserved if possible.
     pub backing_planes: u32,
-/// Value to be used when restoring planes.
+    /// Value to be used when restoring planes.
     pub backing_pixel: u32,
-/// Boolean, should bits under be saved?
+    /// Boolean, should bits under be saved?
     pub save_under: u8,
     pub map_is_installed: u8,
-///
+    ///
     pub map_state: u8,
-/// Window managers should ignore this window if `override_redirect` is 1.
+    /// Window managers should ignore this window if `override_redirect` is 1.
     pub override_redirect: u8,
-/// Color map to be associated with window.
+    /// Color map to be associated with window.
     pub colormap: xcb_colormap_t,
-/// Set of events all people have interest in.
+    /// Set of events all people have interest in.
     pub all_event_masks: u32,
-/// My event mask.
+    /// My event mask.
     pub your_event_mask: u32,
-/// Set of events that should not propagate.
+    /// Set of events that should not propagate.
     pub do_not_propagate_mask: u16,
     pub pad0: [u8; 2],
 }
@@ -1577,7 +1579,7 @@ pub struct xcb_destroy_window_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The window to destroy.
+    /// The window to destroy.
     pub window: xcb_window_t,
 }
 
@@ -1608,10 +1610,10 @@ pub const XCB_CHANGE_SAVE_SET: u8 = 6;
 #[repr(C)]
 pub struct xcb_change_save_set_request_t {
     pub major_opcode: u8,
-/// Insert to add the specified window to the save set or Delete to delete it from the save set.
+    /// Insert to add the specified window to the save set or Delete to delete it from the save set.
     pub mode: u8,
     pub length: u16,
-/// The window to add or delete to/from your save set.
+    /// The window to add or delete to/from your save set.
     pub window: xcb_window_t,
 }
 
@@ -1631,13 +1633,13 @@ pub struct xcb_reparent_window_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The window to reparent.
+    /// The window to reparent.
     pub window: xcb_window_t,
-/// The new parent of the window.
+    /// The new parent of the window.
     pub parent: xcb_window_t,
-/// The X position of the window within its new parent.
+    /// The X position of the window within its new parent.
     pub x: i16,
-/// The Y position of the window within its new parent.
+    /// The Y position of the window within its new parent.
     pub y: i16,
 }
 
@@ -1670,7 +1672,7 @@ pub struct xcb_map_window_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The window to make visible.
+    /// The window to make visible.
     pub window: xcb_window_t,
 }
 
@@ -1700,7 +1702,7 @@ pub struct xcb_unmap_window_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The window to make invisible.
+    /// The window to make invisible.
     pub window: xcb_window_t,
 }
 
@@ -1742,9 +1744,9 @@ pub struct xcb_configure_window_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The window to configure.
+    /// The window to configure.
     pub window: xcb_window_t,
-/// Bitmask of attributes to change.
+    /// Bitmask of attributes to change.
     pub value_mask: u16,
     pub pad1: [u8; 2],
 }
@@ -1766,10 +1768,10 @@ pub const XCB_CIRCULATE_WINDOW: u8 = 13;
 #[repr(C)]
 pub struct xcb_circulate_window_request_t {
     pub major_opcode: u8,
-///
+    ///
     pub direction: u8,
     pub length: u16,
-/// The window to raise/lower (depending on `direction`).
+    /// The window to raise/lower (depending on `direction`).
     pub window: xcb_window_t,
 }
 
@@ -1784,7 +1786,7 @@ pub struct xcb_get_geometry_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The drawable (`Window` or `Pixmap`) of which the geometry will be received.
+    /// The drawable (`Window` or `Pixmap`) of which the geometry will be received.
     pub drawable: xcb_drawable_t,
 }
 
@@ -1798,25 +1800,25 @@ pub struct xcb_get_geometry_cookie_t {
 #[repr(C)]
 pub struct xcb_get_geometry_reply_t {
     pub response_type: u8,
-/// The depth of the drawable (bits per pixel for the object).
+    /// The depth of the drawable (bits per pixel for the object).
     pub depth: u8,
     pub sequence: u16,
     pub length: u32,
-/// Root window of the screen containing `drawable`.
+    /// Root window of the screen containing `drawable`.
     pub root: xcb_window_t,
-/// The X coordinate of `drawable`. If `drawable` is a window, the coordinate
-/// specifies the upper-left outer corner relative to its parent's origin. If
-/// `drawable` is a pixmap, the X coordinate is always 0.
+    /// The X coordinate of `drawable`. If `drawable` is a window, the coordinate
+    /// specifies the upper-left outer corner relative to its parent's origin. If
+    /// `drawable` is a pixmap, the X coordinate is always 0.
     pub x: i16,
-/// The Y coordinate of `drawable`. If `drawable` is a window, the coordinate
-/// specifies the upper-left outer corner relative to its parent's origin. If
-/// `drawable` is a pixmap, the Y coordinate is always 0.
+    /// The Y coordinate of `drawable`. If `drawable` is a window, the coordinate
+    /// specifies the upper-left outer corner relative to its parent's origin. If
+    /// `drawable` is a pixmap, the Y coordinate is always 0.
     pub y: i16,
-/// The width of `drawable`.
+    /// The width of `drawable`.
     pub width: u16,
-/// The height of `drawable`.
+    /// The height of `drawable`.
     pub height: u16,
-/// The border width (in pixels).
+    /// The border width (in pixels).
     pub border_width: u16,
     pub pad0: [u8; 2],
 }
@@ -1833,7 +1835,7 @@ pub struct xcb_query_tree_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The `window` to query.
+    /// The `window` to query.
     pub window: xcb_window_t,
 }
 
@@ -1850,11 +1852,11 @@ pub struct xcb_query_tree_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-/// The root window of `window`.
+    /// The root window of `window`.
     pub root: xcb_window_t,
-/// The parent window of `window`.
+    /// The parent window of `window`.
     pub parent: xcb_window_t,
-/// The number of child windows.
+    /// The number of child windows.
     pub children_len: u16,
     pub pad1: [u8; 14],
 }
@@ -1874,10 +1876,10 @@ pub const XCB_INTERN_ATOM: u8 = 16;
 #[repr(C)]
 pub struct xcb_intern_atom_request_t {
     pub major_opcode: u8,
-/// Return a valid atom id only if the atom already exists.
+    /// Return a valid atom id only if the atom already exists.
     pub only_if_exists: u8,
     pub length: u16,
-/// The length of the following `name`.
+    /// The length of the following `name`.
     pub name_len: u16,
     pub pad0: [u8; 2],
 }
@@ -1950,21 +1952,21 @@ pub const XCB_CHANGE_PROPERTY: u8 = 18;
 #[repr(C)]
 pub struct xcb_change_property_request_t {
     pub major_opcode: u8,
-///
+    ///
     pub mode: u8,
     pub length: u16,
-/// The window whose property you want to change.
+    /// The window whose property you want to change.
     pub window: xcb_window_t,
-/// The property you want to change (an atom).
+    /// The property you want to change (an atom).
     pub property: xcb_atom_t,
-/// The type of the property you want to change (an atom).
+    /// The type of the property you want to change (an atom).
     pub type_: xcb_atom_t,
-/// Specifies whether the data should be viewed as a list of 8-bit, 16-bit or
-/// 32-bit quantities. Possible values are 8, 16 and 32. This information allows
-/// the X server to correctly perform byte-swap operations as necessary.
+    /// Specifies whether the data should be viewed as a list of 8-bit, 16-bit or
+    /// 32-bit quantities. Possible values are 8, 16 and 32. This information allows
+    /// the X server to correctly perform byte-swap operations as necessary.
     pub format: u8,
     pub pad0: [u8; 3],
-/// Specifies the number of elements (see `format`).
+    /// Specifies the number of elements (see `format`).
     pub data_len: u32,
 }
 
@@ -2001,21 +2003,21 @@ pub const XCB_GET_PROPERTY: u8 = 20;
 #[repr(C)]
 pub struct xcb_get_property_request_t {
     pub major_opcode: u8,
-/// Whether the property should actually be deleted. For deleting a property, the
-/// specified `type` has to match the actual property type.
+    /// Whether the property should actually be deleted. For deleting a property, the
+    /// specified `type` has to match the actual property type.
     pub delete: u8,
     pub length: u16,
-/// The window whose property you want to get.
+    /// The window whose property you want to get.
     pub window: xcb_window_t,
-/// The property you want to get (an atom).
+    /// The property you want to get (an atom).
     pub property: xcb_atom_t,
-/// The type of the property you want to get (an atom).
+    /// The type of the property you want to get (an atom).
     pub type_: xcb_atom_t,
-/// Specifies the offset (in 32-bit multiples) in the specified property where the
-/// data is to be retrieved.
+    /// Specifies the offset (in 32-bit multiples) in the specified property where the
+    /// data is to be retrieved.
     pub long_offset: u32,
-/// Specifies how many 32-bit multiples of data should be retrieved (e.g. if you
-/// set `long_length` to 4, you will receive 16 bytes of data).
+    /// Specifies how many 32-bit multiples of data should be retrieved (e.g. if you
+    /// set `long_length` to 4, you will receive 16 bytes of data).
     pub long_length: u32,
 }
 
@@ -2029,19 +2031,19 @@ pub struct xcb_get_property_cookie_t {
 #[repr(C)]
 pub struct xcb_get_property_reply_t {
     pub response_type: u8,
-/// Specifies whether the data should be viewed as a list of 8-bit, 16-bit, or
-/// 32-bit quantities. Possible values are 8, 16, and 32. This information allows
-/// the X server to correctly perform byte-swap operations as necessary.
+    /// Specifies whether the data should be viewed as a list of 8-bit, 16-bit, or
+    /// 32-bit quantities. Possible values are 8, 16, and 32. This information allows
+    /// the X server to correctly perform byte-swap operations as necessary.
     pub format: u8,
     pub sequence: u16,
     pub length: u32,
-/// The actual type of the property (an atom).
+    /// The actual type of the property (an atom).
     pub type_: xcb_atom_t,
-/// The number of bytes remaining to be read in the property if a partial read was
-/// performed.
+    /// The number of bytes remaining to be read in the property if a partial read was
+    /// performed.
     pub bytes_after: u32,
-/// The length of value. You should use the corresponding accessor instead of this
-/// field.
+    /// The length of value. You should use the corresponding accessor instead of this
+    /// field.
     pub value_len: u32,
     pub pad0: [u8; 12],
 }
@@ -2088,20 +2090,20 @@ pub struct xcb_set_selection_owner_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The new owner of the selection.
-///
-/// The special value `XCB_NONE` means that the selection will have no owner.
+    /// The new owner of the selection.
+    ///
+    /// The special value `XCB_NONE` means that the selection will have no owner.
     pub owner: xcb_window_t,
-/// The selection.
+    /// The selection.
     pub selection: xcb_atom_t,
-/// Timestamp to avoid race conditions when running X over the network.
-///
-/// The selection will not be changed if `time` is earlier than the current
-/// last-change time of the `selection` or is later than the current X server time.
-/// Otherwise, the last-change time is set to the specified time.
-///
-/// The special value `XCB_CURRENT_TIME` will be replaced with the current server
-/// time.
+    /// Timestamp to avoid race conditions when running X over the network.
+    ///
+    /// The selection will not be changed if `time` is earlier than the current
+    /// last-change time of the `selection` or is later than the current X server time.
+    /// Otherwise, the last-change time is set to the specified time.
+    ///
+    /// The special value `XCB_CURRENT_TIME` will be replaced with the current server
+    /// time.
     pub time: xcb_timestamp_t,
 }
 
@@ -2118,7 +2120,7 @@ pub struct xcb_get_selection_owner_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The selection.
+    /// The selection.
     pub selection: xcb_atom_t,
 }
 
@@ -2135,7 +2137,7 @@ pub struct xcb_get_selection_owner_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-/// The current selection owner window.
+    /// The current selection owner window.
     pub owner: xcb_window_t,
 }
 
@@ -2173,29 +2175,29 @@ pub const XCB_SEND_EVENT: u8 = 25;
 #[repr(C)]
 pub struct xcb_send_event_request_t {
     pub major_opcode: u8,
-/// If `propagate` is true and no clients have selected any event on `destination`,
-/// the destination is replaced with the closest ancestor of `destination` for
-/// which some client has selected a type in `event_mask` and for which no
-/// intervening window has that type in its do-not-propagate-mask. If no such
-/// window exists or if the window is an ancestor of the focus window and
-/// `InputFocus` was originally specified as the destination, the event is not sent
-/// to any clients. Otherwise, the event is reported to every client selecting on
-/// the final destination any of the types specified in `event_mask`.
+    /// If `propagate` is true and no clients have selected any event on `destination`,
+    /// the destination is replaced with the closest ancestor of `destination` for
+    /// which some client has selected a type in `event_mask` and for which no
+    /// intervening window has that type in its do-not-propagate-mask. If no such
+    /// window exists or if the window is an ancestor of the focus window and
+    /// `InputFocus` was originally specified as the destination, the event is not sent
+    /// to any clients. Otherwise, the event is reported to every client selecting on
+    /// the final destination any of the types specified in `event_mask`.
     pub propagate: u8,
     pub length: u16,
-/// The window to send this event to. Every client which selects any event within
-/// `event_mask` on `destination` will get the event.
-///
-/// The special value `XCB_SEND_EVENT_DEST_POINTER_WINDOW` refers to the window
-/// that contains the mouse pointer.
-///
-/// The special value `XCB_SEND_EVENT_DEST_ITEM_FOCUS` refers to the window which
-/// has the keyboard focus.
+    /// The window to send this event to. Every client which selects any event within
+    /// `event_mask` on `destination` will get the event.
+    ///
+    /// The special value `XCB_SEND_EVENT_DEST_POINTER_WINDOW` refers to the window
+    /// that contains the mouse pointer.
+    ///
+    /// The special value `XCB_SEND_EVENT_DEST_ITEM_FOCUS` refers to the window which
+    /// has the keyboard focus.
     pub destination: xcb_window_t,
-/// Event_mask for determining which clients should receive the specified event.
-/// See `destination` and `propagate`.
+    /// Event_mask for determining which clients should receive the specified event.
+    /// See `destination` and `propagate`.
     pub event_mask: u32,
-/// The event to send to the specified `destination`.
+    /// The event to send to the specified `destination`.
     pub event: [c_char; 32],
 }
 
@@ -2226,39 +2228,39 @@ pub const XCB_GRAB_POINTER: u8 = 26;
 #[repr(C)]
 pub struct xcb_grab_pointer_request_t {
     pub major_opcode: u8,
-/// If 1, the `grab_window` will still get the pointer events. If 0, events are not
-/// reported to the `grab_window`.
+    /// If 1, the `grab_window` will still get the pointer events. If 0, events are not
+    /// reported to the `grab_window`.
     pub owner_events: u8,
     pub length: u16,
-/// Specifies the window on which the pointer should be grabbed.
+    /// Specifies the window on which the pointer should be grabbed.
     pub grab_window: xcb_window_t,
-/// Specifies which pointer events are reported to the client.
-///
-/// TODO: which values?
+    /// Specifies which pointer events are reported to the client.
+    ///
+    /// TODO: which values?
     pub event_mask: u16,
-///
+    ///
     pub pointer_mode: u8,
-///
+    ///
     pub keyboard_mode: u8,
-/// Specifies the window to confine the pointer in (the user will not be able to
-/// move the pointer out of that window).
-///
-/// The special value `XCB_NONE` means don't confine the pointer.
+    /// Specifies the window to confine the pointer in (the user will not be able to
+    /// move the pointer out of that window).
+    ///
+    /// The special value `XCB_NONE` means don't confine the pointer.
     pub confine_to: xcb_window_t,
-/// Specifies the cursor that should be displayed or `XCB_NONE` to not change the
-/// cursor.
+    /// Specifies the cursor that should be displayed or `XCB_NONE` to not change the
+    /// cursor.
     pub cursor: xcb_cursor_t,
-/// The time argument allows you to avoid certain circumstances that come up if
-/// applications take a long time to respond or if there are long network delays.
-/// Consider a situation where you have two applications, both of which normally
-/// grab the pointer when clicked on. If both applications specify the timestamp
-/// from the event, the second application may wake up faster and successfully grab
-/// the pointer before the first application. The first application then will get
-/// an indication that the other application grabbed the pointer before its request
-/// was processed.
-///
-/// The special value `XCB_CURRENT_TIME` will be replaced with the current server
-/// time.
+    /// The time argument allows you to avoid certain circumstances that come up if
+    /// applications take a long time to respond or if there are long network delays.
+    /// Consider a situation where you have two applications, both of which normally
+    /// grab the pointer when clicked on. If both applications specify the timestamp
+    /// from the event, the second application may wake up faster and successfully grab
+    /// the pointer before the first application. The first application then will get
+    /// an indication that the other application grabbed the pointer before its request
+    /// was processed.
+    ///
+    /// The special value `XCB_CURRENT_TIME` will be replaced with the current server
+    /// time.
     pub time: xcb_timestamp_t,
 }
 
@@ -2292,10 +2294,10 @@ pub struct xcb_ungrab_pointer_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// Timestamp to avoid race conditions when running X over the network.
-///
-/// The pointer will not be released if `time` is earlier than the
-/// last-pointer-grab time or later than the current X server time.
+    /// Timestamp to avoid race conditions when running X over the network.
+    ///
+    /// The pointer will not be released if `time` is earlier than the
+    /// last-pointer-grab time or later than the current X server time.
     pub time: xcb_timestamp_t,
 }
 
@@ -2356,35 +2358,35 @@ pub const XCB_GRAB_BUTTON: u8 = 28;
 #[repr(C)]
 pub struct xcb_grab_button_request_t {
     pub major_opcode: u8,
-/// If 1, the `grab_window` will still get the pointer events. If 0, events are not
-/// reported to the `grab_window`.
+    /// If 1, the `grab_window` will still get the pointer events. If 0, events are not
+    /// reported to the `grab_window`.
     pub owner_events: u8,
     pub length: u16,
-/// Specifies the window on which the pointer should be grabbed.
+    /// Specifies the window on which the pointer should be grabbed.
     pub grab_window: xcb_window_t,
-/// Specifies which pointer events are reported to the client.
-///
-/// TODO: which values?
+    /// Specifies which pointer events are reported to the client.
+    ///
+    /// TODO: which values?
     pub event_mask: u16,
-///
+    ///
     pub pointer_mode: u8,
-///
+    ///
     pub keyboard_mode: u8,
-/// Specifies the window to confine the pointer in (the user will not be able to
-/// move the pointer out of that window).
-///
-/// The special value `XCB_NONE` means don't confine the pointer.
+    /// Specifies the window to confine the pointer in (the user will not be able to
+    /// move the pointer out of that window).
+    ///
+    /// The special value `XCB_NONE` means don't confine the pointer.
     pub confine_to: xcb_window_t,
-/// Specifies the cursor that should be displayed or `XCB_NONE` to not change the
-/// cursor.
+    /// Specifies the cursor that should be displayed or `XCB_NONE` to not change the
+    /// cursor.
     pub cursor: xcb_cursor_t,
-///
+    ///
     pub button: u8,
     pub pad0: u8,
-/// The modifiers to grab.
-///
-/// Using the special value `XCB_MOD_MASK_ANY` means grab the pointer with all
-/// possible modifier combinations.
+    /// The modifiers to grab.
+    ///
+    /// Using the special value `XCB_MOD_MASK_ANY` means grab the pointer with all
+    /// possible modifier combinations.
     pub modifiers: u16,
 }
 
@@ -2433,20 +2435,20 @@ pub const XCB_GRAB_KEYBOARD: u8 = 31;
 #[repr(C)]
 pub struct xcb_grab_keyboard_request_t {
     pub major_opcode: u8,
-/// If 1, the `grab_window` will still get the pointer events. If 0, events are not
-/// reported to the `grab_window`.
+    /// If 1, the `grab_window` will still get the pointer events. If 0, events are not
+    /// reported to the `grab_window`.
     pub owner_events: u8,
     pub length: u16,
-/// Specifies the window on which the pointer should be grabbed.
+    /// Specifies the window on which the pointer should be grabbed.
     pub grab_window: xcb_window_t,
-/// Timestamp to avoid race conditions when running X over the network.
-///
-/// The special value `XCB_CURRENT_TIME` will be replaced with the current server
-/// time.
+    /// Timestamp to avoid race conditions when running X over the network.
+    ///
+    /// The special value `XCB_CURRENT_TIME` will be replaced with the current server
+    /// time.
     pub time: xcb_timestamp_t,
-///
+    ///
     pub pointer_mode: u8,
-///
+    ///
     pub keyboard_mode: u8,
     pub pad0: [u8; 2],
 }
@@ -2518,24 +2520,24 @@ pub const XCB_GRAB_KEY: u8 = 33;
 #[repr(C)]
 pub struct xcb_grab_key_request_t {
     pub major_opcode: u8,
-/// If 1, the `grab_window` will still get the pointer events. If 0, events are not
-/// reported to the `grab_window`.
+    /// If 1, the `grab_window` will still get the pointer events. If 0, events are not
+    /// reported to the `grab_window`.
     pub owner_events: u8,
     pub length: u16,
-/// Specifies the window on which the pointer should be grabbed.
+    /// Specifies the window on which the pointer should be grabbed.
     pub grab_window: xcb_window_t,
-/// The modifiers to grab.
-///
-/// Using the special value `XCB_MOD_MASK_ANY` means grab the pointer with all
-/// possible modifier combinations.
+    /// The modifiers to grab.
+    ///
+    /// Using the special value `XCB_MOD_MASK_ANY` means grab the pointer with all
+    /// possible modifier combinations.
     pub modifiers: u16,
-/// The keycode of the key to grab.
-///
-/// The special value `XCB_GRAB_ANY` means grab any key.
+    /// The keycode of the key to grab.
+    ///
+    /// The special value `XCB_GRAB_ANY` means grab any key.
     pub key: xcb_keycode_t,
-///
+    ///
     pub pointer_mode: u8,
-///
+    ///
     pub keyboard_mode: u8,
     pub pad0: [u8; 3],
 }
@@ -2550,17 +2552,17 @@ pub const XCB_UNGRAB_KEY: u8 = 34;
 #[repr(C)]
 pub struct xcb_ungrab_key_request_t {
     pub major_opcode: u8,
-/// The keycode of the specified key combination.
-///
-/// Using the special value `XCB_GRAB_ANY` means releasing all possible key codes.
+    /// The keycode of the specified key combination.
+    ///
+    /// Using the special value `XCB_GRAB_ANY` means releasing all possible key codes.
     pub key: xcb_keycode_t,
     pub length: u16,
-/// The window on which the grabbed key combination will be released.
+    /// The window on which the grabbed key combination will be released.
     pub grab_window: xcb_window_t,
-/// The modifiers of the specified key combination.
-///
-/// Using the special value `XCB_MOD_MASK_ANY` means releasing the key combination
-/// with every possible modifier combination.
+    /// The modifiers of the specified key combination.
+    ///
+    /// Using the special value `XCB_MOD_MASK_ANY` means releasing the key combination
+    /// with every possible modifier combination.
     pub modifiers: u16,
     pub pad0: [u8; 2],
 }
@@ -2644,13 +2646,13 @@ pub const XCB_ALLOW_EVENTS: u8 = 35;
 #[repr(C)]
 pub struct xcb_allow_events_request_t {
     pub major_opcode: u8,
-///
+    ///
     pub mode: u8,
     pub length: u16,
-/// Timestamp to avoid race conditions when running X over the network.
-///
-/// The special value `XCB_CURRENT_TIME` will be replaced with the current server
-/// time.
+    /// Timestamp to avoid race conditions when running X over the network.
+    ///
+    /// The special value `XCB_CURRENT_TIME` will be replaced with the current server
+    /// time.
     pub time: xcb_timestamp_t,
 }
 
@@ -2686,8 +2688,8 @@ pub struct xcb_query_pointer_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// A window to check if the pointer is on the same screen as `window` (see the
-/// `same_screen` field in the reply).
+    /// A window to check if the pointer is on the same screen as `window` (see the
+    /// `same_screen` field in the reply).
     pub window: xcb_window_t,
 }
 
@@ -2701,32 +2703,32 @@ pub struct xcb_query_pointer_cookie_t {
 #[repr(C)]
 pub struct xcb_query_pointer_reply_t {
     pub response_type: u8,
-/// If `same_screen` is False, then the pointer is not on the same screen as the
-/// argument window, `child` is None, and `win_x` and `win_y` are zero. If
-/// `same_screen` is True, then `win_x` and `win_y` are the pointer coordinates
-/// relative to the argument window's origin, and child is the child containing the
-/// pointer, if any.
+    /// If `same_screen` is False, then the pointer is not on the same screen as the
+    /// argument window, `child` is None, and `win_x` and `win_y` are zero. If
+    /// `same_screen` is True, then `win_x` and `win_y` are the pointer coordinates
+    /// relative to the argument window's origin, and child is the child containing the
+    /// pointer, if any.
     pub same_screen: u8,
     pub sequence: u16,
     pub length: u32,
-/// The root window the pointer is logically on.
+    /// The root window the pointer is logically on.
     pub root: xcb_window_t,
-/// The child window containing the pointer, if any, if `same_screen` is true. If
-/// `same_screen` is false, `XCB_NONE` is returned.
+    /// The child window containing the pointer, if any, if `same_screen` is true. If
+    /// `same_screen` is false, `XCB_NONE` is returned.
     pub child: xcb_window_t,
-/// The pointer X position, relative to `root`.
+    /// The pointer X position, relative to `root`.
     pub root_x: i16,
-/// The pointer Y position, relative to `root`.
+    /// The pointer Y position, relative to `root`.
     pub root_y: i16,
-/// The pointer X coordinate, relative to `child`, if `same_screen` is true. Zero
-/// otherwise.
+    /// The pointer X coordinate, relative to `child`, if `same_screen` is true. Zero
+    /// otherwise.
     pub win_x: i16,
-/// The pointer Y coordinate, relative to `child`, if `same_screen` is true. Zero
-/// otherwise.
+    /// The pointer Y coordinate, relative to `child`, if `same_screen` is true. Zero
+    /// otherwise.
     pub win_y: i16,
-/// The current logical state of the modifier keys and the buttons. Note that the
-/// logical state of a device (as seen by means of the protocol) may lag the
-/// physical state if device event processing is frozen.
+    /// The current logical state of the modifier keys and the buttons. Note that the
+    /// logical state of a device (as seen by means of the protocol) may lag the
+    /// physical state if device event processing is frozen.
     pub mask: u16,
     pub pad0: [u8; 2],
 }
@@ -2742,8 +2744,8 @@ pub struct xcb_timecoord_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_timecoord_iterator_t {
-    pub data:  *mut xcb_timecoord_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_timecoord_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -2830,15 +2832,15 @@ pub struct xcb_warp_pointer_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// If `src_window` is not `XCB_NONE` (TODO), the move will only take place if the
-/// pointer is inside `src_window` and within the rectangle specified by (`src_x`,
-/// `src_y`, `src_width`, `src_height`). The rectangle coordinates are relative to
-/// `src_window`.
+    /// If `src_window` is not `XCB_NONE` (TODO), the move will only take place if the
+    /// pointer is inside `src_window` and within the rectangle specified by (`src_x`,
+    /// `src_y`, `src_width`, `src_height`). The rectangle coordinates are relative to
+    /// `src_window`.
     pub src_window: xcb_window_t,
-/// If `dst_window` is not `XCB_NONE` (TODO), the pointer will be moved to the
-/// offsets (`dst_x`, `dst_y`) relative to `dst_window`. If `dst_window` is
-/// `XCB_NONE` (TODO), the pointer will be moved by the offsets (`dst_x`, `dst_y`)
-/// relative to the current position of the pointer.
+    /// If `dst_window` is not `XCB_NONE` (TODO), the pointer will be moved to the
+    /// offsets (`dst_x`, `dst_y`) relative to `dst_window`. If `dst_window` is
+    /// `XCB_NONE` (TODO), the pointer will be moved by the offsets (`dst_x`, `dst_y`)
+    /// relative to the current position of the pointer.
     pub dst_window: xcb_window_t,
     pub src_x: i16,
     pub src_y: i16,
@@ -2874,23 +2876,23 @@ pub const XCB_SET_INPUT_FOCUS: u8 = 42;
 #[repr(C)]
 pub struct xcb_set_input_focus_request_t {
     pub major_opcode: u8,
-/// Specifies what happens when the `focus` window becomes unviewable (if `focus`
-/// is neither `XCB_NONE` nor `XCB_POINTER_ROOT`).
+    /// Specifies what happens when the `focus` window becomes unviewable (if `focus`
+    /// is neither `XCB_NONE` nor `XCB_POINTER_ROOT`).
     pub revert_to: u8,
     pub length: u16,
-/// The window to focus. All keyboard events will be reported to this window. The
-/// window must be viewable (TODO), or a `xcb_match_error_t` occurs (TODO).
-///
-/// If `focus` is `XCB_NONE` (TODO), all keyboard events are
-/// discarded until a new focus window is set.
-///
-/// If `focus` is `XCB_POINTER_ROOT` (TODO), focus is on the root window of the
-/// screen on which the pointer is on currently.
+    /// The window to focus. All keyboard events will be reported to this window. The
+    /// window must be viewable (TODO), or a `xcb_match_error_t` occurs (TODO).
+    ///
+    /// If `focus` is `XCB_NONE` (TODO), all keyboard events are
+    /// discarded until a new focus window is set.
+    ///
+    /// If `focus` is `XCB_POINTER_ROOT` (TODO), focus is on the root window of the
+    /// screen on which the pointer is on currently.
     pub focus: xcb_window_t,
-/// Timestamp to avoid race conditions when running X over the network.
-///
-/// The special value `XCB_CURRENT_TIME` will be replaced with the current server
-/// time.
+    /// Timestamp to avoid race conditions when running X over the network.
+    ///
+    /// The special value `XCB_CURRENT_TIME` will be replaced with the current server
+    /// time.
     pub time: xcb_timestamp_t,
 }
 
@@ -2960,9 +2962,9 @@ pub struct xcb_open_font_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The ID with which you will refer to the font, created by `xcb_generate_id`.
+    /// The ID with which you will refer to the font, created by `xcb_generate_id`.
     pub fid: xcb_font_t,
-/// Length (in bytes) of `name`.
+    /// Length (in bytes) of `name`.
     pub name_len: u16,
     pub pad1: [u8; 2],
 }
@@ -2992,8 +2994,8 @@ pub struct xcb_fontprop_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_fontprop_iterator_t {
-    pub data:  *mut xcb_fontprop_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_fontprop_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -3011,8 +3013,8 @@ pub struct xcb_charinfo_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_charinfo_iterator_t {
-    pub data:  *mut xcb_charinfo_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_charinfo_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -3027,7 +3029,7 @@ pub struct xcb_query_font_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The fontable (Font or Graphics Context) to query.
+    /// The fontable (Font or Graphics Context) to query.
     pub font: xcb_fontable_t,
 }
 
@@ -3044,29 +3046,29 @@ pub struct xcb_query_font_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-/// minimum bounds over all existing char
+    /// minimum bounds over all existing char
     pub min_bounds: xcb_charinfo_t,
     pub pad1: [u8; 4],
-/// maximum bounds over all existing char
+    /// maximum bounds over all existing char
     pub max_bounds: xcb_charinfo_t,
     pub pad2: [u8; 4],
-/// first character
+    /// first character
     pub min_char_or_byte2: u16,
-/// last character
+    /// last character
     pub max_char_or_byte2: u16,
-/// char to print for undefined character
+    /// char to print for undefined character
     pub default_char: u16,
-/// how many properties there are
+    /// how many properties there are
     pub properties_len: u16,
-///
+    ///
     pub draw_direction: u8,
     pub min_byte1: u8,
     pub max_byte1: u8,
-/// flag if all characters have nonzero size
+    /// flag if all characters have nonzero size
     pub all_chars_exist: u8,
-/// baseline to top edge of raster
+    /// baseline to top edge of raster
     pub font_ascent: i16,
-/// baseline to bottom edge of raster
+    /// baseline to bottom edge of raster
     pub font_descent: i16,
     pub char_infos_len: u32,
 }
@@ -3102,7 +3104,7 @@ pub struct xcb_query_text_extents_request_t {
     pub major_opcode: u8,
     pub odd_length: u8,
     pub length: u16,
-/// The `font` to calculate text extents in. You can also pass a graphics context.
+    /// The `font` to calculate text extents in. You can also pass a graphics context.
     pub font: xcb_fontable_t,
 }
 
@@ -3137,8 +3139,8 @@ pub struct xcb_str_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_str_iterator_t<'a> {
-    pub data:  *mut xcb_str_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_str_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_str_t>,
 }
@@ -3154,9 +3156,9 @@ pub struct xcb_list_fonts_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The maximum number of fonts to be returned.
+    /// The maximum number of fonts to be returned.
     pub max_names: u16,
-/// The length (in bytes) of `pattern`.
+    /// The length (in bytes) of `pattern`.
     pub pattern_len: u16,
 }
 
@@ -3173,7 +3175,7 @@ pub struct xcb_list_fonts_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-/// The number of font names.
+    /// The number of font names.
     pub names_len: u16,
     pub pad1: [u8; 22],
 }
@@ -3189,9 +3191,9 @@ pub struct xcb_list_fonts_with_info_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The maximum number of fonts to be returned.
+    /// The maximum number of fonts to be returned.
     pub max_names: u16,
-/// The length (in bytes) of `pattern`.
+    /// The length (in bytes) of `pattern`.
     pub pattern_len: u16,
 }
 
@@ -3205,37 +3207,37 @@ pub struct xcb_list_fonts_with_info_cookie_t {
 #[repr(C)]
 pub struct xcb_list_fonts_with_info_reply_t {
     pub response_type: u8,
-/// The number of matched font names.
+    /// The number of matched font names.
     pub name_len: u8,
     pub sequence: u16,
     pub length: u32,
-/// minimum bounds over all existing char
+    /// minimum bounds over all existing char
     pub min_bounds: xcb_charinfo_t,
     pub pad0: [u8; 4],
-/// maximum bounds over all existing char
+    /// maximum bounds over all existing char
     pub max_bounds: xcb_charinfo_t,
     pub pad1: [u8; 4],
-/// first character
+    /// first character
     pub min_char_or_byte2: u16,
-/// last character
+    /// last character
     pub max_char_or_byte2: u16,
-/// char to print for undefined character
+    /// char to print for undefined character
     pub default_char: u16,
-/// how many properties there are
+    /// how many properties there are
     pub properties_len: u16,
-///
+    ///
     pub draw_direction: u8,
     pub min_byte1: u8,
     pub max_byte1: u8,
-/// flag if all characters have nonzero size
+    /// flag if all characters have nonzero size
     pub all_chars_exist: u8,
-/// baseline to top edge of raster
+    /// baseline to top edge of raster
     pub font_ascent: i16,
-/// baseline to bottom edge of raster
+    /// baseline to bottom edge of raster
     pub font_descent: i16,
-/// An indication of how many more fonts will be returned. This is only a hint and
-/// may be larger or smaller than the number of fonts actually returned. A zero
-/// value does not guarantee that no more fonts will be returned.
+    /// An indication of how many more fonts will be returned. This is only a hint and
+    /// may be larger or smaller than the number of fonts actually returned. A zero
+    /// value does not guarantee that no more fonts will be returned.
     pub replies_hint: u32,
 }
 
@@ -3288,17 +3290,17 @@ pub const XCB_CREATE_PIXMAP: u8 = 53;
 #[repr(C)]
 pub struct xcb_create_pixmap_request_t {
     pub major_opcode: u8,
-/// TODO
+    /// TODO
     pub depth: u8,
     pub length: u16,
-/// The ID with which you will refer to the new pixmap, created by
-/// `xcb_generate_id`.
+    /// The ID with which you will refer to the new pixmap, created by
+    /// `xcb_generate_id`.
     pub pid: xcb_pixmap_t,
-/// Drawable to get the screen from.
+    /// Drawable to get the screen from.
     pub drawable: xcb_drawable_t,
-/// The width of the new pixmap.
+    /// The width of the new pixmap.
     pub width: u16,
-/// The height of the new pixmap.
+    /// The height of the new pixmap.
     pub height: u16,
 }
 
@@ -3314,7 +3316,7 @@ pub struct xcb_free_pixmap_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The pixmap to destroy.
+    /// The pixmap to destroy.
     pub pixmap: xcb_pixmap_t,
 }
 
@@ -3507,10 +3509,10 @@ pub struct xcb_create_gc_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The ID with which you will refer to the graphics context, created by
-/// `xcb_generate_id`.
+    /// The ID with which you will refer to the graphics context, created by
+    /// `xcb_generate_id`.
     pub cid: xcb_gcontext_t,
-/// Drawable to get the root/depth from.
+    /// Drawable to get the root/depth from.
     pub drawable: xcb_drawable_t,
     pub value_mask: u32,
 }
@@ -3526,9 +3528,9 @@ pub struct xcb_change_gc_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The graphics context to change.
+    /// The graphics context to change.
     pub gc: xcb_gcontext_t,
-///
+    ///
     pub value_mask: u32,
 }
 
@@ -3588,7 +3590,7 @@ pub struct xcb_free_gc_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The graphics context to destroy.
+    /// The graphics context to destroy.
     pub gc: xcb_gcontext_t,
 }
 
@@ -3618,23 +3620,23 @@ pub struct xcb_copy_area_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The source drawable (Window or Pixmap).
+    /// The source drawable (Window or Pixmap).
     pub src_drawable: xcb_drawable_t,
-/// The destination drawable (Window or Pixmap).
+    /// The destination drawable (Window or Pixmap).
     pub dst_drawable: xcb_drawable_t,
-/// The graphics context to use.
+    /// The graphics context to use.
     pub gc: xcb_gcontext_t,
-/// The source X coordinate.
+    /// The source X coordinate.
     pub src_x: i16,
-/// The source Y coordinate.
+    /// The source Y coordinate.
     pub src_y: i16,
-/// The destination X coordinate.
+    /// The destination X coordinate.
     pub dst_x: i16,
-/// The destination Y coordinate.
+    /// The destination Y coordinate.
     pub dst_y: i16,
-/// The width of the area to copy (in pixels).
+    /// The width of the area to copy (in pixels).
     pub width: u16,
-/// The height of the area to copy (in pixels).
+    /// The height of the area to copy (in pixels).
     pub height: u16,
 }
 
@@ -3692,12 +3694,12 @@ pub const XCB_POLY_LINE: u8 = 65;
 #[repr(C)]
 pub struct xcb_poly_line_request_t {
     pub major_opcode: u8,
-///
+    ///
     pub coordinate_mode: u8,
     pub length: u16,
-/// The drawable to draw the line(s) on.
+    /// The drawable to draw the line(s) on.
     pub drawable: xcb_drawable_t,
-/// The graphics context to use.
+    /// The graphics context to use.
     pub gc: xcb_gcontext_t,
 }
 
@@ -3713,8 +3715,8 @@ pub struct xcb_segment_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_segment_iterator_t {
-    pub data:  *mut xcb_segment_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_segment_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -3737,11 +3739,11 @@ pub struct xcb_poly_segment_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// A drawable (Window or Pixmap) to draw on.
+    /// A drawable (Window or Pixmap) to draw on.
     pub drawable: xcb_drawable_t,
-/// The graphics context to use.
-///
-/// TODO: document which attributes of a gc are used
+    /// The graphics context to use.
+    ///
+    /// TODO: document which attributes of a gc are used
     pub gc: xcb_gcontext_t,
 }
 
@@ -3802,16 +3804,16 @@ pub struct xcb_poly_fill_rectangle_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The drawable (Window or Pixmap) to draw on.
+    /// The drawable (Window or Pixmap) to draw on.
     pub drawable: xcb_drawable_t,
-/// The graphics context to use.
-///
-/// The following graphics context components are used: function, plane-mask,
-/// fill-style, subwindow-mode, clip-x-origin, clip-y-origin, and clip-mask.
-///
-/// The following graphics context mode-dependent components are used:
-/// foreground, background, tile, stipple, tile-stipple-x-origin, and
-/// tile-stipple-y-origin.
+    /// The graphics context to use.
+    ///
+    /// The following graphics context components are used: function, plane-mask,
+    /// fill-style, subwindow-mode, clip-x-origin, clip-y-origin, and clip-mask.
+    ///
+    /// The following graphics context mode-dependent components are used:
+    /// foreground, background, tile, stipple, tile-stipple-x-origin, and
+    /// tile-stipple-y-origin.
     pub gc: xcb_gcontext_t,
 }
 
@@ -3928,20 +3930,20 @@ pub const XCB_IMAGE_TEXT_8: u8 = 76;
 #[repr(C)]
 pub struct xcb_image_text_8_request_t {
     pub major_opcode: u8,
-/// The length of the `string`. Note that this parameter limited by 255 due to
-/// using 8 bits!
+    /// The length of the `string`. Note that this parameter limited by 255 due to
+    /// using 8 bits!
     pub string_len: u8,
     pub length: u16,
-/// The drawable (Window or Pixmap) to draw text on.
+    /// The drawable (Window or Pixmap) to draw text on.
     pub drawable: xcb_drawable_t,
-/// The graphics context to use.
-///
-/// The following graphics context components are used: plane-mask, foreground,
-/// background, font, subwindow-mode, clip-x-origin, clip-y-origin, and clip-mask.
+    /// The graphics context to use.
+    ///
+    /// The following graphics context components are used: plane-mask, foreground,
+    /// background, font, subwindow-mode, clip-x-origin, clip-y-origin, and clip-mask.
     pub gc: xcb_gcontext_t,
-/// The x coordinate of the first character, relative to the origin of `drawable`.
+    /// The x coordinate of the first character, relative to the origin of `drawable`.
     pub x: i16,
-/// The y coordinate of the first character, relative to the origin of `drawable`.
+    /// The y coordinate of the first character, relative to the origin of `drawable`.
     pub y: i16,
 }
 
@@ -3961,20 +3963,20 @@ pub const XCB_IMAGE_TEXT_16: u8 = 77;
 #[repr(C)]
 pub struct xcb_image_text_16_request_t {
     pub major_opcode: u8,
-/// The length of the `string` in characters. Note that this parameter limited by
-/// 255 due to using 8 bits!
+    /// The length of the `string` in characters. Note that this parameter limited by
+    /// 255 due to using 8 bits!
     pub string_len: u8,
     pub length: u16,
-/// The drawable (Window or Pixmap) to draw text on.
+    /// The drawable (Window or Pixmap) to draw text on.
     pub drawable: xcb_drawable_t,
-/// The graphics context to use.
-///
-/// The following graphics context components are used: plane-mask, foreground,
-/// background, font, subwindow-mode, clip-x-origin, clip-y-origin, and clip-mask.
+    /// The graphics context to use.
+    ///
+    /// The following graphics context components are used: plane-mask, foreground,
+    /// background, font, subwindow-mode, clip-x-origin, clip-y-origin, and clip-mask.
     pub gc: xcb_gcontext_t,
-/// The x coordinate of the first character, relative to the origin of `drawable`.
+    /// The x coordinate of the first character, relative to the origin of `drawable`.
     pub x: i16,
-/// The y coordinate of the first character, relative to the origin of `drawable`.
+    /// The y coordinate of the first character, relative to the origin of `drawable`.
     pub y: i16,
 }
 
@@ -4083,13 +4085,13 @@ pub struct xcb_alloc_color_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// TODO
+    /// TODO
     pub cmap: xcb_colormap_t,
-/// The red value of your color.
+    /// The red value of your color.
     pub red: u16,
-/// The green value of your color.
+    /// The green value of your color.
     pub green: u16,
-/// The blue value of your color.
+    /// The blue value of your color.
     pub blue: u16,
     pub pad1: [u8; 2],
 }
@@ -4247,8 +4249,8 @@ pub struct xcb_coloritem_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_coloritem_iterator_t {
-    pub data:  *mut xcb_coloritem_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_coloritem_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -4289,8 +4291,8 @@ pub struct xcb_rgb_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_rgb_iterator_t {
-    pub data:  *mut xcb_rgb_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_rgb_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -4402,29 +4404,29 @@ pub struct xcb_create_glyph_cursor_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The ID with which you will refer to the cursor, created by `xcb_generate_id`.
+    /// The ID with which you will refer to the cursor, created by `xcb_generate_id`.
     pub cid: xcb_cursor_t,
-/// In which font to look for the cursor glyph.
+    /// In which font to look for the cursor glyph.
     pub source_font: xcb_font_t,
-/// In which font to look for the mask glyph.
+    /// In which font to look for the mask glyph.
     pub mask_font: xcb_font_t,
-/// The glyph of `source_font` to use.
+    /// The glyph of `source_font` to use.
     pub source_char: u16,
-/// The glyph of `mask_font` to use as a mask: Pixels which are set to 1 define
-/// which source pixels are displayed. All pixels which are set to 0 are not
-/// displayed.
+    /// The glyph of `mask_font` to use as a mask: Pixels which are set to 1 define
+    /// which source pixels are displayed. All pixels which are set to 0 are not
+    /// displayed.
     pub mask_char: u16,
-/// The red value of the foreground color.
+    /// The red value of the foreground color.
     pub fore_red: u16,
-/// The green value of the foreground color.
+    /// The green value of the foreground color.
     pub fore_green: u16,
-/// The blue value of the foreground color.
+    /// The blue value of the foreground color.
     pub fore_blue: u16,
-/// The red value of the background color.
+    /// The red value of the background color.
     pub back_red: u16,
-/// The green value of the background color.
+    /// The green value of the background color.
     pub back_green: u16,
-/// The blue value of the background color.
+    /// The blue value of the background color.
     pub back_blue: u16,
 }
 
@@ -4440,7 +4442,7 @@ pub struct xcb_free_cursor_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The cursor to destroy.
+    /// The cursor to destroy.
     pub cursor: xcb_cursor_t,
 }
 
@@ -4515,7 +4517,7 @@ pub struct xcb_query_extension_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// The length of `name` in bytes.
+    /// The length of `name` in bytes.
     pub name_len: u16,
     pub pad1: [u8; 2],
 }
@@ -4533,13 +4535,13 @@ pub struct xcb_query_extension_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-/// Whether the extension is present on this X11 server.
+    /// Whether the extension is present on this X11 server.
     pub present: u8,
-/// The major opcode for requests.
+    /// The major opcode for requests.
     pub major_opcode: u8,
-/// The first event code, if any.
+    /// The first event code, if any.
     pub first_event: u8,
-/// The first error code, if any.
+    /// The first error code, if any.
     pub first_error: u8,
 }
 
@@ -4815,8 +4817,8 @@ pub struct xcb_host_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_host_iterator_t<'a> {
-    pub data:  *mut xcb_host_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_host_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_host_t>,
 }
@@ -4891,11 +4893,11 @@ pub struct xcb_kill_client_request_t {
     pub major_opcode: u8,
     pub pad0: u8,
     pub length: u16,
-/// Any resource belonging to the client (for example a Window), used to identify
-/// the client connection.
-///
-/// The special value of `XCB_KILL_ALL_TEMPORARY`, the resources of all clients
-/// that have terminated in `RetainTemporary` (TODO) are destroyed.
+    /// Any resource belonging to the client (for example a Window), used to identify
+    /// the client connection.
+    ///
+    /// The special value of `XCB_KILL_ALL_TEMPORARY`, the resources of all clients
+    /// that have terminated in `RetainTemporary` (TODO) are destroyed.
     pub resource: u32,
 }
 
@@ -5054,183 +5056,203 @@ pub struct xcb_no_operation_request_t {
 }
 
 #[link(name = "xcb")]
-extern {
+extern "C" {
 
-pub fn xcb_char2b_next(i: *mut xcb_char2b_iterator_t);
+    pub fn xcb_char2b_next(i: *mut xcb_char2b_iterator_t);
 
-pub fn xcb_char2b_end(i: *mut xcb_char2b_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_char2b_end(i: *mut xcb_char2b_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_window_next(i: *mut xcb_window_iterator_t);
+    pub fn xcb_window_next(i: *mut xcb_window_iterator_t);
 
-pub fn xcb_window_end(i: *mut xcb_window_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_window_end(i: *mut xcb_window_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_pixmap_next(i: *mut xcb_pixmap_iterator_t);
+    pub fn xcb_pixmap_next(i: *mut xcb_pixmap_iterator_t);
 
-pub fn xcb_pixmap_end(i: *mut xcb_pixmap_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_pixmap_end(i: *mut xcb_pixmap_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_cursor_next(i: *mut xcb_cursor_iterator_t);
+    pub fn xcb_cursor_next(i: *mut xcb_cursor_iterator_t);
 
-pub fn xcb_cursor_end(i: *mut xcb_cursor_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_cursor_end(i: *mut xcb_cursor_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_font_next(i: *mut xcb_font_iterator_t);
+    pub fn xcb_font_next(i: *mut xcb_font_iterator_t);
 
-pub fn xcb_font_end(i: *mut xcb_font_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_font_end(i: *mut xcb_font_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_gcontext_next(i: *mut xcb_gcontext_iterator_t);
+    pub fn xcb_gcontext_next(i: *mut xcb_gcontext_iterator_t);
 
-pub fn xcb_gcontext_end(i: *mut xcb_gcontext_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_gcontext_end(i: *mut xcb_gcontext_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_colormap_next(i: *mut xcb_colormap_iterator_t);
+    pub fn xcb_colormap_next(i: *mut xcb_colormap_iterator_t);
 
-pub fn xcb_colormap_end(i: *mut xcb_colormap_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_colormap_end(i: *mut xcb_colormap_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_atom_next(i: *mut xcb_atom_iterator_t);
+    pub fn xcb_atom_next(i: *mut xcb_atom_iterator_t);
 
-pub fn xcb_atom_end(i: *mut xcb_atom_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_atom_end(i: *mut xcb_atom_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_drawable_next(i: *mut xcb_drawable_iterator_t);
+    pub fn xcb_drawable_next(i: *mut xcb_drawable_iterator_t);
 
-pub fn xcb_drawable_end(i: *mut xcb_drawable_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_drawable_end(i: *mut xcb_drawable_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_fontable_next(i: *mut xcb_fontable_iterator_t);
+    pub fn xcb_fontable_next(i: *mut xcb_fontable_iterator_t);
 
-pub fn xcb_fontable_end(i: *mut xcb_fontable_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_fontable_end(i: *mut xcb_fontable_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_visualid_next(i: *mut xcb_visualid_iterator_t);
+    pub fn xcb_visualid_next(i: *mut xcb_visualid_iterator_t);
 
-pub fn xcb_visualid_end(i: *mut xcb_visualid_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_visualid_end(i: *mut xcb_visualid_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_timestamp_next(i: *mut xcb_timestamp_iterator_t);
+    pub fn xcb_timestamp_next(i: *mut xcb_timestamp_iterator_t);
 
-pub fn xcb_timestamp_end(i: *mut xcb_timestamp_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_timestamp_end(i: *mut xcb_timestamp_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_keysym_next(i: *mut xcb_keysym_iterator_t);
+    pub fn xcb_keysym_next(i: *mut xcb_keysym_iterator_t);
 
-pub fn xcb_keysym_end(i: *mut xcb_keysym_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_keysym_end(i: *mut xcb_keysym_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_keycode_next(i: *mut xcb_keycode_iterator_t);
+    pub fn xcb_keycode_next(i: *mut xcb_keycode_iterator_t);
 
-pub fn xcb_keycode_end(i: *mut xcb_keycode_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_keycode_end(i: *mut xcb_keycode_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_button_next(i: *mut xcb_button_iterator_t);
+    pub fn xcb_button_next(i: *mut xcb_button_iterator_t);
 
-pub fn xcb_button_end(i: *mut xcb_button_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_button_end(i: *mut xcb_button_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_point_next(i: *mut xcb_point_iterator_t);
+    pub fn xcb_point_next(i: *mut xcb_point_iterator_t);
 
-pub fn xcb_point_end(i: *mut xcb_point_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_point_end(i: *mut xcb_point_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_rectangle_next(i: *mut xcb_rectangle_iterator_t);
+    pub fn xcb_rectangle_next(i: *mut xcb_rectangle_iterator_t);
 
-pub fn xcb_rectangle_end(i: *mut xcb_rectangle_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_rectangle_end(i: *mut xcb_rectangle_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_arc_next(i: *mut xcb_arc_iterator_t);
+    pub fn xcb_arc_next(i: *mut xcb_arc_iterator_t);
 
-pub fn xcb_arc_end(i: *mut xcb_arc_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_arc_end(i: *mut xcb_arc_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_format_next(i: *mut xcb_format_iterator_t);
+    pub fn xcb_format_next(i: *mut xcb_format_iterator_t);
 
-pub fn xcb_format_end(i: *mut xcb_format_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_format_end(i: *mut xcb_format_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_visualtype_next(i: *mut xcb_visualtype_iterator_t);
+    pub fn xcb_visualtype_next(i: *mut xcb_visualtype_iterator_t);
 
-pub fn xcb_visualtype_end(i: *mut xcb_visualtype_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_visualtype_end(i: *mut xcb_visualtype_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_depth_visuals(R: *const xcb_depth_t) -> *mut xcb_visualtype_t;
+    pub fn xcb_depth_visuals(R: *const xcb_depth_t) -> *mut xcb_visualtype_t;
 
-pub fn xcb_depth_visuals_length(R: *const xcb_depth_t) -> c_int;
+    pub fn xcb_depth_visuals_length(R: *const xcb_depth_t) -> c_int;
 
-pub fn xcb_depth_visuals_iterator(R: *const xcb_depth_t) -> xcb_visualtype_iterator_t;
+    pub fn xcb_depth_visuals_iterator(R: *const xcb_depth_t) -> xcb_visualtype_iterator_t;
 
-pub fn xcb_depth_next(i: *mut xcb_depth_iterator_t);
+    pub fn xcb_depth_next(i: *mut xcb_depth_iterator_t);
 
-pub fn xcb_depth_end(i: *mut xcb_depth_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_depth_end(i: *mut xcb_depth_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_screen_allowed_depths_length(R: *const xcb_screen_t) -> c_int;
+    pub fn xcb_screen_allowed_depths_length(R: *const xcb_screen_t) -> c_int;
 
-pub fn xcb_screen_allowed_depths_iterator<'a>(R: *const xcb_screen_t) -> xcb_depth_iterator_t<'a>;
+    pub fn xcb_screen_allowed_depths_iterator<'a>(
+        R: *const xcb_screen_t,
+    ) -> xcb_depth_iterator_t<'a>;
 
-pub fn xcb_screen_next(i: *mut xcb_screen_iterator_t);
+    pub fn xcb_screen_next(i: *mut xcb_screen_iterator_t);
 
-pub fn xcb_screen_end(i: *mut xcb_screen_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_screen_end(i: *mut xcb_screen_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_setup_request_authorization_protocol_name(R: *const xcb_setup_request_t) -> *mut c_char;
+    pub fn xcb_setup_request_authorization_protocol_name(
+        R: *const xcb_setup_request_t,
+    ) -> *mut c_char;
 
-pub fn xcb_setup_request_authorization_protocol_name_length(R: *const xcb_setup_request_t) -> c_int;
+    pub fn xcb_setup_request_authorization_protocol_name_length(
+        R: *const xcb_setup_request_t,
+    ) -> c_int;
 
-pub fn xcb_setup_request_authorization_protocol_name_end(R: *const xcb_setup_request_t) -> xcb_generic_iterator_t;
+    pub fn xcb_setup_request_authorization_protocol_name_end(
+        R: *const xcb_setup_request_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_setup_request_authorization_protocol_data(R: *const xcb_setup_request_t) -> *mut c_char;
+    pub fn xcb_setup_request_authorization_protocol_data(
+        R: *const xcb_setup_request_t,
+    ) -> *mut c_char;
 
-pub fn xcb_setup_request_authorization_protocol_data_length(R: *const xcb_setup_request_t) -> c_int;
+    pub fn xcb_setup_request_authorization_protocol_data_length(
+        R: *const xcb_setup_request_t,
+    ) -> c_int;
 
-pub fn xcb_setup_request_authorization_protocol_data_end(R: *const xcb_setup_request_t) -> xcb_generic_iterator_t;
+    pub fn xcb_setup_request_authorization_protocol_data_end(
+        R: *const xcb_setup_request_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_setup_request_next(i: *mut xcb_setup_request_iterator_t);
+    pub fn xcb_setup_request_next(i: *mut xcb_setup_request_iterator_t);
 
-pub fn xcb_setup_request_end(i: *mut xcb_setup_request_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_setup_request_end(i: *mut xcb_setup_request_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_setup_failed_reason(R: *const xcb_setup_failed_t) -> *mut c_char;
+    pub fn xcb_setup_failed_reason(R: *const xcb_setup_failed_t) -> *mut c_char;
 
-pub fn xcb_setup_failed_reason_length(R: *const xcb_setup_failed_t) -> c_int;
+    pub fn xcb_setup_failed_reason_length(R: *const xcb_setup_failed_t) -> c_int;
 
-pub fn xcb_setup_failed_reason_end(R: *const xcb_setup_failed_t) -> xcb_generic_iterator_t;
+    pub fn xcb_setup_failed_reason_end(R: *const xcb_setup_failed_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_setup_failed_next(i: *mut xcb_setup_failed_iterator_t);
+    pub fn xcb_setup_failed_next(i: *mut xcb_setup_failed_iterator_t);
 
-pub fn xcb_setup_failed_end(i: *mut xcb_setup_failed_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_setup_failed_end(i: *mut xcb_setup_failed_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_setup_authenticate_reason(R: *const xcb_setup_authenticate_t) -> *mut c_char;
+    pub fn xcb_setup_authenticate_reason(R: *const xcb_setup_authenticate_t) -> *mut c_char;
 
-pub fn xcb_setup_authenticate_reason_length(R: *const xcb_setup_authenticate_t) -> c_int;
+    pub fn xcb_setup_authenticate_reason_length(R: *const xcb_setup_authenticate_t) -> c_int;
 
-pub fn xcb_setup_authenticate_reason_end(R: *const xcb_setup_authenticate_t) -> xcb_generic_iterator_t;
+    pub fn xcb_setup_authenticate_reason_end(
+        R: *const xcb_setup_authenticate_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_setup_authenticate_next(i: *mut xcb_setup_authenticate_iterator_t);
+    pub fn xcb_setup_authenticate_next(i: *mut xcb_setup_authenticate_iterator_t);
 
-pub fn xcb_setup_authenticate_end(i: *mut xcb_setup_authenticate_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_setup_authenticate_end(
+        i: *mut xcb_setup_authenticate_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_setup_vendor(R: *const xcb_setup_t) -> *mut c_char;
+    pub fn xcb_setup_vendor(R: *const xcb_setup_t) -> *mut c_char;
 
-pub fn xcb_setup_vendor_length(R: *const xcb_setup_t) -> c_int;
+    pub fn xcb_setup_vendor_length(R: *const xcb_setup_t) -> c_int;
 
-pub fn xcb_setup_vendor_end(R: *const xcb_setup_t) -> xcb_generic_iterator_t;
+    pub fn xcb_setup_vendor_end(R: *const xcb_setup_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_setup_pixmap_formats(R: *const xcb_setup_t) -> *mut xcb_format_t;
+    pub fn xcb_setup_pixmap_formats(R: *const xcb_setup_t) -> *mut xcb_format_t;
 
-pub fn xcb_setup_pixmap_formats_length(R: *const xcb_setup_t) -> c_int;
+    pub fn xcb_setup_pixmap_formats_length(R: *const xcb_setup_t) -> c_int;
 
-pub fn xcb_setup_pixmap_formats_iterator(R: *const xcb_setup_t) -> xcb_format_iterator_t;
+    pub fn xcb_setup_pixmap_formats_iterator(R: *const xcb_setup_t) -> xcb_format_iterator_t;
 
-pub fn xcb_setup_roots_length(R: *const xcb_setup_t) -> c_int;
+    pub fn xcb_setup_roots_length(R: *const xcb_setup_t) -> c_int;
 
-pub fn xcb_setup_roots_iterator<'a>(R: *const xcb_setup_t) -> xcb_screen_iterator_t<'a>;
+    pub fn xcb_setup_roots_iterator<'a>(R: *const xcb_setup_t) -> xcb_screen_iterator_t<'a>;
 
-pub fn xcb_setup_next(i: *mut xcb_setup_iterator_t);
+    pub fn xcb_setup_next(i: *mut xcb_setup_iterator_t);
 
-pub fn xcb_setup_end(i: *mut xcb_setup_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_setup_end(i: *mut xcb_setup_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_client_message_data_next(i: *mut xcb_client_message_data_iterator_t);
+    pub fn xcb_client_message_data_next(i: *mut xcb_client_message_data_iterator_t);
 
-pub fn xcb_client_message_data_end(i: *mut xcb_client_message_data_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_client_message_data_end(
+        i: *mut xcb_client_message_data_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-/// Creates a window
-///
-/// Creates an unmapped window as child of the specified `parent` window. A
-/// CreateNotify event will be generated. The new window is placed on top in the
-/// stacking order with respect to siblings.
-///
-/// The coordinate system has the X axis horizontal and the Y axis vertical with
-/// the origin [0, 0] at the upper-left corner. Coordinates are integral, in terms
-/// of pixels, and coincide with pixel centers. Each window and pixmap has its own
-/// coordinate system. For a window, the origin is inside the border at the inside,
-/// upper-left corner.
-///
-/// The created window is not yet displayed (mapped), call `xcb_map_window` to
-/// display it.
-///
-/// The created window will initially use the same cursor as its parent.
-    pub fn xcb_create_window (
+    /// Creates a window
+    ///
+    /// Creates an unmapped window as child of the specified `parent` window. A
+    /// CreateNotify event will be generated. The new window is placed on top in the
+    /// stacking order with respect to siblings.
+    ///
+    /// The coordinate system has the X axis horizontal and the Y axis vertical with
+    /// the origin [0, 0] at the upper-left corner. Coordinates are integral, in terms
+    /// of pixels, and coincide with pixel centers. Each window and pixmap has its own
+    /// coordinate system. For a window, the origin is inside the border at the inside,
+    /// upper-left corner.
+    ///
+    /// The created window is not yet displayed (mapped), call `xcb_map_window` to
+    /// display it.
+    ///
+    /// The created window will initially use the same cursor as its parent.
+    pub fn xcb_create_window(
         c: *mut xcb_connection_t,
         depth: u8,
         wid: xcb_window_t,
@@ -5246,23 +5268,23 @@ pub fn xcb_client_message_data_end(i: *mut xcb_client_message_data_iterator_t) -
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-/// Creates a window
-///
-/// Creates an unmapped window as child of the specified `parent` window. A
-/// CreateNotify event will be generated. The new window is placed on top in the
-/// stacking order with respect to siblings.
-///
-/// The coordinate system has the X axis horizontal and the Y axis vertical with
-/// the origin [0, 0] at the upper-left corner. Coordinates are integral, in terms
-/// of pixels, and coincide with pixel centers. Each window and pixmap has its own
-/// coordinate system. For a window, the origin is inside the border at the inside,
-/// upper-left corner.
-///
-/// The created window is not yet displayed (mapped), call `xcb_map_window` to
-/// display it.
-///
-/// The created window will initially use the same cursor as its parent.
-    pub fn xcb_create_window_checked (
+    /// Creates a window
+    ///
+    /// Creates an unmapped window as child of the specified `parent` window. A
+    /// CreateNotify event will be generated. The new window is placed on top in the
+    /// stacking order with respect to siblings.
+    ///
+    /// The coordinate system has the X axis horizontal and the Y axis vertical with
+    /// the origin [0, 0] at the upper-left corner. Coordinates are integral, in terms
+    /// of pixels, and coincide with pixel centers. Each window and pixmap has its own
+    /// coordinate system. For a window, the origin is inside the border at the inside,
+    /// upper-left corner.
+    ///
+    /// The created window is not yet displayed (mapped), call `xcb_map_window` to
+    /// display it.
+    ///
+    /// The created window will initially use the same cursor as its parent.
+    pub fn xcb_create_window_checked(
         c: *mut xcb_connection_t,
         depth: u8,
         wid: xcb_window_t,
@@ -5278,20 +5300,20 @@ pub fn xcb_client_message_data_end(i: *mut xcb_client_message_data_iterator_t) -
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-/// change window attributes
-///
-/// Changes the attributes specified by `value_mask` for the specified `window`.
-    pub fn xcb_change_window_attributes (
+    /// change window attributes
+    ///
+    /// Changes the attributes specified by `value_mask` for the specified `window`.
+    pub fn xcb_change_window_attributes(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         value_mask: u32,
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-/// change window attributes
-///
-/// Changes the attributes specified by `value_mask` for the specified `window`.
-    pub fn xcb_change_window_attributes_checked (
+    /// change window attributes
+    ///
+    /// Changes the attributes specified by `value_mask` for the specified `window`.
+    pub fn xcb_change_window_attributes_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         value_mask: u32,
@@ -5299,97 +5321,94 @@ pub fn xcb_client_message_data_end(i: *mut xcb_client_message_data_iterator_t) -
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_window_attributes_reply (
+    pub fn xcb_get_window_attributes_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_window_attributes_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_window_attributes_reply_t;
 
-/// Gets window attributes
-///
-/// Gets the current attributes for the specified `window`.
-    pub fn xcb_get_window_attributes (
+    /// Gets window attributes
+    ///
+    /// Gets the current attributes for the specified `window`.
+    pub fn xcb_get_window_attributes(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_get_window_attributes_cookie_t;
 
-/// Gets window attributes
-///
-/// Gets the current attributes for the specified `window`.
-    pub fn xcb_get_window_attributes_unchecked (
+    /// Gets window attributes
+    ///
+    /// Gets the current attributes for the specified `window`.
+    pub fn xcb_get_window_attributes_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_get_window_attributes_cookie_t;
 
-/// Destroys a window
-///
-/// Destroys the specified window and all of its subwindows. A DestroyNotify event
-/// is generated for each destroyed window (a DestroyNotify event is first generated
-/// for any given window's inferiors). If the window was mapped, it will be
-/// automatically unmapped before destroying.
-///
-/// Calling DestroyWindow on the root window will do nothing.
-    pub fn xcb_destroy_window (
+    /// Destroys a window
+    ///
+    /// Destroys the specified window and all of its subwindows. A DestroyNotify event
+    /// is generated for each destroyed window (a DestroyNotify event is first generated
+    /// for any given window's inferiors). If the window was mapped, it will be
+    /// automatically unmapped before destroying.
+    ///
+    /// Calling DestroyWindow on the root window will do nothing.
+    pub fn xcb_destroy_window(c: *mut xcb_connection_t, window: xcb_window_t) -> xcb_void_cookie_t;
+
+    /// Destroys a window
+    ///
+    /// Destroys the specified window and all of its subwindows. A DestroyNotify event
+    /// is generated for each destroyed window (a DestroyNotify event is first generated
+    /// for any given window's inferiors). If the window was mapped, it will be
+    /// automatically unmapped before destroying.
+    ///
+    /// Calling DestroyWindow on the root window will do nothing.
+    pub fn xcb_destroy_window_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-/// Destroys a window
-///
-/// Destroys the specified window and all of its subwindows. A DestroyNotify event
-/// is generated for each destroyed window (a DestroyNotify event is first generated
-/// for any given window's inferiors). If the window was mapped, it will be
-/// automatically unmapped before destroying.
-///
-/// Calling DestroyWindow on the root window will do nothing.
-    pub fn xcb_destroy_window_checked (
+    pub fn xcb_destroy_subwindows(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_destroy_subwindows (
+    pub fn xcb_destroy_subwindows_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_destroy_subwindows_checked (
-        c: *mut xcb_connection_t,
-        window: xcb_window_t,
-    ) -> xcb_void_cookie_t;
-
-/// Changes a client's save set
-///
-/// TODO: explain what the save set is for.
-///
-/// This function either adds or removes the specified window to the client's (your
-/// application's) save set.
-    pub fn xcb_change_save_set (
+    /// Changes a client's save set
+    ///
+    /// TODO: explain what the save set is for.
+    ///
+    /// This function either adds or removes the specified window to the client's (your
+    /// application's) save set.
+    pub fn xcb_change_save_set(
         c: *mut xcb_connection_t,
         mode: u8,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-/// Changes a client's save set
-///
-/// TODO: explain what the save set is for.
-///
-/// This function either adds or removes the specified window to the client's (your
-/// application's) save set.
-    pub fn xcb_change_save_set_checked (
+    /// Changes a client's save set
+    ///
+    /// TODO: explain what the save set is for.
+    ///
+    /// This function either adds or removes the specified window to the client's (your
+    /// application's) save set.
+    pub fn xcb_change_save_set_checked(
         c: *mut xcb_connection_t,
         mode: u8,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-/// Reparents a window
-///
-/// Makes the specified window a child of the specified parent window. If the
-/// window is mapped, it will automatically be unmapped before reparenting and
-/// re-mapped after reparenting. The window is placed in the stacking order on top
-/// with respect to sibling windows.
-///
-/// After reparenting, a ReparentNotify event is generated.
-    pub fn xcb_reparent_window (
+    /// Reparents a window
+    ///
+    /// Makes the specified window a child of the specified parent window. If the
+    /// window is mapped, it will automatically be unmapped before reparenting and
+    /// re-mapped after reparenting. The window is placed in the stacking order on top
+    /// with respect to sibling windows.
+    ///
+    /// After reparenting, a ReparentNotify event is generated.
+    pub fn xcb_reparent_window(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         parent: xcb_window_t,
@@ -5397,15 +5416,15 @@ pub fn xcb_client_message_data_end(i: *mut xcb_client_message_data_iterator_t) -
         y: i16,
     ) -> xcb_void_cookie_t;
 
-/// Reparents a window
-///
-/// Makes the specified window a child of the specified parent window. If the
-/// window is mapped, it will automatically be unmapped before reparenting and
-/// re-mapped after reparenting. The window is placed in the stacking order on top
-/// with respect to sibling windows.
-///
-/// After reparenting, a ReparentNotify event is generated.
-    pub fn xcb_reparent_window_checked (
+    /// Reparents a window
+    ///
+    /// Makes the specified window a child of the specified parent window. If the
+    /// window is mapped, it will automatically be unmapped before reparenting and
+    /// re-mapped after reparenting. The window is placed in the stacking order on top
+    /// with respect to sibling windows.
+    ///
+    /// After reparenting, a ReparentNotify event is generated.
+    pub fn xcb_reparent_window_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         parent: xcb_window_t,
@@ -5413,271 +5432,264 @@ pub fn xcb_client_message_data_end(i: *mut xcb_client_message_data_iterator_t) -
         y: i16,
     ) -> xcb_void_cookie_t;
 
-/// Makes a window visible
-///
-/// Maps the specified window. This means making the window visible (as long as its
-/// parent is visible).
-///
-/// This MapWindow request will be translated to a MapRequest request if a window
-/// manager is running. The window manager then decides to either map the window or
-/// not. Set the override-redirect window attribute to true if you want to bypass
-/// this mechanism.
-///
-/// If the window manager decides to map the window (or if no window manager is
-/// running), a MapNotify event is generated.
-///
-/// If the window becomes viewable and no earlier contents for it are remembered,
-/// the X server tiles the window with its background. If the window's background
-/// is undefined, the existing screen contents are not altered, and the X server
-/// generates zero or more Expose events.
-///
-/// If the window type is InputOutput, an Expose event will be generated when the
-/// window becomes visible. The normal response to an Expose event should be to
-/// repaint the window.
-    pub fn xcb_map_window (
+    /// Makes a window visible
+    ///
+    /// Maps the specified window. This means making the window visible (as long as its
+    /// parent is visible).
+    ///
+    /// This MapWindow request will be translated to a MapRequest request if a window
+    /// manager is running. The window manager then decides to either map the window or
+    /// not. Set the override-redirect window attribute to true if you want to bypass
+    /// this mechanism.
+    ///
+    /// If the window manager decides to map the window (or if no window manager is
+    /// running), a MapNotify event is generated.
+    ///
+    /// If the window becomes viewable and no earlier contents for it are remembered,
+    /// the X server tiles the window with its background. If the window's background
+    /// is undefined, the existing screen contents are not altered, and the X server
+    /// generates zero or more Expose events.
+    ///
+    /// If the window type is InputOutput, an Expose event will be generated when the
+    /// window becomes visible. The normal response to an Expose event should be to
+    /// repaint the window.
+    pub fn xcb_map_window(c: *mut xcb_connection_t, window: xcb_window_t) -> xcb_void_cookie_t;
+
+    /// Makes a window visible
+    ///
+    /// Maps the specified window. This means making the window visible (as long as its
+    /// parent is visible).
+    ///
+    /// This MapWindow request will be translated to a MapRequest request if a window
+    /// manager is running. The window manager then decides to either map the window or
+    /// not. Set the override-redirect window attribute to true if you want to bypass
+    /// this mechanism.
+    ///
+    /// If the window manager decides to map the window (or if no window manager is
+    /// running), a MapNotify event is generated.
+    ///
+    /// If the window becomes viewable and no earlier contents for it are remembered,
+    /// the X server tiles the window with its background. If the window's background
+    /// is undefined, the existing screen contents are not altered, and the X server
+    /// generates zero or more Expose events.
+    ///
+    /// If the window type is InputOutput, an Expose event will be generated when the
+    /// window becomes visible. The normal response to an Expose event should be to
+    /// repaint the window.
+    pub fn xcb_map_window_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-/// Makes a window visible
-///
-/// Maps the specified window. This means making the window visible (as long as its
-/// parent is visible).
-///
-/// This MapWindow request will be translated to a MapRequest request if a window
-/// manager is running. The window manager then decides to either map the window or
-/// not. Set the override-redirect window attribute to true if you want to bypass
-/// this mechanism.
-///
-/// If the window manager decides to map the window (or if no window manager is
-/// running), a MapNotify event is generated.
-///
-/// If the window becomes viewable and no earlier contents for it are remembered,
-/// the X server tiles the window with its background. If the window's background
-/// is undefined, the existing screen contents are not altered, and the X server
-/// generates zero or more Expose events.
-///
-/// If the window type is InputOutput, an Expose event will be generated when the
-/// window becomes visible. The normal response to an Expose event should be to
-/// repaint the window.
-    pub fn xcb_map_window_checked (
+    pub fn xcb_map_subwindows(c: *mut xcb_connection_t, window: xcb_window_t) -> xcb_void_cookie_t;
+
+    pub fn xcb_map_subwindows_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_map_subwindows (
+    /// Makes a window invisible
+    ///
+    /// Unmaps the specified window. This means making the window invisible (and all
+    /// its child windows).
+    ///
+    /// Unmapping a window leads to the `UnmapNotify` event being generated. Also,
+    /// `Expose` events are generated for formerly obscured windows.
+    pub fn xcb_unmap_window(c: *mut xcb_connection_t, window: xcb_window_t) -> xcb_void_cookie_t;
+
+    /// Makes a window invisible
+    ///
+    /// Unmaps the specified window. This means making the window invisible (and all
+    /// its child windows).
+    ///
+    /// Unmapping a window leads to the `UnmapNotify` event being generated. Also,
+    /// `Expose` events are generated for formerly obscured windows.
+    pub fn xcb_unmap_window_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_map_subwindows_checked (
+    pub fn xcb_unmap_subwindows(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-/// Makes a window invisible
-///
-/// Unmaps the specified window. This means making the window invisible (and all
-/// its child windows).
-///
-/// Unmapping a window leads to the `UnmapNotify` event being generated. Also,
-/// `Expose` events are generated for formerly obscured windows.
-    pub fn xcb_unmap_window (
+    pub fn xcb_unmap_subwindows_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-/// Makes a window invisible
-///
-/// Unmaps the specified window. This means making the window invisible (and all
-/// its child windows).
-///
-/// Unmapping a window leads to the `UnmapNotify` event being generated. Also,
-/// `Expose` events are generated for formerly obscured windows.
-    pub fn xcb_unmap_window_checked (
-        c: *mut xcb_connection_t,
-        window: xcb_window_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_unmap_subwindows (
-        c: *mut xcb_connection_t,
-        window: xcb_window_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_unmap_subwindows_checked (
-        c: *mut xcb_connection_t,
-        window: xcb_window_t,
-    ) -> xcb_void_cookie_t;
-
-/// Configures window attributes
-///
-/// Configures a window's size, position, border width and stacking order.
-    pub fn xcb_configure_window (
+    /// Configures window attributes
+    ///
+    /// Configures a window's size, position, border width and stacking order.
+    pub fn xcb_configure_window(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         value_mask: u16,
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-/// Configures window attributes
-///
-/// Configures a window's size, position, border width and stacking order.
-    pub fn xcb_configure_window_checked (
+    /// Configures window attributes
+    ///
+    /// Configures a window's size, position, border width and stacking order.
+    pub fn xcb_configure_window_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         value_mask: u16,
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-/// Change window stacking order
-///
-/// If `direction` is `XCB_CIRCULATE_RAISE_LOWEST`, the lowest mapped child (if
-/// any) will be raised to the top of the stack.
-///
-/// If `direction` is `XCB_CIRCULATE_LOWER_HIGHEST`, the highest mapped child will
-/// be lowered to the bottom of the stack.
-    pub fn xcb_circulate_window (
+    /// Change window stacking order
+    ///
+    /// If `direction` is `XCB_CIRCULATE_RAISE_LOWEST`, the lowest mapped child (if
+    /// any) will be raised to the top of the stack.
+    ///
+    /// If `direction` is `XCB_CIRCULATE_LOWER_HIGHEST`, the highest mapped child will
+    /// be lowered to the bottom of the stack.
+    pub fn xcb_circulate_window(
         c: *mut xcb_connection_t,
         direction: u8,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-/// Change window stacking order
-///
-/// If `direction` is `XCB_CIRCULATE_RAISE_LOWEST`, the lowest mapped child (if
-/// any) will be raised to the top of the stack.
-///
-/// If `direction` is `XCB_CIRCULATE_LOWER_HIGHEST`, the highest mapped child will
-/// be lowered to the bottom of the stack.
-    pub fn xcb_circulate_window_checked (
+    /// Change window stacking order
+    ///
+    /// If `direction` is `XCB_CIRCULATE_RAISE_LOWEST`, the lowest mapped child (if
+    /// any) will be raised to the top of the stack.
+    ///
+    /// If `direction` is `XCB_CIRCULATE_LOWER_HIGHEST`, the highest mapped child will
+    /// be lowered to the bottom of the stack.
+    pub fn xcb_circulate_window_checked(
         c: *mut xcb_connection_t,
         direction: u8,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_geometry_reply (
+    pub fn xcb_get_geometry_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_geometry_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_geometry_reply_t;
 
-/// Get current window geometry
-///
-/// Gets the current geometry of the specified drawable (either `Window` or `Pixmap`).
-    pub fn xcb_get_geometry (
+    /// Get current window geometry
+    ///
+    /// Gets the current geometry of the specified drawable (either `Window` or `Pixmap`).
+    pub fn xcb_get_geometry(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_get_geometry_cookie_t;
 
-/// Get current window geometry
-///
-/// Gets the current geometry of the specified drawable (either `Window` or `Pixmap`).
-    pub fn xcb_get_geometry_unchecked (
+    /// Get current window geometry
+    ///
+    /// Gets the current geometry of the specified drawable (either `Window` or `Pixmap`).
+    pub fn xcb_get_geometry_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_get_geometry_cookie_t;
 
-pub fn xcb_query_tree_children(R: *const xcb_query_tree_reply_t) -> *mut xcb_window_t;
+    pub fn xcb_query_tree_children(R: *const xcb_query_tree_reply_t) -> *mut xcb_window_t;
 
-pub fn xcb_query_tree_children_length(R: *const xcb_query_tree_reply_t) -> c_int;
+    pub fn xcb_query_tree_children_length(R: *const xcb_query_tree_reply_t) -> c_int;
 
-pub fn xcb_query_tree_children_end(R: *const xcb_query_tree_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_query_tree_children_end(R: *const xcb_query_tree_reply_t) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_query_tree_reply (
+    pub fn xcb_query_tree_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_query_tree_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_query_tree_reply_t;
 
-/// query the window tree
-///
-/// Gets the root window ID, parent window ID and list of children windows for the
-/// specified `window`. The children are listed in bottom-to-top stacking order.
-    pub fn xcb_query_tree (
+    /// query the window tree
+    ///
+    /// Gets the root window ID, parent window ID and list of children windows for the
+    /// specified `window`. The children are listed in bottom-to-top stacking order.
+    pub fn xcb_query_tree(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_query_tree_cookie_t;
 
-/// query the window tree
-///
-/// Gets the root window ID, parent window ID and list of children windows for the
-/// specified `window`. The children are listed in bottom-to-top stacking order.
-    pub fn xcb_query_tree_unchecked (
+    /// query the window tree
+    ///
+    /// Gets the root window ID, parent window ID and list of children windows for the
+    /// specified `window`. The children are listed in bottom-to-top stacking order.
+    pub fn xcb_query_tree_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_query_tree_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_intern_atom_reply (
+    pub fn xcb_intern_atom_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_intern_atom_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_intern_atom_reply_t;
 
-/// Get atom identifier by name
-///
-/// Retrieves the identifier (xcb_atom_t TODO) for the atom with the specified
-/// name. Atoms are used in protocols like EWMH, for example to store window titles
-/// (`_NET_WM_NAME` atom) as property of a window.
-///
-/// If `only_if_exists` is 0, the atom will be created if it does not already exist.
-/// If `only_if_exists` is 1, `XCB_ATOM_NONE` will be returned if the atom does
-/// not yet exist.
-    pub fn xcb_intern_atom (
+    /// Get atom identifier by name
+    ///
+    /// Retrieves the identifier (xcb_atom_t TODO) for the atom with the specified
+    /// name. Atoms are used in protocols like EWMH, for example to store window titles
+    /// (`_NET_WM_NAME` atom) as property of a window.
+    ///
+    /// If `only_if_exists` is 0, the atom will be created if it does not already exist.
+    /// If `only_if_exists` is 1, `XCB_ATOM_NONE` will be returned if the atom does
+    /// not yet exist.
+    pub fn xcb_intern_atom(
         c: *mut xcb_connection_t,
         only_if_exists: u8,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_intern_atom_cookie_t;
 
-/// Get atom identifier by name
-///
-/// Retrieves the identifier (xcb_atom_t TODO) for the atom with the specified
-/// name. Atoms are used in protocols like EWMH, for example to store window titles
-/// (`_NET_WM_NAME` atom) as property of a window.
-///
-/// If `only_if_exists` is 0, the atom will be created if it does not already exist.
-/// If `only_if_exists` is 1, `XCB_ATOM_NONE` will be returned if the atom does
-/// not yet exist.
-    pub fn xcb_intern_atom_unchecked (
+    /// Get atom identifier by name
+    ///
+    /// Retrieves the identifier (xcb_atom_t TODO) for the atom with the specified
+    /// name. Atoms are used in protocols like EWMH, for example to store window titles
+    /// (`_NET_WM_NAME` atom) as property of a window.
+    ///
+    /// If `only_if_exists` is 0, the atom will be created if it does not already exist.
+    /// If `only_if_exists` is 1, `XCB_ATOM_NONE` will be returned if the atom does
+    /// not yet exist.
+    pub fn xcb_intern_atom_unchecked(
         c: *mut xcb_connection_t,
         only_if_exists: u8,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_intern_atom_cookie_t;
 
-pub fn xcb_get_atom_name_name(R: *const xcb_get_atom_name_reply_t) -> *mut c_char;
+    pub fn xcb_get_atom_name_name(R: *const xcb_get_atom_name_reply_t) -> *mut c_char;
 
-pub fn xcb_get_atom_name_name_length(R: *const xcb_get_atom_name_reply_t) -> c_int;
+    pub fn xcb_get_atom_name_name_length(R: *const xcb_get_atom_name_reply_t) -> c_int;
 
-pub fn xcb_get_atom_name_name_end(R: *const xcb_get_atom_name_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_get_atom_name_name_end(
+        R: *const xcb_get_atom_name_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_atom_name_reply (
+    pub fn xcb_get_atom_name_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_atom_name_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_atom_name_reply_t;
 
-    pub fn xcb_get_atom_name (
+    pub fn xcb_get_atom_name(
         c: *mut xcb_connection_t,
         atom: xcb_atom_t,
     ) -> xcb_get_atom_name_cookie_t;
 
-    pub fn xcb_get_atom_name_unchecked (
+    pub fn xcb_get_atom_name_unchecked(
         c: *mut xcb_connection_t,
         atom: xcb_atom_t,
     ) -> xcb_get_atom_name_cookie_t;
 
-/// Changes a window property
-///
-/// Sets or updates a property on the specified `window`. Properties are for
-/// example the window title (`WM_NAME`) or its minimum size (`WM_NORMAL_HINTS`).
-/// Protocols such as EWMH also use properties - for example EWMH defines the
-/// window title, encoded as UTF-8 string, in the `_NET_WM_NAME` property.
-    pub fn xcb_change_property (
+    /// Changes a window property
+    ///
+    /// Sets or updates a property on the specified `window`. Properties are for
+    /// example the window title (`WM_NAME`) or its minimum size (`WM_NORMAL_HINTS`).
+    /// Protocols such as EWMH also use properties - for example EWMH defines the
+    /// window title, encoded as UTF-8 string, in the `_NET_WM_NAME` property.
+    pub fn xcb_change_property(
         c: *mut xcb_connection_t,
         mode: u8,
         window: xcb_window_t,
@@ -5688,13 +5700,13 @@ pub fn xcb_get_atom_name_name_end(R: *const xcb_get_atom_name_reply_t) -> xcb_ge
         data: *const c_void,
     ) -> xcb_void_cookie_t;
 
-/// Changes a window property
-///
-/// Sets or updates a property on the specified `window`. Properties are for
-/// example the window title (`WM_NAME`) or its minimum size (`WM_NORMAL_HINTS`).
-/// Protocols such as EWMH also use properties - for example EWMH defines the
-/// window title, encoded as UTF-8 string, in the `_NET_WM_NAME` property.
-    pub fn xcb_change_property_checked (
+    /// Changes a window property
+    ///
+    /// Sets or updates a property on the specified `window`. Properties are for
+    /// example the window title (`WM_NAME`) or its minimum size (`WM_NORMAL_HINTS`).
+    /// Protocols such as EWMH also use properties - for example EWMH defines the
+    /// window title, encoded as UTF-8 string, in the `_NET_WM_NAME` property.
+    pub fn xcb_change_property_checked(
         c: *mut xcb_connection_t,
         mode: u8,
         window: xcb_window_t,
@@ -5705,44 +5717,45 @@ pub fn xcb_get_atom_name_name_end(R: *const xcb_get_atom_name_reply_t) -> xcb_ge
         data: *const c_void,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_delete_property (
+    pub fn xcb_delete_property(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         property: xcb_atom_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_delete_property_checked (
+    pub fn xcb_delete_property_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         property: xcb_atom_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_get_property_value(R: *const xcb_get_property_reply_t) -> *mut c_void;
+    pub fn xcb_get_property_value(R: *const xcb_get_property_reply_t) -> *mut c_void;
 
-pub fn xcb_get_property_value_length(R: *const xcb_get_property_reply_t) -> c_int;
+    pub fn xcb_get_property_value_length(R: *const xcb_get_property_reply_t) -> c_int;
 
-pub fn xcb_get_property_value_end(R: *const xcb_get_property_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_get_property_value_end(R: *const xcb_get_property_reply_t)
+        -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_property_reply (
+    pub fn xcb_get_property_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_property_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_property_reply_t;
 
-/// Gets a window property
-///
-/// Gets the specified `property` from the specified `window`. Properties are for
-/// example the window title (`WM_NAME`) or its minimum size (`WM_NORMAL_HINTS`).
-/// Protocols such as EWMH also use properties - for example EWMH defines the
-/// window title, encoded as UTF-8 string, in the `_NET_WM_NAME` property.
-///
-/// TODO: talk about `type`
-///
-/// TODO: talk about `delete`
-///
-/// TODO: talk about the offset/length thing. what's a valid use case?
-    pub fn xcb_get_property (
+    /// Gets a window property
+    ///
+    /// Gets the specified `property` from the specified `window`. Properties are for
+    /// example the window title (`WM_NAME`) or its minimum size (`WM_NORMAL_HINTS`).
+    /// Protocols such as EWMH also use properties - for example EWMH defines the
+    /// window title, encoded as UTF-8 string, in the `_NET_WM_NAME` property.
+    ///
+    /// TODO: talk about `type`
+    ///
+    /// TODO: talk about `delete`
+    ///
+    /// TODO: talk about the offset/length thing. what's a valid use case?
+    pub fn xcb_get_property(
         c: *mut xcb_connection_t,
         delete: u8,
         window: xcb_window_t,
@@ -5752,19 +5765,19 @@ pub fn xcb_get_property_value_end(R: *const xcb_get_property_reply_t) -> xcb_gen
         long_length: u32,
     ) -> xcb_get_property_cookie_t;
 
-/// Gets a window property
-///
-/// Gets the specified `property` from the specified `window`. Properties are for
-/// example the window title (`WM_NAME`) or its minimum size (`WM_NORMAL_HINTS`).
-/// Protocols such as EWMH also use properties - for example EWMH defines the
-/// window title, encoded as UTF-8 string, in the `_NET_WM_NAME` property.
-///
-/// TODO: talk about `type`
-///
-/// TODO: talk about `delete`
-///
-/// TODO: talk about the offset/length thing. what's a valid use case?
-    pub fn xcb_get_property_unchecked (
+    /// Gets a window property
+    ///
+    /// Gets the specified `property` from the specified `window`. Properties are for
+    /// example the window title (`WM_NAME`) or its minimum size (`WM_NORMAL_HINTS`).
+    /// Protocols such as EWMH also use properties - for example EWMH defines the
+    /// window title, encoded as UTF-8 string, in the `_NET_WM_NAME` property.
+    ///
+    /// TODO: talk about `type`
+    ///
+    /// TODO: talk about `delete`
+    ///
+    /// TODO: talk about the offset/length thing. what's a valid use case?
+    pub fn xcb_get_property_unchecked(
         c: *mut xcb_connection_t,
         delete: u8,
         window: xcb_window_t,
@@ -5774,49 +5787,51 @@ pub fn xcb_get_property_value_end(R: *const xcb_get_property_reply_t) -> xcb_gen
         long_length: u32,
     ) -> xcb_get_property_cookie_t;
 
-pub fn xcb_list_properties_atoms(R: *const xcb_list_properties_reply_t) -> *mut xcb_atom_t;
+    pub fn xcb_list_properties_atoms(R: *const xcb_list_properties_reply_t) -> *mut xcb_atom_t;
 
-pub fn xcb_list_properties_atoms_length(R: *const xcb_list_properties_reply_t) -> c_int;
+    pub fn xcb_list_properties_atoms_length(R: *const xcb_list_properties_reply_t) -> c_int;
 
-pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_list_properties_atoms_end(
+        R: *const xcb_list_properties_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_list_properties_reply (
+    pub fn xcb_list_properties_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_list_properties_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_list_properties_reply_t;
 
-    pub fn xcb_list_properties (
+    pub fn xcb_list_properties(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_list_properties_cookie_t;
 
-    pub fn xcb_list_properties_unchecked (
+    pub fn xcb_list_properties_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_list_properties_cookie_t;
 
-/// Sets the owner of a selection
-///
-/// Makes `window` the owner of the selection `selection` and updates the
-/// last-change time of the specified selection.
-///
-/// TODO: briefly explain what a selection is.
-    pub fn xcb_set_selection_owner (
+    /// Sets the owner of a selection
+    ///
+    /// Makes `window` the owner of the selection `selection` and updates the
+    /// last-change time of the specified selection.
+    ///
+    /// TODO: briefly explain what a selection is.
+    pub fn xcb_set_selection_owner(
         c: *mut xcb_connection_t,
         owner: xcb_window_t,
         selection: xcb_atom_t,
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-/// Sets the owner of a selection
-///
-/// Makes `window` the owner of the selection `selection` and updates the
-/// last-change time of the specified selection.
-///
-/// TODO: briefly explain what a selection is.
-    pub fn xcb_set_selection_owner_checked (
+    /// Sets the owner of a selection
+    ///
+    /// Makes `window` the owner of the selection `selection` and updates the
+    /// last-change time of the specified selection.
+    ///
+    /// TODO: briefly explain what a selection is.
+    pub fn xcb_set_selection_owner_checked(
         c: *mut xcb_connection_t,
         owner: xcb_window_t,
         selection: xcb_atom_t,
@@ -5824,33 +5839,33 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_selection_owner_reply (
+    pub fn xcb_get_selection_owner_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_selection_owner_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_selection_owner_reply_t;
 
-/// Gets the owner of a selection
-///
-/// Gets the owner of the specified selection.
-///
-/// TODO: briefly explain what a selection is.
-    pub fn xcb_get_selection_owner (
+    /// Gets the owner of a selection
+    ///
+    /// Gets the owner of the specified selection.
+    ///
+    /// TODO: briefly explain what a selection is.
+    pub fn xcb_get_selection_owner(
         c: *mut xcb_connection_t,
         selection: xcb_atom_t,
     ) -> xcb_get_selection_owner_cookie_t;
 
-/// Gets the owner of a selection
-///
-/// Gets the owner of the specified selection.
-///
-/// TODO: briefly explain what a selection is.
-    pub fn xcb_get_selection_owner_unchecked (
+    /// Gets the owner of a selection
+    ///
+    /// Gets the owner of the specified selection.
+    ///
+    /// TODO: briefly explain what a selection is.
+    pub fn xcb_get_selection_owner_unchecked(
         c: *mut xcb_connection_t,
         selection: xcb_atom_t,
     ) -> xcb_get_selection_owner_cookie_t;
 
-    pub fn xcb_convert_selection (
+    pub fn xcb_convert_selection(
         c: *mut xcb_connection_t,
         requestor: xcb_window_t,
         selection: xcb_atom_t,
@@ -5859,7 +5874,7 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_convert_selection_checked (
+    pub fn xcb_convert_selection_checked(
         c: *mut xcb_connection_t,
         requestor: xcb_window_t,
         selection: xcb_atom_t,
@@ -5868,16 +5883,16 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-/// send an event
-///
-/// Identifies the `destination` window, determines which clients should receive
-/// the specified event and ignores any active grabs.
-///
-/// The `event` must be one of the core events or an event defined by an extension,
-/// so that the X server can correctly byte-swap the contents as necessary. The
-/// contents of `event` are otherwise unaltered and unchecked except for the
-/// `send_event` field which is forced to 'true'.
-    pub fn xcb_send_event (
+    /// send an event
+    ///
+    /// Identifies the `destination` window, determines which clients should receive
+    /// the specified event and ignores any active grabs.
+    ///
+    /// The `event` must be one of the core events or an event defined by an extension,
+    /// so that the X server can correctly byte-swap the contents as necessary. The
+    /// contents of `event` are otherwise unaltered and unchecked except for the
+    /// `send_event` field which is forced to 'true'.
+    pub fn xcb_send_event(
         c: *mut xcb_connection_t,
         propagate: u8,
         destination: xcb_window_t,
@@ -5885,16 +5900,16 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         event: *const c_char,
     ) -> xcb_void_cookie_t;
 
-/// send an event
-///
-/// Identifies the `destination` window, determines which clients should receive
-/// the specified event and ignores any active grabs.
-///
-/// The `event` must be one of the core events or an event defined by an extension,
-/// so that the X server can correctly byte-swap the contents as necessary. The
-/// contents of `event` are otherwise unaltered and unchecked except for the
-/// `send_event` field which is forced to 'true'.
-    pub fn xcb_send_event_checked (
+    /// send an event
+    ///
+    /// Identifies the `destination` window, determines which clients should receive
+    /// the specified event and ignores any active grabs.
+    ///
+    /// The `event` must be one of the core events or an event defined by an extension,
+    /// so that the X server can correctly byte-swap the contents as necessary. The
+    /// contents of `event` are otherwise unaltered and unchecked except for the
+    /// `send_event` field which is forced to 'true'.
+    pub fn xcb_send_event_checked(
         c: *mut xcb_connection_t,
         propagate: u8,
         destination: xcb_window_t,
@@ -5903,16 +5918,16 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_grab_pointer_reply (
+    pub fn xcb_grab_pointer_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_grab_pointer_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_grab_pointer_reply_t;
 
-/// Grab the pointer
-///
-/// Actively grabs control of the pointer. Further pointer events are reported only to the grabbing client. Overrides any active pointer grab by this client.
-    pub fn xcb_grab_pointer (
+    /// Grab the pointer
+    ///
+    /// Actively grabs control of the pointer. Further pointer events are reported only to the grabbing client. Overrides any active pointer grab by this client.
+    pub fn xcb_grab_pointer(
         c: *mut xcb_connection_t,
         owner_events: u8,
         grab_window: xcb_window_t,
@@ -5924,10 +5939,10 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         time: xcb_timestamp_t,
     ) -> xcb_grab_pointer_cookie_t;
 
-/// Grab the pointer
-///
-/// Actively grabs control of the pointer. Further pointer events are reported only to the grabbing client. Overrides any active pointer grab by this client.
-    pub fn xcb_grab_pointer_unchecked (
+    /// Grab the pointer
+    ///
+    /// Actively grabs control of the pointer. Further pointer events are reported only to the grabbing client. Overrides any active pointer grab by this client.
+    pub fn xcb_grab_pointer_unchecked(
         c: *mut xcb_connection_t,
         owner_events: u8,
         grab_window: xcb_window_t,
@@ -5939,68 +5954,66 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         time: xcb_timestamp_t,
     ) -> xcb_grab_pointer_cookie_t;
 
-/// release the pointer
-///
-/// Releases the pointer and any queued events if you actively grabbed the pointer
-/// before using `xcb_grab_pointer`, `xcb_grab_button` or within a normal button
-/// press.
-///
-/// EnterNotify and LeaveNotify events are generated.
-    pub fn xcb_ungrab_pointer (
+    /// release the pointer
+    ///
+    /// Releases the pointer and any queued events if you actively grabbed the pointer
+    /// before using `xcb_grab_pointer`, `xcb_grab_button` or within a normal button
+    /// press.
+    ///
+    /// EnterNotify and LeaveNotify events are generated.
+    pub fn xcb_ungrab_pointer(c: *mut xcb_connection_t, time: xcb_timestamp_t)
+        -> xcb_void_cookie_t;
+
+    /// release the pointer
+    ///
+    /// Releases the pointer and any queued events if you actively grabbed the pointer
+    /// before using `xcb_grab_pointer`, `xcb_grab_button` or within a normal button
+    /// press.
+    ///
+    /// EnterNotify and LeaveNotify events are generated.
+    pub fn xcb_ungrab_pointer_checked(
         c: *mut xcb_connection_t,
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-/// release the pointer
-///
-/// Releases the pointer and any queued events if you actively grabbed the pointer
-/// before using `xcb_grab_pointer`, `xcb_grab_button` or within a normal button
-/// press.
-///
-/// EnterNotify and LeaveNotify events are generated.
-    pub fn xcb_ungrab_pointer_checked (
-        c: *mut xcb_connection_t,
-        time: xcb_timestamp_t,
-    ) -> xcb_void_cookie_t;
-
-/// Grab pointer button(s)
-///
-/// This request establishes a passive grab. The pointer is actively grabbed as
-/// described in GrabPointer, the last-pointer-grab time is set to the time at
-/// which the button was pressed (as transmitted in the ButtonPress event), and the
-/// ButtonPress event is reported if all of the following conditions are true:
-///
-/// The pointer is not grabbed and the specified button is logically pressed when
-/// the specified modifier keys are logically down, and no other buttons or
-/// modifier keys are logically down.
-///
-/// The grab-window contains the pointer.
-///
-/// The confine-to window (if any) is viewable.
-///
-/// A passive grab on the same button/key combination does not exist on any
-/// ancestor of grab-window.
-///
-/// The interpretation of the remaining arguments is the same as for GrabPointer.
-/// The active grab is terminated automatically when the logical state of the
-/// pointer has all buttons released, independent of the logical state of modifier
-/// keys. Note that the logical state of a device (as seen by means of the
-/// protocol) may lag the physical state if device event processing is frozen. This
-/// request overrides all previous passive grabs by the same client on the same
-/// button/key combinations on the same window. A modifier of AnyModifier is
-/// equivalent to issuing the request for all possible modifier combinations
-/// (including the combination of no modifiers). It is not required that all
-/// specified modifiers have currently assigned keycodes. A button of AnyButton is
-/// equivalent to issuing the request for all possible buttons. Otherwise, it is
-/// not required that the button specified currently be assigned to a physical
-/// button.
-///
-/// An Access error is generated if some other client has already issued a
-/// GrabButton request with the same button/key combination on the same window.
-/// When using AnyModifier or AnyButton, the request fails completely (no grabs are
-/// established), and an Access error is generated if there is a conflicting grab
-/// for any combination. The request has no effect on an active grab.
-    pub fn xcb_grab_button (
+    /// Grab pointer button(s)
+    ///
+    /// This request establishes a passive grab. The pointer is actively grabbed as
+    /// described in GrabPointer, the last-pointer-grab time is set to the time at
+    /// which the button was pressed (as transmitted in the ButtonPress event), and the
+    /// ButtonPress event is reported if all of the following conditions are true:
+    ///
+    /// The pointer is not grabbed and the specified button is logically pressed when
+    /// the specified modifier keys are logically down, and no other buttons or
+    /// modifier keys are logically down.
+    ///
+    /// The grab-window contains the pointer.
+    ///
+    /// The confine-to window (if any) is viewable.
+    ///
+    /// A passive grab on the same button/key combination does not exist on any
+    /// ancestor of grab-window.
+    ///
+    /// The interpretation of the remaining arguments is the same as for GrabPointer.
+    /// The active grab is terminated automatically when the logical state of the
+    /// pointer has all buttons released, independent of the logical state of modifier
+    /// keys. Note that the logical state of a device (as seen by means of the
+    /// protocol) may lag the physical state if device event processing is frozen. This
+    /// request overrides all previous passive grabs by the same client on the same
+    /// button/key combinations on the same window. A modifier of AnyModifier is
+    /// equivalent to issuing the request for all possible modifier combinations
+    /// (including the combination of no modifiers). It is not required that all
+    /// specified modifiers have currently assigned keycodes. A button of AnyButton is
+    /// equivalent to issuing the request for all possible buttons. Otherwise, it is
+    /// not required that the button specified currently be assigned to a physical
+    /// button.
+    ///
+    /// An Access error is generated if some other client has already issued a
+    /// GrabButton request with the same button/key combination on the same window.
+    /// When using AnyModifier or AnyButton, the request fails completely (no grabs are
+    /// established), and an Access error is generated if there is a conflicting grab
+    /// for any combination. The request has no effect on an active grab.
+    pub fn xcb_grab_button(
         c: *mut xcb_connection_t,
         owner_events: u8,
         grab_window: xcb_window_t,
@@ -6013,44 +6026,44 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         modifiers: u16,
     ) -> xcb_void_cookie_t;
 
-/// Grab pointer button(s)
-///
-/// This request establishes a passive grab. The pointer is actively grabbed as
-/// described in GrabPointer, the last-pointer-grab time is set to the time at
-/// which the button was pressed (as transmitted in the ButtonPress event), and the
-/// ButtonPress event is reported if all of the following conditions are true:
-///
-/// The pointer is not grabbed and the specified button is logically pressed when
-/// the specified modifier keys are logically down, and no other buttons or
-/// modifier keys are logically down.
-///
-/// The grab-window contains the pointer.
-///
-/// The confine-to window (if any) is viewable.
-///
-/// A passive grab on the same button/key combination does not exist on any
-/// ancestor of grab-window.
-///
-/// The interpretation of the remaining arguments is the same as for GrabPointer.
-/// The active grab is terminated automatically when the logical state of the
-/// pointer has all buttons released, independent of the logical state of modifier
-/// keys. Note that the logical state of a device (as seen by means of the
-/// protocol) may lag the physical state if device event processing is frozen. This
-/// request overrides all previous passive grabs by the same client on the same
-/// button/key combinations on the same window. A modifier of AnyModifier is
-/// equivalent to issuing the request for all possible modifier combinations
-/// (including the combination of no modifiers). It is not required that all
-/// specified modifiers have currently assigned keycodes. A button of AnyButton is
-/// equivalent to issuing the request for all possible buttons. Otherwise, it is
-/// not required that the button specified currently be assigned to a physical
-/// button.
-///
-/// An Access error is generated if some other client has already issued a
-/// GrabButton request with the same button/key combination on the same window.
-/// When using AnyModifier or AnyButton, the request fails completely (no grabs are
-/// established), and an Access error is generated if there is a conflicting grab
-/// for any combination. The request has no effect on an active grab.
-    pub fn xcb_grab_button_checked (
+    /// Grab pointer button(s)
+    ///
+    /// This request establishes a passive grab. The pointer is actively grabbed as
+    /// described in GrabPointer, the last-pointer-grab time is set to the time at
+    /// which the button was pressed (as transmitted in the ButtonPress event), and the
+    /// ButtonPress event is reported if all of the following conditions are true:
+    ///
+    /// The pointer is not grabbed and the specified button is logically pressed when
+    /// the specified modifier keys are logically down, and no other buttons or
+    /// modifier keys are logically down.
+    ///
+    /// The grab-window contains the pointer.
+    ///
+    /// The confine-to window (if any) is viewable.
+    ///
+    /// A passive grab on the same button/key combination does not exist on any
+    /// ancestor of grab-window.
+    ///
+    /// The interpretation of the remaining arguments is the same as for GrabPointer.
+    /// The active grab is terminated automatically when the logical state of the
+    /// pointer has all buttons released, independent of the logical state of modifier
+    /// keys. Note that the logical state of a device (as seen by means of the
+    /// protocol) may lag the physical state if device event processing is frozen. This
+    /// request overrides all previous passive grabs by the same client on the same
+    /// button/key combinations on the same window. A modifier of AnyModifier is
+    /// equivalent to issuing the request for all possible modifier combinations
+    /// (including the combination of no modifiers). It is not required that all
+    /// specified modifiers have currently assigned keycodes. A button of AnyButton is
+    /// equivalent to issuing the request for all possible buttons. Otherwise, it is
+    /// not required that the button specified currently be assigned to a physical
+    /// button.
+    ///
+    /// An Access error is generated if some other client has already issued a
+    /// GrabButton request with the same button/key combination on the same window.
+    /// When using AnyModifier or AnyButton, the request fails completely (no grabs are
+    /// established), and an Access error is generated if there is a conflicting grab
+    /// for any combination. The request has no effect on an active grab.
+    pub fn xcb_grab_button_checked(
         c: *mut xcb_connection_t,
         owner_events: u8,
         grab_window: xcb_window_t,
@@ -6063,28 +6076,28 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         modifiers: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_ungrab_button (
+    pub fn xcb_ungrab_button(
         c: *mut xcb_connection_t,
         button: u8,
         grab_window: xcb_window_t,
         modifiers: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_ungrab_button_checked (
+    pub fn xcb_ungrab_button_checked(
         c: *mut xcb_connection_t,
         button: u8,
         grab_window: xcb_window_t,
         modifiers: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_change_active_pointer_grab (
+    pub fn xcb_change_active_pointer_grab(
         c: *mut xcb_connection_t,
         cursor: xcb_cursor_t,
         time: xcb_timestamp_t,
         event_mask: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_change_active_pointer_grab_checked (
+    pub fn xcb_change_active_pointer_grab_checked(
         c: *mut xcb_connection_t,
         cursor: xcb_cursor_t,
         time: xcb_timestamp_t,
@@ -6092,25 +6105,25 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_grab_keyboard_reply (
+    pub fn xcb_grab_keyboard_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_grab_keyboard_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_grab_keyboard_reply_t;
 
-/// Grab the keyboard
-///
-/// Actively grabs control of the keyboard and generates FocusIn and FocusOut
-/// events. Further key events are reported only to the grabbing client.
-///
-/// Any active keyboard grab by this client is overridden. If the keyboard is
-/// actively grabbed by some other client, `AlreadyGrabbed` is returned. If
-/// `grab_window` is not viewable, `GrabNotViewable` is returned. If the keyboard
-/// is frozen by an active grab of another client, `GrabFrozen` is returned. If the
-/// specified `time` is earlier than the last-keyboard-grab time or later than the
-/// current X server time, `GrabInvalidTime` is returned. Otherwise, the
-/// last-keyboard-grab time is set to the specified time.
-    pub fn xcb_grab_keyboard (
+    /// Grab the keyboard
+    ///
+    /// Actively grabs control of the keyboard and generates FocusIn and FocusOut
+    /// events. Further key events are reported only to the grabbing client.
+    ///
+    /// Any active keyboard grab by this client is overridden. If the keyboard is
+    /// actively grabbed by some other client, `AlreadyGrabbed` is returned. If
+    /// `grab_window` is not viewable, `GrabNotViewable` is returned. If the keyboard
+    /// is frozen by an active grab of another client, `GrabFrozen` is returned. If the
+    /// specified `time` is earlier than the last-keyboard-grab time or later than the
+    /// current X server time, `GrabInvalidTime` is returned. Otherwise, the
+    /// last-keyboard-grab time is set to the specified time.
+    pub fn xcb_grab_keyboard(
         c: *mut xcb_connection_t,
         owner_events: u8,
         grab_window: xcb_window_t,
@@ -6119,19 +6132,19 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         keyboard_mode: u8,
     ) -> xcb_grab_keyboard_cookie_t;
 
-/// Grab the keyboard
-///
-/// Actively grabs control of the keyboard and generates FocusIn and FocusOut
-/// events. Further key events are reported only to the grabbing client.
-///
-/// Any active keyboard grab by this client is overridden. If the keyboard is
-/// actively grabbed by some other client, `AlreadyGrabbed` is returned. If
-/// `grab_window` is not viewable, `GrabNotViewable` is returned. If the keyboard
-/// is frozen by an active grab of another client, `GrabFrozen` is returned. If the
-/// specified `time` is earlier than the last-keyboard-grab time or later than the
-/// current X server time, `GrabInvalidTime` is returned. Otherwise, the
-/// last-keyboard-grab time is set to the specified time.
-    pub fn xcb_grab_keyboard_unchecked (
+    /// Grab the keyboard
+    ///
+    /// Actively grabs control of the keyboard and generates FocusIn and FocusOut
+    /// events. Further key events are reported only to the grabbing client.
+    ///
+    /// Any active keyboard grab by this client is overridden. If the keyboard is
+    /// actively grabbed by some other client, `AlreadyGrabbed` is returned. If
+    /// `grab_window` is not viewable, `GrabNotViewable` is returned. If the keyboard
+    /// is frozen by an active grab of another client, `GrabFrozen` is returned. If the
+    /// specified `time` is earlier than the last-keyboard-grab time or later than the
+    /// current X server time, `GrabInvalidTime` is returned. Otherwise, the
+    /// last-keyboard-grab time is set to the specified time.
+    pub fn xcb_grab_keyboard_unchecked(
         c: *mut xcb_connection_t,
         owner_events: u8,
         grab_window: xcb_window_t,
@@ -6140,49 +6153,49 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         keyboard_mode: u8,
     ) -> xcb_grab_keyboard_cookie_t;
 
-    pub fn xcb_ungrab_keyboard (
+    pub fn xcb_ungrab_keyboard(
         c: *mut xcb_connection_t,
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_ungrab_keyboard_checked (
+    pub fn xcb_ungrab_keyboard_checked(
         c: *mut xcb_connection_t,
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-/// Grab keyboard key(s)
-///
-/// Establishes a passive grab on the keyboard. In the future, the keyboard is
-/// actively grabbed (as for `GrabKeyboard`), the last-keyboard-grab time is set to
-/// the time at which the key was pressed (as transmitted in the KeyPress event),
-/// and the KeyPress event is reported if all of the following conditions are true:
-///
-/// The keyboard is not grabbed and the specified key (which can itself be a
-/// modifier key) is logically pressed when the specified modifier keys are
-/// logically down, and no other modifier keys are logically down.
-///
-/// Either the grab_window is an ancestor of (or is) the focus window, or the
-/// grab_window is a descendant of the focus window and contains the pointer.
-///
-/// A passive grab on the same key combination does not exist on any ancestor of
-/// grab_window.
-///
-/// The interpretation of the remaining arguments is as for XGrabKeyboard.  The active grab is terminated
-/// automatically when the logical state of the keyboard has the specified key released (independent of the
-/// logical state of the modifier keys), at which point a KeyRelease event is reported to the grabbing window.
-///
-/// Note that the logical state of a device (as seen by client applications) may lag the physical state if
-/// device event processing is frozen.
-///
-/// A modifiers argument of AnyModifier is equivalent to issuing the request for all possible modifier combinations (including the combination of no modifiers).  It is not required that all modifiers specified
-/// have currently assigned KeyCodes.  A keycode argument of AnyKey is equivalent to issuing the request for
-/// all possible KeyCodes.  Otherwise, the specified keycode must be in the range specified by min_keycode
-/// and max_keycode in the connection setup, or a BadValue error results.
-///
-/// If some other client has issued a XGrabKey with the same key combination on the same window, a BadAccess
-/// error results.  When using AnyModifier or AnyKey, the request fails completely, and a BadAccess error
-/// results (no grabs are established) if there is a conflicting grab for any combination.
-    pub fn xcb_grab_key (
+    /// Grab keyboard key(s)
+    ///
+    /// Establishes a passive grab on the keyboard. In the future, the keyboard is
+    /// actively grabbed (as for `GrabKeyboard`), the last-keyboard-grab time is set to
+    /// the time at which the key was pressed (as transmitted in the KeyPress event),
+    /// and the KeyPress event is reported if all of the following conditions are true:
+    ///
+    /// The keyboard is not grabbed and the specified key (which can itself be a
+    /// modifier key) is logically pressed when the specified modifier keys are
+    /// logically down, and no other modifier keys are logically down.
+    ///
+    /// Either the grab_window is an ancestor of (or is) the focus window, or the
+    /// grab_window is a descendant of the focus window and contains the pointer.
+    ///
+    /// A passive grab on the same key combination does not exist on any ancestor of
+    /// grab_window.
+    ///
+    /// The interpretation of the remaining arguments is as for XGrabKeyboard.  The active grab is terminated
+    /// automatically when the logical state of the keyboard has the specified key released (independent of the
+    /// logical state of the modifier keys), at which point a KeyRelease event is reported to the grabbing window.
+    ///
+    /// Note that the logical state of a device (as seen by client applications) may lag the physical state if
+    /// device event processing is frozen.
+    ///
+    /// A modifiers argument of AnyModifier is equivalent to issuing the request for all possible modifier combinations (including the combination of no modifiers).  It is not required that all modifiers specified
+    /// have currently assigned KeyCodes.  A keycode argument of AnyKey is equivalent to issuing the request for
+    /// all possible KeyCodes.  Otherwise, the specified keycode must be in the range specified by min_keycode
+    /// and max_keycode in the connection setup, or a BadValue error results.
+    ///
+    /// If some other client has issued a XGrabKey with the same key combination on the same window, a BadAccess
+    /// error results.  When using AnyModifier or AnyKey, the request fails completely, and a BadAccess error
+    /// results (no grabs are established) if there is a conflicting grab for any combination.
+    pub fn xcb_grab_key(
         c: *mut xcb_connection_t,
         owner_events: u8,
         grab_window: xcb_window_t,
@@ -6192,39 +6205,39 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         keyboard_mode: u8,
     ) -> xcb_void_cookie_t;
 
-/// Grab keyboard key(s)
-///
-/// Establishes a passive grab on the keyboard. In the future, the keyboard is
-/// actively grabbed (as for `GrabKeyboard`), the last-keyboard-grab time is set to
-/// the time at which the key was pressed (as transmitted in the KeyPress event),
-/// and the KeyPress event is reported if all of the following conditions are true:
-///
-/// The keyboard is not grabbed and the specified key (which can itself be a
-/// modifier key) is logically pressed when the specified modifier keys are
-/// logically down, and no other modifier keys are logically down.
-///
-/// Either the grab_window is an ancestor of (or is) the focus window, or the
-/// grab_window is a descendant of the focus window and contains the pointer.
-///
-/// A passive grab on the same key combination does not exist on any ancestor of
-/// grab_window.
-///
-/// The interpretation of the remaining arguments is as for XGrabKeyboard.  The active grab is terminated
-/// automatically when the logical state of the keyboard has the specified key released (independent of the
-/// logical state of the modifier keys), at which point a KeyRelease event is reported to the grabbing window.
-///
-/// Note that the logical state of a device (as seen by client applications) may lag the physical state if
-/// device event processing is frozen.
-///
-/// A modifiers argument of AnyModifier is equivalent to issuing the request for all possible modifier combinations (including the combination of no modifiers).  It is not required that all modifiers specified
-/// have currently assigned KeyCodes.  A keycode argument of AnyKey is equivalent to issuing the request for
-/// all possible KeyCodes.  Otherwise, the specified keycode must be in the range specified by min_keycode
-/// and max_keycode in the connection setup, or a BadValue error results.
-///
-/// If some other client has issued a XGrabKey with the same key combination on the same window, a BadAccess
-/// error results.  When using AnyModifier or AnyKey, the request fails completely, and a BadAccess error
-/// results (no grabs are established) if there is a conflicting grab for any combination.
-    pub fn xcb_grab_key_checked (
+    /// Grab keyboard key(s)
+    ///
+    /// Establishes a passive grab on the keyboard. In the future, the keyboard is
+    /// actively grabbed (as for `GrabKeyboard`), the last-keyboard-grab time is set to
+    /// the time at which the key was pressed (as transmitted in the KeyPress event),
+    /// and the KeyPress event is reported if all of the following conditions are true:
+    ///
+    /// The keyboard is not grabbed and the specified key (which can itself be a
+    /// modifier key) is logically pressed when the specified modifier keys are
+    /// logically down, and no other modifier keys are logically down.
+    ///
+    /// Either the grab_window is an ancestor of (or is) the focus window, or the
+    /// grab_window is a descendant of the focus window and contains the pointer.
+    ///
+    /// A passive grab on the same key combination does not exist on any ancestor of
+    /// grab_window.
+    ///
+    /// The interpretation of the remaining arguments is as for XGrabKeyboard.  The active grab is terminated
+    /// automatically when the logical state of the keyboard has the specified key released (independent of the
+    /// logical state of the modifier keys), at which point a KeyRelease event is reported to the grabbing window.
+    ///
+    /// Note that the logical state of a device (as seen by client applications) may lag the physical state if
+    /// device event processing is frozen.
+    ///
+    /// A modifiers argument of AnyModifier is equivalent to issuing the request for all possible modifier combinations (including the combination of no modifiers).  It is not required that all modifiers specified
+    /// have currently assigned KeyCodes.  A keycode argument of AnyKey is equivalent to issuing the request for
+    /// all possible KeyCodes.  Otherwise, the specified keycode must be in the range specified by min_keycode
+    /// and max_keycode in the connection setup, or a BadValue error results.
+    ///
+    /// If some other client has issued a XGrabKey with the same key combination on the same window, a BadAccess
+    /// error results.  When using AnyModifier or AnyKey, the request fails completely, and a BadAccess error
+    /// results (no grabs are established) if there is a conflicting grab for any combination.
+    pub fn xcb_grab_key_checked(
         c: *mut xcb_connection_t,
         owner_events: u8,
         grab_window: xcb_window_t,
@@ -6234,118 +6247,114 @@ pub fn xcb_list_properties_atoms_end(R: *const xcb_list_properties_reply_t) -> x
         keyboard_mode: u8,
     ) -> xcb_void_cookie_t;
 
-/// release a key combination
-///
-/// Releases the key combination on `grab_window` if you grabbed it using
-/// `xcb_grab_key` before.
-    pub fn xcb_ungrab_key (
+    /// release a key combination
+    ///
+    /// Releases the key combination on `grab_window` if you grabbed it using
+    /// `xcb_grab_key` before.
+    pub fn xcb_ungrab_key(
         c: *mut xcb_connection_t,
         key: xcb_keycode_t,
         grab_window: xcb_window_t,
         modifiers: u16,
     ) -> xcb_void_cookie_t;
 
-/// release a key combination
-///
-/// Releases the key combination on `grab_window` if you grabbed it using
-/// `xcb_grab_key` before.
-    pub fn xcb_ungrab_key_checked (
+    /// release a key combination
+    ///
+    /// Releases the key combination on `grab_window` if you grabbed it using
+    /// `xcb_grab_key` before.
+    pub fn xcb_ungrab_key_checked(
         c: *mut xcb_connection_t,
         key: xcb_keycode_t,
         grab_window: xcb_window_t,
         modifiers: u16,
     ) -> xcb_void_cookie_t;
 
-/// release queued events
-///
-/// Releases queued events if the client has caused a device (pointer/keyboard) to
-/// freeze due to grabbing it actively. This request has no effect if `time` is
-/// earlier than the last-grab time of the most recent active grab for this client
-/// or if `time` is later than the current X server time.
-    pub fn xcb_allow_events (
+    /// release queued events
+    ///
+    /// Releases queued events if the client has caused a device (pointer/keyboard) to
+    /// freeze due to grabbing it actively. This request has no effect if `time` is
+    /// earlier than the last-grab time of the most recent active grab for this client
+    /// or if `time` is later than the current X server time.
+    pub fn xcb_allow_events(
         c: *mut xcb_connection_t,
         mode: u8,
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-/// release queued events
-///
-/// Releases queued events if the client has caused a device (pointer/keyboard) to
-/// freeze due to grabbing it actively. This request has no effect if `time` is
-/// earlier than the last-grab time of the most recent active grab for this client
-/// or if `time` is later than the current X server time.
-    pub fn xcb_allow_events_checked (
+    /// release queued events
+    ///
+    /// Releases queued events if the client has caused a device (pointer/keyboard) to
+    /// freeze due to grabbing it actively. This request has no effect if `time` is
+    /// earlier than the last-grab time of the most recent active grab for this client
+    /// or if `time` is later than the current X server time.
+    pub fn xcb_allow_events_checked(
         c: *mut xcb_connection_t,
         mode: u8,
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_grab_server (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_grab_server(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_grab_server_checked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_grab_server_checked(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_ungrab_server (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_ungrab_server(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_ungrab_server_checked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_ungrab_server_checked(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_query_pointer_reply (
+    pub fn xcb_query_pointer_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_query_pointer_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_query_pointer_reply_t;
 
-/// get pointer coordinates
-///
-/// Gets the root window the pointer is logically on and the pointer coordinates
-/// relative to the root window's origin.
-    pub fn xcb_query_pointer (
+    /// get pointer coordinates
+    ///
+    /// Gets the root window the pointer is logically on and the pointer coordinates
+    /// relative to the root window's origin.
+    pub fn xcb_query_pointer(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_query_pointer_cookie_t;
 
-/// get pointer coordinates
-///
-/// Gets the root window the pointer is logically on and the pointer coordinates
-/// relative to the root window's origin.
-    pub fn xcb_query_pointer_unchecked (
+    /// get pointer coordinates
+    ///
+    /// Gets the root window the pointer is logically on and the pointer coordinates
+    /// relative to the root window's origin.
+    pub fn xcb_query_pointer_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_query_pointer_cookie_t;
 
-pub fn xcb_timecoord_next(i: *mut xcb_timecoord_iterator_t);
+    pub fn xcb_timecoord_next(i: *mut xcb_timecoord_iterator_t);
 
-pub fn xcb_timecoord_end(i: *mut xcb_timecoord_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_timecoord_end(i: *mut xcb_timecoord_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_get_motion_events_events(R: *const xcb_get_motion_events_reply_t) -> *mut xcb_timecoord_t;
+    pub fn xcb_get_motion_events_events(
+        R: *const xcb_get_motion_events_reply_t,
+    ) -> *mut xcb_timecoord_t;
 
-pub fn xcb_get_motion_events_events_length(R: *const xcb_get_motion_events_reply_t) -> c_int;
+    pub fn xcb_get_motion_events_events_length(R: *const xcb_get_motion_events_reply_t) -> c_int;
 
-pub fn xcb_get_motion_events_events_iterator(R: *const xcb_get_motion_events_reply_t) -> xcb_timecoord_iterator_t;
+    pub fn xcb_get_motion_events_events_iterator(
+        R: *const xcb_get_motion_events_reply_t,
+    ) -> xcb_timecoord_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_motion_events_reply (
+    pub fn xcb_get_motion_events_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_motion_events_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_motion_events_reply_t;
 
-    pub fn xcb_get_motion_events (
+    pub fn xcb_get_motion_events(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         start: xcb_timestamp_t,
         stop: xcb_timestamp_t,
     ) -> xcb_get_motion_events_cookie_t;
 
-    pub fn xcb_get_motion_events_unchecked (
+    pub fn xcb_get_motion_events_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         start: xcb_timestamp_t,
@@ -6353,13 +6362,13 @@ pub fn xcb_get_motion_events_events_iterator(R: *const xcb_get_motion_events_rep
     ) -> xcb_get_motion_events_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_translate_coordinates_reply (
+    pub fn xcb_translate_coordinates_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_translate_coordinates_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_translate_coordinates_reply_t;
 
-    pub fn xcb_translate_coordinates (
+    pub fn xcb_translate_coordinates(
         c: *mut xcb_connection_t,
         src_window: xcb_window_t,
         dst_window: xcb_window_t,
@@ -6367,7 +6376,7 @@ pub fn xcb_get_motion_events_events_iterator(R: *const xcb_get_motion_events_rep
         src_y: i16,
     ) -> xcb_translate_coordinates_cookie_t;
 
-    pub fn xcb_translate_coordinates_unchecked (
+    pub fn xcb_translate_coordinates_unchecked(
         c: *mut xcb_connection_t,
         src_window: xcb_window_t,
         dst_window: xcb_window_t,
@@ -6375,20 +6384,20 @@ pub fn xcb_get_motion_events_events_iterator(R: *const xcb_get_motion_events_rep
         src_y: i16,
     ) -> xcb_translate_coordinates_cookie_t;
 
-/// move mouse pointer
-///
-/// Moves the mouse pointer to the specified position.
-///
-/// If `src_window` is not `XCB_NONE` (TODO), the move will only take place if the
-/// pointer is inside `src_window` and within the rectangle specified by (`src_x`,
-/// `src_y`, `src_width`, `src_height`). The rectangle coordinates are relative to
-/// `src_window`.
-///
-/// If `dst_window` is not `XCB_NONE` (TODO), the pointer will be moved to the
-/// offsets (`dst_x`, `dst_y`) relative to `dst_window`. If `dst_window` is
-/// `XCB_NONE` (TODO), the pointer will be moved by the offsets (`dst_x`, `dst_y`)
-/// relative to the current position of the pointer.
-    pub fn xcb_warp_pointer (
+    /// move mouse pointer
+    ///
+    /// Moves the mouse pointer to the specified position.
+    ///
+    /// If `src_window` is not `XCB_NONE` (TODO), the move will only take place if the
+    /// pointer is inside `src_window` and within the rectangle specified by (`src_x`,
+    /// `src_y`, `src_width`, `src_height`). The rectangle coordinates are relative to
+    /// `src_window`.
+    ///
+    /// If `dst_window` is not `XCB_NONE` (TODO), the pointer will be moved to the
+    /// offsets (`dst_x`, `dst_y`) relative to `dst_window`. If `dst_window` is
+    /// `XCB_NONE` (TODO), the pointer will be moved by the offsets (`dst_x`, `dst_y`)
+    /// relative to the current position of the pointer.
+    pub fn xcb_warp_pointer(
         c: *mut xcb_connection_t,
         src_window: xcb_window_t,
         dst_window: xcb_window_t,
@@ -6400,20 +6409,20 @@ pub fn xcb_get_motion_events_events_iterator(R: *const xcb_get_motion_events_rep
         dst_y: i16,
     ) -> xcb_void_cookie_t;
 
-/// move mouse pointer
-///
-/// Moves the mouse pointer to the specified position.
-///
-/// If `src_window` is not `XCB_NONE` (TODO), the move will only take place if the
-/// pointer is inside `src_window` and within the rectangle specified by (`src_x`,
-/// `src_y`, `src_width`, `src_height`). The rectangle coordinates are relative to
-/// `src_window`.
-///
-/// If `dst_window` is not `XCB_NONE` (TODO), the pointer will be moved to the
-/// offsets (`dst_x`, `dst_y`) relative to `dst_window`. If `dst_window` is
-/// `XCB_NONE` (TODO), the pointer will be moved by the offsets (`dst_x`, `dst_y`)
-/// relative to the current position of the pointer.
-    pub fn xcb_warp_pointer_checked (
+    /// move mouse pointer
+    ///
+    /// Moves the mouse pointer to the specified position.
+    ///
+    /// If `src_window` is not `XCB_NONE` (TODO), the move will only take place if the
+    /// pointer is inside `src_window` and within the rectangle specified by (`src_x`,
+    /// `src_y`, `src_width`, `src_height`). The rectangle coordinates are relative to
+    /// `src_window`.
+    ///
+    /// If `dst_window` is not `XCB_NONE` (TODO), the pointer will be moved to the
+    /// offsets (`dst_x`, `dst_y`) relative to `dst_window`. If `dst_window` is
+    /// `XCB_NONE` (TODO), the pointer will be moved by the offsets (`dst_x`, `dst_y`)
+    /// relative to the current position of the pointer.
+    pub fn xcb_warp_pointer_checked(
         c: *mut xcb_connection_t,
         src_window: xcb_window_t,
         dst_window: xcb_window_t,
@@ -6425,28 +6434,28 @@ pub fn xcb_get_motion_events_events_iterator(R: *const xcb_get_motion_events_rep
         dst_y: i16,
     ) -> xcb_void_cookie_t;
 
-/// Sets input focus
-///
-/// Changes the input focus and the last-focus-change time. If the specified `time`
-/// is earlier than the current last-focus-change time, the request is ignored (to
-/// avoid race conditions when running X over the network).
-///
-/// A FocusIn and FocusOut event is generated when focus is changed.
-    pub fn xcb_set_input_focus (
+    /// Sets input focus
+    ///
+    /// Changes the input focus and the last-focus-change time. If the specified `time`
+    /// is earlier than the current last-focus-change time, the request is ignored (to
+    /// avoid race conditions when running X over the network).
+    ///
+    /// A FocusIn and FocusOut event is generated when focus is changed.
+    pub fn xcb_set_input_focus(
         c: *mut xcb_connection_t,
         revert_to: u8,
         focus: xcb_window_t,
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-/// Sets input focus
-///
-/// Changes the input focus and the last-focus-change time. If the specified `time`
-/// is earlier than the current last-focus-change time, the request is ignored (to
-/// avoid race conditions when running X over the network).
-///
-/// A FocusIn and FocusOut event is generated when focus is changed.
-    pub fn xcb_set_input_focus_checked (
+    /// Sets input focus
+    ///
+    /// Changes the input focus and the last-focus-change time. If the specified `time`
+    /// is earlier than the current last-focus-change time, the request is ignored (to
+    /// avoid race conditions when running X over the network).
+    ///
+    /// A FocusIn and FocusOut event is generated when focus is changed.
+    pub fn xcb_set_input_focus_checked(
         c: *mut xcb_connection_t,
         revert_to: u8,
         focus: xcb_window_t,
@@ -6454,297 +6463,298 @@ pub fn xcb_get_motion_events_events_iterator(R: *const xcb_get_motion_events_rep
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_input_focus_reply (
+    pub fn xcb_get_input_focus_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_input_focus_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_input_focus_reply_t;
 
-    pub fn xcb_get_input_focus (
-        c: *mut xcb_connection_t,
-    ) -> xcb_get_input_focus_cookie_t;
+    pub fn xcb_get_input_focus(c: *mut xcb_connection_t) -> xcb_get_input_focus_cookie_t;
 
-    pub fn xcb_get_input_focus_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_get_input_focus_cookie_t;
+    pub fn xcb_get_input_focus_unchecked(c: *mut xcb_connection_t) -> xcb_get_input_focus_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_query_keymap_reply (
+    pub fn xcb_query_keymap_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_query_keymap_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_query_keymap_reply_t;
 
-    pub fn xcb_query_keymap (
-        c: *mut xcb_connection_t,
-    ) -> xcb_query_keymap_cookie_t;
+    pub fn xcb_query_keymap(c: *mut xcb_connection_t) -> xcb_query_keymap_cookie_t;
 
-    pub fn xcb_query_keymap_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_query_keymap_cookie_t;
+    pub fn xcb_query_keymap_unchecked(c: *mut xcb_connection_t) -> xcb_query_keymap_cookie_t;
 
-/// opens a font
-///
-/// Opens any X core font matching the given `name` (for example "-misc-fixed-*").
-///
-/// Note that X core fonts are deprecated (but still supported) in favor of
-/// client-side rendering using Xft.
-    pub fn xcb_open_font (
+    /// opens a font
+    ///
+    /// Opens any X core font matching the given `name` (for example "-misc-fixed-*").
+    ///
+    /// Note that X core fonts are deprecated (but still supported) in favor of
+    /// client-side rendering using Xft.
+    pub fn xcb_open_font(
         c: *mut xcb_connection_t,
         fid: xcb_font_t,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_void_cookie_t;
 
-/// opens a font
-///
-/// Opens any X core font matching the given `name` (for example "-misc-fixed-*").
-///
-/// Note that X core fonts are deprecated (but still supported) in favor of
-/// client-side rendering using Xft.
-    pub fn xcb_open_font_checked (
+    /// opens a font
+    ///
+    /// Opens any X core font matching the given `name` (for example "-misc-fixed-*").
+    ///
+    /// Note that X core fonts are deprecated (but still supported) in favor of
+    /// client-side rendering using Xft.
+    pub fn xcb_open_font_checked(
         c: *mut xcb_connection_t,
         fid: xcb_font_t,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_close_font (
-        c: *mut xcb_connection_t,
-        font: xcb_font_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_close_font(c: *mut xcb_connection_t, font: xcb_font_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_close_font_checked (
-        c: *mut xcb_connection_t,
-        font: xcb_font_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_close_font_checked(c: *mut xcb_connection_t, font: xcb_font_t) -> xcb_void_cookie_t;
 
-pub fn xcb_fontprop_next(i: *mut xcb_fontprop_iterator_t);
+    pub fn xcb_fontprop_next(i: *mut xcb_fontprop_iterator_t);
 
-pub fn xcb_fontprop_end(i: *mut xcb_fontprop_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_fontprop_end(i: *mut xcb_fontprop_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_charinfo_next(i: *mut xcb_charinfo_iterator_t);
+    pub fn xcb_charinfo_next(i: *mut xcb_charinfo_iterator_t);
 
-pub fn xcb_charinfo_end(i: *mut xcb_charinfo_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_charinfo_end(i: *mut xcb_charinfo_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_query_font_properties(R: *const xcb_query_font_reply_t) -> *mut xcb_fontprop_t;
+    pub fn xcb_query_font_properties(R: *const xcb_query_font_reply_t) -> *mut xcb_fontprop_t;
 
-pub fn xcb_query_font_properties_length(R: *const xcb_query_font_reply_t) -> c_int;
+    pub fn xcb_query_font_properties_length(R: *const xcb_query_font_reply_t) -> c_int;
 
-pub fn xcb_query_font_properties_iterator(R: *const xcb_query_font_reply_t) -> xcb_fontprop_iterator_t;
+    pub fn xcb_query_font_properties_iterator(
+        R: *const xcb_query_font_reply_t,
+    ) -> xcb_fontprop_iterator_t;
 
-pub fn xcb_query_font_char_infos(R: *const xcb_query_font_reply_t) -> *mut xcb_charinfo_t;
+    pub fn xcb_query_font_char_infos(R: *const xcb_query_font_reply_t) -> *mut xcb_charinfo_t;
 
-pub fn xcb_query_font_char_infos_length(R: *const xcb_query_font_reply_t) -> c_int;
+    pub fn xcb_query_font_char_infos_length(R: *const xcb_query_font_reply_t) -> c_int;
 
-pub fn xcb_query_font_char_infos_iterator(R: *const xcb_query_font_reply_t) -> xcb_charinfo_iterator_t;
+    pub fn xcb_query_font_char_infos_iterator(
+        R: *const xcb_query_font_reply_t,
+    ) -> xcb_charinfo_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_query_font_reply (
+    pub fn xcb_query_font_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_query_font_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_query_font_reply_t;
 
-/// query font metrics
-///
-/// Queries information associated with the font.
-    pub fn xcb_query_font (
+    /// query font metrics
+    ///
+    /// Queries information associated with the font.
+    pub fn xcb_query_font(
         c: *mut xcb_connection_t,
         font: xcb_fontable_t,
     ) -> xcb_query_font_cookie_t;
 
-/// query font metrics
-///
-/// Queries information associated with the font.
-    pub fn xcb_query_font_unchecked (
+    /// query font metrics
+    ///
+    /// Queries information associated with the font.
+    pub fn xcb_query_font_unchecked(
         c: *mut xcb_connection_t,
         font: xcb_fontable_t,
     ) -> xcb_query_font_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_query_text_extents_reply (
+    pub fn xcb_query_text_extents_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_query_text_extents_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_query_text_extents_reply_t;
 
-/// get text extents
-///
-/// Query text extents from the X11 server. This request returns the bounding box
-/// of the specified 16-bit character string in the specified `font` or the font
-/// contained in the specified graphics context.
-///
-/// `font_ascent` is set to the maximum of the ascent metrics of all characters in
-/// the string. `font_descent` is set to the maximum of the descent metrics.
-/// `overall_width` is set to the sum of the character-width metrics of all
-/// characters in the string. For each character in the string, let W be the sum of
-/// the character-width metrics of all characters preceding it in the string. Let L
-/// be the left-side-bearing metric of the character plus W. Let R be the
-/// right-side-bearing metric of the character plus W. The lbearing member is set
-/// to the minimum L of all characters in the string. The rbearing member is set to
-/// the maximum R.
-///
-/// For fonts defined with linear indexing rather than 2-byte matrix indexing, each
-/// `xcb_char2b_t` structure is interpreted as a 16-bit number with byte1 as the
-/// most significant byte. If the font has no defined default character, undefined
-/// characters in the string are taken to have all zero metrics.
-///
-/// Characters with all zero metrics are ignored. If the font has no defined
-/// default_char, the undefined characters in the string are also ignored.
-    pub fn xcb_query_text_extents (
+    /// get text extents
+    ///
+    /// Query text extents from the X11 server. This request returns the bounding box
+    /// of the specified 16-bit character string in the specified `font` or the font
+    /// contained in the specified graphics context.
+    ///
+    /// `font_ascent` is set to the maximum of the ascent metrics of all characters in
+    /// the string. `font_descent` is set to the maximum of the descent metrics.
+    /// `overall_width` is set to the sum of the character-width metrics of all
+    /// characters in the string. For each character in the string, let W be the sum of
+    /// the character-width metrics of all characters preceding it in the string. Let L
+    /// be the left-side-bearing metric of the character plus W. Let R be the
+    /// right-side-bearing metric of the character plus W. The lbearing member is set
+    /// to the minimum L of all characters in the string. The rbearing member is set to
+    /// the maximum R.
+    ///
+    /// For fonts defined with linear indexing rather than 2-byte matrix indexing, each
+    /// `xcb_char2b_t` structure is interpreted as a 16-bit number with byte1 as the
+    /// most significant byte. If the font has no defined default character, undefined
+    /// characters in the string are taken to have all zero metrics.
+    ///
+    /// Characters with all zero metrics are ignored. If the font has no defined
+    /// default_char, the undefined characters in the string are also ignored.
+    pub fn xcb_query_text_extents(
         c: *mut xcb_connection_t,
         font: xcb_fontable_t,
         string_len: u32,
         string: *const xcb_char2b_t,
     ) -> xcb_query_text_extents_cookie_t;
 
-/// get text extents
-///
-/// Query text extents from the X11 server. This request returns the bounding box
-/// of the specified 16-bit character string in the specified `font` or the font
-/// contained in the specified graphics context.
-///
-/// `font_ascent` is set to the maximum of the ascent metrics of all characters in
-/// the string. `font_descent` is set to the maximum of the descent metrics.
-/// `overall_width` is set to the sum of the character-width metrics of all
-/// characters in the string. For each character in the string, let W be the sum of
-/// the character-width metrics of all characters preceding it in the string. Let L
-/// be the left-side-bearing metric of the character plus W. Let R be the
-/// right-side-bearing metric of the character plus W. The lbearing member is set
-/// to the minimum L of all characters in the string. The rbearing member is set to
-/// the maximum R.
-///
-/// For fonts defined with linear indexing rather than 2-byte matrix indexing, each
-/// `xcb_char2b_t` structure is interpreted as a 16-bit number with byte1 as the
-/// most significant byte. If the font has no defined default character, undefined
-/// characters in the string are taken to have all zero metrics.
-///
-/// Characters with all zero metrics are ignored. If the font has no defined
-/// default_char, the undefined characters in the string are also ignored.
-    pub fn xcb_query_text_extents_unchecked (
+    /// get text extents
+    ///
+    /// Query text extents from the X11 server. This request returns the bounding box
+    /// of the specified 16-bit character string in the specified `font` or the font
+    /// contained in the specified graphics context.
+    ///
+    /// `font_ascent` is set to the maximum of the ascent metrics of all characters in
+    /// the string. `font_descent` is set to the maximum of the descent metrics.
+    /// `overall_width` is set to the sum of the character-width metrics of all
+    /// characters in the string. For each character in the string, let W be the sum of
+    /// the character-width metrics of all characters preceding it in the string. Let L
+    /// be the left-side-bearing metric of the character plus W. Let R be the
+    /// right-side-bearing metric of the character plus W. The lbearing member is set
+    /// to the minimum L of all characters in the string. The rbearing member is set to
+    /// the maximum R.
+    ///
+    /// For fonts defined with linear indexing rather than 2-byte matrix indexing, each
+    /// `xcb_char2b_t` structure is interpreted as a 16-bit number with byte1 as the
+    /// most significant byte. If the font has no defined default character, undefined
+    /// characters in the string are taken to have all zero metrics.
+    ///
+    /// Characters with all zero metrics are ignored. If the font has no defined
+    /// default_char, the undefined characters in the string are also ignored.
+    pub fn xcb_query_text_extents_unchecked(
         c: *mut xcb_connection_t,
         font: xcb_fontable_t,
         string_len: u32,
         string: *const xcb_char2b_t,
     ) -> xcb_query_text_extents_cookie_t;
 
-pub fn xcb_str_name(R: *const xcb_str_t) -> *mut c_char;
+    pub fn xcb_str_name(R: *const xcb_str_t) -> *mut c_char;
 
-pub fn xcb_str_name_length(R: *const xcb_str_t) -> c_int;
+    pub fn xcb_str_name_length(R: *const xcb_str_t) -> c_int;
 
-pub fn xcb_str_name_end(R: *const xcb_str_t) -> xcb_generic_iterator_t;
+    pub fn xcb_str_name_end(R: *const xcb_str_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_str_next(i: *mut xcb_str_iterator_t);
+    pub fn xcb_str_next(i: *mut xcb_str_iterator_t);
 
-pub fn xcb_str_end(i: *mut xcb_str_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_str_end(i: *mut xcb_str_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_list_fonts_names_length(R: *const xcb_list_fonts_reply_t) -> c_int;
+    pub fn xcb_list_fonts_names_length(R: *const xcb_list_fonts_reply_t) -> c_int;
 
-pub fn xcb_list_fonts_names_iterator<'a>(R: *const xcb_list_fonts_reply_t) -> xcb_str_iterator_t<'a>;
+    pub fn xcb_list_fonts_names_iterator<'a>(
+        R: *const xcb_list_fonts_reply_t,
+    ) -> xcb_str_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_list_fonts_reply (
+    pub fn xcb_list_fonts_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_list_fonts_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_list_fonts_reply_t;
 
-/// get matching font names
-///
-/// Gets a list of available font names which match the given `pattern`.
-    pub fn xcb_list_fonts (
+    /// get matching font names
+    ///
+    /// Gets a list of available font names which match the given `pattern`.
+    pub fn xcb_list_fonts(
         c: *mut xcb_connection_t,
         max_names: u16,
         pattern_len: u16,
         pattern: *const c_char,
     ) -> xcb_list_fonts_cookie_t;
 
-/// get matching font names
-///
-/// Gets a list of available font names which match the given `pattern`.
-    pub fn xcb_list_fonts_unchecked (
+    /// get matching font names
+    ///
+    /// Gets a list of available font names which match the given `pattern`.
+    pub fn xcb_list_fonts_unchecked(
         c: *mut xcb_connection_t,
         max_names: u16,
         pattern_len: u16,
         pattern: *const c_char,
     ) -> xcb_list_fonts_cookie_t;
 
-pub fn xcb_list_fonts_with_info_properties(R: *const xcb_list_fonts_with_info_reply_t) -> *mut xcb_fontprop_t;
+    pub fn xcb_list_fonts_with_info_properties(
+        R: *const xcb_list_fonts_with_info_reply_t,
+    ) -> *mut xcb_fontprop_t;
 
-pub fn xcb_list_fonts_with_info_properties_length(R: *const xcb_list_fonts_with_info_reply_t) -> c_int;
+    pub fn xcb_list_fonts_with_info_properties_length(
+        R: *const xcb_list_fonts_with_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_list_fonts_with_info_properties_iterator(R: *const xcb_list_fonts_with_info_reply_t) -> xcb_fontprop_iterator_t;
+    pub fn xcb_list_fonts_with_info_properties_iterator(
+        R: *const xcb_list_fonts_with_info_reply_t,
+    ) -> xcb_fontprop_iterator_t;
 
-pub fn xcb_list_fonts_with_info_name(R: *const xcb_list_fonts_with_info_reply_t) -> *mut c_char;
+    pub fn xcb_list_fonts_with_info_name(R: *const xcb_list_fonts_with_info_reply_t)
+        -> *mut c_char;
 
-pub fn xcb_list_fonts_with_info_name_length(R: *const xcb_list_fonts_with_info_reply_t) -> c_int;
+    pub fn xcb_list_fonts_with_info_name_length(
+        R: *const xcb_list_fonts_with_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_list_fonts_with_info_name_end(R: *const xcb_list_fonts_with_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_list_fonts_with_info_name_end(
+        R: *const xcb_list_fonts_with_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_list_fonts_with_info_reply (
+    pub fn xcb_list_fonts_with_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_list_fonts_with_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_list_fonts_with_info_reply_t;
 
-/// get matching font names and information
-///
-/// Gets a list of available font names which match the given `pattern`.
-    pub fn xcb_list_fonts_with_info (
+    /// get matching font names and information
+    ///
+    /// Gets a list of available font names which match the given `pattern`.
+    pub fn xcb_list_fonts_with_info(
         c: *mut xcb_connection_t,
         max_names: u16,
         pattern_len: u16,
         pattern: *const c_char,
     ) -> xcb_list_fonts_with_info_cookie_t;
 
-/// get matching font names and information
-///
-/// Gets a list of available font names which match the given `pattern`.
-    pub fn xcb_list_fonts_with_info_unchecked (
+    /// get matching font names and information
+    ///
+    /// Gets a list of available font names which match the given `pattern`.
+    pub fn xcb_list_fonts_with_info_unchecked(
         c: *mut xcb_connection_t,
         max_names: u16,
         pattern_len: u16,
         pattern: *const c_char,
     ) -> xcb_list_fonts_with_info_cookie_t;
 
-    pub fn xcb_set_font_path (
+    pub fn xcb_set_font_path(
         c: *mut xcb_connection_t,
         font_qty: u16,
         font: *const xcb_str_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_set_font_path_checked (
+    pub fn xcb_set_font_path_checked(
         c: *mut xcb_connection_t,
         font_qty: u16,
         font: *const xcb_str_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_get_font_path_path_length(R: *const xcb_get_font_path_reply_t) -> c_int;
+    pub fn xcb_get_font_path_path_length(R: *const xcb_get_font_path_reply_t) -> c_int;
 
-pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) -> xcb_str_iterator_t<'a>;
+    pub fn xcb_get_font_path_path_iterator<'a>(
+        R: *const xcb_get_font_path_reply_t,
+    ) -> xcb_str_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_font_path_reply (
+    pub fn xcb_get_font_path_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_font_path_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_font_path_reply_t;
 
-    pub fn xcb_get_font_path (
-        c: *mut xcb_connection_t,
-    ) -> xcb_get_font_path_cookie_t;
+    pub fn xcb_get_font_path(c: *mut xcb_connection_t) -> xcb_get_font_path_cookie_t;
 
-    pub fn xcb_get_font_path_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_get_font_path_cookie_t;
+    pub fn xcb_get_font_path_unchecked(c: *mut xcb_connection_t) -> xcb_get_font_path_cookie_t;
 
-/// Creates a pixmap
-///
-/// Creates a pixmap. The pixmap can only be used on the same screen as `drawable`
-/// is on and only with drawables of the same `depth`.
-    pub fn xcb_create_pixmap (
+    /// Creates a pixmap
+    ///
+    /// Creates a pixmap. The pixmap can only be used on the same screen as `drawable`
+    /// is on and only with drawables of the same `depth`.
+    pub fn xcb_create_pixmap(
         c: *mut xcb_connection_t,
         depth: u8,
         pid: xcb_pixmap_t,
@@ -6753,11 +6763,11 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         height: u16,
     ) -> xcb_void_cookie_t;
 
-/// Creates a pixmap
-///
-/// Creates a pixmap. The pixmap can only be used on the same screen as `drawable`
-/// is on and only with drawables of the same `depth`.
-    pub fn xcb_create_pixmap_checked (
+    /// Creates a pixmap
+    ///
+    /// Creates a pixmap. The pixmap can only be used on the same screen as `drawable`
+    /// is on and only with drawables of the same `depth`.
+    pub fn xcb_create_pixmap_checked(
         c: *mut xcb_connection_t,
         depth: u8,
         pid: xcb_pixmap_t,
@@ -6766,29 +6776,26 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         height: u16,
     ) -> xcb_void_cookie_t;
 
-/// Destroys a pixmap
-///
-/// Deletes the association between the pixmap ID and the pixmap. The pixmap
-/// storage will be freed when there are no more references to it.
-    pub fn xcb_free_pixmap (
+    /// Destroys a pixmap
+    ///
+    /// Deletes the association between the pixmap ID and the pixmap. The pixmap
+    /// storage will be freed when there are no more references to it.
+    pub fn xcb_free_pixmap(c: *mut xcb_connection_t, pixmap: xcb_pixmap_t) -> xcb_void_cookie_t;
+
+    /// Destroys a pixmap
+    ///
+    /// Deletes the association between the pixmap ID and the pixmap. The pixmap
+    /// storage will be freed when there are no more references to it.
+    pub fn xcb_free_pixmap_checked(
         c: *mut xcb_connection_t,
         pixmap: xcb_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-/// Destroys a pixmap
-///
-/// Deletes the association between the pixmap ID and the pixmap. The pixmap
-/// storage will be freed when there are no more references to it.
-    pub fn xcb_free_pixmap_checked (
-        c: *mut xcb_connection_t,
-        pixmap: xcb_pixmap_t,
-    ) -> xcb_void_cookie_t;
-
-/// Creates a graphics context
-///
-/// Creates a graphics context. The graphics context can be used with any drawable
-/// that has the same root and depth as the specified drawable.
-    pub fn xcb_create_gc (
+    /// Creates a graphics context
+    ///
+    /// Creates a graphics context. The graphics context can be used with any drawable
+    /// that has the same root and depth as the specified drawable.
+    pub fn xcb_create_gc(
         c: *mut xcb_connection_t,
         cid: xcb_gcontext_t,
         drawable: xcb_drawable_t,
@@ -6796,11 +6803,11 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-/// Creates a graphics context
-///
-/// Creates a graphics context. The graphics context can be used with any drawable
-/// that has the same root and depth as the specified drawable.
-    pub fn xcb_create_gc_checked (
+    /// Creates a graphics context
+    ///
+    /// Creates a graphics context. The graphics context can be used with any drawable
+    /// that has the same root and depth as the specified drawable.
+    pub fn xcb_create_gc_checked(
         c: *mut xcb_connection_t,
         cid: xcb_gcontext_t,
         drawable: xcb_drawable_t,
@@ -6808,41 +6815,41 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-/// change graphics context components
-///
-/// Changes the components specified by `value_mask` for the specified graphics context.
-    pub fn xcb_change_gc (
+    /// change graphics context components
+    ///
+    /// Changes the components specified by `value_mask` for the specified graphics context.
+    pub fn xcb_change_gc(
         c: *mut xcb_connection_t,
         gc: xcb_gcontext_t,
         value_mask: u32,
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-/// change graphics context components
-///
-/// Changes the components specified by `value_mask` for the specified graphics context.
-    pub fn xcb_change_gc_checked (
+    /// change graphics context components
+    ///
+    /// Changes the components specified by `value_mask` for the specified graphics context.
+    pub fn xcb_change_gc_checked(
         c: *mut xcb_connection_t,
         gc: xcb_gcontext_t,
         value_mask: u32,
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_copy_gc (
+    pub fn xcb_copy_gc(
         c: *mut xcb_connection_t,
         src_gc: xcb_gcontext_t,
         dst_gc: xcb_gcontext_t,
         value_mask: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_copy_gc_checked (
+    pub fn xcb_copy_gc_checked(
         c: *mut xcb_connection_t,
         src_gc: xcb_gcontext_t,
         dst_gc: xcb_gcontext_t,
         value_mask: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_set_dashes (
+    pub fn xcb_set_dashes(
         c: *mut xcb_connection_t,
         gc: xcb_gcontext_t,
         dash_offset: u16,
@@ -6850,7 +6857,7 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         dashes: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_set_dashes_checked (
+    pub fn xcb_set_dashes_checked(
         c: *mut xcb_connection_t,
         gc: xcb_gcontext_t,
         dash_offset: u16,
@@ -6858,7 +6865,7 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         dashes: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_set_clip_rectangles (
+    pub fn xcb_set_clip_rectangles(
         c: *mut xcb_connection_t,
         ordering: u8,
         gc: xcb_gcontext_t,
@@ -6868,7 +6875,7 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_set_clip_rectangles_checked (
+    pub fn xcb_set_clip_rectangles_checked(
         c: *mut xcb_connection_t,
         ordering: u8,
         gc: xcb_gcontext_t,
@@ -6878,23 +6885,17 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-/// Destroys a graphics context
-///
-/// Destroys the specified `gc` and all associated storage.
-    pub fn xcb_free_gc (
-        c: *mut xcb_connection_t,
-        gc: xcb_gcontext_t,
-    ) -> xcb_void_cookie_t;
+    /// Destroys a graphics context
+    ///
+    /// Destroys the specified `gc` and all associated storage.
+    pub fn xcb_free_gc(c: *mut xcb_connection_t, gc: xcb_gcontext_t) -> xcb_void_cookie_t;
 
-/// Destroys a graphics context
-///
-/// Destroys the specified `gc` and all associated storage.
-    pub fn xcb_free_gc_checked (
-        c: *mut xcb_connection_t,
-        gc: xcb_gcontext_t,
-    ) -> xcb_void_cookie_t;
+    /// Destroys a graphics context
+    ///
+    /// Destroys the specified `gc` and all associated storage.
+    pub fn xcb_free_gc_checked(c: *mut xcb_connection_t, gc: xcb_gcontext_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_clear_area (
+    pub fn xcb_clear_area(
         c: *mut xcb_connection_t,
         exposures: u8,
         window: xcb_window_t,
@@ -6904,7 +6905,7 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         height: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_clear_area_checked (
+    pub fn xcb_clear_area_checked(
         c: *mut xcb_connection_t,
         exposures: u8,
         window: xcb_window_t,
@@ -6914,10 +6915,10 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         height: u16,
     ) -> xcb_void_cookie_t;
 
-/// copy areas
-///
-/// Copies the specified rectangle from `src_drawable` to `dst_drawable`.
-    pub fn xcb_copy_area (
+    /// copy areas
+    ///
+    /// Copies the specified rectangle from `src_drawable` to `dst_drawable`.
+    pub fn xcb_copy_area(
         c: *mut xcb_connection_t,
         src_drawable: xcb_drawable_t,
         dst_drawable: xcb_drawable_t,
@@ -6930,10 +6931,10 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         height: u16,
     ) -> xcb_void_cookie_t;
 
-/// copy areas
-///
-/// Copies the specified rectangle from `src_drawable` to `dst_drawable`.
-    pub fn xcb_copy_area_checked (
+    /// copy areas
+    ///
+    /// Copies the specified rectangle from `src_drawable` to `dst_drawable`.
+    pub fn xcb_copy_area_checked(
         c: *mut xcb_connection_t,
         src_drawable: xcb_drawable_t,
         dst_drawable: xcb_drawable_t,
@@ -6946,7 +6947,7 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         height: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_copy_plane (
+    pub fn xcb_copy_plane(
         c: *mut xcb_connection_t,
         src_drawable: xcb_drawable_t,
         dst_drawable: xcb_drawable_t,
@@ -6960,7 +6961,7 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         bit_plane: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_copy_plane_checked (
+    pub fn xcb_copy_plane_checked(
         c: *mut xcb_connection_t,
         src_drawable: xcb_drawable_t,
         dst_drawable: xcb_drawable_t,
@@ -6974,7 +6975,7 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         bit_plane: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_point (
+    pub fn xcb_poly_point(
         c: *mut xcb_connection_t,
         coordinate_mode: u8,
         drawable: xcb_drawable_t,
@@ -6983,7 +6984,7 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         points: *const xcb_point_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_point_checked (
+    pub fn xcb_poly_point_checked(
         c: *mut xcb_connection_t,
         coordinate_mode: u8,
         drawable: xcb_drawable_t,
@@ -6992,17 +6993,17 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         points: *const xcb_point_t,
     ) -> xcb_void_cookie_t;
 
-/// draw lines
-///
-/// Draws `points_len`-1 lines between each pair of points (point[i], point[i+1])
-/// in the `points` array. The lines are drawn in the order listed in the array.
-/// They join correctly at all intermediate points, and if the first and last
-/// points coincide, the first and last lines also join correctly. For any given
-/// line, a pixel is not drawn more than once. If thin (zero line-width) lines
-/// intersect, the intersecting pixels are drawn multiple times. If wide lines
-/// intersect, the intersecting pixels are drawn only once, as though the entire
-/// request were a single, filled shape.
-    pub fn xcb_poly_line (
+    /// draw lines
+    ///
+    /// Draws `points_len`-1 lines between each pair of points (point[i], point[i+1])
+    /// in the `points` array. The lines are drawn in the order listed in the array.
+    /// They join correctly at all intermediate points, and if the first and last
+    /// points coincide, the first and last lines also join correctly. For any given
+    /// line, a pixel is not drawn more than once. If thin (zero line-width) lines
+    /// intersect, the intersecting pixels are drawn multiple times. If wide lines
+    /// intersect, the intersecting pixels are drawn only once, as though the entire
+    /// request were a single, filled shape.
+    pub fn xcb_poly_line(
         c: *mut xcb_connection_t,
         coordinate_mode: u8,
         drawable: xcb_drawable_t,
@@ -7011,17 +7012,17 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         points: *const xcb_point_t,
     ) -> xcb_void_cookie_t;
 
-/// draw lines
-///
-/// Draws `points_len`-1 lines between each pair of points (point[i], point[i+1])
-/// in the `points` array. The lines are drawn in the order listed in the array.
-/// They join correctly at all intermediate points, and if the first and last
-/// points coincide, the first and last lines also join correctly. For any given
-/// line, a pixel is not drawn more than once. If thin (zero line-width) lines
-/// intersect, the intersecting pixels are drawn multiple times. If wide lines
-/// intersect, the intersecting pixels are drawn only once, as though the entire
-/// request were a single, filled shape.
-    pub fn xcb_poly_line_checked (
+    /// draw lines
+    ///
+    /// Draws `points_len`-1 lines between each pair of points (point[i], point[i+1])
+    /// in the `points` array. The lines are drawn in the order listed in the array.
+    /// They join correctly at all intermediate points, and if the first and last
+    /// points coincide, the first and last lines also join correctly. For any given
+    /// line, a pixel is not drawn more than once. If thin (zero line-width) lines
+    /// intersect, the intersecting pixels are drawn multiple times. If wide lines
+    /// intersect, the intersecting pixels are drawn only once, as though the entire
+    /// request were a single, filled shape.
+    pub fn xcb_poly_line_checked(
         c: *mut xcb_connection_t,
         coordinate_mode: u8,
         drawable: xcb_drawable_t,
@@ -7030,22 +7031,22 @@ pub fn xcb_get_font_path_path_iterator<'a>(R: *const xcb_get_font_path_reply_t) 
         points: *const xcb_point_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_segment_next(i: *mut xcb_segment_iterator_t);
+    pub fn xcb_segment_next(i: *mut xcb_segment_iterator_t);
 
-pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t;
 
-/// draw lines
-///
-/// Draws multiple, unconnected lines. For each segment, a line is drawn between
-/// (x1, y1) and (x2, y2). The lines are drawn in the order listed in the array of
-/// `xcb_segment_t` structures and does not perform joining at coincident
-/// endpoints. For any given line, a pixel is not drawn more than once. If lines
-/// intersect, the intersecting pixels are drawn multiple times.
-///
-/// TODO: include the xcb_segment_t data structure
-///
-/// TODO: an example
-    pub fn xcb_poly_segment (
+    /// draw lines
+    ///
+    /// Draws multiple, unconnected lines. For each segment, a line is drawn between
+    /// (x1, y1) and (x2, y2). The lines are drawn in the order listed in the array of
+    /// `xcb_segment_t` structures and does not perform joining at coincident
+    /// endpoints. For any given line, a pixel is not drawn more than once. If lines
+    /// intersect, the intersecting pixels are drawn multiple times.
+    ///
+    /// TODO: include the xcb_segment_t data structure
+    ///
+    /// TODO: an example
+    pub fn xcb_poly_segment(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7053,18 +7054,18 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         segments: *const xcb_segment_t,
     ) -> xcb_void_cookie_t;
 
-/// draw lines
-///
-/// Draws multiple, unconnected lines. For each segment, a line is drawn between
-/// (x1, y1) and (x2, y2). The lines are drawn in the order listed in the array of
-/// `xcb_segment_t` structures and does not perform joining at coincident
-/// endpoints. For any given line, a pixel is not drawn more than once. If lines
-/// intersect, the intersecting pixels are drawn multiple times.
-///
-/// TODO: include the xcb_segment_t data structure
-///
-/// TODO: an example
-    pub fn xcb_poly_segment_checked (
+    /// draw lines
+    ///
+    /// Draws multiple, unconnected lines. For each segment, a line is drawn between
+    /// (x1, y1) and (x2, y2). The lines are drawn in the order listed in the array of
+    /// `xcb_segment_t` structures and does not perform joining at coincident
+    /// endpoints. For any given line, a pixel is not drawn more than once. If lines
+    /// intersect, the intersecting pixels are drawn multiple times.
+    ///
+    /// TODO: include the xcb_segment_t data structure
+    ///
+    /// TODO: an example
+    pub fn xcb_poly_segment_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7072,7 +7073,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         segments: *const xcb_segment_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_rectangle (
+    pub fn xcb_poly_rectangle(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7080,7 +7081,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_rectangle_checked (
+    pub fn xcb_poly_rectangle_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7088,7 +7089,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_arc (
+    pub fn xcb_poly_arc(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7096,7 +7097,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         arcs: *const xcb_arc_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_arc_checked (
+    pub fn xcb_poly_arc_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7104,7 +7105,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         arcs: *const xcb_arc_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_fill_poly (
+    pub fn xcb_fill_poly(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7114,7 +7115,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         points: *const xcb_point_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_fill_poly_checked (
+    pub fn xcb_fill_poly_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7124,12 +7125,12 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         points: *const xcb_point_t,
     ) -> xcb_void_cookie_t;
 
-/// Fills rectangles
-///
-/// Fills the specified rectangle(s) in the order listed in the array. For any
-/// given rectangle, each pixel is not drawn more than once. If rectangles
-/// intersect, the intersecting pixels are drawn multiple times.
-    pub fn xcb_poly_fill_rectangle (
+    /// Fills rectangles
+    ///
+    /// Fills the specified rectangle(s) in the order listed in the array. For any
+    /// given rectangle, each pixel is not drawn more than once. If rectangles
+    /// intersect, the intersecting pixels are drawn multiple times.
+    pub fn xcb_poly_fill_rectangle(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7137,12 +7138,12 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-/// Fills rectangles
-///
-/// Fills the specified rectangle(s) in the order listed in the array. For any
-/// given rectangle, each pixel is not drawn more than once. If rectangles
-/// intersect, the intersecting pixels are drawn multiple times.
-    pub fn xcb_poly_fill_rectangle_checked (
+    /// Fills rectangles
+    ///
+    /// Fills the specified rectangle(s) in the order listed in the array. For any
+    /// given rectangle, each pixel is not drawn more than once. If rectangles
+    /// intersect, the intersecting pixels are drawn multiple times.
+    pub fn xcb_poly_fill_rectangle_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7150,7 +7151,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_fill_arc (
+    pub fn xcb_poly_fill_arc(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7158,7 +7159,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         arcs: *const xcb_arc_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_fill_arc_checked (
+    pub fn xcb_poly_fill_arc_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7166,7 +7167,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         arcs: *const xcb_arc_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_put_image (
+    pub fn xcb_put_image(
         c: *mut xcb_connection_t,
         format: u8,
         drawable: xcb_drawable_t,
@@ -7181,7 +7182,7 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_put_image_checked (
+    pub fn xcb_put_image_checked(
         c: *mut xcb_connection_t,
         format: u8,
         drawable: xcb_drawable_t,
@@ -7196,20 +7197,20 @@ pub fn xcb_segment_end(i: *mut xcb_segment_iterator_t) -> xcb_generic_iterator_t
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_get_image_data(R: *const xcb_get_image_reply_t) -> *mut u8;
+    pub fn xcb_get_image_data(R: *const xcb_get_image_reply_t) -> *mut u8;
 
-pub fn xcb_get_image_data_length(R: *const xcb_get_image_reply_t) -> c_int;
+    pub fn xcb_get_image_data_length(R: *const xcb_get_image_reply_t) -> c_int;
 
-pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_image_reply (
+    pub fn xcb_get_image_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_image_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_image_reply_t;
 
-    pub fn xcb_get_image (
+    pub fn xcb_get_image(
         c: *mut xcb_connection_t,
         format: u8,
         drawable: xcb_drawable_t,
@@ -7220,7 +7221,7 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         plane_mask: u32,
     ) -> xcb_get_image_cookie_t;
 
-    pub fn xcb_get_image_unchecked (
+    pub fn xcb_get_image_unchecked(
         c: *mut xcb_connection_t,
         format: u8,
         drawable: xcb_drawable_t,
@@ -7231,7 +7232,7 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         plane_mask: u32,
     ) -> xcb_get_image_cookie_t;
 
-    pub fn xcb_poly_text_8 (
+    pub fn xcb_poly_text_8(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7241,7 +7242,7 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         items: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_text_8_checked (
+    pub fn xcb_poly_text_8_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7251,7 +7252,7 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         items: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_text_16 (
+    pub fn xcb_poly_text_16(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7261,7 +7262,7 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         items: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_poly_text_16_checked (
+    pub fn xcb_poly_text_16_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -7271,17 +7272,17 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         items: *const u8,
     ) -> xcb_void_cookie_t;
 
-/// Draws text
-///
-/// Fills the destination rectangle with the background pixel from `gc`, then
-/// paints the text with the foreground pixel from `gc`. The upper-left corner of
-/// the filled rectangle is at [x, y - font-ascent]. The width is overall-width,
-/// the height is font-ascent + font-descent. The overall-width, font-ascent and
-/// font-descent are as returned by `xcb_query_text_extents` (TODO).
-///
-/// Note that using X core fonts is deprecated (but still supported) in favor of
-/// client-side rendering using Xft.
-    pub fn xcb_image_text_8 (
+    /// Draws text
+    ///
+    /// Fills the destination rectangle with the background pixel from `gc`, then
+    /// paints the text with the foreground pixel from `gc`. The upper-left corner of
+    /// the filled rectangle is at [x, y - font-ascent]. The width is overall-width,
+    /// the height is font-ascent + font-descent. The overall-width, font-ascent and
+    /// font-descent are as returned by `xcb_query_text_extents` (TODO).
+    ///
+    /// Note that using X core fonts is deprecated (but still supported) in favor of
+    /// client-side rendering using Xft.
+    pub fn xcb_image_text_8(
         c: *mut xcb_connection_t,
         string_len: u8,
         drawable: xcb_drawable_t,
@@ -7291,17 +7292,17 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         string: *const c_char,
     ) -> xcb_void_cookie_t;
 
-/// Draws text
-///
-/// Fills the destination rectangle with the background pixel from `gc`, then
-/// paints the text with the foreground pixel from `gc`. The upper-left corner of
-/// the filled rectangle is at [x, y - font-ascent]. The width is overall-width,
-/// the height is font-ascent + font-descent. The overall-width, font-ascent and
-/// font-descent are as returned by `xcb_query_text_extents` (TODO).
-///
-/// Note that using X core fonts is deprecated (but still supported) in favor of
-/// client-side rendering using Xft.
-    pub fn xcb_image_text_8_checked (
+    /// Draws text
+    ///
+    /// Fills the destination rectangle with the background pixel from `gc`, then
+    /// paints the text with the foreground pixel from `gc`. The upper-left corner of
+    /// the filled rectangle is at [x, y - font-ascent]. The width is overall-width,
+    /// the height is font-ascent + font-descent. The overall-width, font-ascent and
+    /// font-descent are as returned by `xcb_query_text_extents` (TODO).
+    ///
+    /// Note that using X core fonts is deprecated (but still supported) in favor of
+    /// client-side rendering using Xft.
+    pub fn xcb_image_text_8_checked(
         c: *mut xcb_connection_t,
         string_len: u8,
         drawable: xcb_drawable_t,
@@ -7311,17 +7312,17 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         string: *const c_char,
     ) -> xcb_void_cookie_t;
 
-/// Draws text
-///
-/// Fills the destination rectangle with the background pixel from `gc`, then
-/// paints the text with the foreground pixel from `gc`. The upper-left corner of
-/// the filled rectangle is at [x, y - font-ascent]. The width is overall-width,
-/// the height is font-ascent + font-descent. The overall-width, font-ascent and
-/// font-descent are as returned by `xcb_query_text_extents` (TODO).
-///
-/// Note that using X core fonts is deprecated (but still supported) in favor of
-/// client-side rendering using Xft.
-    pub fn xcb_image_text_16 (
+    /// Draws text
+    ///
+    /// Fills the destination rectangle with the background pixel from `gc`, then
+    /// paints the text with the foreground pixel from `gc`. The upper-left corner of
+    /// the filled rectangle is at [x, y - font-ascent]. The width is overall-width,
+    /// the height is font-ascent + font-descent. The overall-width, font-ascent and
+    /// font-descent are as returned by `xcb_query_text_extents` (TODO).
+    ///
+    /// Note that using X core fonts is deprecated (but still supported) in favor of
+    /// client-side rendering using Xft.
+    pub fn xcb_image_text_16(
         c: *mut xcb_connection_t,
         string_len: u8,
         drawable: xcb_drawable_t,
@@ -7331,17 +7332,17 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         string: *const xcb_char2b_t,
     ) -> xcb_void_cookie_t;
 
-/// Draws text
-///
-/// Fills the destination rectangle with the background pixel from `gc`, then
-/// paints the text with the foreground pixel from `gc`. The upper-left corner of
-/// the filled rectangle is at [x, y - font-ascent]. The width is overall-width,
-/// the height is font-ascent + font-descent. The overall-width, font-ascent and
-/// font-descent are as returned by `xcb_query_text_extents` (TODO).
-///
-/// Note that using X core fonts is deprecated (but still supported) in favor of
-/// client-side rendering using Xft.
-    pub fn xcb_image_text_16_checked (
+    /// Draws text
+    ///
+    /// Fills the destination rectangle with the background pixel from `gc`, then
+    /// paints the text with the foreground pixel from `gc`. The upper-left corner of
+    /// the filled rectangle is at [x, y - font-ascent]. The width is overall-width,
+    /// the height is font-ascent + font-descent. The overall-width, font-ascent and
+    /// font-descent are as returned by `xcb_query_text_extents` (TODO).
+    ///
+    /// Note that using X core fonts is deprecated (but still supported) in favor of
+    /// client-side rendering using Xft.
+    pub fn xcb_image_text_16_checked(
         c: *mut xcb_connection_t,
         string_len: u8,
         drawable: xcb_drawable_t,
@@ -7351,7 +7352,7 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         string: *const xcb_char2b_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_create_colormap (
+    pub fn xcb_create_colormap(
         c: *mut xcb_connection_t,
         alloc: u8,
         mid: xcb_colormap_t,
@@ -7359,7 +7360,7 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         visual: xcb_visualid_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_create_colormap_checked (
+    pub fn xcb_create_colormap_checked(
         c: *mut xcb_connection_t,
         alloc: u8,
         mid: xcb_colormap_t,
@@ -7367,86 +7368,89 @@ pub fn xcb_get_image_data_end(R: *const xcb_get_image_reply_t) -> xcb_generic_it
         visual: xcb_visualid_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_free_colormap (
+    pub fn xcb_free_colormap(c: *mut xcb_connection_t, cmap: xcb_colormap_t) -> xcb_void_cookie_t;
+
+    pub fn xcb_free_colormap_checked(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_free_colormap_checked (
-        c: *mut xcb_connection_t,
-        cmap: xcb_colormap_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_copy_colormap_and_free (
+    pub fn xcb_copy_colormap_and_free(
         c: *mut xcb_connection_t,
         mid: xcb_colormap_t,
         src_cmap: xcb_colormap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_copy_colormap_and_free_checked (
+    pub fn xcb_copy_colormap_and_free_checked(
         c: *mut xcb_connection_t,
         mid: xcb_colormap_t,
         src_cmap: xcb_colormap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_install_colormap (
+    pub fn xcb_install_colormap(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_install_colormap_checked (
+    pub fn xcb_install_colormap_checked(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_uninstall_colormap (
+    pub fn xcb_uninstall_colormap(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_uninstall_colormap_checked (
+    pub fn xcb_uninstall_colormap_checked(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_list_installed_colormaps_cmaps(R: *const xcb_list_installed_colormaps_reply_t) -> *mut xcb_colormap_t;
+    pub fn xcb_list_installed_colormaps_cmaps(
+        R: *const xcb_list_installed_colormaps_reply_t,
+    ) -> *mut xcb_colormap_t;
 
-pub fn xcb_list_installed_colormaps_cmaps_length(R: *const xcb_list_installed_colormaps_reply_t) -> c_int;
+    pub fn xcb_list_installed_colormaps_cmaps_length(
+        R: *const xcb_list_installed_colormaps_reply_t,
+    ) -> c_int;
 
-pub fn xcb_list_installed_colormaps_cmaps_end(R: *const xcb_list_installed_colormaps_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_list_installed_colormaps_cmaps_end(
+        R: *const xcb_list_installed_colormaps_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_list_installed_colormaps_reply (
+    pub fn xcb_list_installed_colormaps_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_list_installed_colormaps_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_list_installed_colormaps_reply_t;
 
-    pub fn xcb_list_installed_colormaps (
+    pub fn xcb_list_installed_colormaps(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_list_installed_colormaps_cookie_t;
 
-    pub fn xcb_list_installed_colormaps_unchecked (
+    pub fn xcb_list_installed_colormaps_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_list_installed_colormaps_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_alloc_color_reply (
+    pub fn xcb_alloc_color_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_alloc_color_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_alloc_color_reply_t;
 
-/// Allocate a color
-///
-/// Allocates a read-only colormap entry corresponding to the closest RGB value
-/// supported by the hardware. If you are using TrueColor, you can take a shortcut
-/// and directly calculate the color pixel value to avoid the round trip. But, for
-/// example, on 16-bit color setups (VNC), you can easily get the closest supported
-/// RGB value to the RGB value you are specifying.
-    pub fn xcb_alloc_color (
+    /// Allocate a color
+    ///
+    /// Allocates a read-only colormap entry corresponding to the closest RGB value
+    /// supported by the hardware. If you are using TrueColor, you can take a shortcut
+    /// and directly calculate the color pixel value to avoid the round trip. But, for
+    /// example, on 16-bit color setups (VNC), you can easily get the closest supported
+    /// RGB value to the RGB value you are specifying.
+    pub fn xcb_alloc_color(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         red: u16,
@@ -7454,14 +7458,14 @@ pub fn xcb_list_installed_colormaps_cmaps_end(R: *const xcb_list_installed_color
         blue: u16,
     ) -> xcb_alloc_color_cookie_t;
 
-/// Allocate a color
-///
-/// Allocates a read-only colormap entry corresponding to the closest RGB value
-/// supported by the hardware. If you are using TrueColor, you can take a shortcut
-/// and directly calculate the color pixel value to avoid the round trip. But, for
-/// example, on 16-bit color setups (VNC), you can easily get the closest supported
-/// RGB value to the RGB value you are specifying.
-    pub fn xcb_alloc_color_unchecked (
+    /// Allocate a color
+    ///
+    /// Allocates a read-only colormap entry corresponding to the closest RGB value
+    /// supported by the hardware. If you are using TrueColor, you can take a shortcut
+    /// and directly calculate the color pixel value to avoid the round trip. But, for
+    /// example, on 16-bit color setups (VNC), you can easily get the closest supported
+    /// RGB value to the RGB value you are specifying.
+    pub fn xcb_alloc_color_unchecked(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         red: u16,
@@ -7470,46 +7474,50 @@ pub fn xcb_list_installed_colormaps_cmaps_end(R: *const xcb_list_installed_color
     ) -> xcb_alloc_color_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_alloc_named_color_reply (
+    pub fn xcb_alloc_named_color_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_alloc_named_color_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_alloc_named_color_reply_t;
 
-    pub fn xcb_alloc_named_color (
+    pub fn xcb_alloc_named_color(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_alloc_named_color_cookie_t;
 
-    pub fn xcb_alloc_named_color_unchecked (
+    pub fn xcb_alloc_named_color_unchecked(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_alloc_named_color_cookie_t;
 
-pub fn xcb_alloc_color_cells_pixels(R: *const xcb_alloc_color_cells_reply_t) -> *mut u32;
+    pub fn xcb_alloc_color_cells_pixels(R: *const xcb_alloc_color_cells_reply_t) -> *mut u32;
 
-pub fn xcb_alloc_color_cells_pixels_length(R: *const xcb_alloc_color_cells_reply_t) -> c_int;
+    pub fn xcb_alloc_color_cells_pixels_length(R: *const xcb_alloc_color_cells_reply_t) -> c_int;
 
-pub fn xcb_alloc_color_cells_pixels_end(R: *const xcb_alloc_color_cells_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_alloc_color_cells_pixels_end(
+        R: *const xcb_alloc_color_cells_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_alloc_color_cells_masks(R: *const xcb_alloc_color_cells_reply_t) -> *mut u32;
+    pub fn xcb_alloc_color_cells_masks(R: *const xcb_alloc_color_cells_reply_t) -> *mut u32;
 
-pub fn xcb_alloc_color_cells_masks_length(R: *const xcb_alloc_color_cells_reply_t) -> c_int;
+    pub fn xcb_alloc_color_cells_masks_length(R: *const xcb_alloc_color_cells_reply_t) -> c_int;
 
-pub fn xcb_alloc_color_cells_masks_end(R: *const xcb_alloc_color_cells_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_alloc_color_cells_masks_end(
+        R: *const xcb_alloc_color_cells_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_alloc_color_cells_reply (
+    pub fn xcb_alloc_color_cells_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_alloc_color_cells_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_alloc_color_cells_reply_t;
 
-    pub fn xcb_alloc_color_cells (
+    pub fn xcb_alloc_color_cells(
         c: *mut xcb_connection_t,
         contiguous: u8,
         cmap: xcb_colormap_t,
@@ -7517,7 +7525,7 @@ pub fn xcb_alloc_color_cells_masks_end(R: *const xcb_alloc_color_cells_reply_t) 
         planes: u16,
     ) -> xcb_alloc_color_cells_cookie_t;
 
-    pub fn xcb_alloc_color_cells_unchecked (
+    pub fn xcb_alloc_color_cells_unchecked(
         c: *mut xcb_connection_t,
         contiguous: u8,
         cmap: xcb_colormap_t,
@@ -7525,20 +7533,22 @@ pub fn xcb_alloc_color_cells_masks_end(R: *const xcb_alloc_color_cells_reply_t) 
         planes: u16,
     ) -> xcb_alloc_color_cells_cookie_t;
 
-pub fn xcb_alloc_color_planes_pixels(R: *const xcb_alloc_color_planes_reply_t) -> *mut u32;
+    pub fn xcb_alloc_color_planes_pixels(R: *const xcb_alloc_color_planes_reply_t) -> *mut u32;
 
-pub fn xcb_alloc_color_planes_pixels_length(R: *const xcb_alloc_color_planes_reply_t) -> c_int;
+    pub fn xcb_alloc_color_planes_pixels_length(R: *const xcb_alloc_color_planes_reply_t) -> c_int;
 
-pub fn xcb_alloc_color_planes_pixels_end(R: *const xcb_alloc_color_planes_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_alloc_color_planes_pixels_end(
+        R: *const xcb_alloc_color_planes_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_alloc_color_planes_reply (
+    pub fn xcb_alloc_color_planes_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_alloc_color_planes_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_alloc_color_planes_reply_t;
 
-    pub fn xcb_alloc_color_planes (
+    pub fn xcb_alloc_color_planes(
         c: *mut xcb_connection_t,
         contiguous: u8,
         cmap: xcb_colormap_t,
@@ -7548,7 +7558,7 @@ pub fn xcb_alloc_color_planes_pixels_end(R: *const xcb_alloc_color_planes_reply_
         blues: u16,
     ) -> xcb_alloc_color_planes_cookie_t;
 
-    pub fn xcb_alloc_color_planes_unchecked (
+    pub fn xcb_alloc_color_planes_unchecked(
         c: *mut xcb_connection_t,
         contiguous: u8,
         cmap: xcb_colormap_t,
@@ -7558,7 +7568,7 @@ pub fn xcb_alloc_color_planes_pixels_end(R: *const xcb_alloc_color_planes_reply_
         blues: u16,
     ) -> xcb_alloc_color_planes_cookie_t;
 
-    pub fn xcb_free_colors (
+    pub fn xcb_free_colors(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         plane_mask: u32,
@@ -7566,7 +7576,7 @@ pub fn xcb_alloc_color_planes_pixels_end(R: *const xcb_alloc_color_planes_reply_
         pixels: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_free_colors_checked (
+    pub fn xcb_free_colors_checked(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         plane_mask: u32,
@@ -7574,25 +7584,25 @@ pub fn xcb_alloc_color_planes_pixels_end(R: *const xcb_alloc_color_planes_reply_
         pixels: *const u32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_coloritem_next(i: *mut xcb_coloritem_iterator_t);
+    pub fn xcb_coloritem_next(i: *mut xcb_coloritem_iterator_t);
 
-pub fn xcb_coloritem_end(i: *mut xcb_coloritem_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_coloritem_end(i: *mut xcb_coloritem_iterator_t) -> xcb_generic_iterator_t;
 
-    pub fn xcb_store_colors (
+    pub fn xcb_store_colors(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         items_len: u32,
         items: *const xcb_coloritem_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_store_colors_checked (
+    pub fn xcb_store_colors_checked(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         items_len: u32,
         items: *const xcb_coloritem_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_store_named_color (
+    pub fn xcb_store_named_color(
         c: *mut xcb_connection_t,
         flags: u8,
         cmap: xcb_colormap_t,
@@ -7601,7 +7611,7 @@ pub fn xcb_coloritem_end(i: *mut xcb_coloritem_iterator_t) -> xcb_generic_iterat
         name: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_store_named_color_checked (
+    pub fn xcb_store_named_color_checked(
         c: *mut xcb_connection_t,
         flags: u8,
         cmap: xcb_colormap_t,
@@ -7610,31 +7620,33 @@ pub fn xcb_coloritem_end(i: *mut xcb_coloritem_iterator_t) -> xcb_generic_iterat
         name: *const c_char,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_rgb_next(i: *mut xcb_rgb_iterator_t);
+    pub fn xcb_rgb_next(i: *mut xcb_rgb_iterator_t);
 
-pub fn xcb_rgb_end(i: *mut xcb_rgb_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_rgb_end(i: *mut xcb_rgb_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_query_colors_colors(R: *const xcb_query_colors_reply_t) -> *mut xcb_rgb_t;
+    pub fn xcb_query_colors_colors(R: *const xcb_query_colors_reply_t) -> *mut xcb_rgb_t;
 
-pub fn xcb_query_colors_colors_length(R: *const xcb_query_colors_reply_t) -> c_int;
+    pub fn xcb_query_colors_colors_length(R: *const xcb_query_colors_reply_t) -> c_int;
 
-pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> xcb_rgb_iterator_t;
+    pub fn xcb_query_colors_colors_iterator(
+        R: *const xcb_query_colors_reply_t,
+    ) -> xcb_rgb_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_query_colors_reply (
+    pub fn xcb_query_colors_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_query_colors_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_query_colors_reply_t;
 
-    pub fn xcb_query_colors (
+    pub fn xcb_query_colors(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         pixels_len: u32,
         pixels: *const u32,
     ) -> xcb_query_colors_cookie_t;
 
-    pub fn xcb_query_colors_unchecked (
+    pub fn xcb_query_colors_unchecked(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         pixels_len: u32,
@@ -7642,27 +7654,27 @@ pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> x
     ) -> xcb_query_colors_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_lookup_color_reply (
+    pub fn xcb_lookup_color_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_lookup_color_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_lookup_color_reply_t;
 
-    pub fn xcb_lookup_color (
+    pub fn xcb_lookup_color(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_lookup_color_cookie_t;
 
-    pub fn xcb_lookup_color_unchecked (
+    pub fn xcb_lookup_color_unchecked(
         c: *mut xcb_connection_t,
         cmap: xcb_colormap_t,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_lookup_color_cookie_t;
 
-    pub fn xcb_create_cursor (
+    pub fn xcb_create_cursor(
         c: *mut xcb_connection_t,
         cid: xcb_cursor_t,
         source: xcb_pixmap_t,
@@ -7677,7 +7689,7 @@ pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> x
         y: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_create_cursor_checked (
+    pub fn xcb_create_cursor_checked(
         c: *mut xcb_connection_t,
         cid: xcb_cursor_t,
         source: xcb_pixmap_t,
@@ -7692,18 +7704,18 @@ pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> x
         y: u16,
     ) -> xcb_void_cookie_t;
 
-/// create cursor
-///
-/// Creates a cursor from a font glyph. X provides a set of standard cursor shapes
-/// in a special font named cursor. Applications are encouraged to use this
-/// interface for their cursors because the font can be customized for the
-/// individual display type.
-///
-/// All pixels which are set to 1 in the source will use the foreground color (as
-/// specified by `fore_red`, `fore_green` and `fore_blue`). All pixels set to 0
-/// will use the background color (as specified by `back_red`, `back_green` and
-/// `back_blue`).
-    pub fn xcb_create_glyph_cursor (
+    /// create cursor
+    ///
+    /// Creates a cursor from a font glyph. X provides a set of standard cursor shapes
+    /// in a special font named cursor. Applications are encouraged to use this
+    /// interface for their cursors because the font can be customized for the
+    /// individual display type.
+    ///
+    /// All pixels which are set to 1 in the source will use the foreground color (as
+    /// specified by `fore_red`, `fore_green` and `fore_blue`). All pixels set to 0
+    /// will use the background color (as specified by `back_red`, `back_green` and
+    /// `back_blue`).
+    pub fn xcb_create_glyph_cursor(
         c: *mut xcb_connection_t,
         cid: xcb_cursor_t,
         source_font: xcb_font_t,
@@ -7718,18 +7730,18 @@ pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> x
         back_blue: u16,
     ) -> xcb_void_cookie_t;
 
-/// create cursor
-///
-/// Creates a cursor from a font glyph. X provides a set of standard cursor shapes
-/// in a special font named cursor. Applications are encouraged to use this
-/// interface for their cursors because the font can be customized for the
-/// individual display type.
-///
-/// All pixels which are set to 1 in the source will use the foreground color (as
-/// specified by `fore_red`, `fore_green` and `fore_blue`). All pixels set to 0
-/// will use the background color (as specified by `back_red`, `back_green` and
-/// `back_blue`).
-    pub fn xcb_create_glyph_cursor_checked (
+    /// create cursor
+    ///
+    /// Creates a cursor from a font glyph. X provides a set of standard cursor shapes
+    /// in a special font named cursor. Applications are encouraged to use this
+    /// interface for their cursors because the font can be customized for the
+    /// individual display type.
+    ///
+    /// All pixels which are set to 1 in the source will use the foreground color (as
+    /// specified by `fore_red`, `fore_green` and `fore_blue`). All pixels set to 0
+    /// will use the background color (as specified by `back_red`, `back_green` and
+    /// `back_blue`).
+    pub fn xcb_create_glyph_cursor_checked(
         c: *mut xcb_connection_t,
         cid: xcb_cursor_t,
         source_font: xcb_font_t,
@@ -7744,25 +7756,22 @@ pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> x
         back_blue: u16,
     ) -> xcb_void_cookie_t;
 
-/// Deletes a cursor
-///
-/// Deletes the association between the cursor resource ID and the specified
-/// cursor. The cursor is freed when no other resource references it.
-    pub fn xcb_free_cursor (
+    /// Deletes a cursor
+    ///
+    /// Deletes the association between the cursor resource ID and the specified
+    /// cursor. The cursor is freed when no other resource references it.
+    pub fn xcb_free_cursor(c: *mut xcb_connection_t, cursor: xcb_cursor_t) -> xcb_void_cookie_t;
+
+    /// Deletes a cursor
+    ///
+    /// Deletes the association between the cursor resource ID and the specified
+    /// cursor. The cursor is freed when no other resource references it.
+    pub fn xcb_free_cursor_checked(
         c: *mut xcb_connection_t,
         cursor: xcb_cursor_t,
     ) -> xcb_void_cookie_t;
 
-/// Deletes a cursor
-///
-/// Deletes the association between the cursor resource ID and the specified
-/// cursor. The cursor is freed when no other resource references it.
-    pub fn xcb_free_cursor_checked (
-        c: *mut xcb_connection_t,
-        cursor: xcb_cursor_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_recolor_cursor (
+    pub fn xcb_recolor_cursor(
         c: *mut xcb_connection_t,
         cursor: xcb_cursor_t,
         fore_red: u16,
@@ -7773,7 +7782,7 @@ pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> x
         back_blue: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_recolor_cursor_checked (
+    pub fn xcb_recolor_cursor_checked(
         c: *mut xcb_connection_t,
         cursor: xcb_cursor_t,
         fore_red: u16,
@@ -7785,13 +7794,13 @@ pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> x
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_query_best_size_reply (
+    pub fn xcb_query_best_size_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_query_best_size_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_query_best_size_reply_t;
 
-    pub fn xcb_query_best_size (
+    pub fn xcb_query_best_size(
         c: *mut xcb_connection_t,
         class: u8,
         drawable: xcb_drawable_t,
@@ -7799,7 +7808,7 @@ pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> x
         height: u16,
     ) -> xcb_query_best_size_cookie_t;
 
-    pub fn xcb_query_best_size_unchecked (
+    pub fn xcb_query_best_size_unchecked(
         c: *mut xcb_connection_t,
         class: u8,
         drawable: xcb_drawable_t,
@@ -7808,66 +7817,64 @@ pub fn xcb_query_colors_colors_iterator(R: *const xcb_query_colors_reply_t) -> x
     ) -> xcb_query_best_size_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_query_extension_reply (
+    pub fn xcb_query_extension_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_query_extension_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_query_extension_reply_t;
 
-/// check if extension is present
-///
-/// Determines if the specified extension is present on this X11 server.
-///
-/// Every extension has a unique `major_opcode` to identify requests, the minor
-/// opcodes and request formats are extension-specific. If the extension provides
-/// events and errors, the `first_event` and `first_error` fields in the reply are
-/// set accordingly.
-///
-/// There should rarely be a need to use this request directly, XCB provides the
-/// `xcb_get_extension_data` function instead.
-    pub fn xcb_query_extension (
+    /// check if extension is present
+    ///
+    /// Determines if the specified extension is present on this X11 server.
+    ///
+    /// Every extension has a unique `major_opcode` to identify requests, the minor
+    /// opcodes and request formats are extension-specific. If the extension provides
+    /// events and errors, the `first_event` and `first_error` fields in the reply are
+    /// set accordingly.
+    ///
+    /// There should rarely be a need to use this request directly, XCB provides the
+    /// `xcb_get_extension_data` function instead.
+    pub fn xcb_query_extension(
         c: *mut xcb_connection_t,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_query_extension_cookie_t;
 
-/// check if extension is present
-///
-/// Determines if the specified extension is present on this X11 server.
-///
-/// Every extension has a unique `major_opcode` to identify requests, the minor
-/// opcodes and request formats are extension-specific. If the extension provides
-/// events and errors, the `first_event` and `first_error` fields in the reply are
-/// set accordingly.
-///
-/// There should rarely be a need to use this request directly, XCB provides the
-/// `xcb_get_extension_data` function instead.
-    pub fn xcb_query_extension_unchecked (
+    /// check if extension is present
+    ///
+    /// Determines if the specified extension is present on this X11 server.
+    ///
+    /// Every extension has a unique `major_opcode` to identify requests, the minor
+    /// opcodes and request formats are extension-specific. If the extension provides
+    /// events and errors, the `first_event` and `first_error` fields in the reply are
+    /// set accordingly.
+    ///
+    /// There should rarely be a need to use this request directly, XCB provides the
+    /// `xcb_get_extension_data` function instead.
+    pub fn xcb_query_extension_unchecked(
         c: *mut xcb_connection_t,
         name_len: u16,
         name: *const c_char,
     ) -> xcb_query_extension_cookie_t;
 
-pub fn xcb_list_extensions_names_length(R: *const xcb_list_extensions_reply_t) -> c_int;
+    pub fn xcb_list_extensions_names_length(R: *const xcb_list_extensions_reply_t) -> c_int;
 
-pub fn xcb_list_extensions_names_iterator<'a>(R: *const xcb_list_extensions_reply_t) -> xcb_str_iterator_t<'a>;
+    pub fn xcb_list_extensions_names_iterator<'a>(
+        R: *const xcb_list_extensions_reply_t,
+    ) -> xcb_str_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_list_extensions_reply (
+    pub fn xcb_list_extensions_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_list_extensions_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_list_extensions_reply_t;
 
-    pub fn xcb_list_extensions (
-        c: *mut xcb_connection_t,
-    ) -> xcb_list_extensions_cookie_t;
+    pub fn xcb_list_extensions(c: *mut xcb_connection_t) -> xcb_list_extensions_cookie_t;
 
-    pub fn xcb_list_extensions_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_list_extensions_cookie_t;
+    pub fn xcb_list_extensions_unchecked(c: *mut xcb_connection_t) -> xcb_list_extensions_cookie_t;
 
-    pub fn xcb_change_keyboard_mapping (
+    pub fn xcb_change_keyboard_mapping(
         c: *mut xcb_connection_t,
         keycode_count: u8,
         first_keycode: xcb_keycode_t,
@@ -7875,7 +7882,7 @@ pub fn xcb_list_extensions_names_iterator<'a>(R: *const xcb_list_extensions_repl
         keysyms: *const xcb_keysym_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_change_keyboard_mapping_checked (
+    pub fn xcb_change_keyboard_mapping_checked(
         c: *mut xcb_connection_t,
         keycode_count: u8,
         first_keycode: xcb_keycode_t,
@@ -7883,69 +7890,67 @@ pub fn xcb_list_extensions_names_iterator<'a>(R: *const xcb_list_extensions_repl
         keysyms: *const xcb_keysym_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_get_keyboard_mapping_keysyms(R: *const xcb_get_keyboard_mapping_reply_t) -> *mut xcb_keysym_t;
+    pub fn xcb_get_keyboard_mapping_keysyms(
+        R: *const xcb_get_keyboard_mapping_reply_t,
+    ) -> *mut xcb_keysym_t;
 
-pub fn xcb_get_keyboard_mapping_keysyms_length(R: *const xcb_get_keyboard_mapping_reply_t) -> c_int;
+    pub fn xcb_get_keyboard_mapping_keysyms_length(
+        R: *const xcb_get_keyboard_mapping_reply_t,
+    ) -> c_int;
 
-pub fn xcb_get_keyboard_mapping_keysyms_end(R: *const xcb_get_keyboard_mapping_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_get_keyboard_mapping_keysyms_end(
+        R: *const xcb_get_keyboard_mapping_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_keyboard_mapping_reply (
+    pub fn xcb_get_keyboard_mapping_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_keyboard_mapping_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_keyboard_mapping_reply_t;
 
-    pub fn xcb_get_keyboard_mapping (
+    pub fn xcb_get_keyboard_mapping(
         c: *mut xcb_connection_t,
         first_keycode: xcb_keycode_t,
         count: u8,
     ) -> xcb_get_keyboard_mapping_cookie_t;
 
-    pub fn xcb_get_keyboard_mapping_unchecked (
+    pub fn xcb_get_keyboard_mapping_unchecked(
         c: *mut xcb_connection_t,
         first_keycode: xcb_keycode_t,
         count: u8,
     ) -> xcb_get_keyboard_mapping_cookie_t;
 
-    pub fn xcb_change_keyboard_control (
+    pub fn xcb_change_keyboard_control(
         c: *mut xcb_connection_t,
         value_mask: u32,
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_change_keyboard_control_checked (
+    pub fn xcb_change_keyboard_control_checked(
         c: *mut xcb_connection_t,
         value_mask: u32,
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_keyboard_control_reply (
+    pub fn xcb_get_keyboard_control_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_keyboard_control_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_keyboard_control_reply_t;
 
-    pub fn xcb_get_keyboard_control (
+    pub fn xcb_get_keyboard_control(c: *mut xcb_connection_t) -> xcb_get_keyboard_control_cookie_t;
+
+    pub fn xcb_get_keyboard_control_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_get_keyboard_control_cookie_t;
 
-    pub fn xcb_get_keyboard_control_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_get_keyboard_control_cookie_t;
+    pub fn xcb_bell(c: *mut xcb_connection_t, percent: i8) -> xcb_void_cookie_t;
 
-    pub fn xcb_bell (
-        c: *mut xcb_connection_t,
-        percent: i8,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_bell_checked(c: *mut xcb_connection_t, percent: i8) -> xcb_void_cookie_t;
 
-    pub fn xcb_bell_checked (
-        c: *mut xcb_connection_t,
-        percent: i8,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_change_pointer_control (
+    pub fn xcb_change_pointer_control(
         c: *mut xcb_connection_t,
         acceleration_numerator: i16,
         acceleration_denominator: i16,
@@ -7954,7 +7959,7 @@ pub fn xcb_get_keyboard_mapping_keysyms_end(R: *const xcb_get_keyboard_mapping_r
         do_threshold: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_change_pointer_control_checked (
+    pub fn xcb_change_pointer_control_checked(
         c: *mut xcb_connection_t,
         acceleration_numerator: i16,
         acceleration_denominator: i16,
@@ -7964,21 +7969,19 @@ pub fn xcb_get_keyboard_mapping_keysyms_end(R: *const xcb_get_keyboard_mapping_r
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_pointer_control_reply (
+    pub fn xcb_get_pointer_control_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_pointer_control_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_pointer_control_reply_t;
 
-    pub fn xcb_get_pointer_control (
+    pub fn xcb_get_pointer_control(c: *mut xcb_connection_t) -> xcb_get_pointer_control_cookie_t;
+
+    pub fn xcb_get_pointer_control_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_get_pointer_control_cookie_t;
 
-    pub fn xcb_get_pointer_control_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_get_pointer_control_cookie_t;
-
-    pub fn xcb_set_screen_saver (
+    pub fn xcb_set_screen_saver(
         c: *mut xcb_connection_t,
         timeout: i16,
         interval: i16,
@@ -7986,7 +7989,7 @@ pub fn xcb_get_keyboard_mapping_keysyms_end(R: *const xcb_get_keyboard_mapping_r
         allow_exposures: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_set_screen_saver_checked (
+    pub fn xcb_set_screen_saver_checked(
         c: *mut xcb_connection_t,
         timeout: i16,
         interval: i16,
@@ -7995,21 +7998,19 @@ pub fn xcb_get_keyboard_mapping_keysyms_end(R: *const xcb_get_keyboard_mapping_r
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_screen_saver_reply (
+    pub fn xcb_get_screen_saver_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_screen_saver_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_screen_saver_reply_t;
 
-    pub fn xcb_get_screen_saver (
+    pub fn xcb_get_screen_saver(c: *mut xcb_connection_t) -> xcb_get_screen_saver_cookie_t;
+
+    pub fn xcb_get_screen_saver_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_get_screen_saver_cookie_t;
 
-    pub fn xcb_get_screen_saver_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_get_screen_saver_cookie_t;
-
-    pub fn xcb_change_hosts (
+    pub fn xcb_change_hosts(
         c: *mut xcb_connection_t,
         mode: u8,
         family: u8,
@@ -8017,7 +8018,7 @@ pub fn xcb_get_keyboard_mapping_keysyms_end(R: *const xcb_get_keyboard_mapping_r
         address: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_change_hosts_checked (
+    pub fn xcb_change_hosts_checked(
         c: *mut xcb_connection_t,
         mode: u8,
         family: u8,
@@ -8025,72 +8026,53 @@ pub fn xcb_get_keyboard_mapping_keysyms_end(R: *const xcb_get_keyboard_mapping_r
         address: *const u8,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_host_address(R: *const xcb_host_t) -> *mut u8;
+    pub fn xcb_host_address(R: *const xcb_host_t) -> *mut u8;
 
-pub fn xcb_host_address_length(R: *const xcb_host_t) -> c_int;
+    pub fn xcb_host_address_length(R: *const xcb_host_t) -> c_int;
 
-pub fn xcb_host_address_end(R: *const xcb_host_t) -> xcb_generic_iterator_t;
+    pub fn xcb_host_address_end(R: *const xcb_host_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_host_next(i: *mut xcb_host_iterator_t);
+    pub fn xcb_host_next(i: *mut xcb_host_iterator_t);
 
-pub fn xcb_host_end(i: *mut xcb_host_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_host_end(i: *mut xcb_host_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_list_hosts_hosts_length(R: *const xcb_list_hosts_reply_t) -> c_int;
+    pub fn xcb_list_hosts_hosts_length(R: *const xcb_list_hosts_reply_t) -> c_int;
 
-pub fn xcb_list_hosts_hosts_iterator<'a>(R: *const xcb_list_hosts_reply_t) -> xcb_host_iterator_t<'a>;
+    pub fn xcb_list_hosts_hosts_iterator<'a>(
+        R: *const xcb_list_hosts_reply_t,
+    ) -> xcb_host_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_list_hosts_reply (
+    pub fn xcb_list_hosts_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_list_hosts_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_list_hosts_reply_t;
 
-    pub fn xcb_list_hosts (
-        c: *mut xcb_connection_t,
-    ) -> xcb_list_hosts_cookie_t;
+    pub fn xcb_list_hosts(c: *mut xcb_connection_t) -> xcb_list_hosts_cookie_t;
 
-    pub fn xcb_list_hosts_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_list_hosts_cookie_t;
+    pub fn xcb_list_hosts_unchecked(c: *mut xcb_connection_t) -> xcb_list_hosts_cookie_t;
 
-    pub fn xcb_set_access_control (
-        c: *mut xcb_connection_t,
-        mode: u8,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_set_access_control(c: *mut xcb_connection_t, mode: u8) -> xcb_void_cookie_t;
 
-    pub fn xcb_set_access_control_checked (
-        c: *mut xcb_connection_t,
-        mode: u8,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_set_access_control_checked(c: *mut xcb_connection_t, mode: u8) -> xcb_void_cookie_t;
 
-    pub fn xcb_set_close_down_mode (
-        c: *mut xcb_connection_t,
-        mode: u8,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_set_close_down_mode(c: *mut xcb_connection_t, mode: u8) -> xcb_void_cookie_t;
 
-    pub fn xcb_set_close_down_mode_checked (
-        c: *mut xcb_connection_t,
-        mode: u8,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_set_close_down_mode_checked(c: *mut xcb_connection_t, mode: u8)
+        -> xcb_void_cookie_t;
 
-/// kills a client
-///
-/// Forces a close down of the client that created the specified `resource`.
-    pub fn xcb_kill_client (
-        c: *mut xcb_connection_t,
-        resource: u32,
-    ) -> xcb_void_cookie_t;
+    /// kills a client
+    ///
+    /// Forces a close down of the client that created the specified `resource`.
+    pub fn xcb_kill_client(c: *mut xcb_connection_t, resource: u32) -> xcb_void_cookie_t;
 
-/// kills a client
-///
-/// Forces a close down of the client that created the specified `resource`.
-    pub fn xcb_kill_client_checked (
-        c: *mut xcb_connection_t,
-        resource: u32,
-    ) -> xcb_void_cookie_t;
+    /// kills a client
+    ///
+    /// Forces a close down of the client that created the specified `resource`.
+    pub fn xcb_kill_client_checked(c: *mut xcb_connection_t, resource: u32) -> xcb_void_cookie_t;
 
-    pub fn xcb_rotate_properties (
+    pub fn xcb_rotate_properties(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         atoms_len: u16,
@@ -8098,7 +8080,7 @@ pub fn xcb_list_hosts_hosts_iterator<'a>(R: *const xcb_list_hosts_reply_t) -> xc
         atoms: *const xcb_atom_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_rotate_properties_checked (
+    pub fn xcb_rotate_properties_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         atoms_len: u16,
@@ -8106,102 +8088,96 @@ pub fn xcb_list_hosts_hosts_iterator<'a>(R: *const xcb_list_hosts_reply_t) -> xc
         atoms: *const xcb_atom_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_force_screen_saver (
-        c: *mut xcb_connection_t,
-        mode: u8,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_force_screen_saver(c: *mut xcb_connection_t, mode: u8) -> xcb_void_cookie_t;
 
-    pub fn xcb_force_screen_saver_checked (
-        c: *mut xcb_connection_t,
-        mode: u8,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_force_screen_saver_checked(c: *mut xcb_connection_t, mode: u8) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_set_pointer_mapping_reply (
+    pub fn xcb_set_pointer_mapping_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_set_pointer_mapping_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_set_pointer_mapping_reply_t;
 
-    pub fn xcb_set_pointer_mapping (
+    pub fn xcb_set_pointer_mapping(
         c: *mut xcb_connection_t,
         map_len: u8,
         map: *const u8,
     ) -> xcb_set_pointer_mapping_cookie_t;
 
-    pub fn xcb_set_pointer_mapping_unchecked (
+    pub fn xcb_set_pointer_mapping_unchecked(
         c: *mut xcb_connection_t,
         map_len: u8,
         map: *const u8,
     ) -> xcb_set_pointer_mapping_cookie_t;
 
-pub fn xcb_get_pointer_mapping_map(R: *const xcb_get_pointer_mapping_reply_t) -> *mut u8;
+    pub fn xcb_get_pointer_mapping_map(R: *const xcb_get_pointer_mapping_reply_t) -> *mut u8;
 
-pub fn xcb_get_pointer_mapping_map_length(R: *const xcb_get_pointer_mapping_reply_t) -> c_int;
+    pub fn xcb_get_pointer_mapping_map_length(R: *const xcb_get_pointer_mapping_reply_t) -> c_int;
 
-pub fn xcb_get_pointer_mapping_map_end(R: *const xcb_get_pointer_mapping_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_get_pointer_mapping_map_end(
+        R: *const xcb_get_pointer_mapping_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_pointer_mapping_reply (
+    pub fn xcb_get_pointer_mapping_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_pointer_mapping_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_pointer_mapping_reply_t;
 
-    pub fn xcb_get_pointer_mapping (
-        c: *mut xcb_connection_t,
-    ) -> xcb_get_pointer_mapping_cookie_t;
+    pub fn xcb_get_pointer_mapping(c: *mut xcb_connection_t) -> xcb_get_pointer_mapping_cookie_t;
 
-    pub fn xcb_get_pointer_mapping_unchecked (
+    pub fn xcb_get_pointer_mapping_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_get_pointer_mapping_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_set_modifier_mapping_reply (
+    pub fn xcb_set_modifier_mapping_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_set_modifier_mapping_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_set_modifier_mapping_reply_t;
 
-    pub fn xcb_set_modifier_mapping (
+    pub fn xcb_set_modifier_mapping(
         c: *mut xcb_connection_t,
         keycodes_per_modifier: u8,
         keycodes: *const xcb_keycode_t,
     ) -> xcb_set_modifier_mapping_cookie_t;
 
-    pub fn xcb_set_modifier_mapping_unchecked (
+    pub fn xcb_set_modifier_mapping_unchecked(
         c: *mut xcb_connection_t,
         keycodes_per_modifier: u8,
         keycodes: *const xcb_keycode_t,
     ) -> xcb_set_modifier_mapping_cookie_t;
 
-pub fn xcb_get_modifier_mapping_keycodes(R: *const xcb_get_modifier_mapping_reply_t) -> *mut xcb_keycode_t;
+    pub fn xcb_get_modifier_mapping_keycodes(
+        R: *const xcb_get_modifier_mapping_reply_t,
+    ) -> *mut xcb_keycode_t;
 
-pub fn xcb_get_modifier_mapping_keycodes_length(R: *const xcb_get_modifier_mapping_reply_t) -> c_int;
+    pub fn xcb_get_modifier_mapping_keycodes_length(
+        R: *const xcb_get_modifier_mapping_reply_t,
+    ) -> c_int;
 
-pub fn xcb_get_modifier_mapping_keycodes_end(R: *const xcb_get_modifier_mapping_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_get_modifier_mapping_keycodes_end(
+        R: *const xcb_get_modifier_mapping_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_get_modifier_mapping_reply (
+    pub fn xcb_get_modifier_mapping_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_get_modifier_mapping_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_get_modifier_mapping_reply_t;
 
-    pub fn xcb_get_modifier_mapping (
+    pub fn xcb_get_modifier_mapping(c: *mut xcb_connection_t) -> xcb_get_modifier_mapping_cookie_t;
+
+    pub fn xcb_get_modifier_mapping_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_get_modifier_mapping_cookie_t;
 
-    pub fn xcb_get_modifier_mapping_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_get_modifier_mapping_cookie_t;
+    pub fn xcb_no_operation(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_no_operation (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_no_operation_checked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_no_operation_checked(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
 } // extern

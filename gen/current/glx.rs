@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::glx::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_glx_id
-    }
+    unsafe { &mut xcb_glx_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -203,7 +200,7 @@ impl PbufferClobberEvent {
     }
     /// Constructs a new PbufferClobberEvent
     /// `response_type` will be set automatically to PBUFFER_CLOBBER
-    pub fn new (
+    pub fn new(
         event_type: u16,
         draw_type: u16,
         drawable: Drawable,
@@ -261,7 +258,7 @@ impl BufferSwapCompleteEvent {
     }
     /// Constructs a new BufferSwapCompleteEvent
     /// `response_type` will be set automatically to BUFFER_SWAP_COMPLETE
-    pub fn new (
+    pub fn new(
         event_type: u16,
         drawable: Drawable,
         ust_hi: u32,
@@ -439,15 +436,9 @@ pub fn create_context_checked<'a>(
 
 pub const DESTROY_CONTEXT: u8 = 4;
 
-pub fn destroy_context<'a>(
-    c: &'a base::Connection,
-    context: Context,
-) -> base::VoidCookie<'a> {
+pub fn destroy_context<'a>(c: &'a base::Connection, context: Context) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_context(
-            c.get_raw_conn(),
-            context as xcb_glx_context_t,
-        );
+        let cookie = xcb_glx_destroy_context(c.get_raw_conn(), context as xcb_glx_context_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -461,10 +452,8 @@ pub fn destroy_context_checked<'a>(
     context: Context,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_context_checked(
-            c.get_raw_conn(),
-            context as xcb_glx_context_t,
-        );
+        let cookie =
+            xcb_glx_destroy_context_checked(c.get_raw_conn(), context as xcb_glx_context_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -486,14 +475,14 @@ pub type MakeCurrentCookie<'a> = base::Cookie<'a, xcb_glx_make_current_cookie_t>
 impl<'a> MakeCurrentCookie<'a> {
     pub fn get_reply(self) -> Result<MakeCurrentReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             MakeCurrentReply {
-                ptr: xcb_glx_make_current_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_make_current_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -502,7 +491,9 @@ impl<'a> MakeCurrentCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -572,14 +563,14 @@ pub type IsDirectCookie<'a> = base::Cookie<'a, xcb_glx_is_direct_cookie_t>;
 impl<'a> IsDirectCookie<'a> {
     pub fn get_reply(self) -> Result<IsDirectReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             IsDirectReply {
-                ptr: xcb_glx_is_direct_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_is_direct_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -588,7 +579,9 @@ impl<'a> IsDirectCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -603,15 +596,9 @@ impl IsDirectReply {
     }
 }
 
-pub fn is_direct<'a>(
-    c: &'a base::Connection,
-    context: Context,
-) -> IsDirectCookie<'a> {
+pub fn is_direct<'a>(c: &'a base::Connection, context: Context) -> IsDirectCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_is_direct(
-            c.get_raw_conn(),
-            context as xcb_glx_context_t,
-        );
+        let cookie = xcb_glx_is_direct(c.get_raw_conn(), context as xcb_glx_context_t);
         IsDirectCookie {
             cookie: cookie,
             conn: c,
@@ -620,15 +607,9 @@ pub fn is_direct<'a>(
     }
 }
 
-pub fn is_direct_unchecked<'a>(
-    c: &'a base::Connection,
-    context: Context,
-) -> IsDirectCookie<'a> {
+pub fn is_direct_unchecked<'a>(c: &'a base::Connection, context: Context) -> IsDirectCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_is_direct_unchecked(
-            c.get_raw_conn(),
-            context as xcb_glx_context_t,
-        );
+        let cookie = xcb_glx_is_direct_unchecked(c.get_raw_conn(), context as xcb_glx_context_t);
         IsDirectCookie {
             cookie: cookie,
             conn: c,
@@ -650,14 +631,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_glx_query_version_cookie_
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_glx_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -666,7 +647,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -690,11 +673,8 @@ pub fn query_version<'a>(
     minor_version: u32,
 ) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_version(
-            c.get_raw_conn(),
-            major_version as u32,
-            minor_version as u32,
-        );
+        let cookie =
+            xcb_glx_query_version(c.get_raw_conn(), major_version as u32, minor_version as u32);
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -724,15 +704,9 @@ pub fn query_version_unchecked<'a>(
 
 pub const WAIT_GL: u8 = 8;
 
-pub fn wait_gl<'a>(
-    c: &'a base::Connection,
-    context_tag: ContextTag,
-) -> base::VoidCookie<'a> {
+pub fn wait_gl<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_wait_gl(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie = xcb_glx_wait_gl(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -746,10 +720,8 @@ pub fn wait_gl_checked<'a>(
     context_tag: ContextTag,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_wait_gl_checked(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie =
+            xcb_glx_wait_gl_checked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -760,15 +732,9 @@ pub fn wait_gl_checked<'a>(
 
 pub const WAIT_X: u8 = 9;
 
-pub fn wait_x<'a>(
-    c: &'a base::Connection,
-    context_tag: ContextTag,
-) -> base::VoidCookie<'a> {
+pub fn wait_x<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_wait_x(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie = xcb_glx_wait_x(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -782,10 +748,7 @@ pub fn wait_x_checked<'a>(
     context_tag: ContextTag,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_wait_x_checked(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie = xcb_glx_wait_x_checked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -995,7 +958,11 @@ pub type GetVisualConfigsCookie<'a> = base::Cookie<'a, xcb_glx_get_visual_config
 impl<'a> GetVisualConfigsCookie<'a> {
     pub fn get_reply(self) -> Result<GetVisualConfigsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetVisualConfigsReply {
                 ptr: xcb_glx_get_visual_configs_reply(
@@ -1011,7 +978,9 @@ impl<'a> GetVisualConfigsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1037,15 +1006,9 @@ impl GetVisualConfigsReply {
     }
 }
 
-pub fn get_visual_configs<'a>(
-    c: &'a base::Connection,
-    screen: u32,
-) -> GetVisualConfigsCookie<'a> {
+pub fn get_visual_configs<'a>(c: &'a base::Connection, screen: u32) -> GetVisualConfigsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_visual_configs(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_glx_get_visual_configs(c.get_raw_conn(), screen as u32);
         GetVisualConfigsCookie {
             cookie: cookie,
             conn: c,
@@ -1059,10 +1022,7 @@ pub fn get_visual_configs_unchecked<'a>(
     screen: u32,
 ) -> GetVisualConfigsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_visual_configs_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_glx_get_visual_configs_unchecked(c.get_raw_conn(), screen as u32);
         GetVisualConfigsCookie {
             cookie: cookie,
             conn: c,
@@ -1073,15 +1033,9 @@ pub fn get_visual_configs_unchecked<'a>(
 
 pub const DESTROY_GLX_PIXMAP: u8 = 15;
 
-pub fn destroy_glx_pixmap<'a>(
-    c: &'a base::Connection,
-    glx_pixmap: Pixmap,
-) -> base::VoidCookie<'a> {
+pub fn destroy_glx_pixmap<'a>(c: &'a base::Connection, glx_pixmap: Pixmap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_glx_pixmap(
-            c.get_raw_conn(),
-            glx_pixmap as xcb_glx_pixmap_t,
-        );
+        let cookie = xcb_glx_destroy_glx_pixmap(c.get_raw_conn(), glx_pixmap as xcb_glx_pixmap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1095,10 +1049,8 @@ pub fn destroy_glx_pixmap_checked<'a>(
     glx_pixmap: Pixmap,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_glx_pixmap_checked(
-            c.get_raw_conn(),
-            glx_pixmap as xcb_glx_pixmap_t,
-        );
+        let cookie =
+            xcb_glx_destroy_glx_pixmap_checked(c.get_raw_conn(), glx_pixmap as xcb_glx_pixmap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1165,12 +1117,17 @@ impl base::CookieSeq for xcb_glx_vendor_private_with_reply_cookie_t {
     }
 }
 
-pub type VendorPrivateWithReplyCookie<'a> = base::Cookie<'a, xcb_glx_vendor_private_with_reply_cookie_t>;
+pub type VendorPrivateWithReplyCookie<'a> =
+    base::Cookie<'a, xcb_glx_vendor_private_with_reply_cookie_t>;
 
 impl<'a> VendorPrivateWithReplyCookie<'a> {
     pub fn get_reply(self) -> Result<VendorPrivateWithReplyReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             VendorPrivateWithReplyReply {
                 ptr: xcb_glx_vendor_private_with_reply_reply(
@@ -1186,7 +1143,9 @@ impl<'a> VendorPrivateWithReplyCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1268,12 +1227,17 @@ impl base::CookieSeq for xcb_glx_query_extensions_string_cookie_t {
     }
 }
 
-pub type QueryExtensionsStringCookie<'a> = base::Cookie<'a, xcb_glx_query_extensions_string_cookie_t>;
+pub type QueryExtensionsStringCookie<'a> =
+    base::Cookie<'a, xcb_glx_query_extensions_string_cookie_t>;
 
 impl<'a> QueryExtensionsStringCookie<'a> {
     pub fn get_reply(self) -> Result<QueryExtensionsStringReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryExtensionsStringReply {
                 ptr: xcb_glx_query_extensions_string_reply(
@@ -1289,7 +1253,9 @@ impl<'a> QueryExtensionsStringCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1309,10 +1275,7 @@ pub fn query_extensions_string<'a>(
     screen: u32,
 ) -> QueryExtensionsStringCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_extensions_string(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_glx_query_extensions_string(c.get_raw_conn(), screen as u32);
         QueryExtensionsStringCookie {
             cookie: cookie,
             conn: c,
@@ -1326,10 +1289,7 @@ pub fn query_extensions_string_unchecked<'a>(
     screen: u32,
 ) -> QueryExtensionsStringCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_extensions_string_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_glx_query_extensions_string_unchecked(c.get_raw_conn(), screen as u32);
         QueryExtensionsStringCookie {
             cookie: cookie,
             conn: c,
@@ -1351,7 +1311,11 @@ pub type QueryServerStringCookie<'a> = base::Cookie<'a, xcb_glx_query_server_str
 impl<'a> QueryServerStringCookie<'a> {
     pub fn get_reply(self) -> Result<QueryServerStringReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryServerStringReply {
                 ptr: xcb_glx_query_server_string_reply(
@@ -1367,7 +1331,9 @@ impl<'a> QueryServerStringCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1398,11 +1364,7 @@ pub fn query_server_string<'a>(
     name: u32,
 ) -> QueryServerStringCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_server_string(
-            c.get_raw_conn(),
-            screen as u32,
-            name as u32,
-        );
+        let cookie = xcb_glx_query_server_string(c.get_raw_conn(), screen as u32, name as u32);
         QueryServerStringCookie {
             cookie: cookie,
             conn: c,
@@ -1417,11 +1379,8 @@ pub fn query_server_string_unchecked<'a>(
     name: u32,
 ) -> QueryServerStringCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_server_string_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-            name as u32,
-        );
+        let cookie =
+            xcb_glx_query_server_string_unchecked(c.get_raw_conn(), screen as u32, name as u32);
         QueryServerStringCookie {
             cookie: cookie,
             conn: c,
@@ -1495,14 +1454,14 @@ pub type GetFbConfigsCookie<'a> = base::Cookie<'a, xcb_glx_get_fb_configs_cookie
 impl<'a> GetFbConfigsCookie<'a> {
     pub fn get_reply(self) -> Result<GetFbConfigsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetFbConfigsReply {
-                ptr: xcb_glx_get_fb_configs_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_fb_configs_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -1511,7 +1470,9 @@ impl<'a> GetFbConfigsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1537,15 +1498,9 @@ impl GetFbConfigsReply {
     }
 }
 
-pub fn get_fb_configs<'a>(
-    c: &'a base::Connection,
-    screen: u32,
-) -> GetFbConfigsCookie<'a> {
+pub fn get_fb_configs<'a>(c: &'a base::Connection, screen: u32) -> GetFbConfigsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_fb_configs(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_glx_get_fb_configs(c.get_raw_conn(), screen as u32);
         GetFbConfigsCookie {
             cookie: cookie,
             conn: c,
@@ -1559,10 +1514,7 @@ pub fn get_fb_configs_unchecked<'a>(
     screen: u32,
 ) -> GetFbConfigsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_fb_configs_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_glx_get_fb_configs_unchecked(c.get_raw_conn(), screen as u32);
         GetFbConfigsCookie {
             cookie: cookie,
             conn: c,
@@ -1631,15 +1583,9 @@ pub fn create_pixmap_checked<'a>(
 
 pub const DESTROY_PIXMAP: u8 = 23;
 
-pub fn destroy_pixmap<'a>(
-    c: &'a base::Connection,
-    glx_pixmap: Pixmap,
-) -> base::VoidCookie<'a> {
+pub fn destroy_pixmap<'a>(c: &'a base::Connection, glx_pixmap: Pixmap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_pixmap(
-            c.get_raw_conn(),
-            glx_pixmap as xcb_glx_pixmap_t,
-        );
+        let cookie = xcb_glx_destroy_pixmap(c.get_raw_conn(), glx_pixmap as xcb_glx_pixmap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1653,10 +1599,8 @@ pub fn destroy_pixmap_checked<'a>(
     glx_pixmap: Pixmap,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_pixmap_checked(
-            c.get_raw_conn(),
-            glx_pixmap as xcb_glx_pixmap_t,
-        );
+        let cookie =
+            xcb_glx_destroy_pixmap_checked(c.get_raw_conn(), glx_pixmap as xcb_glx_pixmap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1734,14 +1678,14 @@ pub type QueryContextCookie<'a> = base::Cookie<'a, xcb_glx_query_context_cookie_
 impl<'a> QueryContextCookie<'a> {
     pub fn get_reply(self) -> Result<QueryContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryContextReply {
-                ptr: xcb_glx_query_context_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_query_context_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -1750,7 +1694,9 @@ impl<'a> QueryContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1773,15 +1719,9 @@ impl QueryContextReply {
     }
 }
 
-pub fn query_context<'a>(
-    c: &'a base::Connection,
-    context: Context,
-) -> QueryContextCookie<'a> {
+pub fn query_context<'a>(c: &'a base::Connection, context: Context) -> QueryContextCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_context(
-            c.get_raw_conn(),
-            context as xcb_glx_context_t,
-        );
+        let cookie = xcb_glx_query_context(c.get_raw_conn(), context as xcb_glx_context_t);
         QueryContextCookie {
             cookie: cookie,
             conn: c,
@@ -1795,10 +1735,8 @@ pub fn query_context_unchecked<'a>(
     context: Context,
 ) -> QueryContextCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_context_unchecked(
-            c.get_raw_conn(),
-            context as xcb_glx_context_t,
-        );
+        let cookie =
+            xcb_glx_query_context_unchecked(c.get_raw_conn(), context as xcb_glx_context_t);
         QueryContextCookie {
             cookie: cookie,
             conn: c,
@@ -1820,7 +1758,11 @@ pub type MakeContextCurrentCookie<'a> = base::Cookie<'a, xcb_glx_make_context_cu
 impl<'a> MakeContextCurrentCookie<'a> {
     pub fn get_reply(self) -> Result<MakeContextCurrentReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             MakeContextCurrentReply {
                 ptr: xcb_glx_make_context_current_reply(
@@ -1836,7 +1778,9 @@ impl<'a> MakeContextCurrentCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1953,15 +1897,9 @@ pub fn create_pbuffer_checked<'a>(
 
 pub const DESTROY_PBUFFER: u8 = 28;
 
-pub fn destroy_pbuffer<'a>(
-    c: &'a base::Connection,
-    pbuffer: Pbuffer,
-) -> base::VoidCookie<'a> {
+pub fn destroy_pbuffer<'a>(c: &'a base::Connection, pbuffer: Pbuffer) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_pbuffer(
-            c.get_raw_conn(),
-            pbuffer as xcb_glx_pbuffer_t,
-        );
+        let cookie = xcb_glx_destroy_pbuffer(c.get_raw_conn(), pbuffer as xcb_glx_pbuffer_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1975,10 +1913,8 @@ pub fn destroy_pbuffer_checked<'a>(
     pbuffer: Pbuffer,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_pbuffer_checked(
-            c.get_raw_conn(),
-            pbuffer as xcb_glx_pbuffer_t,
-        );
+        let cookie =
+            xcb_glx_destroy_pbuffer_checked(c.get_raw_conn(), pbuffer as xcb_glx_pbuffer_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1995,12 +1931,17 @@ impl base::CookieSeq for xcb_glx_get_drawable_attributes_cookie_t {
     }
 }
 
-pub type GetDrawableAttributesCookie<'a> = base::Cookie<'a, xcb_glx_get_drawable_attributes_cookie_t>;
+pub type GetDrawableAttributesCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_drawable_attributes_cookie_t>;
 
 impl<'a> GetDrawableAttributesCookie<'a> {
     pub fn get_reply(self) -> Result<GetDrawableAttributesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDrawableAttributesReply {
                 ptr: xcb_glx_get_drawable_attributes_reply(
@@ -2016,7 +1957,9 @@ impl<'a> GetDrawableAttributesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2044,10 +1987,8 @@ pub fn get_drawable_attributes<'a>(
     drawable: Drawable,
 ) -> GetDrawableAttributesCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_drawable_attributes(
-            c.get_raw_conn(),
-            drawable as xcb_glx_drawable_t,
-        );
+        let cookie =
+            xcb_glx_get_drawable_attributes(c.get_raw_conn(), drawable as xcb_glx_drawable_t);
         GetDrawableAttributesCookie {
             cookie: cookie,
             conn: c,
@@ -2179,15 +2120,9 @@ pub fn create_window_checked<'a>(
 
 pub const DELETE_WINDOW: u8 = 32;
 
-pub fn delete_window<'a>(
-    c: &'a base::Connection,
-    glxwindow: Window,
-) -> base::VoidCookie<'a> {
+pub fn delete_window<'a>(c: &'a base::Connection, glxwindow: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_delete_window(
-            c.get_raw_conn(),
-            glxwindow as xcb_glx_window_t,
-        );
+        let cookie = xcb_glx_delete_window(c.get_raw_conn(), glxwindow as xcb_glx_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -2201,10 +2136,7 @@ pub fn delete_window_checked<'a>(
     glxwindow: Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_delete_window_checked(
-            c.get_raw_conn(),
-            glxwindow as xcb_glx_window_t,
-        );
+        let cookie = xcb_glx_delete_window_checked(c.get_raw_conn(), glxwindow as xcb_glx_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -2469,15 +2401,9 @@ pub fn new_list_checked<'a>(
 
 pub const END_LIST: u8 = 102;
 
-pub fn end_list<'a>(
-    c: &'a base::Connection,
-    context_tag: ContextTag,
-) -> base::VoidCookie<'a> {
+pub fn end_list<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_end_list(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie = xcb_glx_end_list(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -2491,10 +2417,8 @@ pub fn end_list_checked<'a>(
     context_tag: ContextTag,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_end_list_checked(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie =
+            xcb_glx_end_list_checked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -2560,14 +2484,14 @@ pub type GenListsCookie<'a> = base::Cookie<'a, xcb_glx_gen_lists_cookie_t>;
 impl<'a> GenListsCookie<'a> {
     pub fn get_reply(self) -> Result<GenListsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GenListsReply {
-                ptr: xcb_glx_gen_lists_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_gen_lists_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -2576,7 +2500,9 @@ impl<'a> GenListsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2726,14 +2652,14 @@ pub type RenderModeCookie<'a> = base::Cookie<'a, xcb_glx_render_mode_cookie_t>;
 impl<'a> RenderModeCookie<'a> {
     pub fn get_reply(self) -> Result<RenderModeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             RenderModeReply {
-                ptr: xcb_glx_render_mode_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_render_mode_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -2742,7 +2668,9 @@ impl<'a> RenderModeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2822,14 +2750,14 @@ pub type FinishCookie<'a> = base::Cookie<'a, xcb_glx_finish_cookie_t>;
 impl<'a> FinishCookie<'a> {
     pub fn get_reply(self) -> Result<FinishReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             FinishReply {
-                ptr: xcb_glx_finish_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_finish_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -2838,7 +2766,9 @@ impl<'a> FinishCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2847,18 +2777,11 @@ impl<'a> FinishCookie<'a> {
 
 pub type FinishReply = base::Reply<xcb_glx_finish_reply_t>;
 
-impl FinishReply {
-}
+impl FinishReply {}
 
-pub fn finish<'a>(
-    c: &'a base::Connection,
-    context_tag: ContextTag,
-) -> FinishCookie<'a> {
+pub fn finish<'a>(c: &'a base::Connection, context_tag: ContextTag) -> FinishCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_finish(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie = xcb_glx_finish(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         FinishCookie {
             cookie: cookie,
             conn: c,
@@ -2867,15 +2790,10 @@ pub fn finish<'a>(
     }
 }
 
-pub fn finish_unchecked<'a>(
-    c: &'a base::Connection,
-    context_tag: ContextTag,
-) -> FinishCookie<'a> {
+pub fn finish_unchecked<'a>(c: &'a base::Connection, context_tag: ContextTag) -> FinishCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_finish_unchecked(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie =
+            xcb_glx_finish_unchecked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         FinishCookie {
             cookie: cookie,
             conn: c,
@@ -2985,14 +2903,14 @@ pub type ReadPixelsCookie<'a> = base::Cookie<'a, xcb_glx_read_pixels_cookie_t>;
 impl<'a> ReadPixelsCookie<'a> {
     pub fn get_reply(self) -> Result<ReadPixelsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ReadPixelsReply {
-                ptr: xcb_glx_read_pixels_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_read_pixels_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3001,7 +2919,9 @@ impl<'a> ReadPixelsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3100,14 +3020,14 @@ pub type GetBooleanvCookie<'a> = base::Cookie<'a, xcb_glx_get_booleanv_cookie_t>
 impl<'a> GetBooleanvCookie<'a> {
     pub fn get_reply(self) -> Result<GetBooleanvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetBooleanvReply {
-                ptr: xcb_glx_get_booleanv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_booleanv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3116,7 +3036,9 @@ impl<'a> GetBooleanvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3137,8 +3059,11 @@ impl GetBooleanvReply {
             let field = self.ptr;
             let len = xcb_glx_get_booleanv_data_length(field) as usize;
             let data = xcb_glx_get_booleanv_data(field);
-           let slice = std::slice::from_raw_parts(data, len);
-           slice.iter().map(|el| if *el == 0 { false } else { true }).collect()
+            let slice = std::slice::from_raw_parts(data, len);
+            slice
+                .iter()
+                .map(|el| if *el == 0 { false } else { true })
+                .collect()
         }
     }
 }
@@ -3194,14 +3119,14 @@ pub type GetClipPlaneCookie<'a> = base::Cookie<'a, xcb_glx_get_clip_plane_cookie
 impl<'a> GetClipPlaneCookie<'a> {
     pub fn get_reply(self) -> Result<GetClipPlaneReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetClipPlaneReply {
-                ptr: xcb_glx_get_clip_plane_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_clip_plane_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3210,7 +3135,9 @@ impl<'a> GetClipPlaneCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3281,14 +3208,14 @@ pub type GetDoublevCookie<'a> = base::Cookie<'a, xcb_glx_get_doublev_cookie_t>;
 impl<'a> GetDoublevCookie<'a> {
     pub fn get_reply(self) -> Result<GetDoublevReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDoublevReply {
-                ptr: xcb_glx_get_doublev_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_doublev_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3297,7 +3224,9 @@ impl<'a> GetDoublevCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3374,14 +3303,14 @@ pub type GetErrorCookie<'a> = base::Cookie<'a, xcb_glx_get_error_cookie_t>;
 impl<'a> GetErrorCookie<'a> {
     pub fn get_reply(self) -> Result<GetErrorReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetErrorReply {
-                ptr: xcb_glx_get_error_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_error_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3390,7 +3319,9 @@ impl<'a> GetErrorCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3405,15 +3336,9 @@ impl GetErrorReply {
     }
 }
 
-pub fn get_error<'a>(
-    c: &'a base::Connection,
-    context_tag: ContextTag,
-) -> GetErrorCookie<'a> {
+pub fn get_error<'a>(c: &'a base::Connection, context_tag: ContextTag) -> GetErrorCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_error(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie = xcb_glx_get_error(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         GetErrorCookie {
             cookie: cookie,
             conn: c,
@@ -3427,10 +3352,8 @@ pub fn get_error_unchecked<'a>(
     context_tag: ContextTag,
 ) -> GetErrorCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_error_unchecked(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie =
+            xcb_glx_get_error_unchecked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         GetErrorCookie {
             cookie: cookie,
             conn: c,
@@ -3452,14 +3375,14 @@ pub type GetFloatvCookie<'a> = base::Cookie<'a, xcb_glx_get_floatv_cookie_t>;
 impl<'a> GetFloatvCookie<'a> {
     pub fn get_reply(self) -> Result<GetFloatvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetFloatvReply {
-                ptr: xcb_glx_get_floatv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_floatv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3468,7 +3391,9 @@ impl<'a> GetFloatvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3545,14 +3470,14 @@ pub type GetIntegervCookie<'a> = base::Cookie<'a, xcb_glx_get_integerv_cookie_t>
 impl<'a> GetIntegervCookie<'a> {
     pub fn get_reply(self) -> Result<GetIntegervReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetIntegervReply {
-                ptr: xcb_glx_get_integerv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_integerv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3561,7 +3486,9 @@ impl<'a> GetIntegervCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3638,14 +3565,14 @@ pub type GetLightfvCookie<'a> = base::Cookie<'a, xcb_glx_get_lightfv_cookie_t>;
 impl<'a> GetLightfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetLightfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetLightfvReply {
-                ptr: xcb_glx_get_lightfv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_lightfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3654,7 +3581,9 @@ impl<'a> GetLightfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3735,14 +3664,14 @@ pub type GetLightivCookie<'a> = base::Cookie<'a, xcb_glx_get_lightiv_cookie_t>;
 impl<'a> GetLightivCookie<'a> {
     pub fn get_reply(self) -> Result<GetLightivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetLightivReply {
-                ptr: xcb_glx_get_lightiv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_lightiv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3751,7 +3680,9 @@ impl<'a> GetLightivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3832,14 +3763,14 @@ pub type GetMapdvCookie<'a> = base::Cookie<'a, xcb_glx_get_mapdv_cookie_t>;
 impl<'a> GetMapdvCookie<'a> {
     pub fn get_reply(self) -> Result<GetMapdvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMapdvReply {
-                ptr: xcb_glx_get_mapdv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_mapdv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3848,7 +3779,9 @@ impl<'a> GetMapdvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3929,14 +3862,14 @@ pub type GetMapfvCookie<'a> = base::Cookie<'a, xcb_glx_get_mapfv_cookie_t>;
 impl<'a> GetMapfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetMapfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMapfvReply {
-                ptr: xcb_glx_get_mapfv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_mapfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3945,7 +3878,9 @@ impl<'a> GetMapfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4026,14 +3961,14 @@ pub type GetMapivCookie<'a> = base::Cookie<'a, xcb_glx_get_mapiv_cookie_t>;
 impl<'a> GetMapivCookie<'a> {
     pub fn get_reply(self) -> Result<GetMapivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMapivReply {
-                ptr: xcb_glx_get_mapiv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_mapiv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4042,7 +3977,9 @@ impl<'a> GetMapivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4123,14 +4060,14 @@ pub type GetMaterialfvCookie<'a> = base::Cookie<'a, xcb_glx_get_materialfv_cooki
 impl<'a> GetMaterialfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetMaterialfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMaterialfvReply {
-                ptr: xcb_glx_get_materialfv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_materialfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4139,7 +4076,9 @@ impl<'a> GetMaterialfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4220,14 +4159,14 @@ pub type GetMaterialivCookie<'a> = base::Cookie<'a, xcb_glx_get_materialiv_cooki
 impl<'a> GetMaterialivCookie<'a> {
     pub fn get_reply(self) -> Result<GetMaterialivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMaterialivReply {
-                ptr: xcb_glx_get_materialiv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_materialiv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4236,7 +4175,9 @@ impl<'a> GetMaterialivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4317,14 +4258,14 @@ pub type GetPixelMapfvCookie<'a> = base::Cookie<'a, xcb_glx_get_pixel_mapfv_cook
 impl<'a> GetPixelMapfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetPixelMapfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPixelMapfvReply {
-                ptr: xcb_glx_get_pixel_mapfv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_pixel_mapfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4333,7 +4274,9 @@ impl<'a> GetPixelMapfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4410,14 +4353,14 @@ pub type GetPixelMapuivCookie<'a> = base::Cookie<'a, xcb_glx_get_pixel_mapuiv_co
 impl<'a> GetPixelMapuivCookie<'a> {
     pub fn get_reply(self) -> Result<GetPixelMapuivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPixelMapuivReply {
-                ptr: xcb_glx_get_pixel_mapuiv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_pixel_mapuiv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4426,7 +4369,9 @@ impl<'a> GetPixelMapuivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4503,14 +4448,14 @@ pub type GetPixelMapusvCookie<'a> = base::Cookie<'a, xcb_glx_get_pixel_mapusv_co
 impl<'a> GetPixelMapusvCookie<'a> {
     pub fn get_reply(self) -> Result<GetPixelMapusvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPixelMapusvReply {
-                ptr: xcb_glx_get_pixel_mapusv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_pixel_mapusv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4519,7 +4464,9 @@ impl<'a> GetPixelMapusvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4596,7 +4543,11 @@ pub type GetPolygonStippleCookie<'a> = base::Cookie<'a, xcb_glx_get_polygon_stip
 impl<'a> GetPolygonStippleCookie<'a> {
     pub fn get_reply(self) -> Result<GetPolygonStippleReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPolygonStippleReply {
                 ptr: xcb_glx_get_polygon_stipple_reply(
@@ -4612,7 +4563,9 @@ impl<'a> GetPolygonStippleCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4683,14 +4636,14 @@ pub type GetStringCookie<'a> = base::Cookie<'a, xcb_glx_get_string_cookie_t>;
 impl<'a> GetStringCookie<'a> {
     pub fn get_reply(self) -> Result<GetStringReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetStringReply {
-                ptr: xcb_glx_get_string_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_string_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4699,7 +4652,9 @@ impl<'a> GetStringCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4775,14 +4730,14 @@ pub type GetTexEnvfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_envfv_cookie_t
 impl<'a> GetTexEnvfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexEnvfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexEnvfvReply {
-                ptr: xcb_glx_get_tex_envfv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_tex_envfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4791,7 +4746,9 @@ impl<'a> GetTexEnvfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4872,14 +4829,14 @@ pub type GetTexEnvivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_enviv_cookie_t
 impl<'a> GetTexEnvivCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexEnvivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexEnvivReply {
-                ptr: xcb_glx_get_tex_enviv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_tex_enviv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4888,7 +4845,9 @@ impl<'a> GetTexEnvivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4969,14 +4928,14 @@ pub type GetTexGendvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_gendv_cookie_t
 impl<'a> GetTexGendvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexGendvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexGendvReply {
-                ptr: xcb_glx_get_tex_gendv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_tex_gendv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4985,7 +4944,9 @@ impl<'a> GetTexGendvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5066,14 +5027,14 @@ pub type GetTexGenfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_genfv_cookie_t
 impl<'a> GetTexGenfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexGenfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexGenfvReply {
-                ptr: xcb_glx_get_tex_genfv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_tex_genfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5082,7 +5043,9 @@ impl<'a> GetTexGenfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5163,14 +5126,14 @@ pub type GetTexGenivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_geniv_cookie_t
 impl<'a> GetTexGenivCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexGenivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexGenivReply {
-                ptr: xcb_glx_get_tex_geniv_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_tex_geniv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5179,7 +5142,9 @@ impl<'a> GetTexGenivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5260,14 +5225,14 @@ pub type GetTexImageCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_image_cookie_t
 impl<'a> GetTexImageCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexImageReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexImageReply {
-                ptr: xcb_glx_get_tex_image_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_tex_image_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5276,7 +5241,9 @@ impl<'a> GetTexImageCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5372,7 +5339,11 @@ pub type GetTexParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_paramete
 impl<'a> GetTexParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexParameterfvReply {
                 ptr: xcb_glx_get_tex_parameterfv_reply(
@@ -5388,7 +5359,9 @@ impl<'a> GetTexParameterfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5469,7 +5442,11 @@ pub type GetTexParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_paramete
 impl<'a> GetTexParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexParameterivReply {
                 ptr: xcb_glx_get_tex_parameteriv_reply(
@@ -5485,7 +5462,9 @@ impl<'a> GetTexParameterivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5561,12 +5540,17 @@ impl base::CookieSeq for xcb_glx_get_tex_level_parameterfv_cookie_t {
     }
 }
 
-pub type GetTexLevelParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_level_parameterfv_cookie_t>;
+pub type GetTexLevelParameterfvCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_tex_level_parameterfv_cookie_t>;
 
 impl<'a> GetTexLevelParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexLevelParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexLevelParameterfvReply {
                 ptr: xcb_glx_get_tex_level_parameterfv_reply(
@@ -5582,7 +5566,9 @@ impl<'a> GetTexLevelParameterfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5662,12 +5648,17 @@ impl base::CookieSeq for xcb_glx_get_tex_level_parameteriv_cookie_t {
     }
 }
 
-pub type GetTexLevelParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_level_parameteriv_cookie_t>;
+pub type GetTexLevelParameterivCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_tex_level_parameteriv_cookie_t>;
 
 impl<'a> GetTexLevelParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexLevelParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexLevelParameterivReply {
                 ptr: xcb_glx_get_tex_level_parameteriv_reply(
@@ -5683,7 +5674,9 @@ impl<'a> GetTexLevelParameterivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5768,14 +5761,14 @@ pub type IsListCookie<'a> = base::Cookie<'a, xcb_glx_is_list_cookie_t>;
 impl<'a> IsListCookie<'a> {
     pub fn get_reply(self) -> Result<IsListReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             IsListReply {
-                ptr: xcb_glx_is_list_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_is_list_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5784,7 +5777,9 @@ impl<'a> IsListCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5839,15 +5834,9 @@ pub fn is_list_unchecked<'a>(
 
 pub const FLUSH: u8 = 142;
 
-pub fn flush<'a>(
-    c: &'a base::Connection,
-    context_tag: ContextTag,
-) -> base::VoidCookie<'a> {
+pub fn flush<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_flush(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie = xcb_glx_flush(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -5856,15 +5845,9 @@ pub fn flush<'a>(
     }
 }
 
-pub fn flush_checked<'a>(
-    c: &'a base::Connection,
-    context_tag: ContextTag,
-) -> base::VoidCookie<'a> {
+pub fn flush_checked<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_flush_checked(
-            c.get_raw_conn(),
-            context_tag as xcb_glx_context_tag_t,
-        );
+        let cookie = xcb_glx_flush_checked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -5886,7 +5869,11 @@ pub type AreTexturesResidentCookie<'a> = base::Cookie<'a, xcb_glx_are_textures_r
 impl<'a> AreTexturesResidentCookie<'a> {
     pub fn get_reply(self) -> Result<AreTexturesResidentReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             AreTexturesResidentReply {
                 ptr: xcb_glx_are_textures_resident_reply(
@@ -5902,7 +5889,9 @@ impl<'a> AreTexturesResidentCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5920,8 +5909,11 @@ impl AreTexturesResidentReply {
             let field = self.ptr;
             let len = xcb_glx_are_textures_resident_data_length(field) as usize;
             let data = xcb_glx_are_textures_resident_data(field);
-           let slice = std::slice::from_raw_parts(data, len);
-           slice.iter().map(|el| if *el == 0 { false } else { true }).collect()
+            let slice = std::slice::from_raw_parts(data, len);
+            slice
+                .iter()
+                .map(|el| if *el == 0 { false } else { true })
+                .collect()
         }
     }
 }
@@ -6029,14 +6021,14 @@ pub type GenTexturesCookie<'a> = base::Cookie<'a, xcb_glx_gen_textures_cookie_t>
 impl<'a> GenTexturesCookie<'a> {
     pub fn get_reply(self) -> Result<GenTexturesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GenTexturesReply {
-                ptr: xcb_glx_gen_textures_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_gen_textures_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -6045,7 +6037,9 @@ impl<'a> GenTexturesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6116,14 +6110,14 @@ pub type IsTextureCookie<'a> = base::Cookie<'a, xcb_glx_is_texture_cookie_t>;
 impl<'a> IsTextureCookie<'a> {
     pub fn get_reply(self) -> Result<IsTextureReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             IsTextureReply {
-                ptr: xcb_glx_is_texture_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_is_texture_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -6132,7 +6126,9 @@ impl<'a> IsTextureCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6198,14 +6194,14 @@ pub type GetColorTableCookie<'a> = base::Cookie<'a, xcb_glx_get_color_table_cook
 impl<'a> GetColorTableCookie<'a> {
     pub fn get_reply(self) -> Result<GetColorTableReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetColorTableReply {
-                ptr: xcb_glx_get_color_table_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_color_table_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -6214,7 +6210,9 @@ impl<'a> GetColorTableCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6295,12 +6293,17 @@ impl base::CookieSeq for xcb_glx_get_color_table_parameterfv_cookie_t {
     }
 }
 
-pub type GetColorTableParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_color_table_parameterfv_cookie_t>;
+pub type GetColorTableParameterfvCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_color_table_parameterfv_cookie_t>;
 
 impl<'a> GetColorTableParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetColorTableParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetColorTableParameterfvReply {
                 ptr: xcb_glx_get_color_table_parameterfv_reply(
@@ -6316,7 +6319,9 @@ impl<'a> GetColorTableParameterfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6392,12 +6397,17 @@ impl base::CookieSeq for xcb_glx_get_color_table_parameteriv_cookie_t {
     }
 }
 
-pub type GetColorTableParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_color_table_parameteriv_cookie_t>;
+pub type GetColorTableParameterivCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_color_table_parameteriv_cookie_t>;
 
 impl<'a> GetColorTableParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetColorTableParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetColorTableParameterivReply {
                 ptr: xcb_glx_get_color_table_parameteriv_reply(
@@ -6413,7 +6423,9 @@ impl<'a> GetColorTableParameterivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6494,7 +6506,11 @@ pub type GetConvolutionFilterCookie<'a> = base::Cookie<'a, xcb_glx_get_convoluti
 impl<'a> GetConvolutionFilterCookie<'a> {
     pub fn get_reply(self) -> Result<GetConvolutionFilterReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetConvolutionFilterReply {
                 ptr: xcb_glx_get_convolution_filter_reply(
@@ -6510,7 +6526,9 @@ impl<'a> GetConvolutionFilterCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6594,12 +6612,17 @@ impl base::CookieSeq for xcb_glx_get_convolution_parameterfv_cookie_t {
     }
 }
 
-pub type GetConvolutionParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_convolution_parameterfv_cookie_t>;
+pub type GetConvolutionParameterfvCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_convolution_parameterfv_cookie_t>;
 
 impl<'a> GetConvolutionParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetConvolutionParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetConvolutionParameterfvReply {
                 ptr: xcb_glx_get_convolution_parameterfv_reply(
@@ -6615,7 +6638,9 @@ impl<'a> GetConvolutionParameterfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6691,12 +6716,17 @@ impl base::CookieSeq for xcb_glx_get_convolution_parameteriv_cookie_t {
     }
 }
 
-pub type GetConvolutionParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_convolution_parameteriv_cookie_t>;
+pub type GetConvolutionParameterivCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_convolution_parameteriv_cookie_t>;
 
 impl<'a> GetConvolutionParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetConvolutionParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetConvolutionParameterivReply {
                 ptr: xcb_glx_get_convolution_parameteriv_reply(
@@ -6712,7 +6742,9 @@ impl<'a> GetConvolutionParameterivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6793,7 +6825,11 @@ pub type GetSeparableFilterCookie<'a> = base::Cookie<'a, xcb_glx_get_separable_f
 impl<'a> GetSeparableFilterCookie<'a> {
     pub fn get_reply(self) -> Result<GetSeparableFilterReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSeparableFilterReply {
                 ptr: xcb_glx_get_separable_filter_reply(
@@ -6809,7 +6845,9 @@ impl<'a> GetSeparableFilterCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6898,14 +6936,14 @@ pub type GetHistogramCookie<'a> = base::Cookie<'a, xcb_glx_get_histogram_cookie_
 impl<'a> GetHistogramCookie<'a> {
     pub fn get_reply(self) -> Result<GetHistogramReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetHistogramReply {
-                ptr: xcb_glx_get_histogram_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_histogram_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -6914,7 +6952,9 @@ impl<'a> GetHistogramCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6999,12 +7039,17 @@ impl base::CookieSeq for xcb_glx_get_histogram_parameterfv_cookie_t {
     }
 }
 
-pub type GetHistogramParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_histogram_parameterfv_cookie_t>;
+pub type GetHistogramParameterfvCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_histogram_parameterfv_cookie_t>;
 
 impl<'a> GetHistogramParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetHistogramParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetHistogramParameterfvReply {
                 ptr: xcb_glx_get_histogram_parameterfv_reply(
@@ -7020,7 +7065,9 @@ impl<'a> GetHistogramParameterfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7096,12 +7143,17 @@ impl base::CookieSeq for xcb_glx_get_histogram_parameteriv_cookie_t {
     }
 }
 
-pub type GetHistogramParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_histogram_parameteriv_cookie_t>;
+pub type GetHistogramParameterivCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_histogram_parameteriv_cookie_t>;
 
 impl<'a> GetHistogramParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetHistogramParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetHistogramParameterivReply {
                 ptr: xcb_glx_get_histogram_parameteriv_reply(
@@ -7117,7 +7169,9 @@ impl<'a> GetHistogramParameterivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7198,14 +7252,14 @@ pub type GetMinmaxCookie<'a> = base::Cookie<'a, xcb_glx_get_minmax_cookie_t>;
 impl<'a> GetMinmaxCookie<'a> {
     pub fn get_reply(self) -> Result<GetMinmaxReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMinmaxReply {
-                ptr: xcb_glx_get_minmax_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_minmax_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -7214,7 +7268,9 @@ impl<'a> GetMinmaxCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7301,7 +7357,11 @@ pub type GetMinmaxParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_minmax_pa
 impl<'a> GetMinmaxParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetMinmaxParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMinmaxParameterfvReply {
                 ptr: xcb_glx_get_minmax_parameterfv_reply(
@@ -7317,7 +7377,9 @@ impl<'a> GetMinmaxParameterfvCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7398,7 +7460,11 @@ pub type GetMinmaxParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_minmax_pa
 impl<'a> GetMinmaxParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetMinmaxParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMinmaxParameterivReply {
                 ptr: xcb_glx_get_minmax_parameteriv_reply(
@@ -7414,7 +7480,9 @@ impl<'a> GetMinmaxParameterivCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7490,12 +7558,17 @@ impl base::CookieSeq for xcb_glx_get_compressed_tex_image_arb_cookie_t {
     }
 }
 
-pub type GetCompressedTexImageArbCookie<'a> = base::Cookie<'a, xcb_glx_get_compressed_tex_image_arb_cookie_t>;
+pub type GetCompressedTexImageArbCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_compressed_tex_image_arb_cookie_t>;
 
 impl<'a> GetCompressedTexImageArbCookie<'a> {
     pub fn get_reply(self) -> Result<GetCompressedTexImageArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCompressedTexImageArbReply {
                 ptr: xcb_glx_get_compressed_tex_image_arb_reply(
@@ -7511,7 +7584,9 @@ impl<'a> GetCompressedTexImageArbCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7635,14 +7710,14 @@ pub type GenQueriesArbCookie<'a> = base::Cookie<'a, xcb_glx_gen_queries_arb_cook
 impl<'a> GenQueriesArbCookie<'a> {
     pub fn get_reply(self) -> Result<GenQueriesArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GenQueriesArbReply {
-                ptr: xcb_glx_gen_queries_arb_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_gen_queries_arb_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -7651,7 +7726,9 @@ impl<'a> GenQueriesArbCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7722,14 +7799,14 @@ pub type IsQueryArbCookie<'a> = base::Cookie<'a, xcb_glx_is_query_arb_cookie_t>;
 impl<'a> IsQueryArbCookie<'a> {
     pub fn get_reply(self) -> Result<IsQueryArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             IsQueryArbReply {
-                ptr: xcb_glx_is_query_arb_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_is_query_arb_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -7738,7 +7815,9 @@ impl<'a> IsQueryArbCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7804,14 +7883,14 @@ pub type GetQueryivArbCookie<'a> = base::Cookie<'a, xcb_glx_get_queryiv_arb_cook
 impl<'a> GetQueryivArbCookie<'a> {
     pub fn get_reply(self) -> Result<GetQueryivArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetQueryivArbReply {
-                ptr: xcb_glx_get_queryiv_arb_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_glx_get_queryiv_arb_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -7820,7 +7899,9 @@ impl<'a> GetQueryivArbCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7901,7 +7982,11 @@ pub type GetQueryObjectivArbCookie<'a> = base::Cookie<'a, xcb_glx_get_query_obje
 impl<'a> GetQueryObjectivArbCookie<'a> {
     pub fn get_reply(self) -> Result<GetQueryObjectivArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetQueryObjectivArbReply {
                 ptr: xcb_glx_get_query_objectiv_arb_reply(
@@ -7917,7 +8002,9 @@ impl<'a> GetQueryObjectivArbCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7993,12 +8080,17 @@ impl base::CookieSeq for xcb_glx_get_query_objectuiv_arb_cookie_t {
     }
 }
 
-pub type GetQueryObjectuivArbCookie<'a> = base::Cookie<'a, xcb_glx_get_query_objectuiv_arb_cookie_t>;
+pub type GetQueryObjectuivArbCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_query_objectuiv_arb_cookie_t>;
 
 impl<'a> GetQueryObjectuivArbCookie<'a> {
     pub fn get_reply(self) -> Result<GetQueryObjectuivArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetQueryObjectuivArbReply {
                 ptr: xcb_glx_get_query_objectuiv_arb_reply(
@@ -8014,7 +8106,9 @@ impl<'a> GetQueryObjectuivArbCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }

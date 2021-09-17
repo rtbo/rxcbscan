@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::shm::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_shm_id
-    }
+    unsafe { &mut xcb_shm_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -48,7 +45,7 @@ impl CompletionEvent {
     }
     /// Constructs a new CompletionEvent
     /// `response_type` will be set automatically to COMPLETION
-    pub fn new (
+    pub fn new(
         drawable: xproto::Drawable,
         minor_event: u16,
         major_event: u8,
@@ -83,14 +80,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_shm_query_version_cookie_
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_shm_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_shm_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -99,7 +96,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -129,13 +128,9 @@ impl QueryVersionReply {
     }
 }
 
-pub fn query_version<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_shm_query_version(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_shm_query_version(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -144,13 +139,9 @@ pub fn query_version<'a>(
     }
 }
 
-pub fn query_version_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version_unchecked<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_shm_query_version_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_shm_query_version_unchecked(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -205,15 +196,9 @@ pub fn attach_checked<'a>(
 
 pub const DETACH: u8 = 2;
 
-pub fn detach<'a>(
-    c: &'a base::Connection,
-    shmseg: Seg,
-) -> base::VoidCookie<'a> {
+pub fn detach<'a>(c: &'a base::Connection, shmseg: Seg) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_shm_detach(
-            c.get_raw_conn(),
-            shmseg as xcb_shm_seg_t,
-        );
+        let cookie = xcb_shm_detach(c.get_raw_conn(), shmseg as xcb_shm_seg_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -222,15 +207,9 @@ pub fn detach<'a>(
     }
 }
 
-pub fn detach_checked<'a>(
-    c: &'a base::Connection,
-    shmseg: Seg,
-) -> base::VoidCookie<'a> {
+pub fn detach_checked<'a>(c: &'a base::Connection, shmseg: Seg) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_shm_detach_checked(
-            c.get_raw_conn(),
-            shmseg as xcb_shm_seg_t,
-        );
+        let cookie = xcb_shm_detach_checked(c.get_raw_conn(), shmseg as xcb_shm_seg_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -344,14 +323,14 @@ pub type GetImageCookie<'a> = base::Cookie<'a, xcb_shm_get_image_cookie_t>;
 impl<'a> GetImageCookie<'a> {
     pub fn get_reply(self) -> Result<GetImageReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetImageReply {
-                ptr: xcb_shm_get_image_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_shm_get_image_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -360,7 +339,9 @@ impl<'a> GetImageCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -564,14 +545,14 @@ pub type CreateSegmentCookie<'a> = base::Cookie<'a, xcb_shm_create_segment_cooki
 impl<'a> CreateSegmentCookie<'a> {
     pub fn get_reply(self) -> Result<CreateSegmentReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             CreateSegmentReply {
-                ptr: xcb_shm_create_segment_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_shm_create_segment_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -580,7 +561,9 @@ impl<'a> CreateSegmentCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }

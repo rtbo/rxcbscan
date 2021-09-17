@@ -14,8 +14,8 @@ pub type xcb_shm_seg_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_shm_seg_iterator_t {
-    pub data:  *mut xcb_shm_seg_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_shm_seg_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -220,54 +220,49 @@ pub struct xcb_shm_create_segment_reply_t {
 }
 
 #[link(name = "xcb-shm")]
-extern {
+extern "C" {
 
-pub static mut xcb_shm_id: xcb_extension_t;
+    pub static mut xcb_shm_id: xcb_extension_t;
 
-pub fn xcb_shm_seg_next(i: *mut xcb_shm_seg_iterator_t);
+    pub fn xcb_shm_seg_next(i: *mut xcb_shm_seg_iterator_t);
 
-pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_shm_query_version_reply (
+    pub fn xcb_shm_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_shm_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_shm_query_version_reply_t;
 
-    pub fn xcb_shm_query_version (
+    pub fn xcb_shm_query_version(c: *mut xcb_connection_t) -> xcb_shm_query_version_cookie_t;
+
+    pub fn xcb_shm_query_version_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_shm_query_version_cookie_t;
 
-    pub fn xcb_shm_query_version_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_shm_query_version_cookie_t;
-
-    pub fn xcb_shm_attach (
+    pub fn xcb_shm_attach(
         c: *mut xcb_connection_t,
         shmseg: xcb_shm_seg_t,
         shmid: u32,
         read_only: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shm_attach_checked (
+    pub fn xcb_shm_attach_checked(
         c: *mut xcb_connection_t,
         shmseg: xcb_shm_seg_t,
         shmid: u32,
         read_only: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shm_detach (
+    pub fn xcb_shm_detach(c: *mut xcb_connection_t, shmseg: xcb_shm_seg_t) -> xcb_void_cookie_t;
+
+    pub fn xcb_shm_detach_checked(
         c: *mut xcb_connection_t,
         shmseg: xcb_shm_seg_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shm_detach_checked (
-        c: *mut xcb_connection_t,
-        shmseg: xcb_shm_seg_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_shm_put_image (
+    pub fn xcb_shm_put_image(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -286,7 +281,7 @@ pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t
         offset: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shm_put_image_checked (
+    pub fn xcb_shm_put_image_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         gc: xcb_gcontext_t,
@@ -306,13 +301,13 @@ pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_shm_get_image_reply (
+    pub fn xcb_shm_get_image_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_shm_get_image_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_shm_get_image_reply_t;
 
-    pub fn xcb_shm_get_image (
+    pub fn xcb_shm_get_image(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         x: i16,
@@ -325,7 +320,7 @@ pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t
         offset: u32,
     ) -> xcb_shm_get_image_cookie_t;
 
-    pub fn xcb_shm_get_image_unchecked (
+    pub fn xcb_shm_get_image_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         x: i16,
@@ -338,7 +333,7 @@ pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t
         offset: u32,
     ) -> xcb_shm_get_image_cookie_t;
 
-    pub fn xcb_shm_create_pixmap (
+    pub fn xcb_shm_create_pixmap(
         c: *mut xcb_connection_t,
         pid: xcb_pixmap_t,
         drawable: xcb_drawable_t,
@@ -349,7 +344,7 @@ pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t
         offset: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shm_create_pixmap_checked (
+    pub fn xcb_shm_create_pixmap_checked(
         c: *mut xcb_connection_t,
         pid: xcb_pixmap_t,
         drawable: xcb_drawable_t,
@@ -360,14 +355,14 @@ pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t
         offset: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shm_attach_fd (
+    pub fn xcb_shm_attach_fd(
         c: *mut xcb_connection_t,
         shmseg: xcb_shm_seg_t,
         shm_fd: i32,
         read_only: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shm_attach_fd_checked (
+    pub fn xcb_shm_attach_fd_checked(
         c: *mut xcb_connection_t,
         shmseg: xcb_shm_seg_t,
         shm_fd: i32,
@@ -375,7 +370,7 @@ pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_shm_create_segment_reply (
+    pub fn xcb_shm_create_segment_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_shm_create_segment_cookie_t,
         error: *mut *mut xcb_generic_error_t,
@@ -386,14 +381,14 @@ pub fn xcb_shm_seg_end(i: *mut xcb_shm_seg_iterator_t) -> xcb_generic_iterator_t
         reply: *mut xcb_shm_create_segment_reply_t,
     ) -> *mut c_int;
 
-    pub fn xcb_shm_create_segment (
+    pub fn xcb_shm_create_segment(
         c: *mut xcb_connection_t,
         shmseg: xcb_shm_seg_t,
         size: u32,
         read_only: u8,
     ) -> xcb_shm_create_segment_cookie_t;
 
-    pub fn xcb_shm_create_segment_unchecked (
+    pub fn xcb_shm_create_segment_unchecked(
         c: *mut xcb_connection_t,
         shmseg: xcb_shm_seg_t,
         size: u32,

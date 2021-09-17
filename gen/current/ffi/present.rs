@@ -2,11 +2,11 @@
 // Do not edit!
 
 use ffi::base::*;
-use ffi::xfixes::*;
-use ffi::render::*;
-use ffi::sync::*;
 use ffi::randr::*;
+use ffi::render::*;
 use ffi::shape::*;
+use ffi::sync::*;
+use ffi::xfixes::*;
 use ffi::xproto::*;
 use libc::{c_char, c_int, c_uint, c_void};
 use std;
@@ -58,8 +58,8 @@ pub struct xcb_present_notify_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_present_notify_iterator_t {
-    pub data:  *mut xcb_present_notify_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_present_notify_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -138,8 +138,8 @@ pub type xcb_present_event_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_present_event_iterator_t {
-    pub data:  *mut xcb_present_event_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_present_event_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -296,34 +296,34 @@ pub struct xcb_present_redirect_notify_event_t {
 }
 
 #[link(name = "xcb-present")]
-extern {
+extern "C" {
 
-pub static mut xcb_present_id: xcb_extension_t;
+    pub static mut xcb_present_id: xcb_extension_t;
 
-pub fn xcb_present_notify_next(i: *mut xcb_present_notify_iterator_t);
+    pub fn xcb_present_notify_next(i: *mut xcb_present_notify_iterator_t);
 
-pub fn xcb_present_notify_end(i: *mut xcb_present_notify_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_present_notify_end(i: *mut xcb_present_notify_iterator_t) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_present_query_version_reply (
+    pub fn xcb_present_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_present_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_present_query_version_reply_t;
 
-    pub fn xcb_present_query_version (
+    pub fn xcb_present_query_version(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_present_query_version_cookie_t;
 
-    pub fn xcb_present_query_version_unchecked (
+    pub fn xcb_present_query_version_unchecked(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_present_query_version_cookie_t;
 
-    pub fn xcb_present_pixmap (
+    pub fn xcb_present_pixmap(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         pixmap: xcb_pixmap_t,
@@ -343,7 +343,7 @@ pub fn xcb_present_notify_end(i: *mut xcb_present_notify_iterator_t) -> xcb_gene
         notifies: *const xcb_present_notify_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_present_pixmap_checked (
+    pub fn xcb_present_pixmap_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         pixmap: xcb_pixmap_t,
@@ -363,7 +363,7 @@ pub fn xcb_present_notify_end(i: *mut xcb_present_notify_iterator_t) -> xcb_gene
         notifies: *const xcb_present_notify_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_present_notify_msc (
+    pub fn xcb_present_notify_msc(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         serial: u32,
@@ -372,7 +372,7 @@ pub fn xcb_present_notify_end(i: *mut xcb_present_notify_iterator_t) -> xcb_gene
         remainder: u64,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_present_notify_msc_checked (
+    pub fn xcb_present_notify_msc_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         serial: u32,
@@ -381,18 +381,18 @@ pub fn xcb_present_notify_end(i: *mut xcb_present_notify_iterator_t) -> xcb_gene
         remainder: u64,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_present_event_next(i: *mut xcb_present_event_iterator_t);
+    pub fn xcb_present_event_next(i: *mut xcb_present_event_iterator_t);
 
-pub fn xcb_present_event_end(i: *mut xcb_present_event_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_present_event_end(i: *mut xcb_present_event_iterator_t) -> xcb_generic_iterator_t;
 
-    pub fn xcb_present_select_input (
+    pub fn xcb_present_select_input(
         c: *mut xcb_connection_t,
         eid: xcb_present_event_t,
         window: xcb_window_t,
         event_mask: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_present_select_input_checked (
+    pub fn xcb_present_select_input_checked(
         c: *mut xcb_connection_t,
         eid: xcb_present_event_t,
         window: xcb_window_t,
@@ -400,18 +400,18 @@ pub fn xcb_present_event_end(i: *mut xcb_present_event_iterator_t) -> xcb_generi
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_present_query_capabilities_reply (
+    pub fn xcb_present_query_capabilities_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_present_query_capabilities_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_present_query_capabilities_reply_t;
 
-    pub fn xcb_present_query_capabilities (
+    pub fn xcb_present_query_capabilities(
         c: *mut xcb_connection_t,
         target: u32,
     ) -> xcb_present_query_capabilities_cookie_t;
 
-    pub fn xcb_present_query_capabilities_unchecked (
+    pub fn xcb_present_query_capabilities_unchecked(
         c: *mut xcb_connection_t,
         target: u32,
     ) -> xcb_present_query_capabilities_cookie_t;

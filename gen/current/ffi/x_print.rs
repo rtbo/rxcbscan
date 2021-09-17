@@ -14,8 +14,8 @@ pub type xcb_x_print_string8_t = c_char;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_x_print_string8_iterator_t {
-    pub data:  *mut xcb_x_print_string8_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_x_print_string8_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -29,8 +29,8 @@ pub struct xcb_x_print_printer_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_x_print_printer_iterator_t<'a> {
-    pub data:  *mut xcb_x_print_printer_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_x_print_printer_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_x_print_printer_t>,
 }
@@ -40,8 +40,8 @@ pub type xcb_x_print_pcontext_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_x_print_pcontext_iterator_t {
-    pub data:  *mut xcb_x_print_pcontext_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_x_print_pcontext_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -610,61 +610,75 @@ pub struct xcb_x_print_bad_sequence_error_t {
 }
 
 #[link(name = "xcb-xprint")]
-extern {
+extern "C" {
 
-pub static mut xcb_x_print_id: xcb_extension_t;
+    pub static mut xcb_x_print_id: xcb_extension_t;
 
-pub fn xcb_x_print_string8_next(i: *mut xcb_x_print_string8_iterator_t);
+    pub fn xcb_x_print_string8_next(i: *mut xcb_x_print_string8_iterator_t);
 
-pub fn xcb_x_print_string8_end(i: *mut xcb_x_print_string8_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_string8_end(
+        i: *mut xcb_x_print_string8_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_x_print_printer_name(R: *const xcb_x_print_printer_t) -> *mut xcb_x_print_string8_t;
+    pub fn xcb_x_print_printer_name(R: *const xcb_x_print_printer_t) -> *mut xcb_x_print_string8_t;
 
-pub fn xcb_x_print_printer_name_length(R: *const xcb_x_print_printer_t) -> c_int;
+    pub fn xcb_x_print_printer_name_length(R: *const xcb_x_print_printer_t) -> c_int;
 
-pub fn xcb_x_print_printer_name_end(R: *const xcb_x_print_printer_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_printer_name_end(R: *const xcb_x_print_printer_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_x_print_printer_description(R: *const xcb_x_print_printer_t) -> *mut xcb_x_print_string8_t;
+    pub fn xcb_x_print_printer_description(
+        R: *const xcb_x_print_printer_t,
+    ) -> *mut xcb_x_print_string8_t;
 
-pub fn xcb_x_print_printer_description_length(R: *const xcb_x_print_printer_t) -> c_int;
+    pub fn xcb_x_print_printer_description_length(R: *const xcb_x_print_printer_t) -> c_int;
 
-pub fn xcb_x_print_printer_description_end(R: *const xcb_x_print_printer_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_printer_description_end(
+        R: *const xcb_x_print_printer_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_x_print_printer_next(i: *mut xcb_x_print_printer_iterator_t);
+    pub fn xcb_x_print_printer_next(i: *mut xcb_x_print_printer_iterator_t);
 
-pub fn xcb_x_print_printer_end(i: *mut xcb_x_print_printer_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_printer_end(
+        i: *mut xcb_x_print_printer_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_x_print_pcontext_next(i: *mut xcb_x_print_pcontext_iterator_t);
+    pub fn xcb_x_print_pcontext_next(i: *mut xcb_x_print_pcontext_iterator_t);
 
-pub fn xcb_x_print_pcontext_end(i: *mut xcb_x_print_pcontext_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_pcontext_end(
+        i: *mut xcb_x_print_pcontext_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_query_version_reply (
+    pub fn xcb_x_print_print_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_query_version_reply_t;
 
-    pub fn xcb_x_print_print_query_version (
+    pub fn xcb_x_print_print_query_version(
         c: *mut xcb_connection_t,
     ) -> xcb_x_print_print_query_version_cookie_t;
 
-    pub fn xcb_x_print_print_query_version_unchecked (
+    pub fn xcb_x_print_print_query_version_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_x_print_print_query_version_cookie_t;
 
-pub fn xcb_x_print_print_get_printer_list_printers_length(R: *const xcb_x_print_print_get_printer_list_reply_t) -> c_int;
+    pub fn xcb_x_print_print_get_printer_list_printers_length(
+        R: *const xcb_x_print_print_get_printer_list_reply_t,
+    ) -> c_int;
 
-pub fn xcb_x_print_print_get_printer_list_printers_iterator<'a>(R: *const xcb_x_print_print_get_printer_list_reply_t) -> xcb_x_print_printer_iterator_t<'a>;
+    pub fn xcb_x_print_print_get_printer_list_printers_iterator<'a>(
+        R: *const xcb_x_print_print_get_printer_list_reply_t,
+    ) -> xcb_x_print_printer_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_get_printer_list_reply (
+    pub fn xcb_x_print_print_get_printer_list_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_get_printer_list_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_get_printer_list_reply_t;
 
-    pub fn xcb_x_print_print_get_printer_list (
+    pub fn xcb_x_print_print_get_printer_list(
         c: *mut xcb_connection_t,
         printerNameLen: u32,
         localeLen: u32,
@@ -672,7 +686,7 @@ pub fn xcb_x_print_print_get_printer_list_printers_iterator<'a>(R: *const xcb_x_
         locale: *const xcb_x_print_string8_t,
     ) -> xcb_x_print_print_get_printer_list_cookie_t;
 
-    pub fn xcb_x_print_print_get_printer_list_unchecked (
+    pub fn xcb_x_print_print_get_printer_list_unchecked(
         c: *mut xcb_connection_t,
         printerNameLen: u32,
         localeLen: u32,
@@ -680,15 +694,13 @@ pub fn xcb_x_print_print_get_printer_list_printers_iterator<'a>(R: *const xcb_x_
         locale: *const xcb_x_print_string8_t,
     ) -> xcb_x_print_print_get_printer_list_cookie_t;
 
-    pub fn xcb_x_print_print_rehash_printer_list (
+    pub fn xcb_x_print_print_rehash_printer_list(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
+
+    pub fn xcb_x_print_print_rehash_printer_list_checked(
         c: *mut xcb_connection_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_rehash_printer_list_checked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_x_print_create_context (
+    pub fn xcb_x_print_create_context(
         c: *mut xcb_connection_t,
         context_id: u32,
         printerNameLen: u32,
@@ -697,7 +709,7 @@ pub fn xcb_x_print_print_get_printer_list_printers_iterator<'a>(R: *const xcb_x_
         locale: *const xcb_x_print_string8_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_create_context_checked (
+    pub fn xcb_x_print_create_context_checked(
         c: *mut xcb_connection_t,
         context_id: u32,
         printerNameLen: u32,
@@ -706,97 +718,91 @@ pub fn xcb_x_print_print_get_printer_list_printers_iterator<'a>(R: *const xcb_x_
         locale: *const xcb_x_print_string8_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_set_context (
+    pub fn xcb_x_print_print_set_context(
         c: *mut xcb_connection_t,
         context: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_set_context_checked (
+    pub fn xcb_x_print_print_set_context_checked(
         c: *mut xcb_connection_t,
         context: u32,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_get_context_reply (
+    pub fn xcb_x_print_print_get_context_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_get_context_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_get_context_reply_t;
 
-    pub fn xcb_x_print_print_get_context (
+    pub fn xcb_x_print_print_get_context(
         c: *mut xcb_connection_t,
     ) -> xcb_x_print_print_get_context_cookie_t;
 
-    pub fn xcb_x_print_print_get_context_unchecked (
+    pub fn xcb_x_print_print_get_context_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_x_print_print_get_context_cookie_t;
 
-    pub fn xcb_x_print_print_destroy_context (
+    pub fn xcb_x_print_print_destroy_context(
         c: *mut xcb_connection_t,
         context: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_destroy_context_checked (
+    pub fn xcb_x_print_print_destroy_context_checked(
         c: *mut xcb_connection_t,
         context: u32,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_get_screen_of_context_reply (
+    pub fn xcb_x_print_print_get_screen_of_context_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_get_screen_of_context_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_get_screen_of_context_reply_t;
 
-    pub fn xcb_x_print_print_get_screen_of_context (
+    pub fn xcb_x_print_print_get_screen_of_context(
         c: *mut xcb_connection_t,
     ) -> xcb_x_print_print_get_screen_of_context_cookie_t;
 
-    pub fn xcb_x_print_print_get_screen_of_context_unchecked (
+    pub fn xcb_x_print_print_get_screen_of_context_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_x_print_print_get_screen_of_context_cookie_t;
 
-    pub fn xcb_x_print_print_start_job (
+    pub fn xcb_x_print_print_start_job(
         c: *mut xcb_connection_t,
         output_mode: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_start_job_checked (
+    pub fn xcb_x_print_print_start_job_checked(
         c: *mut xcb_connection_t,
         output_mode: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_end_job (
+    pub fn xcb_x_print_print_end_job(c: *mut xcb_connection_t, cancel: u8) -> xcb_void_cookie_t;
+
+    pub fn xcb_x_print_print_end_job_checked(
         c: *mut xcb_connection_t,
         cancel: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_end_job_checked (
-        c: *mut xcb_connection_t,
-        cancel: u8,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_x_print_print_start_doc (
+    pub fn xcb_x_print_print_start_doc(
         c: *mut xcb_connection_t,
         driver_mode: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_start_doc_checked (
+    pub fn xcb_x_print_print_start_doc_checked(
         c: *mut xcb_connection_t,
         driver_mode: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_end_doc (
+    pub fn xcb_x_print_print_end_doc(c: *mut xcb_connection_t, cancel: u8) -> xcb_void_cookie_t;
+
+    pub fn xcb_x_print_print_end_doc_checked(
         c: *mut xcb_connection_t,
         cancel: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_end_doc_checked (
-        c: *mut xcb_connection_t,
-        cancel: u8,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_x_print_print_put_document_data (
+    pub fn xcb_x_print_print_put_document_data(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         len_data: u32,
@@ -809,7 +815,7 @@ pub fn xcb_x_print_print_get_printer_list_printers_iterator<'a>(R: *const xcb_x_
         options: *const xcb_x_print_string8_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_put_document_data_checked (
+    pub fn xcb_x_print_print_put_document_data_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         len_data: u32,
@@ -822,133 +828,160 @@ pub fn xcb_x_print_print_get_printer_list_printers_iterator<'a>(R: *const xcb_x_
         options: *const xcb_x_print_string8_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_x_print_print_get_document_data_data(R: *const xcb_x_print_print_get_document_data_reply_t) -> *mut u8;
+    pub fn xcb_x_print_print_get_document_data_data(
+        R: *const xcb_x_print_print_get_document_data_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_x_print_print_get_document_data_data_length(R: *const xcb_x_print_print_get_document_data_reply_t) -> c_int;
+    pub fn xcb_x_print_print_get_document_data_data_length(
+        R: *const xcb_x_print_print_get_document_data_reply_t,
+    ) -> c_int;
 
-pub fn xcb_x_print_print_get_document_data_data_end(R: *const xcb_x_print_print_get_document_data_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_print_get_document_data_data_end(
+        R: *const xcb_x_print_print_get_document_data_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_get_document_data_reply (
+    pub fn xcb_x_print_print_get_document_data_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_get_document_data_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_get_document_data_reply_t;
 
-    pub fn xcb_x_print_print_get_document_data (
+    pub fn xcb_x_print_print_get_document_data(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         max_bytes: u32,
     ) -> xcb_x_print_print_get_document_data_cookie_t;
 
-    pub fn xcb_x_print_print_get_document_data_unchecked (
+    pub fn xcb_x_print_print_get_document_data_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         max_bytes: u32,
     ) -> xcb_x_print_print_get_document_data_cookie_t;
 
-    pub fn xcb_x_print_print_start_page (
+    pub fn xcb_x_print_print_start_page(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_start_page_checked (
+    pub fn xcb_x_print_print_start_page_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_end_page (
+    pub fn xcb_x_print_print_end_page(c: *mut xcb_connection_t, cancel: u8) -> xcb_void_cookie_t;
+
+    pub fn xcb_x_print_print_end_page_checked(
         c: *mut xcb_connection_t,
         cancel: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_end_page_checked (
-        c: *mut xcb_connection_t,
-        cancel: u8,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_x_print_print_select_input (
+    pub fn xcb_x_print_print_select_input(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         event_mask: u32,
         event_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_select_input_checked (
+    pub fn xcb_x_print_print_select_input_checked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         event_mask: u32,
         event_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_x_print_print_input_selected_event_list(R: *const xcb_x_print_print_input_selected_reply_t) -> *mut u32;
+    pub fn xcb_x_print_print_input_selected_event_list(
+        R: *const xcb_x_print_print_input_selected_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_x_print_print_input_selected_event_list_length(R: *const xcb_x_print_print_input_selected_reply_t) -> c_int;
+    pub fn xcb_x_print_print_input_selected_event_list_length(
+        R: *const xcb_x_print_print_input_selected_reply_t,
+    ) -> c_int;
 
-pub fn xcb_x_print_print_input_selected_event_list_end(R: *const xcb_x_print_print_input_selected_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_print_input_selected_event_list_end(
+        R: *const xcb_x_print_print_input_selected_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_x_print_print_input_selected_all_events_list(R: *const xcb_x_print_print_input_selected_reply_t) -> *mut u32;
+    pub fn xcb_x_print_print_input_selected_all_events_list(
+        R: *const xcb_x_print_print_input_selected_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_x_print_print_input_selected_all_events_list_length(R: *const xcb_x_print_print_input_selected_reply_t) -> c_int;
+    pub fn xcb_x_print_print_input_selected_all_events_list_length(
+        R: *const xcb_x_print_print_input_selected_reply_t,
+    ) -> c_int;
 
-pub fn xcb_x_print_print_input_selected_all_events_list_end(R: *const xcb_x_print_print_input_selected_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_print_input_selected_all_events_list_end(
+        R: *const xcb_x_print_print_input_selected_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_input_selected_reply (
+    pub fn xcb_x_print_print_input_selected_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_input_selected_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_input_selected_reply_t;
 
-    pub fn xcb_x_print_print_input_selected (
+    pub fn xcb_x_print_print_input_selected(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
     ) -> xcb_x_print_print_input_selected_cookie_t;
 
-    pub fn xcb_x_print_print_input_selected_unchecked (
+    pub fn xcb_x_print_print_input_selected_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
     ) -> xcb_x_print_print_input_selected_cookie_t;
 
-pub fn xcb_x_print_print_get_attributes_attributes(R: *const xcb_x_print_print_get_attributes_reply_t) -> *mut xcb_x_print_string8_t;
+    pub fn xcb_x_print_print_get_attributes_attributes(
+        R: *const xcb_x_print_print_get_attributes_reply_t,
+    ) -> *mut xcb_x_print_string8_t;
 
-pub fn xcb_x_print_print_get_attributes_attributes_length(R: *const xcb_x_print_print_get_attributes_reply_t) -> c_int;
+    pub fn xcb_x_print_print_get_attributes_attributes_length(
+        R: *const xcb_x_print_print_get_attributes_reply_t,
+    ) -> c_int;
 
-pub fn xcb_x_print_print_get_attributes_attributes_end(R: *const xcb_x_print_print_get_attributes_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_print_get_attributes_attributes_end(
+        R: *const xcb_x_print_print_get_attributes_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_get_attributes_reply (
+    pub fn xcb_x_print_print_get_attributes_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_get_attributes_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_get_attributes_reply_t;
 
-    pub fn xcb_x_print_print_get_attributes (
+    pub fn xcb_x_print_print_get_attributes(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         pool: u8,
     ) -> xcb_x_print_print_get_attributes_cookie_t;
 
-    pub fn xcb_x_print_print_get_attributes_unchecked (
+    pub fn xcb_x_print_print_get_attributes_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         pool: u8,
     ) -> xcb_x_print_print_get_attributes_cookie_t;
 
-pub fn xcb_x_print_print_get_one_attributes_value(R: *const xcb_x_print_print_get_one_attributes_reply_t) -> *mut xcb_x_print_string8_t;
+    pub fn xcb_x_print_print_get_one_attributes_value(
+        R: *const xcb_x_print_print_get_one_attributes_reply_t,
+    ) -> *mut xcb_x_print_string8_t;
 
-pub fn xcb_x_print_print_get_one_attributes_value_length(R: *const xcb_x_print_print_get_one_attributes_reply_t) -> c_int;
+    pub fn xcb_x_print_print_get_one_attributes_value_length(
+        R: *const xcb_x_print_print_get_one_attributes_reply_t,
+    ) -> c_int;
 
-pub fn xcb_x_print_print_get_one_attributes_value_end(R: *const xcb_x_print_print_get_one_attributes_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_print_get_one_attributes_value_end(
+        R: *const xcb_x_print_print_get_one_attributes_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_get_one_attributes_reply (
+    pub fn xcb_x_print_print_get_one_attributes_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_get_one_attributes_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_get_one_attributes_reply_t;
 
-    pub fn xcb_x_print_print_get_one_attributes (
+    pub fn xcb_x_print_print_get_one_attributes(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         nameLen: u32,
@@ -956,7 +989,7 @@ pub fn xcb_x_print_print_get_one_attributes_value_end(R: *const xcb_x_print_prin
         name: *const xcb_x_print_string8_t,
     ) -> xcb_x_print_print_get_one_attributes_cookie_t;
 
-    pub fn xcb_x_print_print_get_one_attributes_unchecked (
+    pub fn xcb_x_print_print_get_one_attributes_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         nameLen: u32,
@@ -964,7 +997,7 @@ pub fn xcb_x_print_print_get_one_attributes_value_end(R: *const xcb_x_print_prin
         name: *const xcb_x_print_string8_t,
     ) -> xcb_x_print_print_get_one_attributes_cookie_t;
 
-    pub fn xcb_x_print_print_set_attributes (
+    pub fn xcb_x_print_print_set_attributes(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         stringLen: u32,
@@ -974,7 +1007,7 @@ pub fn xcb_x_print_print_get_one_attributes_value_end(R: *const xcb_x_print_prin
         attributes: *const xcb_x_print_string8_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_x_print_print_set_attributes_checked (
+    pub fn xcb_x_print_print_set_attributes_checked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         stringLen: u32,
@@ -985,75 +1018,81 @@ pub fn xcb_x_print_print_get_one_attributes_value_end(R: *const xcb_x_print_prin
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_get_page_dimensions_reply (
+    pub fn xcb_x_print_print_get_page_dimensions_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_get_page_dimensions_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_get_page_dimensions_reply_t;
 
-    pub fn xcb_x_print_print_get_page_dimensions (
+    pub fn xcb_x_print_print_get_page_dimensions(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
     ) -> xcb_x_print_print_get_page_dimensions_cookie_t;
 
-    pub fn xcb_x_print_print_get_page_dimensions_unchecked (
+    pub fn xcb_x_print_print_get_page_dimensions_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
     ) -> xcb_x_print_print_get_page_dimensions_cookie_t;
 
-pub fn xcb_x_print_print_query_screens_roots(R: *const xcb_x_print_print_query_screens_reply_t) -> *mut xcb_window_t;
+    pub fn xcb_x_print_print_query_screens_roots(
+        R: *const xcb_x_print_print_query_screens_reply_t,
+    ) -> *mut xcb_window_t;
 
-pub fn xcb_x_print_print_query_screens_roots_length(R: *const xcb_x_print_print_query_screens_reply_t) -> c_int;
+    pub fn xcb_x_print_print_query_screens_roots_length(
+        R: *const xcb_x_print_print_query_screens_reply_t,
+    ) -> c_int;
 
-pub fn xcb_x_print_print_query_screens_roots_end(R: *const xcb_x_print_print_query_screens_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_x_print_print_query_screens_roots_end(
+        R: *const xcb_x_print_print_query_screens_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_query_screens_reply (
+    pub fn xcb_x_print_print_query_screens_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_query_screens_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_query_screens_reply_t;
 
-    pub fn xcb_x_print_print_query_screens (
+    pub fn xcb_x_print_print_query_screens(
         c: *mut xcb_connection_t,
     ) -> xcb_x_print_print_query_screens_cookie_t;
 
-    pub fn xcb_x_print_print_query_screens_unchecked (
+    pub fn xcb_x_print_print_query_screens_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_x_print_print_query_screens_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_set_image_resolution_reply (
+    pub fn xcb_x_print_print_set_image_resolution_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_set_image_resolution_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_set_image_resolution_reply_t;
 
-    pub fn xcb_x_print_print_set_image_resolution (
+    pub fn xcb_x_print_print_set_image_resolution(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         image_resolution: u16,
     ) -> xcb_x_print_print_set_image_resolution_cookie_t;
 
-    pub fn xcb_x_print_print_set_image_resolution_unchecked (
+    pub fn xcb_x_print_print_set_image_resolution_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
         image_resolution: u16,
     ) -> xcb_x_print_print_set_image_resolution_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_x_print_print_get_image_resolution_reply (
+    pub fn xcb_x_print_print_get_image_resolution_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_x_print_print_get_image_resolution_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_x_print_print_get_image_resolution_reply_t;
 
-    pub fn xcb_x_print_print_get_image_resolution (
+    pub fn xcb_x_print_print_get_image_resolution(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
     ) -> xcb_x_print_print_get_image_resolution_cookie_t;
 
-    pub fn xcb_x_print_print_get_image_resolution_unchecked (
+    pub fn xcb_x_print_print_get_image_resolution_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
     ) -> xcb_x_print_print_get_image_resolution_cookie_t;

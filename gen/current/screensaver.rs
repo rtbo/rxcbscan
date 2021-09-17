@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::screensaver::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_screensaver_id
-    }
+    unsafe { &mut xcb_screensaver_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -48,7 +45,11 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_screensaver_query_version
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
                 ptr: xcb_screensaver_query_version_reply(
@@ -64,7 +65,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -133,7 +136,11 @@ pub type QueryInfoCookie<'a> = base::Cookie<'a, xcb_screensaver_query_info_cooki
 impl<'a> QueryInfoCookie<'a> {
     pub fn get_reply(self) -> Result<QueryInfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryInfoReply {
                 ptr: xcb_screensaver_query_info_reply(
@@ -149,7 +156,9 @@ impl<'a> QueryInfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -179,15 +188,9 @@ impl QueryInfoReply {
     }
 }
 
-pub fn query_info<'a>(
-    c: &'a base::Connection,
-    drawable: xproto::Drawable,
-) -> QueryInfoCookie<'a> {
+pub fn query_info<'a>(c: &'a base::Connection, drawable: xproto::Drawable) -> QueryInfoCookie<'a> {
     unsafe {
-        let cookie = xcb_screensaver_query_info(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-        );
+        let cookie = xcb_screensaver_query_info(c.get_raw_conn(), drawable as xcb_drawable_t);
         QueryInfoCookie {
             cookie: cookie,
             conn: c,
@@ -201,10 +204,8 @@ pub fn query_info_unchecked<'a>(
     drawable: xproto::Drawable,
 ) -> QueryInfoCookie<'a> {
     unsafe {
-        let cookie = xcb_screensaver_query_info_unchecked(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-        );
+        let cookie =
+            xcb_screensaver_query_info_unchecked(c.get_raw_conn(), drawable as xcb_drawable_t);
         QueryInfoCookie {
             cookie: cookie,
             conn: c,
@@ -340,10 +341,7 @@ pub fn unset_attributes<'a>(
     drawable: xproto::Drawable,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_screensaver_unset_attributes(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-        );
+        let cookie = xcb_screensaver_unset_attributes(c.get_raw_conn(), drawable as xcb_drawable_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -357,10 +355,8 @@ pub fn unset_attributes_checked<'a>(
     drawable: xproto::Drawable,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_screensaver_unset_attributes_checked(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-        );
+        let cookie =
+            xcb_screensaver_unset_attributes_checked(c.get_raw_conn(), drawable as xcb_drawable_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -371,15 +367,9 @@ pub fn unset_attributes_checked<'a>(
 
 pub const SUSPEND: u8 = 5;
 
-pub fn suspend<'a>(
-    c: &'a base::Connection,
-    suspend: bool,
-) -> base::VoidCookie<'a> {
+pub fn suspend<'a>(c: &'a base::Connection, suspend: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_screensaver_suspend(
-            c.get_raw_conn(),
-            suspend as u8,
-        );
+        let cookie = xcb_screensaver_suspend(c.get_raw_conn(), suspend as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -388,15 +378,9 @@ pub fn suspend<'a>(
     }
 }
 
-pub fn suspend_checked<'a>(
-    c: &'a base::Connection,
-    suspend: bool,
-) -> base::VoidCookie<'a> {
+pub fn suspend_checked<'a>(c: &'a base::Connection, suspend: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_screensaver_suspend_checked(
-            c.get_raw_conn(),
-            suspend as u8,
-        );
+        let cookie = xcb_screensaver_suspend_checked(c.get_raw_conn(), suspend as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -430,7 +414,7 @@ impl NotifyEvent {
     }
     /// Constructs a new NotifyEvent
     /// `response_type` will be set automatically to NOTIFY
-    pub fn new (
+    pub fn new(
         state: u8,
         time: xproto::Timestamp,
         root: xproto::Window,

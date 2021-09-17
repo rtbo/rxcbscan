@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::xinerama::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_xinerama_id
-    }
+    unsafe { &mut xcb_xinerama_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -27,7 +24,7 @@ pub struct ScreenInfo {
 
 impl ScreenInfo {
     #[allow(unused_unsafe)]
-    pub fn new(x_org: i16,y_org: i16,width: u16,height: u16,) -> ScreenInfo {
+    pub fn new(x_org: i16, y_org: i16, width: u16, height: u16) -> ScreenInfo {
         unsafe {
             ScreenInfo {
                 base: xcb_xinerama_screen_info_t {
@@ -35,7 +32,7 @@ impl ScreenInfo {
                     y_org: y_org,
                     width: width,
                     height: height,
-                }
+                },
             }
         }
     }
@@ -84,7 +81,11 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_xinerama_query_version_co
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
                 ptr: xcb_xinerama_query_version_reply(
@@ -100,7 +101,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -118,17 +121,9 @@ impl QueryVersionReply {
     }
 }
 
-pub fn query_version<'a>(
-    c: &'a base::Connection,
-    major: u8,
-    minor: u8,
-) -> QueryVersionCookie<'a> {
+pub fn query_version<'a>(c: &'a base::Connection, major: u8, minor: u8) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_query_version(
-            c.get_raw_conn(),
-            major as u8,
-            minor as u8,
-        );
+        let cookie = xcb_xinerama_query_version(c.get_raw_conn(), major as u8, minor as u8);
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -143,11 +138,8 @@ pub fn query_version_unchecked<'a>(
     minor: u8,
 ) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_query_version_unchecked(
-            c.get_raw_conn(),
-            major as u8,
-            minor as u8,
-        );
+        let cookie =
+            xcb_xinerama_query_version_unchecked(c.get_raw_conn(), major as u8, minor as u8);
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -169,14 +161,14 @@ pub type GetStateCookie<'a> = base::Cookie<'a, xcb_xinerama_get_state_cookie_t>;
 impl<'a> GetStateCookie<'a> {
     pub fn get_reply(self) -> Result<GetStateReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetStateReply {
-                ptr: xcb_xinerama_get_state_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xinerama_get_state_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -185,7 +177,9 @@ impl<'a> GetStateCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -203,15 +197,9 @@ impl GetStateReply {
     }
 }
 
-pub fn get_state<'a>(
-    c: &'a base::Connection,
-    window: xproto::Window,
-) -> GetStateCookie<'a> {
+pub fn get_state<'a>(c: &'a base::Connection, window: xproto::Window) -> GetStateCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_get_state(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_xinerama_get_state(c.get_raw_conn(), window as xcb_window_t);
         GetStateCookie {
             cookie: cookie,
             conn: c,
@@ -225,10 +213,7 @@ pub fn get_state_unchecked<'a>(
     window: xproto::Window,
 ) -> GetStateCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_get_state_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_xinerama_get_state_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetStateCookie {
             cookie: cookie,
             conn: c,
@@ -250,7 +235,11 @@ pub type GetScreenCountCookie<'a> = base::Cookie<'a, xcb_xinerama_get_screen_cou
 impl<'a> GetScreenCountCookie<'a> {
     pub fn get_reply(self) -> Result<GetScreenCountReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetScreenCountReply {
                 ptr: xcb_xinerama_get_screen_count_reply(
@@ -266,7 +255,9 @@ impl<'a> GetScreenCountCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -289,10 +280,7 @@ pub fn get_screen_count<'a>(
     window: xproto::Window,
 ) -> GetScreenCountCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_get_screen_count(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_xinerama_get_screen_count(c.get_raw_conn(), window as xcb_window_t);
         GetScreenCountCookie {
             cookie: cookie,
             conn: c,
@@ -306,10 +294,8 @@ pub fn get_screen_count_unchecked<'a>(
     window: xproto::Window,
 ) -> GetScreenCountCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_get_screen_count_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_xinerama_get_screen_count_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetScreenCountCookie {
             cookie: cookie,
             conn: c,
@@ -331,7 +317,11 @@ pub type GetScreenSizeCookie<'a> = base::Cookie<'a, xcb_xinerama_get_screen_size
 impl<'a> GetScreenSizeCookie<'a> {
     pub fn get_reply(self) -> Result<GetScreenSizeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetScreenSizeReply {
                 ptr: xcb_xinerama_get_screen_size_reply(
@@ -347,7 +337,9 @@ impl<'a> GetScreenSizeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -377,11 +369,8 @@ pub fn get_screen_size<'a>(
     screen: u32,
 ) -> GetScreenSizeCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_get_screen_size(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-            screen as u32,
-        );
+        let cookie =
+            xcb_xinerama_get_screen_size(c.get_raw_conn(), window as xcb_window_t, screen as u32);
         GetScreenSizeCookie {
             cookie: cookie,
             conn: c,
@@ -422,14 +411,14 @@ pub type IsActiveCookie<'a> = base::Cookie<'a, xcb_xinerama_is_active_cookie_t>;
 impl<'a> IsActiveCookie<'a> {
     pub fn get_reply(self) -> Result<IsActiveReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             IsActiveReply {
-                ptr: xcb_xinerama_is_active_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xinerama_is_active_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -438,7 +427,9 @@ impl<'a> IsActiveCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -453,13 +444,9 @@ impl IsActiveReply {
     }
 }
 
-pub fn is_active<'a>(
-    c: &'a base::Connection,
-) -> IsActiveCookie<'a> {
+pub fn is_active<'a>(c: &'a base::Connection) -> IsActiveCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_is_active(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xinerama_is_active(c.get_raw_conn());
         IsActiveCookie {
             cookie: cookie,
             conn: c,
@@ -468,13 +455,9 @@ pub fn is_active<'a>(
     }
 }
 
-pub fn is_active_unchecked<'a>(
-    c: &'a base::Connection,
-) -> IsActiveCookie<'a> {
+pub fn is_active_unchecked<'a>(c: &'a base::Connection) -> IsActiveCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_is_active_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xinerama_is_active_unchecked(c.get_raw_conn());
         IsActiveCookie {
             cookie: cookie,
             conn: c,
@@ -496,7 +479,11 @@ pub type QueryScreensCookie<'a> = base::Cookie<'a, xcb_xinerama_query_screens_co
 impl<'a> QueryScreensCookie<'a> {
     pub fn get_reply(self) -> Result<QueryScreensReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryScreensReply {
                 ptr: xcb_xinerama_query_screens_reply(
@@ -512,7 +499,9 @@ impl<'a> QueryScreensCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -530,13 +519,9 @@ impl QueryScreensReply {
     }
 }
 
-pub fn query_screens<'a>(
-    c: &'a base::Connection,
-) -> QueryScreensCookie<'a> {
+pub fn query_screens<'a>(c: &'a base::Connection) -> QueryScreensCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_query_screens(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xinerama_query_screens(c.get_raw_conn());
         QueryScreensCookie {
             cookie: cookie,
             conn: c,
@@ -545,13 +530,9 @@ pub fn query_screens<'a>(
     }
 }
 
-pub fn query_screens_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryScreensCookie<'a> {
+pub fn query_screens_unchecked<'a>(c: &'a base::Connection) -> QueryScreensCookie<'a> {
     unsafe {
-        let cookie = xcb_xinerama_query_screens_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xinerama_query_screens_unchecked(c.get_raw_conn());
         QueryScreensCookie {
             cookie: cookie,
             conn: c,

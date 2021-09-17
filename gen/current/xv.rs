@@ -2,21 +2,18 @@
 // Do not edit!
 
 use base;
-use shm;
-use xproto;
 use ffi::base::*;
-use ffi::xv::*;
 use ffi::shm::*;
 use ffi::xproto::*;
+use ffi::xv::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
+use shm;
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_xv_id
-    }
+    unsafe { &mut xcb_xv_id }
 }
 
 pub const MAJOR_VERSION: u32 = 2;
@@ -83,13 +80,13 @@ pub struct Rational {
 
 impl Rational {
     #[allow(unused_unsafe)]
-    pub fn new(numerator: i32,denominator: i32,) -> Rational {
+    pub fn new(numerator: i32, denominator: i32) -> Rational {
         unsafe {
             Rational {
                 base: xcb_xv_rational_t {
                     numerator: numerator,
                     denominator: denominator,
-                }
+                },
             }
         }
     }
@@ -126,14 +123,14 @@ pub struct Format {
 
 impl Format {
     #[allow(unused_unsafe)]
-    pub fn new(visual: xproto::Visualid,depth: u8,) -> Format {
+    pub fn new(visual: xproto::Visualid, depth: u8) -> Format {
         unsafe {
             Format {
                 base: xcb_xv_format_t {
                     visual: visual,
                     depth: depth,
-                pad0: [0; 3],
-                }
+                    pad0: [0; 3],
+                },
             }
         }
     }
@@ -483,7 +480,7 @@ impl VideoNotifyEvent {
     }
     /// Constructs a new VideoNotifyEvent
     /// `response_type` will be set automatically to VIDEO_NOTIFY
-    pub fn new (
+    pub fn new(
         reason: u8,
         time: xproto::Timestamp,
         drawable: xproto::Drawable,
@@ -520,7 +517,7 @@ impl PortNotifyEvent {
     }
     /// Constructs a new PortNotifyEvent
     /// `response_type` will be set automatically to PORT_NOTIFY
-    pub fn new (
+    pub fn new(
         time: xproto::Timestamp,
         port: Port,
         attribute: xproto::Atom,
@@ -551,14 +548,14 @@ pub type QueryExtensionCookie<'a> = base::Cookie<'a, xcb_xv_query_extension_cook
 impl<'a> QueryExtensionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryExtensionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryExtensionReply {
-                ptr: xcb_xv_query_extension_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xv_query_extension_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -567,7 +564,9 @@ impl<'a> QueryExtensionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -585,13 +584,9 @@ impl QueryExtensionReply {
     }
 }
 
-pub fn query_extension<'a>(
-    c: &'a base::Connection,
-) -> QueryExtensionCookie<'a> {
+pub fn query_extension<'a>(c: &'a base::Connection) -> QueryExtensionCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_query_extension(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xv_query_extension(c.get_raw_conn());
         QueryExtensionCookie {
             cookie: cookie,
             conn: c,
@@ -600,13 +595,9 @@ pub fn query_extension<'a>(
     }
 }
 
-pub fn query_extension_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryExtensionCookie<'a> {
+pub fn query_extension_unchecked<'a>(c: &'a base::Connection) -> QueryExtensionCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_query_extension_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xv_query_extension_unchecked(c.get_raw_conn());
         QueryExtensionCookie {
             cookie: cookie,
             conn: c,
@@ -628,14 +619,14 @@ pub type QueryAdaptorsCookie<'a> = base::Cookie<'a, xcb_xv_query_adaptors_cookie
 impl<'a> QueryAdaptorsCookie<'a> {
     pub fn get_reply(self) -> Result<QueryAdaptorsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryAdaptorsReply {
-                ptr: xcb_xv_query_adaptors_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xv_query_adaptors_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -644,7 +635,9 @@ impl<'a> QueryAdaptorsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -667,10 +660,7 @@ pub fn query_adaptors<'a>(
     window: xproto::Window,
 ) -> QueryAdaptorsCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_query_adaptors(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_xv_query_adaptors(c.get_raw_conn(), window as xcb_window_t);
         QueryAdaptorsCookie {
             cookie: cookie,
             conn: c,
@@ -684,10 +674,7 @@ pub fn query_adaptors_unchecked<'a>(
     window: xproto::Window,
 ) -> QueryAdaptorsCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_query_adaptors_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_xv_query_adaptors_unchecked(c.get_raw_conn(), window as xcb_window_t);
         QueryAdaptorsCookie {
             cookie: cookie,
             conn: c,
@@ -709,14 +696,14 @@ pub type QueryEncodingsCookie<'a> = base::Cookie<'a, xcb_xv_query_encodings_cook
 impl<'a> QueryEncodingsCookie<'a> {
     pub fn get_reply(self) -> Result<QueryEncodingsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryEncodingsReply {
-                ptr: xcb_xv_query_encodings_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xv_query_encodings_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -725,7 +712,9 @@ impl<'a> QueryEncodingsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -743,15 +732,9 @@ impl QueryEncodingsReply {
     }
 }
 
-pub fn query_encodings<'a>(
-    c: &'a base::Connection,
-    port: Port,
-) -> QueryEncodingsCookie<'a> {
+pub fn query_encodings<'a>(c: &'a base::Connection, port: Port) -> QueryEncodingsCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_query_encodings(
-            c.get_raw_conn(),
-            port as xcb_xv_port_t,
-        );
+        let cookie = xcb_xv_query_encodings(c.get_raw_conn(), port as xcb_xv_port_t);
         QueryEncodingsCookie {
             cookie: cookie,
             conn: c,
@@ -765,10 +748,7 @@ pub fn query_encodings_unchecked<'a>(
     port: Port,
 ) -> QueryEncodingsCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_query_encodings_unchecked(
-            c.get_raw_conn(),
-            port as xcb_xv_port_t,
-        );
+        let cookie = xcb_xv_query_encodings_unchecked(c.get_raw_conn(), port as xcb_xv_port_t);
         QueryEncodingsCookie {
             cookie: cookie,
             conn: c,
@@ -790,14 +770,14 @@ pub type GrabPortCookie<'a> = base::Cookie<'a, xcb_xv_grab_port_cookie_t>;
 impl<'a> GrabPortCookie<'a> {
     pub fn get_reply(self) -> Result<GrabPortReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GrabPortReply {
-                ptr: xcb_xv_grab_port_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xv_grab_port_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -806,7 +786,9 @@ impl<'a> GrabPortCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1251,11 +1233,8 @@ pub fn select_video_notify<'a>(
     onoff: bool,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_select_video_notify(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-            onoff as u8,
-        );
+        let cookie =
+            xcb_xv_select_video_notify(c.get_raw_conn(), drawable as xcb_drawable_t, onoff as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1291,11 +1270,8 @@ pub fn select_port_notify<'a>(
     onoff: bool,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_select_port_notify(
-            c.get_raw_conn(),
-            port as xcb_xv_port_t,
-            onoff as u8,
-        );
+        let cookie =
+            xcb_xv_select_port_notify(c.get_raw_conn(), port as xcb_xv_port_t, onoff as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1310,11 +1286,8 @@ pub fn select_port_notify_checked<'a>(
     onoff: bool,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_select_port_notify_checked(
-            c.get_raw_conn(),
-            port as xcb_xv_port_t,
-            onoff as u8,
-        );
+        let cookie =
+            xcb_xv_select_port_notify_checked(c.get_raw_conn(), port as xcb_xv_port_t, onoff as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1336,14 +1309,14 @@ pub type QueryBestSizeCookie<'a> = base::Cookie<'a, xcb_xv_query_best_size_cooki
 impl<'a> QueryBestSizeCookie<'a> {
     pub fn get_reply(self) -> Result<QueryBestSizeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryBestSizeReply {
-                ptr: xcb_xv_query_best_size_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xv_query_best_size_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -1352,7 +1325,9 @@ impl<'a> QueryBestSizeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1481,7 +1456,11 @@ pub type GetPortAttributeCookie<'a> = base::Cookie<'a, xcb_xv_get_port_attribute
 impl<'a> GetPortAttributeCookie<'a> {
     pub fn get_reply(self) -> Result<GetPortAttributeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPortAttributeReply {
                 ptr: xcb_xv_get_port_attribute_reply(
@@ -1497,7 +1476,9 @@ impl<'a> GetPortAttributeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1563,7 +1544,11 @@ pub type QueryPortAttributesCookie<'a> = base::Cookie<'a, xcb_xv_query_port_attr
 impl<'a> QueryPortAttributesCookie<'a> {
     pub fn get_reply(self) -> Result<QueryPortAttributesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryPortAttributesReply {
                 ptr: xcb_xv_query_port_attributes_reply(
@@ -1579,7 +1564,9 @@ impl<'a> QueryPortAttributesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1605,10 +1592,7 @@ pub fn query_port_attributes<'a>(
     port: Port,
 ) -> QueryPortAttributesCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_query_port_attributes(
-            c.get_raw_conn(),
-            port as xcb_xv_port_t,
-        );
+        let cookie = xcb_xv_query_port_attributes(c.get_raw_conn(), port as xcb_xv_port_t);
         QueryPortAttributesCookie {
             cookie: cookie,
             conn: c,
@@ -1622,10 +1606,8 @@ pub fn query_port_attributes_unchecked<'a>(
     port: Port,
 ) -> QueryPortAttributesCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_query_port_attributes_unchecked(
-            c.get_raw_conn(),
-            port as xcb_xv_port_t,
-        );
+        let cookie =
+            xcb_xv_query_port_attributes_unchecked(c.get_raw_conn(), port as xcb_xv_port_t);
         QueryPortAttributesCookie {
             cookie: cookie,
             conn: c,
@@ -1647,7 +1629,11 @@ pub type ListImageFormatsCookie<'a> = base::Cookie<'a, xcb_xv_list_image_formats
 impl<'a> ListImageFormatsCookie<'a> {
     pub fn get_reply(self) -> Result<ListImageFormatsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListImageFormatsReply {
                 ptr: xcb_xv_list_image_formats_reply(
@@ -1663,7 +1649,9 @@ impl<'a> ListImageFormatsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1681,15 +1669,9 @@ impl ListImageFormatsReply {
     }
 }
 
-pub fn list_image_formats<'a>(
-    c: &'a base::Connection,
-    port: Port,
-) -> ListImageFormatsCookie<'a> {
+pub fn list_image_formats<'a>(c: &'a base::Connection, port: Port) -> ListImageFormatsCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_list_image_formats(
-            c.get_raw_conn(),
-            port as xcb_xv_port_t,
-        );
+        let cookie = xcb_xv_list_image_formats(c.get_raw_conn(), port as xcb_xv_port_t);
         ListImageFormatsCookie {
             cookie: cookie,
             conn: c,
@@ -1703,10 +1685,7 @@ pub fn list_image_formats_unchecked<'a>(
     port: Port,
 ) -> ListImageFormatsCookie<'a> {
     unsafe {
-        let cookie = xcb_xv_list_image_formats_unchecked(
-            c.get_raw_conn(),
-            port as xcb_xv_port_t,
-        );
+        let cookie = xcb_xv_list_image_formats_unchecked(c.get_raw_conn(), port as xcb_xv_port_t);
         ListImageFormatsCookie {
             cookie: cookie,
             conn: c,
@@ -1728,7 +1707,11 @@ pub type QueryImageAttributesCookie<'a> = base::Cookie<'a, xcb_xv_query_image_at
 impl<'a> QueryImageAttributesCookie<'a> {
     pub fn get_reply(self) -> Result<QueryImageAttributesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryImageAttributesReply {
                 ptr: xcb_xv_query_image_attributes_reply(
@@ -1744,7 +1727,9 @@ impl<'a> QueryImageAttributesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }

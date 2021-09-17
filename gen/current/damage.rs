@@ -2,25 +2,22 @@
 // Do not edit!
 
 use base;
-use xproto;
-use xfixes;
-use render;
-use shape;
 use ffi::base::*;
 use ffi::damage::*;
-use ffi::xproto::*;
-use ffi::xfixes::*;
 use ffi::render::*;
 use ffi::shape::*;
+use ffi::xfixes::*;
+use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
+use render;
+use shape;
 use std;
 use std::iter::Iterator;
-
+use xfixes;
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_damage_id
-    }
+    unsafe { &mut xcb_damage_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -53,14 +50,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_damage_query_version_cook
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_damage_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_damage_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -69,7 +66,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -171,15 +170,9 @@ pub fn create_checked<'a>(
 
 pub const DESTROY: u8 = 2;
 
-pub fn destroy<'a>(
-    c: &'a base::Connection,
-    damage: Damage,
-) -> base::VoidCookie<'a> {
+pub fn destroy<'a>(c: &'a base::Connection, damage: Damage) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_damage_destroy(
-            c.get_raw_conn(),
-            damage as xcb_damage_damage_t,
-        );
+        let cookie = xcb_damage_destroy(c.get_raw_conn(), damage as xcb_damage_damage_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -188,15 +181,9 @@ pub fn destroy<'a>(
     }
 }
 
-pub fn destroy_checked<'a>(
-    c: &'a base::Connection,
-    damage: Damage,
-) -> base::VoidCookie<'a> {
+pub fn destroy_checked<'a>(c: &'a base::Connection, damage: Damage) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_damage_destroy_checked(
-            c.get_raw_conn(),
-            damage as xcb_damage_damage_t,
-        );
+        let cookie = xcb_damage_destroy_checked(c.get_raw_conn(), damage as xcb_damage_damage_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -314,7 +301,7 @@ impl NotifyEvent {
     }
     /// Constructs a new NotifyEvent
     /// `response_type` will be set automatically to NOTIFY
-    pub fn new (
+    pub fn new(
         level: u8,
         drawable: xproto::Drawable,
         damage: Damage,

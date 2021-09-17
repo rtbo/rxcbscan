@@ -1334,7 +1334,11 @@ pub fn switch_type_name(req_name: &str, switch_name: &str) -> String {
 }
 
 pub fn request_fn_name(name: &str) -> String {
-    tit_split(&name).to_ascii_lowercase()
+    let mut res = tit_split(&name).to_ascii_lowercase();
+    if KEYWORDS.contains(&res.as_str()) {
+        res.push('_');
+    }
+    res
 }
 
 pub fn emit_opcode<Out: Write>(out: &mut Out, name: &str, opcode: i32) -> io::Result<()> {

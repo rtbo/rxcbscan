@@ -172,112 +172,91 @@ pub struct xcb_dpms_info_reply_t {
 }
 
 #[link(name = "xcb-dpms")]
-extern {
+extern "C" {
 
-pub static mut xcb_dpms_id: xcb_extension_t;
+    pub static mut xcb_dpms_id: xcb_extension_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dpms_get_version_reply (
+    pub fn xcb_dpms_get_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dpms_get_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dpms_get_version_reply_t;
 
-    pub fn xcb_dpms_get_version (
+    pub fn xcb_dpms_get_version(
         c: *mut xcb_connection_t,
         client_major_version: u16,
         client_minor_version: u16,
     ) -> xcb_dpms_get_version_cookie_t;
 
-    pub fn xcb_dpms_get_version_unchecked (
+    pub fn xcb_dpms_get_version_unchecked(
         c: *mut xcb_connection_t,
         client_major_version: u16,
         client_minor_version: u16,
     ) -> xcb_dpms_get_version_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dpms_capable_reply (
+    pub fn xcb_dpms_capable_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dpms_capable_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dpms_capable_reply_t;
 
-    pub fn xcb_dpms_capable (
-        c: *mut xcb_connection_t,
-    ) -> xcb_dpms_capable_cookie_t;
+    pub fn xcb_dpms_capable(c: *mut xcb_connection_t) -> xcb_dpms_capable_cookie_t;
 
-    pub fn xcb_dpms_capable_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_dpms_capable_cookie_t;
+    pub fn xcb_dpms_capable_unchecked(c: *mut xcb_connection_t) -> xcb_dpms_capable_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dpms_get_timeouts_reply (
+    pub fn xcb_dpms_get_timeouts_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dpms_get_timeouts_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dpms_get_timeouts_reply_t;
 
-    pub fn xcb_dpms_get_timeouts (
+    pub fn xcb_dpms_get_timeouts(c: *mut xcb_connection_t) -> xcb_dpms_get_timeouts_cookie_t;
+
+    pub fn xcb_dpms_get_timeouts_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_dpms_get_timeouts_cookie_t;
 
-    pub fn xcb_dpms_get_timeouts_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_dpms_get_timeouts_cookie_t;
-
-    pub fn xcb_dpms_set_timeouts (
+    pub fn xcb_dpms_set_timeouts(
         c: *mut xcb_connection_t,
         standby_timeout: u16,
         suspend_timeout: u16,
         off_timeout: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_dpms_set_timeouts_checked (
+    pub fn xcb_dpms_set_timeouts_checked(
         c: *mut xcb_connection_t,
         standby_timeout: u16,
         suspend_timeout: u16,
         off_timeout: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_dpms_enable (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_dpms_enable(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_dpms_enable_checked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_dpms_enable_checked(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_dpms_disable (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_dpms_disable(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_dpms_disable_checked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_dpms_disable_checked(c: *mut xcb_connection_t) -> xcb_void_cookie_t;
 
-    pub fn xcb_dpms_force_level (
-        c: *mut xcb_connection_t,
-        power_level: u16,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_dpms_force_level(c: *mut xcb_connection_t, power_level: u16) -> xcb_void_cookie_t;
 
-    pub fn xcb_dpms_force_level_checked (
+    pub fn xcb_dpms_force_level_checked(
         c: *mut xcb_connection_t,
         power_level: u16,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dpms_info_reply (
+    pub fn xcb_dpms_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dpms_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dpms_info_reply_t;
 
-    pub fn xcb_dpms_info (
-        c: *mut xcb_connection_t,
-    ) -> xcb_dpms_info_cookie_t;
+    pub fn xcb_dpms_info(c: *mut xcb_connection_t) -> xcb_dpms_info_cookie_t;
 
-    pub fn xcb_dpms_info_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_dpms_info_cookie_t;
+    pub fn xcb_dpms_info_unchecked(c: *mut xcb_connection_t) -> xcb_dpms_info_cookie_t;
 
 } // extern

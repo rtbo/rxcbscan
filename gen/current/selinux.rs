@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::selinux::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_selinux_id
-    }
+    unsafe { &mut xcb_selinux_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -33,7 +30,11 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_selinux_query_version_coo
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
                 ptr: xcb_selinux_query_version_reply(
@@ -49,7 +50,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -73,11 +76,8 @@ pub fn query_version<'a>(
     client_minor: u8,
 ) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_query_version(
-            c.get_raw_conn(),
-            client_major as u8,
-            client_minor as u8,
-        );
+        let cookie =
+            xcb_selinux_query_version(c.get_raw_conn(), client_major as u8, client_minor as u8);
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -157,12 +157,17 @@ impl base::CookieSeq for xcb_selinux_get_device_create_context_cookie_t {
     }
 }
 
-pub type GetDeviceCreateContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_device_create_context_cookie_t>;
+pub type GetDeviceCreateContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_device_create_context_cookie_t>;
 
 impl<'a> GetDeviceCreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetDeviceCreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDeviceCreateContextReply {
                 ptr: xcb_selinux_get_device_create_context_reply(
@@ -178,7 +183,9 @@ impl<'a> GetDeviceCreateContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -203,13 +210,9 @@ impl GetDeviceCreateContextReply {
     }
 }
 
-pub fn get_device_create_context<'a>(
-    c: &'a base::Connection,
-) -> GetDeviceCreateContextCookie<'a> {
+pub fn get_device_create_context<'a>(c: &'a base::Connection) -> GetDeviceCreateContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_device_create_context(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_device_create_context(c.get_raw_conn());
         GetDeviceCreateContextCookie {
             cookie: cookie,
             conn: c,
@@ -222,9 +225,7 @@ pub fn get_device_create_context_unchecked<'a>(
     c: &'a base::Connection,
 ) -> GetDeviceCreateContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_device_create_context_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_device_create_context_unchecked(c.get_raw_conn());
         GetDeviceCreateContextCookie {
             cookie: cookie,
             conn: c,
@@ -294,7 +295,11 @@ pub type GetDeviceContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_device_co
 impl<'a> GetDeviceContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetDeviceContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDeviceContextReply {
                 ptr: xcb_selinux_get_device_context_reply(
@@ -310,7 +315,9 @@ impl<'a> GetDeviceContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -335,15 +342,9 @@ impl GetDeviceContextReply {
     }
 }
 
-pub fn get_device_context<'a>(
-    c: &'a base::Connection,
-    device: u32,
-) -> GetDeviceContextCookie<'a> {
+pub fn get_device_context<'a>(c: &'a base::Connection, device: u32) -> GetDeviceContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_device_context(
-            c.get_raw_conn(),
-            device as u32,
-        );
+        let cookie = xcb_selinux_get_device_context(c.get_raw_conn(), device as u32);
         GetDeviceContextCookie {
             cookie: cookie,
             conn: c,
@@ -357,10 +358,7 @@ pub fn get_device_context_unchecked<'a>(
     device: u32,
 ) -> GetDeviceContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_device_context_unchecked(
-            c.get_raw_conn(),
-            device as u32,
-        );
+        let cookie = xcb_selinux_get_device_context_unchecked(c.get_raw_conn(), device as u32);
         GetDeviceContextCookie {
             cookie: cookie,
             conn: c,
@@ -421,12 +419,17 @@ impl base::CookieSeq for xcb_selinux_get_window_create_context_cookie_t {
     }
 }
 
-pub type GetWindowCreateContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_window_create_context_cookie_t>;
+pub type GetWindowCreateContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_window_create_context_cookie_t>;
 
 impl<'a> GetWindowCreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetWindowCreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetWindowCreateContextReply {
                 ptr: xcb_selinux_get_window_create_context_reply(
@@ -442,7 +445,9 @@ impl<'a> GetWindowCreateContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -467,13 +472,9 @@ impl GetWindowCreateContextReply {
     }
 }
 
-pub fn get_window_create_context<'a>(
-    c: &'a base::Connection,
-) -> GetWindowCreateContextCookie<'a> {
+pub fn get_window_create_context<'a>(c: &'a base::Connection) -> GetWindowCreateContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_window_create_context(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_window_create_context(c.get_raw_conn());
         GetWindowCreateContextCookie {
             cookie: cookie,
             conn: c,
@@ -486,9 +487,7 @@ pub fn get_window_create_context_unchecked<'a>(
     c: &'a base::Connection,
 ) -> GetWindowCreateContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_window_create_context_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_window_create_context_unchecked(c.get_raw_conn());
         GetWindowCreateContextCookie {
             cookie: cookie,
             conn: c,
@@ -510,7 +509,11 @@ pub type GetWindowContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_window_co
 impl<'a> GetWindowContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetWindowContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetWindowContextReply {
                 ptr: xcb_selinux_get_window_context_reply(
@@ -526,7 +529,9 @@ impl<'a> GetWindowContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -556,10 +561,7 @@ pub fn get_window_context<'a>(
     window: xproto::Window,
 ) -> GetWindowContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_window_context(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_selinux_get_window_context(c.get_raw_conn(), window as xcb_window_t);
         GetWindowContextCookie {
             cookie: cookie,
             conn: c,
@@ -573,10 +575,8 @@ pub fn get_window_context_unchecked<'a>(
     window: xproto::Window,
 ) -> GetWindowContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_window_context_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_selinux_get_window_context_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetWindowContextCookie {
             cookie: cookie,
             conn: c,
@@ -689,12 +689,17 @@ impl base::CookieSeq for xcb_selinux_get_property_create_context_cookie_t {
     }
 }
 
-pub type GetPropertyCreateContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_property_create_context_cookie_t>;
+pub type GetPropertyCreateContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_property_create_context_cookie_t>;
 
 impl<'a> GetPropertyCreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetPropertyCreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPropertyCreateContextReply {
                 ptr: xcb_selinux_get_property_create_context_reply(
@@ -710,14 +715,17 @@ impl<'a> GetPropertyCreateContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
 
-pub type GetPropertyCreateContextReply = base::Reply<xcb_selinux_get_property_create_context_reply_t>;
+pub type GetPropertyCreateContextReply =
+    base::Reply<xcb_selinux_get_property_create_context_reply_t>;
 
 impl GetPropertyCreateContextReply {
     pub fn context_len(&self) -> u32 {
@@ -739,9 +747,7 @@ pub fn get_property_create_context<'a>(
     c: &'a base::Connection,
 ) -> GetPropertyCreateContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_property_create_context(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_property_create_context(c.get_raw_conn());
         GetPropertyCreateContextCookie {
             cookie: cookie,
             conn: c,
@@ -754,9 +760,7 @@ pub fn get_property_create_context_unchecked<'a>(
     c: &'a base::Connection,
 ) -> GetPropertyCreateContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_property_create_context_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_property_create_context_unchecked(c.get_raw_conn());
         GetPropertyCreateContextCookie {
             cookie: cookie,
             conn: c,
@@ -817,12 +821,17 @@ impl base::CookieSeq for xcb_selinux_get_property_use_context_cookie_t {
     }
 }
 
-pub type GetPropertyUseContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_property_use_context_cookie_t>;
+pub type GetPropertyUseContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_property_use_context_cookie_t>;
 
 impl<'a> GetPropertyUseContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetPropertyUseContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPropertyUseContextReply {
                 ptr: xcb_selinux_get_property_use_context_reply(
@@ -838,7 +847,9 @@ impl<'a> GetPropertyUseContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -863,13 +874,9 @@ impl GetPropertyUseContextReply {
     }
 }
 
-pub fn get_property_use_context<'a>(
-    c: &'a base::Connection,
-) -> GetPropertyUseContextCookie<'a> {
+pub fn get_property_use_context<'a>(c: &'a base::Connection) -> GetPropertyUseContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_property_use_context(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_property_use_context(c.get_raw_conn());
         GetPropertyUseContextCookie {
             cookie: cookie,
             conn: c,
@@ -882,9 +889,7 @@ pub fn get_property_use_context_unchecked<'a>(
     c: &'a base::Connection,
 ) -> GetPropertyUseContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_property_use_context_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_property_use_context_unchecked(c.get_raw_conn());
         GetPropertyUseContextCookie {
             cookie: cookie,
             conn: c,
@@ -906,7 +911,11 @@ pub type GetPropertyContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_propert
 impl<'a> GetPropertyContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetPropertyContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPropertyContextReply {
                 ptr: xcb_selinux_get_property_context_reply(
@@ -922,7 +931,9 @@ impl<'a> GetPropertyContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -993,12 +1004,17 @@ impl base::CookieSeq for xcb_selinux_get_property_data_context_cookie_t {
     }
 }
 
-pub type GetPropertyDataContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_property_data_context_cookie_t>;
+pub type GetPropertyDataContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_property_data_context_cookie_t>;
 
 impl<'a> GetPropertyDataContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetPropertyDataContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPropertyDataContextReply {
                 ptr: xcb_selinux_get_property_data_context_reply(
@@ -1014,7 +1030,9 @@ impl<'a> GetPropertyDataContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1090,7 +1108,11 @@ pub type ListPropertiesCookie<'a> = base::Cookie<'a, xcb_selinux_list_properties
 impl<'a> ListPropertiesCookie<'a> {
     pub fn get_reply(self) -> Result<ListPropertiesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListPropertiesReply {
                 ptr: xcb_selinux_list_properties_reply(
@@ -1106,7 +1128,9 @@ impl<'a> ListPropertiesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1129,10 +1153,7 @@ pub fn list_properties<'a>(
     window: xproto::Window,
 ) -> ListPropertiesCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_list_properties(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_selinux_list_properties(c.get_raw_conn(), window as xcb_window_t);
         ListPropertiesCookie {
             cookie: cookie,
             conn: c,
@@ -1146,10 +1167,8 @@ pub fn list_properties_unchecked<'a>(
     window: xproto::Window,
 ) -> ListPropertiesCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_list_properties_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_selinux_list_properties_unchecked(c.get_raw_conn(), window as xcb_window_t);
         ListPropertiesCookie {
             cookie: cookie,
             conn: c,
@@ -1210,12 +1229,17 @@ impl base::CookieSeq for xcb_selinux_get_selection_create_context_cookie_t {
     }
 }
 
-pub type GetSelectionCreateContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_selection_create_context_cookie_t>;
+pub type GetSelectionCreateContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_selection_create_context_cookie_t>;
 
 impl<'a> GetSelectionCreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetSelectionCreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSelectionCreateContextReply {
                 ptr: xcb_selinux_get_selection_create_context_reply(
@@ -1231,14 +1255,17 @@ impl<'a> GetSelectionCreateContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
 
-pub type GetSelectionCreateContextReply = base::Reply<xcb_selinux_get_selection_create_context_reply_t>;
+pub type GetSelectionCreateContextReply =
+    base::Reply<xcb_selinux_get_selection_create_context_reply_t>;
 
 impl GetSelectionCreateContextReply {
     pub fn context_len(&self) -> u32 {
@@ -1260,9 +1287,7 @@ pub fn get_selection_create_context<'a>(
     c: &'a base::Connection,
 ) -> GetSelectionCreateContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_create_context(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_selection_create_context(c.get_raw_conn());
         GetSelectionCreateContextCookie {
             cookie: cookie,
             conn: c,
@@ -1275,9 +1300,7 @@ pub fn get_selection_create_context_unchecked<'a>(
     c: &'a base::Connection,
 ) -> GetSelectionCreateContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_create_context_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_selection_create_context_unchecked(c.get_raw_conn());
         GetSelectionCreateContextCookie {
             cookie: cookie,
             conn: c,
@@ -1338,12 +1361,17 @@ impl base::CookieSeq for xcb_selinux_get_selection_use_context_cookie_t {
     }
 }
 
-pub type GetSelectionUseContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_selection_use_context_cookie_t>;
+pub type GetSelectionUseContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_selection_use_context_cookie_t>;
 
 impl<'a> GetSelectionUseContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetSelectionUseContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSelectionUseContextReply {
                 ptr: xcb_selinux_get_selection_use_context_reply(
@@ -1359,7 +1387,9 @@ impl<'a> GetSelectionUseContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1384,13 +1414,9 @@ impl GetSelectionUseContextReply {
     }
 }
 
-pub fn get_selection_use_context<'a>(
-    c: &'a base::Connection,
-) -> GetSelectionUseContextCookie<'a> {
+pub fn get_selection_use_context<'a>(c: &'a base::Connection) -> GetSelectionUseContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_use_context(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_selection_use_context(c.get_raw_conn());
         GetSelectionUseContextCookie {
             cookie: cookie,
             conn: c,
@@ -1403,9 +1429,7 @@ pub fn get_selection_use_context_unchecked<'a>(
     c: &'a base::Connection,
 ) -> GetSelectionUseContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_use_context_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_get_selection_use_context_unchecked(c.get_raw_conn());
         GetSelectionUseContextCookie {
             cookie: cookie,
             conn: c,
@@ -1422,12 +1446,17 @@ impl base::CookieSeq for xcb_selinux_get_selection_context_cookie_t {
     }
 }
 
-pub type GetSelectionContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_selection_context_cookie_t>;
+pub type GetSelectionContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_selection_context_cookie_t>;
 
 impl<'a> GetSelectionContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetSelectionContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSelectionContextReply {
                 ptr: xcb_selinux_get_selection_context_reply(
@@ -1443,7 +1472,9 @@ impl<'a> GetSelectionContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1473,10 +1504,7 @@ pub fn get_selection_context<'a>(
     selection: xproto::Atom,
 ) -> GetSelectionContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_context(
-            c.get_raw_conn(),
-            selection as xcb_atom_t,
-        );
+        let cookie = xcb_selinux_get_selection_context(c.get_raw_conn(), selection as xcb_atom_t);
         GetSelectionContextCookie {
             cookie: cookie,
             conn: c,
@@ -1490,10 +1518,8 @@ pub fn get_selection_context_unchecked<'a>(
     selection: xproto::Atom,
 ) -> GetSelectionContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_context_unchecked(
-            c.get_raw_conn(),
-            selection as xcb_atom_t,
-        );
+        let cookie =
+            xcb_selinux_get_selection_context_unchecked(c.get_raw_conn(), selection as xcb_atom_t);
         GetSelectionContextCookie {
             cookie: cookie,
             conn: c,
@@ -1510,12 +1536,17 @@ impl base::CookieSeq for xcb_selinux_get_selection_data_context_cookie_t {
     }
 }
 
-pub type GetSelectionDataContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_selection_data_context_cookie_t>;
+pub type GetSelectionDataContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_selection_data_context_cookie_t>;
 
 impl<'a> GetSelectionDataContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetSelectionDataContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSelectionDataContextReply {
                 ptr: xcb_selinux_get_selection_data_context_reply(
@@ -1531,7 +1562,9 @@ impl<'a> GetSelectionDataContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1561,10 +1594,8 @@ pub fn get_selection_data_context<'a>(
     selection: xproto::Atom,
 ) -> GetSelectionDataContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_data_context(
-            c.get_raw_conn(),
-            selection as xcb_atom_t,
-        );
+        let cookie =
+            xcb_selinux_get_selection_data_context(c.get_raw_conn(), selection as xcb_atom_t);
         GetSelectionDataContextCookie {
             cookie: cookie,
             conn: c,
@@ -1603,7 +1634,11 @@ pub type ListSelectionsCookie<'a> = base::Cookie<'a, xcb_selinux_list_selections
 impl<'a> ListSelectionsCookie<'a> {
     pub fn get_reply(self) -> Result<ListSelectionsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListSelectionsReply {
                 ptr: xcb_selinux_list_selections_reply(
@@ -1619,7 +1654,9 @@ impl<'a> ListSelectionsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1637,13 +1674,9 @@ impl ListSelectionsReply {
     }
 }
 
-pub fn list_selections<'a>(
-    c: &'a base::Connection,
-) -> ListSelectionsCookie<'a> {
+pub fn list_selections<'a>(c: &'a base::Connection) -> ListSelectionsCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_list_selections(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_list_selections(c.get_raw_conn());
         ListSelectionsCookie {
             cookie: cookie,
             conn: c,
@@ -1652,13 +1685,9 @@ pub fn list_selections<'a>(
     }
 }
 
-pub fn list_selections_unchecked<'a>(
-    c: &'a base::Connection,
-) -> ListSelectionsCookie<'a> {
+pub fn list_selections_unchecked<'a>(c: &'a base::Connection) -> ListSelectionsCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_list_selections_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_selinux_list_selections_unchecked(c.get_raw_conn());
         ListSelectionsCookie {
             cookie: cookie,
             conn: c,
@@ -1680,7 +1709,11 @@ pub type GetClientContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_client_co
 impl<'a> GetClientContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetClientContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetClientContextReply {
                 ptr: xcb_selinux_get_client_context_reply(
@@ -1696,7 +1729,9 @@ impl<'a> GetClientContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1726,10 +1761,7 @@ pub fn get_client_context<'a>(
     resource: u32,
 ) -> GetClientContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_client_context(
-            c.get_raw_conn(),
-            resource as u32,
-        );
+        let cookie = xcb_selinux_get_client_context(c.get_raw_conn(), resource as u32);
         GetClientContextCookie {
             cookie: cookie,
             conn: c,
@@ -1743,10 +1775,7 @@ pub fn get_client_context_unchecked<'a>(
     resource: u32,
 ) -> GetClientContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_client_context_unchecked(
-            c.get_raw_conn(),
-            resource as u32,
-        );
+        let cookie = xcb_selinux_get_client_context_unchecked(c.get_raw_conn(), resource as u32);
         GetClientContextCookie {
             cookie: cookie,
             conn: c,

@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::sync::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_sync_id
-    }
+    unsafe { &mut xcb_sync_id }
 }
 
 pub const MAJOR_VERSION: u32 = 3;
@@ -64,13 +61,10 @@ pub struct Int64 {
 
 impl Int64 {
     #[allow(unused_unsafe)]
-    pub fn new(hi: i32,lo: u32,) -> Int64 {
+    pub fn new(hi: i32, lo: u32) -> Int64 {
         unsafe {
             Int64 {
-                base: xcb_sync_int64_t {
-                    hi: hi,
-                    lo: lo,
-                }
+                base: xcb_sync_int64_t { hi: hi, lo: lo },
             }
         }
     }
@@ -149,7 +143,7 @@ pub struct Trigger {
 
 impl Trigger {
     #[allow(unused_unsafe)]
-    pub fn new(counter: Counter,wait_type: u32,wait_value: Int64,test_type: u32,) -> Trigger {
+    pub fn new(counter: Counter, wait_type: u32, wait_value: Int64, test_type: u32) -> Trigger {
         unsafe {
             Trigger {
                 base: xcb_sync_trigger_t {
@@ -157,7 +151,7 @@ impl Trigger {
                     wait_type: wait_type,
                     wait_value: std::mem::transmute(wait_value),
                     test_type: test_type,
-                }
+                },
             }
         }
     }
@@ -200,13 +194,13 @@ pub struct Waitcondition {
 
 impl Waitcondition {
     #[allow(unused_unsafe)]
-    pub fn new(trigger: Trigger,event_threshold: Int64,) -> Waitcondition {
+    pub fn new(trigger: Trigger, event_threshold: Int64) -> Waitcondition {
         unsafe {
             Waitcondition {
                 base: xcb_sync_waitcondition_t {
                     trigger: std::mem::transmute(trigger),
                     event_threshold: std::mem::transmute(event_threshold),
-                }
+                },
             }
         }
     }
@@ -253,14 +247,14 @@ pub type InitializeCookie<'a> = base::Cookie<'a, xcb_sync_initialize_cookie_t>;
 impl<'a> InitializeCookie<'a> {
     pub fn get_reply(self) -> Result<InitializeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             InitializeReply {
-                ptr: xcb_sync_initialize_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_sync_initialize_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -269,7 +263,9 @@ impl<'a> InitializeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -338,7 +334,11 @@ pub type ListSystemCountersCookie<'a> = base::Cookie<'a, xcb_sync_list_system_co
 impl<'a> ListSystemCountersCookie<'a> {
     pub fn get_reply(self) -> Result<ListSystemCountersReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListSystemCountersReply {
                 ptr: xcb_sync_list_system_counters_reply(
@@ -354,7 +354,9 @@ impl<'a> ListSystemCountersCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -372,13 +374,9 @@ impl ListSystemCountersReply {
     }
 }
 
-pub fn list_system_counters<'a>(
-    c: &'a base::Connection,
-) -> ListSystemCountersCookie<'a> {
+pub fn list_system_counters<'a>(c: &'a base::Connection) -> ListSystemCountersCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_list_system_counters(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_sync_list_system_counters(c.get_raw_conn());
         ListSystemCountersCookie {
             cookie: cookie,
             conn: c,
@@ -387,13 +385,9 @@ pub fn list_system_counters<'a>(
     }
 }
 
-pub fn list_system_counters_unchecked<'a>(
-    c: &'a base::Connection,
-) -> ListSystemCountersCookie<'a> {
+pub fn list_system_counters_unchecked<'a>(c: &'a base::Connection) -> ListSystemCountersCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_list_system_counters_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_sync_list_system_counters_unchecked(c.get_raw_conn());
         ListSystemCountersCookie {
             cookie: cookie,
             conn: c,
@@ -444,15 +438,9 @@ pub fn create_counter_checked<'a>(
 
 pub const DESTROY_COUNTER: u8 = 6;
 
-pub fn destroy_counter<'a>(
-    c: &'a base::Connection,
-    counter: Counter,
-) -> base::VoidCookie<'a> {
+pub fn destroy_counter<'a>(c: &'a base::Connection, counter: Counter) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_destroy_counter(
-            c.get_raw_conn(),
-            counter as xcb_sync_counter_t,
-        );
+        let cookie = xcb_sync_destroy_counter(c.get_raw_conn(), counter as xcb_sync_counter_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -466,10 +454,8 @@ pub fn destroy_counter_checked<'a>(
     counter: Counter,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_destroy_counter_checked(
-            c.get_raw_conn(),
-            counter as xcb_sync_counter_t,
-        );
+        let cookie =
+            xcb_sync_destroy_counter_checked(c.get_raw_conn(), counter as xcb_sync_counter_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -491,14 +477,14 @@ pub type QueryCounterCookie<'a> = base::Cookie<'a, xcb_sync_query_counter_cookie
 impl<'a> QueryCounterCookie<'a> {
     pub fn get_reply(self) -> Result<QueryCounterReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryCounterReply {
-                ptr: xcb_sync_query_counter_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_sync_query_counter_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -507,7 +493,9 @@ impl<'a> QueryCounterCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -522,15 +510,9 @@ impl QueryCounterReply {
     }
 }
 
-pub fn query_counter<'a>(
-    c: &'a base::Connection,
-    counter: Counter,
-) -> QueryCounterCookie<'a> {
+pub fn query_counter<'a>(c: &'a base::Connection, counter: Counter) -> QueryCounterCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_query_counter(
-            c.get_raw_conn(),
-            counter as xcb_sync_counter_t,
-        );
+        let cookie = xcb_sync_query_counter(c.get_raw_conn(), counter as xcb_sync_counter_t);
         QueryCounterCookie {
             cookie: cookie,
             conn: c,
@@ -544,10 +526,8 @@ pub fn query_counter_unchecked<'a>(
     counter: Counter,
 ) -> QueryCounterCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_query_counter_unchecked(
-            c.get_raw_conn(),
-            counter as xcb_sync_counter_t,
-        );
+        let cookie =
+            xcb_sync_query_counter_unchecked(c.get_raw_conn(), counter as xcb_sync_counter_t);
         QueryCounterCookie {
             cookie: cookie,
             conn: c,
@@ -558,10 +538,7 @@ pub fn query_counter_unchecked<'a>(
 
 pub const AWAIT: u8 = 7;
 
-pub fn await<'a>(
-    c: &'a base::Connection,
-    wait_list: &[Waitcondition],
-) -> base::VoidCookie<'a> {
+pub fn await_<'a>(c: &'a base::Connection, wait_list: &[Waitcondition]) -> base::VoidCookie<'a> {
     unsafe {
         let wait_list_len = wait_list.len();
         let wait_list_ptr = wait_list.as_ptr();
@@ -606,11 +583,8 @@ pub fn change_counter<'a>(
     amount: Int64,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_change_counter(
-            c.get_raw_conn(),
-            counter as xcb_sync_counter_t,
-            amount.base,
-        );
+        let cookie =
+            xcb_sync_change_counter(c.get_raw_conn(), counter as xcb_sync_counter_t, amount.base);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -646,11 +620,8 @@ pub fn set_counter<'a>(
     value: Int64,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_set_counter(
-            c.get_raw_conn(),
-            counter as xcb_sync_counter_t,
-            value.base,
-        );
+        let cookie =
+            xcb_sync_set_counter(c.get_raw_conn(), counter as xcb_sync_counter_t, value.base);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -786,15 +757,9 @@ pub fn change_alarm_checked<'a>(
 
 pub const DESTROY_ALARM: u8 = 11;
 
-pub fn destroy_alarm<'a>(
-    c: &'a base::Connection,
-    alarm: Alarm,
-) -> base::VoidCookie<'a> {
+pub fn destroy_alarm<'a>(c: &'a base::Connection, alarm: Alarm) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_destroy_alarm(
-            c.get_raw_conn(),
-            alarm as xcb_sync_alarm_t,
-        );
+        let cookie = xcb_sync_destroy_alarm(c.get_raw_conn(), alarm as xcb_sync_alarm_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -803,15 +768,9 @@ pub fn destroy_alarm<'a>(
     }
 }
 
-pub fn destroy_alarm_checked<'a>(
-    c: &'a base::Connection,
-    alarm: Alarm,
-) -> base::VoidCookie<'a> {
+pub fn destroy_alarm_checked<'a>(c: &'a base::Connection, alarm: Alarm) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_destroy_alarm_checked(
-            c.get_raw_conn(),
-            alarm as xcb_sync_alarm_t,
-        );
+        let cookie = xcb_sync_destroy_alarm_checked(c.get_raw_conn(), alarm as xcb_sync_alarm_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -833,14 +792,14 @@ pub type QueryAlarmCookie<'a> = base::Cookie<'a, xcb_sync_query_alarm_cookie_t>;
 impl<'a> QueryAlarmCookie<'a> {
     pub fn get_reply(self) -> Result<QueryAlarmReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryAlarmReply {
-                ptr: xcb_sync_query_alarm_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_sync_query_alarm_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -849,7 +808,9 @@ impl<'a> QueryAlarmCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -873,15 +834,9 @@ impl QueryAlarmReply {
     }
 }
 
-pub fn query_alarm<'a>(
-    c: &'a base::Connection,
-    alarm: Alarm,
-) -> QueryAlarmCookie<'a> {
+pub fn query_alarm<'a>(c: &'a base::Connection, alarm: Alarm) -> QueryAlarmCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_query_alarm(
-            c.get_raw_conn(),
-            alarm as xcb_sync_alarm_t,
-        );
+        let cookie = xcb_sync_query_alarm(c.get_raw_conn(), alarm as xcb_sync_alarm_t);
         QueryAlarmCookie {
             cookie: cookie,
             conn: c,
@@ -890,15 +845,9 @@ pub fn query_alarm<'a>(
     }
 }
 
-pub fn query_alarm_unchecked<'a>(
-    c: &'a base::Connection,
-    alarm: Alarm,
-) -> QueryAlarmCookie<'a> {
+pub fn query_alarm_unchecked<'a>(c: &'a base::Connection, alarm: Alarm) -> QueryAlarmCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_query_alarm_unchecked(
-            c.get_raw_conn(),
-            alarm as xcb_sync_alarm_t,
-        );
+        let cookie = xcb_sync_query_alarm_unchecked(c.get_raw_conn(), alarm as xcb_sync_alarm_t);
         QueryAlarmCookie {
             cookie: cookie,
             conn: c,
@@ -909,17 +858,9 @@ pub fn query_alarm_unchecked<'a>(
 
 pub const SET_PRIORITY: u8 = 12;
 
-pub fn set_priority<'a>(
-    c: &'a base::Connection,
-    id: u32,
-    priority: i32,
-) -> base::VoidCookie<'a> {
+pub fn set_priority<'a>(c: &'a base::Connection, id: u32, priority: i32) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_set_priority(
-            c.get_raw_conn(),
-            id as u32,
-            priority as i32,
-        );
+        let cookie = xcb_sync_set_priority(c.get_raw_conn(), id as u32, priority as i32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -934,11 +875,7 @@ pub fn set_priority_checked<'a>(
     priority: i32,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_set_priority_checked(
-            c.get_raw_conn(),
-            id as u32,
-            priority as i32,
-        );
+        let cookie = xcb_sync_set_priority_checked(c.get_raw_conn(), id as u32, priority as i32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -960,14 +897,14 @@ pub type GetPriorityCookie<'a> = base::Cookie<'a, xcb_sync_get_priority_cookie_t
 impl<'a> GetPriorityCookie<'a> {
     pub fn get_reply(self) -> Result<GetPriorityReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPriorityReply {
-                ptr: xcb_sync_get_priority_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_sync_get_priority_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -976,7 +913,9 @@ impl<'a> GetPriorityCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -991,15 +930,9 @@ impl GetPriorityReply {
     }
 }
 
-pub fn get_priority<'a>(
-    c: &'a base::Connection,
-    id: u32,
-) -> GetPriorityCookie<'a> {
+pub fn get_priority<'a>(c: &'a base::Connection, id: u32) -> GetPriorityCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_get_priority(
-            c.get_raw_conn(),
-            id as u32,
-        );
+        let cookie = xcb_sync_get_priority(c.get_raw_conn(), id as u32);
         GetPriorityCookie {
             cookie: cookie,
             conn: c,
@@ -1008,15 +941,9 @@ pub fn get_priority<'a>(
     }
 }
 
-pub fn get_priority_unchecked<'a>(
-    c: &'a base::Connection,
-    id: u32,
-) -> GetPriorityCookie<'a> {
+pub fn get_priority_unchecked<'a>(c: &'a base::Connection, id: u32) -> GetPriorityCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_get_priority_unchecked(
-            c.get_raw_conn(),
-            id as u32,
-        );
+        let cookie = xcb_sync_get_priority_unchecked(c.get_raw_conn(), id as u32);
         GetPriorityCookie {
             cookie: cookie,
             conn: c,
@@ -1071,15 +998,9 @@ pub fn create_fence_checked<'a>(
 
 pub const TRIGGER_FENCE: u8 = 15;
 
-pub fn trigger_fence<'a>(
-    c: &'a base::Connection,
-    fence: Fence,
-) -> base::VoidCookie<'a> {
+pub fn trigger_fence<'a>(c: &'a base::Connection, fence: Fence) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_trigger_fence(
-            c.get_raw_conn(),
-            fence as xcb_sync_fence_t,
-        );
+        let cookie = xcb_sync_trigger_fence(c.get_raw_conn(), fence as xcb_sync_fence_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1088,15 +1009,9 @@ pub fn trigger_fence<'a>(
     }
 }
 
-pub fn trigger_fence_checked<'a>(
-    c: &'a base::Connection,
-    fence: Fence,
-) -> base::VoidCookie<'a> {
+pub fn trigger_fence_checked<'a>(c: &'a base::Connection, fence: Fence) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_trigger_fence_checked(
-            c.get_raw_conn(),
-            fence as xcb_sync_fence_t,
-        );
+        let cookie = xcb_sync_trigger_fence_checked(c.get_raw_conn(), fence as xcb_sync_fence_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1107,15 +1022,9 @@ pub fn trigger_fence_checked<'a>(
 
 pub const RESET_FENCE: u8 = 16;
 
-pub fn reset_fence<'a>(
-    c: &'a base::Connection,
-    fence: Fence,
-) -> base::VoidCookie<'a> {
+pub fn reset_fence<'a>(c: &'a base::Connection, fence: Fence) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_reset_fence(
-            c.get_raw_conn(),
-            fence as xcb_sync_fence_t,
-        );
+        let cookie = xcb_sync_reset_fence(c.get_raw_conn(), fence as xcb_sync_fence_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1124,15 +1033,9 @@ pub fn reset_fence<'a>(
     }
 }
 
-pub fn reset_fence_checked<'a>(
-    c: &'a base::Connection,
-    fence: Fence,
-) -> base::VoidCookie<'a> {
+pub fn reset_fence_checked<'a>(c: &'a base::Connection, fence: Fence) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_reset_fence_checked(
-            c.get_raw_conn(),
-            fence as xcb_sync_fence_t,
-        );
+        let cookie = xcb_sync_reset_fence_checked(c.get_raw_conn(), fence as xcb_sync_fence_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1143,15 +1046,9 @@ pub fn reset_fence_checked<'a>(
 
 pub const DESTROY_FENCE: u8 = 17;
 
-pub fn destroy_fence<'a>(
-    c: &'a base::Connection,
-    fence: Fence,
-) -> base::VoidCookie<'a> {
+pub fn destroy_fence<'a>(c: &'a base::Connection, fence: Fence) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_destroy_fence(
-            c.get_raw_conn(),
-            fence as xcb_sync_fence_t,
-        );
+        let cookie = xcb_sync_destroy_fence(c.get_raw_conn(), fence as xcb_sync_fence_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1160,15 +1057,9 @@ pub fn destroy_fence<'a>(
     }
 }
 
-pub fn destroy_fence_checked<'a>(
-    c: &'a base::Connection,
-    fence: Fence,
-) -> base::VoidCookie<'a> {
+pub fn destroy_fence_checked<'a>(c: &'a base::Connection, fence: Fence) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_destroy_fence_checked(
-            c.get_raw_conn(),
-            fence as xcb_sync_fence_t,
-        );
+        let cookie = xcb_sync_destroy_fence_checked(c.get_raw_conn(), fence as xcb_sync_fence_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1190,14 +1081,14 @@ pub type QueryFenceCookie<'a> = base::Cookie<'a, xcb_sync_query_fence_cookie_t>;
 impl<'a> QueryFenceCookie<'a> {
     pub fn get_reply(self) -> Result<QueryFenceReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryFenceReply {
-                ptr: xcb_sync_query_fence_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_sync_query_fence_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -1206,7 +1097,9 @@ impl<'a> QueryFenceCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1221,15 +1114,9 @@ impl QueryFenceReply {
     }
 }
 
-pub fn query_fence<'a>(
-    c: &'a base::Connection,
-    fence: Fence,
-) -> QueryFenceCookie<'a> {
+pub fn query_fence<'a>(c: &'a base::Connection, fence: Fence) -> QueryFenceCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_query_fence(
-            c.get_raw_conn(),
-            fence as xcb_sync_fence_t,
-        );
+        let cookie = xcb_sync_query_fence(c.get_raw_conn(), fence as xcb_sync_fence_t);
         QueryFenceCookie {
             cookie: cookie,
             conn: c,
@@ -1238,15 +1125,9 @@ pub fn query_fence<'a>(
     }
 }
 
-pub fn query_fence_unchecked<'a>(
-    c: &'a base::Connection,
-    fence: Fence,
-) -> QueryFenceCookie<'a> {
+pub fn query_fence_unchecked<'a>(c: &'a base::Connection, fence: Fence) -> QueryFenceCookie<'a> {
     unsafe {
-        let cookie = xcb_sync_query_fence_unchecked(
-            c.get_raw_conn(),
-            fence as xcb_sync_fence_t,
-        );
+        let cookie = xcb_sync_query_fence_unchecked(c.get_raw_conn(), fence as xcb_sync_fence_t);
         QueryFenceCookie {
             cookie: cookie,
             conn: c,
@@ -1257,10 +1138,7 @@ pub fn query_fence_unchecked<'a>(
 
 pub const AWAIT_FENCE: u8 = 19;
 
-pub fn await_fence<'a>(
-    c: &'a base::Connection,
-    fence_list: &[Fence],
-) -> base::VoidCookie<'a> {
+pub fn await_fence<'a>(c: &'a base::Connection, fence_list: &[Fence]) -> base::VoidCookie<'a> {
     unsafe {
         let fence_list_len = fence_list.len();
         let fence_list_ptr = fence_list.as_ptr();
@@ -1325,7 +1203,7 @@ impl CounterNotifyEvent {
     }
     /// Constructs a new CounterNotifyEvent
     /// `response_type` will be set automatically to COUNTER_NOTIFY
-    pub fn new (
+    pub fn new(
         kind: u8,
         counter: Counter,
         wait_value: Int64,
@@ -1374,7 +1252,7 @@ impl AlarmNotifyEvent {
     }
     /// Constructs a new AlarmNotifyEvent
     /// `response_type` will be set automatically to ALARM_NOTIFY
-    pub fn new (
+    pub fn new(
         kind: u8,
         alarm: Alarm,
         counter_value: Int64,

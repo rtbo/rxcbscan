@@ -8,11 +8,8 @@ use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
 
-
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_record_id
-    }
+    unsafe { &mut xcb_record_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -45,13 +42,13 @@ pub struct Range8 {
 
 impl Range8 {
     #[allow(unused_unsafe)]
-    pub fn new(first: u8,last: u8,) -> Range8 {
+    pub fn new(first: u8, last: u8) -> Range8 {
         unsafe {
             Range8 {
                 base: xcb_record_range_8_t {
                     first: first,
                     last: last,
-                }
+                },
             }
         }
     }
@@ -88,13 +85,13 @@ pub struct Range16 {
 
 impl Range16 {
     #[allow(unused_unsafe)]
-    pub fn new(first: u16,last: u16,) -> Range16 {
+    pub fn new(first: u16, last: u16) -> Range16 {
         unsafe {
             Range16 {
                 base: xcb_record_range_16_t {
                     first: first,
                     last: last,
-                }
+                },
             }
         }
     }
@@ -131,13 +128,13 @@ pub struct ExtRange {
 
 impl ExtRange {
     #[allow(unused_unsafe)]
-    pub fn new(major: Range8,minor: Range16,) -> ExtRange {
+    pub fn new(major: Range8, minor: Range16) -> ExtRange {
         unsafe {
             ExtRange {
                 base: xcb_record_ext_range_t {
                     major: std::mem::transmute(major),
                     minor: std::mem::transmute(minor),
-                }
+                },
             }
         }
     }
@@ -174,7 +171,17 @@ pub struct Range {
 
 impl Range {
     #[allow(unused_unsafe)]
-    pub fn new(core_requests: Range8,core_replies: Range8,ext_requests: ExtRange,ext_replies: ExtRange,delivered_events: Range8,device_events: Range8,errors: Range8,client_started: bool,client_died: bool,) -> Range {
+    pub fn new(
+        core_requests: Range8,
+        core_replies: Range8,
+        ext_requests: ExtRange,
+        ext_replies: ExtRange,
+        delivered_events: Range8,
+        device_events: Range8,
+        errors: Range8,
+        client_started: bool,
+        client_died: bool,
+    ) -> Range {
         unsafe {
             Range {
                 base: xcb_record_range_t {
@@ -187,7 +194,7 @@ impl Range {
                     errors: std::mem::transmute(errors),
                     client_started: if client_started { 1 } else { 0 },
                     client_died: if client_died { 1 } else { 0 },
-                }
+                },
             }
         }
     }
@@ -285,14 +292,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_record_query_version_cook
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_record_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_record_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -301,7 +308,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -325,11 +334,8 @@ pub fn query_version<'a>(
     minor_version: u16,
 ) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_record_query_version(
-            c.get_raw_conn(),
-            major_version as u16,
-            minor_version as u16,
-        );
+        let cookie =
+            xcb_record_query_version(c.get_raw_conn(), major_version as u16, minor_version as u16);
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -536,14 +542,14 @@ pub type GetContextCookie<'a> = base::Cookie<'a, xcb_record_get_context_cookie_t
 impl<'a> GetContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetContextReply {
-                ptr: xcb_record_get_context_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_record_get_context_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -552,7 +558,9 @@ impl<'a> GetContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -576,15 +584,9 @@ impl GetContextReply {
     }
 }
 
-pub fn get_context<'a>(
-    c: &'a base::Connection,
-    context: Context,
-) -> GetContextCookie<'a> {
+pub fn get_context<'a>(c: &'a base::Connection, context: Context) -> GetContextCookie<'a> {
     unsafe {
-        let cookie = xcb_record_get_context(
-            c.get_raw_conn(),
-            context as xcb_record_context_t,
-        );
+        let cookie = xcb_record_get_context(c.get_raw_conn(), context as xcb_record_context_t);
         GetContextCookie {
             cookie: cookie,
             conn: c,
@@ -598,10 +600,8 @@ pub fn get_context_unchecked<'a>(
     context: Context,
 ) -> GetContextCookie<'a> {
     unsafe {
-        let cookie = xcb_record_get_context_unchecked(
-            c.get_raw_conn(),
-            context as xcb_record_context_t,
-        );
+        let cookie =
+            xcb_record_get_context_unchecked(c.get_raw_conn(), context as xcb_record_context_t);
         GetContextCookie {
             cookie: cookie,
             conn: c,
@@ -623,7 +623,11 @@ pub type EnableContextCookie<'a> = base::Cookie<'a, xcb_record_enable_context_co
 impl<'a> EnableContextCookie<'a> {
     pub fn get_reply(self) -> Result<EnableContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             EnableContextReply {
                 ptr: xcb_record_enable_context_reply(
@@ -639,7 +643,9 @@ impl<'a> EnableContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -677,15 +683,9 @@ impl EnableContextReply {
     }
 }
 
-pub fn enable_context<'a>(
-    c: &'a base::Connection,
-    context: Context,
-) -> EnableContextCookie<'a> {
+pub fn enable_context<'a>(c: &'a base::Connection, context: Context) -> EnableContextCookie<'a> {
     unsafe {
-        let cookie = xcb_record_enable_context(
-            c.get_raw_conn(),
-            context as xcb_record_context_t,
-        );
+        let cookie = xcb_record_enable_context(c.get_raw_conn(), context as xcb_record_context_t);
         EnableContextCookie {
             cookie: cookie,
             conn: c,
@@ -699,10 +699,8 @@ pub fn enable_context_unchecked<'a>(
     context: Context,
 ) -> EnableContextCookie<'a> {
     unsafe {
-        let cookie = xcb_record_enable_context_unchecked(
-            c.get_raw_conn(),
-            context as xcb_record_context_t,
-        );
+        let cookie =
+            xcb_record_enable_context_unchecked(c.get_raw_conn(), context as xcb_record_context_t);
         EnableContextCookie {
             cookie: cookie,
             conn: c,
@@ -713,15 +711,9 @@ pub fn enable_context_unchecked<'a>(
 
 pub const DISABLE_CONTEXT: u8 = 6;
 
-pub fn disable_context<'a>(
-    c: &'a base::Connection,
-    context: Context,
-) -> base::VoidCookie<'a> {
+pub fn disable_context<'a>(c: &'a base::Connection, context: Context) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_record_disable_context(
-            c.get_raw_conn(),
-            context as xcb_record_context_t,
-        );
+        let cookie = xcb_record_disable_context(c.get_raw_conn(), context as xcb_record_context_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -735,10 +727,8 @@ pub fn disable_context_checked<'a>(
     context: Context,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_record_disable_context_checked(
-            c.get_raw_conn(),
-            context as xcb_record_context_t,
-        );
+        let cookie =
+            xcb_record_disable_context_checked(c.get_raw_conn(), context as xcb_record_context_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -749,15 +739,9 @@ pub fn disable_context_checked<'a>(
 
 pub const FREE_CONTEXT: u8 = 7;
 
-pub fn free_context<'a>(
-    c: &'a base::Connection,
-    context: Context,
-) -> base::VoidCookie<'a> {
+pub fn free_context<'a>(c: &'a base::Connection, context: Context) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_record_free_context(
-            c.get_raw_conn(),
-            context as xcb_record_context_t,
-        );
+        let cookie = xcb_record_free_context(c.get_raw_conn(), context as xcb_record_context_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -766,15 +750,10 @@ pub fn free_context<'a>(
     }
 }
 
-pub fn free_context_checked<'a>(
-    c: &'a base::Connection,
-    context: Context,
-) -> base::VoidCookie<'a> {
+pub fn free_context_checked<'a>(c: &'a base::Connection, context: Context) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_record_free_context_checked(
-            c.get_raw_conn(),
-            context as xcb_record_context_t,
-        );
+        let cookie =
+            xcb_record_free_context_checked(c.get_raw_conn(), context as xcb_record_context_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,

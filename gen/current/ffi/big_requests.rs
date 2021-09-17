@@ -35,22 +35,20 @@ pub struct xcb_big_requests_enable_reply_t {
 }
 
 #[link(name = "xcb")]
-extern {
+extern "C" {
 
-pub static mut xcb_big_requests_id: xcb_extension_t;
+    pub static mut xcb_big_requests_id: xcb_extension_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_big_requests_enable_reply (
+    pub fn xcb_big_requests_enable_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_big_requests_enable_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_big_requests_enable_reply_t;
 
-    pub fn xcb_big_requests_enable (
-        c: *mut xcb_connection_t,
-    ) -> xcb_big_requests_enable_cookie_t;
+    pub fn xcb_big_requests_enable(c: *mut xcb_connection_t) -> xcb_big_requests_enable_cookie_t;
 
-    pub fn xcb_big_requests_enable_unchecked (
+    pub fn xcb_big_requests_enable_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_big_requests_enable_cookie_t;
 

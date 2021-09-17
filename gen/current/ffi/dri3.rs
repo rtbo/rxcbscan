@@ -160,31 +160,31 @@ pub struct xcb_dri3_fd_from_fence_reply_t {
 }
 
 #[link(name = "xcb-dri3")]
-extern {
+extern "C" {
 
-pub static mut xcb_dri3_id: xcb_extension_t;
+    pub static mut xcb_dri3_id: xcb_extension_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri3_query_version_reply (
+    pub fn xcb_dri3_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri3_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri3_query_version_reply_t;
 
-    pub fn xcb_dri3_query_version (
+    pub fn xcb_dri3_query_version(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_dri3_query_version_cookie_t;
 
-    pub fn xcb_dri3_query_version_unchecked (
+    pub fn xcb_dri3_query_version_unchecked(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_dri3_query_version_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri3_open_reply (
+    pub fn xcb_dri3_open_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri3_open_cookie_t,
         error: *mut *mut xcb_generic_error_t,
@@ -195,19 +195,19 @@ pub static mut xcb_dri3_id: xcb_extension_t;
         reply: *mut xcb_dri3_open_reply_t,
     ) -> *mut c_int;
 
-    pub fn xcb_dri3_open (
+    pub fn xcb_dri3_open(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         provider: u32,
     ) -> xcb_dri3_open_cookie_t;
 
-    pub fn xcb_dri3_open_unchecked (
+    pub fn xcb_dri3_open_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         provider: u32,
     ) -> xcb_dri3_open_cookie_t;
 
-    pub fn xcb_dri3_pixmap_from_buffer (
+    pub fn xcb_dri3_pixmap_from_buffer(
         c: *mut xcb_connection_t,
         pixmap: xcb_pixmap_t,
         drawable: xcb_drawable_t,
@@ -220,7 +220,7 @@ pub static mut xcb_dri3_id: xcb_extension_t;
         pixmap_fd: i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_dri3_pixmap_from_buffer_checked (
+    pub fn xcb_dri3_pixmap_from_buffer_checked(
         c: *mut xcb_connection_t,
         pixmap: xcb_pixmap_t,
         drawable: xcb_drawable_t,
@@ -234,7 +234,7 @@ pub static mut xcb_dri3_id: xcb_extension_t;
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri3_buffer_from_pixmap_reply (
+    pub fn xcb_dri3_buffer_from_pixmap_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri3_buffer_from_pixmap_cookie_t,
         error: *mut *mut xcb_generic_error_t,
@@ -245,17 +245,17 @@ pub static mut xcb_dri3_id: xcb_extension_t;
         reply: *mut xcb_dri3_buffer_from_pixmap_reply_t,
     ) -> *mut c_int;
 
-    pub fn xcb_dri3_buffer_from_pixmap (
+    pub fn xcb_dri3_buffer_from_pixmap(
         c: *mut xcb_connection_t,
         pixmap: xcb_pixmap_t,
     ) -> xcb_dri3_buffer_from_pixmap_cookie_t;
 
-    pub fn xcb_dri3_buffer_from_pixmap_unchecked (
+    pub fn xcb_dri3_buffer_from_pixmap_unchecked(
         c: *mut xcb_connection_t,
         pixmap: xcb_pixmap_t,
     ) -> xcb_dri3_buffer_from_pixmap_cookie_t;
 
-    pub fn xcb_dri3_fence_from_fd (
+    pub fn xcb_dri3_fence_from_fd(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         fence: u32,
@@ -263,7 +263,7 @@ pub static mut xcb_dri3_id: xcb_extension_t;
         fence_fd: i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_dri3_fence_from_fd_checked (
+    pub fn xcb_dri3_fence_from_fd_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         fence: u32,
@@ -272,7 +272,7 @@ pub static mut xcb_dri3_id: xcb_extension_t;
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri3_fd_from_fence_reply (
+    pub fn xcb_dri3_fd_from_fence_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri3_fd_from_fence_cookie_t,
         error: *mut *mut xcb_generic_error_t,
@@ -283,13 +283,13 @@ pub static mut xcb_dri3_id: xcb_extension_t;
         reply: *mut xcb_dri3_fd_from_fence_reply_t,
     ) -> *mut c_int;
 
-    pub fn xcb_dri3_fd_from_fence (
+    pub fn xcb_dri3_fd_from_fence(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         fence: u32,
     ) -> xcb_dri3_fd_from_fence_cookie_t;
 
-    pub fn xcb_dri3_fd_from_fence_unchecked (
+    pub fn xcb_dri3_fd_from_fence_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         fence: u32,

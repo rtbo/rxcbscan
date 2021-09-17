@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::dri3::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_dri3_id
-    }
+    unsafe { &mut xcb_dri3_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -33,14 +30,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_dri3_query_version_cookie
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_dri3_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_dri3_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -49,7 +46,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -73,11 +72,8 @@ pub fn query_version<'a>(
     minor_version: u32,
 ) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_dri3_query_version(
-            c.get_raw_conn(),
-            major_version as u32,
-            minor_version as u32,
-        );
+        let cookie =
+            xcb_dri3_query_version(c.get_raw_conn(), major_version as u32, minor_version as u32);
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -118,14 +114,14 @@ pub type OpenCookie<'a> = base::Cookie<'a, xcb_dri3_open_cookie_t>;
 impl<'a> OpenCookie<'a> {
     pub fn get_reply(self) -> Result<OpenReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             OpenReply {
-                ptr: xcb_dri3_open_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_dri3_open_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -134,7 +130,9 @@ impl<'a> OpenCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -272,7 +270,11 @@ pub type BufferFromPixmapCookie<'a> = base::Cookie<'a, xcb_dri3_buffer_from_pixm
 impl<'a> BufferFromPixmapCookie<'a> {
     pub fn get_reply(self) -> Result<BufferFromPixmapReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             BufferFromPixmapReply {
                 ptr: xcb_dri3_buffer_from_pixmap_reply(
@@ -288,7 +290,9 @@ impl<'a> BufferFromPixmapCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -330,10 +334,7 @@ pub fn buffer_from_pixmap<'a>(
     pixmap: xproto::Pixmap,
 ) -> BufferFromPixmapCookie<'a> {
     unsafe {
-        let cookie = xcb_dri3_buffer_from_pixmap(
-            c.get_raw_conn(),
-            pixmap as xcb_pixmap_t,
-        );
+        let cookie = xcb_dri3_buffer_from_pixmap(c.get_raw_conn(), pixmap as xcb_pixmap_t);
         BufferFromPixmapCookie {
             cookie: cookie,
             conn: c,
@@ -347,10 +348,8 @@ pub fn buffer_from_pixmap_unchecked<'a>(
     pixmap: xproto::Pixmap,
 ) -> BufferFromPixmapCookie<'a> {
     unsafe {
-        let cookie = xcb_dri3_buffer_from_pixmap_unchecked(
-            c.get_raw_conn(),
-            pixmap as xcb_pixmap_t,
-        );
+        let cookie =
+            xcb_dri3_buffer_from_pixmap_unchecked(c.get_raw_conn(), pixmap as xcb_pixmap_t);
         BufferFromPixmapCookie {
             cookie: cookie,
             conn: c,
@@ -420,14 +419,14 @@ pub type FdFromFenceCookie<'a> = base::Cookie<'a, xcb_dri3_fd_from_fence_cookie_
 impl<'a> FdFromFenceCookie<'a> {
     pub fn get_reply(self) -> Result<FdFromFenceReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             FdFromFenceReply {
-                ptr: xcb_dri3_fd_from_fence_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_dri3_fd_from_fence_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -436,7 +435,9 @@ impl<'a> FdFromFenceCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -461,11 +462,8 @@ pub fn fd_from_fence<'a>(
     fence: u32,
 ) -> FdFromFenceCookie<'a> {
     unsafe {
-        let cookie = xcb_dri3_fd_from_fence(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-            fence as u32,
-        );
+        let cookie =
+            xcb_dri3_fd_from_fence(c.get_raw_conn(), drawable as xcb_drawable_t, fence as u32);
         FdFromFenceCookie {
             cookie: cookie,
             conn: c,

@@ -20,8 +20,8 @@ pub struct xcb_xf86dri_drm_clip_rect_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xf86dri_drm_clip_rect_iterator_t {
-    pub data:  *mut xcb_xf86dri_drm_clip_rect_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xf86dri_drm_clip_rect_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -331,234 +331,264 @@ pub struct xcb_xf86dri_auth_connection_reply_t {
 }
 
 #[link(name = "xcb-xf86dri")]
-extern {
+extern "C" {
 
-pub static mut xcb_xf86dri_id: xcb_extension_t;
+    pub static mut xcb_xf86dri_id: xcb_extension_t;
 
-pub fn xcb_xf86dri_drm_clip_rect_next(i: *mut xcb_xf86dri_drm_clip_rect_iterator_t);
+    pub fn xcb_xf86dri_drm_clip_rect_next(i: *mut xcb_xf86dri_drm_clip_rect_iterator_t);
 
-pub fn xcb_xf86dri_drm_clip_rect_end(i: *mut xcb_xf86dri_drm_clip_rect_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86dri_drm_clip_rect_end(
+        i: *mut xcb_xf86dri_drm_clip_rect_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86dri_query_version_reply (
+    pub fn xcb_xf86dri_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86dri_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86dri_query_version_reply_t;
 
-    pub fn xcb_xf86dri_query_version (
+    pub fn xcb_xf86dri_query_version(
         c: *mut xcb_connection_t,
     ) -> xcb_xf86dri_query_version_cookie_t;
 
-    pub fn xcb_xf86dri_query_version_unchecked (
+    pub fn xcb_xf86dri_query_version_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_xf86dri_query_version_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86dri_query_direct_rendering_capable_reply (
+    pub fn xcb_xf86dri_query_direct_rendering_capable_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86dri_query_direct_rendering_capable_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86dri_query_direct_rendering_capable_reply_t;
 
-    pub fn xcb_xf86dri_query_direct_rendering_capable (
+    pub fn xcb_xf86dri_query_direct_rendering_capable(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_xf86dri_query_direct_rendering_capable_cookie_t;
 
-    pub fn xcb_xf86dri_query_direct_rendering_capable_unchecked (
+    pub fn xcb_xf86dri_query_direct_rendering_capable_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_xf86dri_query_direct_rendering_capable_cookie_t;
 
-pub fn xcb_xf86dri_open_connection_bus_id(R: *const xcb_xf86dri_open_connection_reply_t) -> *mut c_char;
+    pub fn xcb_xf86dri_open_connection_bus_id(
+        R: *const xcb_xf86dri_open_connection_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_xf86dri_open_connection_bus_id_length(R: *const xcb_xf86dri_open_connection_reply_t) -> c_int;
+    pub fn xcb_xf86dri_open_connection_bus_id_length(
+        R: *const xcb_xf86dri_open_connection_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86dri_open_connection_bus_id_end(R: *const xcb_xf86dri_open_connection_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86dri_open_connection_bus_id_end(
+        R: *const xcb_xf86dri_open_connection_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86dri_open_connection_reply (
+    pub fn xcb_xf86dri_open_connection_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86dri_open_connection_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86dri_open_connection_reply_t;
 
-    pub fn xcb_xf86dri_open_connection (
+    pub fn xcb_xf86dri_open_connection(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_xf86dri_open_connection_cookie_t;
 
-    pub fn xcb_xf86dri_open_connection_unchecked (
+    pub fn xcb_xf86dri_open_connection_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_xf86dri_open_connection_cookie_t;
 
-    pub fn xcb_xf86dri_close_connection (
+    pub fn xcb_xf86dri_close_connection(c: *mut xcb_connection_t, screen: u32)
+        -> xcb_void_cookie_t;
+
+    pub fn xcb_xf86dri_close_connection_checked(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86dri_close_connection_checked (
-        c: *mut xcb_connection_t,
-        screen: u32,
-    ) -> xcb_void_cookie_t;
+    pub fn xcb_xf86dri_get_client_driver_name_client_driver_name(
+        R: *const xcb_xf86dri_get_client_driver_name_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_xf86dri_get_client_driver_name_client_driver_name(R: *const xcb_xf86dri_get_client_driver_name_reply_t) -> *mut c_char;
+    pub fn xcb_xf86dri_get_client_driver_name_client_driver_name_length(
+        R: *const xcb_xf86dri_get_client_driver_name_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86dri_get_client_driver_name_client_driver_name_length(R: *const xcb_xf86dri_get_client_driver_name_reply_t) -> c_int;
-
-pub fn xcb_xf86dri_get_client_driver_name_client_driver_name_end(R: *const xcb_xf86dri_get_client_driver_name_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86dri_get_client_driver_name_client_driver_name_end(
+        R: *const xcb_xf86dri_get_client_driver_name_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86dri_get_client_driver_name_reply (
+    pub fn xcb_xf86dri_get_client_driver_name_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86dri_get_client_driver_name_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86dri_get_client_driver_name_reply_t;
 
-    pub fn xcb_xf86dri_get_client_driver_name (
+    pub fn xcb_xf86dri_get_client_driver_name(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_xf86dri_get_client_driver_name_cookie_t;
 
-    pub fn xcb_xf86dri_get_client_driver_name_unchecked (
+    pub fn xcb_xf86dri_get_client_driver_name_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_xf86dri_get_client_driver_name_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86dri_create_context_reply (
+    pub fn xcb_xf86dri_create_context_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86dri_create_context_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86dri_create_context_reply_t;
 
-    pub fn xcb_xf86dri_create_context (
+    pub fn xcb_xf86dri_create_context(
         c: *mut xcb_connection_t,
         screen: u32,
         visual: u32,
         context: u32,
     ) -> xcb_xf86dri_create_context_cookie_t;
 
-    pub fn xcb_xf86dri_create_context_unchecked (
+    pub fn xcb_xf86dri_create_context_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
         visual: u32,
         context: u32,
     ) -> xcb_xf86dri_create_context_cookie_t;
 
-    pub fn xcb_xf86dri_destroy_context (
+    pub fn xcb_xf86dri_destroy_context(
         c: *mut xcb_connection_t,
         screen: u32,
         context: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86dri_destroy_context_checked (
+    pub fn xcb_xf86dri_destroy_context_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         context: u32,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86dri_create_drawable_reply (
+    pub fn xcb_xf86dri_create_drawable_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86dri_create_drawable_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86dri_create_drawable_reply_t;
 
-    pub fn xcb_xf86dri_create_drawable (
+    pub fn xcb_xf86dri_create_drawable(
         c: *mut xcb_connection_t,
         screen: u32,
         drawable: u32,
     ) -> xcb_xf86dri_create_drawable_cookie_t;
 
-    pub fn xcb_xf86dri_create_drawable_unchecked (
+    pub fn xcb_xf86dri_create_drawable_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
         drawable: u32,
     ) -> xcb_xf86dri_create_drawable_cookie_t;
 
-    pub fn xcb_xf86dri_destroy_drawable (
+    pub fn xcb_xf86dri_destroy_drawable(
         c: *mut xcb_connection_t,
         screen: u32,
         drawable: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xf86dri_destroy_drawable_checked (
+    pub fn xcb_xf86dri_destroy_drawable_checked(
         c: *mut xcb_connection_t,
         screen: u32,
         drawable: u32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xf86dri_get_drawable_info_clip_rects(R: *const xcb_xf86dri_get_drawable_info_reply_t) -> *mut xcb_xf86dri_drm_clip_rect_t;
+    pub fn xcb_xf86dri_get_drawable_info_clip_rects(
+        R: *const xcb_xf86dri_get_drawable_info_reply_t,
+    ) -> *mut xcb_xf86dri_drm_clip_rect_t;
 
-pub fn xcb_xf86dri_get_drawable_info_clip_rects_length(R: *const xcb_xf86dri_get_drawable_info_reply_t) -> c_int;
+    pub fn xcb_xf86dri_get_drawable_info_clip_rects_length(
+        R: *const xcb_xf86dri_get_drawable_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86dri_get_drawable_info_clip_rects_iterator(R: *const xcb_xf86dri_get_drawable_info_reply_t) -> xcb_xf86dri_drm_clip_rect_iterator_t;
+    pub fn xcb_xf86dri_get_drawable_info_clip_rects_iterator(
+        R: *const xcb_xf86dri_get_drawable_info_reply_t,
+    ) -> xcb_xf86dri_drm_clip_rect_iterator_t;
 
-pub fn xcb_xf86dri_get_drawable_info_back_clip_rects(R: *const xcb_xf86dri_get_drawable_info_reply_t) -> *mut xcb_xf86dri_drm_clip_rect_t;
+    pub fn xcb_xf86dri_get_drawable_info_back_clip_rects(
+        R: *const xcb_xf86dri_get_drawable_info_reply_t,
+    ) -> *mut xcb_xf86dri_drm_clip_rect_t;
 
-pub fn xcb_xf86dri_get_drawable_info_back_clip_rects_length(R: *const xcb_xf86dri_get_drawable_info_reply_t) -> c_int;
+    pub fn xcb_xf86dri_get_drawable_info_back_clip_rects_length(
+        R: *const xcb_xf86dri_get_drawable_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86dri_get_drawable_info_back_clip_rects_iterator(R: *const xcb_xf86dri_get_drawable_info_reply_t) -> xcb_xf86dri_drm_clip_rect_iterator_t;
+    pub fn xcb_xf86dri_get_drawable_info_back_clip_rects_iterator(
+        R: *const xcb_xf86dri_get_drawable_info_reply_t,
+    ) -> xcb_xf86dri_drm_clip_rect_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86dri_get_drawable_info_reply (
+    pub fn xcb_xf86dri_get_drawable_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86dri_get_drawable_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86dri_get_drawable_info_reply_t;
 
-    pub fn xcb_xf86dri_get_drawable_info (
+    pub fn xcb_xf86dri_get_drawable_info(
         c: *mut xcb_connection_t,
         screen: u32,
         drawable: u32,
     ) -> xcb_xf86dri_get_drawable_info_cookie_t;
 
-    pub fn xcb_xf86dri_get_drawable_info_unchecked (
+    pub fn xcb_xf86dri_get_drawable_info_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
         drawable: u32,
     ) -> xcb_xf86dri_get_drawable_info_cookie_t;
 
-pub fn xcb_xf86dri_get_device_info_device_private(R: *const xcb_xf86dri_get_device_info_reply_t) -> *mut u32;
+    pub fn xcb_xf86dri_get_device_info_device_private(
+        R: *const xcb_xf86dri_get_device_info_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_xf86dri_get_device_info_device_private_length(R: *const xcb_xf86dri_get_device_info_reply_t) -> c_int;
+    pub fn xcb_xf86dri_get_device_info_device_private_length(
+        R: *const xcb_xf86dri_get_device_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xf86dri_get_device_info_device_private_end(R: *const xcb_xf86dri_get_device_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xf86dri_get_device_info_device_private_end(
+        R: *const xcb_xf86dri_get_device_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86dri_get_device_info_reply (
+    pub fn xcb_xf86dri_get_device_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86dri_get_device_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86dri_get_device_info_reply_t;
 
-    pub fn xcb_xf86dri_get_device_info (
+    pub fn xcb_xf86dri_get_device_info(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_xf86dri_get_device_info_cookie_t;
 
-    pub fn xcb_xf86dri_get_device_info_unchecked (
+    pub fn xcb_xf86dri_get_device_info_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
     ) -> xcb_xf86dri_get_device_info_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xf86dri_auth_connection_reply (
+    pub fn xcb_xf86dri_auth_connection_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xf86dri_auth_connection_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xf86dri_auth_connection_reply_t;
 
-    pub fn xcb_xf86dri_auth_connection (
+    pub fn xcb_xf86dri_auth_connection(
         c: *mut xcb_connection_t,
         screen: u32,
         magic: u32,
     ) -> xcb_xf86dri_auth_connection_cookie_t;
 
-    pub fn xcb_xf86dri_auth_connection_unchecked (
+    pub fn xcb_xf86dri_auth_connection_unchecked(
         c: *mut xcb_connection_t,
         screen: u32,
         magic: u32,

@@ -8,11 +8,8 @@ use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
 
-
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_xevie_id
-    }
+    unsafe { &mut xcb_xevie_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -35,14 +32,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_xevie_query_version_cooki
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_xevie_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xevie_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -51,7 +48,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -120,14 +119,14 @@ pub type StartCookie<'a> = base::Cookie<'a, xcb_xevie_start_cookie_t>;
 impl<'a> StartCookie<'a> {
     pub fn get_reply(self) -> Result<StartReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             StartReply {
-                ptr: xcb_xevie_start_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xevie_start_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -136,7 +135,9 @@ impl<'a> StartCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -145,18 +146,11 @@ impl<'a> StartCookie<'a> {
 
 pub type StartReply = base::Reply<xcb_xevie_start_reply_t>;
 
-impl StartReply {
-}
+impl StartReply {}
 
-pub fn start<'a>(
-    c: &'a base::Connection,
-    screen: u32,
-) -> StartCookie<'a> {
+pub fn start<'a>(c: &'a base::Connection, screen: u32) -> StartCookie<'a> {
     unsafe {
-        let cookie = xcb_xevie_start(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xevie_start(c.get_raw_conn(), screen as u32);
         StartCookie {
             cookie: cookie,
             conn: c,
@@ -165,15 +159,9 @@ pub fn start<'a>(
     }
 }
 
-pub fn start_unchecked<'a>(
-    c: &'a base::Connection,
-    screen: u32,
-) -> StartCookie<'a> {
+pub fn start_unchecked<'a>(c: &'a base::Connection, screen: u32) -> StartCookie<'a> {
     unsafe {
-        let cookie = xcb_xevie_start_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xevie_start_unchecked(c.get_raw_conn(), screen as u32);
         StartCookie {
             cookie: cookie,
             conn: c,
@@ -195,14 +183,14 @@ pub type EndCookie<'a> = base::Cookie<'a, xcb_xevie_end_cookie_t>;
 impl<'a> EndCookie<'a> {
     pub fn get_reply(self) -> Result<EndReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             EndReply {
-                ptr: xcb_xevie_end_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xevie_end_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -211,7 +199,9 @@ impl<'a> EndCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -220,18 +210,11 @@ impl<'a> EndCookie<'a> {
 
 pub type EndReply = base::Reply<xcb_xevie_end_reply_t>;
 
-impl EndReply {
-}
+impl EndReply {}
 
-pub fn end<'a>(
-    c: &'a base::Connection,
-    cmap: u32,
-) -> EndCookie<'a> {
+pub fn end<'a>(c: &'a base::Connection, cmap: u32) -> EndCookie<'a> {
     unsafe {
-        let cookie = xcb_xevie_end(
-            c.get_raw_conn(),
-            cmap as u32,
-        );
+        let cookie = xcb_xevie_end(c.get_raw_conn(), cmap as u32);
         EndCookie {
             cookie: cookie,
             conn: c,
@@ -240,15 +223,9 @@ pub fn end<'a>(
     }
 }
 
-pub fn end_unchecked<'a>(
-    c: &'a base::Connection,
-    cmap: u32,
-) -> EndCookie<'a> {
+pub fn end_unchecked<'a>(c: &'a base::Connection, cmap: u32) -> EndCookie<'a> {
     unsafe {
-        let cookie = xcb_xevie_end_unchecked(
-            c.get_raw_conn(),
-            cmap as u32,
-        );
+        let cookie = xcb_xevie_end_unchecked(c.get_raw_conn(), cmap as u32);
         EndCookie {
             cookie: cookie,
             conn: c,
@@ -267,9 +244,7 @@ impl Event {
     pub fn new() -> Event {
         unsafe {
             Event {
-                base: xcb_xevie_event_t {
-                pad0: [0; 32],
-                }
+                base: xcb_xevie_event_t { pad0: [0; 32] },
             }
         }
     }
@@ -306,14 +281,14 @@ pub type SendCookie<'a> = base::Cookie<'a, xcb_xevie_send_cookie_t>;
 impl<'a> SendCookie<'a> {
     pub fn get_reply(self) -> Result<SendReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             SendReply {
-                ptr: xcb_xevie_send_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xevie_send_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -322,7 +297,9 @@ impl<'a> SendCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -331,20 +308,11 @@ impl<'a> SendCookie<'a> {
 
 pub type SendReply = base::Reply<xcb_xevie_send_reply_t>;
 
-impl SendReply {
-}
+impl SendReply {}
 
-pub fn send<'a>(
-    c: &'a base::Connection,
-    event: Event,
-    data_type: u32,
-) -> SendCookie<'a> {
+pub fn send<'a>(c: &'a base::Connection, event: Event, data_type: u32) -> SendCookie<'a> {
     unsafe {
-        let cookie = xcb_xevie_send(
-            c.get_raw_conn(),
-            event.base,
-            data_type as u32,
-        );
+        let cookie = xcb_xevie_send(c.get_raw_conn(), event.base, data_type as u32);
         SendCookie {
             cookie: cookie,
             conn: c,
@@ -353,17 +321,9 @@ pub fn send<'a>(
     }
 }
 
-pub fn send_unchecked<'a>(
-    c: &'a base::Connection,
-    event: Event,
-    data_type: u32,
-) -> SendCookie<'a> {
+pub fn send_unchecked<'a>(c: &'a base::Connection, event: Event, data_type: u32) -> SendCookie<'a> {
     unsafe {
-        let cookie = xcb_xevie_send_unchecked(
-            c.get_raw_conn(),
-            event.base,
-            data_type as u32,
-        );
+        let cookie = xcb_xevie_send_unchecked(c.get_raw_conn(), event.base, data_type as u32);
         SendCookie {
             cookie: cookie,
             conn: c,
@@ -385,14 +345,14 @@ pub type SelectInputCookie<'a> = base::Cookie<'a, xcb_xevie_select_input_cookie_
 impl<'a> SelectInputCookie<'a> {
     pub fn get_reply(self) -> Result<SelectInputReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             SelectInputReply {
-                ptr: xcb_xevie_select_input_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xevie_select_input_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -401,7 +361,9 @@ impl<'a> SelectInputCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -410,18 +372,11 @@ impl<'a> SelectInputCookie<'a> {
 
 pub type SelectInputReply = base::Reply<xcb_xevie_select_input_reply_t>;
 
-impl SelectInputReply {
-}
+impl SelectInputReply {}
 
-pub fn select_input<'a>(
-    c: &'a base::Connection,
-    event_mask: u32,
-) -> SelectInputCookie<'a> {
+pub fn select_input<'a>(c: &'a base::Connection, event_mask: u32) -> SelectInputCookie<'a> {
     unsafe {
-        let cookie = xcb_xevie_select_input(
-            c.get_raw_conn(),
-            event_mask as u32,
-        );
+        let cookie = xcb_xevie_select_input(c.get_raw_conn(), event_mask as u32);
         SelectInputCookie {
             cookie: cookie,
             conn: c,
@@ -435,10 +390,7 @@ pub fn select_input_unchecked<'a>(
     event_mask: u32,
 ) -> SelectInputCookie<'a> {
     unsafe {
-        let cookie = xcb_xevie_select_input_unchecked(
-            c.get_raw_conn(),
-            event_mask as u32,
-        );
+        let cookie = xcb_xevie_select_input_unchecked(c.get_raw_conn(), event_mask as u32);
         SelectInputCookie {
             cookie: cookie,
             conn: c,

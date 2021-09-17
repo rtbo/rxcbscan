@@ -8,11 +8,8 @@ use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
 
-
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_xf86dri_id
-    }
+    unsafe { &mut xcb_xf86dri_id }
 }
 
 pub const MAJOR_VERSION: u32 = 4;
@@ -25,7 +22,7 @@ pub struct DrmClipRect {
 
 impl DrmClipRect {
     #[allow(unused_unsafe)]
-    pub fn new(x1: i16,y1: i16,x2: i16,x3: i16,) -> DrmClipRect {
+    pub fn new(x1: i16, y1: i16, x2: i16, x3: i16) -> DrmClipRect {
         unsafe {
             DrmClipRect {
                 base: xcb_xf86dri_drm_clip_rect_t {
@@ -33,7 +30,7 @@ impl DrmClipRect {
                     y1: y1,
                     x2: x2,
                     x3: x3,
-                }
+                },
             }
         }
     }
@@ -82,7 +79,11 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_xf86dri_query_version_coo
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
                 ptr: xcb_xf86dri_query_version_reply(
@@ -98,7 +99,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -119,13 +122,9 @@ impl QueryVersionReply {
     }
 }
 
-pub fn query_version<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_query_version(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xf86dri_query_version(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -134,13 +133,9 @@ pub fn query_version<'a>(
     }
 }
 
-pub fn query_version_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version_unchecked<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_query_version_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xf86dri_query_version_unchecked(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -157,12 +152,17 @@ impl base::CookieSeq for xcb_xf86dri_query_direct_rendering_capable_cookie_t {
     }
 }
 
-pub type QueryDirectRenderingCapableCookie<'a> = base::Cookie<'a, xcb_xf86dri_query_direct_rendering_capable_cookie_t>;
+pub type QueryDirectRenderingCapableCookie<'a> =
+    base::Cookie<'a, xcb_xf86dri_query_direct_rendering_capable_cookie_t>;
 
 impl<'a> QueryDirectRenderingCapableCookie<'a> {
     pub fn get_reply(self) -> Result<QueryDirectRenderingCapableReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryDirectRenderingCapableReply {
                 ptr: xcb_xf86dri_query_direct_rendering_capable_reply(
@@ -178,14 +178,17 @@ impl<'a> QueryDirectRenderingCapableCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
 
-pub type QueryDirectRenderingCapableReply = base::Reply<xcb_xf86dri_query_direct_rendering_capable_reply_t>;
+pub type QueryDirectRenderingCapableReply =
+    base::Reply<xcb_xf86dri_query_direct_rendering_capable_reply_t>;
 
 impl QueryDirectRenderingCapableReply {
     pub fn is_capable(&self) -> bool {
@@ -198,10 +201,7 @@ pub fn query_direct_rendering_capable<'a>(
     screen: u32,
 ) -> QueryDirectRenderingCapableCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_query_direct_rendering_capable(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xf86dri_query_direct_rendering_capable(c.get_raw_conn(), screen as u32);
         QueryDirectRenderingCapableCookie {
             cookie: cookie,
             conn: c,
@@ -215,10 +215,8 @@ pub fn query_direct_rendering_capable_unchecked<'a>(
     screen: u32,
 ) -> QueryDirectRenderingCapableCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_query_direct_rendering_capable_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie =
+            xcb_xf86dri_query_direct_rendering_capable_unchecked(c.get_raw_conn(), screen as u32);
         QueryDirectRenderingCapableCookie {
             cookie: cookie,
             conn: c,
@@ -240,7 +238,11 @@ pub type OpenConnectionCookie<'a> = base::Cookie<'a, xcb_xf86dri_open_connection
 impl<'a> OpenConnectionCookie<'a> {
     pub fn get_reply(self) -> Result<OpenConnectionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             OpenConnectionReply {
                 ptr: xcb_xf86dri_open_connection_reply(
@@ -256,7 +258,9 @@ impl<'a> OpenConnectionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -287,15 +291,9 @@ impl OpenConnectionReply {
     }
 }
 
-pub fn open_connection<'a>(
-    c: &'a base::Connection,
-    screen: u32,
-) -> OpenConnectionCookie<'a> {
+pub fn open_connection<'a>(c: &'a base::Connection, screen: u32) -> OpenConnectionCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_open_connection(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xf86dri_open_connection(c.get_raw_conn(), screen as u32);
         OpenConnectionCookie {
             cookie: cookie,
             conn: c,
@@ -309,10 +307,7 @@ pub fn open_connection_unchecked<'a>(
     screen: u32,
 ) -> OpenConnectionCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_open_connection_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xf86dri_open_connection_unchecked(c.get_raw_conn(), screen as u32);
         OpenConnectionCookie {
             cookie: cookie,
             conn: c,
@@ -323,15 +318,9 @@ pub fn open_connection_unchecked<'a>(
 
 pub const CLOSE_CONNECTION: u8 = 3;
 
-pub fn close_connection<'a>(
-    c: &'a base::Connection,
-    screen: u32,
-) -> base::VoidCookie<'a> {
+pub fn close_connection<'a>(c: &'a base::Connection, screen: u32) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_close_connection(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xf86dri_close_connection(c.get_raw_conn(), screen as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -340,15 +329,9 @@ pub fn close_connection<'a>(
     }
 }
 
-pub fn close_connection_checked<'a>(
-    c: &'a base::Connection,
-    screen: u32,
-) -> base::VoidCookie<'a> {
+pub fn close_connection_checked<'a>(c: &'a base::Connection, screen: u32) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_close_connection_checked(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xf86dri_close_connection_checked(c.get_raw_conn(), screen as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -365,12 +348,17 @@ impl base::CookieSeq for xcb_xf86dri_get_client_driver_name_cookie_t {
     }
 }
 
-pub type GetClientDriverNameCookie<'a> = base::Cookie<'a, xcb_xf86dri_get_client_driver_name_cookie_t>;
+pub type GetClientDriverNameCookie<'a> =
+    base::Cookie<'a, xcb_xf86dri_get_client_driver_name_cookie_t>;
 
 impl<'a> GetClientDriverNameCookie<'a> {
     pub fn get_reply(self) -> Result<GetClientDriverNameReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetClientDriverNameReply {
                 ptr: xcb_xf86dri_get_client_driver_name_reply(
@@ -386,7 +374,9 @@ impl<'a> GetClientDriverNameCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -425,10 +415,7 @@ pub fn get_client_driver_name<'a>(
     screen: u32,
 ) -> GetClientDriverNameCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_get_client_driver_name(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xf86dri_get_client_driver_name(c.get_raw_conn(), screen as u32);
         GetClientDriverNameCookie {
             cookie: cookie,
             conn: c,
@@ -442,10 +429,7 @@ pub fn get_client_driver_name_unchecked<'a>(
     screen: u32,
 ) -> GetClientDriverNameCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_get_client_driver_name_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xf86dri_get_client_driver_name_unchecked(c.get_raw_conn(), screen as u32);
         GetClientDriverNameCookie {
             cookie: cookie,
             conn: c,
@@ -467,7 +451,11 @@ pub type CreateContextCookie<'a> = base::Cookie<'a, xcb_xf86dri_create_context_c
 impl<'a> CreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<CreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             CreateContextReply {
                 ptr: xcb_xf86dri_create_context_reply(
@@ -483,7 +471,9 @@ impl<'a> CreateContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -548,11 +538,7 @@ pub fn destroy_context<'a>(
     context: u32,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_destroy_context(
-            c.get_raw_conn(),
-            screen as u32,
-            context as u32,
-        );
+        let cookie = xcb_xf86dri_destroy_context(c.get_raw_conn(), screen as u32, context as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -567,11 +553,8 @@ pub fn destroy_context_checked<'a>(
     context: u32,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_destroy_context_checked(
-            c.get_raw_conn(),
-            screen as u32,
-            context as u32,
-        );
+        let cookie =
+            xcb_xf86dri_destroy_context_checked(c.get_raw_conn(), screen as u32, context as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -593,7 +576,11 @@ pub type CreateDrawableCookie<'a> = base::Cookie<'a, xcb_xf86dri_create_drawable
 impl<'a> CreateDrawableCookie<'a> {
     pub fn get_reply(self) -> Result<CreateDrawableReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             CreateDrawableReply {
                 ptr: xcb_xf86dri_create_drawable_reply(
@@ -609,7 +596,9 @@ impl<'a> CreateDrawableCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -630,11 +619,7 @@ pub fn create_drawable<'a>(
     drawable: u32,
 ) -> CreateDrawableCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_create_drawable(
-            c.get_raw_conn(),
-            screen as u32,
-            drawable as u32,
-        );
+        let cookie = xcb_xf86dri_create_drawable(c.get_raw_conn(), screen as u32, drawable as u32);
         CreateDrawableCookie {
             cookie: cookie,
             conn: c,
@@ -649,11 +634,8 @@ pub fn create_drawable_unchecked<'a>(
     drawable: u32,
 ) -> CreateDrawableCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_create_drawable_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-            drawable as u32,
-        );
+        let cookie =
+            xcb_xf86dri_create_drawable_unchecked(c.get_raw_conn(), screen as u32, drawable as u32);
         CreateDrawableCookie {
             cookie: cookie,
             conn: c,
@@ -670,11 +652,7 @@ pub fn destroy_drawable<'a>(
     drawable: u32,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_destroy_drawable(
-            c.get_raw_conn(),
-            screen as u32,
-            drawable as u32,
-        );
+        let cookie = xcb_xf86dri_destroy_drawable(c.get_raw_conn(), screen as u32, drawable as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -689,11 +667,8 @@ pub fn destroy_drawable_checked<'a>(
     drawable: u32,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_destroy_drawable_checked(
-            c.get_raw_conn(),
-            screen as u32,
-            drawable as u32,
-        );
+        let cookie =
+            xcb_xf86dri_destroy_drawable_checked(c.get_raw_conn(), screen as u32, drawable as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -715,7 +690,11 @@ pub type GetDrawableInfoCookie<'a> = base::Cookie<'a, xcb_xf86dri_get_drawable_i
 impl<'a> GetDrawableInfoCookie<'a> {
     pub fn get_reply(self) -> Result<GetDrawableInfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDrawableInfoReply {
                 ptr: xcb_xf86dri_get_drawable_info_reply(
@@ -731,7 +710,9 @@ impl<'a> GetDrawableInfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -785,11 +766,8 @@ pub fn get_drawable_info<'a>(
     drawable: u32,
 ) -> GetDrawableInfoCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_get_drawable_info(
-            c.get_raw_conn(),
-            screen as u32,
-            drawable as u32,
-        );
+        let cookie =
+            xcb_xf86dri_get_drawable_info(c.get_raw_conn(), screen as u32, drawable as u32);
         GetDrawableInfoCookie {
             cookie: cookie,
             conn: c,
@@ -830,7 +808,11 @@ pub type GetDeviceInfoCookie<'a> = base::Cookie<'a, xcb_xf86dri_get_device_info_
 impl<'a> GetDeviceInfoCookie<'a> {
     pub fn get_reply(self) -> Result<GetDeviceInfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDeviceInfoReply {
                 ptr: xcb_xf86dri_get_device_info_reply(
@@ -846,7 +828,9 @@ impl<'a> GetDeviceInfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -884,15 +868,9 @@ impl GetDeviceInfoReply {
     }
 }
 
-pub fn get_device_info<'a>(
-    c: &'a base::Connection,
-    screen: u32,
-) -> GetDeviceInfoCookie<'a> {
+pub fn get_device_info<'a>(c: &'a base::Connection, screen: u32) -> GetDeviceInfoCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_get_device_info(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xf86dri_get_device_info(c.get_raw_conn(), screen as u32);
         GetDeviceInfoCookie {
             cookie: cookie,
             conn: c,
@@ -906,10 +884,7 @@ pub fn get_device_info_unchecked<'a>(
     screen: u32,
 ) -> GetDeviceInfoCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_get_device_info_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-        );
+        let cookie = xcb_xf86dri_get_device_info_unchecked(c.get_raw_conn(), screen as u32);
         GetDeviceInfoCookie {
             cookie: cookie,
             conn: c,
@@ -931,7 +906,11 @@ pub type AuthConnectionCookie<'a> = base::Cookie<'a, xcb_xf86dri_auth_connection
 impl<'a> AuthConnectionCookie<'a> {
     pub fn get_reply(self) -> Result<AuthConnectionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             AuthConnectionReply {
                 ptr: xcb_xf86dri_auth_connection_reply(
@@ -947,7 +926,9 @@ impl<'a> AuthConnectionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -968,11 +949,7 @@ pub fn auth_connection<'a>(
     magic: u32,
 ) -> AuthConnectionCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_auth_connection(
-            c.get_raw_conn(),
-            screen as u32,
-            magic as u32,
-        );
+        let cookie = xcb_xf86dri_auth_connection(c.get_raw_conn(), screen as u32, magic as u32);
         AuthConnectionCookie {
             cookie: cookie,
             conn: c,
@@ -987,11 +964,8 @@ pub fn auth_connection_unchecked<'a>(
     magic: u32,
 ) -> AuthConnectionCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86dri_auth_connection_unchecked(
-            c.get_raw_conn(),
-            screen as u32,
-            magic as u32,
-        );
+        let cookie =
+            xcb_xf86dri_auth_connection_unchecked(c.get_raw_conn(), screen as u32, magic as u32);
         AuthConnectionCookie {
             cookie: cookie,
             conn: c,

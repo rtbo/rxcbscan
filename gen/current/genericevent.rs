@@ -8,11 +8,8 @@ use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
 
-
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_genericevent_id
-    }
+    unsafe { &mut xcb_genericevent_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -31,7 +28,11 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_genericevent_query_versio
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
                 ptr: xcb_genericevent_query_version_reply(
@@ -47,7 +48,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }

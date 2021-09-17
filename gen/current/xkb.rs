@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::xkb::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_xkb_id
-    }
+    unsafe { &mut xcb_xkb_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -426,7 +423,16 @@ pub struct IndicatorMap {
 
 impl IndicatorMap {
     #[allow(unused_unsafe)]
-    pub fn new(flags: u8,which_groups: u8,groups: u8,which_mods: u8,mods: u8,real_mods: u8,vmods: u16,ctrls: u32,) -> IndicatorMap {
+    pub fn new(
+        flags: u8,
+        which_groups: u8,
+        groups: u8,
+        which_mods: u8,
+        mods: u8,
+        real_mods: u8,
+        vmods: u16,
+        ctrls: u32,
+    ) -> IndicatorMap {
         unsafe {
             IndicatorMap {
                 base: xcb_xkb_indicator_map_t {
@@ -438,7 +444,7 @@ impl IndicatorMap {
                     realMods: real_mods,
                     vmods: vmods,
                     ctrls: ctrls,
-                }
+                },
             }
         }
     }
@@ -493,14 +499,14 @@ pub struct ModDef {
 
 impl ModDef {
     #[allow(unused_unsafe)]
-    pub fn new(mask: u8,real_mods: u8,vmods: u16,) -> ModDef {
+    pub fn new(mask: u8, real_mods: u8, vmods: u16) -> ModDef {
         unsafe {
             ModDef {
                 base: xcb_xkb_mod_def_t {
                     mask: mask,
                     realMods: real_mods,
                     vmods: vmods,
-                }
+                },
             }
         }
     }
@@ -640,7 +646,13 @@ pub struct KtMapEntry {
 
 impl KtMapEntry {
     #[allow(unused_unsafe)]
-    pub fn new(active: bool,mods_mask: u8,level: u8,mods_mods: u8,mods_vmods: u16,) -> KtMapEntry {
+    pub fn new(
+        active: bool,
+        mods_mask: u8,
+        level: u8,
+        mods_mods: u8,
+        mods_vmods: u16,
+    ) -> KtMapEntry {
         unsafe {
             KtMapEntry {
                 base: xcb_xkb_kt_map_entry_t {
@@ -649,8 +661,8 @@ impl KtMapEntry {
                     level: level,
                     mods_mods: mods_mods,
                     mods_vmods: mods_vmods,
-                pad0: [0; 2],
-                }
+                    pad0: [0; 2],
+                },
             }
         }
     }
@@ -786,13 +798,13 @@ pub struct CommonBehavior {
 
 impl CommonBehavior {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,data: u8,) -> CommonBehavior {
+    pub fn new(type_: u8, data: u8) -> CommonBehavior {
         unsafe {
             CommonBehavior {
                 base: xcb_xkb_common_behavior_t {
                     type_: type_,
                     data: data,
-                }
+                },
             }
         }
     }
@@ -829,13 +841,13 @@ pub struct DefaultBehavior {
 
 impl DefaultBehavior {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,) -> DefaultBehavior {
+    pub fn new(type_: u8) -> DefaultBehavior {
         unsafe {
             DefaultBehavior {
                 base: xcb_xkb_default_behavior_t {
                     type_: type_,
-                pad0: 0,
-                }
+                    pad0: 0,
+                },
             }
         }
     }
@@ -869,13 +881,13 @@ pub struct LockBehavior {
 
 impl LockBehavior {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,) -> LockBehavior {
+    pub fn new(type_: u8) -> LockBehavior {
         unsafe {
             LockBehavior {
                 base: xcb_xkb_lock_behavior_t {
                     type_: type_,
-                pad0: 0,
-                }
+                    pad0: 0,
+                },
             }
         }
     }
@@ -909,13 +921,13 @@ pub struct RadioGroupBehavior {
 
 impl RadioGroupBehavior {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,group: u8,) -> RadioGroupBehavior {
+    pub fn new(type_: u8, group: u8) -> RadioGroupBehavior {
         unsafe {
             RadioGroupBehavior {
                 base: xcb_xkb_radio_group_behavior_t {
                     type_: type_,
                     group: group,
-                }
+                },
             }
         }
     }
@@ -952,13 +964,13 @@ pub struct OverlayBehavior {
 
 impl OverlayBehavior {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,key: xproto::Keycode,) -> OverlayBehavior {
+    pub fn new(type_: u8, key: xproto::Keycode) -> OverlayBehavior {
         unsafe {
             OverlayBehavior {
                 base: xcb_xkb_overlay_behavior_t {
                     type_: type_,
                     key: key,
-                }
+                },
             }
         }
     }
@@ -995,13 +1007,13 @@ pub struct PermamentLockBehavior {
 
 impl PermamentLockBehavior {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,) -> PermamentLockBehavior {
+    pub fn new(type_: u8) -> PermamentLockBehavior {
         unsafe {
             PermamentLockBehavior {
                 base: xcb_xkb_permament_lock_behavior_t {
                     type_: type_,
-                pad0: 0,
-                }
+                    pad0: 0,
+                },
             }
         }
     }
@@ -1035,13 +1047,13 @@ pub struct PermamentRadioGroupBehavior {
 
 impl PermamentRadioGroupBehavior {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,group: u8,) -> PermamentRadioGroupBehavior {
+    pub fn new(type_: u8, group: u8) -> PermamentRadioGroupBehavior {
         unsafe {
             PermamentRadioGroupBehavior {
                 base: xcb_xkb_permament_radio_group_behavior_t {
                     type_: type_,
                     group: group,
-                }
+                },
             }
         }
     }
@@ -1078,13 +1090,13 @@ pub struct PermamentOverlayBehavior {
 
 impl PermamentOverlayBehavior {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,key: xproto::Keycode,) -> PermamentOverlayBehavior {
+    pub fn new(type_: u8, key: xproto::Keycode) -> PermamentOverlayBehavior {
         unsafe {
             PermamentOverlayBehavior {
                 base: xcb_xkb_permament_overlay_behavior_t {
                     type_: type_,
                     key: key,
-                }
+                },
             }
         }
     }
@@ -1114,11 +1126,9 @@ impl Iterator for PermamentOverlayBehaviorIterator {
     }
 }
 
-
 pub type Behavior = xcb_xkb_behavior_t;
 
 impl Behavior {
-
     pub fn common(&self) -> CommonBehavior {
         unsafe {
             let _ptr = self.data.as_ptr() as *const CommonBehavior;
@@ -1230,7 +1240,9 @@ impl Behavior {
             *_ptr
         }
     }
-    pub fn from_permament_radio_group(permament_radio_group: PermamentRadioGroupBehavior) -> Behavior {
+    pub fn from_permament_radio_group(
+        permament_radio_group: PermamentRadioGroupBehavior,
+    ) -> Behavior {
         unsafe {
             let mut res = Behavior { data: [0; 2] };
             let res_ptr = res.data.as_mut_ptr() as *mut PermamentRadioGroupBehavior;
@@ -1339,13 +1351,13 @@ pub struct SetExplicit {
 
 impl SetExplicit {
     #[allow(unused_unsafe)]
-    pub fn new(keycode: xproto::Keycode,explicit: u8,) -> SetExplicit {
+    pub fn new(keycode: xproto::Keycode, explicit: u8) -> SetExplicit {
         unsafe {
             SetExplicit {
                 base: xcb_xkb_set_explicit_t {
                     keycode: keycode,
                     explicit: explicit,
-                }
+                },
             }
         }
     }
@@ -1382,13 +1394,13 @@ pub struct KeyModMap {
 
 impl KeyModMap {
     #[allow(unused_unsafe)]
-    pub fn new(keycode: xproto::Keycode,mods: u8,) -> KeyModMap {
+    pub fn new(keycode: xproto::Keycode, mods: u8) -> KeyModMap {
         unsafe {
             KeyModMap {
                 base: xcb_xkb_key_mod_map_t {
                     keycode: keycode,
                     mods: mods,
-                }
+                },
             }
         }
     }
@@ -1425,14 +1437,14 @@ pub struct KeyVModMap {
 
 impl KeyVModMap {
     #[allow(unused_unsafe)]
-    pub fn new(keycode: xproto::Keycode,vmods: u16,) -> KeyVModMap {
+    pub fn new(keycode: xproto::Keycode, vmods: u16) -> KeyVModMap {
         unsafe {
             KeyVModMap {
                 base: xcb_xkb_key_v_mod_map_t {
                     keycode: keycode,
-                pad0: 0,
+                    pad0: 0,
                     vmods: vmods,
-                }
+                },
             }
         }
     }
@@ -1469,14 +1481,14 @@ pub struct KtSetMapEntry {
 
 impl KtSetMapEntry {
     #[allow(unused_unsafe)]
-    pub fn new(level: u8,real_mods: u8,virtual_mods: u16,) -> KtSetMapEntry {
+    pub fn new(level: u8, real_mods: u8, virtual_mods: u16) -> KtSetMapEntry {
         unsafe {
             KtSetMapEntry {
                 base: xcb_xkb_kt_set_map_entry_t {
                     level: level,
                     realMods: real_mods,
                     virtualMods: virtual_mods,
-                }
+                },
             }
         }
     }
@@ -1890,13 +1902,13 @@ pub struct SaNoAction {
 
 impl SaNoAction {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,) -> SaNoAction {
+    pub fn new(type_: u8) -> SaNoAction {
         unsafe {
             SaNoAction {
                 base: xcb_xkb_sa_no_action_t {
                     type_: type_,
-                pad0: [0; 7],
-                }
+                    pad0: [0; 7],
+                },
             }
         }
     }
@@ -1930,7 +1942,14 @@ pub struct SaSetMods {
 
 impl SaSetMods {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,mask: u8,real_mods: u8,vmods_high: u8,vmods_low: u8,) -> SaSetMods {
+    pub fn new(
+        type_: u8,
+        flags: u8,
+        mask: u8,
+        real_mods: u8,
+        vmods_high: u8,
+        vmods_low: u8,
+    ) -> SaSetMods {
         unsafe {
             SaSetMods {
                 base: xcb_xkb_sa_set_mods_t {
@@ -1940,8 +1959,8 @@ impl SaSetMods {
                     realMods: real_mods,
                     vmodsHigh: vmods_high,
                     vmodsLow: vmods_low,
-                pad0: [0; 2],
-                }
+                    pad0: [0; 2],
+                },
             }
         }
     }
@@ -1990,7 +2009,14 @@ pub struct SaLatchMods {
 
 impl SaLatchMods {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,mask: u8,real_mods: u8,vmods_high: u8,vmods_low: u8,) -> SaLatchMods {
+    pub fn new(
+        type_: u8,
+        flags: u8,
+        mask: u8,
+        real_mods: u8,
+        vmods_high: u8,
+        vmods_low: u8,
+    ) -> SaLatchMods {
         unsafe {
             SaLatchMods {
                 base: xcb_xkb_sa_latch_mods_t {
@@ -2000,8 +2026,8 @@ impl SaLatchMods {
                     realMods: real_mods,
                     vmodsHigh: vmods_high,
                     vmodsLow: vmods_low,
-                pad0: [0; 2],
-                }
+                    pad0: [0; 2],
+                },
             }
         }
     }
@@ -2050,7 +2076,14 @@ pub struct SaLockMods {
 
 impl SaLockMods {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,mask: u8,real_mods: u8,vmods_high: u8,vmods_low: u8,) -> SaLockMods {
+    pub fn new(
+        type_: u8,
+        flags: u8,
+        mask: u8,
+        real_mods: u8,
+        vmods_high: u8,
+        vmods_low: u8,
+    ) -> SaLockMods {
         unsafe {
             SaLockMods {
                 base: xcb_xkb_sa_lock_mods_t {
@@ -2060,8 +2093,8 @@ impl SaLockMods {
                     realMods: real_mods,
                     vmodsHigh: vmods_high,
                     vmodsLow: vmods_low,
-                pad0: [0; 2],
-                }
+                    pad0: [0; 2],
+                },
             }
         }
     }
@@ -2110,15 +2143,15 @@ pub struct SaSetGroup {
 
 impl SaSetGroup {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,group: i8,) -> SaSetGroup {
+    pub fn new(type_: u8, flags: u8, group: i8) -> SaSetGroup {
         unsafe {
             SaSetGroup {
                 base: xcb_xkb_sa_set_group_t {
                     type_: type_,
                     flags: flags,
                     group: group,
-                pad0: [0; 5],
-                }
+                    pad0: [0; 5],
+                },
             }
         }
     }
@@ -2158,15 +2191,15 @@ pub struct SaLatchGroup {
 
 impl SaLatchGroup {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,group: i8,) -> SaLatchGroup {
+    pub fn new(type_: u8, flags: u8, group: i8) -> SaLatchGroup {
         unsafe {
             SaLatchGroup {
                 base: xcb_xkb_sa_latch_group_t {
                     type_: type_,
                     flags: flags,
                     group: group,
-                pad0: [0; 5],
-                }
+                    pad0: [0; 5],
+                },
             }
         }
     }
@@ -2206,15 +2239,15 @@ pub struct SaLockGroup {
 
 impl SaLockGroup {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,group: i8,) -> SaLockGroup {
+    pub fn new(type_: u8, flags: u8, group: i8) -> SaLockGroup {
         unsafe {
             SaLockGroup {
                 base: xcb_xkb_sa_lock_group_t {
                     type_: type_,
                     flags: flags,
                     group: group,
-                pad0: [0; 5],
-                }
+                    pad0: [0; 5],
+                },
             }
         }
     }
@@ -2254,7 +2287,7 @@ pub struct SaMovePtr {
 
 impl SaMovePtr {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,x_high: i8,x_low: u8,y_high: i8,y_low: u8,) -> SaMovePtr {
+    pub fn new(type_: u8, flags: u8, x_high: i8, x_low: u8, y_high: i8, y_low: u8) -> SaMovePtr {
         unsafe {
             SaMovePtr {
                 base: xcb_xkb_sa_move_ptr_t {
@@ -2264,8 +2297,8 @@ impl SaMovePtr {
                     xLow: x_low,
                     yHigh: y_high,
                     yLow: y_low,
-                pad0: [0; 2],
-                }
+                    pad0: [0; 2],
+                },
             }
         }
     }
@@ -2314,7 +2347,7 @@ pub struct SaPtrBtn {
 
 impl SaPtrBtn {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,count: u8,button: u8,) -> SaPtrBtn {
+    pub fn new(type_: u8, flags: u8, count: u8, button: u8) -> SaPtrBtn {
         unsafe {
             SaPtrBtn {
                 base: xcb_xkb_sa_ptr_btn_t {
@@ -2322,8 +2355,8 @@ impl SaPtrBtn {
                     flags: flags,
                     count: count,
                     button: button,
-                pad0: [0; 4],
-                }
+                    pad0: [0; 4],
+                },
             }
         }
     }
@@ -2366,16 +2399,16 @@ pub struct SaLockPtrBtn {
 
 impl SaLockPtrBtn {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,button: u8,) -> SaLockPtrBtn {
+    pub fn new(type_: u8, flags: u8, button: u8) -> SaLockPtrBtn {
         unsafe {
             SaLockPtrBtn {
                 base: xcb_xkb_sa_lock_ptr_btn_t {
                     type_: type_,
                     flags: flags,
-                pad0: 0,
+                    pad0: 0,
                     button: button,
-                pad1: [0; 4],
-                }
+                    pad1: [0; 4],
+                },
             }
         }
     }
@@ -2415,7 +2448,7 @@ pub struct SaSetPtrDflt {
 
 impl SaSetPtrDflt {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,affect: u8,value: i8,) -> SaSetPtrDflt {
+    pub fn new(type_: u8, flags: u8, affect: u8, value: i8) -> SaSetPtrDflt {
         unsafe {
             SaSetPtrDflt {
                 base: xcb_xkb_sa_set_ptr_dflt_t {
@@ -2423,8 +2456,8 @@ impl SaSetPtrDflt {
                     flags: flags,
                     affect: affect,
                     value: value,
-                pad0: [0; 4],
-                }
+                    pad0: [0; 4],
+                },
             }
         }
     }
@@ -2467,7 +2500,16 @@ pub struct SaIsoLock {
 
 impl SaIsoLock {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,mask: u8,real_mods: u8,group: i8,affect: u8,vmods_high: u8,vmods_low: u8,) -> SaIsoLock {
+    pub fn new(
+        type_: u8,
+        flags: u8,
+        mask: u8,
+        real_mods: u8,
+        group: i8,
+        affect: u8,
+        vmods_high: u8,
+        vmods_low: u8,
+    ) -> SaIsoLock {
         unsafe {
             SaIsoLock {
                 base: xcb_xkb_sa_iso_lock_t {
@@ -2479,7 +2521,7 @@ impl SaIsoLock {
                     affect: affect,
                     vmodsHigh: vmods_high,
                     vmodsLow: vmods_low,
-                }
+                },
             }
         }
     }
@@ -2534,13 +2576,13 @@ pub struct SaTerminate {
 
 impl SaTerminate {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,) -> SaTerminate {
+    pub fn new(type_: u8) -> SaTerminate {
         unsafe {
             SaTerminate {
                 base: xcb_xkb_sa_terminate_t {
                     type_: type_,
-                pad0: [0; 7],
-                }
+                    pad0: [0; 7],
+                },
             }
         }
     }
@@ -2574,15 +2616,15 @@ pub struct SaSwitchScreen {
 
 impl SaSwitchScreen {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,new_screen: i8,) -> SaSwitchScreen {
+    pub fn new(type_: u8, flags: u8, new_screen: i8) -> SaSwitchScreen {
         unsafe {
             SaSwitchScreen {
                 base: xcb_xkb_sa_switch_screen_t {
                     type_: type_,
                     flags: flags,
                     newScreen: new_screen,
-                pad0: [0; 5],
-                }
+                    pad0: [0; 5],
+                },
             }
         }
     }
@@ -2622,16 +2664,16 @@ pub struct SaSetControls {
 
 impl SaSetControls {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,bool_ctrls_high: u8,bool_ctrls_low: u8,) -> SaSetControls {
+    pub fn new(type_: u8, bool_ctrls_high: u8, bool_ctrls_low: u8) -> SaSetControls {
         unsafe {
             SaSetControls {
                 base: xcb_xkb_sa_set_controls_t {
                     type_: type_,
-                pad0: [0; 3],
+                    pad0: [0; 3],
                     boolCtrlsHigh: bool_ctrls_high,
                     boolCtrlsLow: bool_ctrls_low,
-                pad1: [0; 2],
-                }
+                    pad1: [0; 2],
+                },
             }
         }
     }
@@ -2671,16 +2713,16 @@ pub struct SaLockControls {
 
 impl SaLockControls {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,bool_ctrls_high: u8,bool_ctrls_low: u8,) -> SaLockControls {
+    pub fn new(type_: u8, bool_ctrls_high: u8, bool_ctrls_low: u8) -> SaLockControls {
         unsafe {
             SaLockControls {
                 base: xcb_xkb_sa_lock_controls_t {
                     type_: type_,
-                pad0: [0; 3],
+                    pad0: [0; 3],
                     boolCtrlsHigh: bool_ctrls_high,
                     boolCtrlsLow: bool_ctrls_low,
-                pad1: [0; 2],
-                }
+                    pad1: [0; 2],
+                },
             }
         }
     }
@@ -2752,7 +2794,16 @@ pub struct SaRedirectKey {
 
 impl SaRedirectKey {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,newkey: xproto::Keycode,mask: u8,real_modifiers: u8,vmods_mask_high: u8,vmods_mask_low: u8,vmods_high: u8,vmods_low: u8,) -> SaRedirectKey {
+    pub fn new(
+        type_: u8,
+        newkey: xproto::Keycode,
+        mask: u8,
+        real_modifiers: u8,
+        vmods_mask_high: u8,
+        vmods_mask_low: u8,
+        vmods_high: u8,
+        vmods_low: u8,
+    ) -> SaRedirectKey {
         unsafe {
             SaRedirectKey {
                 base: xcb_xkb_sa_redirect_key_t {
@@ -2764,7 +2815,7 @@ impl SaRedirectKey {
                     vmodsMaskLow: vmods_mask_low,
                     vmodsHigh: vmods_high,
                     vmodsLow: vmods_low,
-                }
+                },
             }
         }
     }
@@ -2819,7 +2870,7 @@ pub struct SaDeviceBtn {
 
 impl SaDeviceBtn {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,count: u8,button: u8,device: u8,) -> SaDeviceBtn {
+    pub fn new(type_: u8, flags: u8, count: u8, button: u8, device: u8) -> SaDeviceBtn {
         unsafe {
             SaDeviceBtn {
                 base: xcb_xkb_sa_device_btn_t {
@@ -2828,8 +2879,8 @@ impl SaDeviceBtn {
                     count: count,
                     button: button,
                     device: device,
-                pad0: [0; 3],
-                }
+                    pad0: [0; 3],
+                },
             }
         }
     }
@@ -2875,17 +2926,17 @@ pub struct SaLockDeviceBtn {
 
 impl SaLockDeviceBtn {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,flags: u8,button: u8,device: u8,) -> SaLockDeviceBtn {
+    pub fn new(type_: u8, flags: u8, button: u8, device: u8) -> SaLockDeviceBtn {
         unsafe {
             SaLockDeviceBtn {
                 base: xcb_xkb_sa_lock_device_btn_t {
                     type_: type_,
                     flags: flags,
-                pad0: 0,
+                    pad0: 0,
                     button: button,
                     device: device,
-                pad1: [0; 3],
-                }
+                    pad1: [0; 3],
+                },
             }
         }
     }
@@ -2928,7 +2979,16 @@ pub struct SaDeviceValuator {
 
 impl SaDeviceValuator {
     #[allow(unused_unsafe)]
-    pub fn new(type_: u8,device: u8,val1what: u8,val1index: u8,val1value: u8,val2what: u8,val2index: u8,val2value: u8,) -> SaDeviceValuator {
+    pub fn new(
+        type_: u8,
+        device: u8,
+        val1what: u8,
+        val1index: u8,
+        val1value: u8,
+        val2what: u8,
+        val2index: u8,
+        val2value: u8,
+    ) -> SaDeviceValuator {
         unsafe {
             SaDeviceValuator {
                 base: xcb_xkb_sa_device_valuator_t {
@@ -2940,7 +3000,7 @@ impl SaDeviceValuator {
                     val2what: val2what,
                     val2index: val2index,
                     val2value: val2value,
-                }
+                },
             }
         }
     }
@@ -3058,11 +3118,9 @@ impl<'a> Iterator for SymInterpretIterator<'a> {
     }
 }
 
-
 pub type Action = xcb_xkb_action_t;
 
 impl Action {
-
     pub fn noaction(&self) -> SaNoAction {
         unsafe {
             let _ptr = self.data.as_ptr() as *const SaNoAction;
@@ -3302,7 +3360,7 @@ impl Action {
             res
         }
     }
-    pub fn message<'a> (&'a self) -> SaActionMessage<'a> {
+    pub fn message<'a>(&'a self) -> SaActionMessage<'a> {
         unsafe { std::mem::transmute(self) }
     }
 
@@ -3413,14 +3471,14 @@ pub type UseExtensionCookie<'a> = base::Cookie<'a, xcb_xkb_use_extension_cookie_
 impl<'a> UseExtensionCookie<'a> {
     pub fn get_reply(self) -> Result<UseExtensionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             UseExtensionReply {
-                ptr: xcb_xkb_use_extension_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_use_extension_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3429,7 +3487,9 @@ impl<'a> UseExtensionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3456,11 +3516,8 @@ pub fn use_extension<'a>(
     wanted_minor: u16,
 ) -> UseExtensionCookie<'a> {
     unsafe {
-        let cookie = xcb_xkb_use_extension(
-            c.get_raw_conn(),
-            wanted_major as u16,
-            wanted_minor as u16,
-        );
+        let cookie =
+            xcb_xkb_use_extension(c.get_raw_conn(), wanted_major as u16, wanted_minor as u16);
         UseExtensionCookie {
             cookie: cookie,
             conn: c,
@@ -3642,14 +3699,14 @@ pub type GetStateCookie<'a> = base::Cookie<'a, xcb_xkb_get_state_cookie_t>;
 impl<'a> GetStateCookie<'a> {
     pub fn get_reply(self) -> Result<GetStateReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetStateReply {
-                ptr: xcb_xkb_get_state_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_get_state_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3658,7 +3715,9 @@ impl<'a> GetStateCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3715,15 +3774,9 @@ impl GetStateReply {
     }
 }
 
-pub fn get_state<'a>(
-    c: &'a base::Connection,
-    device_spec: DeviceSpec,
-) -> GetStateCookie<'a> {
+pub fn get_state<'a>(c: &'a base::Connection, device_spec: DeviceSpec) -> GetStateCookie<'a> {
     unsafe {
-        let cookie = xcb_xkb_get_state(
-            c.get_raw_conn(),
-            device_spec as xcb_xkb_device_spec_t,
-        );
+        let cookie = xcb_xkb_get_state(c.get_raw_conn(), device_spec as xcb_xkb_device_spec_t);
         GetStateCookie {
             cookie: cookie,
             conn: c,
@@ -3737,10 +3790,8 @@ pub fn get_state_unchecked<'a>(
     device_spec: DeviceSpec,
 ) -> GetStateCookie<'a> {
     unsafe {
-        let cookie = xcb_xkb_get_state_unchecked(
-            c.get_raw_conn(),
-            device_spec as xcb_xkb_device_spec_t,
-        );
+        let cookie =
+            xcb_xkb_get_state_unchecked(c.get_raw_conn(), device_spec as xcb_xkb_device_spec_t);
         GetStateCookie {
             cookie: cookie,
             conn: c,
@@ -3826,14 +3877,14 @@ pub type GetControlsCookie<'a> = base::Cookie<'a, xcb_xkb_get_controls_cookie_t>
 impl<'a> GetControlsCookie<'a> {
     pub fn get_reply(self) -> Result<GetControlsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetControlsReply {
-                ptr: xcb_xkb_get_controls_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_get_controls_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -3842,7 +3893,9 @@ impl<'a> GetControlsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3935,15 +3988,9 @@ impl GetControlsReply {
     }
 }
 
-pub fn get_controls<'a>(
-    c: &'a base::Connection,
-    device_spec: DeviceSpec,
-) -> GetControlsCookie<'a> {
+pub fn get_controls<'a>(c: &'a base::Connection, device_spec: DeviceSpec) -> GetControlsCookie<'a> {
     unsafe {
-        let cookie = xcb_xkb_get_controls(
-            c.get_raw_conn(),
-            device_spec as xcb_xkb_device_spec_t,
-        );
+        let cookie = xcb_xkb_get_controls(c.get_raw_conn(), device_spec as xcb_xkb_device_spec_t);
         GetControlsCookie {
             cookie: cookie,
             conn: c,
@@ -3957,10 +4004,8 @@ pub fn get_controls_unchecked<'a>(
     device_spec: DeviceSpec,
 ) -> GetControlsCookie<'a> {
     unsafe {
-        let cookie = xcb_xkb_get_controls_unchecked(
-            c.get_raw_conn(),
-            device_spec as xcb_xkb_device_spec_t,
-        );
+        let cookie =
+            xcb_xkb_get_controls_unchecked(c.get_raw_conn(), device_spec as xcb_xkb_device_spec_t);
         GetControlsCookie {
             cookie: cookie,
             conn: c,
@@ -4136,14 +4181,14 @@ pub type GetMapCookie<'a> = base::Cookie<'a, xcb_xkb_get_map_cookie_t>;
 impl<'a> GetMapCookie<'a> {
     pub fn get_reply(self) -> Result<GetMapReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMapReply {
-                ptr: xcb_xkb_get_map_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_get_map_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4152,7 +4197,9 @@ impl<'a> GetMapCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4507,14 +4554,14 @@ pub type GetCompatMapCookie<'a> = base::Cookie<'a, xcb_xkb_get_compat_map_cookie
 impl<'a> GetCompatMapCookie<'a> {
     pub fn get_reply(self) -> Result<GetCompatMapReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCompatMapReply {
-                ptr: xcb_xkb_get_compat_map_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_get_compat_map_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4523,7 +4570,9 @@ impl<'a> GetCompatMapCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4687,7 +4736,11 @@ pub type GetIndicatorStateCookie<'a> = base::Cookie<'a, xcb_xkb_get_indicator_st
 impl<'a> GetIndicatorStateCookie<'a> {
     pub fn get_reply(self) -> Result<GetIndicatorStateReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetIndicatorStateReply {
                 ptr: xcb_xkb_get_indicator_state_reply(
@@ -4703,7 +4756,9 @@ impl<'a> GetIndicatorStateCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4726,10 +4781,8 @@ pub fn get_indicator_state<'a>(
     device_spec: DeviceSpec,
 ) -> GetIndicatorStateCookie<'a> {
     unsafe {
-        let cookie = xcb_xkb_get_indicator_state(
-            c.get_raw_conn(),
-            device_spec as xcb_xkb_device_spec_t,
-        );
+        let cookie =
+            xcb_xkb_get_indicator_state(c.get_raw_conn(), device_spec as xcb_xkb_device_spec_t);
         GetIndicatorStateCookie {
             cookie: cookie,
             conn: c,
@@ -4768,7 +4821,11 @@ pub type GetIndicatorMapCookie<'a> = base::Cookie<'a, xcb_xkb_get_indicator_map_
 impl<'a> GetIndicatorMapCookie<'a> {
     pub fn get_reply(self) -> Result<GetIndicatorMapReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetIndicatorMapReply {
                 ptr: xcb_xkb_get_indicator_map_reply(
@@ -4784,7 +4841,9 @@ impl<'a> GetIndicatorMapCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4908,7 +4967,11 @@ pub type GetNamedIndicatorCookie<'a> = base::Cookie<'a, xcb_xkb_get_named_indica
 impl<'a> GetNamedIndicatorCookie<'a> {
     pub fn get_reply(self) -> Result<GetNamedIndicatorReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetNamedIndicatorReply {
                 ptr: xcb_xkb_get_named_indicator_reply(
@@ -4924,7 +4987,9 @@ impl<'a> GetNamedIndicatorCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5132,14 +5197,14 @@ pub type GetNamesCookie<'a> = base::Cookie<'a, xcb_xkb_get_names_cookie_t>;
 impl<'a> GetNamesCookie<'a> {
     pub fn get_reply(self) -> Result<GetNamesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetNamesReply {
-                ptr: xcb_xkb_get_names_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_get_names_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5148,7 +5213,9 @@ impl<'a> GetNamesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5352,14 +5419,14 @@ pub type PerClientFlagsCookie<'a> = base::Cookie<'a, xcb_xkb_per_client_flags_co
 impl<'a> PerClientFlagsCookie<'a> {
     pub fn get_reply(self) -> Result<PerClientFlagsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PerClientFlagsReply {
-                ptr: xcb_xkb_per_client_flags_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_per_client_flags_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5368,7 +5435,9 @@ impl<'a> PerClientFlagsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5462,14 +5531,14 @@ pub type ListComponentsCookie<'a> = base::Cookie<'a, xcb_xkb_list_components_coo
 impl<'a> ListComponentsCookie<'a> {
     pub fn get_reply(self) -> Result<ListComponentsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListComponentsReply {
-                ptr: xcb_xkb_list_components_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_list_components_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5478,7 +5547,9 @@ impl<'a> ListComponentsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5583,14 +5654,14 @@ pub type GetKbdByNameCookie<'a> = base::Cookie<'a, xcb_xkb_get_kbd_by_name_cooki
 impl<'a> GetKbdByNameCookie<'a> {
     pub fn get_reply(self) -> Result<GetKbdByNameReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetKbdByNameReply {
-                ptr: xcb_xkb_get_kbd_by_name_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_get_kbd_by_name_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5599,15 +5670,19 @@ impl<'a> GetKbdByNameCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
 pub type GetKbdByNameReplies<'a> = base::StructPtr<'a, xcb_xkb_get_kbd_by_name_replies_t>;
-pub type GetKbdByNameRepliesTypesMap<'a> = base::StructPtr<'a, xcb_xkb_get_kbd_by_name_replies_types_map_t>;
-pub type GetKbdByNameRepliesKeyNamesValueList<'a> = base::StructPtr<'a, xcb_xkb_get_kbd_by_name_replies_key_names_value_list_t>;
+pub type GetKbdByNameRepliesTypesMap<'a> =
+    base::StructPtr<'a, xcb_xkb_get_kbd_by_name_replies_types_map_t>;
+pub type GetKbdByNameRepliesKeyNamesValueList<'a> =
+    base::StructPtr<'a, xcb_xkb_get_kbd_by_name_replies_key_names_value_list_t>;
 
 pub type GetKbdByNameReply = base::Reply<xcb_xkb_get_kbd_by_name_reply_t>;
 
@@ -5694,14 +5769,14 @@ pub type GetDeviceInfoCookie<'a> = base::Cookie<'a, xcb_xkb_get_device_info_cook
 impl<'a> GetDeviceInfoCookie<'a> {
     pub fn get_reply(self) -> Result<GetDeviceInfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDeviceInfoReply {
-                ptr: xcb_xkb_get_device_info_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xkb_get_device_info_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5710,7 +5785,9 @@ impl<'a> GetDeviceInfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5916,7 +5993,11 @@ pub type SetDebuggingFlagsCookie<'a> = base::Cookie<'a, xcb_xkb_set_debugging_fl
 impl<'a> SetDebuggingFlagsCookie<'a> {
     pub fn get_reply(self) -> Result<SetDebuggingFlagsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             SetDebuggingFlagsReply {
                 ptr: xcb_xkb_set_debugging_flags_reply(
@@ -5932,7 +6013,9 @@ impl<'a> SetDebuggingFlagsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6052,7 +6135,7 @@ impl NewKeyboardNotifyEvent {
     }
     /// Constructs a new NewKeyboardNotifyEvent
     /// `response_type` will be set automatically to NEW_KEYBOARD_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6157,7 +6240,7 @@ impl MapNotifyEvent {
     }
     /// Constructs a new MapNotifyEvent
     /// `response_type` will be set automatically to MAP_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6284,7 +6367,7 @@ impl StateNotifyEvent {
     }
     /// Constructs a new StateNotifyEvent
     /// `response_type` will be set automatically to STATE_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6378,7 +6461,7 @@ impl ControlsNotifyEvent {
     }
     /// Constructs a new ControlsNotifyEvent
     /// `response_type` will be set automatically to CONTROLS_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6432,7 +6515,7 @@ impl IndicatorStateNotifyEvent {
     }
     /// Constructs a new IndicatorStateNotifyEvent
     /// `response_type` will be set automatically to INDICATOR_STATE_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6474,7 +6557,7 @@ impl IndicatorMapNotifyEvent {
     }
     /// Constructs a new IndicatorMapNotifyEvent
     /// `response_type` will be set automatically to INDICATOR_MAP_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6546,7 +6629,7 @@ impl NamesNotifyEvent {
     }
     /// Constructs a new NamesNotifyEvent
     /// `response_type` will be set automatically to NAMES_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6614,7 +6697,7 @@ impl CompatMapNotifyEvent {
     }
     /// Constructs a new CompatMapNotifyEvent
     /// `response_type` will be set automatically to COMPAT_MAP_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6678,7 +6761,7 @@ impl BellNotifyEvent {
     }
     /// Constructs a new BellNotifyEvent
     /// `response_type` will be set automatically to BELL_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6744,7 +6827,7 @@ impl ActionMessageEvent {
     }
     /// Constructs a new ActionMessageEvent
     /// `response_type` will be set automatically to ACTION_MESSAGE
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6800,7 +6883,7 @@ impl AccessXNotifyEvent {
     }
     /// Constructs a new AccessXNotifyEvent
     /// `response_type` will be set automatically to ACCESS_X_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,
@@ -6867,7 +6950,7 @@ impl ExtensionDeviceNotifyEvent {
     }
     /// Constructs a new ExtensionDeviceNotifyEvent
     /// `response_type` will be set automatically to EXTENSION_DEVICE_NOTIFY
-    pub fn new (
+    pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
         device_i_d: u8,

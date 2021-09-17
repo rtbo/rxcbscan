@@ -2,25 +2,22 @@
 // Do not edit!
 
 use base;
-use xproto;
-use render;
-use xfixes;
-use shape;
 use ffi::base::*;
 use ffi::composite::*;
-use ffi::xproto::*;
 use ffi::render::*;
-use ffi::xfixes::*;
 use ffi::shape::*;
+use ffi::xfixes::*;
+use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
+use render;
+use shape;
 use std;
 use std::iter::Iterator;
-
+use xfixes;
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_composite_id
-    }
+    unsafe { &mut xcb_composite_id }
 }
 
 pub const MAJOR_VERSION: u32 = 0;
@@ -43,7 +40,11 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_composite_query_version_c
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
                 ptr: xcb_composite_query_version_reply(
@@ -59,7 +60,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -123,11 +126,8 @@ pub fn redirect_window<'a>(
     update: u8,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_composite_redirect_window(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-            update as u8,
-        );
+        let cookie =
+            xcb_composite_redirect_window(c.get_raw_conn(), window as xcb_window_t, update as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -203,11 +203,8 @@ pub fn unredirect_window<'a>(
     update: u8,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_composite_unredirect_window(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-            update as u8,
-        );
+        let cookie =
+            xcb_composite_unredirect_window(c.get_raw_conn(), window as xcb_window_t, update as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -368,7 +365,11 @@ pub type GetOverlayWindowCookie<'a> = base::Cookie<'a, xcb_composite_get_overlay
 impl<'a> GetOverlayWindowCookie<'a> {
     pub fn get_reply(self) -> Result<GetOverlayWindowReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetOverlayWindowReply {
                 ptr: xcb_composite_get_overlay_window_reply(
@@ -384,7 +385,9 @@ impl<'a> GetOverlayWindowCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -404,10 +407,7 @@ pub fn get_overlay_window<'a>(
     window: xproto::Window,
 ) -> GetOverlayWindowCookie<'a> {
     unsafe {
-        let cookie = xcb_composite_get_overlay_window(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_composite_get_overlay_window(c.get_raw_conn(), window as xcb_window_t);
         GetOverlayWindowCookie {
             cookie: cookie,
             conn: c,
@@ -421,10 +421,8 @@ pub fn get_overlay_window_unchecked<'a>(
     window: xproto::Window,
 ) -> GetOverlayWindowCookie<'a> {
     unsafe {
-        let cookie = xcb_composite_get_overlay_window_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_composite_get_overlay_window_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetOverlayWindowCookie {
             cookie: cookie,
             conn: c,
@@ -440,10 +438,7 @@ pub fn release_overlay_window<'a>(
     window: xproto::Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_composite_release_overlay_window(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_composite_release_overlay_window(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -457,10 +452,8 @@ pub fn release_overlay_window_checked<'a>(
     window: xproto::Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_composite_release_overlay_window_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_composite_release_overlay_window_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,

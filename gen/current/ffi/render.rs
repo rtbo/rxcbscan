@@ -113,8 +113,8 @@ pub type xcb_render_glyph_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_glyph_iterator_t {
-    pub data:  *mut xcb_render_glyph_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_glyph_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -123,8 +123,8 @@ pub type xcb_render_glyphset_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_glyphset_iterator_t {
-    pub data:  *mut xcb_render_glyphset_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_glyphset_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -133,8 +133,8 @@ pub type xcb_render_picture_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_picture_iterator_t {
-    pub data:  *mut xcb_render_picture_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_picture_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -143,8 +143,8 @@ pub type xcb_render_pictformat_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_pictformat_iterator_t {
-    pub data:  *mut xcb_render_pictformat_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_pictformat_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -153,8 +153,8 @@ pub type xcb_render_fixed_t = i32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_fixed_iterator_t {
-    pub data:  *mut xcb_render_fixed_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_fixed_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -224,8 +224,8 @@ pub struct xcb_render_directformat_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_directformat_iterator_t {
-    pub data:  *mut xcb_render_directformat_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_directformat_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -243,8 +243,8 @@ pub struct xcb_render_pictforminfo_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_pictforminfo_iterator_t {
-    pub data:  *mut xcb_render_pictforminfo_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_pictforminfo_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -258,8 +258,8 @@ pub struct xcb_render_pictvisual_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_pictvisual_iterator_t {
-    pub data:  *mut xcb_render_pictvisual_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_pictvisual_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -275,8 +275,8 @@ pub struct xcb_render_pictdepth_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_pictdepth_iterator_t<'a> {
-    pub data:  *mut xcb_render_pictdepth_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_pictdepth_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_render_pictdepth_t>,
 }
@@ -291,8 +291,8 @@ pub struct xcb_render_pictscreen_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_pictscreen_iterator_t<'a> {
-    pub data:  *mut xcb_render_pictscreen_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_pictscreen_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_render_pictscreen_t>,
 }
@@ -310,8 +310,8 @@ pub struct xcb_render_indexvalue_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_indexvalue_iterator_t {
-    pub data:  *mut xcb_render_indexvalue_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_indexvalue_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -327,8 +327,8 @@ pub struct xcb_render_color_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_color_iterator_t {
-    pub data:  *mut xcb_render_color_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_color_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -342,8 +342,8 @@ pub struct xcb_render_pointfix_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_pointfix_iterator_t {
-    pub data:  *mut xcb_render_pointfix_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_pointfix_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -357,8 +357,8 @@ pub struct xcb_render_linefix_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_linefix_iterator_t {
-    pub data:  *mut xcb_render_linefix_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_linefix_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -373,8 +373,8 @@ pub struct xcb_render_triangle_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_triangle_iterator_t {
-    pub data:  *mut xcb_render_triangle_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_triangle_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -390,8 +390,8 @@ pub struct xcb_render_trapezoid_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_trapezoid_iterator_t {
-    pub data:  *mut xcb_render_trapezoid_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_trapezoid_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -409,8 +409,8 @@ pub struct xcb_render_glyphinfo_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_glyphinfo_iterator_t {
-    pub data:  *mut xcb_render_glyphinfo_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_glyphinfo_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -801,8 +801,8 @@ pub struct xcb_render_transform_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_transform_iterator_t {
-    pub data:  *mut xcb_render_transform_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_transform_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -870,8 +870,8 @@ pub struct xcb_render_animcursorelt_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_animcursorelt_iterator_t {
-    pub data:  *mut xcb_render_animcursorelt_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_animcursorelt_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -897,8 +897,8 @@ pub struct xcb_render_spanfix_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_spanfix_iterator_t {
-    pub data:  *mut xcb_render_spanfix_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_spanfix_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -912,8 +912,8 @@ pub struct xcb_render_trap_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_render_trap_iterator_t {
-    pub data:  *mut xcb_render_trap_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_render_trap_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -987,162 +987,214 @@ pub struct xcb_render_create_conical_gradient_request_t {
 }
 
 #[link(name = "xcb-render")]
-extern {
+extern "C" {
 
-pub static mut xcb_render_id: xcb_extension_t;
+    pub static mut xcb_render_id: xcb_extension_t;
 
-pub fn xcb_render_glyph_next(i: *mut xcb_render_glyph_iterator_t);
+    pub fn xcb_render_glyph_next(i: *mut xcb_render_glyph_iterator_t);
 
-pub fn xcb_render_glyph_end(i: *mut xcb_render_glyph_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_glyph_end(i: *mut xcb_render_glyph_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_glyphset_next(i: *mut xcb_render_glyphset_iterator_t);
+    pub fn xcb_render_glyphset_next(i: *mut xcb_render_glyphset_iterator_t);
 
-pub fn xcb_render_glyphset_end(i: *mut xcb_render_glyphset_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_glyphset_end(
+        i: *mut xcb_render_glyphset_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_picture_next(i: *mut xcb_render_picture_iterator_t);
+    pub fn xcb_render_picture_next(i: *mut xcb_render_picture_iterator_t);
 
-pub fn xcb_render_picture_end(i: *mut xcb_render_picture_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_picture_end(i: *mut xcb_render_picture_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_pictformat_next(i: *mut xcb_render_pictformat_iterator_t);
+    pub fn xcb_render_pictformat_next(i: *mut xcb_render_pictformat_iterator_t);
 
-pub fn xcb_render_pictformat_end(i: *mut xcb_render_pictformat_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_pictformat_end(
+        i: *mut xcb_render_pictformat_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_fixed_next(i: *mut xcb_render_fixed_iterator_t);
+    pub fn xcb_render_fixed_next(i: *mut xcb_render_fixed_iterator_t);
 
-pub fn xcb_render_fixed_end(i: *mut xcb_render_fixed_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_fixed_end(i: *mut xcb_render_fixed_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_directformat_next(i: *mut xcb_render_directformat_iterator_t);
+    pub fn xcb_render_directformat_next(i: *mut xcb_render_directformat_iterator_t);
 
-pub fn xcb_render_directformat_end(i: *mut xcb_render_directformat_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_directformat_end(
+        i: *mut xcb_render_directformat_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_pictforminfo_next(i: *mut xcb_render_pictforminfo_iterator_t);
+    pub fn xcb_render_pictforminfo_next(i: *mut xcb_render_pictforminfo_iterator_t);
 
-pub fn xcb_render_pictforminfo_end(i: *mut xcb_render_pictforminfo_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_pictforminfo_end(
+        i: *mut xcb_render_pictforminfo_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_pictvisual_next(i: *mut xcb_render_pictvisual_iterator_t);
+    pub fn xcb_render_pictvisual_next(i: *mut xcb_render_pictvisual_iterator_t);
 
-pub fn xcb_render_pictvisual_end(i: *mut xcb_render_pictvisual_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_pictvisual_end(
+        i: *mut xcb_render_pictvisual_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_pictdepth_visuals(R: *const xcb_render_pictdepth_t) -> *mut xcb_render_pictvisual_t;
+    pub fn xcb_render_pictdepth_visuals(
+        R: *const xcb_render_pictdepth_t,
+    ) -> *mut xcb_render_pictvisual_t;
 
-pub fn xcb_render_pictdepth_visuals_length(R: *const xcb_render_pictdepth_t) -> c_int;
+    pub fn xcb_render_pictdepth_visuals_length(R: *const xcb_render_pictdepth_t) -> c_int;
 
-pub fn xcb_render_pictdepth_visuals_iterator(R: *const xcb_render_pictdepth_t) -> xcb_render_pictvisual_iterator_t;
+    pub fn xcb_render_pictdepth_visuals_iterator(
+        R: *const xcb_render_pictdepth_t,
+    ) -> xcb_render_pictvisual_iterator_t;
 
-pub fn xcb_render_pictdepth_next(i: *mut xcb_render_pictdepth_iterator_t);
+    pub fn xcb_render_pictdepth_next(i: *mut xcb_render_pictdepth_iterator_t);
 
-pub fn xcb_render_pictdepth_end(i: *mut xcb_render_pictdepth_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_pictdepth_end(
+        i: *mut xcb_render_pictdepth_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_pictscreen_depths_length(R: *const xcb_render_pictscreen_t) -> c_int;
+    pub fn xcb_render_pictscreen_depths_length(R: *const xcb_render_pictscreen_t) -> c_int;
 
-pub fn xcb_render_pictscreen_depths_iterator<'a>(R: *const xcb_render_pictscreen_t) -> xcb_render_pictdepth_iterator_t<'a>;
+    pub fn xcb_render_pictscreen_depths_iterator<'a>(
+        R: *const xcb_render_pictscreen_t,
+    ) -> xcb_render_pictdepth_iterator_t<'a>;
 
-pub fn xcb_render_pictscreen_next(i: *mut xcb_render_pictscreen_iterator_t);
+    pub fn xcb_render_pictscreen_next(i: *mut xcb_render_pictscreen_iterator_t);
 
-pub fn xcb_render_pictscreen_end(i: *mut xcb_render_pictscreen_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_pictscreen_end(
+        i: *mut xcb_render_pictscreen_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_indexvalue_next(i: *mut xcb_render_indexvalue_iterator_t);
+    pub fn xcb_render_indexvalue_next(i: *mut xcb_render_indexvalue_iterator_t);
 
-pub fn xcb_render_indexvalue_end(i: *mut xcb_render_indexvalue_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_indexvalue_end(
+        i: *mut xcb_render_indexvalue_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_color_next(i: *mut xcb_render_color_iterator_t);
+    pub fn xcb_render_color_next(i: *mut xcb_render_color_iterator_t);
 
-pub fn xcb_render_color_end(i: *mut xcb_render_color_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_color_end(i: *mut xcb_render_color_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_pointfix_next(i: *mut xcb_render_pointfix_iterator_t);
+    pub fn xcb_render_pointfix_next(i: *mut xcb_render_pointfix_iterator_t);
 
-pub fn xcb_render_pointfix_end(i: *mut xcb_render_pointfix_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_pointfix_end(
+        i: *mut xcb_render_pointfix_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_linefix_next(i: *mut xcb_render_linefix_iterator_t);
+    pub fn xcb_render_linefix_next(i: *mut xcb_render_linefix_iterator_t);
 
-pub fn xcb_render_linefix_end(i: *mut xcb_render_linefix_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_linefix_end(i: *mut xcb_render_linefix_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_triangle_next(i: *mut xcb_render_triangle_iterator_t);
+    pub fn xcb_render_triangle_next(i: *mut xcb_render_triangle_iterator_t);
 
-pub fn xcb_render_triangle_end(i: *mut xcb_render_triangle_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_triangle_end(
+        i: *mut xcb_render_triangle_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_trapezoid_next(i: *mut xcb_render_trapezoid_iterator_t);
+    pub fn xcb_render_trapezoid_next(i: *mut xcb_render_trapezoid_iterator_t);
 
-pub fn xcb_render_trapezoid_end(i: *mut xcb_render_trapezoid_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_trapezoid_end(
+        i: *mut xcb_render_trapezoid_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_glyphinfo_next(i: *mut xcb_render_glyphinfo_iterator_t);
+    pub fn xcb_render_glyphinfo_next(i: *mut xcb_render_glyphinfo_iterator_t);
 
-pub fn xcb_render_glyphinfo_end(i: *mut xcb_render_glyphinfo_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_glyphinfo_end(
+        i: *mut xcb_render_glyphinfo_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_render_query_version_reply (
+    pub fn xcb_render_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_render_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_render_query_version_reply_t;
 
-    pub fn xcb_render_query_version (
+    pub fn xcb_render_query_version(
         c: *mut xcb_connection_t,
         client_major_version: u32,
         client_minor_version: u32,
     ) -> xcb_render_query_version_cookie_t;
 
-    pub fn xcb_render_query_version_unchecked (
+    pub fn xcb_render_query_version_unchecked(
         c: *mut xcb_connection_t,
         client_major_version: u32,
         client_minor_version: u32,
     ) -> xcb_render_query_version_cookie_t;
 
-pub fn xcb_render_query_pict_formats_formats(R: *const xcb_render_query_pict_formats_reply_t) -> *mut xcb_render_pictforminfo_t;
+    pub fn xcb_render_query_pict_formats_formats(
+        R: *const xcb_render_query_pict_formats_reply_t,
+    ) -> *mut xcb_render_pictforminfo_t;
 
-pub fn xcb_render_query_pict_formats_formats_length(R: *const xcb_render_query_pict_formats_reply_t) -> c_int;
+    pub fn xcb_render_query_pict_formats_formats_length(
+        R: *const xcb_render_query_pict_formats_reply_t,
+    ) -> c_int;
 
-pub fn xcb_render_query_pict_formats_formats_iterator(R: *const xcb_render_query_pict_formats_reply_t) -> xcb_render_pictforminfo_iterator_t;
+    pub fn xcb_render_query_pict_formats_formats_iterator(
+        R: *const xcb_render_query_pict_formats_reply_t,
+    ) -> xcb_render_pictforminfo_iterator_t;
 
-pub fn xcb_render_query_pict_formats_screens_length(R: *const xcb_render_query_pict_formats_reply_t) -> c_int;
+    pub fn xcb_render_query_pict_formats_screens_length(
+        R: *const xcb_render_query_pict_formats_reply_t,
+    ) -> c_int;
 
-pub fn xcb_render_query_pict_formats_screens_iterator<'a>(R: *const xcb_render_query_pict_formats_reply_t) -> xcb_render_pictscreen_iterator_t<'a>;
+    pub fn xcb_render_query_pict_formats_screens_iterator<'a>(
+        R: *const xcb_render_query_pict_formats_reply_t,
+    ) -> xcb_render_pictscreen_iterator_t<'a>;
 
-pub fn xcb_render_query_pict_formats_subpixels(R: *const xcb_render_query_pict_formats_reply_t) -> *mut u32;
+    pub fn xcb_render_query_pict_formats_subpixels(
+        R: *const xcb_render_query_pict_formats_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_render_query_pict_formats_subpixels_length(R: *const xcb_render_query_pict_formats_reply_t) -> c_int;
+    pub fn xcb_render_query_pict_formats_subpixels_length(
+        R: *const xcb_render_query_pict_formats_reply_t,
+    ) -> c_int;
 
-pub fn xcb_render_query_pict_formats_subpixels_end(R: *const xcb_render_query_pict_formats_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_query_pict_formats_subpixels_end(
+        R: *const xcb_render_query_pict_formats_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_render_query_pict_formats_reply (
+    pub fn xcb_render_query_pict_formats_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_render_query_pict_formats_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_render_query_pict_formats_reply_t;
 
-    pub fn xcb_render_query_pict_formats (
+    pub fn xcb_render_query_pict_formats(
         c: *mut xcb_connection_t,
     ) -> xcb_render_query_pict_formats_cookie_t;
 
-    pub fn xcb_render_query_pict_formats_unchecked (
+    pub fn xcb_render_query_pict_formats_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_render_query_pict_formats_cookie_t;
 
-pub fn xcb_render_query_pict_index_values_values(R: *const xcb_render_query_pict_index_values_reply_t) -> *mut xcb_render_indexvalue_t;
+    pub fn xcb_render_query_pict_index_values_values(
+        R: *const xcb_render_query_pict_index_values_reply_t,
+    ) -> *mut xcb_render_indexvalue_t;
 
-pub fn xcb_render_query_pict_index_values_values_length(R: *const xcb_render_query_pict_index_values_reply_t) -> c_int;
+    pub fn xcb_render_query_pict_index_values_values_length(
+        R: *const xcb_render_query_pict_index_values_reply_t,
+    ) -> c_int;
 
-pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_query_pict_index_values_reply_t) -> xcb_render_indexvalue_iterator_t;
+    pub fn xcb_render_query_pict_index_values_values_iterator(
+        R: *const xcb_render_query_pict_index_values_reply_t,
+    ) -> xcb_render_indexvalue_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_render_query_pict_index_values_reply (
+    pub fn xcb_render_query_pict_index_values_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_render_query_pict_index_values_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_render_query_pict_index_values_reply_t;
 
-    pub fn xcb_render_query_pict_index_values (
+    pub fn xcb_render_query_pict_index_values(
         c: *mut xcb_connection_t,
         format: xcb_render_pictformat_t,
     ) -> xcb_render_query_pict_index_values_cookie_t;
 
-    pub fn xcb_render_query_pict_index_values_unchecked (
+    pub fn xcb_render_query_pict_index_values_unchecked(
         c: *mut xcb_connection_t,
         format: xcb_render_pictformat_t,
     ) -> xcb_render_query_pict_index_values_cookie_t;
 
-    pub fn xcb_render_create_picture (
+    pub fn xcb_render_create_picture(
         c: *mut xcb_connection_t,
         pid: xcb_render_picture_t,
         drawable: xcb_drawable_t,
@@ -1151,7 +1203,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_picture_checked (
+    pub fn xcb_render_create_picture_checked(
         c: *mut xcb_connection_t,
         pid: xcb_render_picture_t,
         drawable: xcb_drawable_t,
@@ -1160,21 +1212,21 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_change_picture (
+    pub fn xcb_render_change_picture(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         value_mask: u32,
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_change_picture_checked (
+    pub fn xcb_render_change_picture_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         value_mask: u32,
         value_list: *const u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_set_picture_clip_rectangles (
+    pub fn xcb_render_set_picture_clip_rectangles(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         clip_x_origin: i16,
@@ -1183,7 +1235,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_set_picture_clip_rectangles_checked (
+    pub fn xcb_render_set_picture_clip_rectangles_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         clip_x_origin: i16,
@@ -1192,17 +1244,17 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_free_picture (
+    pub fn xcb_render_free_picture(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_free_picture_checked (
+    pub fn xcb_render_free_picture_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_composite (
+    pub fn xcb_render_composite(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1218,7 +1270,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         height: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_composite_checked (
+    pub fn xcb_render_composite_checked(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1234,7 +1286,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         height: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_trapezoids (
+    pub fn xcb_render_trapezoids(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1246,7 +1298,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         traps: *const xcb_render_trapezoid_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_trapezoids_checked (
+    pub fn xcb_render_trapezoids_checked(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1258,7 +1310,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         traps: *const xcb_render_trapezoid_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_triangles (
+    pub fn xcb_render_triangles(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1270,7 +1322,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         triangles: *const xcb_render_triangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_triangles_checked (
+    pub fn xcb_render_triangles_checked(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1282,7 +1334,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         triangles: *const xcb_render_triangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_tri_strip (
+    pub fn xcb_render_tri_strip(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1294,7 +1346,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         points: *const xcb_render_pointfix_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_tri_strip_checked (
+    pub fn xcb_render_tri_strip_checked(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1306,7 +1358,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         points: *const xcb_render_pointfix_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_tri_fan (
+    pub fn xcb_render_tri_fan(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1318,7 +1370,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         points: *const xcb_render_pointfix_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_tri_fan_checked (
+    pub fn xcb_render_tri_fan_checked(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1330,41 +1382,41 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         points: *const xcb_render_pointfix_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_glyph_set (
+    pub fn xcb_render_create_glyph_set(
         c: *mut xcb_connection_t,
         gsid: xcb_render_glyphset_t,
         format: xcb_render_pictformat_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_glyph_set_checked (
+    pub fn xcb_render_create_glyph_set_checked(
         c: *mut xcb_connection_t,
         gsid: xcb_render_glyphset_t,
         format: xcb_render_pictformat_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_reference_glyph_set (
+    pub fn xcb_render_reference_glyph_set(
         c: *mut xcb_connection_t,
         gsid: xcb_render_glyphset_t,
         existing: xcb_render_glyphset_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_reference_glyph_set_checked (
+    pub fn xcb_render_reference_glyph_set_checked(
         c: *mut xcb_connection_t,
         gsid: xcb_render_glyphset_t,
         existing: xcb_render_glyphset_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_free_glyph_set (
+    pub fn xcb_render_free_glyph_set(
         c: *mut xcb_connection_t,
         glyphset: xcb_render_glyphset_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_free_glyph_set_checked (
+    pub fn xcb_render_free_glyph_set_checked(
         c: *mut xcb_connection_t,
         glyphset: xcb_render_glyphset_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_add_glyphs (
+    pub fn xcb_render_add_glyphs(
         c: *mut xcb_connection_t,
         glyphset: xcb_render_glyphset_t,
         glyphs_len: u32,
@@ -1374,7 +1426,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_add_glyphs_checked (
+    pub fn xcb_render_add_glyphs_checked(
         c: *mut xcb_connection_t,
         glyphset: xcb_render_glyphset_t,
         glyphs_len: u32,
@@ -1384,21 +1436,21 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_free_glyphs (
+    pub fn xcb_render_free_glyphs(
         c: *mut xcb_connection_t,
         glyphset: xcb_render_glyphset_t,
         glyphs_len: u32,
         glyphs: *const xcb_render_glyph_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_free_glyphs_checked (
+    pub fn xcb_render_free_glyphs_checked(
         c: *mut xcb_connection_t,
         glyphset: xcb_render_glyphset_t,
         glyphs_len: u32,
         glyphs: *const xcb_render_glyph_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_composite_glyphs_8 (
+    pub fn xcb_render_composite_glyphs_8(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1411,7 +1463,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         glyphcmds: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_composite_glyphs_8_checked (
+    pub fn xcb_render_composite_glyphs_8_checked(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1424,7 +1476,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         glyphcmds: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_composite_glyphs_16 (
+    pub fn xcb_render_composite_glyphs_16(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1437,7 +1489,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         glyphcmds: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_composite_glyphs_16_checked (
+    pub fn xcb_render_composite_glyphs_16_checked(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1450,7 +1502,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         glyphcmds: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_composite_glyphs_32 (
+    pub fn xcb_render_composite_glyphs_32(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1463,7 +1515,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         glyphcmds: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_composite_glyphs_32_checked (
+    pub fn xcb_render_composite_glyphs_32_checked(
         c: *mut xcb_connection_t,
         op: u8,
         src: xcb_render_picture_t,
@@ -1476,7 +1528,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         glyphcmds: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_fill_rectangles (
+    pub fn xcb_render_fill_rectangles(
         c: *mut xcb_connection_t,
         op: u8,
         dst: xcb_render_picture_t,
@@ -1485,7 +1537,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         rects: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_fill_rectangles_checked (
+    pub fn xcb_render_fill_rectangles_checked(
         c: *mut xcb_connection_t,
         op: u8,
         dst: xcb_render_picture_t,
@@ -1494,7 +1546,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         rects: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_cursor (
+    pub fn xcb_render_create_cursor(
         c: *mut xcb_connection_t,
         cid: xcb_cursor_t,
         source: xcb_render_picture_t,
@@ -1502,7 +1554,7 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         y: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_cursor_checked (
+    pub fn xcb_render_create_cursor_checked(
         c: *mut xcb_connection_t,
         cid: xcb_cursor_t,
         source: xcb_render_picture_t,
@@ -1510,50 +1562,61 @@ pub fn xcb_render_query_pict_index_values_values_iterator(R: *const xcb_render_q
         y: u16,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_render_transform_next(i: *mut xcb_render_transform_iterator_t);
+    pub fn xcb_render_transform_next(i: *mut xcb_render_transform_iterator_t);
 
-pub fn xcb_render_transform_end(i: *mut xcb_render_transform_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_transform_end(
+        i: *mut xcb_render_transform_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-    pub fn xcb_render_set_picture_transform (
+    pub fn xcb_render_set_picture_transform(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         transform: xcb_render_transform_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_set_picture_transform_checked (
+    pub fn xcb_render_set_picture_transform_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         transform: xcb_render_transform_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_render_query_filters_aliases(R: *const xcb_render_query_filters_reply_t) -> *mut u16;
+    pub fn xcb_render_query_filters_aliases(R: *const xcb_render_query_filters_reply_t)
+        -> *mut u16;
 
-pub fn xcb_render_query_filters_aliases_length(R: *const xcb_render_query_filters_reply_t) -> c_int;
+    pub fn xcb_render_query_filters_aliases_length(
+        R: *const xcb_render_query_filters_reply_t,
+    ) -> c_int;
 
-pub fn xcb_render_query_filters_aliases_end(R: *const xcb_render_query_filters_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_query_filters_aliases_end(
+        R: *const xcb_render_query_filters_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_query_filters_filters_length(R: *const xcb_render_query_filters_reply_t) -> c_int;
+    pub fn xcb_render_query_filters_filters_length(
+        R: *const xcb_render_query_filters_reply_t,
+    ) -> c_int;
 
-pub fn xcb_render_query_filters_filters_iterator<'a>(R: *const xcb_render_query_filters_reply_t) -> xcb_str_iterator_t<'a>;
+    pub fn xcb_render_query_filters_filters_iterator<'a>(
+        R: *const xcb_render_query_filters_reply_t,
+    ) -> xcb_str_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_render_query_filters_reply (
+    pub fn xcb_render_query_filters_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_render_query_filters_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_render_query_filters_reply_t;
 
-    pub fn xcb_render_query_filters (
+    pub fn xcb_render_query_filters(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_render_query_filters_cookie_t;
 
-    pub fn xcb_render_query_filters_unchecked (
+    pub fn xcb_render_query_filters_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_render_query_filters_cookie_t;
 
-    pub fn xcb_render_set_picture_filter (
+    pub fn xcb_render_set_picture_filter(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         filter_len: u16,
@@ -1562,7 +1625,7 @@ pub fn xcb_render_query_filters_filters_iterator<'a>(R: *const xcb_render_query_
         values: *const xcb_render_fixed_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_set_picture_filter_checked (
+    pub fn xcb_render_set_picture_filter_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         filter_len: u16,
@@ -1571,33 +1634,35 @@ pub fn xcb_render_query_filters_filters_iterator<'a>(R: *const xcb_render_query_
         values: *const xcb_render_fixed_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_render_animcursorelt_next(i: *mut xcb_render_animcursorelt_iterator_t);
+    pub fn xcb_render_animcursorelt_next(i: *mut xcb_render_animcursorelt_iterator_t);
 
-pub fn xcb_render_animcursorelt_end(i: *mut xcb_render_animcursorelt_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_animcursorelt_end(
+        i: *mut xcb_render_animcursorelt_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-    pub fn xcb_render_create_anim_cursor (
+    pub fn xcb_render_create_anim_cursor(
         c: *mut xcb_connection_t,
         cid: xcb_cursor_t,
         cursors_len: u32,
         cursors: *const xcb_render_animcursorelt_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_anim_cursor_checked (
+    pub fn xcb_render_create_anim_cursor_checked(
         c: *mut xcb_connection_t,
         cid: xcb_cursor_t,
         cursors_len: u32,
         cursors: *const xcb_render_animcursorelt_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_render_spanfix_next(i: *mut xcb_render_spanfix_iterator_t);
+    pub fn xcb_render_spanfix_next(i: *mut xcb_render_spanfix_iterator_t);
 
-pub fn xcb_render_spanfix_end(i: *mut xcb_render_spanfix_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_spanfix_end(i: *mut xcb_render_spanfix_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_render_trap_next(i: *mut xcb_render_trap_iterator_t);
+    pub fn xcb_render_trap_next(i: *mut xcb_render_trap_iterator_t);
 
-pub fn xcb_render_trap_end(i: *mut xcb_render_trap_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_render_trap_end(i: *mut xcb_render_trap_iterator_t) -> xcb_generic_iterator_t;
 
-    pub fn xcb_render_add_traps (
+    pub fn xcb_render_add_traps(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         x_off: i16,
@@ -1606,7 +1671,7 @@ pub fn xcb_render_trap_end(i: *mut xcb_render_trap_iterator_t) -> xcb_generic_it
         traps: *const xcb_render_trap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_add_traps_checked (
+    pub fn xcb_render_add_traps_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         x_off: i16,
@@ -1615,19 +1680,19 @@ pub fn xcb_render_trap_end(i: *mut xcb_render_trap_iterator_t) -> xcb_generic_it
         traps: *const xcb_render_trap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_solid_fill (
+    pub fn xcb_render_create_solid_fill(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         color: xcb_render_color_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_solid_fill_checked (
+    pub fn xcb_render_create_solid_fill_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         color: xcb_render_color_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_linear_gradient (
+    pub fn xcb_render_create_linear_gradient(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         p1: xcb_render_pointfix_t,
@@ -1637,7 +1702,7 @@ pub fn xcb_render_trap_end(i: *mut xcb_render_trap_iterator_t) -> xcb_generic_it
         colors: *const xcb_render_color_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_linear_gradient_checked (
+    pub fn xcb_render_create_linear_gradient_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         p1: xcb_render_pointfix_t,
@@ -1647,7 +1712,7 @@ pub fn xcb_render_trap_end(i: *mut xcb_render_trap_iterator_t) -> xcb_generic_it
         colors: *const xcb_render_color_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_radial_gradient (
+    pub fn xcb_render_create_radial_gradient(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         inner: xcb_render_pointfix_t,
@@ -1659,7 +1724,7 @@ pub fn xcb_render_trap_end(i: *mut xcb_render_trap_iterator_t) -> xcb_generic_it
         colors: *const xcb_render_color_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_radial_gradient_checked (
+    pub fn xcb_render_create_radial_gradient_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         inner: xcb_render_pointfix_t,
@@ -1671,7 +1736,7 @@ pub fn xcb_render_trap_end(i: *mut xcb_render_trap_iterator_t) -> xcb_generic_it
         colors: *const xcb_render_color_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_conical_gradient (
+    pub fn xcb_render_create_conical_gradient(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         center: xcb_render_pointfix_t,
@@ -1681,7 +1746,7 @@ pub fn xcb_render_trap_end(i: *mut xcb_render_trap_iterator_t) -> xcb_generic_it
         colors: *const xcb_render_color_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_render_create_conical_gradient_checked (
+    pub fn xcb_render_create_conical_gradient_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         center: xcb_render_pointfix_t,

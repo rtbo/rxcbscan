@@ -44,8 +44,8 @@ pub struct xcb_dri2_dri2_buffer_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_dri2_dri2_buffer_iterator_t {
-    pub data:  *mut xcb_dri2_dri2_buffer_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_dri2_dri2_buffer_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -59,8 +59,8 @@ pub struct xcb_dri2_attach_format_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_dri2_attach_format_iterator_t {
-    pub data:  *mut xcb_dri2_attach_format_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_dri2_attach_format_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -473,127 +473,141 @@ pub struct xcb_dri2_invalidate_buffers_event_t {
 }
 
 #[link(name = "xcb-dri2")]
-extern {
+extern "C" {
 
-pub static mut xcb_dri2_id: xcb_extension_t;
+    pub static mut xcb_dri2_id: xcb_extension_t;
 
-pub fn xcb_dri2_dri2_buffer_next(i: *mut xcb_dri2_dri2_buffer_iterator_t);
+    pub fn xcb_dri2_dri2_buffer_next(i: *mut xcb_dri2_dri2_buffer_iterator_t);
 
-pub fn xcb_dri2_dri2_buffer_end(i: *mut xcb_dri2_dri2_buffer_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_dri2_dri2_buffer_end(
+        i: *mut xcb_dri2_dri2_buffer_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_dri2_attach_format_next(i: *mut xcb_dri2_attach_format_iterator_t);
+    pub fn xcb_dri2_attach_format_next(i: *mut xcb_dri2_attach_format_iterator_t);
 
-pub fn xcb_dri2_attach_format_end(i: *mut xcb_dri2_attach_format_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_dri2_attach_format_end(
+        i: *mut xcb_dri2_attach_format_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_query_version_reply (
+    pub fn xcb_dri2_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_query_version_reply_t;
 
-    pub fn xcb_dri2_query_version (
+    pub fn xcb_dri2_query_version(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_dri2_query_version_cookie_t;
 
-    pub fn xcb_dri2_query_version_unchecked (
+    pub fn xcb_dri2_query_version_unchecked(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_dri2_query_version_cookie_t;
 
-pub fn xcb_dri2_connect_driver_name(R: *const xcb_dri2_connect_reply_t) -> *mut c_char;
+    pub fn xcb_dri2_connect_driver_name(R: *const xcb_dri2_connect_reply_t) -> *mut c_char;
 
-pub fn xcb_dri2_connect_driver_name_length(R: *const xcb_dri2_connect_reply_t) -> c_int;
+    pub fn xcb_dri2_connect_driver_name_length(R: *const xcb_dri2_connect_reply_t) -> c_int;
 
-pub fn xcb_dri2_connect_driver_name_end(R: *const xcb_dri2_connect_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_dri2_connect_driver_name_end(
+        R: *const xcb_dri2_connect_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_dri2_connect_alignment_pad(R: *const xcb_dri2_connect_reply_t) -> *mut c_void;
+    pub fn xcb_dri2_connect_alignment_pad(R: *const xcb_dri2_connect_reply_t) -> *mut c_void;
 
-pub fn xcb_dri2_connect_alignment_pad_length(R: *const xcb_dri2_connect_reply_t) -> c_int;
+    pub fn xcb_dri2_connect_alignment_pad_length(R: *const xcb_dri2_connect_reply_t) -> c_int;
 
-pub fn xcb_dri2_connect_alignment_pad_end(R: *const xcb_dri2_connect_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_dri2_connect_alignment_pad_end(
+        R: *const xcb_dri2_connect_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_dri2_connect_device_name(R: *const xcb_dri2_connect_reply_t) -> *mut c_char;
+    pub fn xcb_dri2_connect_device_name(R: *const xcb_dri2_connect_reply_t) -> *mut c_char;
 
-pub fn xcb_dri2_connect_device_name_length(R: *const xcb_dri2_connect_reply_t) -> c_int;
+    pub fn xcb_dri2_connect_device_name_length(R: *const xcb_dri2_connect_reply_t) -> c_int;
 
-pub fn xcb_dri2_connect_device_name_end(R: *const xcb_dri2_connect_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_dri2_connect_device_name_end(
+        R: *const xcb_dri2_connect_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_connect_reply (
+    pub fn xcb_dri2_connect_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_connect_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_connect_reply_t;
 
-    pub fn xcb_dri2_connect (
+    pub fn xcb_dri2_connect(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         driver_type: u32,
     ) -> xcb_dri2_connect_cookie_t;
 
-    pub fn xcb_dri2_connect_unchecked (
+    pub fn xcb_dri2_connect_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         driver_type: u32,
     ) -> xcb_dri2_connect_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_authenticate_reply (
+    pub fn xcb_dri2_authenticate_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_authenticate_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_authenticate_reply_t;
 
-    pub fn xcb_dri2_authenticate (
+    pub fn xcb_dri2_authenticate(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         magic: u32,
     ) -> xcb_dri2_authenticate_cookie_t;
 
-    pub fn xcb_dri2_authenticate_unchecked (
+    pub fn xcb_dri2_authenticate_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         magic: u32,
     ) -> xcb_dri2_authenticate_cookie_t;
 
-    pub fn xcb_dri2_create_drawable (
+    pub fn xcb_dri2_create_drawable(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_dri2_create_drawable_checked (
+    pub fn xcb_dri2_create_drawable_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_dri2_destroy_drawable (
+    pub fn xcb_dri2_destroy_drawable(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_dri2_destroy_drawable_checked (
+    pub fn xcb_dri2_destroy_drawable_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_dri2_get_buffers_buffers(R: *const xcb_dri2_get_buffers_reply_t) -> *mut xcb_dri2_dri2_buffer_t;
+    pub fn xcb_dri2_get_buffers_buffers(
+        R: *const xcb_dri2_get_buffers_reply_t,
+    ) -> *mut xcb_dri2_dri2_buffer_t;
 
-pub fn xcb_dri2_get_buffers_buffers_length(R: *const xcb_dri2_get_buffers_reply_t) -> c_int;
+    pub fn xcb_dri2_get_buffers_buffers_length(R: *const xcb_dri2_get_buffers_reply_t) -> c_int;
 
-pub fn xcb_dri2_get_buffers_buffers_iterator(R: *const xcb_dri2_get_buffers_reply_t) -> xcb_dri2_dri2_buffer_iterator_t;
+    pub fn xcb_dri2_get_buffers_buffers_iterator(
+        R: *const xcb_dri2_get_buffers_reply_t,
+    ) -> xcb_dri2_dri2_buffer_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_get_buffers_reply (
+    pub fn xcb_dri2_get_buffers_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_get_buffers_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_get_buffers_reply_t;
 
-    pub fn xcb_dri2_get_buffers (
+    pub fn xcb_dri2_get_buffers(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         count: u32,
@@ -601,7 +615,7 @@ pub fn xcb_dri2_get_buffers_buffers_iterator(R: *const xcb_dri2_get_buffers_repl
         attachments: *const u32,
     ) -> xcb_dri2_get_buffers_cookie_t;
 
-    pub fn xcb_dri2_get_buffers_unchecked (
+    pub fn xcb_dri2_get_buffers_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         count: u32,
@@ -610,13 +624,13 @@ pub fn xcb_dri2_get_buffers_buffers_iterator(R: *const xcb_dri2_get_buffers_repl
     ) -> xcb_dri2_get_buffers_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_copy_region_reply (
+    pub fn xcb_dri2_copy_region_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_copy_region_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_copy_region_reply_t;
 
-    pub fn xcb_dri2_copy_region (
+    pub fn xcb_dri2_copy_region(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         region: u32,
@@ -624,7 +638,7 @@ pub fn xcb_dri2_get_buffers_buffers_iterator(R: *const xcb_dri2_get_buffers_repl
         src: u32,
     ) -> xcb_dri2_copy_region_cookie_t;
 
-    pub fn xcb_dri2_copy_region_unchecked (
+    pub fn xcb_dri2_copy_region_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         region: u32,
@@ -632,20 +646,26 @@ pub fn xcb_dri2_get_buffers_buffers_iterator(R: *const xcb_dri2_get_buffers_repl
         src: u32,
     ) -> xcb_dri2_copy_region_cookie_t;
 
-pub fn xcb_dri2_get_buffers_with_format_buffers(R: *const xcb_dri2_get_buffers_with_format_reply_t) -> *mut xcb_dri2_dri2_buffer_t;
+    pub fn xcb_dri2_get_buffers_with_format_buffers(
+        R: *const xcb_dri2_get_buffers_with_format_reply_t,
+    ) -> *mut xcb_dri2_dri2_buffer_t;
 
-pub fn xcb_dri2_get_buffers_with_format_buffers_length(R: *const xcb_dri2_get_buffers_with_format_reply_t) -> c_int;
+    pub fn xcb_dri2_get_buffers_with_format_buffers_length(
+        R: *const xcb_dri2_get_buffers_with_format_reply_t,
+    ) -> c_int;
 
-pub fn xcb_dri2_get_buffers_with_format_buffers_iterator(R: *const xcb_dri2_get_buffers_with_format_reply_t) -> xcb_dri2_dri2_buffer_iterator_t;
+    pub fn xcb_dri2_get_buffers_with_format_buffers_iterator(
+        R: *const xcb_dri2_get_buffers_with_format_reply_t,
+    ) -> xcb_dri2_dri2_buffer_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_get_buffers_with_format_reply (
+    pub fn xcb_dri2_get_buffers_with_format_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_get_buffers_with_format_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_get_buffers_with_format_reply_t;
 
-    pub fn xcb_dri2_get_buffers_with_format (
+    pub fn xcb_dri2_get_buffers_with_format(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         count: u32,
@@ -653,7 +673,7 @@ pub fn xcb_dri2_get_buffers_with_format_buffers_iterator(R: *const xcb_dri2_get_
         attachments: *const xcb_dri2_attach_format_t,
     ) -> xcb_dri2_get_buffers_with_format_cookie_t;
 
-    pub fn xcb_dri2_get_buffers_with_format_unchecked (
+    pub fn xcb_dri2_get_buffers_with_format_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         count: u32,
@@ -662,13 +682,13 @@ pub fn xcb_dri2_get_buffers_with_format_buffers_iterator(R: *const xcb_dri2_get_
     ) -> xcb_dri2_get_buffers_with_format_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_swap_buffers_reply (
+    pub fn xcb_dri2_swap_buffers_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_swap_buffers_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_swap_buffers_reply_t;
 
-    pub fn xcb_dri2_swap_buffers (
+    pub fn xcb_dri2_swap_buffers(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         target_msc_hi: u32,
@@ -679,7 +699,7 @@ pub fn xcb_dri2_get_buffers_with_format_buffers_iterator(R: *const xcb_dri2_get_
         remainder_lo: u32,
     ) -> xcb_dri2_swap_buffers_cookie_t;
 
-    pub fn xcb_dri2_swap_buffers_unchecked (
+    pub fn xcb_dri2_swap_buffers_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         target_msc_hi: u32,
@@ -691,30 +711,30 @@ pub fn xcb_dri2_get_buffers_with_format_buffers_iterator(R: *const xcb_dri2_get_
     ) -> xcb_dri2_swap_buffers_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_get_msc_reply (
+    pub fn xcb_dri2_get_msc_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_get_msc_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_get_msc_reply_t;
 
-    pub fn xcb_dri2_get_msc (
+    pub fn xcb_dri2_get_msc(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_dri2_get_msc_cookie_t;
 
-    pub fn xcb_dri2_get_msc_unchecked (
+    pub fn xcb_dri2_get_msc_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
     ) -> xcb_dri2_get_msc_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_wait_msc_reply (
+    pub fn xcb_dri2_wait_msc_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_wait_msc_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_wait_msc_reply_t;
 
-    pub fn xcb_dri2_wait_msc (
+    pub fn xcb_dri2_wait_msc(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         target_msc_hi: u32,
@@ -725,7 +745,7 @@ pub fn xcb_dri2_get_buffers_with_format_buffers_iterator(R: *const xcb_dri2_get_
         remainder_lo: u32,
     ) -> xcb_dri2_wait_msc_cookie_t;
 
-    pub fn xcb_dri2_wait_msc_unchecked (
+    pub fn xcb_dri2_wait_msc_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         target_msc_hi: u32,
@@ -737,52 +757,52 @@ pub fn xcb_dri2_get_buffers_with_format_buffers_iterator(R: *const xcb_dri2_get_
     ) -> xcb_dri2_wait_msc_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_wait_sbc_reply (
+    pub fn xcb_dri2_wait_sbc_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_wait_sbc_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_wait_sbc_reply_t;
 
-    pub fn xcb_dri2_wait_sbc (
+    pub fn xcb_dri2_wait_sbc(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         target_sbc_hi: u32,
         target_sbc_lo: u32,
     ) -> xcb_dri2_wait_sbc_cookie_t;
 
-    pub fn xcb_dri2_wait_sbc_unchecked (
+    pub fn xcb_dri2_wait_sbc_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         target_sbc_hi: u32,
         target_sbc_lo: u32,
     ) -> xcb_dri2_wait_sbc_cookie_t;
 
-    pub fn xcb_dri2_swap_interval (
+    pub fn xcb_dri2_swap_interval(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         interval: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_dri2_swap_interval_checked (
+    pub fn xcb_dri2_swap_interval_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         interval: u32,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_dri2_get_param_reply (
+    pub fn xcb_dri2_get_param_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_dri2_get_param_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_dri2_get_param_reply_t;
 
-    pub fn xcb_dri2_get_param (
+    pub fn xcb_dri2_get_param(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         param: u32,
     ) -> xcb_dri2_get_param_cookie_t;
 
-    pub fn xcb_dri2_get_param_unchecked (
+    pub fn xcb_dri2_get_param_unchecked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         param: u32,

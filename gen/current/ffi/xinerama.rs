@@ -21,8 +21,8 @@ pub struct xcb_xinerama_screen_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xinerama_screen_info_iterator_t {
-    pub data:  *mut xcb_xinerama_screen_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xinerama_screen_info_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -194,119 +194,125 @@ pub struct xcb_xinerama_query_screens_reply_t {
 }
 
 #[link(name = "xcb-xinerama")]
-extern {
+extern "C" {
 
-pub static mut xcb_xinerama_id: xcb_extension_t;
+    pub static mut xcb_xinerama_id: xcb_extension_t;
 
-pub fn xcb_xinerama_screen_info_next(i: *mut xcb_xinerama_screen_info_iterator_t);
+    pub fn xcb_xinerama_screen_info_next(i: *mut xcb_xinerama_screen_info_iterator_t);
 
-pub fn xcb_xinerama_screen_info_end(i: *mut xcb_xinerama_screen_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xinerama_screen_info_end(
+        i: *mut xcb_xinerama_screen_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xinerama_query_version_reply (
+    pub fn xcb_xinerama_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xinerama_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xinerama_query_version_reply_t;
 
-    pub fn xcb_xinerama_query_version (
+    pub fn xcb_xinerama_query_version(
         c: *mut xcb_connection_t,
         major: u8,
         minor: u8,
     ) -> xcb_xinerama_query_version_cookie_t;
 
-    pub fn xcb_xinerama_query_version_unchecked (
+    pub fn xcb_xinerama_query_version_unchecked(
         c: *mut xcb_connection_t,
         major: u8,
         minor: u8,
     ) -> xcb_xinerama_query_version_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xinerama_get_state_reply (
+    pub fn xcb_xinerama_get_state_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xinerama_get_state_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xinerama_get_state_reply_t;
 
-    pub fn xcb_xinerama_get_state (
+    pub fn xcb_xinerama_get_state(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_xinerama_get_state_cookie_t;
 
-    pub fn xcb_xinerama_get_state_unchecked (
+    pub fn xcb_xinerama_get_state_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_xinerama_get_state_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xinerama_get_screen_count_reply (
+    pub fn xcb_xinerama_get_screen_count_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xinerama_get_screen_count_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xinerama_get_screen_count_reply_t;
 
-    pub fn xcb_xinerama_get_screen_count (
+    pub fn xcb_xinerama_get_screen_count(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_xinerama_get_screen_count_cookie_t;
 
-    pub fn xcb_xinerama_get_screen_count_unchecked (
+    pub fn xcb_xinerama_get_screen_count_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_xinerama_get_screen_count_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xinerama_get_screen_size_reply (
+    pub fn xcb_xinerama_get_screen_size_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xinerama_get_screen_size_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xinerama_get_screen_size_reply_t;
 
-    pub fn xcb_xinerama_get_screen_size (
+    pub fn xcb_xinerama_get_screen_size(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         screen: u32,
     ) -> xcb_xinerama_get_screen_size_cookie_t;
 
-    pub fn xcb_xinerama_get_screen_size_unchecked (
+    pub fn xcb_xinerama_get_screen_size_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         screen: u32,
     ) -> xcb_xinerama_get_screen_size_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xinerama_is_active_reply (
+    pub fn xcb_xinerama_is_active_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xinerama_is_active_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xinerama_is_active_reply_t;
 
-    pub fn xcb_xinerama_is_active (
+    pub fn xcb_xinerama_is_active(c: *mut xcb_connection_t) -> xcb_xinerama_is_active_cookie_t;
+
+    pub fn xcb_xinerama_is_active_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_xinerama_is_active_cookie_t;
 
-    pub fn xcb_xinerama_is_active_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_xinerama_is_active_cookie_t;
+    pub fn xcb_xinerama_query_screens_screen_info(
+        R: *const xcb_xinerama_query_screens_reply_t,
+    ) -> *mut xcb_xinerama_screen_info_t;
 
-pub fn xcb_xinerama_query_screens_screen_info(R: *const xcb_xinerama_query_screens_reply_t) -> *mut xcb_xinerama_screen_info_t;
+    pub fn xcb_xinerama_query_screens_screen_info_length(
+        R: *const xcb_xinerama_query_screens_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xinerama_query_screens_screen_info_length(R: *const xcb_xinerama_query_screens_reply_t) -> c_int;
-
-pub fn xcb_xinerama_query_screens_screen_info_iterator(R: *const xcb_xinerama_query_screens_reply_t) -> xcb_xinerama_screen_info_iterator_t;
+    pub fn xcb_xinerama_query_screens_screen_info_iterator(
+        R: *const xcb_xinerama_query_screens_reply_t,
+    ) -> xcb_xinerama_screen_info_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xinerama_query_screens_reply (
+    pub fn xcb_xinerama_query_screens_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xinerama_query_screens_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xinerama_query_screens_reply_t;
 
-    pub fn xcb_xinerama_query_screens (
+    pub fn xcb_xinerama_query_screens(
         c: *mut xcb_connection_t,
     ) -> xcb_xinerama_query_screens_cookie_t;
 
-    pub fn xcb_xinerama_query_screens_unchecked (
+    pub fn xcb_xinerama_query_screens_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_xinerama_query_screens_cookie_t;
 

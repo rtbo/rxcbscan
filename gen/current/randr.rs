@@ -2,21 +2,18 @@
 // Do not edit!
 
 use base;
-use render;
-use xproto;
 use ffi::base::*;
 use ffi::randr::*;
 use ffi::render::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
+use render;
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_randr_id
-    }
+    unsafe { &mut xcb_randr_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -125,7 +122,7 @@ pub struct ScreenSize {
 
 impl ScreenSize {
     #[allow(unused_unsafe)]
-    pub fn new(width: u16,height: u16,mwidth: u16,mheight: u16,) -> ScreenSize {
+    pub fn new(width: u16, height: u16, mwidth: u16, mheight: u16) -> ScreenSize {
         unsafe {
             ScreenSize {
                 base: xcb_randr_screen_size_t {
@@ -133,7 +130,7 @@ impl ScreenSize {
                     height: height,
                     mwidth: mwidth,
                     mheight: mheight,
-                }
+                },
             }
         }
     }
@@ -216,14 +213,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_randr_query_version_cooki
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_randr_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_randr_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -232,7 +229,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -256,11 +255,8 @@ pub fn query_version<'a>(
     minor_version: u32,
 ) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_query_version(
-            c.get_raw_conn(),
-            major_version as u32,
-            minor_version as u32,
-        );
+        let cookie =
+            xcb_randr_query_version(c.get_raw_conn(), major_version as u32, minor_version as u32);
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -301,7 +297,11 @@ pub type SetScreenConfigCookie<'a> = base::Cookie<'a, xcb_randr_set_screen_confi
 impl<'a> SetScreenConfigCookie<'a> {
     pub fn get_reply(self) -> Result<SetScreenConfigReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             SetScreenConfigReply {
                 ptr: xcb_randr_set_screen_config_reply(
@@ -317,7 +317,9 @@ impl<'a> SetScreenConfigCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -406,11 +408,8 @@ pub fn select_input<'a>(
     enable: u16,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_select_input(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-            enable as u16,
-        );
+        let cookie =
+            xcb_randr_select_input(c.get_raw_conn(), window as xcb_window_t, enable as u16);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -425,11 +424,8 @@ pub fn select_input_checked<'a>(
     enable: u16,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_select_input_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-            enable as u16,
-        );
+        let cookie =
+            xcb_randr_select_input_checked(c.get_raw_conn(), window as xcb_window_t, enable as u16);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -451,7 +447,11 @@ pub type GetScreenInfoCookie<'a> = base::Cookie<'a, xcb_randr_get_screen_info_co
 impl<'a> GetScreenInfoCookie<'a> {
     pub fn get_reply(self) -> Result<GetScreenInfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetScreenInfoReply {
                 ptr: xcb_randr_get_screen_info_reply(
@@ -467,7 +467,9 @@ impl<'a> GetScreenInfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -517,10 +519,7 @@ pub fn get_screen_info<'a>(
     window: xproto::Window,
 ) -> GetScreenInfoCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_screen_info(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_randr_get_screen_info(c.get_raw_conn(), window as xcb_window_t);
         GetScreenInfoCookie {
             cookie: cookie,
             conn: c,
@@ -534,10 +533,7 @@ pub fn get_screen_info_unchecked<'a>(
     window: xproto::Window,
 ) -> GetScreenInfoCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_screen_info_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_randr_get_screen_info_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetScreenInfoCookie {
             cookie: cookie,
             conn: c,
@@ -559,7 +555,11 @@ pub type GetScreenSizeRangeCookie<'a> = base::Cookie<'a, xcb_randr_get_screen_si
 impl<'a> GetScreenSizeRangeCookie<'a> {
     pub fn get_reply(self) -> Result<GetScreenSizeRangeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetScreenSizeRangeReply {
                 ptr: xcb_randr_get_screen_size_range_reply(
@@ -575,7 +575,9 @@ impl<'a> GetScreenSizeRangeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -604,10 +606,7 @@ pub fn get_screen_size_range<'a>(
     window: xproto::Window,
 ) -> GetScreenSizeRangeCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_screen_size_range(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_randr_get_screen_size_range(c.get_raw_conn(), window as xcb_window_t);
         GetScreenSizeRangeCookie {
             cookie: cookie,
             conn: c,
@@ -621,10 +620,8 @@ pub fn get_screen_size_range_unchecked<'a>(
     window: xproto::Window,
 ) -> GetScreenSizeRangeCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_screen_size_range_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_randr_get_screen_size_range_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetScreenSizeRangeCookie {
             cookie: cookie,
             conn: c,
@@ -692,7 +689,21 @@ pub struct ModeInfo {
 
 impl ModeInfo {
     #[allow(unused_unsafe)]
-    pub fn new(id: u32,width: u16,height: u16,dot_clock: u32,hsync_start: u16,hsync_end: u16,htotal: u16,hskew: u16,vsync_start: u16,vsync_end: u16,vtotal: u16,name_len: u16,mode_flags: u32,) -> ModeInfo {
+    pub fn new(
+        id: u32,
+        width: u16,
+        height: u16,
+        dot_clock: u32,
+        hsync_start: u16,
+        hsync_end: u16,
+        htotal: u16,
+        hskew: u16,
+        vsync_start: u16,
+        vsync_end: u16,
+        vtotal: u16,
+        name_len: u16,
+        mode_flags: u32,
+    ) -> ModeInfo {
         unsafe {
             ModeInfo {
                 base: xcb_randr_mode_info_t {
@@ -709,7 +720,7 @@ impl ModeInfo {
                     vtotal: vtotal,
                     name_len: name_len,
                     mode_flags: mode_flags,
-                }
+                },
             }
         }
     }
@@ -785,7 +796,11 @@ pub type GetScreenResourcesCookie<'a> = base::Cookie<'a, xcb_randr_get_screen_re
 impl<'a> GetScreenResourcesCookie<'a> {
     pub fn get_reply(self) -> Result<GetScreenResourcesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetScreenResourcesReply {
                 ptr: xcb_randr_get_screen_resources_reply(
@@ -801,7 +816,9 @@ impl<'a> GetScreenResourcesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -863,10 +880,7 @@ pub fn get_screen_resources<'a>(
     window: xproto::Window,
 ) -> GetScreenResourcesCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_screen_resources(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_randr_get_screen_resources(c.get_raw_conn(), window as xcb_window_t);
         GetScreenResourcesCookie {
             cookie: cookie,
             conn: c,
@@ -880,10 +894,8 @@ pub fn get_screen_resources_unchecked<'a>(
     window: xproto::Window,
 ) -> GetScreenResourcesCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_screen_resources_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_randr_get_screen_resources_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetScreenResourcesCookie {
             cookie: cookie,
             conn: c,
@@ -905,7 +917,11 @@ pub type GetOutputInfoCookie<'a> = base::Cookie<'a, xcb_randr_get_output_info_co
 impl<'a> GetOutputInfoCookie<'a> {
     pub fn get_reply(self) -> Result<GetOutputInfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetOutputInfoReply {
                 ptr: xcb_randr_get_output_info_reply(
@@ -921,7 +937,9 @@ impl<'a> GetOutputInfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1047,12 +1065,17 @@ impl base::CookieSeq for xcb_randr_list_output_properties_cookie_t {
     }
 }
 
-pub type ListOutputPropertiesCookie<'a> = base::Cookie<'a, xcb_randr_list_output_properties_cookie_t>;
+pub type ListOutputPropertiesCookie<'a> =
+    base::Cookie<'a, xcb_randr_list_output_properties_cookie_t>;
 
 impl<'a> ListOutputPropertiesCookie<'a> {
     pub fn get_reply(self) -> Result<ListOutputPropertiesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListOutputPropertiesReply {
                 ptr: xcb_randr_list_output_properties_reply(
@@ -1068,7 +1091,9 @@ impl<'a> ListOutputPropertiesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1096,10 +1121,8 @@ pub fn list_output_properties<'a>(
     output: Output,
 ) -> ListOutputPropertiesCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_list_output_properties(
-            c.get_raw_conn(),
-            output as xcb_randr_output_t,
-        );
+        let cookie =
+            xcb_randr_list_output_properties(c.get_raw_conn(), output as xcb_randr_output_t);
         ListOutputPropertiesCookie {
             cookie: cookie,
             conn: c,
@@ -1138,7 +1161,11 @@ pub type QueryOutputPropertyCookie<'a> = base::Cookie<'a, xcb_randr_query_output
 impl<'a> QueryOutputPropertyCookie<'a> {
     pub fn get_reply(self) -> Result<QueryOutputPropertyReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryOutputPropertyReply {
                 ptr: xcb_randr_query_output_property_reply(
@@ -1154,7 +1181,9 @@ impl<'a> QueryOutputPropertyCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1394,7 +1423,11 @@ pub type GetOutputPropertyCookie<'a> = base::Cookie<'a, xcb_randr_get_output_pro
 impl<'a> GetOutputPropertyCookie<'a> {
     pub fn get_reply(self) -> Result<GetOutputPropertyReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetOutputPropertyReply {
                 ptr: xcb_randr_get_output_property_reply(
@@ -1410,7 +1443,9 @@ impl<'a> GetOutputPropertyCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1513,14 +1548,14 @@ pub type CreateModeCookie<'a> = base::Cookie<'a, xcb_randr_create_mode_cookie_t>
 impl<'a> CreateModeCookie<'a> {
     pub fn get_reply(self) -> Result<CreateModeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             CreateModeReply {
-                ptr: xcb_randr_create_mode_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_randr_create_mode_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -1529,7 +1564,9 @@ impl<'a> CreateModeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1596,15 +1633,9 @@ pub fn create_mode_unchecked<'a>(
 
 pub const DESTROY_MODE: u8 = 17;
 
-pub fn destroy_mode<'a>(
-    c: &'a base::Connection,
-    mode: Mode,
-) -> base::VoidCookie<'a> {
+pub fn destroy_mode<'a>(c: &'a base::Connection, mode: Mode) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_destroy_mode(
-            c.get_raw_conn(),
-            mode as xcb_randr_mode_t,
-        );
+        let cookie = xcb_randr_destroy_mode(c.get_raw_conn(), mode as xcb_randr_mode_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1613,15 +1644,9 @@ pub fn destroy_mode<'a>(
     }
 }
 
-pub fn destroy_mode_checked<'a>(
-    c: &'a base::Connection,
-    mode: Mode,
-) -> base::VoidCookie<'a> {
+pub fn destroy_mode_checked<'a>(c: &'a base::Connection, mode: Mode) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_destroy_mode_checked(
-            c.get_raw_conn(),
-            mode as xcb_randr_mode_t,
-        );
+        let cookie = xcb_randr_destroy_mode_checked(c.get_raw_conn(), mode as xcb_randr_mode_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1723,14 +1748,14 @@ pub type GetCrtcInfoCookie<'a> = base::Cookie<'a, xcb_randr_get_crtc_info_cookie
 impl<'a> GetCrtcInfoCookie<'a> {
     pub fn get_reply(self) -> Result<GetCrtcInfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCrtcInfoReply {
-                ptr: xcb_randr_get_crtc_info_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_randr_get_crtc_info_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -1739,7 +1764,9 @@ impl<'a> GetCrtcInfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1851,7 +1878,11 @@ pub type SetCrtcConfigCookie<'a> = base::Cookie<'a, xcb_randr_set_crtc_config_co
 impl<'a> SetCrtcConfigCookie<'a> {
     pub fn get_reply(self) -> Result<SetCrtcConfigReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             SetCrtcConfigReply {
                 ptr: xcb_randr_set_crtc_config_reply(
@@ -1867,7 +1898,9 @@ impl<'a> SetCrtcConfigCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1966,7 +1999,11 @@ pub type GetCrtcGammaSizeCookie<'a> = base::Cookie<'a, xcb_randr_get_crtc_gamma_
 impl<'a> GetCrtcGammaSizeCookie<'a> {
     pub fn get_reply(self) -> Result<GetCrtcGammaSizeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCrtcGammaSizeReply {
                 ptr: xcb_randr_get_crtc_gamma_size_reply(
@@ -1982,7 +2019,9 @@ impl<'a> GetCrtcGammaSizeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1997,15 +2036,9 @@ impl GetCrtcGammaSizeReply {
     }
 }
 
-pub fn get_crtc_gamma_size<'a>(
-    c: &'a base::Connection,
-    crtc: Crtc,
-) -> GetCrtcGammaSizeCookie<'a> {
+pub fn get_crtc_gamma_size<'a>(c: &'a base::Connection, crtc: Crtc) -> GetCrtcGammaSizeCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_crtc_gamma_size(
-            c.get_raw_conn(),
-            crtc as xcb_randr_crtc_t,
-        );
+        let cookie = xcb_randr_get_crtc_gamma_size(c.get_raw_conn(), crtc as xcb_randr_crtc_t);
         GetCrtcGammaSizeCookie {
             cookie: cookie,
             conn: c,
@@ -2019,10 +2052,8 @@ pub fn get_crtc_gamma_size_unchecked<'a>(
     crtc: Crtc,
 ) -> GetCrtcGammaSizeCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_crtc_gamma_size_unchecked(
-            c.get_raw_conn(),
-            crtc as xcb_randr_crtc_t,
-        );
+        let cookie =
+            xcb_randr_get_crtc_gamma_size_unchecked(c.get_raw_conn(), crtc as xcb_randr_crtc_t);
         GetCrtcGammaSizeCookie {
             cookie: cookie,
             conn: c,
@@ -2044,14 +2075,14 @@ pub type GetCrtcGammaCookie<'a> = base::Cookie<'a, xcb_randr_get_crtc_gamma_cook
 impl<'a> GetCrtcGammaCookie<'a> {
     pub fn get_reply(self) -> Result<GetCrtcGammaReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCrtcGammaReply {
-                ptr: xcb_randr_get_crtc_gamma_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_randr_get_crtc_gamma_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -2060,7 +2091,9 @@ impl<'a> GetCrtcGammaCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2099,15 +2132,9 @@ impl GetCrtcGammaReply {
     }
 }
 
-pub fn get_crtc_gamma<'a>(
-    c: &'a base::Connection,
-    crtc: Crtc,
-) -> GetCrtcGammaCookie<'a> {
+pub fn get_crtc_gamma<'a>(c: &'a base::Connection, crtc: Crtc) -> GetCrtcGammaCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_crtc_gamma(
-            c.get_raw_conn(),
-            crtc as xcb_randr_crtc_t,
-        );
+        let cookie = xcb_randr_get_crtc_gamma(c.get_raw_conn(), crtc as xcb_randr_crtc_t);
         GetCrtcGammaCookie {
             cookie: cookie,
             conn: c,
@@ -2116,15 +2143,9 @@ pub fn get_crtc_gamma<'a>(
     }
 }
 
-pub fn get_crtc_gamma_unchecked<'a>(
-    c: &'a base::Connection,
-    crtc: Crtc,
-) -> GetCrtcGammaCookie<'a> {
+pub fn get_crtc_gamma_unchecked<'a>(c: &'a base::Connection, crtc: Crtc) -> GetCrtcGammaCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_crtc_gamma_unchecked(
-            c.get_raw_conn(),
-            crtc as xcb_randr_crtc_t,
-        );
+        let cookie = xcb_randr_get_crtc_gamma_unchecked(c.get_raw_conn(), crtc as xcb_randr_crtc_t);
         GetCrtcGammaCookie {
             cookie: cookie,
             conn: c,
@@ -2199,12 +2220,17 @@ impl base::CookieSeq for xcb_randr_get_screen_resources_current_cookie_t {
     }
 }
 
-pub type GetScreenResourcesCurrentCookie<'a> = base::Cookie<'a, xcb_randr_get_screen_resources_current_cookie_t>;
+pub type GetScreenResourcesCurrentCookie<'a> =
+    base::Cookie<'a, xcb_randr_get_screen_resources_current_cookie_t>;
 
 impl<'a> GetScreenResourcesCurrentCookie<'a> {
     pub fn get_reply(self) -> Result<GetScreenResourcesCurrentReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetScreenResourcesCurrentReply {
                 ptr: xcb_randr_get_screen_resources_current_reply(
@@ -2220,14 +2246,17 @@ impl<'a> GetScreenResourcesCurrentCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
 
-pub type GetScreenResourcesCurrentReply = base::Reply<xcb_randr_get_screen_resources_current_reply_t>;
+pub type GetScreenResourcesCurrentReply =
+    base::Reply<xcb_randr_get_screen_resources_current_reply_t>;
 
 impl GetScreenResourcesCurrentReply {
     pub fn timestamp(&self) -> xproto::Timestamp {
@@ -2282,10 +2311,8 @@ pub fn get_screen_resources_current<'a>(
     window: xproto::Window,
 ) -> GetScreenResourcesCurrentCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_screen_resources_current(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_randr_get_screen_resources_current(c.get_raw_conn(), window as xcb_window_t);
         GetScreenResourcesCurrentCookie {
             cookie: cookie,
             conn: c,
@@ -2386,7 +2413,11 @@ pub type GetCrtcTransformCookie<'a> = base::Cookie<'a, xcb_randr_get_crtc_transf
 impl<'a> GetCrtcTransformCookie<'a> {
     pub fn get_reply(self) -> Result<GetCrtcTransformReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCrtcTransformReply {
                 ptr: xcb_randr_get_crtc_transform_reply(
@@ -2402,7 +2433,9 @@ impl<'a> GetCrtcTransformCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2471,15 +2504,9 @@ impl GetCrtcTransformReply {
     }
 }
 
-pub fn get_crtc_transform<'a>(
-    c: &'a base::Connection,
-    crtc: Crtc,
-) -> GetCrtcTransformCookie<'a> {
+pub fn get_crtc_transform<'a>(c: &'a base::Connection, crtc: Crtc) -> GetCrtcTransformCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_crtc_transform(
-            c.get_raw_conn(),
-            crtc as xcb_randr_crtc_t,
-        );
+        let cookie = xcb_randr_get_crtc_transform(c.get_raw_conn(), crtc as xcb_randr_crtc_t);
         GetCrtcTransformCookie {
             cookie: cookie,
             conn: c,
@@ -2493,10 +2520,8 @@ pub fn get_crtc_transform_unchecked<'a>(
     crtc: Crtc,
 ) -> GetCrtcTransformCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_crtc_transform_unchecked(
-            c.get_raw_conn(),
-            crtc as xcb_randr_crtc_t,
-        );
+        let cookie =
+            xcb_randr_get_crtc_transform_unchecked(c.get_raw_conn(), crtc as xcb_randr_crtc_t);
         GetCrtcTransformCookie {
             cookie: cookie,
             conn: c,
@@ -2518,14 +2543,14 @@ pub type GetPanningCookie<'a> = base::Cookie<'a, xcb_randr_get_panning_cookie_t>
 impl<'a> GetPanningCookie<'a> {
     pub fn get_reply(self) -> Result<GetPanningReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPanningReply {
-                ptr: xcb_randr_get_panning_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_randr_get_panning_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -2534,7 +2559,9 @@ impl<'a> GetPanningCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2588,15 +2615,9 @@ impl GetPanningReply {
     }
 }
 
-pub fn get_panning<'a>(
-    c: &'a base::Connection,
-    crtc: Crtc,
-) -> GetPanningCookie<'a> {
+pub fn get_panning<'a>(c: &'a base::Connection, crtc: Crtc) -> GetPanningCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_panning(
-            c.get_raw_conn(),
-            crtc as xcb_randr_crtc_t,
-        );
+        let cookie = xcb_randr_get_panning(c.get_raw_conn(), crtc as xcb_randr_crtc_t);
         GetPanningCookie {
             cookie: cookie,
             conn: c,
@@ -2605,15 +2626,9 @@ pub fn get_panning<'a>(
     }
 }
 
-pub fn get_panning_unchecked<'a>(
-    c: &'a base::Connection,
-    crtc: Crtc,
-) -> GetPanningCookie<'a> {
+pub fn get_panning_unchecked<'a>(c: &'a base::Connection, crtc: Crtc) -> GetPanningCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_panning_unchecked(
-            c.get_raw_conn(),
-            crtc as xcb_randr_crtc_t,
-        );
+        let cookie = xcb_randr_get_panning_unchecked(c.get_raw_conn(), crtc as xcb_randr_crtc_t);
         GetPanningCookie {
             cookie: cookie,
             conn: c,
@@ -2635,14 +2650,14 @@ pub type SetPanningCookie<'a> = base::Cookie<'a, xcb_randr_set_panning_cookie_t>
 impl<'a> SetPanningCookie<'a> {
     pub fn get_reply(self) -> Result<SetPanningReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             SetPanningReply {
-                ptr: xcb_randr_set_panning_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_randr_set_panning_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -2651,7 +2666,9 @@ impl<'a> SetPanningCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2808,7 +2825,11 @@ pub type GetOutputPrimaryCookie<'a> = base::Cookie<'a, xcb_randr_get_output_prim
 impl<'a> GetOutputPrimaryCookie<'a> {
     pub fn get_reply(self) -> Result<GetOutputPrimaryReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetOutputPrimaryReply {
                 ptr: xcb_randr_get_output_primary_reply(
@@ -2824,7 +2845,9 @@ impl<'a> GetOutputPrimaryCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2844,10 +2867,7 @@ pub fn get_output_primary<'a>(
     window: xproto::Window,
 ) -> GetOutputPrimaryCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_output_primary(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_randr_get_output_primary(c.get_raw_conn(), window as xcb_window_t);
         GetOutputPrimaryCookie {
             cookie: cookie,
             conn: c,
@@ -2861,10 +2881,8 @@ pub fn get_output_primary_unchecked<'a>(
     window: xproto::Window,
 ) -> GetOutputPrimaryCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_output_primary_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_randr_get_output_primary_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetOutputPrimaryCookie {
             cookie: cookie,
             conn: c,
@@ -2886,14 +2904,14 @@ pub type GetProvidersCookie<'a> = base::Cookie<'a, xcb_randr_get_providers_cooki
 impl<'a> GetProvidersCookie<'a> {
     pub fn get_reply(self) -> Result<GetProvidersReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetProvidersReply {
-                ptr: xcb_randr_get_providers_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_randr_get_providers_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -2902,7 +2920,9 @@ impl<'a> GetProvidersCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -2933,10 +2953,7 @@ pub fn get_providers<'a>(
     window: xproto::Window,
 ) -> GetProvidersCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_providers(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_randr_get_providers(c.get_raw_conn(), window as xcb_window_t);
         GetProvidersCookie {
             cookie: cookie,
             conn: c,
@@ -2950,10 +2967,7 @@ pub fn get_providers_unchecked<'a>(
     window: xproto::Window,
 ) -> GetProvidersCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_get_providers_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_randr_get_providers_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetProvidersCookie {
             cookie: cookie,
             conn: c,
@@ -2975,7 +2989,11 @@ pub type GetProviderInfoCookie<'a> = base::Cookie<'a, xcb_randr_get_provider_inf
 impl<'a> GetProviderInfoCookie<'a> {
     pub fn get_reply(self) -> Result<GetProviderInfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetProviderInfoReply {
                 ptr: xcb_randr_get_provider_info_reply(
@@ -2991,7 +3009,9 @@ impl<'a> GetProviderInfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3200,12 +3220,17 @@ impl base::CookieSeq for xcb_randr_list_provider_properties_cookie_t {
     }
 }
 
-pub type ListProviderPropertiesCookie<'a> = base::Cookie<'a, xcb_randr_list_provider_properties_cookie_t>;
+pub type ListProviderPropertiesCookie<'a> =
+    base::Cookie<'a, xcb_randr_list_provider_properties_cookie_t>;
 
 impl<'a> ListProviderPropertiesCookie<'a> {
     pub fn get_reply(self) -> Result<ListProviderPropertiesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListProviderPropertiesReply {
                 ptr: xcb_randr_list_provider_properties_reply(
@@ -3221,7 +3246,9 @@ impl<'a> ListProviderPropertiesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3249,10 +3276,8 @@ pub fn list_provider_properties<'a>(
     provider: Provider,
 ) -> ListProviderPropertiesCookie<'a> {
     unsafe {
-        let cookie = xcb_randr_list_provider_properties(
-            c.get_raw_conn(),
-            provider as xcb_randr_provider_t,
-        );
+        let cookie =
+            xcb_randr_list_provider_properties(c.get_raw_conn(), provider as xcb_randr_provider_t);
         ListProviderPropertiesCookie {
             cookie: cookie,
             conn: c,
@@ -3286,12 +3311,17 @@ impl base::CookieSeq for xcb_randr_query_provider_property_cookie_t {
     }
 }
 
-pub type QueryProviderPropertyCookie<'a> = base::Cookie<'a, xcb_randr_query_provider_property_cookie_t>;
+pub type QueryProviderPropertyCookie<'a> =
+    base::Cookie<'a, xcb_randr_query_provider_property_cookie_t>;
 
 impl<'a> QueryProviderPropertyCookie<'a> {
     pub fn get_reply(self) -> Result<QueryProviderPropertyReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryProviderPropertyReply {
                 ptr: xcb_randr_query_provider_property_reply(
@@ -3307,7 +3337,9 @@ impl<'a> QueryProviderPropertyCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3547,7 +3579,11 @@ pub type GetProviderPropertyCookie<'a> = base::Cookie<'a, xcb_randr_get_provider
 impl<'a> GetProviderPropertyCookie<'a> {
     pub fn get_reply(self) -> Result<GetProviderPropertyReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetProviderPropertyReply {
                 ptr: xcb_randr_get_provider_property_reply(
@@ -3563,7 +3599,9 @@ impl<'a> GetProviderPropertyCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3694,7 +3732,7 @@ impl ScreenChangeNotifyEvent {
     }
     /// Constructs a new ScreenChangeNotifyEvent
     /// `response_type` will be set automatically to SCREEN_CHANGE_NOTIFY
-    pub fn new (
+    pub fn new(
         rotation: u8,
         timestamp: xproto::Timestamp,
         config_timestamp: xproto::Timestamp,
@@ -3733,7 +3771,17 @@ pub struct CrtcChange {
 
 impl CrtcChange {
     #[allow(unused_unsafe)]
-    pub fn new(timestamp: xproto::Timestamp,window: xproto::Window,crtc: Crtc,mode: Mode,rotation: u16,x: i16,y: i16,width: u16,height: u16,) -> CrtcChange {
+    pub fn new(
+        timestamp: xproto::Timestamp,
+        window: xproto::Window,
+        crtc: Crtc,
+        mode: Mode,
+        rotation: u16,
+        x: i16,
+        y: i16,
+        width: u16,
+        height: u16,
+    ) -> CrtcChange {
         unsafe {
             CrtcChange {
                 base: xcb_randr_crtc_change_t {
@@ -3742,12 +3790,12 @@ impl CrtcChange {
                     crtc: crtc,
                     mode: mode,
                     rotation: rotation,
-                pad0: [0; 2],
+                    pad0: [0; 2],
                     x: x,
                     y: y,
                     width: width,
                     height: height,
-                }
+                },
             }
         }
     }
@@ -3805,7 +3853,17 @@ pub struct OutputChange {
 
 impl OutputChange {
     #[allow(unused_unsafe)]
-    pub fn new(timestamp: xproto::Timestamp,config_timestamp: xproto::Timestamp,window: xproto::Window,output: Output,crtc: Crtc,mode: Mode,rotation: u16,connection: u8,subpixel_order: u8,) -> OutputChange {
+    pub fn new(
+        timestamp: xproto::Timestamp,
+        config_timestamp: xproto::Timestamp,
+        window: xproto::Window,
+        output: Output,
+        crtc: Crtc,
+        mode: Mode,
+        rotation: u16,
+        connection: u8,
+        subpixel_order: u8,
+    ) -> OutputChange {
         unsafe {
             OutputChange {
                 base: xcb_randr_output_change_t {
@@ -3818,7 +3876,7 @@ impl OutputChange {
                     rotation: rotation,
                     connection: connection,
                     subpixel_order: subpixel_order,
-                }
+                },
             }
         }
     }
@@ -3876,7 +3934,13 @@ pub struct OutputProperty {
 
 impl OutputProperty {
     #[allow(unused_unsafe)]
-    pub fn new(window: xproto::Window,output: Output,atom: xproto::Atom,timestamp: xproto::Timestamp,status: u8,) -> OutputProperty {
+    pub fn new(
+        window: xproto::Window,
+        output: Output,
+        atom: xproto::Atom,
+        timestamp: xproto::Timestamp,
+        status: u8,
+    ) -> OutputProperty {
         unsafe {
             OutputProperty {
                 base: xcb_randr_output_property_t {
@@ -3885,8 +3949,8 @@ impl OutputProperty {
                     atom: atom,
                     timestamp: timestamp,
                     status: status,
-                pad0: [0; 11],
-                }
+                    pad0: [0; 11],
+                },
             }
         }
     }
@@ -3932,15 +3996,19 @@ pub struct ProviderChange {
 
 impl ProviderChange {
     #[allow(unused_unsafe)]
-    pub fn new(timestamp: xproto::Timestamp,window: xproto::Window,provider: Provider,) -> ProviderChange {
+    pub fn new(
+        timestamp: xproto::Timestamp,
+        window: xproto::Window,
+        provider: Provider,
+    ) -> ProviderChange {
         unsafe {
             ProviderChange {
                 base: xcb_randr_provider_change_t {
                     timestamp: timestamp,
                     window: window,
                     provider: provider,
-                pad0: [0; 16],
-                }
+                    pad0: [0; 16],
+                },
             }
         }
     }
@@ -3980,7 +4048,13 @@ pub struct ProviderProperty {
 
 impl ProviderProperty {
     #[allow(unused_unsafe)]
-    pub fn new(window: xproto::Window,provider: Provider,atom: xproto::Atom,timestamp: xproto::Timestamp,state: u8,) -> ProviderProperty {
+    pub fn new(
+        window: xproto::Window,
+        provider: Provider,
+        atom: xproto::Atom,
+        timestamp: xproto::Timestamp,
+        state: u8,
+    ) -> ProviderProperty {
         unsafe {
             ProviderProperty {
                 base: xcb_randr_provider_property_t {
@@ -3989,8 +4063,8 @@ impl ProviderProperty {
                     atom: atom,
                     timestamp: timestamp,
                     state: state,
-                pad0: [0; 11],
-                }
+                    pad0: [0; 11],
+                },
             }
         }
     }
@@ -4036,14 +4110,14 @@ pub struct ResourceChange {
 
 impl ResourceChange {
     #[allow(unused_unsafe)]
-    pub fn new(timestamp: xproto::Timestamp,window: xproto::Window,) -> ResourceChange {
+    pub fn new(timestamp: xproto::Timestamp, window: xproto::Window) -> ResourceChange {
         unsafe {
             ResourceChange {
                 base: xcb_randr_resource_change_t {
                     timestamp: timestamp,
                     window: window,
-                pad0: [0; 20],
-                }
+                    pad0: [0; 20],
+                },
             }
         }
     }
@@ -4073,11 +4147,9 @@ impl Iterator for ResourceChangeIterator {
     }
 }
 
-
 pub type NotifyData = xcb_randr_notify_data_t;
 
 impl NotifyData {
-
     pub fn cc(&self) -> CrtcChange {
         unsafe {
             let _ptr = self.data.as_ptr() as *const CrtcChange;
@@ -4200,10 +4272,7 @@ impl NotifyEvent {
     }
     /// Constructs a new NotifyEvent
     /// `response_type` will be set automatically to NOTIFY
-    pub fn new (
-        sub_code: u8,
-        u: NotifyData,
-    ) -> NotifyEvent {
+    pub fn new(sub_code: u8, u: NotifyData) -> NotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_randr_notify_event_t;
             (*raw).response_type = NOTIFY;

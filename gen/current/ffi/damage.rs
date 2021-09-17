@@ -2,10 +2,10 @@
 // Do not edit!
 
 use ffi::base::*;
-use ffi::xproto::*;
-use ffi::xfixes::*;
 use ffi::render::*;
 use ffi::shape::*;
+use ffi::xfixes::*;
+use ffi::xproto::*;
 use libc::{c_char, c_int, c_uint, c_void};
 use std;
 
@@ -17,8 +17,8 @@ pub type xcb_damage_damage_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_damage_damage_iterator_t {
-    pub data:  *mut xcb_damage_damage_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_damage_damage_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -134,78 +134,78 @@ pub struct xcb_damage_notify_event_t {
 }
 
 #[link(name = "xcb-damage")]
-extern {
+extern "C" {
 
-pub static mut xcb_damage_id: xcb_extension_t;
+    pub static mut xcb_damage_id: xcb_extension_t;
 
-pub fn xcb_damage_damage_next(i: *mut xcb_damage_damage_iterator_t);
+    pub fn xcb_damage_damage_next(i: *mut xcb_damage_damage_iterator_t);
 
-pub fn xcb_damage_damage_end(i: *mut xcb_damage_damage_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_damage_damage_end(i: *mut xcb_damage_damage_iterator_t) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_damage_query_version_reply (
+    pub fn xcb_damage_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_damage_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_damage_query_version_reply_t;
 
-    pub fn xcb_damage_query_version (
+    pub fn xcb_damage_query_version(
         c: *mut xcb_connection_t,
         client_major_version: u32,
         client_minor_version: u32,
     ) -> xcb_damage_query_version_cookie_t;
 
-    pub fn xcb_damage_query_version_unchecked (
+    pub fn xcb_damage_query_version_unchecked(
         c: *mut xcb_connection_t,
         client_major_version: u32,
         client_minor_version: u32,
     ) -> xcb_damage_query_version_cookie_t;
 
-    pub fn xcb_damage_create (
+    pub fn xcb_damage_create(
         c: *mut xcb_connection_t,
         damage: xcb_damage_damage_t,
         drawable: xcb_drawable_t,
         level: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_damage_create_checked (
+    pub fn xcb_damage_create_checked(
         c: *mut xcb_connection_t,
         damage: xcb_damage_damage_t,
         drawable: xcb_drawable_t,
         level: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_damage_destroy (
+    pub fn xcb_damage_destroy(
         c: *mut xcb_connection_t,
         damage: xcb_damage_damage_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_damage_destroy_checked (
+    pub fn xcb_damage_destroy_checked(
         c: *mut xcb_connection_t,
         damage: xcb_damage_damage_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_damage_subtract (
-        c: *mut xcb_connection_t,
-        damage: xcb_damage_damage_t,
-        repair: xcb_xfixes_region_t,
-        parts: xcb_xfixes_region_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_damage_subtract_checked (
+    pub fn xcb_damage_subtract(
         c: *mut xcb_connection_t,
         damage: xcb_damage_damage_t,
         repair: xcb_xfixes_region_t,
         parts: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_damage_add (
+    pub fn xcb_damage_subtract_checked(
+        c: *mut xcb_connection_t,
+        damage: xcb_damage_damage_t,
+        repair: xcb_xfixes_region_t,
+        parts: xcb_xfixes_region_t,
+    ) -> xcb_void_cookie_t;
+
+    pub fn xcb_damage_add(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         region: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_damage_add_checked (
+    pub fn xcb_damage_add_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         region: xcb_xfixes_region_t,

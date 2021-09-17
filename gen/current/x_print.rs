@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::x_print::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_x_print_id
-    }
+    unsafe { &mut xcb_x_print_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -116,7 +113,11 @@ pub type PrintQueryVersionCookie<'a> = base::Cookie<'a, xcb_x_print_print_query_
 impl<'a> PrintQueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<PrintQueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintQueryVersionReply {
                 ptr: xcb_x_print_print_query_version_reply(
@@ -132,7 +133,9 @@ impl<'a> PrintQueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -150,13 +153,9 @@ impl PrintQueryVersionReply {
     }
 }
 
-pub fn print_query_version<'a>(
-    c: &'a base::Connection,
-) -> PrintQueryVersionCookie<'a> {
+pub fn print_query_version<'a>(c: &'a base::Connection) -> PrintQueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_query_version(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_query_version(c.get_raw_conn());
         PrintQueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -165,13 +164,9 @@ pub fn print_query_version<'a>(
     }
 }
 
-pub fn print_query_version_unchecked<'a>(
-    c: &'a base::Connection,
-) -> PrintQueryVersionCookie<'a> {
+pub fn print_query_version_unchecked<'a>(c: &'a base::Connection) -> PrintQueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_query_version_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_query_version_unchecked(c.get_raw_conn());
         PrintQueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -188,12 +183,17 @@ impl base::CookieSeq for xcb_x_print_print_get_printer_list_cookie_t {
     }
 }
 
-pub type PrintGetPrinterListCookie<'a> = base::Cookie<'a, xcb_x_print_print_get_printer_list_cookie_t>;
+pub type PrintGetPrinterListCookie<'a> =
+    base::Cookie<'a, xcb_x_print_print_get_printer_list_cookie_t>;
 
 impl<'a> PrintGetPrinterListCookie<'a> {
     pub fn get_reply(self) -> Result<PrintGetPrinterListReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintGetPrinterListReply {
                 ptr: xcb_x_print_print_get_printer_list_reply(
@@ -209,7 +209,9 @@ impl<'a> PrintGetPrinterListCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -279,13 +281,9 @@ pub fn print_get_printer_list_unchecked<'a>(
 
 pub const PRINT_REHASH_PRINTER_LIST: u8 = 20;
 
-pub fn print_rehash_printer_list<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn print_rehash_printer_list<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_rehash_printer_list(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_rehash_printer_list(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -294,13 +292,9 @@ pub fn print_rehash_printer_list<'a>(
     }
 }
 
-pub fn print_rehash_printer_list_checked<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn print_rehash_printer_list_checked<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_rehash_printer_list_checked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_rehash_printer_list_checked(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -367,15 +361,9 @@ pub fn create_context_checked<'a>(
 
 pub const PRINT_SET_CONTEXT: u8 = 3;
 
-pub fn print_set_context<'a>(
-    c: &'a base::Connection,
-    context: u32,
-) -> base::VoidCookie<'a> {
+pub fn print_set_context<'a>(c: &'a base::Connection, context: u32) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_set_context(
-            c.get_raw_conn(),
-            context as u32,
-        );
+        let cookie = xcb_x_print_print_set_context(c.get_raw_conn(), context as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -389,10 +377,7 @@ pub fn print_set_context_checked<'a>(
     context: u32,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_set_context_checked(
-            c.get_raw_conn(),
-            context as u32,
-        );
+        let cookie = xcb_x_print_print_set_context_checked(c.get_raw_conn(), context as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -414,7 +399,11 @@ pub type PrintGetContextCookie<'a> = base::Cookie<'a, xcb_x_print_print_get_cont
 impl<'a> PrintGetContextCookie<'a> {
     pub fn get_reply(self) -> Result<PrintGetContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintGetContextReply {
                 ptr: xcb_x_print_print_get_context_reply(
@@ -430,7 +419,9 @@ impl<'a> PrintGetContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -445,13 +436,9 @@ impl PrintGetContextReply {
     }
 }
 
-pub fn print_get_context<'a>(
-    c: &'a base::Connection,
-) -> PrintGetContextCookie<'a> {
+pub fn print_get_context<'a>(c: &'a base::Connection) -> PrintGetContextCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_get_context(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_get_context(c.get_raw_conn());
         PrintGetContextCookie {
             cookie: cookie,
             conn: c,
@@ -460,13 +447,9 @@ pub fn print_get_context<'a>(
     }
 }
 
-pub fn print_get_context_unchecked<'a>(
-    c: &'a base::Connection,
-) -> PrintGetContextCookie<'a> {
+pub fn print_get_context_unchecked<'a>(c: &'a base::Connection) -> PrintGetContextCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_get_context_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_get_context_unchecked(c.get_raw_conn());
         PrintGetContextCookie {
             cookie: cookie,
             conn: c,
@@ -477,15 +460,9 @@ pub fn print_get_context_unchecked<'a>(
 
 pub const PRINT_DESTROY_CONTEXT: u8 = 5;
 
-pub fn print_destroy_context<'a>(
-    c: &'a base::Connection,
-    context: u32,
-) -> base::VoidCookie<'a> {
+pub fn print_destroy_context<'a>(c: &'a base::Connection, context: u32) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_destroy_context(
-            c.get_raw_conn(),
-            context as u32,
-        );
+        let cookie = xcb_x_print_print_destroy_context(c.get_raw_conn(), context as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -499,10 +476,7 @@ pub fn print_destroy_context_checked<'a>(
     context: u32,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_destroy_context_checked(
-            c.get_raw_conn(),
-            context as u32,
-        );
+        let cookie = xcb_x_print_print_destroy_context_checked(c.get_raw_conn(), context as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -519,12 +493,17 @@ impl base::CookieSeq for xcb_x_print_print_get_screen_of_context_cookie_t {
     }
 }
 
-pub type PrintGetScreenOfContextCookie<'a> = base::Cookie<'a, xcb_x_print_print_get_screen_of_context_cookie_t>;
+pub type PrintGetScreenOfContextCookie<'a> =
+    base::Cookie<'a, xcb_x_print_print_get_screen_of_context_cookie_t>;
 
 impl<'a> PrintGetScreenOfContextCookie<'a> {
     pub fn get_reply(self) -> Result<PrintGetScreenOfContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintGetScreenOfContextReply {
                 ptr: xcb_x_print_print_get_screen_of_context_reply(
@@ -540,14 +519,17 @@ impl<'a> PrintGetScreenOfContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
 
-pub type PrintGetScreenOfContextReply = base::Reply<xcb_x_print_print_get_screen_of_context_reply_t>;
+pub type PrintGetScreenOfContextReply =
+    base::Reply<xcb_x_print_print_get_screen_of_context_reply_t>;
 
 impl PrintGetScreenOfContextReply {
     pub fn root(&self) -> xproto::Window {
@@ -559,9 +541,7 @@ pub fn print_get_screen_of_context<'a>(
     c: &'a base::Connection,
 ) -> PrintGetScreenOfContextCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_get_screen_of_context(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_get_screen_of_context(c.get_raw_conn());
         PrintGetScreenOfContextCookie {
             cookie: cookie,
             conn: c,
@@ -574,9 +554,7 @@ pub fn print_get_screen_of_context_unchecked<'a>(
     c: &'a base::Connection,
 ) -> PrintGetScreenOfContextCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_get_screen_of_context_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_get_screen_of_context_unchecked(c.get_raw_conn());
         PrintGetScreenOfContextCookie {
             cookie: cookie,
             conn: c,
@@ -587,15 +565,9 @@ pub fn print_get_screen_of_context_unchecked<'a>(
 
 pub const PRINT_START_JOB: u8 = 7;
 
-pub fn print_start_job<'a>(
-    c: &'a base::Connection,
-    output_mode: u8,
-) -> base::VoidCookie<'a> {
+pub fn print_start_job<'a>(c: &'a base::Connection, output_mode: u8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_start_job(
-            c.get_raw_conn(),
-            output_mode as u8,
-        );
+        let cookie = xcb_x_print_print_start_job(c.get_raw_conn(), output_mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -609,10 +581,7 @@ pub fn print_start_job_checked<'a>(
     output_mode: u8,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_start_job_checked(
-            c.get_raw_conn(),
-            output_mode as u8,
-        );
+        let cookie = xcb_x_print_print_start_job_checked(c.get_raw_conn(), output_mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -623,15 +592,9 @@ pub fn print_start_job_checked<'a>(
 
 pub const PRINT_END_JOB: u8 = 8;
 
-pub fn print_end_job<'a>(
-    c: &'a base::Connection,
-    cancel: bool,
-) -> base::VoidCookie<'a> {
+pub fn print_end_job<'a>(c: &'a base::Connection, cancel: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_end_job(
-            c.get_raw_conn(),
-            cancel as u8,
-        );
+        let cookie = xcb_x_print_print_end_job(c.get_raw_conn(), cancel as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -640,15 +603,9 @@ pub fn print_end_job<'a>(
     }
 }
 
-pub fn print_end_job_checked<'a>(
-    c: &'a base::Connection,
-    cancel: bool,
-) -> base::VoidCookie<'a> {
+pub fn print_end_job_checked<'a>(c: &'a base::Connection, cancel: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_end_job_checked(
-            c.get_raw_conn(),
-            cancel as u8,
-        );
+        let cookie = xcb_x_print_print_end_job_checked(c.get_raw_conn(), cancel as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -659,15 +616,9 @@ pub fn print_end_job_checked<'a>(
 
 pub const PRINT_START_DOC: u8 = 9;
 
-pub fn print_start_doc<'a>(
-    c: &'a base::Connection,
-    driver_mode: u8,
-) -> base::VoidCookie<'a> {
+pub fn print_start_doc<'a>(c: &'a base::Connection, driver_mode: u8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_start_doc(
-            c.get_raw_conn(),
-            driver_mode as u8,
-        );
+        let cookie = xcb_x_print_print_start_doc(c.get_raw_conn(), driver_mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -681,10 +632,7 @@ pub fn print_start_doc_checked<'a>(
     driver_mode: u8,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_start_doc_checked(
-            c.get_raw_conn(),
-            driver_mode as u8,
-        );
+        let cookie = xcb_x_print_print_start_doc_checked(c.get_raw_conn(), driver_mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -695,15 +643,9 @@ pub fn print_start_doc_checked<'a>(
 
 pub const PRINT_END_DOC: u8 = 10;
 
-pub fn print_end_doc<'a>(
-    c: &'a base::Connection,
-    cancel: bool,
-) -> base::VoidCookie<'a> {
+pub fn print_end_doc<'a>(c: &'a base::Connection, cancel: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_end_doc(
-            c.get_raw_conn(),
-            cancel as u8,
-        );
+        let cookie = xcb_x_print_print_end_doc(c.get_raw_conn(), cancel as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -712,15 +654,9 @@ pub fn print_end_doc<'a>(
     }
 }
 
-pub fn print_end_doc_checked<'a>(
-    c: &'a base::Connection,
-    cancel: bool,
-) -> base::VoidCookie<'a> {
+pub fn print_end_doc_checked<'a>(c: &'a base::Connection, cancel: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_end_doc_checked(
-            c.get_raw_conn(),
-            cancel as u8,
-        );
+        let cookie = xcb_x_print_print_end_doc_checked(c.get_raw_conn(), cancel as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -811,12 +747,17 @@ impl base::CookieSeq for xcb_x_print_print_get_document_data_cookie_t {
     }
 }
 
-pub type PrintGetDocumentDataCookie<'a> = base::Cookie<'a, xcb_x_print_print_get_document_data_cookie_t>;
+pub type PrintGetDocumentDataCookie<'a> =
+    base::Cookie<'a, xcb_x_print_print_get_document_data_cookie_t>;
 
 impl<'a> PrintGetDocumentDataCookie<'a> {
     pub fn get_reply(self) -> Result<PrintGetDocumentDataReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintGetDocumentDataReply {
                 ptr: xcb_x_print_print_get_document_data_reply(
@@ -832,7 +773,9 @@ impl<'a> PrintGetDocumentDataCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -906,10 +849,7 @@ pub fn print_start_page<'a>(
     window: xproto::Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_start_page(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_x_print_print_start_page(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -923,10 +863,7 @@ pub fn print_start_page_checked<'a>(
     window: xproto::Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_start_page_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_x_print_print_start_page_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -937,15 +874,9 @@ pub fn print_start_page_checked<'a>(
 
 pub const PRINT_END_PAGE: u8 = 14;
 
-pub fn print_end_page<'a>(
-    c: &'a base::Connection,
-    cancel: bool,
-) -> base::VoidCookie<'a> {
+pub fn print_end_page<'a>(c: &'a base::Connection, cancel: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_end_page(
-            c.get_raw_conn(),
-            cancel as u8,
-        );
+        let cookie = xcb_x_print_print_end_page(c.get_raw_conn(), cancel as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -954,15 +885,9 @@ pub fn print_end_page<'a>(
     }
 }
 
-pub fn print_end_page_checked<'a>(
-    c: &'a base::Connection,
-    cancel: bool,
-) -> base::VoidCookie<'a> {
+pub fn print_end_page_checked<'a>(c: &'a base::Connection, cancel: bool) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_end_page_checked(
-            c.get_raw_conn(),
-            cancel as u8,
-        );
+        let cookie = xcb_x_print_print_end_page_checked(c.get_raw_conn(), cancel as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1032,7 +957,11 @@ pub type PrintInputSelectedCookie<'a> = base::Cookie<'a, xcb_x_print_print_input
 impl<'a> PrintInputSelectedCookie<'a> {
     pub fn get_reply(self) -> Result<PrintInputSelectedReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintInputSelectedReply {
                 ptr: xcb_x_print_print_input_selected_reply(
@@ -1048,7 +977,9 @@ impl<'a> PrintInputSelectedCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1087,10 +1018,8 @@ pub fn print_input_selected<'a>(
     context: Pcontext,
 ) -> PrintInputSelectedCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_input_selected(
-            c.get_raw_conn(),
-            context as xcb_x_print_pcontext_t,
-        );
+        let cookie =
+            xcb_x_print_print_input_selected(c.get_raw_conn(), context as xcb_x_print_pcontext_t);
         PrintInputSelectedCookie {
             cookie: cookie,
             conn: c,
@@ -1129,7 +1058,11 @@ pub type PrintGetAttributesCookie<'a> = base::Cookie<'a, xcb_x_print_print_get_a
 impl<'a> PrintGetAttributesCookie<'a> {
     pub fn get_reply(self) -> Result<PrintGetAttributesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintGetAttributesReply {
                 ptr: xcb_x_print_print_get_attributes_reply(
@@ -1145,7 +1078,9 @@ impl<'a> PrintGetAttributesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1214,12 +1149,17 @@ impl base::CookieSeq for xcb_x_print_print_get_one_attributes_cookie_t {
     }
 }
 
-pub type PrintGetOneAttributesCookie<'a> = base::Cookie<'a, xcb_x_print_print_get_one_attributes_cookie_t>;
+pub type PrintGetOneAttributesCookie<'a> =
+    base::Cookie<'a, xcb_x_print_print_get_one_attributes_cookie_t>;
 
 impl<'a> PrintGetOneAttributesCookie<'a> {
     pub fn get_reply(self) -> Result<PrintGetOneAttributesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintGetOneAttributesReply {
                 ptr: xcb_x_print_print_get_one_attributes_reply(
@@ -1235,7 +1175,9 @@ impl<'a> PrintGetOneAttributesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1372,12 +1314,17 @@ impl base::CookieSeq for xcb_x_print_print_get_page_dimensions_cookie_t {
     }
 }
 
-pub type PrintGetPageDimensionsCookie<'a> = base::Cookie<'a, xcb_x_print_print_get_page_dimensions_cookie_t>;
+pub type PrintGetPageDimensionsCookie<'a> =
+    base::Cookie<'a, xcb_x_print_print_get_page_dimensions_cookie_t>;
 
 impl<'a> PrintGetPageDimensionsCookie<'a> {
     pub fn get_reply(self) -> Result<PrintGetPageDimensionsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintGetPageDimensionsReply {
                 ptr: xcb_x_print_print_get_page_dimensions_reply(
@@ -1393,7 +1340,9 @@ impl<'a> PrintGetPageDimensionsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1470,7 +1419,11 @@ pub type PrintQueryScreensCookie<'a> = base::Cookie<'a, xcb_x_print_print_query_
 impl<'a> PrintQueryScreensCookie<'a> {
     pub fn get_reply(self) -> Result<PrintQueryScreensReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintQueryScreensReply {
                 ptr: xcb_x_print_print_query_screens_reply(
@@ -1486,7 +1439,9 @@ impl<'a> PrintQueryScreensCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1509,13 +1464,9 @@ impl PrintQueryScreensReply {
     }
 }
 
-pub fn print_query_screens<'a>(
-    c: &'a base::Connection,
-) -> PrintQueryScreensCookie<'a> {
+pub fn print_query_screens<'a>(c: &'a base::Connection) -> PrintQueryScreensCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_query_screens(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_query_screens(c.get_raw_conn());
         PrintQueryScreensCookie {
             cookie: cookie,
             conn: c,
@@ -1524,13 +1475,9 @@ pub fn print_query_screens<'a>(
     }
 }
 
-pub fn print_query_screens_unchecked<'a>(
-    c: &'a base::Connection,
-) -> PrintQueryScreensCookie<'a> {
+pub fn print_query_screens_unchecked<'a>(c: &'a base::Connection) -> PrintQueryScreensCookie<'a> {
     unsafe {
-        let cookie = xcb_x_print_print_query_screens_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_x_print_print_query_screens_unchecked(c.get_raw_conn());
         PrintQueryScreensCookie {
             cookie: cookie,
             conn: c,
@@ -1547,12 +1494,17 @@ impl base::CookieSeq for xcb_x_print_print_set_image_resolution_cookie_t {
     }
 }
 
-pub type PrintSetImageResolutionCookie<'a> = base::Cookie<'a, xcb_x_print_print_set_image_resolution_cookie_t>;
+pub type PrintSetImageResolutionCookie<'a> =
+    base::Cookie<'a, xcb_x_print_print_set_image_resolution_cookie_t>;
 
 impl<'a> PrintSetImageResolutionCookie<'a> {
     pub fn get_reply(self) -> Result<PrintSetImageResolutionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintSetImageResolutionReply {
                 ptr: xcb_x_print_print_set_image_resolution_reply(
@@ -1568,7 +1520,9 @@ impl<'a> PrintSetImageResolutionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1632,12 +1586,17 @@ impl base::CookieSeq for xcb_x_print_print_get_image_resolution_cookie_t {
     }
 }
 
-pub type PrintGetImageResolutionCookie<'a> = base::Cookie<'a, xcb_x_print_print_get_image_resolution_cookie_t>;
+pub type PrintGetImageResolutionCookie<'a> =
+    base::Cookie<'a, xcb_x_print_print_get_image_resolution_cookie_t>;
 
 impl<'a> PrintGetImageResolutionCookie<'a> {
     pub fn get_reply(self) -> Result<PrintGetImageResolutionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             PrintGetImageResolutionReply {
                 ptr: xcb_x_print_print_get_image_resolution_reply(
@@ -1653,7 +1612,9 @@ impl<'a> PrintGetImageResolutionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1718,11 +1679,7 @@ impl NotifyEvent {
     }
     /// Constructs a new NotifyEvent
     /// `response_type` will be set automatically to NOTIFY
-    pub fn new (
-        detail: u8,
-        context: Pcontext,
-        cancel: bool,
-    ) -> NotifyEvent {
+    pub fn new(detail: u8, context: Pcontext, cancel: bool) -> NotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_x_print_notify_event_t;
             (*raw).response_type = NOTIFY;
@@ -1747,10 +1704,7 @@ impl AttributNotifyEvent {
     }
     /// Constructs a new AttributNotifyEvent
     /// `response_type` will be set automatically to ATTRIBUT_NOTIFY
-    pub fn new (
-        detail: u8,
-        context: Pcontext,
-    ) -> AttributNotifyEvent {
+    pub fn new(detail: u8, context: Pcontext) -> AttributNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_x_print_attribut_notify_event_t;
             (*raw).response_type = ATTRIBUT_NOTIFY;

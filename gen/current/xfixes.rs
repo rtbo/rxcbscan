@@ -2,23 +2,20 @@
 // Do not edit!
 
 use base;
-use render;
-use xproto;
-use shape;
 use ffi::base::*;
-use ffi::xfixes::*;
 use ffi::render::*;
-use ffi::xproto::*;
 use ffi::shape::*;
+use ffi::xfixes::*;
+use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
+use render;
+use shape;
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_xfixes_id
-    }
+    unsafe { &mut xcb_xfixes_id }
 }
 
 pub const MAJOR_VERSION: u32 = 5;
@@ -82,14 +79,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_xfixes_query_version_cook
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_xfixes_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xfixes_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -98,7 +95,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -227,7 +226,7 @@ impl SelectionNotifyEvent {
     }
     /// Constructs a new SelectionNotifyEvent
     /// `response_type` will be set automatically to SELECTION_NOTIFY
-    pub fn new (
+    pub fn new(
         subtype: u8,
         window: xproto::Window,
         owner: xproto::Window,
@@ -315,7 +314,7 @@ impl CursorNotifyEvent {
     }
     /// Constructs a new CursorNotifyEvent
     /// `response_type` will be set automatically to CURSOR_NOTIFY
-    pub fn new (
+    pub fn new(
         subtype: u8,
         window: xproto::Window,
         cursor_serial: u32,
@@ -388,7 +387,11 @@ pub type GetCursorImageCookie<'a> = base::Cookie<'a, xcb_xfixes_get_cursor_image
 impl<'a> GetCursorImageCookie<'a> {
     pub fn get_reply(self) -> Result<GetCursorImageReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCursorImageReply {
                 ptr: xcb_xfixes_get_cursor_image_reply(
@@ -404,7 +407,9 @@ impl<'a> GetCursorImageCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -445,13 +450,9 @@ impl GetCursorImageReply {
     }
 }
 
-pub fn get_cursor_image<'a>(
-    c: &'a base::Connection,
-) -> GetCursorImageCookie<'a> {
+pub fn get_cursor_image<'a>(c: &'a base::Connection) -> GetCursorImageCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_get_cursor_image(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xfixes_get_cursor_image(c.get_raw_conn());
         GetCursorImageCookie {
             cookie: cookie,
             conn: c,
@@ -460,13 +461,9 @@ pub fn get_cursor_image<'a>(
     }
 }
 
-pub fn get_cursor_image_unchecked<'a>(
-    c: &'a base::Connection,
-) -> GetCursorImageCookie<'a> {
+pub fn get_cursor_image_unchecked<'a>(c: &'a base::Connection) -> GetCursorImageCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_get_cursor_image_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xfixes_get_cursor_image_unchecked(c.get_raw_conn());
         GetCursorImageCookie {
             cookie: cookie,
             conn: c,
@@ -689,15 +686,9 @@ pub fn create_region_from_picture_checked<'a>(
 
 pub const DESTROY_REGION: u8 = 10;
 
-pub fn destroy_region<'a>(
-    c: &'a base::Connection,
-    region: Region,
-) -> base::VoidCookie<'a> {
+pub fn destroy_region<'a>(c: &'a base::Connection, region: Region) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_destroy_region(
-            c.get_raw_conn(),
-            region as xcb_xfixes_region_t,
-        );
+        let cookie = xcb_xfixes_destroy_region(c.get_raw_conn(), region as xcb_xfixes_region_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -706,15 +697,10 @@ pub fn destroy_region<'a>(
     }
 }
 
-pub fn destroy_region_checked<'a>(
-    c: &'a base::Connection,
-    region: Region,
-) -> base::VoidCookie<'a> {
+pub fn destroy_region_checked<'a>(c: &'a base::Connection, region: Region) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_destroy_region_checked(
-            c.get_raw_conn(),
-            region as xcb_xfixes_region_t,
-        );
+        let cookie =
+            xcb_xfixes_destroy_region_checked(c.get_raw_conn(), region as xcb_xfixes_region_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1082,14 +1068,14 @@ pub type FetchRegionCookie<'a> = base::Cookie<'a, xcb_xfixes_fetch_region_cookie
 impl<'a> FetchRegionCookie<'a> {
     pub fn get_reply(self) -> Result<FetchRegionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             FetchRegionReply {
-                ptr: xcb_xfixes_fetch_region_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xfixes_fetch_region_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -1098,7 +1084,9 @@ impl<'a> FetchRegionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1116,15 +1104,9 @@ impl FetchRegionReply {
     }
 }
 
-pub fn fetch_region<'a>(
-    c: &'a base::Connection,
-    region: Region,
-) -> FetchRegionCookie<'a> {
+pub fn fetch_region<'a>(c: &'a base::Connection, region: Region) -> FetchRegionCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_fetch_region(
-            c.get_raw_conn(),
-            region as xcb_xfixes_region_t,
-        );
+        let cookie = xcb_xfixes_fetch_region(c.get_raw_conn(), region as xcb_xfixes_region_t);
         FetchRegionCookie {
             cookie: cookie,
             conn: c,
@@ -1138,10 +1120,8 @@ pub fn fetch_region_unchecked<'a>(
     region: Region,
 ) -> FetchRegionCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_fetch_region_unchecked(
-            c.get_raw_conn(),
-            region as xcb_xfixes_region_t,
-        );
+        let cookie =
+            xcb_xfixes_fetch_region_unchecked(c.get_raw_conn(), region as xcb_xfixes_region_t);
         FetchRegionCookie {
             cookie: cookie,
             conn: c,
@@ -1359,7 +1339,11 @@ pub type GetCursorNameCookie<'a> = base::Cookie<'a, xcb_xfixes_get_cursor_name_c
 impl<'a> GetCursorNameCookie<'a> {
     pub fn get_reply(self) -> Result<GetCursorNameReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCursorNameReply {
                 ptr: xcb_xfixes_get_cursor_name_reply(
@@ -1375,7 +1359,9 @@ impl<'a> GetCursorNameCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1408,10 +1394,7 @@ pub fn get_cursor_name<'a>(
     cursor: xproto::Cursor,
 ) -> GetCursorNameCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_get_cursor_name(
-            c.get_raw_conn(),
-            cursor as xcb_cursor_t,
-        );
+        let cookie = xcb_xfixes_get_cursor_name(c.get_raw_conn(), cursor as xcb_cursor_t);
         GetCursorNameCookie {
             cookie: cookie,
             conn: c,
@@ -1425,10 +1408,7 @@ pub fn get_cursor_name_unchecked<'a>(
     cursor: xproto::Cursor,
 ) -> GetCursorNameCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_get_cursor_name_unchecked(
-            c.get_raw_conn(),
-            cursor as xcb_cursor_t,
-        );
+        let cookie = xcb_xfixes_get_cursor_name_unchecked(c.get_raw_conn(), cursor as xcb_cursor_t);
         GetCursorNameCookie {
             cookie: cookie,
             conn: c,
@@ -1445,12 +1425,17 @@ impl base::CookieSeq for xcb_xfixes_get_cursor_image_and_name_cookie_t {
     }
 }
 
-pub type GetCursorImageAndNameCookie<'a> = base::Cookie<'a, xcb_xfixes_get_cursor_image_and_name_cookie_t>;
+pub type GetCursorImageAndNameCookie<'a> =
+    base::Cookie<'a, xcb_xfixes_get_cursor_image_and_name_cookie_t>;
 
 impl<'a> GetCursorImageAndNameCookie<'a> {
     pub fn get_reply(self) -> Result<GetCursorImageAndNameReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCursorImageAndNameReply {
                 ptr: xcb_xfixes_get_cursor_image_and_name_reply(
@@ -1466,7 +1451,9 @@ impl<'a> GetCursorImageAndNameCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1523,13 +1510,9 @@ impl GetCursorImageAndNameReply {
     }
 }
 
-pub fn get_cursor_image_and_name<'a>(
-    c: &'a base::Connection,
-) -> GetCursorImageAndNameCookie<'a> {
+pub fn get_cursor_image_and_name<'a>(c: &'a base::Connection) -> GetCursorImageAndNameCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_get_cursor_image_and_name(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xfixes_get_cursor_image_and_name(c.get_raw_conn());
         GetCursorImageAndNameCookie {
             cookie: cookie,
             conn: c,
@@ -1542,9 +1525,7 @@ pub fn get_cursor_image_and_name_unchecked<'a>(
     c: &'a base::Connection,
 ) -> GetCursorImageAndNameCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_get_cursor_image_and_name_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xfixes_get_cursor_image_and_name_unchecked(c.get_raw_conn());
         GetCursorImageAndNameCookie {
             cookie: cookie,
             conn: c,
@@ -1699,15 +1680,9 @@ pub fn expand_region_checked<'a>(
 
 pub const HIDE_CURSOR: u8 = 29;
 
-pub fn hide_cursor<'a>(
-    c: &'a base::Connection,
-    window: xproto::Window,
-) -> base::VoidCookie<'a> {
+pub fn hide_cursor<'a>(c: &'a base::Connection, window: xproto::Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_hide_cursor(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_xfixes_hide_cursor(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1721,10 +1696,7 @@ pub fn hide_cursor_checked<'a>(
     window: xproto::Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_hide_cursor_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_xfixes_hide_cursor_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1735,15 +1707,9 @@ pub fn hide_cursor_checked<'a>(
 
 pub const SHOW_CURSOR: u8 = 30;
 
-pub fn show_cursor<'a>(
-    c: &'a base::Connection,
-    window: xproto::Window,
-) -> base::VoidCookie<'a> {
+pub fn show_cursor<'a>(c: &'a base::Connection, window: xproto::Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_show_cursor(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_xfixes_show_cursor(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1757,10 +1723,7 @@ pub fn show_cursor_checked<'a>(
     window: xproto::Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_show_cursor_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_xfixes_show_cursor_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1846,10 +1809,8 @@ pub fn delete_pointer_barrier<'a>(
     barrier: Barrier,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xfixes_delete_pointer_barrier(
-            c.get_raw_conn(),
-            barrier as xcb_xfixes_barrier_t,
-        );
+        let cookie =
+            xcb_xfixes_delete_pointer_barrier(c.get_raw_conn(), barrier as xcb_xfixes_barrier_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,

@@ -15,8 +15,8 @@ pub type xcb_randr_mode_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_mode_iterator_t {
-    pub data:  *mut xcb_randr_mode_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_mode_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -25,8 +25,8 @@ pub type xcb_randr_crtc_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_crtc_iterator_t {
-    pub data:  *mut xcb_randr_crtc_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_crtc_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -35,8 +35,8 @@ pub type xcb_randr_output_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_output_iterator_t {
-    pub data:  *mut xcb_randr_output_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_output_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -45,8 +45,8 @@ pub type xcb_randr_provider_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_provider_iterator_t {
-    pub data:  *mut xcb_randr_provider_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_provider_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -110,8 +110,8 @@ pub struct xcb_randr_screen_size_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_screen_size_iterator_t {
-    pub data:  *mut xcb_randr_screen_size_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_screen_size_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -124,8 +124,8 @@ pub struct xcb_randr_refresh_rates_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_refresh_rates_iterator_t<'a> {
-    pub data:  *mut xcb_randr_refresh_rates_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_refresh_rates_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_randr_refresh_rates_t>,
 }
@@ -343,8 +343,8 @@ pub struct xcb_randr_mode_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_mode_info_iterator_t {
-    pub data:  *mut xcb_randr_mode_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_mode_info_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1256,8 +1256,8 @@ pub struct xcb_randr_crtc_change_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_crtc_change_iterator_t {
-    pub data:  *mut xcb_randr_crtc_change_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_crtc_change_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1278,8 +1278,8 @@ pub struct xcb_randr_output_change_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_output_change_iterator_t {
-    pub data:  *mut xcb_randr_output_change_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_output_change_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1297,8 +1297,8 @@ pub struct xcb_randr_output_property_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_output_property_iterator_t {
-    pub data:  *mut xcb_randr_output_property_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_output_property_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1314,8 +1314,8 @@ pub struct xcb_randr_provider_change_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_provider_change_iterator_t {
-    pub data:  *mut xcb_randr_provider_change_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_provider_change_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1333,8 +1333,8 @@ pub struct xcb_randr_provider_property_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_provider_property_iterator_t {
-    pub data:  *mut xcb_randr_provider_property_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_provider_property_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1349,8 +1349,8 @@ pub struct xcb_randr_resource_change_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_resource_change_iterator_t {
-    pub data:  *mut xcb_randr_resource_change_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_resource_change_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1363,14 +1363,16 @@ pub struct xcb_randr_notify_data_t {
 
 impl Copy for xcb_randr_notify_data_t {}
 impl Clone for xcb_randr_notify_data_t {
-    fn clone(&self) -> xcb_randr_notify_data_t { *self }
+    fn clone(&self) -> xcb_randr_notify_data_t {
+        *self
+    }
 }
 
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_randr_notify_data_iterator_t {
-    pub data:  *mut xcb_randr_notify_data_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_randr_notify_data_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -1386,67 +1388,73 @@ pub struct xcb_randr_notify_event_t {
 }
 
 #[link(name = "xcb-randr")]
-extern {
+extern "C" {
 
-pub static mut xcb_randr_id: xcb_extension_t;
+    pub static mut xcb_randr_id: xcb_extension_t;
 
-pub fn xcb_randr_mode_next(i: *mut xcb_randr_mode_iterator_t);
+    pub fn xcb_randr_mode_next(i: *mut xcb_randr_mode_iterator_t);
 
-pub fn xcb_randr_mode_end(i: *mut xcb_randr_mode_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_mode_end(i: *mut xcb_randr_mode_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_crtc_next(i: *mut xcb_randr_crtc_iterator_t);
+    pub fn xcb_randr_crtc_next(i: *mut xcb_randr_crtc_iterator_t);
 
-pub fn xcb_randr_crtc_end(i: *mut xcb_randr_crtc_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_crtc_end(i: *mut xcb_randr_crtc_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_output_next(i: *mut xcb_randr_output_iterator_t);
+    pub fn xcb_randr_output_next(i: *mut xcb_randr_output_iterator_t);
 
-pub fn xcb_randr_output_end(i: *mut xcb_randr_output_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_output_end(i: *mut xcb_randr_output_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_provider_next(i: *mut xcb_randr_provider_iterator_t);
+    pub fn xcb_randr_provider_next(i: *mut xcb_randr_provider_iterator_t);
 
-pub fn xcb_randr_provider_end(i: *mut xcb_randr_provider_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_provider_end(i: *mut xcb_randr_provider_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_screen_size_next(i: *mut xcb_randr_screen_size_iterator_t);
+    pub fn xcb_randr_screen_size_next(i: *mut xcb_randr_screen_size_iterator_t);
 
-pub fn xcb_randr_screen_size_end(i: *mut xcb_randr_screen_size_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_screen_size_end(
+        i: *mut xcb_randr_screen_size_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_refresh_rates_rates(R: *const xcb_randr_refresh_rates_t) -> *mut u16;
+    pub fn xcb_randr_refresh_rates_rates(R: *const xcb_randr_refresh_rates_t) -> *mut u16;
 
-pub fn xcb_randr_refresh_rates_rates_length(R: *const xcb_randr_refresh_rates_t) -> c_int;
+    pub fn xcb_randr_refresh_rates_rates_length(R: *const xcb_randr_refresh_rates_t) -> c_int;
 
-pub fn xcb_randr_refresh_rates_rates_end(R: *const xcb_randr_refresh_rates_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_refresh_rates_rates_end(
+        R: *const xcb_randr_refresh_rates_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_refresh_rates_next(i: *mut xcb_randr_refresh_rates_iterator_t);
+    pub fn xcb_randr_refresh_rates_next(i: *mut xcb_randr_refresh_rates_iterator_t);
 
-pub fn xcb_randr_refresh_rates_end(i: *mut xcb_randr_refresh_rates_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_refresh_rates_end(
+        i: *mut xcb_randr_refresh_rates_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_query_version_reply (
+    pub fn xcb_randr_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_query_version_reply_t;
 
-    pub fn xcb_randr_query_version (
+    pub fn xcb_randr_query_version(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_randr_query_version_cookie_t;
 
-    pub fn xcb_randr_query_version_unchecked (
+    pub fn xcb_randr_query_version_unchecked(
         c: *mut xcb_connection_t,
         major_version: u32,
         minor_version: u32,
     ) -> xcb_randr_query_version_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_set_screen_config_reply (
+    pub fn xcb_randr_set_screen_config_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_set_screen_config_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_set_screen_config_reply_t;
 
-    pub fn xcb_randr_set_screen_config (
+    pub fn xcb_randr_set_screen_config(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         timestamp: xcb_timestamp_t,
@@ -1456,7 +1464,7 @@ pub fn xcb_randr_refresh_rates_end(i: *mut xcb_randr_refresh_rates_iterator_t) -
         rate: u16,
     ) -> xcb_randr_set_screen_config_cookie_t;
 
-    pub fn xcb_randr_set_screen_config_unchecked (
+    pub fn xcb_randr_set_screen_config_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         timestamp: xcb_timestamp_t,
@@ -1466,63 +1474,73 @@ pub fn xcb_randr_refresh_rates_end(i: *mut xcb_randr_refresh_rates_iterator_t) -
         rate: u16,
     ) -> xcb_randr_set_screen_config_cookie_t;
 
-    pub fn xcb_randr_select_input (
+    pub fn xcb_randr_select_input(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         enable: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_select_input_checked (
+    pub fn xcb_randr_select_input_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         enable: u16,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_randr_get_screen_info_sizes(R: *const xcb_randr_get_screen_info_reply_t) -> *mut xcb_randr_screen_size_t;
+    pub fn xcb_randr_get_screen_info_sizes(
+        R: *const xcb_randr_get_screen_info_reply_t,
+    ) -> *mut xcb_randr_screen_size_t;
 
-pub fn xcb_randr_get_screen_info_sizes_length(R: *const xcb_randr_get_screen_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_info_sizes_length(
+        R: *const xcb_randr_get_screen_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_info_sizes_iterator(R: *const xcb_randr_get_screen_info_reply_t) -> xcb_randr_screen_size_iterator_t;
+    pub fn xcb_randr_get_screen_info_sizes_iterator(
+        R: *const xcb_randr_get_screen_info_reply_t,
+    ) -> xcb_randr_screen_size_iterator_t;
 
-pub fn xcb_randr_get_screen_info_rates_length(R: *const xcb_randr_get_screen_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_info_rates_length(
+        R: *const xcb_randr_get_screen_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_info_rates_iterator<'a>(R: *const xcb_randr_get_screen_info_reply_t) -> xcb_randr_refresh_rates_iterator_t<'a>;
+    pub fn xcb_randr_get_screen_info_rates_iterator<'a>(
+        R: *const xcb_randr_get_screen_info_reply_t,
+    ) -> xcb_randr_refresh_rates_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_screen_info_reply (
+    pub fn xcb_randr_get_screen_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_screen_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_screen_info_reply_t;
 
-    pub fn xcb_randr_get_screen_info (
+    pub fn xcb_randr_get_screen_info(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_screen_info_cookie_t;
 
-    pub fn xcb_randr_get_screen_info_unchecked (
+    pub fn xcb_randr_get_screen_info_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_screen_info_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_screen_size_range_reply (
+    pub fn xcb_randr_get_screen_size_range_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_screen_size_range_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_screen_size_range_reply_t;
 
-    pub fn xcb_randr_get_screen_size_range (
+    pub fn xcb_randr_get_screen_size_range(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_screen_size_range_cookie_t;
 
-    pub fn xcb_randr_get_screen_size_range_unchecked (
+    pub fn xcb_randr_get_screen_size_range_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_screen_size_range_cookie_t;
 
-    pub fn xcb_randr_set_screen_size (
+    pub fn xcb_randr_set_screen_size(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         width: u16,
@@ -1531,7 +1549,7 @@ pub fn xcb_randr_get_screen_info_rates_iterator<'a>(R: *const xcb_randr_get_scre
         mm_height: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_set_screen_size_checked (
+    pub fn xcb_randr_set_screen_size_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         width: u16,
@@ -1540,143 +1558,203 @@ pub fn xcb_randr_get_screen_info_rates_iterator<'a>(R: *const xcb_randr_get_scre
         mm_height: u32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_randr_mode_info_next(i: *mut xcb_randr_mode_info_iterator_t);
+    pub fn xcb_randr_mode_info_next(i: *mut xcb_randr_mode_info_iterator_t);
 
-pub fn xcb_randr_mode_info_end(i: *mut xcb_randr_mode_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_mode_info_end(
+        i: *mut xcb_randr_mode_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_screen_resources_crtcs(R: *const xcb_randr_get_screen_resources_reply_t) -> *mut xcb_randr_crtc_t;
+    pub fn xcb_randr_get_screen_resources_crtcs(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> *mut xcb_randr_crtc_t;
 
-pub fn xcb_randr_get_screen_resources_crtcs_length(R: *const xcb_randr_get_screen_resources_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_resources_crtcs_length(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_resources_crtcs_end(R: *const xcb_randr_get_screen_resources_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_screen_resources_crtcs_end(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_screen_resources_outputs(R: *const xcb_randr_get_screen_resources_reply_t) -> *mut xcb_randr_output_t;
+    pub fn xcb_randr_get_screen_resources_outputs(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> *mut xcb_randr_output_t;
 
-pub fn xcb_randr_get_screen_resources_outputs_length(R: *const xcb_randr_get_screen_resources_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_resources_outputs_length(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_resources_outputs_end(R: *const xcb_randr_get_screen_resources_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_screen_resources_outputs_end(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_screen_resources_modes(R: *const xcb_randr_get_screen_resources_reply_t) -> *mut xcb_randr_mode_info_t;
+    pub fn xcb_randr_get_screen_resources_modes(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> *mut xcb_randr_mode_info_t;
 
-pub fn xcb_randr_get_screen_resources_modes_length(R: *const xcb_randr_get_screen_resources_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_resources_modes_length(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_resources_modes_iterator(R: *const xcb_randr_get_screen_resources_reply_t) -> xcb_randr_mode_info_iterator_t;
+    pub fn xcb_randr_get_screen_resources_modes_iterator(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> xcb_randr_mode_info_iterator_t;
 
-pub fn xcb_randr_get_screen_resources_names(R: *const xcb_randr_get_screen_resources_reply_t) -> *mut u8;
+    pub fn xcb_randr_get_screen_resources_names(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_randr_get_screen_resources_names_length(R: *const xcb_randr_get_screen_resources_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_resources_names_length(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_resources_names_end(R: *const xcb_randr_get_screen_resources_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_screen_resources_names_end(
+        R: *const xcb_randr_get_screen_resources_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_screen_resources_reply (
+    pub fn xcb_randr_get_screen_resources_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_screen_resources_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_screen_resources_reply_t;
 
-    pub fn xcb_randr_get_screen_resources (
+    pub fn xcb_randr_get_screen_resources(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_screen_resources_cookie_t;
 
-    pub fn xcb_randr_get_screen_resources_unchecked (
+    pub fn xcb_randr_get_screen_resources_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_screen_resources_cookie_t;
 
-pub fn xcb_randr_get_output_info_crtcs(R: *const xcb_randr_get_output_info_reply_t) -> *mut xcb_randr_crtc_t;
+    pub fn xcb_randr_get_output_info_crtcs(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> *mut xcb_randr_crtc_t;
 
-pub fn xcb_randr_get_output_info_crtcs_length(R: *const xcb_randr_get_output_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_output_info_crtcs_length(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_output_info_crtcs_end(R: *const xcb_randr_get_output_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_output_info_crtcs_end(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_output_info_modes(R: *const xcb_randr_get_output_info_reply_t) -> *mut xcb_randr_mode_t;
+    pub fn xcb_randr_get_output_info_modes(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> *mut xcb_randr_mode_t;
 
-pub fn xcb_randr_get_output_info_modes_length(R: *const xcb_randr_get_output_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_output_info_modes_length(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_output_info_modes_end(R: *const xcb_randr_get_output_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_output_info_modes_end(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_output_info_clones(R: *const xcb_randr_get_output_info_reply_t) -> *mut xcb_randr_output_t;
+    pub fn xcb_randr_get_output_info_clones(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> *mut xcb_randr_output_t;
 
-pub fn xcb_randr_get_output_info_clones_length(R: *const xcb_randr_get_output_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_output_info_clones_length(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_output_info_clones_end(R: *const xcb_randr_get_output_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_output_info_clones_end(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_output_info_name(R: *const xcb_randr_get_output_info_reply_t) -> *mut u8;
+    pub fn xcb_randr_get_output_info_name(R: *const xcb_randr_get_output_info_reply_t) -> *mut u8;
 
-pub fn xcb_randr_get_output_info_name_length(R: *const xcb_randr_get_output_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_output_info_name_length(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_output_info_name_end(R: *const xcb_randr_get_output_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_output_info_name_end(
+        R: *const xcb_randr_get_output_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_output_info_reply (
+    pub fn xcb_randr_get_output_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_output_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_output_info_reply_t;
 
-    pub fn xcb_randr_get_output_info (
+    pub fn xcb_randr_get_output_info(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_randr_get_output_info_cookie_t;
 
-    pub fn xcb_randr_get_output_info_unchecked (
+    pub fn xcb_randr_get_output_info_unchecked(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_randr_get_output_info_cookie_t;
 
-pub fn xcb_randr_list_output_properties_atoms(R: *const xcb_randr_list_output_properties_reply_t) -> *mut xcb_atom_t;
+    pub fn xcb_randr_list_output_properties_atoms(
+        R: *const xcb_randr_list_output_properties_reply_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_randr_list_output_properties_atoms_length(R: *const xcb_randr_list_output_properties_reply_t) -> c_int;
+    pub fn xcb_randr_list_output_properties_atoms_length(
+        R: *const xcb_randr_list_output_properties_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_list_output_properties_atoms_end(R: *const xcb_randr_list_output_properties_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_list_output_properties_atoms_end(
+        R: *const xcb_randr_list_output_properties_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_list_output_properties_reply (
+    pub fn xcb_randr_list_output_properties_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_list_output_properties_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_list_output_properties_reply_t;
 
-    pub fn xcb_randr_list_output_properties (
+    pub fn xcb_randr_list_output_properties(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
     ) -> xcb_randr_list_output_properties_cookie_t;
 
-    pub fn xcb_randr_list_output_properties_unchecked (
+    pub fn xcb_randr_list_output_properties_unchecked(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
     ) -> xcb_randr_list_output_properties_cookie_t;
 
-pub fn xcb_randr_query_output_property_valid_values(R: *const xcb_randr_query_output_property_reply_t) -> *mut i32;
+    pub fn xcb_randr_query_output_property_valid_values(
+        R: *const xcb_randr_query_output_property_reply_t,
+    ) -> *mut i32;
 
-pub fn xcb_randr_query_output_property_valid_values_length(R: *const xcb_randr_query_output_property_reply_t) -> c_int;
+    pub fn xcb_randr_query_output_property_valid_values_length(
+        R: *const xcb_randr_query_output_property_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_query_output_property_valid_values_end(R: *const xcb_randr_query_output_property_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_query_output_property_valid_values_end(
+        R: *const xcb_randr_query_output_property_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_query_output_property_reply (
+    pub fn xcb_randr_query_output_property_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_query_output_property_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_query_output_property_reply_t;
 
-    pub fn xcb_randr_query_output_property (
+    pub fn xcb_randr_query_output_property(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
     ) -> xcb_randr_query_output_property_cookie_t;
 
-    pub fn xcb_randr_query_output_property_unchecked (
+    pub fn xcb_randr_query_output_property_unchecked(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
     ) -> xcb_randr_query_output_property_cookie_t;
 
-    pub fn xcb_randr_configure_output_property (
+    pub fn xcb_randr_configure_output_property(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
@@ -1686,7 +1764,7 @@ pub fn xcb_randr_query_output_property_valid_values_end(R: *const xcb_randr_quer
         values: *const i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_configure_output_property_checked (
+    pub fn xcb_randr_configure_output_property_checked(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
@@ -1696,7 +1774,7 @@ pub fn xcb_randr_query_output_property_valid_values_end(R: *const xcb_randr_quer
         values: *const i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_change_output_property (
+    pub fn xcb_randr_change_output_property(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
@@ -1707,7 +1785,7 @@ pub fn xcb_randr_query_output_property_valid_values_end(R: *const xcb_randr_quer
         data: *const c_void,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_change_output_property_checked (
+    pub fn xcb_randr_change_output_property_checked(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
@@ -1718,32 +1796,38 @@ pub fn xcb_randr_query_output_property_valid_values_end(R: *const xcb_randr_quer
         data: *const c_void,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_delete_output_property (
+    pub fn xcb_randr_delete_output_property(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_delete_output_property_checked (
+    pub fn xcb_randr_delete_output_property_checked(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_randr_get_output_property_data(R: *const xcb_randr_get_output_property_reply_t) -> *mut u8;
+    pub fn xcb_randr_get_output_property_data(
+        R: *const xcb_randr_get_output_property_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_randr_get_output_property_data_length(R: *const xcb_randr_get_output_property_reply_t) -> c_int;
+    pub fn xcb_randr_get_output_property_data_length(
+        R: *const xcb_randr_get_output_property_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_output_property_data_end(R: *const xcb_randr_get_output_property_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_output_property_data_end(
+        R: *const xcb_randr_get_output_property_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_output_property_reply (
+    pub fn xcb_randr_get_output_property_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_output_property_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_output_property_reply_t;
 
-    pub fn xcb_randr_get_output_property (
+    pub fn xcb_randr_get_output_property(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
@@ -1754,7 +1838,7 @@ pub fn xcb_randr_get_output_property_data_end(R: *const xcb_randr_get_output_pro
         pending: u8,
     ) -> xcb_randr_get_output_property_cookie_t;
 
-    pub fn xcb_randr_get_output_property_unchecked (
+    pub fn xcb_randr_get_output_property_unchecked(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         property: xcb_atom_t,
@@ -1766,13 +1850,13 @@ pub fn xcb_randr_get_output_property_data_end(R: *const xcb_randr_get_output_pro
     ) -> xcb_randr_get_output_property_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_create_mode_reply (
+    pub fn xcb_randr_create_mode_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_create_mode_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_create_mode_reply_t;
 
-    pub fn xcb_randr_create_mode (
+    pub fn xcb_randr_create_mode(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         mode_info: xcb_randr_mode_info_t,
@@ -1780,7 +1864,7 @@ pub fn xcb_randr_get_output_property_data_end(R: *const xcb_randr_get_output_pro
         name: *const c_char,
     ) -> xcb_randr_create_mode_cookie_t;
 
-    pub fn xcb_randr_create_mode_unchecked (
+    pub fn xcb_randr_create_mode_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         mode_info: xcb_randr_mode_info_t,
@@ -1788,79 +1872,91 @@ pub fn xcb_randr_get_output_property_data_end(R: *const xcb_randr_get_output_pro
         name: *const c_char,
     ) -> xcb_randr_create_mode_cookie_t;
 
-    pub fn xcb_randr_destroy_mode (
+    pub fn xcb_randr_destroy_mode(
         c: *mut xcb_connection_t,
         mode: xcb_randr_mode_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_destroy_mode_checked (
+    pub fn xcb_randr_destroy_mode_checked(
         c: *mut xcb_connection_t,
         mode: xcb_randr_mode_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_add_output_mode (
-        c: *mut xcb_connection_t,
-        output: xcb_randr_output_t,
-        mode: xcb_randr_mode_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_randr_add_output_mode_checked (
+    pub fn xcb_randr_add_output_mode(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         mode: xcb_randr_mode_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_delete_output_mode (
+    pub fn xcb_randr_add_output_mode_checked(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         mode: xcb_randr_mode_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_delete_output_mode_checked (
+    pub fn xcb_randr_delete_output_mode(
         c: *mut xcb_connection_t,
         output: xcb_randr_output_t,
         mode: xcb_randr_mode_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_randr_get_crtc_info_outputs(R: *const xcb_randr_get_crtc_info_reply_t) -> *mut xcb_randr_output_t;
+    pub fn xcb_randr_delete_output_mode_checked(
+        c: *mut xcb_connection_t,
+        output: xcb_randr_output_t,
+        mode: xcb_randr_mode_t,
+    ) -> xcb_void_cookie_t;
 
-pub fn xcb_randr_get_crtc_info_outputs_length(R: *const xcb_randr_get_crtc_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_crtc_info_outputs(
+        R: *const xcb_randr_get_crtc_info_reply_t,
+    ) -> *mut xcb_randr_output_t;
 
-pub fn xcb_randr_get_crtc_info_outputs_end(R: *const xcb_randr_get_crtc_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_crtc_info_outputs_length(
+        R: *const xcb_randr_get_crtc_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_crtc_info_possible(R: *const xcb_randr_get_crtc_info_reply_t) -> *mut xcb_randr_output_t;
+    pub fn xcb_randr_get_crtc_info_outputs_end(
+        R: *const xcb_randr_get_crtc_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_crtc_info_possible_length(R: *const xcb_randr_get_crtc_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_crtc_info_possible(
+        R: *const xcb_randr_get_crtc_info_reply_t,
+    ) -> *mut xcb_randr_output_t;
 
-pub fn xcb_randr_get_crtc_info_possible_end(R: *const xcb_randr_get_crtc_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_crtc_info_possible_length(
+        R: *const xcb_randr_get_crtc_info_reply_t,
+    ) -> c_int;
+
+    pub fn xcb_randr_get_crtc_info_possible_end(
+        R: *const xcb_randr_get_crtc_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_crtc_info_reply (
+    pub fn xcb_randr_get_crtc_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_crtc_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_crtc_info_reply_t;
 
-    pub fn xcb_randr_get_crtc_info (
+    pub fn xcb_randr_get_crtc_info(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_randr_get_crtc_info_cookie_t;
 
-    pub fn xcb_randr_get_crtc_info_unchecked (
+    pub fn xcb_randr_get_crtc_info_unchecked(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_randr_get_crtc_info_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_set_crtc_config_reply (
+    pub fn xcb_randr_set_crtc_config_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_set_crtc_config_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_set_crtc_config_reply_t;
 
-    pub fn xcb_randr_set_crtc_config (
+    pub fn xcb_randr_set_crtc_config(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         timestamp: xcb_timestamp_t,
@@ -1873,7 +1969,7 @@ pub fn xcb_randr_get_crtc_info_possible_end(R: *const xcb_randr_get_crtc_info_re
         outputs: *const xcb_randr_output_t,
     ) -> xcb_randr_set_crtc_config_cookie_t;
 
-    pub fn xcb_randr_set_crtc_config_unchecked (
+    pub fn xcb_randr_set_crtc_config_unchecked(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         timestamp: xcb_timestamp_t,
@@ -1887,58 +1983,69 @@ pub fn xcb_randr_get_crtc_info_possible_end(R: *const xcb_randr_get_crtc_info_re
     ) -> xcb_randr_set_crtc_config_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_crtc_gamma_size_reply (
+    pub fn xcb_randr_get_crtc_gamma_size_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_crtc_gamma_size_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_crtc_gamma_size_reply_t;
 
-    pub fn xcb_randr_get_crtc_gamma_size (
+    pub fn xcb_randr_get_crtc_gamma_size(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
     ) -> xcb_randr_get_crtc_gamma_size_cookie_t;
 
-    pub fn xcb_randr_get_crtc_gamma_size_unchecked (
+    pub fn xcb_randr_get_crtc_gamma_size_unchecked(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
     ) -> xcb_randr_get_crtc_gamma_size_cookie_t;
 
-pub fn xcb_randr_get_crtc_gamma_red(R: *const xcb_randr_get_crtc_gamma_reply_t) -> *mut u16;
+    pub fn xcb_randr_get_crtc_gamma_red(R: *const xcb_randr_get_crtc_gamma_reply_t) -> *mut u16;
 
-pub fn xcb_randr_get_crtc_gamma_red_length(R: *const xcb_randr_get_crtc_gamma_reply_t) -> c_int;
+    pub fn xcb_randr_get_crtc_gamma_red_length(R: *const xcb_randr_get_crtc_gamma_reply_t)
+        -> c_int;
 
-pub fn xcb_randr_get_crtc_gamma_red_end(R: *const xcb_randr_get_crtc_gamma_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_crtc_gamma_red_end(
+        R: *const xcb_randr_get_crtc_gamma_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_crtc_gamma_green(R: *const xcb_randr_get_crtc_gamma_reply_t) -> *mut u16;
+    pub fn xcb_randr_get_crtc_gamma_green(R: *const xcb_randr_get_crtc_gamma_reply_t) -> *mut u16;
 
-pub fn xcb_randr_get_crtc_gamma_green_length(R: *const xcb_randr_get_crtc_gamma_reply_t) -> c_int;
+    pub fn xcb_randr_get_crtc_gamma_green_length(
+        R: *const xcb_randr_get_crtc_gamma_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_crtc_gamma_green_end(R: *const xcb_randr_get_crtc_gamma_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_crtc_gamma_green_end(
+        R: *const xcb_randr_get_crtc_gamma_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_crtc_gamma_blue(R: *const xcb_randr_get_crtc_gamma_reply_t) -> *mut u16;
+    pub fn xcb_randr_get_crtc_gamma_blue(R: *const xcb_randr_get_crtc_gamma_reply_t) -> *mut u16;
 
-pub fn xcb_randr_get_crtc_gamma_blue_length(R: *const xcb_randr_get_crtc_gamma_reply_t) -> c_int;
+    pub fn xcb_randr_get_crtc_gamma_blue_length(
+        R: *const xcb_randr_get_crtc_gamma_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_crtc_gamma_blue_end(R: *const xcb_randr_get_crtc_gamma_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_crtc_gamma_blue_end(
+        R: *const xcb_randr_get_crtc_gamma_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_crtc_gamma_reply (
+    pub fn xcb_randr_get_crtc_gamma_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_crtc_gamma_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_crtc_gamma_reply_t;
 
-    pub fn xcb_randr_get_crtc_gamma (
+    pub fn xcb_randr_get_crtc_gamma(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
     ) -> xcb_randr_get_crtc_gamma_cookie_t;
 
-    pub fn xcb_randr_get_crtc_gamma_unchecked (
+    pub fn xcb_randr_get_crtc_gamma_unchecked(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
     ) -> xcb_randr_get_crtc_gamma_cookie_t;
 
-    pub fn xcb_randr_set_crtc_gamma (
+    pub fn xcb_randr_set_crtc_gamma(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         size: u16,
@@ -1947,7 +2054,7 @@ pub fn xcb_randr_get_crtc_gamma_blue_end(R: *const xcb_randr_get_crtc_gamma_repl
         blue: *const u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_set_crtc_gamma_checked (
+    pub fn xcb_randr_set_crtc_gamma_checked(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         size: u16,
@@ -1956,48 +2063,72 @@ pub fn xcb_randr_get_crtc_gamma_blue_end(R: *const xcb_randr_get_crtc_gamma_repl
         blue: *const u16,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_randr_get_screen_resources_current_crtcs(R: *const xcb_randr_get_screen_resources_current_reply_t) -> *mut xcb_randr_crtc_t;
+    pub fn xcb_randr_get_screen_resources_current_crtcs(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> *mut xcb_randr_crtc_t;
 
-pub fn xcb_randr_get_screen_resources_current_crtcs_length(R: *const xcb_randr_get_screen_resources_current_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_resources_current_crtcs_length(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_resources_current_crtcs_end(R: *const xcb_randr_get_screen_resources_current_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_screen_resources_current_crtcs_end(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_screen_resources_current_outputs(R: *const xcb_randr_get_screen_resources_current_reply_t) -> *mut xcb_randr_output_t;
+    pub fn xcb_randr_get_screen_resources_current_outputs(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> *mut xcb_randr_output_t;
 
-pub fn xcb_randr_get_screen_resources_current_outputs_length(R: *const xcb_randr_get_screen_resources_current_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_resources_current_outputs_length(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_resources_current_outputs_end(R: *const xcb_randr_get_screen_resources_current_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_screen_resources_current_outputs_end(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_screen_resources_current_modes(R: *const xcb_randr_get_screen_resources_current_reply_t) -> *mut xcb_randr_mode_info_t;
+    pub fn xcb_randr_get_screen_resources_current_modes(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> *mut xcb_randr_mode_info_t;
 
-pub fn xcb_randr_get_screen_resources_current_modes_length(R: *const xcb_randr_get_screen_resources_current_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_resources_current_modes_length(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_resources_current_modes_iterator(R: *const xcb_randr_get_screen_resources_current_reply_t) -> xcb_randr_mode_info_iterator_t;
+    pub fn xcb_randr_get_screen_resources_current_modes_iterator(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> xcb_randr_mode_info_iterator_t;
 
-pub fn xcb_randr_get_screen_resources_current_names(R: *const xcb_randr_get_screen_resources_current_reply_t) -> *mut u8;
+    pub fn xcb_randr_get_screen_resources_current_names(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> *mut u8;
 
-pub fn xcb_randr_get_screen_resources_current_names_length(R: *const xcb_randr_get_screen_resources_current_reply_t) -> c_int;
+    pub fn xcb_randr_get_screen_resources_current_names_length(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_screen_resources_current_names_end(R: *const xcb_randr_get_screen_resources_current_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_screen_resources_current_names_end(
+        R: *const xcb_randr_get_screen_resources_current_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_screen_resources_current_reply (
+    pub fn xcb_randr_get_screen_resources_current_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_screen_resources_current_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_screen_resources_current_reply_t;
 
-    pub fn xcb_randr_get_screen_resources_current (
+    pub fn xcb_randr_get_screen_resources_current(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_screen_resources_current_cookie_t;
 
-    pub fn xcb_randr_get_screen_resources_current_unchecked (
+    pub fn xcb_randr_get_screen_resources_current_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_screen_resources_current_cookie_t;
 
-    pub fn xcb_randr_set_crtc_transform (
+    pub fn xcb_randr_set_crtc_transform(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         transform: xcb_render_transform_t,
@@ -2007,7 +2138,7 @@ pub fn xcb_randr_get_screen_resources_current_names_end(R: *const xcb_randr_get_
         filter_params: *const xcb_render_fixed_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_set_crtc_transform_checked (
+    pub fn xcb_randr_set_crtc_transform_checked(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         transform: xcb_render_transform_t,
@@ -2017,72 +2148,96 @@ pub fn xcb_randr_get_screen_resources_current_names_end(R: *const xcb_randr_get_
         filter_params: *const xcb_render_fixed_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_randr_get_crtc_transform_pending_filter_name(R: *const xcb_randr_get_crtc_transform_reply_t) -> *mut c_char;
+    pub fn xcb_randr_get_crtc_transform_pending_filter_name(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_randr_get_crtc_transform_pending_filter_name_length(R: *const xcb_randr_get_crtc_transform_reply_t) -> c_int;
+    pub fn xcb_randr_get_crtc_transform_pending_filter_name_length(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_crtc_transform_pending_filter_name_end(R: *const xcb_randr_get_crtc_transform_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_crtc_transform_pending_filter_name_end(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_crtc_transform_pending_params(R: *const xcb_randr_get_crtc_transform_reply_t) -> *mut xcb_render_fixed_t;
+    pub fn xcb_randr_get_crtc_transform_pending_params(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> *mut xcb_render_fixed_t;
 
-pub fn xcb_randr_get_crtc_transform_pending_params_length(R: *const xcb_randr_get_crtc_transform_reply_t) -> c_int;
+    pub fn xcb_randr_get_crtc_transform_pending_params_length(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_crtc_transform_pending_params_end(R: *const xcb_randr_get_crtc_transform_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_crtc_transform_pending_params_end(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_crtc_transform_current_filter_name(R: *const xcb_randr_get_crtc_transform_reply_t) -> *mut c_char;
+    pub fn xcb_randr_get_crtc_transform_current_filter_name(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_randr_get_crtc_transform_current_filter_name_length(R: *const xcb_randr_get_crtc_transform_reply_t) -> c_int;
+    pub fn xcb_randr_get_crtc_transform_current_filter_name_length(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_crtc_transform_current_filter_name_end(R: *const xcb_randr_get_crtc_transform_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_crtc_transform_current_filter_name_end(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_crtc_transform_current_params(R: *const xcb_randr_get_crtc_transform_reply_t) -> *mut xcb_render_fixed_t;
+    pub fn xcb_randr_get_crtc_transform_current_params(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> *mut xcb_render_fixed_t;
 
-pub fn xcb_randr_get_crtc_transform_current_params_length(R: *const xcb_randr_get_crtc_transform_reply_t) -> c_int;
+    pub fn xcb_randr_get_crtc_transform_current_params_length(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_crtc_transform_current_params_end(R: *const xcb_randr_get_crtc_transform_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_crtc_transform_current_params_end(
+        R: *const xcb_randr_get_crtc_transform_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_crtc_transform_reply (
+    pub fn xcb_randr_get_crtc_transform_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_crtc_transform_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_crtc_transform_reply_t;
 
-    pub fn xcb_randr_get_crtc_transform (
+    pub fn xcb_randr_get_crtc_transform(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
     ) -> xcb_randr_get_crtc_transform_cookie_t;
 
-    pub fn xcb_randr_get_crtc_transform_unchecked (
+    pub fn xcb_randr_get_crtc_transform_unchecked(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
     ) -> xcb_randr_get_crtc_transform_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_panning_reply (
+    pub fn xcb_randr_get_panning_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_panning_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_panning_reply_t;
 
-    pub fn xcb_randr_get_panning (
+    pub fn xcb_randr_get_panning(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
     ) -> xcb_randr_get_panning_cookie_t;
 
-    pub fn xcb_randr_get_panning_unchecked (
+    pub fn xcb_randr_get_panning_unchecked(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
     ) -> xcb_randr_get_panning_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_set_panning_reply (
+    pub fn xcb_randr_set_panning_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_set_panning_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_set_panning_reply_t;
 
-    pub fn xcb_randr_set_panning (
+    pub fn xcb_randr_set_panning(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         timestamp: xcb_timestamp_t,
@@ -2100,7 +2255,7 @@ pub fn xcb_randr_get_crtc_transform_current_params_end(R: *const xcb_randr_get_c
         border_bottom: i16,
     ) -> xcb_randr_set_panning_cookie_t;
 
-    pub fn xcb_randr_set_panning_unchecked (
+    pub fn xcb_randr_set_panning_unchecked(
         c: *mut xcb_connection_t,
         crtc: xcb_randr_crtc_t,
         timestamp: xcb_timestamp_t,
@@ -2118,184 +2273,232 @@ pub fn xcb_randr_get_crtc_transform_current_params_end(R: *const xcb_randr_get_c
         border_bottom: i16,
     ) -> xcb_randr_set_panning_cookie_t;
 
-    pub fn xcb_randr_set_output_primary (
+    pub fn xcb_randr_set_output_primary(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         output: xcb_randr_output_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_set_output_primary_checked (
+    pub fn xcb_randr_set_output_primary_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         output: xcb_randr_output_t,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_output_primary_reply (
+    pub fn xcb_randr_get_output_primary_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_output_primary_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_output_primary_reply_t;
 
-    pub fn xcb_randr_get_output_primary (
+    pub fn xcb_randr_get_output_primary(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_output_primary_cookie_t;
 
-    pub fn xcb_randr_get_output_primary_unchecked (
+    pub fn xcb_randr_get_output_primary_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_output_primary_cookie_t;
 
-pub fn xcb_randr_get_providers_providers(R: *const xcb_randr_get_providers_reply_t) -> *mut xcb_randr_provider_t;
+    pub fn xcb_randr_get_providers_providers(
+        R: *const xcb_randr_get_providers_reply_t,
+    ) -> *mut xcb_randr_provider_t;
 
-pub fn xcb_randr_get_providers_providers_length(R: *const xcb_randr_get_providers_reply_t) -> c_int;
+    pub fn xcb_randr_get_providers_providers_length(
+        R: *const xcb_randr_get_providers_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_providers_providers_end(R: *const xcb_randr_get_providers_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_providers_providers_end(
+        R: *const xcb_randr_get_providers_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_providers_reply (
+    pub fn xcb_randr_get_providers_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_providers_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_providers_reply_t;
 
-    pub fn xcb_randr_get_providers (
+    pub fn xcb_randr_get_providers(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_providers_cookie_t;
 
-    pub fn xcb_randr_get_providers_unchecked (
+    pub fn xcb_randr_get_providers_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_randr_get_providers_cookie_t;
 
-pub fn xcb_randr_get_provider_info_crtcs(R: *const xcb_randr_get_provider_info_reply_t) -> *mut xcb_randr_crtc_t;
+    pub fn xcb_randr_get_provider_info_crtcs(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> *mut xcb_randr_crtc_t;
 
-pub fn xcb_randr_get_provider_info_crtcs_length(R: *const xcb_randr_get_provider_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_provider_info_crtcs_length(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_provider_info_crtcs_end(R: *const xcb_randr_get_provider_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_provider_info_crtcs_end(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_provider_info_outputs(R: *const xcb_randr_get_provider_info_reply_t) -> *mut xcb_randr_output_t;
+    pub fn xcb_randr_get_provider_info_outputs(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> *mut xcb_randr_output_t;
 
-pub fn xcb_randr_get_provider_info_outputs_length(R: *const xcb_randr_get_provider_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_provider_info_outputs_length(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_provider_info_outputs_end(R: *const xcb_randr_get_provider_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_provider_info_outputs_end(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_provider_info_associated_providers(R: *const xcb_randr_get_provider_info_reply_t) -> *mut xcb_randr_provider_t;
+    pub fn xcb_randr_get_provider_info_associated_providers(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> *mut xcb_randr_provider_t;
 
-pub fn xcb_randr_get_provider_info_associated_providers_length(R: *const xcb_randr_get_provider_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_provider_info_associated_providers_length(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_provider_info_associated_providers_end(R: *const xcb_randr_get_provider_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_provider_info_associated_providers_end(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_provider_info_associated_capability(R: *const xcb_randr_get_provider_info_reply_t) -> *mut u32;
+    pub fn xcb_randr_get_provider_info_associated_capability(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_randr_get_provider_info_associated_capability_length(R: *const xcb_randr_get_provider_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_provider_info_associated_capability_length(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_provider_info_associated_capability_end(R: *const xcb_randr_get_provider_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_provider_info_associated_capability_end(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_get_provider_info_name(R: *const xcb_randr_get_provider_info_reply_t) -> *mut c_char;
+    pub fn xcb_randr_get_provider_info_name(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_randr_get_provider_info_name_length(R: *const xcb_randr_get_provider_info_reply_t) -> c_int;
+    pub fn xcb_randr_get_provider_info_name_length(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_provider_info_name_end(R: *const xcb_randr_get_provider_info_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_provider_info_name_end(
+        R: *const xcb_randr_get_provider_info_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_provider_info_reply (
+    pub fn xcb_randr_get_provider_info_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_provider_info_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_provider_info_reply_t;
 
-    pub fn xcb_randr_get_provider_info (
+    pub fn xcb_randr_get_provider_info(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_randr_get_provider_info_cookie_t;
 
-    pub fn xcb_randr_get_provider_info_unchecked (
+    pub fn xcb_randr_get_provider_info_unchecked(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_randr_get_provider_info_cookie_t;
 
-    pub fn xcb_randr_set_provider_offload_sink (
+    pub fn xcb_randr_set_provider_offload_sink(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         sink_provider: xcb_randr_provider_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_set_provider_offload_sink_checked (
+    pub fn xcb_randr_set_provider_offload_sink_checked(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         sink_provider: xcb_randr_provider_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_set_provider_output_source (
+    pub fn xcb_randr_set_provider_output_source(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         source_provider: xcb_randr_provider_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_set_provider_output_source_checked (
+    pub fn xcb_randr_set_provider_output_source_checked(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         source_provider: xcb_randr_provider_t,
         config_timestamp: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_randr_list_provider_properties_atoms(R: *const xcb_randr_list_provider_properties_reply_t) -> *mut xcb_atom_t;
+    pub fn xcb_randr_list_provider_properties_atoms(
+        R: *const xcb_randr_list_provider_properties_reply_t,
+    ) -> *mut xcb_atom_t;
 
-pub fn xcb_randr_list_provider_properties_atoms_length(R: *const xcb_randr_list_provider_properties_reply_t) -> c_int;
+    pub fn xcb_randr_list_provider_properties_atoms_length(
+        R: *const xcb_randr_list_provider_properties_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_list_provider_properties_atoms_end(R: *const xcb_randr_list_provider_properties_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_list_provider_properties_atoms_end(
+        R: *const xcb_randr_list_provider_properties_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_list_provider_properties_reply (
+    pub fn xcb_randr_list_provider_properties_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_list_provider_properties_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_list_provider_properties_reply_t;
 
-    pub fn xcb_randr_list_provider_properties (
+    pub fn xcb_randr_list_provider_properties(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
     ) -> xcb_randr_list_provider_properties_cookie_t;
 
-    pub fn xcb_randr_list_provider_properties_unchecked (
+    pub fn xcb_randr_list_provider_properties_unchecked(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
     ) -> xcb_randr_list_provider_properties_cookie_t;
 
-pub fn xcb_randr_query_provider_property_valid_values(R: *const xcb_randr_query_provider_property_reply_t) -> *mut i32;
+    pub fn xcb_randr_query_provider_property_valid_values(
+        R: *const xcb_randr_query_provider_property_reply_t,
+    ) -> *mut i32;
 
-pub fn xcb_randr_query_provider_property_valid_values_length(R: *const xcb_randr_query_provider_property_reply_t) -> c_int;
+    pub fn xcb_randr_query_provider_property_valid_values_length(
+        R: *const xcb_randr_query_provider_property_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_query_provider_property_valid_values_end(R: *const xcb_randr_query_provider_property_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_query_provider_property_valid_values_end(
+        R: *const xcb_randr_query_provider_property_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_query_provider_property_reply (
+    pub fn xcb_randr_query_provider_property_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_query_provider_property_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_query_provider_property_reply_t;
 
-    pub fn xcb_randr_query_provider_property (
+    pub fn xcb_randr_query_provider_property(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
     ) -> xcb_randr_query_provider_property_cookie_t;
 
-    pub fn xcb_randr_query_provider_property_unchecked (
+    pub fn xcb_randr_query_provider_property_unchecked(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
     ) -> xcb_randr_query_provider_property_cookie_t;
 
-    pub fn xcb_randr_configure_provider_property (
+    pub fn xcb_randr_configure_provider_property(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
@@ -2305,7 +2508,7 @@ pub fn xcb_randr_query_provider_property_valid_values_end(R: *const xcb_randr_qu
         values: *const i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_configure_provider_property_checked (
+    pub fn xcb_randr_configure_provider_property_checked(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
@@ -2315,7 +2518,7 @@ pub fn xcb_randr_query_provider_property_valid_values_end(R: *const xcb_randr_qu
         values: *const i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_change_provider_property (
+    pub fn xcb_randr_change_provider_property(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
@@ -2326,7 +2529,7 @@ pub fn xcb_randr_query_provider_property_valid_values_end(R: *const xcb_randr_qu
         data: *const c_void,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_change_provider_property_checked (
+    pub fn xcb_randr_change_provider_property_checked(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
@@ -2337,32 +2540,38 @@ pub fn xcb_randr_query_provider_property_valid_values_end(R: *const xcb_randr_qu
         data: *const c_void,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_delete_provider_property (
+    pub fn xcb_randr_delete_provider_property(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_randr_delete_provider_property_checked (
+    pub fn xcb_randr_delete_provider_property_checked(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_randr_get_provider_property_data(R: *const xcb_randr_get_provider_property_reply_t) -> *mut c_void;
+    pub fn xcb_randr_get_provider_property_data(
+        R: *const xcb_randr_get_provider_property_reply_t,
+    ) -> *mut c_void;
 
-pub fn xcb_randr_get_provider_property_data_length(R: *const xcb_randr_get_provider_property_reply_t) -> c_int;
+    pub fn xcb_randr_get_provider_property_data_length(
+        R: *const xcb_randr_get_provider_property_reply_t,
+    ) -> c_int;
 
-pub fn xcb_randr_get_provider_property_data_end(R: *const xcb_randr_get_provider_property_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_get_provider_property_data_end(
+        R: *const xcb_randr_get_provider_property_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_randr_get_provider_property_reply (
+    pub fn xcb_randr_get_provider_property_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_randr_get_provider_property_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_randr_get_provider_property_reply_t;
 
-    pub fn xcb_randr_get_provider_property (
+    pub fn xcb_randr_get_provider_property(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
@@ -2373,7 +2582,7 @@ pub fn xcb_randr_get_provider_property_data_end(R: *const xcb_randr_get_provider
         pending: u8,
     ) -> xcb_randr_get_provider_property_cookie_t;
 
-    pub fn xcb_randr_get_provider_property_unchecked (
+    pub fn xcb_randr_get_provider_property_unchecked(
         c: *mut xcb_connection_t,
         provider: xcb_randr_provider_t,
         property: xcb_atom_t,
@@ -2384,32 +2593,46 @@ pub fn xcb_randr_get_provider_property_data_end(R: *const xcb_randr_get_provider
         pending: u8,
     ) -> xcb_randr_get_provider_property_cookie_t;
 
-pub fn xcb_randr_crtc_change_next(i: *mut xcb_randr_crtc_change_iterator_t);
+    pub fn xcb_randr_crtc_change_next(i: *mut xcb_randr_crtc_change_iterator_t);
 
-pub fn xcb_randr_crtc_change_end(i: *mut xcb_randr_crtc_change_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_crtc_change_end(
+        i: *mut xcb_randr_crtc_change_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_output_change_next(i: *mut xcb_randr_output_change_iterator_t);
+    pub fn xcb_randr_output_change_next(i: *mut xcb_randr_output_change_iterator_t);
 
-pub fn xcb_randr_output_change_end(i: *mut xcb_randr_output_change_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_output_change_end(
+        i: *mut xcb_randr_output_change_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_output_property_next(i: *mut xcb_randr_output_property_iterator_t);
+    pub fn xcb_randr_output_property_next(i: *mut xcb_randr_output_property_iterator_t);
 
-pub fn xcb_randr_output_property_end(i: *mut xcb_randr_output_property_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_output_property_end(
+        i: *mut xcb_randr_output_property_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_provider_change_next(i: *mut xcb_randr_provider_change_iterator_t);
+    pub fn xcb_randr_provider_change_next(i: *mut xcb_randr_provider_change_iterator_t);
 
-pub fn xcb_randr_provider_change_end(i: *mut xcb_randr_provider_change_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_provider_change_end(
+        i: *mut xcb_randr_provider_change_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_provider_property_next(i: *mut xcb_randr_provider_property_iterator_t);
+    pub fn xcb_randr_provider_property_next(i: *mut xcb_randr_provider_property_iterator_t);
 
-pub fn xcb_randr_provider_property_end(i: *mut xcb_randr_provider_property_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_provider_property_end(
+        i: *mut xcb_randr_provider_property_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_resource_change_next(i: *mut xcb_randr_resource_change_iterator_t);
+    pub fn xcb_randr_resource_change_next(i: *mut xcb_randr_resource_change_iterator_t);
 
-pub fn xcb_randr_resource_change_end(i: *mut xcb_randr_resource_change_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_resource_change_end(
+        i: *mut xcb_randr_resource_change_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_randr_notify_data_next(i: *mut xcb_randr_notify_data_iterator_t);
+    pub fn xcb_randr_notify_data_next(i: *mut xcb_randr_notify_data_iterator_t);
 
-pub fn xcb_randr_notify_data_end(i: *mut xcb_randr_notify_data_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_randr_notify_data_end(
+        i: *mut xcb_randr_notify_data_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
 } // extern

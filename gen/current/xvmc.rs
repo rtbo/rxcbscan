@@ -2,23 +2,20 @@
 // Do not edit!
 
 use base;
-use xv;
-use shm;
-use xproto;
 use ffi::base::*;
-use ffi::xvmc::*;
-use ffi::xv::*;
 use ffi::shm::*;
 use ffi::xproto::*;
+use ffi::xv::*;
+use ffi::xvmc::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
+use shm;
 use std;
 use std::iter::Iterator;
-
+use xproto;
+use xv;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_xvmc_id
-    }
+    unsafe { &mut xcb_xvmc_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -37,7 +34,17 @@ pub struct SurfaceInfo {
 
 impl SurfaceInfo {
     #[allow(unused_unsafe)]
-    pub fn new(id: Surface,chroma_format: u16,pad0: u16,max_width: u16,max_height: u16,subpicture_max_width: u16,subpicture_max_height: u16,mc_type: u32,flags: u32,) -> SurfaceInfo {
+    pub fn new(
+        id: Surface,
+        chroma_format: u16,
+        pad0: u16,
+        max_width: u16,
+        max_height: u16,
+        subpicture_max_width: u16,
+        subpicture_max_height: u16,
+        mc_type: u32,
+        flags: u32,
+    ) -> SurfaceInfo {
         unsafe {
             SurfaceInfo {
                 base: xcb_xvmc_surface_info_t {
@@ -50,7 +57,7 @@ impl SurfaceInfo {
                     subpicture_max_height: subpicture_max_height,
                     mc_type: mc_type,
                     flags: flags,
-                }
+                },
             }
         }
     }
@@ -114,14 +121,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_xvmc_query_version_cookie
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_xvmc_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xvmc_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -130,7 +137,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -148,13 +157,9 @@ impl QueryVersionReply {
     }
 }
 
-pub fn query_version<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_xvmc_query_version(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xvmc_query_version(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -163,13 +168,9 @@ pub fn query_version<'a>(
     }
 }
 
-pub fn query_version_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version_unchecked<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_xvmc_query_version_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xvmc_query_version_unchecked(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -191,7 +192,11 @@ pub type ListSurfaceTypesCookie<'a> = base::Cookie<'a, xcb_xvmc_list_surface_typ
 impl<'a> ListSurfaceTypesCookie<'a> {
     pub fn get_reply(self) -> Result<ListSurfaceTypesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListSurfaceTypesReply {
                 ptr: xcb_xvmc_list_surface_types_reply(
@@ -207,7 +212,9 @@ impl<'a> ListSurfaceTypesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -230,10 +237,7 @@ pub fn list_surface_types<'a>(
     port_id: xv::Port,
 ) -> ListSurfaceTypesCookie<'a> {
     unsafe {
-        let cookie = xcb_xvmc_list_surface_types(
-            c.get_raw_conn(),
-            port_id as xcb_xv_port_t,
-        );
+        let cookie = xcb_xvmc_list_surface_types(c.get_raw_conn(), port_id as xcb_xv_port_t);
         ListSurfaceTypesCookie {
             cookie: cookie,
             conn: c,
@@ -247,10 +251,8 @@ pub fn list_surface_types_unchecked<'a>(
     port_id: xv::Port,
 ) -> ListSurfaceTypesCookie<'a> {
     unsafe {
-        let cookie = xcb_xvmc_list_surface_types_unchecked(
-            c.get_raw_conn(),
-            port_id as xcb_xv_port_t,
-        );
+        let cookie =
+            xcb_xvmc_list_surface_types_unchecked(c.get_raw_conn(), port_id as xcb_xv_port_t);
         ListSurfaceTypesCookie {
             cookie: cookie,
             conn: c,
@@ -272,14 +274,14 @@ pub type CreateContextCookie<'a> = base::Cookie<'a, xcb_xvmc_create_context_cook
 impl<'a> CreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<CreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             CreateContextReply {
-                ptr: xcb_xvmc_create_context_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xvmc_create_context_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -288,7 +290,9 @@ impl<'a> CreateContextCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -373,15 +377,9 @@ pub fn create_context_unchecked<'a>(
 
 pub const DESTROY_CONTEXT: u8 = 3;
 
-pub fn destroy_context<'a>(
-    c: &'a base::Connection,
-    context_id: Context,
-) -> base::VoidCookie<'a> {
+pub fn destroy_context<'a>(c: &'a base::Connection, context_id: Context) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xvmc_destroy_context(
-            c.get_raw_conn(),
-            context_id as xcb_xvmc_context_t,
-        );
+        let cookie = xcb_xvmc_destroy_context(c.get_raw_conn(), context_id as xcb_xvmc_context_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -395,10 +393,8 @@ pub fn destroy_context_checked<'a>(
     context_id: Context,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xvmc_destroy_context_checked(
-            c.get_raw_conn(),
-            context_id as xcb_xvmc_context_t,
-        );
+        let cookie =
+            xcb_xvmc_destroy_context_checked(c.get_raw_conn(), context_id as xcb_xvmc_context_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -420,14 +416,14 @@ pub type CreateSurfaceCookie<'a> = base::Cookie<'a, xcb_xvmc_create_surface_cook
 impl<'a> CreateSurfaceCookie<'a> {
     pub fn get_reply(self) -> Result<CreateSurfaceReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             CreateSurfaceReply {
-                ptr: xcb_xvmc_create_surface_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_xvmc_create_surface_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -436,7 +432,9 @@ impl<'a> CreateSurfaceCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -496,15 +494,9 @@ pub fn create_surface_unchecked<'a>(
 
 pub const DESTROY_SURFACE: u8 = 5;
 
-pub fn destroy_surface<'a>(
-    c: &'a base::Connection,
-    surface_id: Surface,
-) -> base::VoidCookie<'a> {
+pub fn destroy_surface<'a>(c: &'a base::Connection, surface_id: Surface) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xvmc_destroy_surface(
-            c.get_raw_conn(),
-            surface_id as xcb_xvmc_surface_t,
-        );
+        let cookie = xcb_xvmc_destroy_surface(c.get_raw_conn(), surface_id as xcb_xvmc_surface_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -518,10 +510,8 @@ pub fn destroy_surface_checked<'a>(
     surface_id: Surface,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xvmc_destroy_surface_checked(
-            c.get_raw_conn(),
-            surface_id as xcb_xvmc_surface_t,
-        );
+        let cookie =
+            xcb_xvmc_destroy_surface_checked(c.get_raw_conn(), surface_id as xcb_xvmc_surface_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -543,7 +533,11 @@ pub type CreateSubpictureCookie<'a> = base::Cookie<'a, xcb_xvmc_create_subpictur
 impl<'a> CreateSubpictureCookie<'a> {
     pub fn get_reply(self) -> Result<CreateSubpictureReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             CreateSubpictureReply {
                 ptr: xcb_xvmc_create_subpicture_reply(
@@ -559,7 +553,9 @@ impl<'a> CreateSubpictureCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -651,10 +647,8 @@ pub fn destroy_subpicture<'a>(
     subpicture_id: Subpicture,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xvmc_destroy_subpicture(
-            c.get_raw_conn(),
-            subpicture_id as xcb_xvmc_subpicture_t,
-        );
+        let cookie =
+            xcb_xvmc_destroy_subpicture(c.get_raw_conn(), subpicture_id as xcb_xvmc_subpicture_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -693,7 +687,11 @@ pub type ListSubpictureTypesCookie<'a> = base::Cookie<'a, xcb_xvmc_list_subpictu
 impl<'a> ListSubpictureTypesCookie<'a> {
     pub fn get_reply(self) -> Result<ListSubpictureTypesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListSubpictureTypesReply {
                 ptr: xcb_xvmc_list_subpicture_types_reply(
@@ -709,7 +707,9 @@ impl<'a> ListSubpictureTypesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }

@@ -3,8 +3,8 @@
 
 use ffi::base::*;
 use ffi::render::*;
-use ffi::xproto::*;
 use ffi::shape::*;
+use ffi::xproto::*;
 use libc::{c_char, c_int, c_uint, c_void};
 use std;
 
@@ -74,9 +74,12 @@ pub const XCB_XFIXES_SELECTION_EVENT_SELECTION_WINDOW_DESTROY: xcb_xfixes_select
 pub const XCB_XFIXES_SELECTION_EVENT_SELECTION_CLIENT_CLOSE: xcb_xfixes_selection_event_t = 0x02;
 
 pub type xcb_xfixes_selection_event_mask_t = u32;
-pub const XCB_XFIXES_SELECTION_EVENT_MASK_SET_SELECTION_OWNER: xcb_xfixes_selection_event_mask_t = 0x01;
-pub const XCB_XFIXES_SELECTION_EVENT_MASK_SELECTION_WINDOW_DESTROY: xcb_xfixes_selection_event_mask_t = 0x02;
-pub const XCB_XFIXES_SELECTION_EVENT_MASK_SELECTION_CLIENT_CLOSE: xcb_xfixes_selection_event_mask_t = 0x04;
+pub const XCB_XFIXES_SELECTION_EVENT_MASK_SET_SELECTION_OWNER: xcb_xfixes_selection_event_mask_t =
+    0x01;
+pub const XCB_XFIXES_SELECTION_EVENT_MASK_SELECTION_WINDOW_DESTROY:
+    xcb_xfixes_selection_event_mask_t = 0x02;
+pub const XCB_XFIXES_SELECTION_EVENT_MASK_SELECTION_CLIENT_CLOSE:
+    xcb_xfixes_selection_event_mask_t = 0x04;
 
 pub const XCB_XFIXES_SELECTION_NOTIFY: u8 = 0;
 
@@ -178,8 +181,8 @@ pub type xcb_xfixes_region_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xfixes_region_iterator_t {
-    pub data:  *mut xcb_xfixes_region_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xfixes_region_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -585,8 +588,8 @@ pub type xcb_xfixes_barrier_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xfixes_barrier_iterator_t {
-    pub data:  *mut xcb_xfixes_barrier_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xfixes_barrier_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -627,30 +630,30 @@ pub struct xcb_xfixes_delete_pointer_barrier_request_t {
 }
 
 #[link(name = "xcb-xfixes")]
-extern {
+extern "C" {
 
-pub static mut xcb_xfixes_id: xcb_extension_t;
+    pub static mut xcb_xfixes_id: xcb_extension_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xfixes_query_version_reply (
+    pub fn xcb_xfixes_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xfixes_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xfixes_query_version_reply_t;
 
-    pub fn xcb_xfixes_query_version (
+    pub fn xcb_xfixes_query_version(
         c: *mut xcb_connection_t,
         client_major_version: u32,
         client_minor_version: u32,
     ) -> xcb_xfixes_query_version_cookie_t;
 
-    pub fn xcb_xfixes_query_version_unchecked (
+    pub fn xcb_xfixes_query_version_unchecked(
         c: *mut xcb_connection_t,
         client_major_version: u32,
         client_minor_version: u32,
     ) -> xcb_xfixes_query_version_cookie_t;
 
-    pub fn xcb_xfixes_change_save_set (
+    pub fn xcb_xfixes_change_save_set(
         c: *mut xcb_connection_t,
         mode: u8,
         target: u8,
@@ -658,7 +661,7 @@ pub static mut xcb_xfixes_id: xcb_extension_t;
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_change_save_set_checked (
+    pub fn xcb_xfixes_change_save_set_checked(
         c: *mut xcb_connection_t,
         mode: u8,
         target: u8,
@@ -666,263 +669,275 @@ pub static mut xcb_xfixes_id: xcb_extension_t;
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_select_selection_input (
+    pub fn xcb_xfixes_select_selection_input(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         selection: xcb_atom_t,
         event_mask: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_select_selection_input_checked (
+    pub fn xcb_xfixes_select_selection_input_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         selection: xcb_atom_t,
         event_mask: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_select_cursor_input (
+    pub fn xcb_xfixes_select_cursor_input(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         event_mask: u32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_select_cursor_input_checked (
+    pub fn xcb_xfixes_select_cursor_input_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         event_mask: u32,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xfixes_get_cursor_image_cursor_image(R: *const xcb_xfixes_get_cursor_image_reply_t) -> *mut u32;
+    pub fn xcb_xfixes_get_cursor_image_cursor_image(
+        R: *const xcb_xfixes_get_cursor_image_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_xfixes_get_cursor_image_cursor_image_length(R: *const xcb_xfixes_get_cursor_image_reply_t) -> c_int;
+    pub fn xcb_xfixes_get_cursor_image_cursor_image_length(
+        R: *const xcb_xfixes_get_cursor_image_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xfixes_get_cursor_image_cursor_image_end(R: *const xcb_xfixes_get_cursor_image_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xfixes_get_cursor_image_cursor_image_end(
+        R: *const xcb_xfixes_get_cursor_image_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xfixes_get_cursor_image_reply (
+    pub fn xcb_xfixes_get_cursor_image_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xfixes_get_cursor_image_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xfixes_get_cursor_image_reply_t;
 
-    pub fn xcb_xfixes_get_cursor_image (
+    pub fn xcb_xfixes_get_cursor_image(
         c: *mut xcb_connection_t,
     ) -> xcb_xfixes_get_cursor_image_cookie_t;
 
-    pub fn xcb_xfixes_get_cursor_image_unchecked (
+    pub fn xcb_xfixes_get_cursor_image_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_xfixes_get_cursor_image_cookie_t;
 
-pub fn xcb_xfixes_region_next(i: *mut xcb_xfixes_region_iterator_t);
+    pub fn xcb_xfixes_region_next(i: *mut xcb_xfixes_region_iterator_t);
 
-pub fn xcb_xfixes_region_end(i: *mut xcb_xfixes_region_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xfixes_region_end(i: *mut xcb_xfixes_region_iterator_t) -> xcb_generic_iterator_t;
 
-    pub fn xcb_xfixes_create_region (
+    pub fn xcb_xfixes_create_region(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         rectangles_len: u32,
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_region_checked (
+    pub fn xcb_xfixes_create_region_checked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         rectangles_len: u32,
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_region_from_bitmap (
+    pub fn xcb_xfixes_create_region_from_bitmap(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         bitmap: xcb_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_region_from_bitmap_checked (
+    pub fn xcb_xfixes_create_region_from_bitmap_checked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         bitmap: xcb_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_region_from_window (
+    pub fn xcb_xfixes_create_region_from_window(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         window: xcb_window_t,
         kind: xcb_shape_kind_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_region_from_window_checked (
+    pub fn xcb_xfixes_create_region_from_window_checked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         window: xcb_window_t,
         kind: xcb_shape_kind_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_region_from_gc (
+    pub fn xcb_xfixes_create_region_from_gc(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         gc: xcb_gcontext_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_region_from_gc_checked (
+    pub fn xcb_xfixes_create_region_from_gc_checked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         gc: xcb_gcontext_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_region_from_picture (
+    pub fn xcb_xfixes_create_region_from_picture(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         picture: xcb_render_picture_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_region_from_picture_checked (
+    pub fn xcb_xfixes_create_region_from_picture_checked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         picture: xcb_render_picture_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_destroy_region (
+    pub fn xcb_xfixes_destroy_region(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_destroy_region_checked (
+    pub fn xcb_xfixes_destroy_region_checked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_set_region (
+    pub fn xcb_xfixes_set_region(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         rectangles_len: u32,
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_set_region_checked (
+    pub fn xcb_xfixes_set_region_checked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         rectangles_len: u32,
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_copy_region (
+    pub fn xcb_xfixes_copy_region(
         c: *mut xcb_connection_t,
         source: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_copy_region_checked (
+    pub fn xcb_xfixes_copy_region_checked(
         c: *mut xcb_connection_t,
         source: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_union_region (
+    pub fn xcb_xfixes_union_region(
         c: *mut xcb_connection_t,
         source1: xcb_xfixes_region_t,
         source2: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_union_region_checked (
+    pub fn xcb_xfixes_union_region_checked(
         c: *mut xcb_connection_t,
         source1: xcb_xfixes_region_t,
         source2: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_intersect_region (
+    pub fn xcb_xfixes_intersect_region(
         c: *mut xcb_connection_t,
         source1: xcb_xfixes_region_t,
         source2: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_intersect_region_checked (
+    pub fn xcb_xfixes_intersect_region_checked(
         c: *mut xcb_connection_t,
         source1: xcb_xfixes_region_t,
         source2: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_subtract_region (
+    pub fn xcb_xfixes_subtract_region(
         c: *mut xcb_connection_t,
         source1: xcb_xfixes_region_t,
         source2: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_subtract_region_checked (
+    pub fn xcb_xfixes_subtract_region_checked(
         c: *mut xcb_connection_t,
         source1: xcb_xfixes_region_t,
         source2: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_invert_region (
-        c: *mut xcb_connection_t,
-        source: xcb_xfixes_region_t,
-        bounds: xcb_rectangle_t,
-        destination: xcb_xfixes_region_t,
-    ) -> xcb_void_cookie_t;
-
-    pub fn xcb_xfixes_invert_region_checked (
+    pub fn xcb_xfixes_invert_region(
         c: *mut xcb_connection_t,
         source: xcb_xfixes_region_t,
         bounds: xcb_rectangle_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_translate_region (
+    pub fn xcb_xfixes_invert_region_checked(
+        c: *mut xcb_connection_t,
+        source: xcb_xfixes_region_t,
+        bounds: xcb_rectangle_t,
+        destination: xcb_xfixes_region_t,
+    ) -> xcb_void_cookie_t;
+
+    pub fn xcb_xfixes_translate_region(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         dx: i16,
         dy: i16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_translate_region_checked (
+    pub fn xcb_xfixes_translate_region_checked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         dx: i16,
         dy: i16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_region_extents (
+    pub fn xcb_xfixes_region_extents(
         c: *mut xcb_connection_t,
         source: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_region_extents_checked (
+    pub fn xcb_xfixes_region_extents_checked(
         c: *mut xcb_connection_t,
         source: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xfixes_fetch_region_rectangles(R: *const xcb_xfixes_fetch_region_reply_t) -> *mut xcb_rectangle_t;
+    pub fn xcb_xfixes_fetch_region_rectangles(
+        R: *const xcb_xfixes_fetch_region_reply_t,
+    ) -> *mut xcb_rectangle_t;
 
-pub fn xcb_xfixes_fetch_region_rectangles_length(R: *const xcb_xfixes_fetch_region_reply_t) -> c_int;
+    pub fn xcb_xfixes_fetch_region_rectangles_length(
+        R: *const xcb_xfixes_fetch_region_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xfixes_fetch_region_rectangles_iterator(R: *const xcb_xfixes_fetch_region_reply_t) -> xcb_rectangle_iterator_t;
+    pub fn xcb_xfixes_fetch_region_rectangles_iterator(
+        R: *const xcb_xfixes_fetch_region_reply_t,
+    ) -> xcb_rectangle_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xfixes_fetch_region_reply (
+    pub fn xcb_xfixes_fetch_region_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xfixes_fetch_region_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xfixes_fetch_region_reply_t;
 
-    pub fn xcb_xfixes_fetch_region (
+    pub fn xcb_xfixes_fetch_region(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
     ) -> xcb_xfixes_fetch_region_cookie_t;
 
-    pub fn xcb_xfixes_fetch_region_unchecked (
+    pub fn xcb_xfixes_fetch_region_unchecked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
     ) -> xcb_xfixes_fetch_region_cookie_t;
 
-    pub fn xcb_xfixes_set_gc_clip_region (
+    pub fn xcb_xfixes_set_gc_clip_region(
         c: *mut xcb_connection_t,
         gc: xcb_gcontext_t,
         region: xcb_xfixes_region_t,
@@ -930,7 +945,7 @@ pub fn xcb_xfixes_fetch_region_rectangles_iterator(R: *const xcb_xfixes_fetch_re
         y_origin: i16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_set_gc_clip_region_checked (
+    pub fn xcb_xfixes_set_gc_clip_region_checked(
         c: *mut xcb_connection_t,
         gc: xcb_gcontext_t,
         region: xcb_xfixes_region_t,
@@ -938,7 +953,7 @@ pub fn xcb_xfixes_fetch_region_rectangles_iterator(R: *const xcb_xfixes_fetch_re
         y_origin: i16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_set_window_shape_region (
+    pub fn xcb_xfixes_set_window_shape_region(
         c: *mut xcb_connection_t,
         dest: xcb_window_t,
         dest_kind: xcb_shape_kind_t,
@@ -947,7 +962,7 @@ pub fn xcb_xfixes_fetch_region_rectangles_iterator(R: *const xcb_xfixes_fetch_re
         region: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_set_window_shape_region_checked (
+    pub fn xcb_xfixes_set_window_shape_region_checked(
         c: *mut xcb_connection_t,
         dest: xcb_window_t,
         dest_kind: xcb_shape_kind_t,
@@ -956,7 +971,7 @@ pub fn xcb_xfixes_fetch_region_rectangles_iterator(R: *const xcb_xfixes_fetch_re
         region: xcb_xfixes_region_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_set_picture_clip_region (
+    pub fn xcb_xfixes_set_picture_clip_region(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         region: xcb_xfixes_region_t,
@@ -964,7 +979,7 @@ pub fn xcb_xfixes_fetch_region_rectangles_iterator(R: *const xcb_xfixes_fetch_re
         y_origin: i16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_set_picture_clip_region_checked (
+    pub fn xcb_xfixes_set_picture_clip_region_checked(
         c: *mut xcb_connection_t,
         picture: xcb_render_picture_t,
         region: xcb_xfixes_region_t,
@@ -972,97 +987,115 @@ pub fn xcb_xfixes_fetch_region_rectangles_iterator(R: *const xcb_xfixes_fetch_re
         y_origin: i16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_set_cursor_name (
+    pub fn xcb_xfixes_set_cursor_name(
         c: *mut xcb_connection_t,
         cursor: xcb_cursor_t,
         nbytes: u16,
         name: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_set_cursor_name_checked (
+    pub fn xcb_xfixes_set_cursor_name_checked(
         c: *mut xcb_connection_t,
         cursor: xcb_cursor_t,
         nbytes: u16,
         name: *const c_char,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xfixes_get_cursor_name_name(R: *const xcb_xfixes_get_cursor_name_reply_t) -> *mut c_char;
+    pub fn xcb_xfixes_get_cursor_name_name(
+        R: *const xcb_xfixes_get_cursor_name_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_xfixes_get_cursor_name_name_length(R: *const xcb_xfixes_get_cursor_name_reply_t) -> c_int;
+    pub fn xcb_xfixes_get_cursor_name_name_length(
+        R: *const xcb_xfixes_get_cursor_name_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xfixes_get_cursor_name_name_end(R: *const xcb_xfixes_get_cursor_name_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xfixes_get_cursor_name_name_end(
+        R: *const xcb_xfixes_get_cursor_name_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xfixes_get_cursor_name_reply (
+    pub fn xcb_xfixes_get_cursor_name_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xfixes_get_cursor_name_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xfixes_get_cursor_name_reply_t;
 
-    pub fn xcb_xfixes_get_cursor_name (
+    pub fn xcb_xfixes_get_cursor_name(
         c: *mut xcb_connection_t,
         cursor: xcb_cursor_t,
     ) -> xcb_xfixes_get_cursor_name_cookie_t;
 
-    pub fn xcb_xfixes_get_cursor_name_unchecked (
+    pub fn xcb_xfixes_get_cursor_name_unchecked(
         c: *mut xcb_connection_t,
         cursor: xcb_cursor_t,
     ) -> xcb_xfixes_get_cursor_name_cookie_t;
 
-pub fn xcb_xfixes_get_cursor_image_and_name_name(R: *const xcb_xfixes_get_cursor_image_and_name_reply_t) -> *mut c_char;
+    pub fn xcb_xfixes_get_cursor_image_and_name_name(
+        R: *const xcb_xfixes_get_cursor_image_and_name_reply_t,
+    ) -> *mut c_char;
 
-pub fn xcb_xfixes_get_cursor_image_and_name_name_length(R: *const xcb_xfixes_get_cursor_image_and_name_reply_t) -> c_int;
+    pub fn xcb_xfixes_get_cursor_image_and_name_name_length(
+        R: *const xcb_xfixes_get_cursor_image_and_name_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xfixes_get_cursor_image_and_name_name_end(R: *const xcb_xfixes_get_cursor_image_and_name_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xfixes_get_cursor_image_and_name_name_end(
+        R: *const xcb_xfixes_get_cursor_image_and_name_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xfixes_get_cursor_image_and_name_cursor_image(R: *const xcb_xfixes_get_cursor_image_and_name_reply_t) -> *mut u32;
+    pub fn xcb_xfixes_get_cursor_image_and_name_cursor_image(
+        R: *const xcb_xfixes_get_cursor_image_and_name_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_xfixes_get_cursor_image_and_name_cursor_image_length(R: *const xcb_xfixes_get_cursor_image_and_name_reply_t) -> c_int;
+    pub fn xcb_xfixes_get_cursor_image_and_name_cursor_image_length(
+        R: *const xcb_xfixes_get_cursor_image_and_name_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xfixes_get_cursor_image_and_name_cursor_image_end(R: *const xcb_xfixes_get_cursor_image_and_name_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xfixes_get_cursor_image_and_name_cursor_image_end(
+        R: *const xcb_xfixes_get_cursor_image_and_name_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xfixes_get_cursor_image_and_name_reply (
+    pub fn xcb_xfixes_get_cursor_image_and_name_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xfixes_get_cursor_image_and_name_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xfixes_get_cursor_image_and_name_reply_t;
 
-    pub fn xcb_xfixes_get_cursor_image_and_name (
+    pub fn xcb_xfixes_get_cursor_image_and_name(
         c: *mut xcb_connection_t,
     ) -> xcb_xfixes_get_cursor_image_and_name_cookie_t;
 
-    pub fn xcb_xfixes_get_cursor_image_and_name_unchecked (
+    pub fn xcb_xfixes_get_cursor_image_and_name_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_xfixes_get_cursor_image_and_name_cookie_t;
 
-    pub fn xcb_xfixes_change_cursor (
+    pub fn xcb_xfixes_change_cursor(
         c: *mut xcb_connection_t,
         source: xcb_cursor_t,
         destination: xcb_cursor_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_change_cursor_checked (
+    pub fn xcb_xfixes_change_cursor_checked(
         c: *mut xcb_connection_t,
         source: xcb_cursor_t,
         destination: xcb_cursor_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_change_cursor_by_name (
+    pub fn xcb_xfixes_change_cursor_by_name(
         c: *mut xcb_connection_t,
         src: xcb_cursor_t,
         nbytes: u16,
         name: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_change_cursor_by_name_checked (
+    pub fn xcb_xfixes_change_cursor_by_name_checked(
         c: *mut xcb_connection_t,
         src: xcb_cursor_t,
         nbytes: u16,
         name: *const c_char,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_expand_region (
+    pub fn xcb_xfixes_expand_region(
         c: *mut xcb_connection_t,
         source: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
@@ -1072,7 +1105,7 @@ pub fn xcb_xfixes_get_cursor_image_and_name_cursor_image_end(R: *const xcb_xfixe
         bottom: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_expand_region_checked (
+    pub fn xcb_xfixes_expand_region_checked(
         c: *mut xcb_connection_t,
         source: xcb_xfixes_region_t,
         destination: xcb_xfixes_region_t,
@@ -1082,31 +1115,31 @@ pub fn xcb_xfixes_get_cursor_image_and_name_cursor_image_end(R: *const xcb_xfixe
         bottom: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_hide_cursor (
+    pub fn xcb_xfixes_hide_cursor(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_hide_cursor_checked (
+    pub fn xcb_xfixes_hide_cursor_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_show_cursor (
+    pub fn xcb_xfixes_show_cursor(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_show_cursor_checked (
+    pub fn xcb_xfixes_show_cursor_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-pub fn xcb_xfixes_barrier_next(i: *mut xcb_xfixes_barrier_iterator_t);
+    pub fn xcb_xfixes_barrier_next(i: *mut xcb_xfixes_barrier_iterator_t);
 
-pub fn xcb_xfixes_barrier_end(i: *mut xcb_xfixes_barrier_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xfixes_barrier_end(i: *mut xcb_xfixes_barrier_iterator_t) -> xcb_generic_iterator_t;
 
-    pub fn xcb_xfixes_create_pointer_barrier (
+    pub fn xcb_xfixes_create_pointer_barrier(
         c: *mut xcb_connection_t,
         barrier: xcb_xfixes_barrier_t,
         window: xcb_window_t,
@@ -1119,7 +1152,7 @@ pub fn xcb_xfixes_barrier_end(i: *mut xcb_xfixes_barrier_iterator_t) -> xcb_gene
         devices: *const u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_create_pointer_barrier_checked (
+    pub fn xcb_xfixes_create_pointer_barrier_checked(
         c: *mut xcb_connection_t,
         barrier: xcb_xfixes_barrier_t,
         window: xcb_window_t,
@@ -1132,12 +1165,12 @@ pub fn xcb_xfixes_barrier_end(i: *mut xcb_xfixes_barrier_iterator_t) -> xcb_gene
         devices: *const u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_delete_pointer_barrier (
+    pub fn xcb_xfixes_delete_pointer_barrier(
         c: *mut xcb_connection_t,
         barrier: xcb_xfixes_barrier_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xfixes_delete_pointer_barrier_checked (
+    pub fn xcb_xfixes_delete_pointer_barrier_checked(
         c: *mut xcb_connection_t,
         barrier: xcb_xfixes_barrier_t,
     ) -> xcb_void_cookie_t;

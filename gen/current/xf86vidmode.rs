@@ -8,11 +8,8 @@ use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
 
-
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_xf86vidmode_id
-    }
+    unsafe { &mut xcb_xf86vidmode_id }
 }
 
 pub const MAJOR_VERSION: u32 = 2;
@@ -79,7 +76,20 @@ pub struct ModeInfo {
 
 impl ModeInfo {
     #[allow(unused_unsafe)]
-    pub fn new(dotclock: Dotclock,hdisplay: u16,hsyncstart: u16,hsyncend: u16,htotal: u16,hskew: u32,vdisplay: u16,vsyncstart: u16,vsyncend: u16,vtotal: u16,flags: u32,privsize: u32,) -> ModeInfo {
+    pub fn new(
+        dotclock: Dotclock,
+        hdisplay: u16,
+        hsyncstart: u16,
+        hsyncend: u16,
+        htotal: u16,
+        hskew: u32,
+        vdisplay: u16,
+        vsyncstart: u16,
+        vsyncend: u16,
+        vtotal: u16,
+        flags: u32,
+        privsize: u32,
+    ) -> ModeInfo {
         unsafe {
             ModeInfo {
                 base: xcb_xf86vidmode_mode_info_t {
@@ -93,11 +103,11 @@ impl ModeInfo {
                     vsyncstart: vsyncstart,
                     vsyncend: vsyncend,
                     vtotal: vtotal,
-                pad0: [0; 4],
+                    pad0: [0; 4],
                     flags: flags,
-                pad1: [0; 12],
+                    pad1: [0; 12],
                     privsize: privsize,
-                }
+                },
             }
         }
     }
@@ -170,7 +180,11 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_query_version
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
                 ptr: xcb_xf86vidmode_query_version_reply(
@@ -186,7 +200,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -204,13 +220,9 @@ impl QueryVersionReply {
     }
 }
 
-pub fn query_version<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_query_version(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xf86vidmode_query_version(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -219,13 +231,9 @@ pub fn query_version<'a>(
     }
 }
 
-pub fn query_version_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryVersionCookie<'a> {
+pub fn query_version_unchecked<'a>(c: &'a base::Connection) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_query_version_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_xf86vidmode_query_version_unchecked(c.get_raw_conn());
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -247,7 +255,11 @@ pub type GetModeLineCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_get_mode_line_
 impl<'a> GetModeLineCookie<'a> {
     pub fn get_reply(self) -> Result<GetModeLineReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetModeLineReply {
                 ptr: xcb_xf86vidmode_get_mode_line_reply(
@@ -263,7 +275,9 @@ impl<'a> GetModeLineCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -319,15 +333,9 @@ impl GetModeLineReply {
     }
 }
 
-pub fn get_mode_line<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetModeLineCookie<'a> {
+pub fn get_mode_line<'a>(c: &'a base::Connection, screen: u16) -> GetModeLineCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_mode_line(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_mode_line(c.get_raw_conn(), screen as u16);
         GetModeLineCookie {
             cookie: cookie,
             conn: c,
@@ -336,15 +344,9 @@ pub fn get_mode_line<'a>(
     }
 }
 
-pub fn get_mode_line_unchecked<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetModeLineCookie<'a> {
+pub fn get_mode_line_unchecked<'a>(c: &'a base::Connection, screen: u16) -> GetModeLineCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_mode_line_unchecked(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_mode_line_unchecked(c.get_raw_conn(), screen as u16);
         GetModeLineCookie {
             cookie: cookie,
             conn: c,
@@ -441,17 +443,9 @@ pub fn mod_mode_line_checked<'a>(
 
 pub const SWITCH_MODE: u8 = 3;
 
-pub fn switch_mode<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-    zoom: u16,
-) -> base::VoidCookie<'a> {
+pub fn switch_mode<'a>(c: &'a base::Connection, screen: u16, zoom: u16) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_switch_mode(
-            c.get_raw_conn(),
-            screen as u16,
-            zoom as u16,
-        );
+        let cookie = xcb_xf86vidmode_switch_mode(c.get_raw_conn(), screen as u16, zoom as u16);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -466,11 +460,8 @@ pub fn switch_mode_checked<'a>(
     zoom: u16,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_switch_mode_checked(
-            c.get_raw_conn(),
-            screen as u16,
-            zoom as u16,
-        );
+        let cookie =
+            xcb_xf86vidmode_switch_mode_checked(c.get_raw_conn(), screen as u16, zoom as u16);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -492,7 +483,11 @@ pub type GetMonitorCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_get_monitor_coo
 impl<'a> GetMonitorCookie<'a> {
     pub fn get_reply(self) -> Result<GetMonitorReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMonitorReply {
                 ptr: xcb_xf86vidmode_get_monitor_reply(
@@ -508,7 +503,9 @@ impl<'a> GetMonitorCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -577,15 +574,9 @@ impl GetMonitorReply {
     }
 }
 
-pub fn get_monitor<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetMonitorCookie<'a> {
+pub fn get_monitor<'a>(c: &'a base::Connection, screen: u16) -> GetMonitorCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_monitor(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_monitor(c.get_raw_conn(), screen as u16);
         GetMonitorCookie {
             cookie: cookie,
             conn: c,
@@ -594,15 +585,9 @@ pub fn get_monitor<'a>(
     }
 }
 
-pub fn get_monitor_unchecked<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetMonitorCookie<'a> {
+pub fn get_monitor_unchecked<'a>(c: &'a base::Connection, screen: u16) -> GetMonitorCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_monitor_unchecked(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_monitor_unchecked(c.get_raw_conn(), screen as u16);
         GetMonitorCookie {
             cookie: cookie,
             conn: c,
@@ -619,11 +604,7 @@ pub fn lock_mode_switch<'a>(
     lock: u16,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_lock_mode_switch(
-            c.get_raw_conn(),
-            screen as u16,
-            lock as u16,
-        );
+        let cookie = xcb_xf86vidmode_lock_mode_switch(c.get_raw_conn(), screen as u16, lock as u16);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -638,11 +619,8 @@ pub fn lock_mode_switch_checked<'a>(
     lock: u16,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_lock_mode_switch_checked(
-            c.get_raw_conn(),
-            screen as u16,
-            lock as u16,
-        );
+        let cookie =
+            xcb_xf86vidmode_lock_mode_switch_checked(c.get_raw_conn(), screen as u16, lock as u16);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -664,7 +642,11 @@ pub type GetAllModeLinesCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_get_all_mo
 impl<'a> GetAllModeLinesCookie<'a> {
     pub fn get_reply(self) -> Result<GetAllModeLinesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetAllModeLinesReply {
                 ptr: xcb_xf86vidmode_get_all_mode_lines_reply(
@@ -680,7 +662,9 @@ impl<'a> GetAllModeLinesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -698,15 +682,9 @@ impl GetAllModeLinesReply {
     }
 }
 
-pub fn get_all_mode_lines<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetAllModeLinesCookie<'a> {
+pub fn get_all_mode_lines<'a>(c: &'a base::Connection, screen: u16) -> GetAllModeLinesCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_all_mode_lines(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_all_mode_lines(c.get_raw_conn(), screen as u16);
         GetAllModeLinesCookie {
             cookie: cookie,
             conn: c,
@@ -720,10 +698,7 @@ pub fn get_all_mode_lines_unchecked<'a>(
     screen: u16,
 ) -> GetAllModeLinesCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_all_mode_lines_unchecked(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_all_mode_lines_unchecked(c.get_raw_conn(), screen as u16);
         GetAllModeLinesCookie {
             cookie: cookie,
             conn: c,
@@ -969,7 +944,11 @@ pub type ValidateModeLineCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_validate_
 impl<'a> ValidateModeLineCookie<'a> {
     pub fn get_reply(self) -> Result<ValidateModeLineReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ValidateModeLineReply {
                 ptr: xcb_xf86vidmode_validate_mode_line_reply(
@@ -985,7 +964,9 @@ impl<'a> ValidateModeLineCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1191,7 +1172,11 @@ pub type GetViewPortCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_get_view_port_
 impl<'a> GetViewPortCookie<'a> {
     pub fn get_reply(self) -> Result<GetViewPortReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetViewPortReply {
                 ptr: xcb_xf86vidmode_get_view_port_reply(
@@ -1207,7 +1192,9 @@ impl<'a> GetViewPortCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1225,15 +1212,9 @@ impl GetViewPortReply {
     }
 }
 
-pub fn get_view_port<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetViewPortCookie<'a> {
+pub fn get_view_port<'a>(c: &'a base::Connection, screen: u16) -> GetViewPortCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_view_port(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_view_port(c.get_raw_conn(), screen as u16);
         GetViewPortCookie {
             cookie: cookie,
             conn: c,
@@ -1242,15 +1223,9 @@ pub fn get_view_port<'a>(
     }
 }
 
-pub fn get_view_port_unchecked<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetViewPortCookie<'a> {
+pub fn get_view_port_unchecked<'a>(c: &'a base::Connection, screen: u16) -> GetViewPortCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_view_port_unchecked(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_view_port_unchecked(c.get_raw_conn(), screen as u16);
         GetViewPortCookie {
             cookie: cookie,
             conn: c,
@@ -1268,12 +1243,8 @@ pub fn set_view_port<'a>(
     y: u32,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_set_view_port(
-            c.get_raw_conn(),
-            screen as u16,
-            x as u32,
-            y as u32,
-        );
+        let cookie =
+            xcb_xf86vidmode_set_view_port(c.get_raw_conn(), screen as u16, x as u32, y as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1316,7 +1287,11 @@ pub type GetDotClocksCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_get_dot_clock
 impl<'a> GetDotClocksCookie<'a> {
     pub fn get_reply(self) -> Result<GetDotClocksReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDotClocksReply {
                 ptr: xcb_xf86vidmode_get_dot_clocks_reply(
@@ -1332,7 +1307,9 @@ impl<'a> GetDotClocksCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1361,15 +1338,9 @@ impl GetDotClocksReply {
     }
 }
 
-pub fn get_dot_clocks<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetDotClocksCookie<'a> {
+pub fn get_dot_clocks<'a>(c: &'a base::Connection, screen: u16) -> GetDotClocksCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_dot_clocks(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_dot_clocks(c.get_raw_conn(), screen as u16);
         GetDotClocksCookie {
             cookie: cookie,
             conn: c,
@@ -1383,10 +1354,7 @@ pub fn get_dot_clocks_unchecked<'a>(
     screen: u16,
 ) -> GetDotClocksCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_dot_clocks_unchecked(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_dot_clocks_unchecked(c.get_raw_conn(), screen as u16);
         GetDotClocksCookie {
             cookie: cookie,
             conn: c,
@@ -1403,11 +1371,8 @@ pub fn set_client_version<'a>(
     minor: u16,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_set_client_version(
-            c.get_raw_conn(),
-            major as u16,
-            minor as u16,
-        );
+        let cookie =
+            xcb_xf86vidmode_set_client_version(c.get_raw_conn(), major as u16, minor as u16);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -1496,7 +1461,11 @@ pub type GetGammaCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_get_gamma_cookie_
 impl<'a> GetGammaCookie<'a> {
     pub fn get_reply(self) -> Result<GetGammaReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetGammaReply {
                 ptr: xcb_xf86vidmode_get_gamma_reply(
@@ -1512,7 +1481,9 @@ impl<'a> GetGammaCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1533,15 +1504,9 @@ impl GetGammaReply {
     }
 }
 
-pub fn get_gamma<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetGammaCookie<'a> {
+pub fn get_gamma<'a>(c: &'a base::Connection, screen: u16) -> GetGammaCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_gamma(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_gamma(c.get_raw_conn(), screen as u16);
         GetGammaCookie {
             cookie: cookie,
             conn: c,
@@ -1550,15 +1515,9 @@ pub fn get_gamma<'a>(
     }
 }
 
-pub fn get_gamma_unchecked<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetGammaCookie<'a> {
+pub fn get_gamma_unchecked<'a>(c: &'a base::Connection, screen: u16) -> GetGammaCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_gamma_unchecked(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_gamma_unchecked(c.get_raw_conn(), screen as u16);
         GetGammaCookie {
             cookie: cookie,
             conn: c,
@@ -1580,7 +1539,11 @@ pub type GetGammaRampCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_get_gamma_ram
 impl<'a> GetGammaRampCookie<'a> {
     pub fn get_reply(self) -> Result<GetGammaRampReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetGammaRampReply {
                 ptr: xcb_xf86vidmode_get_gamma_ramp_reply(
@@ -1596,7 +1559,9 @@ impl<'a> GetGammaRampCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1641,11 +1606,7 @@ pub fn get_gamma_ramp<'a>(
     size: u16,
 ) -> GetGammaRampCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_gamma_ramp(
-            c.get_raw_conn(),
-            screen as u16,
-            size as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_gamma_ramp(c.get_raw_conn(), screen as u16, size as u16);
         GetGammaRampCookie {
             cookie: cookie,
             conn: c,
@@ -1660,11 +1621,8 @@ pub fn get_gamma_ramp_unchecked<'a>(
     size: u16,
 ) -> GetGammaRampCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_gamma_ramp_unchecked(
-            c.get_raw_conn(),
-            screen as u16,
-            size as u16,
-        );
+        let cookie =
+            xcb_xf86vidmode_get_gamma_ramp_unchecked(c.get_raw_conn(), screen as u16, size as u16);
         GetGammaRampCookie {
             cookie: cookie,
             conn: c,
@@ -1739,12 +1697,17 @@ impl base::CookieSeq for xcb_xf86vidmode_get_gamma_ramp_size_cookie_t {
     }
 }
 
-pub type GetGammaRampSizeCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_get_gamma_ramp_size_cookie_t>;
+pub type GetGammaRampSizeCookie<'a> =
+    base::Cookie<'a, xcb_xf86vidmode_get_gamma_ramp_size_cookie_t>;
 
 impl<'a> GetGammaRampSizeCookie<'a> {
     pub fn get_reply(self) -> Result<GetGammaRampSizeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetGammaRampSizeReply {
                 ptr: xcb_xf86vidmode_get_gamma_ramp_size_reply(
@@ -1760,7 +1723,9 @@ impl<'a> GetGammaRampSizeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1775,15 +1740,9 @@ impl GetGammaRampSizeReply {
     }
 }
 
-pub fn get_gamma_ramp_size<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetGammaRampSizeCookie<'a> {
+pub fn get_gamma_ramp_size<'a>(c: &'a base::Connection, screen: u16) -> GetGammaRampSizeCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_gamma_ramp_size(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_gamma_ramp_size(c.get_raw_conn(), screen as u16);
         GetGammaRampSizeCookie {
             cookie: cookie,
             conn: c,
@@ -1797,10 +1756,7 @@ pub fn get_gamma_ramp_size_unchecked<'a>(
     screen: u16,
 ) -> GetGammaRampSizeCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_gamma_ramp_size_unchecked(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_gamma_ramp_size_unchecked(c.get_raw_conn(), screen as u16);
         GetGammaRampSizeCookie {
             cookie: cookie,
             conn: c,
@@ -1822,7 +1778,11 @@ pub type GetPermissionsCookie<'a> = base::Cookie<'a, xcb_xf86vidmode_get_permiss
 impl<'a> GetPermissionsCookie<'a> {
     pub fn get_reply(self) -> Result<GetPermissionsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPermissionsReply {
                 ptr: xcb_xf86vidmode_get_permissions_reply(
@@ -1838,7 +1798,9 @@ impl<'a> GetPermissionsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -1853,15 +1815,9 @@ impl GetPermissionsReply {
     }
 }
 
-pub fn get_permissions<'a>(
-    c: &'a base::Connection,
-    screen: u16,
-) -> GetPermissionsCookie<'a> {
+pub fn get_permissions<'a>(c: &'a base::Connection, screen: u16) -> GetPermissionsCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_permissions(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_permissions(c.get_raw_conn(), screen as u16);
         GetPermissionsCookie {
             cookie: cookie,
             conn: c,
@@ -1875,10 +1831,7 @@ pub fn get_permissions_unchecked<'a>(
     screen: u16,
 ) -> GetPermissionsCookie<'a> {
     unsafe {
-        let cookie = xcb_xf86vidmode_get_permissions_unchecked(
-            c.get_raw_conn(),
-            screen as u16,
-        );
+        let cookie = xcb_xf86vidmode_get_permissions_unchecked(c.get_raw_conn(), screen as u16);
         GetPermissionsCookie {
             cookie: cookie,
             conn: c,

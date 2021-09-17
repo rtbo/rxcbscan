@@ -15,8 +15,8 @@ pub type xcb_xv_port_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_port_iterator_t {
-    pub data:  *mut xcb_xv_port_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xv_port_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -25,8 +25,8 @@ pub type xcb_xv_encoding_t = u32;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_encoding_iterator_t {
-    pub data:  *mut xcb_xv_encoding_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xv_encoding_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -78,8 +78,8 @@ pub struct xcb_xv_rational_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_rational_iterator_t {
-    pub data:  *mut xcb_xv_rational_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xv_rational_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -94,8 +94,8 @@ pub struct xcb_xv_format_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_format_iterator_t {
-    pub data:  *mut xcb_xv_format_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xv_format_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -113,8 +113,8 @@ pub struct xcb_xv_adaptor_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_adaptor_info_iterator_t<'a> {
-    pub data:  *mut xcb_xv_adaptor_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xv_adaptor_info_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xv_adaptor_info_t>,
 }
@@ -133,8 +133,8 @@ pub struct xcb_xv_encoding_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_encoding_info_iterator_t<'a> {
-    pub data:  *mut xcb_xv_encoding_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xv_encoding_info_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xv_encoding_info_t>,
 }
@@ -152,8 +152,8 @@ pub struct xcb_xv_image_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_image_iterator_t<'a> {
-    pub data:  *mut xcb_xv_image_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xv_image_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xv_image_t>,
 }
@@ -170,8 +170,8 @@ pub struct xcb_xv_attribute_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_attribute_info_iterator_t<'a> {
-    pub data:  *mut xcb_xv_attribute_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xv_attribute_info_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xv_attribute_info_t>,
 }
@@ -211,8 +211,8 @@ pub struct xcb_xv_image_format_info_t {
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_xv_image_format_info_iterator_t<'a> {
-    pub data:  *mut xcb_xv_image_format_info_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_xv_image_format_info_t,
+    pub rem: c_int,
     pub index: c_int,
     _phantom: std::marker::PhantomData<&'a xcb_xv_image_format_info_t>,
 }
@@ -737,177 +737,193 @@ pub struct xcb_xv_shm_put_image_request_t {
 }
 
 #[link(name = "xcb-xv")]
-extern {
+extern "C" {
 
-pub static mut xcb_xv_id: xcb_extension_t;
+    pub static mut xcb_xv_id: xcb_extension_t;
 
-pub fn xcb_xv_port_next(i: *mut xcb_xv_port_iterator_t);
+    pub fn xcb_xv_port_next(i: *mut xcb_xv_port_iterator_t);
 
-pub fn xcb_xv_port_end(i: *mut xcb_xv_port_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_port_end(i: *mut xcb_xv_port_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_encoding_next(i: *mut xcb_xv_encoding_iterator_t);
+    pub fn xcb_xv_encoding_next(i: *mut xcb_xv_encoding_iterator_t);
 
-pub fn xcb_xv_encoding_end(i: *mut xcb_xv_encoding_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_encoding_end(i: *mut xcb_xv_encoding_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_rational_next(i: *mut xcb_xv_rational_iterator_t);
+    pub fn xcb_xv_rational_next(i: *mut xcb_xv_rational_iterator_t);
 
-pub fn xcb_xv_rational_end(i: *mut xcb_xv_rational_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_rational_end(i: *mut xcb_xv_rational_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_format_next(i: *mut xcb_xv_format_iterator_t);
+    pub fn xcb_xv_format_next(i: *mut xcb_xv_format_iterator_t);
 
-pub fn xcb_xv_format_end(i: *mut xcb_xv_format_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_format_end(i: *mut xcb_xv_format_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_adaptor_info_name(R: *const xcb_xv_adaptor_info_t) -> *mut c_char;
+    pub fn xcb_xv_adaptor_info_name(R: *const xcb_xv_adaptor_info_t) -> *mut c_char;
 
-pub fn xcb_xv_adaptor_info_name_length(R: *const xcb_xv_adaptor_info_t) -> c_int;
+    pub fn xcb_xv_adaptor_info_name_length(R: *const xcb_xv_adaptor_info_t) -> c_int;
 
-pub fn xcb_xv_adaptor_info_name_end(R: *const xcb_xv_adaptor_info_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_adaptor_info_name_end(R: *const xcb_xv_adaptor_info_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_adaptor_info_formats(R: *const xcb_xv_adaptor_info_t) -> *mut xcb_xv_format_t;
+    pub fn xcb_xv_adaptor_info_formats(R: *const xcb_xv_adaptor_info_t) -> *mut xcb_xv_format_t;
 
-pub fn xcb_xv_adaptor_info_formats_length(R: *const xcb_xv_adaptor_info_t) -> c_int;
+    pub fn xcb_xv_adaptor_info_formats_length(R: *const xcb_xv_adaptor_info_t) -> c_int;
 
-pub fn xcb_xv_adaptor_info_formats_iterator(R: *const xcb_xv_adaptor_info_t) -> xcb_xv_format_iterator_t;
+    pub fn xcb_xv_adaptor_info_formats_iterator(
+        R: *const xcb_xv_adaptor_info_t,
+    ) -> xcb_xv_format_iterator_t;
 
-pub fn xcb_xv_adaptor_info_next(i: *mut xcb_xv_adaptor_info_iterator_t);
+    pub fn xcb_xv_adaptor_info_next(i: *mut xcb_xv_adaptor_info_iterator_t);
 
-pub fn xcb_xv_adaptor_info_end(i: *mut xcb_xv_adaptor_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_adaptor_info_end(
+        i: *mut xcb_xv_adaptor_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_encoding_info_name(R: *const xcb_xv_encoding_info_t) -> *mut c_char;
+    pub fn xcb_xv_encoding_info_name(R: *const xcb_xv_encoding_info_t) -> *mut c_char;
 
-pub fn xcb_xv_encoding_info_name_length(R: *const xcb_xv_encoding_info_t) -> c_int;
+    pub fn xcb_xv_encoding_info_name_length(R: *const xcb_xv_encoding_info_t) -> c_int;
 
-pub fn xcb_xv_encoding_info_name_end(R: *const xcb_xv_encoding_info_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_encoding_info_name_end(
+        R: *const xcb_xv_encoding_info_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_encoding_info_next(i: *mut xcb_xv_encoding_info_iterator_t);
+    pub fn xcb_xv_encoding_info_next(i: *mut xcb_xv_encoding_info_iterator_t);
 
-pub fn xcb_xv_encoding_info_end(i: *mut xcb_xv_encoding_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_encoding_info_end(
+        i: *mut xcb_xv_encoding_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_image_pitches(R: *const xcb_xv_image_t) -> *mut u32;
+    pub fn xcb_xv_image_pitches(R: *const xcb_xv_image_t) -> *mut u32;
 
-pub fn xcb_xv_image_pitches_length(R: *const xcb_xv_image_t) -> c_int;
+    pub fn xcb_xv_image_pitches_length(R: *const xcb_xv_image_t) -> c_int;
 
-pub fn xcb_xv_image_pitches_end(R: *const xcb_xv_image_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_image_pitches_end(R: *const xcb_xv_image_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_image_offsets(R: *const xcb_xv_image_t) -> *mut u32;
+    pub fn xcb_xv_image_offsets(R: *const xcb_xv_image_t) -> *mut u32;
 
-pub fn xcb_xv_image_offsets_length(R: *const xcb_xv_image_t) -> c_int;
+    pub fn xcb_xv_image_offsets_length(R: *const xcb_xv_image_t) -> c_int;
 
-pub fn xcb_xv_image_offsets_end(R: *const xcb_xv_image_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_image_offsets_end(R: *const xcb_xv_image_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_image_data(R: *const xcb_xv_image_t) -> *mut u8;
+    pub fn xcb_xv_image_data(R: *const xcb_xv_image_t) -> *mut u8;
 
-pub fn xcb_xv_image_data_length(R: *const xcb_xv_image_t) -> c_int;
+    pub fn xcb_xv_image_data_length(R: *const xcb_xv_image_t) -> c_int;
 
-pub fn xcb_xv_image_data_end(R: *const xcb_xv_image_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_image_data_end(R: *const xcb_xv_image_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_image_next(i: *mut xcb_xv_image_iterator_t);
+    pub fn xcb_xv_image_next(i: *mut xcb_xv_image_iterator_t);
 
-pub fn xcb_xv_image_end(i: *mut xcb_xv_image_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_image_end(i: *mut xcb_xv_image_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_attribute_info_name(R: *const xcb_xv_attribute_info_t) -> *mut c_char;
+    pub fn xcb_xv_attribute_info_name(R: *const xcb_xv_attribute_info_t) -> *mut c_char;
 
-pub fn xcb_xv_attribute_info_name_length(R: *const xcb_xv_attribute_info_t) -> c_int;
+    pub fn xcb_xv_attribute_info_name_length(R: *const xcb_xv_attribute_info_t) -> c_int;
 
-pub fn xcb_xv_attribute_info_name_end(R: *const xcb_xv_attribute_info_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_attribute_info_name_end(
+        R: *const xcb_xv_attribute_info_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_attribute_info_next(i: *mut xcb_xv_attribute_info_iterator_t);
+    pub fn xcb_xv_attribute_info_next(i: *mut xcb_xv_attribute_info_iterator_t);
 
-pub fn xcb_xv_attribute_info_end(i: *mut xcb_xv_attribute_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_attribute_info_end(
+        i: *mut xcb_xv_attribute_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_image_format_info_next(i: *mut xcb_xv_image_format_info_iterator_t);
+    pub fn xcb_xv_image_format_info_next(i: *mut xcb_xv_image_format_info_iterator_t);
 
-pub fn xcb_xv_image_format_info_end(i: *mut xcb_xv_image_format_info_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_image_format_info_end(
+        i: *mut xcb_xv_image_format_info_iterator_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xv_query_extension_reply (
+    pub fn xcb_xv_query_extension_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xv_query_extension_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xv_query_extension_reply_t;
 
-    pub fn xcb_xv_query_extension (
+    pub fn xcb_xv_query_extension(c: *mut xcb_connection_t) -> xcb_xv_query_extension_cookie_t;
+
+    pub fn xcb_xv_query_extension_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_xv_query_extension_cookie_t;
 
-    pub fn xcb_xv_query_extension_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_xv_query_extension_cookie_t;
+    pub fn xcb_xv_query_adaptors_info_length(R: *const xcb_xv_query_adaptors_reply_t) -> c_int;
 
-pub fn xcb_xv_query_adaptors_info_length(R: *const xcb_xv_query_adaptors_reply_t) -> c_int;
-
-pub fn xcb_xv_query_adaptors_info_iterator<'a>(R: *const xcb_xv_query_adaptors_reply_t) -> xcb_xv_adaptor_info_iterator_t<'a>;
+    pub fn xcb_xv_query_adaptors_info_iterator<'a>(
+        R: *const xcb_xv_query_adaptors_reply_t,
+    ) -> xcb_xv_adaptor_info_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xv_query_adaptors_reply (
+    pub fn xcb_xv_query_adaptors_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xv_query_adaptors_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xv_query_adaptors_reply_t;
 
-    pub fn xcb_xv_query_adaptors (
+    pub fn xcb_xv_query_adaptors(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_xv_query_adaptors_cookie_t;
 
-    pub fn xcb_xv_query_adaptors_unchecked (
+    pub fn xcb_xv_query_adaptors_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_xv_query_adaptors_cookie_t;
 
-pub fn xcb_xv_query_encodings_info_length(R: *const xcb_xv_query_encodings_reply_t) -> c_int;
+    pub fn xcb_xv_query_encodings_info_length(R: *const xcb_xv_query_encodings_reply_t) -> c_int;
 
-pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings_reply_t) -> xcb_xv_encoding_info_iterator_t<'a>;
+    pub fn xcb_xv_query_encodings_info_iterator<'a>(
+        R: *const xcb_xv_query_encodings_reply_t,
+    ) -> xcb_xv_encoding_info_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xv_query_encodings_reply (
+    pub fn xcb_xv_query_encodings_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xv_query_encodings_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xv_query_encodings_reply_t;
 
-    pub fn xcb_xv_query_encodings (
+    pub fn xcb_xv_query_encodings(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
     ) -> xcb_xv_query_encodings_cookie_t;
 
-    pub fn xcb_xv_query_encodings_unchecked (
+    pub fn xcb_xv_query_encodings_unchecked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
     ) -> xcb_xv_query_encodings_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xv_grab_port_reply (
+    pub fn xcb_xv_grab_port_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xv_grab_port_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xv_grab_port_reply_t;
 
-    pub fn xcb_xv_grab_port (
+    pub fn xcb_xv_grab_port(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         time: xcb_timestamp_t,
     ) -> xcb_xv_grab_port_cookie_t;
 
-    pub fn xcb_xv_grab_port_unchecked (
+    pub fn xcb_xv_grab_port_unchecked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         time: xcb_timestamp_t,
     ) -> xcb_xv_grab_port_cookie_t;
 
-    pub fn xcb_xv_ungrab_port (
+    pub fn xcb_xv_ungrab_port(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_ungrab_port_checked (
+    pub fn xcb_xv_ungrab_port_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         time: xcb_timestamp_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_put_video (
+    pub fn xcb_xv_put_video(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -922,7 +938,7 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         drw_h: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_put_video_checked (
+    pub fn xcb_xv_put_video_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -937,7 +953,7 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         drw_h: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_put_still (
+    pub fn xcb_xv_put_still(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -952,7 +968,7 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         drw_h: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_put_still_checked (
+    pub fn xcb_xv_put_still_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -967,7 +983,7 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         drw_h: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_get_video (
+    pub fn xcb_xv_get_video(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -982,7 +998,7 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         drw_h: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_get_video_checked (
+    pub fn xcb_xv_get_video_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -997,7 +1013,7 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         drw_h: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_get_still (
+    pub fn xcb_xv_get_still(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -1012,7 +1028,7 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         drw_h: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_get_still_checked (
+    pub fn xcb_xv_get_still_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -1027,50 +1043,50 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         drw_h: u16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_stop_video (
+    pub fn xcb_xv_stop_video(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_stop_video_checked (
+    pub fn xcb_xv_stop_video_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_select_video_notify (
+    pub fn xcb_xv_select_video_notify(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         onoff: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_select_video_notify_checked (
+    pub fn xcb_xv_select_video_notify_checked(
         c: *mut xcb_connection_t,
         drawable: xcb_drawable_t,
         onoff: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_select_port_notify (
+    pub fn xcb_xv_select_port_notify(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         onoff: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_select_port_notify_checked (
+    pub fn xcb_xv_select_port_notify_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         onoff: u8,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xv_query_best_size_reply (
+    pub fn xcb_xv_query_best_size_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xv_query_best_size_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xv_query_best_size_reply_t;
 
-    pub fn xcb_xv_query_best_size (
+    pub fn xcb_xv_query_best_size(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         vid_w: u16,
@@ -1080,7 +1096,7 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         motion: u8,
     ) -> xcb_xv_query_best_size_cookie_t;
 
-    pub fn xcb_xv_query_best_size_unchecked (
+    pub fn xcb_xv_query_best_size_unchecked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         vid_w: u16,
@@ -1090,14 +1106,14 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
         motion: u8,
     ) -> xcb_xv_query_best_size_cookie_t;
 
-    pub fn xcb_xv_set_port_attribute (
+    pub fn xcb_xv_set_port_attribute(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         attribute: xcb_atom_t,
         value: i32,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_set_port_attribute_checked (
+    pub fn xcb_xv_set_port_attribute_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         attribute: xcb_atom_t,
@@ -1105,88 +1121,110 @@ pub fn xcb_xv_query_encodings_info_iterator<'a>(R: *const xcb_xv_query_encodings
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xv_get_port_attribute_reply (
+    pub fn xcb_xv_get_port_attribute_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xv_get_port_attribute_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xv_get_port_attribute_reply_t;
 
-    pub fn xcb_xv_get_port_attribute (
+    pub fn xcb_xv_get_port_attribute(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         attribute: xcb_atom_t,
     ) -> xcb_xv_get_port_attribute_cookie_t;
 
-    pub fn xcb_xv_get_port_attribute_unchecked (
+    pub fn xcb_xv_get_port_attribute_unchecked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         attribute: xcb_atom_t,
     ) -> xcb_xv_get_port_attribute_cookie_t;
 
-pub fn xcb_xv_query_port_attributes_attributes_length(R: *const xcb_xv_query_port_attributes_reply_t) -> c_int;
+    pub fn xcb_xv_query_port_attributes_attributes_length(
+        R: *const xcb_xv_query_port_attributes_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xv_query_port_attributes_attributes_iterator<'a>(R: *const xcb_xv_query_port_attributes_reply_t) -> xcb_xv_attribute_info_iterator_t<'a>;
+    pub fn xcb_xv_query_port_attributes_attributes_iterator<'a>(
+        R: *const xcb_xv_query_port_attributes_reply_t,
+    ) -> xcb_xv_attribute_info_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xv_query_port_attributes_reply (
+    pub fn xcb_xv_query_port_attributes_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xv_query_port_attributes_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xv_query_port_attributes_reply_t;
 
-    pub fn xcb_xv_query_port_attributes (
+    pub fn xcb_xv_query_port_attributes(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
     ) -> xcb_xv_query_port_attributes_cookie_t;
 
-    pub fn xcb_xv_query_port_attributes_unchecked (
+    pub fn xcb_xv_query_port_attributes_unchecked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
     ) -> xcb_xv_query_port_attributes_cookie_t;
 
-pub fn xcb_xv_list_image_formats_format(R: *const xcb_xv_list_image_formats_reply_t) -> *mut xcb_xv_image_format_info_t;
+    pub fn xcb_xv_list_image_formats_format(
+        R: *const xcb_xv_list_image_formats_reply_t,
+    ) -> *mut xcb_xv_image_format_info_t;
 
-pub fn xcb_xv_list_image_formats_format_length(R: *const xcb_xv_list_image_formats_reply_t) -> c_int;
+    pub fn xcb_xv_list_image_formats_format_length(
+        R: *const xcb_xv_list_image_formats_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xv_list_image_formats_format_iterator<'a>(R: *const xcb_xv_list_image_formats_reply_t) -> xcb_xv_image_format_info_iterator_t<'a>;
+    pub fn xcb_xv_list_image_formats_format_iterator<'a>(
+        R: *const xcb_xv_list_image_formats_reply_t,
+    ) -> xcb_xv_image_format_info_iterator_t<'a>;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xv_list_image_formats_reply (
+    pub fn xcb_xv_list_image_formats_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xv_list_image_formats_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xv_list_image_formats_reply_t;
 
-    pub fn xcb_xv_list_image_formats (
+    pub fn xcb_xv_list_image_formats(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
     ) -> xcb_xv_list_image_formats_cookie_t;
 
-    pub fn xcb_xv_list_image_formats_unchecked (
+    pub fn xcb_xv_list_image_formats_unchecked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
     ) -> xcb_xv_list_image_formats_cookie_t;
 
-pub fn xcb_xv_query_image_attributes_pitches(R: *const xcb_xv_query_image_attributes_reply_t) -> *mut u32;
+    pub fn xcb_xv_query_image_attributes_pitches(
+        R: *const xcb_xv_query_image_attributes_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_xv_query_image_attributes_pitches_length(R: *const xcb_xv_query_image_attributes_reply_t) -> c_int;
+    pub fn xcb_xv_query_image_attributes_pitches_length(
+        R: *const xcb_xv_query_image_attributes_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xv_query_image_attributes_pitches_end(R: *const xcb_xv_query_image_attributes_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_query_image_attributes_pitches_end(
+        R: *const xcb_xv_query_image_attributes_reply_t,
+    ) -> xcb_generic_iterator_t;
 
-pub fn xcb_xv_query_image_attributes_offsets(R: *const xcb_xv_query_image_attributes_reply_t) -> *mut u32;
+    pub fn xcb_xv_query_image_attributes_offsets(
+        R: *const xcb_xv_query_image_attributes_reply_t,
+    ) -> *mut u32;
 
-pub fn xcb_xv_query_image_attributes_offsets_length(R: *const xcb_xv_query_image_attributes_reply_t) -> c_int;
+    pub fn xcb_xv_query_image_attributes_offsets_length(
+        R: *const xcb_xv_query_image_attributes_reply_t,
+    ) -> c_int;
 
-pub fn xcb_xv_query_image_attributes_offsets_end(R: *const xcb_xv_query_image_attributes_reply_t) -> xcb_generic_iterator_t;
+    pub fn xcb_xv_query_image_attributes_offsets_end(
+        R: *const xcb_xv_query_image_attributes_reply_t,
+    ) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_xv_query_image_attributes_reply (
+    pub fn xcb_xv_query_image_attributes_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_xv_query_image_attributes_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_xv_query_image_attributes_reply_t;
 
-    pub fn xcb_xv_query_image_attributes (
+    pub fn xcb_xv_query_image_attributes(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         id: u32,
@@ -1194,7 +1232,7 @@ pub fn xcb_xv_query_image_attributes_offsets_end(R: *const xcb_xv_query_image_at
         height: u16,
     ) -> xcb_xv_query_image_attributes_cookie_t;
 
-    pub fn xcb_xv_query_image_attributes_unchecked (
+    pub fn xcb_xv_query_image_attributes_unchecked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         id: u32,
@@ -1202,7 +1240,7 @@ pub fn xcb_xv_query_image_attributes_offsets_end(R: *const xcb_xv_query_image_at
         height: u16,
     ) -> xcb_xv_query_image_attributes_cookie_t;
 
-    pub fn xcb_xv_put_image (
+    pub fn xcb_xv_put_image(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -1222,7 +1260,7 @@ pub fn xcb_xv_query_image_attributes_offsets_end(R: *const xcb_xv_query_image_at
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_put_image_checked (
+    pub fn xcb_xv_put_image_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -1242,7 +1280,7 @@ pub fn xcb_xv_query_image_attributes_offsets_end(R: *const xcb_xv_query_image_at
         data: *const u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_shm_put_image (
+    pub fn xcb_xv_shm_put_image(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,
@@ -1263,7 +1301,7 @@ pub fn xcb_xv_query_image_attributes_offsets_end(R: *const xcb_xv_query_image_at
         send_event: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_xv_shm_put_image_checked (
+    pub fn xcb_xv_shm_put_image_checked(
         c: *mut xcb_connection_t,
         port: xcb_xv_port_t,
         drawable: xcb_drawable_t,

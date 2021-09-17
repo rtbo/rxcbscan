@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::res::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_res_id
-    }
+    unsafe { &mut xcb_res_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -31,13 +28,13 @@ pub struct Client {
 
 impl Client {
     #[allow(unused_unsafe)]
-    pub fn new(resource_base: u32,resource_mask: u32,) -> Client {
+    pub fn new(resource_base: u32, resource_mask: u32) -> Client {
         unsafe {
             Client {
                 base: xcb_res_client_t {
                     resource_base: resource_base,
                     resource_mask: resource_mask,
-                }
+                },
             }
         }
     }
@@ -74,13 +71,13 @@ pub struct Type {
 
 impl Type {
     #[allow(unused_unsafe)]
-    pub fn new(resource_type: xproto::Atom,count: u32,) -> Type {
+    pub fn new(resource_type: xproto::Atom, count: u32) -> Type {
         unsafe {
             Type {
                 base: xcb_res_type_t {
                     resource_type: resource_type,
                     count: count,
-                }
+                },
             }
         }
     }
@@ -117,13 +114,13 @@ pub struct ClientIdSpec {
 
 impl ClientIdSpec {
     #[allow(unused_unsafe)]
-    pub fn new(client: u32,mask: u32,) -> ClientIdSpec {
+    pub fn new(client: u32, mask: u32) -> ClientIdSpec {
         unsafe {
             ClientIdSpec {
                 base: xcb_res_client_id_spec_t {
                     client: client,
                     mask: mask,
-                }
+                },
             }
         }
     }
@@ -197,13 +194,13 @@ pub struct ResourceIdSpec {
 
 impl ResourceIdSpec {
     #[allow(unused_unsafe)]
-    pub fn new(resource: u32,type_: u32,) -> ResourceIdSpec {
+    pub fn new(resource: u32, type_: u32) -> ResourceIdSpec {
         unsafe {
             ResourceIdSpec {
                 base: xcb_res_resource_id_spec_t {
                     resource: resource,
                     type_: type_,
-                }
+                },
             }
         }
     }
@@ -240,7 +237,12 @@ pub struct ResourceSizeSpec {
 
 impl ResourceSizeSpec {
     #[allow(unused_unsafe)]
-    pub fn new(spec: ResourceIdSpec,bytes: u32,ref_count: u32,use_count: u32,) -> ResourceSizeSpec {
+    pub fn new(
+        spec: ResourceIdSpec,
+        bytes: u32,
+        ref_count: u32,
+        use_count: u32,
+    ) -> ResourceSizeSpec {
         unsafe {
             ResourceSizeSpec {
                 base: xcb_res_resource_size_spec_t {
@@ -248,7 +250,7 @@ impl ResourceSizeSpec {
                     bytes: bytes,
                     ref_count: ref_count,
                     use_count: use_count,
-                }
+                },
             }
         }
     }
@@ -329,14 +331,14 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_res_query_version_cookie_
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_res_query_version_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_res_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -345,7 +347,9 @@ impl<'a> QueryVersionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -369,11 +373,8 @@ pub fn query_version<'a>(
     client_minor: u8,
 ) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_res_query_version(
-            c.get_raw_conn(),
-            client_major as u8,
-            client_minor as u8,
-        );
+        let cookie =
+            xcb_res_query_version(c.get_raw_conn(), client_major as u8, client_minor as u8);
         QueryVersionCookie {
             cookie: cookie,
             conn: c,
@@ -414,14 +415,14 @@ pub type QueryClientsCookie<'a> = base::Cookie<'a, xcb_res_query_clients_cookie_
 impl<'a> QueryClientsCookie<'a> {
     pub fn get_reply(self) -> Result<QueryClientsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryClientsReply {
-                ptr: xcb_res_query_clients_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_res_query_clients_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -430,7 +431,9 @@ impl<'a> QueryClientsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -448,13 +451,9 @@ impl QueryClientsReply {
     }
 }
 
-pub fn query_clients<'a>(
-    c: &'a base::Connection,
-) -> QueryClientsCookie<'a> {
+pub fn query_clients<'a>(c: &'a base::Connection) -> QueryClientsCookie<'a> {
     unsafe {
-        let cookie = xcb_res_query_clients(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_res_query_clients(c.get_raw_conn());
         QueryClientsCookie {
             cookie: cookie,
             conn: c,
@@ -463,13 +462,9 @@ pub fn query_clients<'a>(
     }
 }
 
-pub fn query_clients_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryClientsCookie<'a> {
+pub fn query_clients_unchecked<'a>(c: &'a base::Connection) -> QueryClientsCookie<'a> {
     unsafe {
-        let cookie = xcb_res_query_clients_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_res_query_clients_unchecked(c.get_raw_conn());
         QueryClientsCookie {
             cookie: cookie,
             conn: c,
@@ -491,7 +486,11 @@ pub type QueryClientResourcesCookie<'a> = base::Cookie<'a, xcb_res_query_client_
 impl<'a> QueryClientResourcesCookie<'a> {
     pub fn get_reply(self) -> Result<QueryClientResourcesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryClientResourcesReply {
                 ptr: xcb_res_query_client_resources_reply(
@@ -507,7 +506,9 @@ impl<'a> QueryClientResourcesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -530,10 +531,7 @@ pub fn query_client_resources<'a>(
     xid: u32,
 ) -> QueryClientResourcesCookie<'a> {
     unsafe {
-        let cookie = xcb_res_query_client_resources(
-            c.get_raw_conn(),
-            xid as u32,
-        );
+        let cookie = xcb_res_query_client_resources(c.get_raw_conn(), xid as u32);
         QueryClientResourcesCookie {
             cookie: cookie,
             conn: c,
@@ -547,10 +545,7 @@ pub fn query_client_resources_unchecked<'a>(
     xid: u32,
 ) -> QueryClientResourcesCookie<'a> {
     unsafe {
-        let cookie = xcb_res_query_client_resources_unchecked(
-            c.get_raw_conn(),
-            xid as u32,
-        );
+        let cookie = xcb_res_query_client_resources_unchecked(c.get_raw_conn(), xid as u32);
         QueryClientResourcesCookie {
             cookie: cookie,
             conn: c,
@@ -567,12 +562,17 @@ impl base::CookieSeq for xcb_res_query_client_pixmap_bytes_cookie_t {
     }
 }
 
-pub type QueryClientPixmapBytesCookie<'a> = base::Cookie<'a, xcb_res_query_client_pixmap_bytes_cookie_t>;
+pub type QueryClientPixmapBytesCookie<'a> =
+    base::Cookie<'a, xcb_res_query_client_pixmap_bytes_cookie_t>;
 
 impl<'a> QueryClientPixmapBytesCookie<'a> {
     pub fn get_reply(self) -> Result<QueryClientPixmapBytesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryClientPixmapBytesReply {
                 ptr: xcb_res_query_client_pixmap_bytes_reply(
@@ -588,7 +588,9 @@ impl<'a> QueryClientPixmapBytesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -611,10 +613,7 @@ pub fn query_client_pixmap_bytes<'a>(
     xid: u32,
 ) -> QueryClientPixmapBytesCookie<'a> {
     unsafe {
-        let cookie = xcb_res_query_client_pixmap_bytes(
-            c.get_raw_conn(),
-            xid as u32,
-        );
+        let cookie = xcb_res_query_client_pixmap_bytes(c.get_raw_conn(), xid as u32);
         QueryClientPixmapBytesCookie {
             cookie: cookie,
             conn: c,
@@ -628,10 +627,7 @@ pub fn query_client_pixmap_bytes_unchecked<'a>(
     xid: u32,
 ) -> QueryClientPixmapBytesCookie<'a> {
     unsafe {
-        let cookie = xcb_res_query_client_pixmap_bytes_unchecked(
-            c.get_raw_conn(),
-            xid as u32,
-        );
+        let cookie = xcb_res_query_client_pixmap_bytes_unchecked(c.get_raw_conn(), xid as u32);
         QueryClientPixmapBytesCookie {
             cookie: cookie,
             conn: c,
@@ -653,14 +649,14 @@ pub type QueryClientIdsCookie<'a> = base::Cookie<'a, xcb_res_query_client_ids_co
 impl<'a> QueryClientIdsCookie<'a> {
     pub fn get_reply(self) -> Result<QueryClientIdsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryClientIdsReply {
-                ptr: xcb_res_query_client_ids_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_res_query_client_ids_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -669,7 +665,9 @@ impl<'a> QueryClientIdsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -740,7 +738,11 @@ pub type QueryResourceBytesCookie<'a> = base::Cookie<'a, xcb_res_query_resource_
 impl<'a> QueryResourceBytesCookie<'a> {
     pub fn get_reply(self) -> Result<QueryResourceBytesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryResourceBytesReply {
                 ptr: xcb_res_query_resource_bytes_reply(
@@ -756,7 +758,9 @@ impl<'a> QueryResourceBytesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }

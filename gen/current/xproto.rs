@@ -8,7 +8,6 @@ use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
 
-
 pub type Window = xcb_window_t;
 
 pub type Pixmap = xcb_pixmap_t;
@@ -883,13 +882,13 @@ pub struct Char2b {
 
 impl Char2b {
     #[allow(unused_unsafe)]
-    pub fn new(byte1: u8,byte2: u8,) -> Char2b {
+    pub fn new(byte1: u8, byte2: u8) -> Char2b {
         unsafe {
             Char2b {
                 base: xcb_char2b_t {
                     byte1: byte1,
                     byte2: byte2,
-                }
+                },
             }
         }
     }
@@ -926,13 +925,10 @@ pub struct Point {
 
 impl Point {
     #[allow(unused_unsafe)]
-    pub fn new(x: i16,y: i16,) -> Point {
+    pub fn new(x: i16, y: i16) -> Point {
         unsafe {
             Point {
-                base: xcb_point_t {
-                    x: x,
-                    y: y,
-                }
+                base: xcb_point_t { x: x, y: y },
             }
         }
     }
@@ -969,7 +965,7 @@ pub struct Rectangle {
 
 impl Rectangle {
     #[allow(unused_unsafe)]
-    pub fn new(x: i16,y: i16,width: u16,height: u16,) -> Rectangle {
+    pub fn new(x: i16, y: i16, width: u16, height: u16) -> Rectangle {
         unsafe {
             Rectangle {
                 base: xcb_rectangle_t {
@@ -977,7 +973,7 @@ impl Rectangle {
                     y: y,
                     width: width,
                     height: height,
-                }
+                },
             }
         }
     }
@@ -1020,7 +1016,7 @@ pub struct Arc {
 
 impl Arc {
     #[allow(unused_unsafe)]
-    pub fn new(x: i16,y: i16,width: u16,height: u16,angle1: i16,angle2: i16,) -> Arc {
+    pub fn new(x: i16, y: i16, width: u16, height: u16, angle1: i16, angle2: i16) -> Arc {
         unsafe {
             Arc {
                 base: xcb_arc_t {
@@ -1030,7 +1026,7 @@ impl Arc {
                     height: height,
                     angle1: angle1,
                     angle2: angle2,
-                }
+                },
             }
         }
     }
@@ -1079,15 +1075,15 @@ pub struct Format {
 
 impl Format {
     #[allow(unused_unsafe)]
-    pub fn new(depth: u8,bits_per_pixel: u8,scanline_pad: u8,) -> Format {
+    pub fn new(depth: u8, bits_per_pixel: u8, scanline_pad: u8) -> Format {
         unsafe {
             Format {
                 base: xcb_format_t {
                     depth: depth,
                     bits_per_pixel: bits_per_pixel,
                     scanline_pad: scanline_pad,
-                pad0: [0; 5],
-                }
+                    pad0: [0; 5],
+                },
             }
         }
     }
@@ -1127,7 +1123,15 @@ pub struct Visualtype {
 
 impl Visualtype {
     #[allow(unused_unsafe)]
-    pub fn new(visual_id: Visualid,class: u8,bits_per_rgb_value: u8,colormap_entries: u16,red_mask: u32,green_mask: u32,blue_mask: u32,) -> Visualtype {
+    pub fn new(
+        visual_id: Visualid,
+        class: u8,
+        bits_per_rgb_value: u8,
+        colormap_entries: u16,
+        red_mask: u32,
+        green_mask: u32,
+        blue_mask: u32,
+    ) -> Visualtype {
         unsafe {
             Visualtype {
                 base: xcb_visualtype_t {
@@ -1138,8 +1142,8 @@ impl Visualtype {
                     red_mask: red_mask,
                     green_mask: green_mask,
                     blue_mask: blue_mask,
-                pad0: [0; 4],
-                }
+                    pad0: [0; 4],
+                },
             }
         }
     }
@@ -1534,16 +1538,16 @@ pub const KEY_PRESS: u8 = 2;
 pub type KeyPressEvent = base::Event<xcb_key_press_event_t>;
 
 impl KeyPressEvent {
-/// The keycode (a number representing a physical key on the keyboard) of the key
-/// which was pressed.
+    /// The keycode (a number representing a physical key on the keyboard) of the key
+    /// which was pressed.
     pub fn detail(&self) -> Keycode {
         unsafe { (*self.ptr).detail }
     }
-/// Time when the event was generated (in milliseconds).
+    /// Time when the event was generated (in milliseconds).
     pub fn time(&self) -> Timestamp {
         unsafe { (*self.ptr).time }
     }
-/// The root window of `child`.
+    /// The root window of `child`.
     pub fn root(&self) -> Window {
         unsafe { (*self.ptr).root }
     }
@@ -1553,32 +1557,32 @@ impl KeyPressEvent {
     pub fn child(&self) -> Window {
         unsafe { (*self.ptr).child }
     }
-/// The X coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The X coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub fn root_x(&self) -> i16 {
         unsafe { (*self.ptr).root_x }
     }
-/// The Y coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The Y coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub fn root_y(&self) -> i16 {
         unsafe { (*self.ptr).root_y }
     }
-/// If `same_screen` is true, this is the X coordinate relative to the `event`
-/// window's origin. Otherwise, `event_x` will be set to zero.
+    /// If `same_screen` is true, this is the X coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_x` will be set to zero.
     pub fn event_x(&self) -> i16 {
         unsafe { (*self.ptr).event_x }
     }
-/// If `same_screen` is true, this is the Y coordinate relative to the `event`
-/// window's origin. Otherwise, `event_y` will be set to zero.
+    /// If `same_screen` is true, this is the Y coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_y` will be set to zero.
     pub fn event_y(&self) -> i16 {
         unsafe { (*self.ptr).event_y }
     }
-/// The logical state of the pointer buttons and modifier keys just prior to the
-/// event.
+    /// The logical state of the pointer buttons and modifier keys just prior to the
+    /// event.
     pub fn state(&self) -> u16 {
         unsafe { (*self.ptr).state }
     }
-/// Whether the `event` window is on the same screen as the `root` window.
+    /// Whether the `event` window is on the same screen as the `root` window.
     pub fn same_screen(&self) -> bool {
         unsafe { (*self.ptr).same_screen != 0 }
     }
@@ -1586,7 +1590,7 @@ impl KeyPressEvent {
     /// `response_type` must be set to one of:
     ///     - `KEY_PRESS`
     ///     - `KEY_RELEASE`
-    pub fn new (
+    pub fn new(
         response_type: u8,
         detail: Keycode,
         time: Timestamp,
@@ -1602,7 +1606,10 @@ impl KeyPressEvent {
     ) -> KeyPressEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_key_press_event_t;
-            assert!(response_type == KEY_PRESS || response_type == KEY_RELEASE, "wrong response_type supplied to KeyPressEvent::new");
+            assert!(
+                response_type == KEY_PRESS || response_type == KEY_RELEASE,
+                "wrong response_type supplied to KeyPressEvent::new"
+            );
             (*raw).response_type = response_type;
             (*raw).detail = detail;
             (*raw).time = time;
@@ -1631,16 +1638,16 @@ pub const BUTTON_PRESS: u8 = 4;
 pub type ButtonPressEvent = base::Event<xcb_button_press_event_t>;
 
 impl ButtonPressEvent {
-/// The keycode (a number representing a physical key on the keyboard) of the key
-/// which was pressed.
+    /// The keycode (a number representing a physical key on the keyboard) of the key
+    /// which was pressed.
     pub fn detail(&self) -> Button {
         unsafe { (*self.ptr).detail }
     }
-/// Time when the event was generated (in milliseconds).
+    /// Time when the event was generated (in milliseconds).
     pub fn time(&self) -> Timestamp {
         unsafe { (*self.ptr).time }
     }
-/// The root window of `child`.
+    /// The root window of `child`.
     pub fn root(&self) -> Window {
         unsafe { (*self.ptr).root }
     }
@@ -1650,32 +1657,32 @@ impl ButtonPressEvent {
     pub fn child(&self) -> Window {
         unsafe { (*self.ptr).child }
     }
-/// The X coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The X coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub fn root_x(&self) -> i16 {
         unsafe { (*self.ptr).root_x }
     }
-/// The Y coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The Y coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub fn root_y(&self) -> i16 {
         unsafe { (*self.ptr).root_y }
     }
-/// If `same_screen` is true, this is the X coordinate relative to the `event`
-/// window's origin. Otherwise, `event_x` will be set to zero.
+    /// If `same_screen` is true, this is the X coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_x` will be set to zero.
     pub fn event_x(&self) -> i16 {
         unsafe { (*self.ptr).event_x }
     }
-/// If `same_screen` is true, this is the Y coordinate relative to the `event`
-/// window's origin. Otherwise, `event_y` will be set to zero.
+    /// If `same_screen` is true, this is the Y coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_y` will be set to zero.
     pub fn event_y(&self) -> i16 {
         unsafe { (*self.ptr).event_y }
     }
-/// The logical state of the pointer buttons and modifier keys just prior to the
-/// event.
+    /// The logical state of the pointer buttons and modifier keys just prior to the
+    /// event.
     pub fn state(&self) -> u16 {
         unsafe { (*self.ptr).state }
     }
-/// Whether the `event` window is on the same screen as the `root` window.
+    /// Whether the `event` window is on the same screen as the `root` window.
     pub fn same_screen(&self) -> bool {
         unsafe { (*self.ptr).same_screen != 0 }
     }
@@ -1683,7 +1690,7 @@ impl ButtonPressEvent {
     /// `response_type` must be set to one of:
     ///     - `BUTTON_PRESS`
     ///     - `BUTTON_RELEASE`
-    pub fn new (
+    pub fn new(
         response_type: u8,
         detail: Button,
         time: Timestamp,
@@ -1699,7 +1706,10 @@ impl ButtonPressEvent {
     ) -> ButtonPressEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_button_press_event_t;
-            assert!(response_type == BUTTON_PRESS || response_type == BUTTON_RELEASE, "wrong response_type supplied to ButtonPressEvent::new");
+            assert!(
+                response_type == BUTTON_PRESS || response_type == BUTTON_RELEASE,
+                "wrong response_type supplied to ButtonPressEvent::new"
+            );
             (*raw).response_type = response_type;
             (*raw).detail = detail;
             (*raw).time = time;
@@ -1728,16 +1738,16 @@ pub const MOTION_NOTIFY: u8 = 6;
 pub type MotionNotifyEvent = base::Event<xcb_motion_notify_event_t>;
 
 impl MotionNotifyEvent {
-/// The keycode (a number representing a physical key on the keyboard) of the key
-/// which was pressed.
+    /// The keycode (a number representing a physical key on the keyboard) of the key
+    /// which was pressed.
     pub fn detail(&self) -> u8 {
         unsafe { (*self.ptr).detail }
     }
-/// Time when the event was generated (in milliseconds).
+    /// Time when the event was generated (in milliseconds).
     pub fn time(&self) -> Timestamp {
         unsafe { (*self.ptr).time }
     }
-/// The root window of `child`.
+    /// The root window of `child`.
     pub fn root(&self) -> Window {
         unsafe { (*self.ptr).root }
     }
@@ -1747,38 +1757,38 @@ impl MotionNotifyEvent {
     pub fn child(&self) -> Window {
         unsafe { (*self.ptr).child }
     }
-/// The X coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The X coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub fn root_x(&self) -> i16 {
         unsafe { (*self.ptr).root_x }
     }
-/// The Y coordinate of the pointer relative to the `root` window at the time of
-/// the event.
+    /// The Y coordinate of the pointer relative to the `root` window at the time of
+    /// the event.
     pub fn root_y(&self) -> i16 {
         unsafe { (*self.ptr).root_y }
     }
-/// If `same_screen` is true, this is the X coordinate relative to the `event`
-/// window's origin. Otherwise, `event_x` will be set to zero.
+    /// If `same_screen` is true, this is the X coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_x` will be set to zero.
     pub fn event_x(&self) -> i16 {
         unsafe { (*self.ptr).event_x }
     }
-/// If `same_screen` is true, this is the Y coordinate relative to the `event`
-/// window's origin. Otherwise, `event_y` will be set to zero.
+    /// If `same_screen` is true, this is the Y coordinate relative to the `event`
+    /// window's origin. Otherwise, `event_y` will be set to zero.
     pub fn event_y(&self) -> i16 {
         unsafe { (*self.ptr).event_y }
     }
-/// The logical state of the pointer buttons and modifier keys just prior to the
-/// event.
+    /// The logical state of the pointer buttons and modifier keys just prior to the
+    /// event.
     pub fn state(&self) -> u16 {
         unsafe { (*self.ptr).state }
     }
-/// Whether the `event` window is on the same screen as the `root` window.
+    /// Whether the `event` window is on the same screen as the `root` window.
     pub fn same_screen(&self) -> bool {
         unsafe { (*self.ptr).same_screen != 0 }
     }
     /// Constructs a new MotionNotifyEvent
     /// `response_type` will be set automatically to MOTION_NOTIFY
-    pub fn new (
+    pub fn new(
         detail: u8,
         time: Timestamp,
         root: Window,
@@ -1822,41 +1832,41 @@ impl EnterNotifyEvent {
     pub fn time(&self) -> Timestamp {
         unsafe { (*self.ptr).time }
     }
-/// The root window for the final cursor position.
+    /// The root window for the final cursor position.
     pub fn root(&self) -> Window {
         unsafe { (*self.ptr).root }
     }
-/// The window on which the event was generated.
+    /// The window on which the event was generated.
     pub fn event(&self) -> Window {
         unsafe { (*self.ptr).event }
     }
-/// If the `event` window has subwindows and the final pointer position is in one
-/// of them, then `child` is set to that subwindow, `XCB_WINDOW_NONE` otherwise.
+    /// If the `event` window has subwindows and the final pointer position is in one
+    /// of them, then `child` is set to that subwindow, `XCB_WINDOW_NONE` otherwise.
     pub fn child(&self) -> Window {
         unsafe { (*self.ptr).child }
     }
-/// The pointer X coordinate relative to `root`'s origin at the time of the event.
+    /// The pointer X coordinate relative to `root`'s origin at the time of the event.
     pub fn root_x(&self) -> i16 {
         unsafe { (*self.ptr).root_x }
     }
-/// The pointer Y coordinate relative to `root`'s origin at the time of the event.
+    /// The pointer Y coordinate relative to `root`'s origin at the time of the event.
     pub fn root_y(&self) -> i16 {
         unsafe { (*self.ptr).root_y }
     }
-/// If `event` is on the same screen as `root`, this is the pointer X coordinate
-/// relative to the event window's origin.
+    /// If `event` is on the same screen as `root`, this is the pointer X coordinate
+    /// relative to the event window's origin.
     pub fn event_x(&self) -> i16 {
         unsafe { (*self.ptr).event_x }
     }
-/// If `event` is on the same screen as `root`, this is the pointer Y coordinate
-/// relative to the event window's origin.
+    /// If `event` is on the same screen as `root`, this is the pointer Y coordinate
+    /// relative to the event window's origin.
     pub fn event_y(&self) -> i16 {
         unsafe { (*self.ptr).event_y }
     }
     pub fn state(&self) -> u16 {
         unsafe { (*self.ptr).state }
     }
-///
+    ///
     pub fn mode(&self) -> u8 {
         unsafe { (*self.ptr).mode }
     }
@@ -1867,7 +1877,7 @@ impl EnterNotifyEvent {
     /// `response_type` must be set to one of:
     ///     - `ENTER_NOTIFY`
     ///     - `LEAVE_NOTIFY`
-    pub fn new (
+    pub fn new(
         response_type: u8,
         detail: u8,
         time: Timestamp,
@@ -1884,7 +1894,10 @@ impl EnterNotifyEvent {
     ) -> EnterNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_enter_notify_event_t;
-            assert!(response_type == ENTER_NOTIFY || response_type == LEAVE_NOTIFY, "wrong response_type supplied to EnterNotifyEvent::new");
+            assert!(
+                response_type == ENTER_NOTIFY || response_type == LEAVE_NOTIFY,
+                "wrong response_type supplied to EnterNotifyEvent::new"
+            );
             (*raw).response_type = response_type;
             (*raw).detail = detail;
             (*raw).time = time;
@@ -1914,16 +1927,16 @@ pub const FOCUS_IN: u8 = 9;
 pub type FocusInEvent = base::Event<xcb_focus_in_event_t>;
 
 impl FocusInEvent {
-///
+    ///
     pub fn detail(&self) -> u8 {
         unsafe { (*self.ptr).detail }
     }
-/// The window on which the focus event was generated. This is the window used by
-/// the X server to report the event.
+    /// The window on which the focus event was generated. This is the window used by
+    /// the X server to report the event.
     pub fn event(&self) -> Window {
         unsafe { (*self.ptr).event }
     }
-///
+    ///
     pub fn mode(&self) -> u8 {
         unsafe { (*self.ptr).mode }
     }
@@ -1931,15 +1944,13 @@ impl FocusInEvent {
     /// `response_type` must be set to one of:
     ///     - `FOCUS_IN`
     ///     - `FOCUS_OUT`
-    pub fn new (
-        response_type: u8,
-        detail: u8,
-        event: Window,
-        mode: u8,
-    ) -> FocusInEvent {
+    pub fn new(response_type: u8, detail: u8, event: Window, mode: u8) -> FocusInEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_focus_in_event_t;
-            assert!(response_type == FOCUS_IN || response_type == FOCUS_OUT, "wrong response_type supplied to FocusInEvent::new");
+            assert!(
+                response_type == FOCUS_IN || response_type == FOCUS_OUT,
+                "wrong response_type supplied to FocusInEvent::new"
+            );
             (*raw).response_type = response_type;
             (*raw).detail = detail;
             (*raw).event = event;
@@ -1964,9 +1975,7 @@ impl KeymapNotifyEvent {
     }
     /// Constructs a new KeymapNotifyEvent
     /// `response_type` will be set automatically to KEYMAP_NOTIFY
-    pub fn new (
-        keys: [u8; 31],
-    ) -> KeymapNotifyEvent {
+    pub fn new(keys: [u8; 31]) -> KeymapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_keymap_notify_event_t;
             (*raw).response_type = KEYMAP_NOTIFY;
@@ -1982,45 +1991,38 @@ pub const EXPOSE: u8 = 12;
 pub type ExposeEvent = base::Event<xcb_expose_event_t>;
 
 impl ExposeEvent {
-/// The exposed (damaged) window.
+    /// The exposed (damaged) window.
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
-/// The X coordinate of the left-upper corner of the exposed rectangle, relative to
-/// the `window`'s origin.
+    /// The X coordinate of the left-upper corner of the exposed rectangle, relative to
+    /// the `window`'s origin.
     pub fn x(&self) -> u16 {
         unsafe { (*self.ptr).x }
     }
-/// The Y coordinate of the left-upper corner of the exposed rectangle, relative to
-/// the `window`'s origin.
+    /// The Y coordinate of the left-upper corner of the exposed rectangle, relative to
+    /// the `window`'s origin.
     pub fn y(&self) -> u16 {
         unsafe { (*self.ptr).y }
     }
-/// The width of the exposed rectangle.
+    /// The width of the exposed rectangle.
     pub fn width(&self) -> u16 {
         unsafe { (*self.ptr).width }
     }
-/// The height of the exposed rectangle.
+    /// The height of the exposed rectangle.
     pub fn height(&self) -> u16 {
         unsafe { (*self.ptr).height }
     }
-/// The amount of `Expose` events following this one. Simple applications that do
-/// not want to optimize redisplay by distinguishing between subareas of its window
-/// can just ignore all Expose events with nonzero counts and perform full
-/// redisplays on events with zero counts.
+    /// The amount of `Expose` events following this one. Simple applications that do
+    /// not want to optimize redisplay by distinguishing between subareas of its window
+    /// can just ignore all Expose events with nonzero counts and perform full
+    /// redisplays on events with zero counts.
     pub fn count(&self) -> u16 {
         unsafe { (*self.ptr).count }
     }
     /// Constructs a new ExposeEvent
     /// `response_type` will be set automatically to EXPOSE
-    pub fn new (
-        window: Window,
-        x: u16,
-        y: u16,
-        width: u16,
-        height: u16,
-        count: u16,
-    ) -> ExposeEvent {
+    pub fn new(window: Window, x: u16, y: u16, width: u16, height: u16, count: u16) -> ExposeEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_expose_event_t;
             (*raw).response_type = EXPOSE;
@@ -2066,7 +2068,7 @@ impl GraphicsExposureEvent {
     }
     /// Constructs a new GraphicsExposureEvent
     /// `response_type` will be set automatically to GRAPHICS_EXPOSURE
-    pub fn new (
+    pub fn new(
         drawable: Drawable,
         x: u16,
         y: u16,
@@ -2108,11 +2110,7 @@ impl NoExposureEvent {
     }
     /// Constructs a new NoExposureEvent
     /// `response_type` will be set automatically to NO_EXPOSURE
-    pub fn new (
-        drawable: Drawable,
-        minor_opcode: u16,
-        major_opcode: u8,
-    ) -> NoExposureEvent {
+    pub fn new(drawable: Drawable, minor_opcode: u16, major_opcode: u8) -> NoExposureEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_no_exposure_event_t;
             (*raw).response_type = NO_EXPOSURE;
@@ -2137,10 +2135,7 @@ impl VisibilityNotifyEvent {
     }
     /// Constructs a new VisibilityNotifyEvent
     /// `response_type` will be set automatically to VISIBILITY_NOTIFY
-    pub fn new (
-        window: Window,
-        state: u8,
-    ) -> VisibilityNotifyEvent {
+    pub fn new(window: Window, state: u8) -> VisibilityNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_visibility_notify_event_t;
             (*raw).response_type = VISIBILITY_NOTIFY;
@@ -2182,7 +2177,7 @@ impl CreateNotifyEvent {
     }
     /// Constructs a new CreateNotifyEvent
     /// `response_type` will be set automatically to CREATE_NOTIFY
-    pub fn new (
+    pub fn new(
         parent: Window,
         window: Window,
         x: i16,
@@ -2214,21 +2209,18 @@ pub const DESTROY_NOTIFY: u8 = 17;
 pub type DestroyNotifyEvent = base::Event<xcb_destroy_notify_event_t>;
 
 impl DestroyNotifyEvent {
-/// The reconfigured window or its parent, depending on whether `StructureNotify`
-/// or `SubstructureNotify` was selected.
+    /// The reconfigured window or its parent, depending on whether `StructureNotify`
+    /// or `SubstructureNotify` was selected.
     pub fn event(&self) -> Window {
         unsafe { (*self.ptr).event }
     }
-/// The window that is destroyed.
+    /// The window that is destroyed.
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
     /// Constructs a new DestroyNotifyEvent
     /// `response_type` will be set automatically to DESTROY_NOTIFY
-    pub fn new (
-        event: Window,
-        window: Window,
-    ) -> DestroyNotifyEvent {
+    pub fn new(event: Window, window: Window) -> DestroyNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_destroy_notify_event_t;
             (*raw).response_type = DESTROY_NOTIFY;
@@ -2245,27 +2237,23 @@ pub const UNMAP_NOTIFY: u8 = 18;
 pub type UnmapNotifyEvent = base::Event<xcb_unmap_notify_event_t>;
 
 impl UnmapNotifyEvent {
-/// The reconfigured window or its parent, depending on whether `StructureNotify`
-/// or `SubstructureNotify` was selected.
+    /// The reconfigured window or its parent, depending on whether `StructureNotify`
+    /// or `SubstructureNotify` was selected.
     pub fn event(&self) -> Window {
         unsafe { (*self.ptr).event }
     }
-/// The window that was unmapped.
+    /// The window that was unmapped.
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
-/// Set to 1 if the event was generated as a result of a resizing of the window's
-/// parent when `window` had a win_gravity of `UnmapGravity`.
+    /// Set to 1 if the event was generated as a result of a resizing of the window's
+    /// parent when `window` had a win_gravity of `UnmapGravity`.
     pub fn from_configure(&self) -> bool {
         unsafe { (*self.ptr).from_configure != 0 }
     }
     /// Constructs a new UnmapNotifyEvent
     /// `response_type` will be set automatically to UNMAP_NOTIFY
-    pub fn new (
-        event: Window,
-        window: Window,
-        from_configure: bool,
-    ) -> UnmapNotifyEvent {
+    pub fn new(event: Window, window: Window, from_configure: bool) -> UnmapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_unmap_notify_event_t;
             (*raw).response_type = UNMAP_NOTIFY;
@@ -2283,26 +2271,22 @@ pub const MAP_NOTIFY: u8 = 19;
 pub type MapNotifyEvent = base::Event<xcb_map_notify_event_t>;
 
 impl MapNotifyEvent {
-/// The window which was mapped or its parent, depending on whether
-/// `StructureNotify` or `SubstructureNotify` was selected.
+    /// The window which was mapped or its parent, depending on whether
+    /// `StructureNotify` or `SubstructureNotify` was selected.
     pub fn event(&self) -> Window {
         unsafe { (*self.ptr).event }
     }
-/// The window that was mapped.
+    /// The window that was mapped.
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
-/// Window managers should ignore this window if `override_redirect` is 1.
+    /// Window managers should ignore this window if `override_redirect` is 1.
     pub fn override_redirect(&self) -> bool {
         unsafe { (*self.ptr).override_redirect != 0 }
     }
     /// Constructs a new MapNotifyEvent
     /// `response_type` will be set automatically to MAP_NOTIFY
-    pub fn new (
-        event: Window,
-        window: Window,
-        override_redirect: bool,
-    ) -> MapNotifyEvent {
+    pub fn new(event: Window, window: Window, override_redirect: bool) -> MapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_map_notify_event_t;
             (*raw).response_type = MAP_NOTIFY;
@@ -2320,20 +2304,17 @@ pub const MAP_REQUEST: u8 = 20;
 pub type MapRequestEvent = base::Event<xcb_map_request_event_t>;
 
 impl MapRequestEvent {
-/// The parent of `window`.
+    /// The parent of `window`.
     pub fn parent(&self) -> Window {
         unsafe { (*self.ptr).parent }
     }
-/// The window to be mapped.
+    /// The window to be mapped.
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
     /// Constructs a new MapRequestEvent
     /// `response_type` will be set automatically to MAP_REQUEST
-    pub fn new (
-        parent: Window,
-        window: Window,
-    ) -> MapRequestEvent {
+    pub fn new(parent: Window, window: Window) -> MapRequestEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_map_request_event_t;
             (*raw).response_type = MAP_REQUEST;
@@ -2369,7 +2350,7 @@ impl ReparentNotifyEvent {
     }
     /// Constructs a new ReparentNotifyEvent
     /// `response_type` will be set automatically to REPARENT_NOTIFY
-    pub fn new (
+    pub fn new(
         event: Window,
         window: Window,
         parent: Window,
@@ -2397,50 +2378,50 @@ pub const CONFIGURE_NOTIFY: u8 = 22;
 pub type ConfigureNotifyEvent = base::Event<xcb_configure_notify_event_t>;
 
 impl ConfigureNotifyEvent {
-/// The reconfigured window or its parent, depending on whether `StructureNotify`
-/// or `SubstructureNotify` was selected.
+    /// The reconfigured window or its parent, depending on whether `StructureNotify`
+    /// or `SubstructureNotify` was selected.
     pub fn event(&self) -> Window {
         unsafe { (*self.ptr).event }
     }
-/// The window whose size, position, border, and/or stacking order was changed.
+    /// The window whose size, position, border, and/or stacking order was changed.
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
-/// If `XCB_NONE`, the `window` is on the bottom of the stack with respect to
-/// sibling windows. However, if set to a sibling window, the `window` is placed on
-/// top of this sibling window.
+    /// If `XCB_NONE`, the `window` is on the bottom of the stack with respect to
+    /// sibling windows. However, if set to a sibling window, the `window` is placed on
+    /// top of this sibling window.
     pub fn above_sibling(&self) -> Window {
         unsafe { (*self.ptr).above_sibling }
     }
-/// The X coordinate of the upper-left outside corner of `window`, relative to the
-/// parent window's origin.
+    /// The X coordinate of the upper-left outside corner of `window`, relative to the
+    /// parent window's origin.
     pub fn x(&self) -> i16 {
         unsafe { (*self.ptr).x }
     }
-/// The Y coordinate of the upper-left outside corner of `window`, relative to the
-/// parent window's origin.
+    /// The Y coordinate of the upper-left outside corner of `window`, relative to the
+    /// parent window's origin.
     pub fn y(&self) -> i16 {
         unsafe { (*self.ptr).y }
     }
-/// The inside width of `window`, not including the border.
+    /// The inside width of `window`, not including the border.
     pub fn width(&self) -> u16 {
         unsafe { (*self.ptr).width }
     }
-/// The inside height of `window`, not including the border.
+    /// The inside height of `window`, not including the border.
     pub fn height(&self) -> u16 {
         unsafe { (*self.ptr).height }
     }
-/// The border width of `window`.
+    /// The border width of `window`.
     pub fn border_width(&self) -> u16 {
         unsafe { (*self.ptr).border_width }
     }
-/// Window managers should ignore this window if `override_redirect` is 1.
+    /// Window managers should ignore this window if `override_redirect` is 1.
     pub fn override_redirect(&self) -> bool {
         unsafe { (*self.ptr).override_redirect != 0 }
     }
     /// Constructs a new ConfigureNotifyEvent
     /// `response_type` will be set automatically to CONFIGURE_NOTIFY
-    pub fn new (
+    pub fn new(
         event: Window,
         window: Window,
         above_sibling: Window,
@@ -2505,7 +2486,7 @@ impl ConfigureRequestEvent {
     }
     /// Constructs a new ConfigureRequestEvent
     /// `response_type` will be set automatically to CONFIGURE_REQUEST
-    pub fn new (
+    pub fn new(
         stack_mode: u8,
         parent: Window,
         window: Window,
@@ -2554,12 +2535,7 @@ impl GravityNotifyEvent {
     }
     /// Constructs a new GravityNotifyEvent
     /// `response_type` will be set automatically to GRAVITY_NOTIFY
-    pub fn new (
-        event: Window,
-        window: Window,
-        x: i16,
-        y: i16,
-    ) -> GravityNotifyEvent {
+    pub fn new(event: Window, window: Window, x: i16, y: i16) -> GravityNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_gravity_notify_event_t;
             (*raw).response_type = GRAVITY_NOTIFY;
@@ -2588,11 +2564,7 @@ impl ResizeRequestEvent {
     }
     /// Constructs a new ResizeRequestEvent
     /// `response_type` will be set automatically to RESIZE_REQUEST
-    pub fn new (
-        window: Window,
-        width: u16,
-        height: u16,
-    ) -> ResizeRequestEvent {
+    pub fn new(window: Window, width: u16, height: u16) -> ResizeRequestEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_resize_request_event_t;
             (*raw).response_type = RESIZE_REQUEST;
@@ -2610,16 +2582,16 @@ pub const CIRCULATE_NOTIFY: u8 = 26;
 pub type CirculateNotifyEvent = base::Event<xcb_circulate_notify_event_t>;
 
 impl CirculateNotifyEvent {
-/// Either the restacked window or its parent, depending on whether
-/// `StructureNotify` or `SubstructureNotify` was selected.
+    /// Either the restacked window or its parent, depending on whether
+    /// `StructureNotify` or `SubstructureNotify` was selected.
     pub fn event(&self) -> Window {
         unsafe { (*self.ptr).event }
     }
-/// The restacked window.
+    /// The restacked window.
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
-///
+    ///
     pub fn place(&self) -> u8 {
         unsafe { (*self.ptr).place }
     }
@@ -2627,7 +2599,7 @@ impl CirculateNotifyEvent {
     /// `response_type` must be set to one of:
     ///     - `CIRCULATE_NOTIFY`
     ///     - `CIRCULATE_REQUEST`
-    pub fn new (
+    pub fn new(
         response_type: u8,
         event: Window,
         window: Window,
@@ -2635,7 +2607,10 @@ impl CirculateNotifyEvent {
     ) -> CirculateNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_circulate_notify_event_t;
-            assert!(response_type == CIRCULATE_NOTIFY || response_type == CIRCULATE_REQUEST, "wrong response_type supplied to CirculateNotifyEvent::new");
+            assert!(
+                response_type == CIRCULATE_NOTIFY || response_type == CIRCULATE_REQUEST,
+                "wrong response_type supplied to CirculateNotifyEvent::new"
+            );
             (*raw).response_type = response_type;
             (*raw).event = event;
             (*raw).window = window;
@@ -2656,30 +2631,25 @@ pub const PROPERTY_NOTIFY: u8 = 28;
 pub type PropertyNotifyEvent = base::Event<xcb_property_notify_event_t>;
 
 impl PropertyNotifyEvent {
-/// The window whose associated property was changed.
+    /// The window whose associated property was changed.
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
-/// The property's atom, to indicate which property was changed.
+    /// The property's atom, to indicate which property was changed.
     pub fn atom(&self) -> Atom {
         unsafe { (*self.ptr).atom }
     }
-/// A timestamp of the server time when the property was changed.
+    /// A timestamp of the server time when the property was changed.
     pub fn time(&self) -> Timestamp {
         unsafe { (*self.ptr).time }
     }
-///
+    ///
     pub fn state(&self) -> u8 {
         unsafe { (*self.ptr).state }
     }
     /// Constructs a new PropertyNotifyEvent
     /// `response_type` will be set automatically to PROPERTY_NOTIFY
-    pub fn new (
-        window: Window,
-        atom: Atom,
-        time: Timestamp,
-        state: u8,
-    ) -> PropertyNotifyEvent {
+    pub fn new(window: Window, atom: Atom, time: Timestamp, state: u8) -> PropertyNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_property_notify_event_t;
             (*raw).response_type = PROPERTY_NOTIFY;
@@ -2708,11 +2678,7 @@ impl SelectionClearEvent {
     }
     /// Constructs a new SelectionClearEvent
     /// `response_type` will be set automatically to SELECTION_CLEAR
-    pub fn new (
-        time: Timestamp,
-        owner: Window,
-        selection: Atom,
-    ) -> SelectionClearEvent {
+    pub fn new(time: Timestamp, owner: Window, selection: Atom) -> SelectionClearEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_selection_clear_event_t;
             (*raw).response_type = SELECTION_CLEAR;
@@ -2749,7 +2715,7 @@ impl SelectionRequestEvent {
     }
     /// Constructs a new SelectionRequestEvent
     /// `response_type` will be set automatically to SELECTION_REQUEST
-    pub fn new (
+    pub fn new(
         time: Timestamp,
         owner: Window,
         requestor: Window,
@@ -2793,7 +2759,7 @@ impl SelectionNotifyEvent {
     }
     /// Constructs a new SelectionNotifyEvent
     /// `response_type` will be set automatically to SELECTION_NOTIFY
-    pub fn new (
+    pub fn new(
         time: Timestamp,
         requestor: Window,
         selection: Atom,
@@ -2819,30 +2785,25 @@ pub const COLORMAP_NOTIFY: u8 = 32;
 pub type ColormapNotifyEvent = base::Event<xcb_colormap_notify_event_t>;
 
 impl ColormapNotifyEvent {
-/// The window whose associated colormap is changed, installed or uninstalled.
+    /// The window whose associated colormap is changed, installed or uninstalled.
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
-/// The colormap which is changed, installed or uninstalled. This is `XCB_NONE`
-/// when the colormap is changed by a call to `FreeColormap`.
+    /// The colormap which is changed, installed or uninstalled. This is `XCB_NONE`
+    /// when the colormap is changed by a call to `FreeColormap`.
     pub fn colormap(&self) -> Colormap {
         unsafe { (*self.ptr).colormap }
     }
     pub fn new_(&self) -> bool {
         unsafe { (*self.ptr).new_ != 0 }
     }
-///
+    ///
     pub fn state(&self) -> u8 {
         unsafe { (*self.ptr).state }
     }
     /// Constructs a new ColormapNotifyEvent
     /// `response_type` will be set automatically to COLORMAP_NOTIFY
-    pub fn new (
-        window: Window,
-        colormap: Colormap,
-        new_: bool,
-        state: u8,
-    ) -> ColormapNotifyEvent {
+    pub fn new(window: Window, colormap: Colormap, new_: bool, state: u8) -> ColormapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_colormap_notify_event_t;
             (*raw).response_type = COLORMAP_NOTIFY;
@@ -2854,7 +2815,6 @@ impl ColormapNotifyEvent {
         }
     }
 }
-
 
 pub type ClientMessageData = xcb_client_message_data_t;
 
@@ -2868,7 +2828,7 @@ impl ClientMessageData {
     pub fn from_data8(data8: [u8; 20]) -> ClientMessageData {
         unsafe {
             ClientMessageData {
-                data: std::mem::transmute(data8)
+                data: std::mem::transmute(data8),
             }
         }
     }
@@ -2881,7 +2841,7 @@ impl ClientMessageData {
     pub fn from_data16(data16: [u16; 10]) -> ClientMessageData {
         unsafe {
             ClientMessageData {
-                data: std::mem::transmute(data16)
+                data: std::mem::transmute(data16),
             }
         }
     }
@@ -2894,7 +2854,7 @@ impl ClientMessageData {
     pub fn from_data32(data32: [u32; 5]) -> ClientMessageData {
         unsafe {
             ClientMessageData {
-                data: std::mem::transmute(data32)
+                data: std::mem::transmute(data32),
             }
         }
     }
@@ -2929,25 +2889,25 @@ pub const CLIENT_MESSAGE: u8 = 33;
 pub type ClientMessageEvent = base::Event<xcb_client_message_event_t>;
 
 impl ClientMessageEvent {
-/// Specifies how to interpret `data`. Can be either 8, 16 or 32.
+    /// Specifies how to interpret `data`. Can be either 8, 16 or 32.
     pub fn format(&self) -> u8 {
         unsafe { (*self.ptr).format }
     }
     pub fn window(&self) -> Window {
         unsafe { (*self.ptr).window }
     }
-/// An atom which indicates how the data should be interpreted by the receiving
-/// client.
+    /// An atom which indicates how the data should be interpreted by the receiving
+    /// client.
     pub fn type_(&self) -> Atom {
         unsafe { (*self.ptr).type_ }
     }
-/// The data itself (20 bytes max).
+    /// The data itself (20 bytes max).
     pub fn data<'a>(&'a self) -> &'a ClientMessageData {
         unsafe { &(*self.ptr).data }
     }
     /// Constructs a new ClientMessageEvent
     /// `response_type` will be set automatically to CLIENT_MESSAGE
-    pub fn new (
+    pub fn new(
         format: u8,
         window: Window,
         type_: Atom,
@@ -2971,25 +2931,21 @@ pub const MAPPING_NOTIFY: u8 = 34;
 pub type MappingNotifyEvent = base::Event<xcb_mapping_notify_event_t>;
 
 impl MappingNotifyEvent {
-///
+    ///
     pub fn request(&self) -> u8 {
         unsafe { (*self.ptr).request }
     }
-/// The first number in the range of the altered mapping.
+    /// The first number in the range of the altered mapping.
     pub fn first_keycode(&self) -> Keycode {
         unsafe { (*self.ptr).first_keycode }
     }
-/// The number of keycodes altered.
+    /// The number of keycodes altered.
     pub fn count(&self) -> u8 {
         unsafe { (*self.ptr).count }
     }
     /// Constructs a new MappingNotifyEvent
     /// `response_type` will be set automatically to MAPPING_NOTIFY
-    pub fn new (
-        request: u8,
-        first_keycode: Keycode,
-        count: u8,
-    ) -> MappingNotifyEvent {
+    pub fn new(request: u8, first_keycode: Keycode, count: u8) -> MappingNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_mapping_notify_event_t;
             (*raw).response_type = MAPPING_NOTIFY;
@@ -3009,8 +2965,7 @@ pub type GeGenericEvent = base::Event<xcb_ge_generic_event_t>;
 impl GeGenericEvent {
     /// Constructs a new GeGenericEvent
     /// `response_type` will be set automatically to GE_GENERIC
-    pub fn new (
-    ) -> GeGenericEvent {
+    pub fn new() -> GeGenericEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_ge_generic_event_t;
             (*raw).response_type = GE_GENERIC;
@@ -3354,7 +3309,11 @@ pub type GetWindowAttributesCookie<'a> = base::Cookie<'a, xcb_get_window_attribu
 impl<'a> GetWindowAttributesCookie<'a> {
     pub fn get_reply(self) -> Result<GetWindowAttributesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetWindowAttributesReply {
                 ptr: xcb_get_window_attributes_reply(
@@ -3370,7 +3329,9 @@ impl<'a> GetWindowAttributesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -3380,62 +3341,62 @@ impl<'a> GetWindowAttributesCookie<'a> {
 pub type GetWindowAttributesReply = base::Reply<xcb_get_window_attributes_reply_t>;
 
 impl GetWindowAttributesReply {
-///
+    ///
     pub fn backing_store(&self) -> u8 {
         unsafe { (*self.ptr).backing_store }
     }
-/// The associated visual structure of `window`.
+    /// The associated visual structure of `window`.
     pub fn visual(&self) -> Visualid {
         unsafe { (*self.ptr).visual }
     }
-///
+    ///
     pub fn class(&self) -> u16 {
         unsafe { (*self.ptr).class }
     }
-///
+    ///
     pub fn bit_gravity(&self) -> u8 {
         unsafe { (*self.ptr).bit_gravity }
     }
-///
+    ///
     pub fn win_gravity(&self) -> u8 {
         unsafe { (*self.ptr).win_gravity }
     }
-/// Planes to be preserved if possible.
+    /// Planes to be preserved if possible.
     pub fn backing_planes(&self) -> u32 {
         unsafe { (*self.ptr).backing_planes }
     }
-/// Value to be used when restoring planes.
+    /// Value to be used when restoring planes.
     pub fn backing_pixel(&self) -> u32 {
         unsafe { (*self.ptr).backing_pixel }
     }
-/// Boolean, should bits under be saved?
+    /// Boolean, should bits under be saved?
     pub fn save_under(&self) -> bool {
         unsafe { (*self.ptr).save_under != 0 }
     }
     pub fn map_is_installed(&self) -> bool {
         unsafe { (*self.ptr).map_is_installed != 0 }
     }
-///
+    ///
     pub fn map_state(&self) -> u8 {
         unsafe { (*self.ptr).map_state }
     }
-/// Window managers should ignore this window if `override_redirect` is 1.
+    /// Window managers should ignore this window if `override_redirect` is 1.
     pub fn override_redirect(&self) -> bool {
         unsafe { (*self.ptr).override_redirect != 0 }
     }
-/// Color map to be associated with window.
+    /// Color map to be associated with window.
     pub fn colormap(&self) -> Colormap {
         unsafe { (*self.ptr).colormap }
     }
-/// Set of events all people have interest in.
+    /// Set of events all people have interest in.
     pub fn all_event_masks(&self) -> u32 {
         unsafe { (*self.ptr).all_event_masks }
     }
-/// My event mask.
+    /// My event mask.
     pub fn your_event_mask(&self) -> u32 {
         unsafe { (*self.ptr).your_event_mask }
     }
-/// Set of events that should not propagate.
+    /// Set of events that should not propagate.
     pub fn do_not_propagate_mask(&self) -> u16 {
         unsafe { (*self.ptr).do_not_propagate_mask }
     }
@@ -3457,10 +3418,7 @@ pub fn get_window_attributes<'a>(
     window: Window,
 ) -> GetWindowAttributesCookie<'a> {
     unsafe {
-        let cookie = xcb_get_window_attributes(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_get_window_attributes(c.get_raw_conn(), window as xcb_window_t);
         GetWindowAttributesCookie {
             cookie: cookie,
             conn: c,
@@ -3485,10 +3443,7 @@ pub fn get_window_attributes_unchecked<'a>(
     window: Window,
 ) -> GetWindowAttributesCookie<'a> {
     unsafe {
-        let cookie = xcb_get_window_attributes_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_get_window_attributes_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetWindowAttributesCookie {
             cookie: cookie,
             conn: c,
@@ -3515,15 +3470,9 @@ pub const DESTROY_WINDOW: u8 = 4;
 ///
 ///   - __window__:
 ///       The window to destroy.
-pub fn destroy_window<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn destroy_window<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_destroy_window(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_destroy_window(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3548,15 +3497,9 @@ pub fn destroy_window<'a>(
 ///
 ///   - __window__:
 ///       The window to destroy.
-pub fn destroy_window_checked<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn destroy_window_checked<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_destroy_window_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_destroy_window_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3567,15 +3510,9 @@ pub fn destroy_window_checked<'a>(
 
 pub const DESTROY_SUBWINDOWS: u8 = 5;
 
-pub fn destroy_subwindows<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn destroy_subwindows<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_destroy_subwindows(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_destroy_subwindows(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3589,10 +3526,7 @@ pub fn destroy_subwindows_checked<'a>(
     window: Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_destroy_subwindows_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_destroy_subwindows_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3626,11 +3560,7 @@ pub fn change_save_set<'a>(
     window: Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_change_save_set(
-            c.get_raw_conn(),
-            mode as u8,
-            window as xcb_window_t,
-        );
+        let cookie = xcb_change_save_set(c.get_raw_conn(), mode as u8, window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3662,11 +3592,8 @@ pub fn change_save_set_checked<'a>(
     window: Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_change_save_set_checked(
-            c.get_raw_conn(),
-            mode as u8,
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_change_save_set_checked(c.get_raw_conn(), mode as u8, window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3804,15 +3731,9 @@ pub const MAP_WINDOW: u8 = 8;
 ///
 ///   - __window__:
 ///       The window to make visible.
-pub fn map_window<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn map_window<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_map_window(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_map_window(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3850,15 +3771,9 @@ pub fn map_window<'a>(
 ///
 ///   - __window__:
 ///       The window to make visible.
-pub fn map_window_checked<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn map_window_checked<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_map_window_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_map_window_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3869,15 +3784,9 @@ pub fn map_window_checked<'a>(
 
 pub const MAP_SUBWINDOWS: u8 = 9;
 
-pub fn map_subwindows<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn map_subwindows<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_map_subwindows(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_map_subwindows(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3886,15 +3795,9 @@ pub fn map_subwindows<'a>(
     }
 }
 
-pub fn map_subwindows_checked<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn map_subwindows_checked<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_map_subwindows_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_map_subwindows_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3920,15 +3823,9 @@ pub const UNMAP_WINDOW: u8 = 10;
 ///
 ///   - __window__:
 ///       The window to make invisible.
-pub fn unmap_window<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn unmap_window<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_unmap_window(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_unmap_window(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3952,15 +3849,9 @@ pub fn unmap_window<'a>(
 ///
 ///   - __window__:
 ///       The window to make invisible.
-pub fn unmap_window_checked<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn unmap_window_checked<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_unmap_window_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_unmap_window_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3971,15 +3862,9 @@ pub fn unmap_window_checked<'a>(
 
 pub const UNMAP_SUBWINDOWS: u8 = 11;
 
-pub fn unmap_subwindows<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> base::VoidCookie<'a> {
+pub fn unmap_subwindows<'a>(c: &'a base::Connection, window: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_unmap_subwindows(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_unmap_subwindows(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -3993,10 +3878,7 @@ pub fn unmap_subwindows_checked<'a>(
     window: Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_unmap_subwindows_checked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_unmap_subwindows_checked(c.get_raw_conn(), window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -4115,11 +3997,8 @@ pub fn circulate_window<'a>(
     window: Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_circulate_window(
-            c.get_raw_conn(),
-            direction as u8,
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_circulate_window(c.get_raw_conn(), direction as u8, window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -4152,11 +4031,8 @@ pub fn circulate_window_checked<'a>(
     window: Window,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_circulate_window_checked(
-            c.get_raw_conn(),
-            direction as u8,
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_circulate_window_checked(c.get_raw_conn(), direction as u8, window as xcb_window_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -4178,14 +4054,14 @@ pub type GetGeometryCookie<'a> = base::Cookie<'a, xcb_get_geometry_cookie_t>;
 impl<'a> GetGeometryCookie<'a> {
     pub fn get_reply(self) -> Result<GetGeometryReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetGeometryReply {
-                ptr: xcb_get_geometry_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_geometry_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4194,7 +4070,9 @@ impl<'a> GetGeometryCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4204,35 +4082,35 @@ impl<'a> GetGeometryCookie<'a> {
 pub type GetGeometryReply = base::Reply<xcb_get_geometry_reply_t>;
 
 impl GetGeometryReply {
-/// The depth of the drawable (bits per pixel for the object).
+    /// The depth of the drawable (bits per pixel for the object).
     pub fn depth(&self) -> u8 {
         unsafe { (*self.ptr).depth }
     }
-/// Root window of the screen containing `drawable`.
+    /// Root window of the screen containing `drawable`.
     pub fn root(&self) -> Window {
         unsafe { (*self.ptr).root }
     }
-/// The X coordinate of `drawable`. If `drawable` is a window, the coordinate
-/// specifies the upper-left outer corner relative to its parent's origin. If
-/// `drawable` is a pixmap, the X coordinate is always 0.
+    /// The X coordinate of `drawable`. If `drawable` is a window, the coordinate
+    /// specifies the upper-left outer corner relative to its parent's origin. If
+    /// `drawable` is a pixmap, the X coordinate is always 0.
     pub fn x(&self) -> i16 {
         unsafe { (*self.ptr).x }
     }
-/// The Y coordinate of `drawable`. If `drawable` is a window, the coordinate
-/// specifies the upper-left outer corner relative to its parent's origin. If
-/// `drawable` is a pixmap, the Y coordinate is always 0.
+    /// The Y coordinate of `drawable`. If `drawable` is a window, the coordinate
+    /// specifies the upper-left outer corner relative to its parent's origin. If
+    /// `drawable` is a pixmap, the Y coordinate is always 0.
     pub fn y(&self) -> i16 {
         unsafe { (*self.ptr).y }
     }
-/// The width of `drawable`.
+    /// The width of `drawable`.
     pub fn width(&self) -> u16 {
         unsafe { (*self.ptr).width }
     }
-/// The height of `drawable`.
+    /// The height of `drawable`.
     pub fn height(&self) -> u16 {
         unsafe { (*self.ptr).height }
     }
-/// The border width (in pixels).
+    /// The border width (in pixels).
     pub fn border_width(&self) -> u16 {
         unsafe { (*self.ptr).border_width }
     }
@@ -4249,15 +4127,9 @@ impl GetGeometryReply {
 ///
 ///   - __drawable__:
 ///       The drawable (`Window` or `Pixmap`) of which the geometry will be received.
-pub fn get_geometry<'a>(
-    c: &'a base::Connection,
-    drawable: Drawable,
-) -> GetGeometryCookie<'a> {
+pub fn get_geometry<'a>(c: &'a base::Connection, drawable: Drawable) -> GetGeometryCookie<'a> {
     unsafe {
-        let cookie = xcb_get_geometry(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-        );
+        let cookie = xcb_get_geometry(c.get_raw_conn(), drawable as xcb_drawable_t);
         GetGeometryCookie {
             cookie: cookie,
             conn: c,
@@ -4282,10 +4154,7 @@ pub fn get_geometry_unchecked<'a>(
     drawable: Drawable,
 ) -> GetGeometryCookie<'a> {
     unsafe {
-        let cookie = xcb_get_geometry_unchecked(
-            c.get_raw_conn(),
-            drawable as xcb_drawable_t,
-        );
+        let cookie = xcb_get_geometry_unchecked(c.get_raw_conn(), drawable as xcb_drawable_t);
         GetGeometryCookie {
             cookie: cookie,
             conn: c,
@@ -4307,14 +4176,14 @@ pub type QueryTreeCookie<'a> = base::Cookie<'a, xcb_query_tree_cookie_t>;
 impl<'a> QueryTreeCookie<'a> {
     pub fn get_reply(self) -> Result<QueryTreeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryTreeReply {
-                ptr: xcb_query_tree_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_query_tree_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4323,7 +4192,9 @@ impl<'a> QueryTreeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4333,15 +4204,15 @@ impl<'a> QueryTreeCookie<'a> {
 pub type QueryTreeReply = base::Reply<xcb_query_tree_reply_t>;
 
 impl QueryTreeReply {
-/// The root window of `window`.
+    /// The root window of `window`.
     pub fn root(&self) -> Window {
         unsafe { (*self.ptr).root }
     }
-/// The parent window of `window`.
+    /// The parent window of `window`.
     pub fn parent(&self) -> Window {
         unsafe { (*self.ptr).parent }
     }
-/// The number of child windows.
+    /// The number of child windows.
     pub fn children_len(&self) -> u16 {
         unsafe { (*self.ptr).children_len }
     }
@@ -4367,15 +4238,9 @@ impl QueryTreeReply {
 ///
 ///   - __window__:
 ///       The `window` to query.
-pub fn query_tree<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> QueryTreeCookie<'a> {
+pub fn query_tree<'a>(c: &'a base::Connection, window: Window) -> QueryTreeCookie<'a> {
     unsafe {
-        let cookie = xcb_query_tree(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_query_tree(c.get_raw_conn(), window as xcb_window_t);
         QueryTreeCookie {
             cookie: cookie,
             conn: c,
@@ -4396,15 +4261,9 @@ pub fn query_tree<'a>(
 ///
 ///   - __window__:
 ///       The `window` to query.
-pub fn query_tree_unchecked<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> QueryTreeCookie<'a> {
+pub fn query_tree_unchecked<'a>(c: &'a base::Connection, window: Window) -> QueryTreeCookie<'a> {
     unsafe {
-        let cookie = xcb_query_tree_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_query_tree_unchecked(c.get_raw_conn(), window as xcb_window_t);
         QueryTreeCookie {
             cookie: cookie,
             conn: c,
@@ -4426,14 +4285,14 @@ pub type InternAtomCookie<'a> = base::Cookie<'a, xcb_intern_atom_cookie_t>;
 impl<'a> InternAtomCookie<'a> {
     pub fn get_reply(self) -> Result<InternAtomReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             InternAtomReply {
-                ptr: xcb_intern_atom_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_intern_atom_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4442,7 +4301,9 @@ impl<'a> InternAtomCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4562,14 +4423,14 @@ pub type GetAtomNameCookie<'a> = base::Cookie<'a, xcb_get_atom_name_cookie_t>;
 impl<'a> GetAtomNameCookie<'a> {
     pub fn get_reply(self) -> Result<GetAtomNameReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetAtomNameReply {
-                ptr: xcb_get_atom_name_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_atom_name_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4578,7 +4439,9 @@ impl<'a> GetAtomNameCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4603,15 +4466,9 @@ impl GetAtomNameReply {
     }
 }
 
-pub fn get_atom_name<'a>(
-    c: &'a base::Connection,
-    atom: Atom,
-) -> GetAtomNameCookie<'a> {
+pub fn get_atom_name<'a>(c: &'a base::Connection, atom: Atom) -> GetAtomNameCookie<'a> {
     unsafe {
-        let cookie = xcb_get_atom_name(
-            c.get_raw_conn(),
-            atom as xcb_atom_t,
-        );
+        let cookie = xcb_get_atom_name(c.get_raw_conn(), atom as xcb_atom_t);
         GetAtomNameCookie {
             cookie: cookie,
             conn: c,
@@ -4620,15 +4477,9 @@ pub fn get_atom_name<'a>(
     }
 }
 
-pub fn get_atom_name_unchecked<'a>(
-    c: &'a base::Connection,
-    atom: Atom,
-) -> GetAtomNameCookie<'a> {
+pub fn get_atom_name_unchecked<'a>(c: &'a base::Connection, atom: Atom) -> GetAtomNameCookie<'a> {
     unsafe {
-        let cookie = xcb_get_atom_name_unchecked(
-            c.get_raw_conn(),
-            atom as xcb_atom_t,
-        );
+        let cookie = xcb_get_atom_name_unchecked(c.get_raw_conn(), atom as xcb_atom_t);
         GetAtomNameCookie {
             cookie: cookie,
             conn: c,
@@ -4818,14 +4669,14 @@ pub type GetPropertyCookie<'a> = base::Cookie<'a, xcb_get_property_cookie_t>;
 impl<'a> GetPropertyCookie<'a> {
     pub fn get_reply(self) -> Result<GetPropertyReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPropertyReply {
-                ptr: xcb_get_property_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_property_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -4834,7 +4685,9 @@ impl<'a> GetPropertyCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -4844,23 +4697,23 @@ impl<'a> GetPropertyCookie<'a> {
 pub type GetPropertyReply = base::Reply<xcb_get_property_reply_t>;
 
 impl GetPropertyReply {
-/// Specifies whether the data should be viewed as a list of 8-bit, 16-bit, or
-/// 32-bit quantities. Possible values are 8, 16, and 32. This information allows
-/// the X server to correctly perform byte-swap operations as necessary.
+    /// Specifies whether the data should be viewed as a list of 8-bit, 16-bit, or
+    /// 32-bit quantities. Possible values are 8, 16, and 32. This information allows
+    /// the X server to correctly perform byte-swap operations as necessary.
     pub fn format(&self) -> u8 {
         unsafe { (*self.ptr).format }
     }
-/// The actual type of the property (an atom).
+    /// The actual type of the property (an atom).
     pub fn type_(&self) -> Atom {
         unsafe { (*self.ptr).type_ }
     }
-/// The number of bytes remaining to be read in the property if a partial read was
-/// performed.
+    /// The number of bytes remaining to be read in the property if a partial read was
+    /// performed.
     pub fn bytes_after(&self) -> u32 {
         unsafe { (*self.ptr).bytes_after }
     }
-/// The length of value. You should use the corresponding accessor instead of this
-/// field.
+    /// The length of value. You should use the corresponding accessor instead of this
+    /// field.
     pub fn value_len(&self) -> u32 {
         unsafe { (*self.ptr).value_len }
     }
@@ -5016,14 +4869,14 @@ pub type ListPropertiesCookie<'a> = base::Cookie<'a, xcb_list_properties_cookie_
 impl<'a> ListPropertiesCookie<'a> {
     pub fn get_reply(self) -> Result<ListPropertiesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListPropertiesReply {
-                ptr: xcb_list_properties_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_list_properties_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5032,7 +4885,9 @@ impl<'a> ListPropertiesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5055,15 +4910,9 @@ impl ListPropertiesReply {
     }
 }
 
-pub fn list_properties<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> ListPropertiesCookie<'a> {
+pub fn list_properties<'a>(c: &'a base::Connection, window: Window) -> ListPropertiesCookie<'a> {
     unsafe {
-        let cookie = xcb_list_properties(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_list_properties(c.get_raw_conn(), window as xcb_window_t);
         ListPropertiesCookie {
             cookie: cookie,
             conn: c,
@@ -5077,10 +4926,7 @@ pub fn list_properties_unchecked<'a>(
     window: Window,
 ) -> ListPropertiesCookie<'a> {
     unsafe {
-        let cookie = xcb_list_properties_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_list_properties_unchecked(c.get_raw_conn(), window as xcb_window_t);
         ListPropertiesCookie {
             cookie: cookie,
             conn: c,
@@ -5204,14 +5050,14 @@ pub type GetSelectionOwnerCookie<'a> = base::Cookie<'a, xcb_get_selection_owner_
 impl<'a> GetSelectionOwnerCookie<'a> {
     pub fn get_reply(self) -> Result<GetSelectionOwnerReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSelectionOwnerReply {
-                ptr: xcb_get_selection_owner_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_selection_owner_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5220,7 +5066,9 @@ impl<'a> GetSelectionOwnerCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5230,7 +5078,7 @@ impl<'a> GetSelectionOwnerCookie<'a> {
 pub type GetSelectionOwnerReply = base::Reply<xcb_get_selection_owner_reply_t>;
 
 impl GetSelectionOwnerReply {
-/// The current selection owner window.
+    /// The current selection owner window.
     pub fn owner(&self) -> Window {
         unsafe { (*self.ptr).owner }
     }
@@ -5254,10 +5102,7 @@ pub fn get_selection_owner<'a>(
     selection: Atom,
 ) -> GetSelectionOwnerCookie<'a> {
     unsafe {
-        let cookie = xcb_get_selection_owner(
-            c.get_raw_conn(),
-            selection as xcb_atom_t,
-        );
+        let cookie = xcb_get_selection_owner(c.get_raw_conn(), selection as xcb_atom_t);
         GetSelectionOwnerCookie {
             cookie: cookie,
             conn: c,
@@ -5284,10 +5129,7 @@ pub fn get_selection_owner_unchecked<'a>(
     selection: Atom,
 ) -> GetSelectionOwnerCookie<'a> {
     unsafe {
-        let cookie = xcb_get_selection_owner_unchecked(
-            c.get_raw_conn(),
-            selection as xcb_atom_t,
-        );
+        let cookie = xcb_get_selection_owner_unchecked(c.get_raw_conn(), selection as xcb_atom_t);
         GetSelectionOwnerCookie {
             cookie: cookie,
             conn: c,
@@ -5405,7 +5247,7 @@ pub fn send_event<'a, T>(
             propagate as u8,
             destination as xcb_window_t,
             event_mask as u32,
-            event_ptr
+            event_ptr,
         );
         base::VoidCookie {
             cookie: cookie,
@@ -5470,7 +5312,7 @@ pub fn send_event_checked<'a, T>(
             propagate as u8,
             destination as xcb_window_t,
             event_mask as u32,
-            event_ptr
+            event_ptr,
         );
         base::VoidCookie {
             cookie: cookie,
@@ -5493,14 +5335,14 @@ pub type GrabPointerCookie<'a> = base::Cookie<'a, xcb_grab_pointer_cookie_t>;
 impl<'a> GrabPointerCookie<'a> {
     pub fn get_reply(self) -> Result<GrabPointerReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GrabPointerReply {
-                ptr: xcb_grab_pointer_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_grab_pointer_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -5509,7 +5351,9 @@ impl<'a> GrabPointerCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -5704,15 +5548,9 @@ pub const UNGRAB_POINTER: u8 = 27;
 ///
 ///       The pointer will not be released if `time` is earlier than the
 ///       last-pointer-grab time or later than the current X server time.
-pub fn ungrab_pointer<'a>(
-    c: &'a base::Connection,
-    time: Timestamp,
-) -> base::VoidCookie<'a> {
+pub fn ungrab_pointer<'a>(c: &'a base::Connection, time: Timestamp) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_ungrab_pointer(
-            c.get_raw_conn(),
-            time as xcb_timestamp_t,
-        );
+        let cookie = xcb_ungrab_pointer(c.get_raw_conn(), time as xcb_timestamp_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -5744,10 +5582,7 @@ pub fn ungrab_pointer_checked<'a>(
     time: Timestamp,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_ungrab_pointer_checked(
-            c.get_raw_conn(),
-            time as xcb_timestamp_t,
-        );
+        let cookie = xcb_ungrab_pointer_checked(c.get_raw_conn(), time as xcb_timestamp_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -6083,14 +5918,14 @@ pub type GrabKeyboardCookie<'a> = base::Cookie<'a, xcb_grab_keyboard_cookie_t>;
 impl<'a> GrabKeyboardCookie<'a> {
     pub fn get_reply(self) -> Result<GrabKeyboardReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GrabKeyboardReply {
-                ptr: xcb_grab_keyboard_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_grab_keyboard_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -6099,7 +5934,9 @@ impl<'a> GrabKeyboardCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6238,15 +6075,9 @@ pub fn grab_keyboard_unchecked<'a>(
 
 pub const UNGRAB_KEYBOARD: u8 = 32;
 
-pub fn ungrab_keyboard<'a>(
-    c: &'a base::Connection,
-    time: Timestamp,
-) -> base::VoidCookie<'a> {
+pub fn ungrab_keyboard<'a>(c: &'a base::Connection, time: Timestamp) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_ungrab_keyboard(
-            c.get_raw_conn(),
-            time as xcb_timestamp_t,
-        );
+        let cookie = xcb_ungrab_keyboard(c.get_raw_conn(), time as xcb_timestamp_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -6260,10 +6091,7 @@ pub fn ungrab_keyboard_checked<'a>(
     time: Timestamp,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_ungrab_keyboard_checked(
-            c.get_raw_conn(),
-            time as xcb_timestamp_t,
-        );
+        let cookie = xcb_ungrab_keyboard_checked(c.get_raw_conn(), time as xcb_timestamp_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -6568,11 +6396,7 @@ pub fn allow_events<'a>(
     time: Timestamp,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_allow_events(
-            c.get_raw_conn(),
-            mode as u8,
-            time as xcb_timestamp_t,
-        );
+        let cookie = xcb_allow_events(c.get_raw_conn(), mode as u8, time as xcb_timestamp_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -6607,11 +6431,8 @@ pub fn allow_events_checked<'a>(
     time: Timestamp,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_allow_events_checked(
-            c.get_raw_conn(),
-            mode as u8,
-            time as xcb_timestamp_t,
-        );
+        let cookie =
+            xcb_allow_events_checked(c.get_raw_conn(), mode as u8, time as xcb_timestamp_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -6622,13 +6443,9 @@ pub fn allow_events_checked<'a>(
 
 pub const GRAB_SERVER: u8 = 36;
 
-pub fn grab_server<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn grab_server<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_grab_server(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_grab_server(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -6637,13 +6454,9 @@ pub fn grab_server<'a>(
     }
 }
 
-pub fn grab_server_checked<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn grab_server_checked<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_grab_server_checked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_grab_server_checked(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -6654,13 +6467,9 @@ pub fn grab_server_checked<'a>(
 
 pub const UNGRAB_SERVER: u8 = 37;
 
-pub fn ungrab_server<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn ungrab_server<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_ungrab_server(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_ungrab_server(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -6669,13 +6478,9 @@ pub fn ungrab_server<'a>(
     }
 }
 
-pub fn ungrab_server_checked<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn ungrab_server_checked<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_ungrab_server_checked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_ungrab_server_checked(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -6697,14 +6502,14 @@ pub type QueryPointerCookie<'a> = base::Cookie<'a, xcb_query_pointer_cookie_t>;
 impl<'a> QueryPointerCookie<'a> {
     pub fn get_reply(self) -> Result<QueryPointerReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryPointerReply {
-                ptr: xcb_query_pointer_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_query_pointer_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -6713,7 +6518,9 @@ impl<'a> QueryPointerCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6723,44 +6530,44 @@ impl<'a> QueryPointerCookie<'a> {
 pub type QueryPointerReply = base::Reply<xcb_query_pointer_reply_t>;
 
 impl QueryPointerReply {
-/// If `same_screen` is False, then the pointer is not on the same screen as the
-/// argument window, `child` is None, and `win_x` and `win_y` are zero. If
-/// `same_screen` is True, then `win_x` and `win_y` are the pointer coordinates
-/// relative to the argument window's origin, and child is the child containing the
-/// pointer, if any.
+    /// If `same_screen` is False, then the pointer is not on the same screen as the
+    /// argument window, `child` is None, and `win_x` and `win_y` are zero. If
+    /// `same_screen` is True, then `win_x` and `win_y` are the pointer coordinates
+    /// relative to the argument window's origin, and child is the child containing the
+    /// pointer, if any.
     pub fn same_screen(&self) -> bool {
         unsafe { (*self.ptr).same_screen != 0 }
     }
-/// The root window the pointer is logically on.
+    /// The root window the pointer is logically on.
     pub fn root(&self) -> Window {
         unsafe { (*self.ptr).root }
     }
-/// The child window containing the pointer, if any, if `same_screen` is true. If
-/// `same_screen` is false, `XCB_NONE` is returned.
+    /// The child window containing the pointer, if any, if `same_screen` is true. If
+    /// `same_screen` is false, `XCB_NONE` is returned.
     pub fn child(&self) -> Window {
         unsafe { (*self.ptr).child }
     }
-/// The pointer X position, relative to `root`.
+    /// The pointer X position, relative to `root`.
     pub fn root_x(&self) -> i16 {
         unsafe { (*self.ptr).root_x }
     }
-/// The pointer Y position, relative to `root`.
+    /// The pointer Y position, relative to `root`.
     pub fn root_y(&self) -> i16 {
         unsafe { (*self.ptr).root_y }
     }
-/// The pointer X coordinate, relative to `child`, if `same_screen` is true. Zero
-/// otherwise.
+    /// The pointer X coordinate, relative to `child`, if `same_screen` is true. Zero
+    /// otherwise.
     pub fn win_x(&self) -> i16 {
         unsafe { (*self.ptr).win_x }
     }
-/// The pointer Y coordinate, relative to `child`, if `same_screen` is true. Zero
-/// otherwise.
+    /// The pointer Y coordinate, relative to `child`, if `same_screen` is true. Zero
+    /// otherwise.
     pub fn win_y(&self) -> i16 {
         unsafe { (*self.ptr).win_y }
     }
-/// The current logical state of the modifier keys and the buttons. Note that the
-/// logical state of a device (as seen by means of the protocol) may lag the
-/// physical state if device event processing is frozen.
+    /// The current logical state of the modifier keys and the buttons. Note that the
+    /// logical state of a device (as seen by means of the protocol) may lag the
+    /// physical state if device event processing is frozen.
     pub fn mask(&self) -> u16 {
         unsafe { (*self.ptr).mask }
     }
@@ -6779,15 +6586,9 @@ impl QueryPointerReply {
 ///   - __window__:
 ///       A window to check if the pointer is on the same screen as `window` (see the
 ///       `same_screen` field in the reply).
-pub fn query_pointer<'a>(
-    c: &'a base::Connection,
-    window: Window,
-) -> QueryPointerCookie<'a> {
+pub fn query_pointer<'a>(c: &'a base::Connection, window: Window) -> QueryPointerCookie<'a> {
     unsafe {
-        let cookie = xcb_query_pointer(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_query_pointer(c.get_raw_conn(), window as xcb_window_t);
         QueryPointerCookie {
             cookie: cookie,
             conn: c,
@@ -6814,10 +6615,7 @@ pub fn query_pointer_unchecked<'a>(
     window: Window,
 ) -> QueryPointerCookie<'a> {
     unsafe {
-        let cookie = xcb_query_pointer_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_query_pointer_unchecked(c.get_raw_conn(), window as xcb_window_t);
         QueryPointerCookie {
             cookie: cookie,
             conn: c,
@@ -6833,14 +6631,14 @@ pub struct Timecoord {
 
 impl Timecoord {
     #[allow(unused_unsafe)]
-    pub fn new(time: Timestamp,x: i16,y: i16,) -> Timecoord {
+    pub fn new(time: Timestamp, x: i16, y: i16) -> Timecoord {
         unsafe {
             Timecoord {
                 base: xcb_timecoord_t {
                     time: time,
                     x: x,
                     y: y,
-                }
+                },
             }
         }
     }
@@ -6886,14 +6684,14 @@ pub type GetMotionEventsCookie<'a> = base::Cookie<'a, xcb_get_motion_events_cook
 impl<'a> GetMotionEventsCookie<'a> {
     pub fn get_reply(self) -> Result<GetMotionEventsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMotionEventsReply {
-                ptr: xcb_get_motion_events_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_motion_events_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -6902,7 +6700,9 @@ impl<'a> GetMotionEventsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -6975,7 +6775,11 @@ pub type TranslateCoordinatesCookie<'a> = base::Cookie<'a, xcb_translate_coordin
 impl<'a> TranslateCoordinatesCookie<'a> {
     pub fn get_reply(self) -> Result<TranslateCoordinatesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             TranslateCoordinatesReply {
                 ptr: xcb_translate_coordinates_reply(
@@ -6991,7 +6795,9 @@ impl<'a> TranslateCoordinatesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7330,14 +7136,14 @@ pub type GetInputFocusCookie<'a> = base::Cookie<'a, xcb_get_input_focus_cookie_t
 impl<'a> GetInputFocusCookie<'a> {
     pub fn get_reply(self) -> Result<GetInputFocusReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetInputFocusReply {
-                ptr: xcb_get_input_focus_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_input_focus_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -7346,7 +7152,9 @@ impl<'a> GetInputFocusCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7364,13 +7172,9 @@ impl GetInputFocusReply {
     }
 }
 
-pub fn get_input_focus<'a>(
-    c: &'a base::Connection,
-) -> GetInputFocusCookie<'a> {
+pub fn get_input_focus<'a>(c: &'a base::Connection) -> GetInputFocusCookie<'a> {
     unsafe {
-        let cookie = xcb_get_input_focus(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_input_focus(c.get_raw_conn());
         GetInputFocusCookie {
             cookie: cookie,
             conn: c,
@@ -7379,13 +7183,9 @@ pub fn get_input_focus<'a>(
     }
 }
 
-pub fn get_input_focus_unchecked<'a>(
-    c: &'a base::Connection,
-) -> GetInputFocusCookie<'a> {
+pub fn get_input_focus_unchecked<'a>(c: &'a base::Connection) -> GetInputFocusCookie<'a> {
     unsafe {
-        let cookie = xcb_get_input_focus_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_input_focus_unchecked(c.get_raw_conn());
         GetInputFocusCookie {
             cookie: cookie,
             conn: c,
@@ -7407,14 +7207,14 @@ pub type QueryKeymapCookie<'a> = base::Cookie<'a, xcb_query_keymap_cookie_t>;
 impl<'a> QueryKeymapCookie<'a> {
     pub fn get_reply(self) -> Result<QueryKeymapReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryKeymapReply {
-                ptr: xcb_query_keymap_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_query_keymap_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -7423,7 +7223,9 @@ impl<'a> QueryKeymapCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7438,13 +7240,9 @@ impl QueryKeymapReply {
     }
 }
 
-pub fn query_keymap<'a>(
-    c: &'a base::Connection,
-) -> QueryKeymapCookie<'a> {
+pub fn query_keymap<'a>(c: &'a base::Connection) -> QueryKeymapCookie<'a> {
     unsafe {
-        let cookie = xcb_query_keymap(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_query_keymap(c.get_raw_conn());
         QueryKeymapCookie {
             cookie: cookie,
             conn: c,
@@ -7453,13 +7251,9 @@ pub fn query_keymap<'a>(
     }
 }
 
-pub fn query_keymap_unchecked<'a>(
-    c: &'a base::Connection,
-) -> QueryKeymapCookie<'a> {
+pub fn query_keymap_unchecked<'a>(c: &'a base::Connection) -> QueryKeymapCookie<'a> {
     unsafe {
-        let cookie = xcb_query_keymap_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_query_keymap_unchecked(c.get_raw_conn());
         QueryKeymapCookie {
             cookie: cookie,
             conn: c,
@@ -7490,11 +7284,7 @@ pub const OPEN_FONT: u8 = 45;
 ///
 ///   - __name__:
 ///       A pattern describing an X core font.
-pub fn open_font<'a>(
-    c: &'a base::Connection,
-    fid: Font,
-    name: &str,
-) -> base::VoidCookie<'a> {
+pub fn open_font<'a>(c: &'a base::Connection, fid: Font, name: &str) -> base::VoidCookie<'a> {
     unsafe {
         let name = name.as_bytes();
         let name_len = name.len();
@@ -7558,15 +7348,9 @@ pub fn open_font_checked<'a>(
 
 pub const CLOSE_FONT: u8 = 46;
 
-pub fn close_font<'a>(
-    c: &'a base::Connection,
-    font: Font,
-) -> base::VoidCookie<'a> {
+pub fn close_font<'a>(c: &'a base::Connection, font: Font) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_close_font(
-            c.get_raw_conn(),
-            font as xcb_font_t,
-        );
+        let cookie = xcb_close_font(c.get_raw_conn(), font as xcb_font_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -7575,15 +7359,9 @@ pub fn close_font<'a>(
     }
 }
 
-pub fn close_font_checked<'a>(
-    c: &'a base::Connection,
-    font: Font,
-) -> base::VoidCookie<'a> {
+pub fn close_font_checked<'a>(c: &'a base::Connection, font: Font) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_close_font_checked(
-            c.get_raw_conn(),
-            font as xcb_font_t,
-        );
+        let cookie = xcb_close_font_checked(c.get_raw_conn(), font as xcb_font_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -7599,13 +7377,13 @@ pub struct Fontprop {
 
 impl Fontprop {
     #[allow(unused_unsafe)]
-    pub fn new(name: Atom,value: u32,) -> Fontprop {
+    pub fn new(name: Atom, value: u32) -> Fontprop {
         unsafe {
             Fontprop {
                 base: xcb_fontprop_t {
                     name: name,
                     value: value,
-                }
+                },
             }
         }
     }
@@ -7642,7 +7420,14 @@ pub struct Charinfo {
 
 impl Charinfo {
     #[allow(unused_unsafe)]
-    pub fn new(left_side_bearing: i16,right_side_bearing: i16,character_width: i16,ascent: i16,descent: i16,attributes: u16,) -> Charinfo {
+    pub fn new(
+        left_side_bearing: i16,
+        right_side_bearing: i16,
+        character_width: i16,
+        ascent: i16,
+        descent: i16,
+        attributes: u16,
+    ) -> Charinfo {
         unsafe {
             Charinfo {
                 base: xcb_charinfo_t {
@@ -7652,7 +7437,7 @@ impl Charinfo {
                     ascent: ascent,
                     descent: descent,
                     attributes: attributes,
-                }
+                },
             }
         }
     }
@@ -7707,14 +7492,14 @@ pub type QueryFontCookie<'a> = base::Cookie<'a, xcb_query_font_cookie_t>;
 impl<'a> QueryFontCookie<'a> {
     pub fn get_reply(self) -> Result<QueryFontReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryFontReply {
-                ptr: xcb_query_font_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_query_font_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -7723,7 +7508,9 @@ impl<'a> QueryFontCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -7733,31 +7520,31 @@ impl<'a> QueryFontCookie<'a> {
 pub type QueryFontReply = base::Reply<xcb_query_font_reply_t>;
 
 impl QueryFontReply {
-/// minimum bounds over all existing char
+    /// minimum bounds over all existing char
     pub fn min_bounds(&self) -> Charinfo {
         unsafe { std::mem::transmute((*self.ptr).min_bounds) }
     }
-/// maximum bounds over all existing char
+    /// maximum bounds over all existing char
     pub fn max_bounds(&self) -> Charinfo {
         unsafe { std::mem::transmute((*self.ptr).max_bounds) }
     }
-/// first character
+    /// first character
     pub fn min_char_or_byte2(&self) -> u16 {
         unsafe { (*self.ptr).min_char_or_byte2 }
     }
-/// last character
+    /// last character
     pub fn max_char_or_byte2(&self) -> u16 {
         unsafe { (*self.ptr).max_char_or_byte2 }
     }
-/// char to print for undefined character
+    /// char to print for undefined character
     pub fn default_char(&self) -> u16 {
         unsafe { (*self.ptr).default_char }
     }
-/// how many properties there are
+    /// how many properties there are
     pub fn properties_len(&self) -> u16 {
         unsafe { (*self.ptr).properties_len }
     }
-///
+    ///
     pub fn draw_direction(&self) -> u8 {
         unsafe { (*self.ptr).draw_direction }
     }
@@ -7767,15 +7554,15 @@ impl QueryFontReply {
     pub fn max_byte1(&self) -> u8 {
         unsafe { (*self.ptr).max_byte1 }
     }
-/// flag if all characters have nonzero size
+    /// flag if all characters have nonzero size
     pub fn all_chars_exist(&self) -> bool {
         unsafe { (*self.ptr).all_chars_exist != 0 }
     }
-/// baseline to top edge of raster
+    /// baseline to top edge of raster
     pub fn font_ascent(&self) -> i16 {
         unsafe { (*self.ptr).font_ascent }
     }
-/// baseline to bottom edge of raster
+    /// baseline to bottom edge of raster
     pub fn font_descent(&self) -> i16 {
         unsafe { (*self.ptr).font_descent }
     }
@@ -7801,15 +7588,9 @@ impl QueryFontReply {
 ///
 ///   - __font__:
 ///       The fontable (Font or Graphics Context) to query.
-pub fn query_font<'a>(
-    c: &'a base::Connection,
-    font: Fontable,
-) -> QueryFontCookie<'a> {
+pub fn query_font<'a>(c: &'a base::Connection, font: Fontable) -> QueryFontCookie<'a> {
     unsafe {
-        let cookie = xcb_query_font(
-            c.get_raw_conn(),
-            font as xcb_fontable_t,
-        );
+        let cookie = xcb_query_font(c.get_raw_conn(), font as xcb_fontable_t);
         QueryFontCookie {
             cookie: cookie,
             conn: c,
@@ -7829,15 +7610,9 @@ pub fn query_font<'a>(
 ///
 ///   - __font__:
 ///       The fontable (Font or Graphics Context) to query.
-pub fn query_font_unchecked<'a>(
-    c: &'a base::Connection,
-    font: Fontable,
-) -> QueryFontCookie<'a> {
+pub fn query_font_unchecked<'a>(c: &'a base::Connection, font: Fontable) -> QueryFontCookie<'a> {
     unsafe {
-        let cookie = xcb_query_font_unchecked(
-            c.get_raw_conn(),
-            font as xcb_fontable_t,
-        );
+        let cookie = xcb_query_font_unchecked(c.get_raw_conn(), font as xcb_fontable_t);
         QueryFontCookie {
             cookie: cookie,
             conn: c,
@@ -7859,14 +7634,14 @@ pub type QueryTextExtentsCookie<'a> = base::Cookie<'a, xcb_query_text_extents_co
 impl<'a> QueryTextExtentsCookie<'a> {
     pub fn get_reply(self) -> Result<QueryTextExtentsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryTextExtentsReply {
-                ptr: xcb_query_text_extents_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_query_text_extents_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -7875,7 +7650,9 @@ impl<'a> QueryTextExtentsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -8072,14 +7849,14 @@ pub type ListFontsCookie<'a> = base::Cookie<'a, xcb_list_fonts_cookie_t>;
 impl<'a> ListFontsCookie<'a> {
     pub fn get_reply(self) -> Result<ListFontsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListFontsReply {
-                ptr: xcb_list_fonts_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_list_fonts_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -8088,7 +7865,9 @@ impl<'a> ListFontsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -8098,7 +7877,7 @@ impl<'a> ListFontsCookie<'a> {
 pub type ListFontsReply = base::Reply<xcb_list_fonts_reply_t>;
 
 impl ListFontsReply {
-/// The number of font names.
+    /// The number of font names.
     pub fn names_len(&self) -> u16 {
         unsafe { (*self.ptr).names_len }
     }
@@ -8208,14 +7987,14 @@ pub type ListFontsWithInfoCookie<'a> = base::Cookie<'a, xcb_list_fonts_with_info
 impl<'a> ListFontsWithInfoCookie<'a> {
     pub fn get_reply(self) -> Result<ListFontsWithInfoReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListFontsWithInfoReply {
-                ptr: xcb_list_fonts_with_info_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_list_fonts_with_info_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -8224,7 +8003,9 @@ impl<'a> ListFontsWithInfoCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -8234,35 +8015,35 @@ impl<'a> ListFontsWithInfoCookie<'a> {
 pub type ListFontsWithInfoReply = base::Reply<xcb_list_fonts_with_info_reply_t>;
 
 impl ListFontsWithInfoReply {
-/// The number of matched font names.
+    /// The number of matched font names.
     pub fn name_len(&self) -> u8 {
         unsafe { (*self.ptr).name_len }
     }
-/// minimum bounds over all existing char
+    /// minimum bounds over all existing char
     pub fn min_bounds(&self) -> Charinfo {
         unsafe { std::mem::transmute((*self.ptr).min_bounds) }
     }
-/// maximum bounds over all existing char
+    /// maximum bounds over all existing char
     pub fn max_bounds(&self) -> Charinfo {
         unsafe { std::mem::transmute((*self.ptr).max_bounds) }
     }
-/// first character
+    /// first character
     pub fn min_char_or_byte2(&self) -> u16 {
         unsafe { (*self.ptr).min_char_or_byte2 }
     }
-/// last character
+    /// last character
     pub fn max_char_or_byte2(&self) -> u16 {
         unsafe { (*self.ptr).max_char_or_byte2 }
     }
-/// char to print for undefined character
+    /// char to print for undefined character
     pub fn default_char(&self) -> u16 {
         unsafe { (*self.ptr).default_char }
     }
-/// how many properties there are
+    /// how many properties there are
     pub fn properties_len(&self) -> u16 {
         unsafe { (*self.ptr).properties_len }
     }
-///
+    ///
     pub fn draw_direction(&self) -> u8 {
         unsafe { (*self.ptr).draw_direction }
     }
@@ -8272,21 +8053,21 @@ impl ListFontsWithInfoReply {
     pub fn max_byte1(&self) -> u8 {
         unsafe { (*self.ptr).max_byte1 }
     }
-/// flag if all characters have nonzero size
+    /// flag if all characters have nonzero size
     pub fn all_chars_exist(&self) -> bool {
         unsafe { (*self.ptr).all_chars_exist != 0 }
     }
-/// baseline to top edge of raster
+    /// baseline to top edge of raster
     pub fn font_ascent(&self) -> i16 {
         unsafe { (*self.ptr).font_ascent }
     }
-/// baseline to bottom edge of raster
+    /// baseline to bottom edge of raster
     pub fn font_descent(&self) -> i16 {
         unsafe { (*self.ptr).font_descent }
     }
-/// An indication of how many more fonts will be returned. This is only a hint and
-/// may be larger or smaller than the number of fonts actually returned. A zero
-/// value does not guarantee that no more fonts will be returned.
+    /// An indication of how many more fonts will be returned. This is only a hint and
+    /// may be larger or smaller than the number of fonts actually returned. A zero
+    /// value does not guarantee that no more fonts will be returned.
     pub fn replies_hint(&self) -> u32 {
         unsafe { (*self.ptr).replies_hint }
     }
@@ -8395,10 +8176,7 @@ pub fn list_fonts_with_info_unchecked<'a>(
 
 pub const SET_FONT_PATH: u8 = 51;
 
-pub fn set_font_path<'a>(
-    c: &'a base::Connection,
-    font: &[Str],
-) -> base::VoidCookie<'a> {
+pub fn set_font_path<'a>(c: &'a base::Connection, font: &[Str]) -> base::VoidCookie<'a> {
     unsafe {
         let font_len = font.len();
         let font_ptr = font.as_ptr();
@@ -8415,10 +8193,7 @@ pub fn set_font_path<'a>(
     }
 }
 
-pub fn set_font_path_checked<'a>(
-    c: &'a base::Connection,
-    font: &[Str],
-) -> base::VoidCookie<'a> {
+pub fn set_font_path_checked<'a>(c: &'a base::Connection, font: &[Str]) -> base::VoidCookie<'a> {
     unsafe {
         let font_len = font.len();
         let font_ptr = font.as_ptr();
@@ -8448,14 +8223,14 @@ pub type GetFontPathCookie<'a> = base::Cookie<'a, xcb_get_font_path_cookie_t>;
 impl<'a> GetFontPathCookie<'a> {
     pub fn get_reply(self) -> Result<GetFontPathReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetFontPathReply {
-                ptr: xcb_get_font_path_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_font_path_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -8464,7 +8239,9 @@ impl<'a> GetFontPathCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -8482,13 +8259,9 @@ impl GetFontPathReply {
     }
 }
 
-pub fn get_font_path<'a>(
-    c: &'a base::Connection,
-) -> GetFontPathCookie<'a> {
+pub fn get_font_path<'a>(c: &'a base::Connection) -> GetFontPathCookie<'a> {
     unsafe {
-        let cookie = xcb_get_font_path(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_font_path(c.get_raw_conn());
         GetFontPathCookie {
             cookie: cookie,
             conn: c,
@@ -8497,13 +8270,9 @@ pub fn get_font_path<'a>(
     }
 }
 
-pub fn get_font_path_unchecked<'a>(
-    c: &'a base::Connection,
-) -> GetFontPathCookie<'a> {
+pub fn get_font_path_unchecked<'a>(c: &'a base::Connection) -> GetFontPathCookie<'a> {
     unsafe {
-        let cookie = xcb_get_font_path_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_font_path_unchecked(c.get_raw_conn());
         GetFontPathCookie {
             cookie: cookie,
             conn: c,
@@ -8628,15 +8397,9 @@ pub const FREE_PIXMAP: u8 = 54;
 ///
 ///   - __pixmap__:
 ///       The pixmap to destroy.
-pub fn free_pixmap<'a>(
-    c: &'a base::Connection,
-    pixmap: Pixmap,
-) -> base::VoidCookie<'a> {
+pub fn free_pixmap<'a>(c: &'a base::Connection, pixmap: Pixmap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_free_pixmap(
-            c.get_raw_conn(),
-            pixmap as xcb_pixmap_t,
-        );
+        let cookie = xcb_free_pixmap(c.get_raw_conn(), pixmap as xcb_pixmap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -8657,15 +8420,9 @@ pub fn free_pixmap<'a>(
 ///
 ///   - __pixmap__:
 ///       The pixmap to destroy.
-pub fn free_pixmap_checked<'a>(
-    c: &'a base::Connection,
-    pixmap: Pixmap,
-) -> base::VoidCookie<'a> {
+pub fn free_pixmap_checked<'a>(c: &'a base::Connection, pixmap: Pixmap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_free_pixmap_checked(
-            c.get_raw_conn(),
-            pixmap as xcb_pixmap_t,
-        );
+        let cookie = xcb_free_pixmap_checked(c.get_raw_conn(), pixmap as xcb_pixmap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -9007,15 +8764,9 @@ pub const FREE_GC: u8 = 60;
 ///
 ///   - __gc__:
 ///       The graphics context to destroy.
-pub fn free_gc<'a>(
-    c: &'a base::Connection,
-    gc: Gcontext,
-) -> base::VoidCookie<'a> {
+pub fn free_gc<'a>(c: &'a base::Connection, gc: Gcontext) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_free_gc(
-            c.get_raw_conn(),
-            gc as xcb_gcontext_t,
-        );
+        let cookie = xcb_free_gc(c.get_raw_conn(), gc as xcb_gcontext_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -9035,15 +8786,9 @@ pub fn free_gc<'a>(
 ///
 ///   - __gc__:
 ///       The graphics context to destroy.
-pub fn free_gc_checked<'a>(
-    c: &'a base::Connection,
-    gc: Gcontext,
-) -> base::VoidCookie<'a> {
+pub fn free_gc_checked<'a>(c: &'a base::Connection, gc: Gcontext) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_free_gc_checked(
-            c.get_raw_conn(),
-            gc as xcb_gcontext_t,
-        );
+        let cookie = xcb_free_gc_checked(c.get_raw_conn(), gc as xcb_gcontext_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -9487,7 +9232,7 @@ pub struct Segment {
 
 impl Segment {
     #[allow(unused_unsafe)]
-    pub fn new(x1: i16,y1: i16,x2: i16,y2: i16,) -> Segment {
+    pub fn new(x1: i16, y1: i16, x2: i16, y2: i16) -> Segment {
         unsafe {
             Segment {
                 base: xcb_segment_t {
@@ -9495,7 +9240,7 @@ impl Segment {
                     y1: y1,
                     x2: x2,
                     y2: y2,
-                }
+                },
             }
         }
     }
@@ -10036,14 +9781,14 @@ pub type GetImageCookie<'a> = base::Cookie<'a, xcb_get_image_cookie_t>;
 impl<'a> GetImageCookie<'a> {
     pub fn get_reply(self) -> Result<GetImageReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetImageReply {
-                ptr: xcb_get_image_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_image_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -10052,7 +9797,9 @@ impl<'a> GetImageCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -10574,15 +10321,9 @@ pub fn create_colormap_checked<'a>(
 
 pub const FREE_COLORMAP: u8 = 79;
 
-pub fn free_colormap<'a>(
-    c: &'a base::Connection,
-    cmap: Colormap,
-) -> base::VoidCookie<'a> {
+pub fn free_colormap<'a>(c: &'a base::Connection, cmap: Colormap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_free_colormap(
-            c.get_raw_conn(),
-            cmap as xcb_colormap_t,
-        );
+        let cookie = xcb_free_colormap(c.get_raw_conn(), cmap as xcb_colormap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -10591,15 +10332,9 @@ pub fn free_colormap<'a>(
     }
 }
 
-pub fn free_colormap_checked<'a>(
-    c: &'a base::Connection,
-    cmap: Colormap,
-) -> base::VoidCookie<'a> {
+pub fn free_colormap_checked<'a>(c: &'a base::Connection, cmap: Colormap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_free_colormap_checked(
-            c.get_raw_conn(),
-            cmap as xcb_colormap_t,
-        );
+        let cookie = xcb_free_colormap_checked(c.get_raw_conn(), cmap as xcb_colormap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -10650,15 +10385,9 @@ pub fn copy_colormap_and_free_checked<'a>(
 
 pub const INSTALL_COLORMAP: u8 = 81;
 
-pub fn install_colormap<'a>(
-    c: &'a base::Connection,
-    cmap: Colormap,
-) -> base::VoidCookie<'a> {
+pub fn install_colormap<'a>(c: &'a base::Connection, cmap: Colormap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_install_colormap(
-            c.get_raw_conn(),
-            cmap as xcb_colormap_t,
-        );
+        let cookie = xcb_install_colormap(c.get_raw_conn(), cmap as xcb_colormap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -10672,10 +10401,7 @@ pub fn install_colormap_checked<'a>(
     cmap: Colormap,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_install_colormap_checked(
-            c.get_raw_conn(),
-            cmap as xcb_colormap_t,
-        );
+        let cookie = xcb_install_colormap_checked(c.get_raw_conn(), cmap as xcb_colormap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -10686,15 +10412,9 @@ pub fn install_colormap_checked<'a>(
 
 pub const UNINSTALL_COLORMAP: u8 = 82;
 
-pub fn uninstall_colormap<'a>(
-    c: &'a base::Connection,
-    cmap: Colormap,
-) -> base::VoidCookie<'a> {
+pub fn uninstall_colormap<'a>(c: &'a base::Connection, cmap: Colormap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_uninstall_colormap(
-            c.get_raw_conn(),
-            cmap as xcb_colormap_t,
-        );
+        let cookie = xcb_uninstall_colormap(c.get_raw_conn(), cmap as xcb_colormap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -10708,10 +10428,7 @@ pub fn uninstall_colormap_checked<'a>(
     cmap: Colormap,
 ) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_uninstall_colormap_checked(
-            c.get_raw_conn(),
-            cmap as xcb_colormap_t,
-        );
+        let cookie = xcb_uninstall_colormap_checked(c.get_raw_conn(), cmap as xcb_colormap_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -10733,7 +10450,11 @@ pub type ListInstalledColormapsCookie<'a> = base::Cookie<'a, xcb_list_installed_
 impl<'a> ListInstalledColormapsCookie<'a> {
     pub fn get_reply(self) -> Result<ListInstalledColormapsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListInstalledColormapsReply {
                 ptr: xcb_list_installed_colormaps_reply(
@@ -10749,7 +10470,9 @@ impl<'a> ListInstalledColormapsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -10777,10 +10500,7 @@ pub fn list_installed_colormaps<'a>(
     window: Window,
 ) -> ListInstalledColormapsCookie<'a> {
     unsafe {
-        let cookie = xcb_list_installed_colormaps(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie = xcb_list_installed_colormaps(c.get_raw_conn(), window as xcb_window_t);
         ListInstalledColormapsCookie {
             cookie: cookie,
             conn: c,
@@ -10794,10 +10514,8 @@ pub fn list_installed_colormaps_unchecked<'a>(
     window: Window,
 ) -> ListInstalledColormapsCookie<'a> {
     unsafe {
-        let cookie = xcb_list_installed_colormaps_unchecked(
-            c.get_raw_conn(),
-            window as xcb_window_t,
-        );
+        let cookie =
+            xcb_list_installed_colormaps_unchecked(c.get_raw_conn(), window as xcb_window_t);
         ListInstalledColormapsCookie {
             cookie: cookie,
             conn: c,
@@ -10819,14 +10537,14 @@ pub type AllocColorCookie<'a> = base::Cookie<'a, xcb_alloc_color_cookie_t>;
 impl<'a> AllocColorCookie<'a> {
     pub fn get_reply(self) -> Result<AllocColorReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             AllocColorReply {
-                ptr: xcb_alloc_color_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_alloc_color_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -10835,7 +10553,9 @@ impl<'a> AllocColorCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -10966,14 +10686,14 @@ pub type AllocNamedColorCookie<'a> = base::Cookie<'a, xcb_alloc_named_color_cook
 impl<'a> AllocNamedColorCookie<'a> {
     pub fn get_reply(self) -> Result<AllocNamedColorReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             AllocNamedColorReply {
-                ptr: xcb_alloc_named_color_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_alloc_named_color_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -10982,7 +10702,9 @@ impl<'a> AllocNamedColorCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -11074,14 +10796,14 @@ pub type AllocColorCellsCookie<'a> = base::Cookie<'a, xcb_alloc_color_cells_cook
 impl<'a> AllocColorCellsCookie<'a> {
     pub fn get_reply(self) -> Result<AllocColorCellsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             AllocColorCellsReply {
-                ptr: xcb_alloc_color_cells_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_alloc_color_cells_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -11090,7 +10812,9 @@ impl<'a> AllocColorCellsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -11183,14 +10907,14 @@ pub type AllocColorPlanesCookie<'a> = base::Cookie<'a, xcb_alloc_color_planes_co
 impl<'a> AllocColorPlanesCookie<'a> {
     pub fn get_reply(self) -> Result<AllocColorPlanesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             AllocColorPlanesReply {
-                ptr: xcb_alloc_color_planes_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_alloc_color_planes_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -11199,7 +10923,9 @@ impl<'a> AllocColorPlanesCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -11342,7 +11068,7 @@ pub struct Coloritem {
 
 impl Coloritem {
     #[allow(unused_unsafe)]
-    pub fn new(pixel: u32,red: u16,green: u16,blue: u16,flags: u8,) -> Coloritem {
+    pub fn new(pixel: u32, red: u16, green: u16, blue: u16, flags: u8) -> Coloritem {
         unsafe {
             Coloritem {
                 base: xcb_coloritem_t {
@@ -11351,8 +11077,8 @@ impl Coloritem {
                     green: green,
                     blue: blue,
                     flags: flags,
-                pad0: 0,
-                }
+                    pad0: 0,
+                },
             }
         }
     }
@@ -11500,15 +11226,15 @@ pub struct Rgb {
 
 impl Rgb {
     #[allow(unused_unsafe)]
-    pub fn new(red: u16,green: u16,blue: u16,) -> Rgb {
+    pub fn new(red: u16, green: u16, blue: u16) -> Rgb {
         unsafe {
             Rgb {
                 base: xcb_rgb_t {
                     red: red,
                     green: green,
                     blue: blue,
-                pad0: [0; 2],
-                }
+                    pad0: [0; 2],
+                },
             }
         }
     }
@@ -11554,14 +11280,14 @@ pub type QueryColorsCookie<'a> = base::Cookie<'a, xcb_query_colors_cookie_t>;
 impl<'a> QueryColorsCookie<'a> {
     pub fn get_reply(self) -> Result<QueryColorsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryColorsReply {
-                ptr: xcb_query_colors_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_query_colors_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -11570,7 +11296,9 @@ impl<'a> QueryColorsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -11645,14 +11373,14 @@ pub type LookupColorCookie<'a> = base::Cookie<'a, xcb_lookup_color_cookie_t>;
 impl<'a> LookupColorCookie<'a> {
     pub fn get_reply(self) -> Result<LookupColorReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             LookupColorReply {
-                ptr: xcb_lookup_color_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_lookup_color_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -11661,7 +11389,9 @@ impl<'a> LookupColorCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -12005,15 +11735,9 @@ pub const FREE_CURSOR: u8 = 95;
 ///
 ///   - __cursor__:
 ///       The cursor to destroy.
-pub fn free_cursor<'a>(
-    c: &'a base::Connection,
-    cursor: Cursor,
-) -> base::VoidCookie<'a> {
+pub fn free_cursor<'a>(c: &'a base::Connection, cursor: Cursor) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_free_cursor(
-            c.get_raw_conn(),
-            cursor as xcb_cursor_t,
-        );
+        let cookie = xcb_free_cursor(c.get_raw_conn(), cursor as xcb_cursor_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -12034,15 +11758,9 @@ pub fn free_cursor<'a>(
 ///
 ///   - __cursor__:
 ///       The cursor to destroy.
-pub fn free_cursor_checked<'a>(
-    c: &'a base::Connection,
-    cursor: Cursor,
-) -> base::VoidCookie<'a> {
+pub fn free_cursor_checked<'a>(c: &'a base::Connection, cursor: Cursor) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_free_cursor_checked(
-            c.get_raw_conn(),
-            cursor as xcb_cursor_t,
-        );
+        let cookie = xcb_free_cursor_checked(c.get_raw_conn(), cursor as xcb_cursor_t);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -12124,14 +11842,14 @@ pub type QueryBestSizeCookie<'a> = base::Cookie<'a, xcb_query_best_size_cookie_t
 impl<'a> QueryBestSizeCookie<'a> {
     pub fn get_reply(self) -> Result<QueryBestSizeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryBestSizeReply {
-                ptr: xcb_query_best_size_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_query_best_size_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -12140,7 +11858,9 @@ impl<'a> QueryBestSizeCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -12217,14 +11937,14 @@ pub type QueryExtensionCookie<'a> = base::Cookie<'a, xcb_query_extension_cookie_
 impl<'a> QueryExtensionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryExtensionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryExtensionReply {
-                ptr: xcb_query_extension_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_query_extension_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -12233,7 +11953,9 @@ impl<'a> QueryExtensionCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -12243,19 +11965,19 @@ impl<'a> QueryExtensionCookie<'a> {
 pub type QueryExtensionReply = base::Reply<xcb_query_extension_reply_t>;
 
 impl QueryExtensionReply {
-/// Whether the extension is present on this X11 server.
+    /// Whether the extension is present on this X11 server.
     pub fn present(&self) -> bool {
         unsafe { (*self.ptr).present != 0 }
     }
-/// The major opcode for requests.
+    /// The major opcode for requests.
     pub fn major_opcode(&self) -> u8 {
         unsafe { (*self.ptr).major_opcode }
     }
-/// The first event code, if any.
+    /// The first event code, if any.
     pub fn first_event(&self) -> u8 {
         unsafe { (*self.ptr).first_event }
     }
-/// The first error code, if any.
+    /// The first error code, if any.
     pub fn first_error(&self) -> u8 {
         unsafe { (*self.ptr).first_error }
     }
@@ -12284,19 +12006,13 @@ impl QueryExtensionReply {
 ///   - __name__:
 ///       The name of the extension to query, for example "RANDR". This is case
 ///       sensitive!
-pub fn query_extension<'a>(
-    c: &'a base::Connection,
-    name: &str,
-) -> QueryExtensionCookie<'a> {
+pub fn query_extension<'a>(c: &'a base::Connection, name: &str) -> QueryExtensionCookie<'a> {
     unsafe {
         let name = name.as_bytes();
         let name_len = name.len();
         let name_ptr = name.as_ptr();
-        let cookie = xcb_query_extension(
-            c.get_raw_conn(),
-            name_len as u16,
-            name_ptr as *const c_char,
-        );
+        let cookie =
+            xcb_query_extension(c.get_raw_conn(), name_len as u16, name_ptr as *const c_char);
         QueryExtensionCookie {
             cookie: cookie,
             conn: c,
@@ -12362,14 +12078,14 @@ pub type ListExtensionsCookie<'a> = base::Cookie<'a, xcb_list_extensions_cookie_
 impl<'a> ListExtensionsCookie<'a> {
     pub fn get_reply(self) -> Result<ListExtensionsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListExtensionsReply {
-                ptr: xcb_list_extensions_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_list_extensions_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -12378,7 +12094,9 @@ impl<'a> ListExtensionsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -12396,13 +12114,9 @@ impl ListExtensionsReply {
     }
 }
 
-pub fn list_extensions<'a>(
-    c: &'a base::Connection,
-) -> ListExtensionsCookie<'a> {
+pub fn list_extensions<'a>(c: &'a base::Connection) -> ListExtensionsCookie<'a> {
     unsafe {
-        let cookie = xcb_list_extensions(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_list_extensions(c.get_raw_conn());
         ListExtensionsCookie {
             cookie: cookie,
             conn: c,
@@ -12411,13 +12125,9 @@ pub fn list_extensions<'a>(
     }
 }
 
-pub fn list_extensions_unchecked<'a>(
-    c: &'a base::Connection,
-) -> ListExtensionsCookie<'a> {
+pub fn list_extensions_unchecked<'a>(c: &'a base::Connection) -> ListExtensionsCookie<'a> {
     unsafe {
-        let cookie = xcb_list_extensions_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_list_extensions_unchecked(c.get_raw_conn());
         ListExtensionsCookie {
             cookie: cookie,
             conn: c,
@@ -12489,14 +12199,14 @@ pub type GetKeyboardMappingCookie<'a> = base::Cookie<'a, xcb_get_keyboard_mappin
 impl<'a> GetKeyboardMappingCookie<'a> {
     pub fn get_reply(self) -> Result<GetKeyboardMappingReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetKeyboardMappingReply {
-                ptr: xcb_get_keyboard_mapping_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_keyboard_mapping_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -12505,7 +12215,9 @@ impl<'a> GetKeyboardMappingCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -12623,14 +12335,14 @@ pub type GetKeyboardControlCookie<'a> = base::Cookie<'a, xcb_get_keyboard_contro
 impl<'a> GetKeyboardControlCookie<'a> {
     pub fn get_reply(self) -> Result<GetKeyboardControlReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetKeyboardControlReply {
-                ptr: xcb_get_keyboard_control_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_keyboard_control_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -12639,7 +12351,9 @@ impl<'a> GetKeyboardControlCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -12672,13 +12386,9 @@ impl GetKeyboardControlReply {
     }
 }
 
-pub fn get_keyboard_control<'a>(
-    c: &'a base::Connection,
-) -> GetKeyboardControlCookie<'a> {
+pub fn get_keyboard_control<'a>(c: &'a base::Connection) -> GetKeyboardControlCookie<'a> {
     unsafe {
-        let cookie = xcb_get_keyboard_control(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_keyboard_control(c.get_raw_conn());
         GetKeyboardControlCookie {
             cookie: cookie,
             conn: c,
@@ -12687,13 +12397,9 @@ pub fn get_keyboard_control<'a>(
     }
 }
 
-pub fn get_keyboard_control_unchecked<'a>(
-    c: &'a base::Connection,
-) -> GetKeyboardControlCookie<'a> {
+pub fn get_keyboard_control_unchecked<'a>(c: &'a base::Connection) -> GetKeyboardControlCookie<'a> {
     unsafe {
-        let cookie = xcb_get_keyboard_control_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_keyboard_control_unchecked(c.get_raw_conn());
         GetKeyboardControlCookie {
             cookie: cookie,
             conn: c,
@@ -12704,15 +12410,9 @@ pub fn get_keyboard_control_unchecked<'a>(
 
 pub const BELL: u8 = 104;
 
-pub fn bell<'a>(
-    c: &'a base::Connection,
-    percent: i8,
-) -> base::VoidCookie<'a> {
+pub fn bell<'a>(c: &'a base::Connection, percent: i8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_bell(
-            c.get_raw_conn(),
-            percent as i8,
-        );
+        let cookie = xcb_bell(c.get_raw_conn(), percent as i8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -12721,15 +12421,9 @@ pub fn bell<'a>(
     }
 }
 
-pub fn bell_checked<'a>(
-    c: &'a base::Connection,
-    percent: i8,
-) -> base::VoidCookie<'a> {
+pub fn bell_checked<'a>(c: &'a base::Connection, percent: i8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_bell_checked(
-            c.get_raw_conn(),
-            percent as i8,
-        );
+        let cookie = xcb_bell_checked(c.get_raw_conn(), percent as i8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -12803,14 +12497,14 @@ pub type GetPointerControlCookie<'a> = base::Cookie<'a, xcb_get_pointer_control_
 impl<'a> GetPointerControlCookie<'a> {
     pub fn get_reply(self) -> Result<GetPointerControlReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPointerControlReply {
-                ptr: xcb_get_pointer_control_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_pointer_control_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -12819,7 +12513,9 @@ impl<'a> GetPointerControlCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -12840,13 +12536,9 @@ impl GetPointerControlReply {
     }
 }
 
-pub fn get_pointer_control<'a>(
-    c: &'a base::Connection,
-) -> GetPointerControlCookie<'a> {
+pub fn get_pointer_control<'a>(c: &'a base::Connection) -> GetPointerControlCookie<'a> {
     unsafe {
-        let cookie = xcb_get_pointer_control(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_pointer_control(c.get_raw_conn());
         GetPointerControlCookie {
             cookie: cookie,
             conn: c,
@@ -12855,13 +12547,9 @@ pub fn get_pointer_control<'a>(
     }
 }
 
-pub fn get_pointer_control_unchecked<'a>(
-    c: &'a base::Connection,
-) -> GetPointerControlCookie<'a> {
+pub fn get_pointer_control_unchecked<'a>(c: &'a base::Connection) -> GetPointerControlCookie<'a> {
     unsafe {
-        let cookie = xcb_get_pointer_control_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_pointer_control_unchecked(c.get_raw_conn());
         GetPointerControlCookie {
             cookie: cookie,
             conn: c,
@@ -12931,14 +12619,14 @@ pub type GetScreenSaverCookie<'a> = base::Cookie<'a, xcb_get_screen_saver_cookie
 impl<'a> GetScreenSaverCookie<'a> {
     pub fn get_reply(self) -> Result<GetScreenSaverReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetScreenSaverReply {
-                ptr: xcb_get_screen_saver_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_screen_saver_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -12947,7 +12635,9 @@ impl<'a> GetScreenSaverCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -12971,13 +12661,9 @@ impl GetScreenSaverReply {
     }
 }
 
-pub fn get_screen_saver<'a>(
-    c: &'a base::Connection,
-) -> GetScreenSaverCookie<'a> {
+pub fn get_screen_saver<'a>(c: &'a base::Connection) -> GetScreenSaverCookie<'a> {
     unsafe {
-        let cookie = xcb_get_screen_saver(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_screen_saver(c.get_raw_conn());
         GetScreenSaverCookie {
             cookie: cookie,
             conn: c,
@@ -12986,13 +12672,9 @@ pub fn get_screen_saver<'a>(
     }
 }
 
-pub fn get_screen_saver_unchecked<'a>(
-    c: &'a base::Connection,
-) -> GetScreenSaverCookie<'a> {
+pub fn get_screen_saver_unchecked<'a>(c: &'a base::Connection) -> GetScreenSaverCookie<'a> {
     unsafe {
-        let cookie = xcb_get_screen_saver_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_screen_saver_unchecked(c.get_raw_conn());
         GetScreenSaverCookie {
             cookie: cookie,
             conn: c,
@@ -13101,14 +12783,14 @@ pub type ListHostsCookie<'a> = base::Cookie<'a, xcb_list_hosts_cookie_t>;
 impl<'a> ListHostsCookie<'a> {
     pub fn get_reply(self) -> Result<ListHostsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListHostsReply {
-                ptr: xcb_list_hosts_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_list_hosts_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -13117,7 +12799,9 @@ impl<'a> ListHostsCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -13138,13 +12822,9 @@ impl ListHostsReply {
     }
 }
 
-pub fn list_hosts<'a>(
-    c: &'a base::Connection,
-) -> ListHostsCookie<'a> {
+pub fn list_hosts<'a>(c: &'a base::Connection) -> ListHostsCookie<'a> {
     unsafe {
-        let cookie = xcb_list_hosts(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_list_hosts(c.get_raw_conn());
         ListHostsCookie {
             cookie: cookie,
             conn: c,
@@ -13153,13 +12833,9 @@ pub fn list_hosts<'a>(
     }
 }
 
-pub fn list_hosts_unchecked<'a>(
-    c: &'a base::Connection,
-) -> ListHostsCookie<'a> {
+pub fn list_hosts_unchecked<'a>(c: &'a base::Connection) -> ListHostsCookie<'a> {
     unsafe {
-        let cookie = xcb_list_hosts_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_list_hosts_unchecked(c.get_raw_conn());
         ListHostsCookie {
             cookie: cookie,
             conn: c,
@@ -13170,15 +12846,9 @@ pub fn list_hosts_unchecked<'a>(
 
 pub const SET_ACCESS_CONTROL: u8 = 111;
 
-pub fn set_access_control<'a>(
-    c: &'a base::Connection,
-    mode: u8,
-) -> base::VoidCookie<'a> {
+pub fn set_access_control<'a>(c: &'a base::Connection, mode: u8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_set_access_control(
-            c.get_raw_conn(),
-            mode as u8,
-        );
+        let cookie = xcb_set_access_control(c.get_raw_conn(), mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -13187,15 +12857,9 @@ pub fn set_access_control<'a>(
     }
 }
 
-pub fn set_access_control_checked<'a>(
-    c: &'a base::Connection,
-    mode: u8,
-) -> base::VoidCookie<'a> {
+pub fn set_access_control_checked<'a>(c: &'a base::Connection, mode: u8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_set_access_control_checked(
-            c.get_raw_conn(),
-            mode as u8,
-        );
+        let cookie = xcb_set_access_control_checked(c.get_raw_conn(), mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -13206,15 +12870,9 @@ pub fn set_access_control_checked<'a>(
 
 pub const SET_CLOSE_DOWN_MODE: u8 = 112;
 
-pub fn set_close_down_mode<'a>(
-    c: &'a base::Connection,
-    mode: u8,
-) -> base::VoidCookie<'a> {
+pub fn set_close_down_mode<'a>(c: &'a base::Connection, mode: u8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_set_close_down_mode(
-            c.get_raw_conn(),
-            mode as u8,
-        );
+        let cookie = xcb_set_close_down_mode(c.get_raw_conn(), mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -13223,15 +12881,9 @@ pub fn set_close_down_mode<'a>(
     }
 }
 
-pub fn set_close_down_mode_checked<'a>(
-    c: &'a base::Connection,
-    mode: u8,
-) -> base::VoidCookie<'a> {
+pub fn set_close_down_mode_checked<'a>(c: &'a base::Connection, mode: u8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_set_close_down_mode_checked(
-            c.get_raw_conn(),
-            mode as u8,
-        );
+        let cookie = xcb_set_close_down_mode_checked(c.get_raw_conn(), mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -13257,15 +12909,9 @@ pub const KILL_CLIENT: u8 = 113;
 ///
 ///       The special value of `XCB_KILL_ALL_TEMPORARY`, the resources of all clients
 ///       that have terminated in `RetainTemporary` (TODO) are destroyed.
-pub fn kill_client<'a>(
-    c: &'a base::Connection,
-    resource: u32,
-) -> base::VoidCookie<'a> {
+pub fn kill_client<'a>(c: &'a base::Connection, resource: u32) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_kill_client(
-            c.get_raw_conn(),
-            resource as u32,
-        );
+        let cookie = xcb_kill_client(c.get_raw_conn(), resource as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -13289,15 +12935,9 @@ pub fn kill_client<'a>(
 ///
 ///       The special value of `XCB_KILL_ALL_TEMPORARY`, the resources of all clients
 ///       that have terminated in `RetainTemporary` (TODO) are destroyed.
-pub fn kill_client_checked<'a>(
-    c: &'a base::Connection,
-    resource: u32,
-) -> base::VoidCookie<'a> {
+pub fn kill_client_checked<'a>(c: &'a base::Connection, resource: u32) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_kill_client_checked(
-            c.get_raw_conn(),
-            resource as u32,
-        );
+        let cookie = xcb_kill_client_checked(c.get_raw_conn(), resource as u32);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -13358,15 +12998,9 @@ pub fn rotate_properties_checked<'a>(
 
 pub const FORCE_SCREEN_SAVER: u8 = 115;
 
-pub fn force_screen_saver<'a>(
-    c: &'a base::Connection,
-    mode: u8,
-) -> base::VoidCookie<'a> {
+pub fn force_screen_saver<'a>(c: &'a base::Connection, mode: u8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_force_screen_saver(
-            c.get_raw_conn(),
-            mode as u8,
-        );
+        let cookie = xcb_force_screen_saver(c.get_raw_conn(), mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -13375,15 +13009,9 @@ pub fn force_screen_saver<'a>(
     }
 }
 
-pub fn force_screen_saver_checked<'a>(
-    c: &'a base::Connection,
-    mode: u8,
-) -> base::VoidCookie<'a> {
+pub fn force_screen_saver_checked<'a>(c: &'a base::Connection, mode: u8) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_force_screen_saver_checked(
-            c.get_raw_conn(),
-            mode as u8,
-        );
+        let cookie = xcb_force_screen_saver_checked(c.get_raw_conn(), mode as u8);
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -13405,14 +13033,14 @@ pub type SetPointerMappingCookie<'a> = base::Cookie<'a, xcb_set_pointer_mapping_
 impl<'a> SetPointerMappingCookie<'a> {
     pub fn get_reply(self) -> Result<SetPointerMappingReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             SetPointerMappingReply {
-                ptr: xcb_set_pointer_mapping_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_set_pointer_mapping_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -13421,7 +13049,9 @@ impl<'a> SetPointerMappingCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -13436,18 +13066,11 @@ impl SetPointerMappingReply {
     }
 }
 
-pub fn set_pointer_mapping<'a>(
-    c: &'a base::Connection,
-    map: &[u8],
-) -> SetPointerMappingCookie<'a> {
+pub fn set_pointer_mapping<'a>(c: &'a base::Connection, map: &[u8]) -> SetPointerMappingCookie<'a> {
     unsafe {
         let map_len = map.len();
         let map_ptr = map.as_ptr();
-        let cookie = xcb_set_pointer_mapping(
-            c.get_raw_conn(),
-            map_len as u8,
-            map_ptr as *const u8,
-        );
+        let cookie = xcb_set_pointer_mapping(c.get_raw_conn(), map_len as u8, map_ptr as *const u8);
         SetPointerMappingCookie {
             cookie: cookie,
             conn: c,
@@ -13489,14 +13112,14 @@ pub type GetPointerMappingCookie<'a> = base::Cookie<'a, xcb_get_pointer_mapping_
 impl<'a> GetPointerMappingCookie<'a> {
     pub fn get_reply(self) -> Result<GetPointerMappingReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPointerMappingReply {
-                ptr: xcb_get_pointer_mapping_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_pointer_mapping_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -13505,7 +13128,9 @@ impl<'a> GetPointerMappingCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -13528,13 +13153,9 @@ impl GetPointerMappingReply {
     }
 }
 
-pub fn get_pointer_mapping<'a>(
-    c: &'a base::Connection,
-) -> GetPointerMappingCookie<'a> {
+pub fn get_pointer_mapping<'a>(c: &'a base::Connection) -> GetPointerMappingCookie<'a> {
     unsafe {
-        let cookie = xcb_get_pointer_mapping(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_pointer_mapping(c.get_raw_conn());
         GetPointerMappingCookie {
             cookie: cookie,
             conn: c,
@@ -13543,13 +13164,9 @@ pub fn get_pointer_mapping<'a>(
     }
 }
 
-pub fn get_pointer_mapping_unchecked<'a>(
-    c: &'a base::Connection,
-) -> GetPointerMappingCookie<'a> {
+pub fn get_pointer_mapping_unchecked<'a>(c: &'a base::Connection) -> GetPointerMappingCookie<'a> {
     unsafe {
-        let cookie = xcb_get_pointer_mapping_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_pointer_mapping_unchecked(c.get_raw_conn());
         GetPointerMappingCookie {
             cookie: cookie,
             conn: c,
@@ -13571,14 +13188,14 @@ pub type SetModifierMappingCookie<'a> = base::Cookie<'a, xcb_set_modifier_mappin
 impl<'a> SetModifierMappingCookie<'a> {
     pub fn get_reply(self) -> Result<SetModifierMappingReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             SetModifierMappingReply {
-                ptr: xcb_set_modifier_mapping_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_set_modifier_mapping_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -13587,7 +13204,9 @@ impl<'a> SetModifierMappingCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -13655,14 +13274,14 @@ pub type GetModifierMappingCookie<'a> = base::Cookie<'a, xcb_get_modifier_mappin
 impl<'a> GetModifierMappingCookie<'a> {
     pub fn get_reply(self) -> Result<GetModifierMappingReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked { &mut err } else { std::ptr::null_mut() };
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetModifierMappingReply {
-                ptr: xcb_get_modifier_mapping_reply(
-                    self.conn.get_raw_conn(),
-                    self.cookie,
-                    err_ptr,
-                ),
+                ptr: xcb_get_modifier_mapping_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
@@ -13671,7 +13290,9 @@ impl<'a> GetModifierMappingCookie<'a> {
         match (reply.ptr.is_null(), err.is_null(), checked) {
             (false, _, false) => Ok(reply),
             (false, true, true) => Ok(reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
             (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
@@ -13694,13 +13315,9 @@ impl GetModifierMappingReply {
     }
 }
 
-pub fn get_modifier_mapping<'a>(
-    c: &'a base::Connection,
-) -> GetModifierMappingCookie<'a> {
+pub fn get_modifier_mapping<'a>(c: &'a base::Connection) -> GetModifierMappingCookie<'a> {
     unsafe {
-        let cookie = xcb_get_modifier_mapping(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_modifier_mapping(c.get_raw_conn());
         GetModifierMappingCookie {
             cookie: cookie,
             conn: c,
@@ -13709,13 +13326,9 @@ pub fn get_modifier_mapping<'a>(
     }
 }
 
-pub fn get_modifier_mapping_unchecked<'a>(
-    c: &'a base::Connection,
-) -> GetModifierMappingCookie<'a> {
+pub fn get_modifier_mapping_unchecked<'a>(c: &'a base::Connection) -> GetModifierMappingCookie<'a> {
     unsafe {
-        let cookie = xcb_get_modifier_mapping_unchecked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_get_modifier_mapping_unchecked(c.get_raw_conn());
         GetModifierMappingCookie {
             cookie: cookie,
             conn: c,
@@ -13726,13 +13339,9 @@ pub fn get_modifier_mapping_unchecked<'a>(
 
 pub const NO_OPERATION: u8 = 127;
 
-pub fn no_operation<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn no_operation<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_no_operation(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_no_operation(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,
@@ -13741,13 +13350,9 @@ pub fn no_operation<'a>(
     }
 }
 
-pub fn no_operation_checked<'a>(
-    c: &'a base::Connection,
-) -> base::VoidCookie<'a> {
+pub fn no_operation_checked<'a>(c: &'a base::Connection) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_no_operation_checked(
-            c.get_raw_conn(),
-        );
+        let cookie = xcb_no_operation_checked(c.get_raw_conn());
         base::VoidCookie {
             cookie: cookie,
             conn: c,

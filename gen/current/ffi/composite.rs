@@ -2,10 +2,10 @@
 // Do not edit!
 
 use ffi::base::*;
-use ffi::xproto::*;
 use ffi::render::*;
-use ffi::xfixes::*;
 use ffi::shape::*;
+use ffi::xfixes::*;
+use ffi::xproto::*;
 use libc::{c_char, c_int, c_uint, c_void};
 use std;
 
@@ -162,124 +162,124 @@ pub struct xcb_composite_release_overlay_window_request_t {
 }
 
 #[link(name = "xcb-composite")]
-extern {
+extern "C" {
 
-pub static mut xcb_composite_id: xcb_extension_t;
+    pub static mut xcb_composite_id: xcb_extension_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_composite_query_version_reply (
+    pub fn xcb_composite_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_composite_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_composite_query_version_reply_t;
 
-    pub fn xcb_composite_query_version (
+    pub fn xcb_composite_query_version(
         c: *mut xcb_connection_t,
         client_major_version: u32,
         client_minor_version: u32,
     ) -> xcb_composite_query_version_cookie_t;
 
-    pub fn xcb_composite_query_version_unchecked (
+    pub fn xcb_composite_query_version_unchecked(
         c: *mut xcb_connection_t,
         client_major_version: u32,
         client_minor_version: u32,
     ) -> xcb_composite_query_version_cookie_t;
 
-    pub fn xcb_composite_redirect_window (
+    pub fn xcb_composite_redirect_window(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         update: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_redirect_window_checked (
+    pub fn xcb_composite_redirect_window_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         update: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_redirect_subwindows (
+    pub fn xcb_composite_redirect_subwindows(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         update: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_redirect_subwindows_checked (
+    pub fn xcb_composite_redirect_subwindows_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         update: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_unredirect_window (
+    pub fn xcb_composite_unredirect_window(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         update: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_unredirect_window_checked (
+    pub fn xcb_composite_unredirect_window_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         update: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_unredirect_subwindows (
+    pub fn xcb_composite_unredirect_subwindows(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         update: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_unredirect_subwindows_checked (
+    pub fn xcb_composite_unredirect_subwindows_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         update: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_create_region_from_border_clip (
+    pub fn xcb_composite_create_region_from_border_clip(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_create_region_from_border_clip_checked (
+    pub fn xcb_composite_create_region_from_border_clip_checked(
         c: *mut xcb_connection_t,
         region: xcb_xfixes_region_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_name_window_pixmap (
+    pub fn xcb_composite_name_window_pixmap(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         pixmap: xcb_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_name_window_pixmap_checked (
+    pub fn xcb_composite_name_window_pixmap_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         pixmap: xcb_pixmap_t,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_composite_get_overlay_window_reply (
+    pub fn xcb_composite_get_overlay_window_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_composite_get_overlay_window_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_composite_get_overlay_window_reply_t;
 
-    pub fn xcb_composite_get_overlay_window (
+    pub fn xcb_composite_get_overlay_window(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_composite_get_overlay_window_cookie_t;
 
-    pub fn xcb_composite_get_overlay_window_unchecked (
+    pub fn xcb_composite_get_overlay_window_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_composite_get_overlay_window_cookie_t;
 
-    pub fn xcb_composite_release_overlay_window (
+    pub fn xcb_composite_release_overlay_window(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_composite_release_overlay_window_checked (
+    pub fn xcb_composite_release_overlay_window_checked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
     ) -> xcb_void_cookie_t;

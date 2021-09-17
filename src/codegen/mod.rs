@@ -1033,7 +1033,7 @@ fn test_tit_cap() {
     assert!(tit_cap("IDChoice") == "IdChoice");
 }
 
-const KEYWORDS: &[&str] = &["type", "str", "match", "new"];
+const KEYWORDS: &[&str] = &["type", "str", "match", "new", "await"];
 
 fn extract_module(typ: &str) -> (Option<&str>, &str) {
     let len = typ.len();

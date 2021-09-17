@@ -14,8 +14,8 @@ pub type xcb_shape_op_t = u8;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_shape_op_iterator_t {
-    pub data:  *mut xcb_shape_op_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_shape_op_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -24,8 +24,8 @@ pub type xcb_shape_kind_t = u8;
 #[repr(C)]
 #[derive(Debug)]
 pub struct xcb_shape_kind_iterator_t {
-    pub data:  *mut xcb_shape_kind_t,
-    pub rem:   c_int,
+    pub data: *mut xcb_shape_kind_t,
+    pub rem: c_int,
     pub index: c_int,
 }
 
@@ -260,34 +260,32 @@ pub struct xcb_shape_get_rectangles_reply_t {
 }
 
 #[link(name = "xcb-shape")]
-extern {
+extern "C" {
 
-pub static mut xcb_shape_id: xcb_extension_t;
+    pub static mut xcb_shape_id: xcb_extension_t;
 
-pub fn xcb_shape_op_next(i: *mut xcb_shape_op_iterator_t);
+    pub fn xcb_shape_op_next(i: *mut xcb_shape_op_iterator_t);
 
-pub fn xcb_shape_op_end(i: *mut xcb_shape_op_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_shape_op_end(i: *mut xcb_shape_op_iterator_t) -> xcb_generic_iterator_t;
 
-pub fn xcb_shape_kind_next(i: *mut xcb_shape_kind_iterator_t);
+    pub fn xcb_shape_kind_next(i: *mut xcb_shape_kind_iterator_t);
 
-pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iterator_t;
+    pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_shape_query_version_reply (
+    pub fn xcb_shape_query_version_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_shape_query_version_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_shape_query_version_reply_t;
 
-    pub fn xcb_shape_query_version (
+    pub fn xcb_shape_query_version(c: *mut xcb_connection_t) -> xcb_shape_query_version_cookie_t;
+
+    pub fn xcb_shape_query_version_unchecked(
         c: *mut xcb_connection_t,
     ) -> xcb_shape_query_version_cookie_t;
 
-    pub fn xcb_shape_query_version_unchecked (
-        c: *mut xcb_connection_t,
-    ) -> xcb_shape_query_version_cookie_t;
-
-    pub fn xcb_shape_rectangles (
+    pub fn xcb_shape_rectangles(
         c: *mut xcb_connection_t,
         operation: xcb_shape_op_t,
         destination_kind: xcb_shape_kind_t,
@@ -299,7 +297,7 @@ pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iter
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shape_rectangles_checked (
+    pub fn xcb_shape_rectangles_checked(
         c: *mut xcb_connection_t,
         operation: xcb_shape_op_t,
         destination_kind: xcb_shape_kind_t,
@@ -311,7 +309,7 @@ pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iter
         rectangles: *const xcb_rectangle_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shape_mask (
+    pub fn xcb_shape_mask(
         c: *mut xcb_connection_t,
         operation: xcb_shape_op_t,
         destination_kind: xcb_shape_kind_t,
@@ -321,7 +319,7 @@ pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iter
         source_bitmap: xcb_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shape_mask_checked (
+    pub fn xcb_shape_mask_checked(
         c: *mut xcb_connection_t,
         operation: xcb_shape_op_t,
         destination_kind: xcb_shape_kind_t,
@@ -331,7 +329,7 @@ pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iter
         source_bitmap: xcb_pixmap_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shape_combine (
+    pub fn xcb_shape_combine(
         c: *mut xcb_connection_t,
         operation: xcb_shape_op_t,
         destination_kind: xcb_shape_kind_t,
@@ -342,7 +340,7 @@ pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iter
         source_window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shape_combine_checked (
+    pub fn xcb_shape_combine_checked(
         c: *mut xcb_connection_t,
         operation: xcb_shape_op_t,
         destination_kind: xcb_shape_kind_t,
@@ -353,7 +351,7 @@ pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iter
         source_window: xcb_window_t,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shape_offset (
+    pub fn xcb_shape_offset(
         c: *mut xcb_connection_t,
         destination_kind: xcb_shape_kind_t,
         destination_window: xcb_window_t,
@@ -361,7 +359,7 @@ pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iter
         y_offset: i16,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shape_offset_checked (
+    pub fn xcb_shape_offset_checked(
         c: *mut xcb_connection_t,
         destination_kind: xcb_shape_kind_t,
         destination_window: xcb_window_t,
@@ -370,71 +368,77 @@ pub fn xcb_shape_kind_end(i: *mut xcb_shape_kind_iterator_t) -> xcb_generic_iter
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_shape_query_extents_reply (
+    pub fn xcb_shape_query_extents_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_shape_query_extents_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_shape_query_extents_reply_t;
 
-    pub fn xcb_shape_query_extents (
+    pub fn xcb_shape_query_extents(
         c: *mut xcb_connection_t,
         destination_window: xcb_window_t,
     ) -> xcb_shape_query_extents_cookie_t;
 
-    pub fn xcb_shape_query_extents_unchecked (
+    pub fn xcb_shape_query_extents_unchecked(
         c: *mut xcb_connection_t,
         destination_window: xcb_window_t,
     ) -> xcb_shape_query_extents_cookie_t;
 
-    pub fn xcb_shape_select_input (
+    pub fn xcb_shape_select_input(
         c: *mut xcb_connection_t,
         destination_window: xcb_window_t,
         enable: u8,
     ) -> xcb_void_cookie_t;
 
-    pub fn xcb_shape_select_input_checked (
+    pub fn xcb_shape_select_input_checked(
         c: *mut xcb_connection_t,
         destination_window: xcb_window_t,
         enable: u8,
     ) -> xcb_void_cookie_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_shape_input_selected_reply (
+    pub fn xcb_shape_input_selected_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_shape_input_selected_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_shape_input_selected_reply_t;
 
-    pub fn xcb_shape_input_selected (
+    pub fn xcb_shape_input_selected(
         c: *mut xcb_connection_t,
         destination_window: xcb_window_t,
     ) -> xcb_shape_input_selected_cookie_t;
 
-    pub fn xcb_shape_input_selected_unchecked (
+    pub fn xcb_shape_input_selected_unchecked(
         c: *mut xcb_connection_t,
         destination_window: xcb_window_t,
     ) -> xcb_shape_input_selected_cookie_t;
 
-pub fn xcb_shape_get_rectangles_rectangles(R: *const xcb_shape_get_rectangles_reply_t) -> *mut xcb_rectangle_t;
+    pub fn xcb_shape_get_rectangles_rectangles(
+        R: *const xcb_shape_get_rectangles_reply_t,
+    ) -> *mut xcb_rectangle_t;
 
-pub fn xcb_shape_get_rectangles_rectangles_length(R: *const xcb_shape_get_rectangles_reply_t) -> c_int;
+    pub fn xcb_shape_get_rectangles_rectangles_length(
+        R: *const xcb_shape_get_rectangles_reply_t,
+    ) -> c_int;
 
-pub fn xcb_shape_get_rectangles_rectangles_iterator(R: *const xcb_shape_get_rectangles_reply_t) -> xcb_rectangle_iterator_t;
+    pub fn xcb_shape_get_rectangles_rectangles_iterator(
+        R: *const xcb_shape_get_rectangles_reply_t,
+    ) -> xcb_rectangle_iterator_t;
 
     /// the returned value must be freed by the caller using libc::free().
-    pub fn xcb_shape_get_rectangles_reply (
+    pub fn xcb_shape_get_rectangles_reply(
         c: *mut xcb_connection_t,
         cookie: xcb_shape_get_rectangles_cookie_t,
         error: *mut *mut xcb_generic_error_t,
     ) -> *mut xcb_shape_get_rectangles_reply_t;
 
-    pub fn xcb_shape_get_rectangles (
+    pub fn xcb_shape_get_rectangles(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         source_kind: xcb_shape_kind_t,
     ) -> xcb_shape_get_rectangles_cookie_t;
 
-    pub fn xcb_shape_get_rectangles_unchecked (
+    pub fn xcb_shape_get_rectangles_unchecked(
         c: *mut xcb_connection_t,
         window: xcb_window_t,
         source_kind: xcb_shape_kind_t,
