@@ -22,8 +22,8 @@ pub struct xcb_x_print_string8_iterator_t {
 #[derive(Debug)]
 #[repr(C)]
 pub struct xcb_x_print_printer_t {
-    pub nameLen: u32,
-    pub descLen: u32,
+    pub name_len: u32,
+    pub desc_len: u32,
 }
 
 #[repr(C)]
@@ -106,8 +106,8 @@ pub struct xcb_x_print_print_get_printer_list_request_t {
     pub major_opcode: u8,
     pub minor_opcode: u8,
     pub length: u16,
-    pub printerNameLen: u32,
-    pub localeLen: u32,
+    pub printer_name_len: u32,
+    pub locale_len: u32,
 }
 
 #[derive(Copy, Clone, Debug)]
@@ -123,7 +123,7 @@ pub struct xcb_x_print_print_get_printer_list_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-    pub listCount: u32,
+    pub list_count: u32,
     pub pad1: [u8; 20],
 }
 
@@ -146,8 +146,8 @@ pub struct xcb_x_print_create_context_request_t {
     pub minor_opcode: u8,
     pub length: u16,
     pub context_id: u32,
-    pub printerNameLen: u32,
-    pub localeLen: u32,
+    pub printer_name_len: u32,
+    pub locale_len: u32,
 }
 
 pub const XCB_X_PRINT_PRINT_SET_CONTEXT: u8 = 3;
@@ -309,7 +309,7 @@ pub struct xcb_x_print_print_get_document_data_reply_t {
     pub length: u32,
     pub status_code: u32,
     pub finished_flag: u32,
-    pub dataLen: u32,
+    pub data_len: u32,
     pub pad1: [u8; 12],
 }
 
@@ -402,7 +402,7 @@ pub struct xcb_x_print_print_get_attributes_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-    pub stringLen: u32,
+    pub string_len: u32,
     pub pad1: [u8; 20],
 }
 
@@ -415,7 +415,7 @@ pub struct xcb_x_print_print_get_one_attributes_request_t {
     pub minor_opcode: u8,
     pub length: u16,
     pub context: xcb_x_print_pcontext_t,
-    pub nameLen: u32,
+    pub name_len: u32,
     pub pool: u8,
     pub pad0: [u8; 3],
 }
@@ -433,7 +433,7 @@ pub struct xcb_x_print_print_get_one_attributes_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-    pub valueLen: u32,
+    pub value_len: u32,
     pub pad1: [u8; 20],
 }
 
@@ -446,7 +446,7 @@ pub struct xcb_x_print_print_set_attributes_request_t {
     pub minor_opcode: u8,
     pub length: u16,
     pub context: xcb_x_print_pcontext_t,
-    pub stringLen: u32,
+    pub string_len: u32,
     pub pool: u8,
     pub rule: u8,
     pub pad0: [u8; 2],
@@ -507,7 +507,7 @@ pub struct xcb_x_print_print_query_screens_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-    pub listCount: u32,
+    pub list_count: u32,
     pub pad1: [u8; 20],
 }
 
@@ -680,16 +680,16 @@ extern "C" {
 
     pub fn xcb_x_print_print_get_printer_list(
         c: *mut xcb_connection_t,
-        printerNameLen: u32,
-        localeLen: u32,
+        printer_name_len: u32,
+        locale_len: u32,
         printer_name: *const xcb_x_print_string8_t,
         locale: *const xcb_x_print_string8_t,
     ) -> xcb_x_print_print_get_printer_list_cookie_t;
 
     pub fn xcb_x_print_print_get_printer_list_unchecked(
         c: *mut xcb_connection_t,
-        printerNameLen: u32,
-        localeLen: u32,
+        printer_name_len: u32,
+        locale_len: u32,
         printer_name: *const xcb_x_print_string8_t,
         locale: *const xcb_x_print_string8_t,
     ) -> xcb_x_print_print_get_printer_list_cookie_t;
@@ -703,18 +703,18 @@ extern "C" {
     pub fn xcb_x_print_create_context(
         c: *mut xcb_connection_t,
         context_id: u32,
-        printerNameLen: u32,
-        localeLen: u32,
-        printerName: *const xcb_x_print_string8_t,
+        printer_name_len: u32,
+        locale_len: u32,
+        printer_name: *const xcb_x_print_string8_t,
         locale: *const xcb_x_print_string8_t,
     ) -> xcb_void_cookie_t;
 
     pub fn xcb_x_print_create_context_checked(
         c: *mut xcb_connection_t,
         context_id: u32,
-        printerNameLen: u32,
-        localeLen: u32,
-        printerName: *const xcb_x_print_string8_t,
+        printer_name_len: u32,
+        locale_len: u32,
+        printer_name: *const xcb_x_print_string8_t,
         locale: *const xcb_x_print_string8_t,
     ) -> xcb_void_cookie_t;
 
@@ -984,7 +984,7 @@ extern "C" {
     pub fn xcb_x_print_print_get_one_attributes(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
-        nameLen: u32,
+        name_len: u32,
         pool: u8,
         name: *const xcb_x_print_string8_t,
     ) -> xcb_x_print_print_get_one_attributes_cookie_t;
@@ -992,7 +992,7 @@ extern "C" {
     pub fn xcb_x_print_print_get_one_attributes_unchecked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
-        nameLen: u32,
+        name_len: u32,
         pool: u8,
         name: *const xcb_x_print_string8_t,
     ) -> xcb_x_print_print_get_one_attributes_cookie_t;
@@ -1000,7 +1000,7 @@ extern "C" {
     pub fn xcb_x_print_print_set_attributes(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
-        stringLen: u32,
+        string_len: u32,
         pool: u8,
         rule: u8,
         attributes_len: u32,
@@ -1010,7 +1010,7 @@ extern "C" {
     pub fn xcb_x_print_print_set_attributes_checked(
         c: *mut xcb_connection_t,
         context: xcb_x_print_pcontext_t,
-        stringLen: u32,
+        string_len: u32,
         pool: u8,
         rule: u8,
         attributes_len: u32,

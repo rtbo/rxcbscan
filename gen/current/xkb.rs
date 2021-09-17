@@ -437,11 +437,11 @@ impl IndicatorMap {
             IndicatorMap {
                 base: xcb_xkb_indicator_map_t {
                     flags: flags,
-                    whichGroups: which_groups,
+                    which_groups: which_groups,
                     groups: groups,
-                    whichMods: which_mods,
+                    which_mods: which_mods,
                     mods: mods,
-                    realMods: real_mods,
+                    real_mods: real_mods,
                     vmods: vmods,
                     ctrls: ctrls,
                 },
@@ -452,19 +452,19 @@ impl IndicatorMap {
         unsafe { self.base.flags }
     }
     pub fn which_groups(&self) -> u8 {
-        unsafe { self.base.whichGroups }
+        unsafe { self.base.which_groups }
     }
     pub fn groups(&self) -> u8 {
         unsafe { self.base.groups }
     }
     pub fn which_mods(&self) -> u8 {
-        unsafe { self.base.whichMods }
+        unsafe { self.base.which_mods }
     }
     pub fn mods(&self) -> u8 {
         unsafe { self.base.mods }
     }
     pub fn real_mods(&self) -> u8 {
-        unsafe { self.base.realMods }
+        unsafe { self.base.real_mods }
     }
     pub fn vmods(&self) -> u16 {
         unsafe { self.base.vmods }
@@ -504,7 +504,7 @@ impl ModDef {
             ModDef {
                 base: xcb_xkb_mod_def_t {
                     mask: mask,
-                    realMods: real_mods,
+                    real_mods: real_mods,
                     vmods: vmods,
                 },
             }
@@ -514,7 +514,7 @@ impl ModDef {
         unsafe { self.base.mask }
     }
     pub fn real_mods(&self) -> u8 {
-        unsafe { self.base.realMods }
+        unsafe { self.base.real_mods }
     }
     pub fn vmods(&self) -> u16 {
         unsafe { self.base.vmods }
@@ -714,13 +714,13 @@ impl<'a> KeyType<'a> {
         unsafe { (*self.ptr).mods_vmods }
     }
     pub fn num_levels(&self) -> u8 {
-        unsafe { (*self.ptr).numLevels }
+        unsafe { (*self.ptr).num_levels }
     }
     pub fn n_map_entries(&self) -> u8 {
-        unsafe { (*self.ptr).nMapEntries }
+        unsafe { (*self.ptr).n_map_entries }
     }
     pub fn has_preserve(&self) -> bool {
-        unsafe { (*self.ptr).hasPreserve != 0 }
+        unsafe { (*self.ptr).has_preserve != 0 }
     }
     pub fn map(&self) -> KtMapEntryIterator {
         unsafe { xcb_xkb_key_type_map_iterator(self.ptr) }
@@ -755,13 +755,13 @@ impl<'a> KeySymMap<'a> {
         unsafe { &(*self.ptr).kt_index }
     }
     pub fn group_info(&self) -> u8 {
-        unsafe { (*self.ptr).groupInfo }
+        unsafe { (*self.ptr).group_info }
     }
     pub fn width(&self) -> u8 {
         unsafe { (*self.ptr).width }
     }
     pub fn n_syms(&self) -> u16 {
-        unsafe { (*self.ptr).nSyms }
+        unsafe { (*self.ptr).n_syms }
     }
     pub fn syms(&self) -> &[xproto::Keysym] {
         unsafe {
@@ -1486,8 +1486,8 @@ impl KtSetMapEntry {
             KtSetMapEntry {
                 base: xcb_xkb_kt_set_map_entry_t {
                     level: level,
-                    realMods: real_mods,
-                    virtualMods: virtual_mods,
+                    real_mods: real_mods,
+                    virtual_mods: virtual_mods,
                 },
             }
         }
@@ -1496,10 +1496,10 @@ impl KtSetMapEntry {
         unsafe { self.base.level }
     }
     pub fn real_mods(&self) -> u8 {
-        unsafe { self.base.realMods }
+        unsafe { self.base.real_mods }
     }
     pub fn virtual_mods(&self) -> u16 {
-        unsafe { self.base.virtualMods }
+        unsafe { self.base.virtual_mods }
     }
 }
 
@@ -1528,16 +1528,16 @@ impl<'a> SetKeyType<'a> {
         unsafe { (*self.ptr).mask }
     }
     pub fn real_mods(&self) -> u8 {
-        unsafe { (*self.ptr).realMods }
+        unsafe { (*self.ptr).real_mods }
     }
     pub fn virtual_mods(&self) -> u16 {
-        unsafe { (*self.ptr).virtualMods }
+        unsafe { (*self.ptr).virtual_mods }
     }
     pub fn num_levels(&self) -> u8 {
-        unsafe { (*self.ptr).numLevels }
+        unsafe { (*self.ptr).num_levels }
     }
     pub fn n_map_entries(&self) -> u8 {
-        unsafe { (*self.ptr).nMapEntries }
+        unsafe { (*self.ptr).n_map_entries }
     }
     pub fn preserve(&self) -> bool {
         unsafe { (*self.ptr).preserve != 0 }
@@ -1572,10 +1572,10 @@ pub type Outline<'a> = base::StructPtr<'a, xcb_xkb_outline_t>;
 
 impl<'a> Outline<'a> {
     pub fn n_points(&self) -> u8 {
-        unsafe { (*self.ptr).nPoints }
+        unsafe { (*self.ptr).n_points }
     }
     pub fn corner_radius(&self) -> u8 {
-        unsafe { (*self.ptr).cornerRadius }
+        unsafe { (*self.ptr).corner_radius }
     }
     pub fn points(&self) -> xproto::PointIterator {
         unsafe { xcb_xkb_outline_points_iterator(self.ptr) }
@@ -1607,13 +1607,13 @@ impl<'a> Shape<'a> {
         unsafe { (*self.ptr).name }
     }
     pub fn n_outlines(&self) -> u8 {
-        unsafe { (*self.ptr).nOutlines }
+        unsafe { (*self.ptr).n_outlines }
     }
     pub fn primary_ndx(&self) -> u8 {
-        unsafe { (*self.ptr).primaryNdx }
+        unsafe { (*self.ptr).primary_ndx }
     }
     pub fn approx_ndx(&self) -> u8 {
-        unsafe { (*self.ptr).approxNdx }
+        unsafe { (*self.ptr).approx_ndx }
     }
     pub fn outlines(&self) -> OutlineIterator<'a> {
         unsafe { xcb_xkb_shape_outlines_iterator(self.ptr) }
@@ -1648,10 +1648,10 @@ impl<'a> Key<'a> {
         unsafe { (*self.ptr).gap }
     }
     pub fn shape_ndx(&self) -> u8 {
-        unsafe { (*self.ptr).shapeNdx }
+        unsafe { (*self.ptr).shape_ndx }
     }
     pub fn color_ndx(&self) -> u8 {
-        unsafe { (*self.ptr).colorNdx }
+        unsafe { (*self.ptr).color_ndx }
     }
 }
 
@@ -1706,10 +1706,10 @@ pub type OverlayRow<'a> = base::StructPtr<'a, xcb_xkb_overlay_row_t>;
 
 impl<'a> OverlayRow<'a> {
     pub fn row_under(&self) -> u8 {
-        unsafe { (*self.ptr).rowUnder }
+        unsafe { (*self.ptr).row_under }
     }
     pub fn n_keys(&self) -> u8 {
-        unsafe { (*self.ptr).nKeys }
+        unsafe { (*self.ptr).n_keys }
     }
     pub fn keys(&self) -> OverlayKeyIterator<'a> {
         unsafe { xcb_xkb_overlay_row_keys_iterator(self.ptr) }
@@ -1741,7 +1741,7 @@ impl<'a> Overlay<'a> {
         unsafe { (*self.ptr).name }
     }
     pub fn n_rows(&self) -> u8 {
-        unsafe { (*self.ptr).nRows }
+        unsafe { (*self.ptr).n_rows }
     }
     pub fn rows(&self) -> OverlayRowIterator<'a> {
         unsafe { xcb_xkb_overlay_rows_iterator(self.ptr) }
@@ -1776,7 +1776,7 @@ impl<'a> Row<'a> {
         unsafe { (*self.ptr).left }
     }
     pub fn n_keys(&self) -> u8 {
-        unsafe { (*self.ptr).nKeys }
+        unsafe { (*self.ptr).n_keys }
     }
     pub fn vertical(&self) -> bool {
         unsafe { (*self.ptr).vertical != 0 }
@@ -1845,19 +1845,19 @@ pub type DeviceLedInfo<'a> = base::StructPtr<'a, xcb_xkb_device_led_info_t>;
 
 impl<'a> DeviceLedInfo<'a> {
     pub fn led_class(&self) -> LedClassSpec {
-        unsafe { (*self.ptr).ledClass }
+        unsafe { (*self.ptr).led_class }
     }
     pub fn led_id(&self) -> IdSpec {
-        unsafe { (*self.ptr).ledID }
+        unsafe { (*self.ptr).led_id }
     }
     pub fn names_present(&self) -> u32 {
-        unsafe { (*self.ptr).namesPresent }
+        unsafe { (*self.ptr).names_present }
     }
     pub fn maps_present(&self) -> u32 {
-        unsafe { (*self.ptr).mapsPresent }
+        unsafe { (*self.ptr).maps_present }
     }
     pub fn phys_indicators(&self) -> u32 {
-        unsafe { (*self.ptr).physIndicators }
+        unsafe { (*self.ptr).phys_indicators }
     }
     pub fn state(&self) -> u32 {
         unsafe { (*self.ptr).state }
@@ -1956,9 +1956,9 @@ impl SaSetMods {
                     type_: type_,
                     flags: flags,
                     mask: mask,
-                    realMods: real_mods,
-                    vmodsHigh: vmods_high,
-                    vmodsLow: vmods_low,
+                    real_mods: real_mods,
+                    vmods_high: vmods_high,
+                    vmods_low: vmods_low,
                     pad0: [0; 2],
                 },
             }
@@ -1974,13 +1974,13 @@ impl SaSetMods {
         unsafe { self.base.mask }
     }
     pub fn real_mods(&self) -> u8 {
-        unsafe { self.base.realMods }
+        unsafe { self.base.real_mods }
     }
     pub fn vmods_high(&self) -> u8 {
-        unsafe { self.base.vmodsHigh }
+        unsafe { self.base.vmods_high }
     }
     pub fn vmods_low(&self) -> u8 {
-        unsafe { self.base.vmodsLow }
+        unsafe { self.base.vmods_low }
     }
 }
 
@@ -2023,9 +2023,9 @@ impl SaLatchMods {
                     type_: type_,
                     flags: flags,
                     mask: mask,
-                    realMods: real_mods,
-                    vmodsHigh: vmods_high,
-                    vmodsLow: vmods_low,
+                    real_mods: real_mods,
+                    vmods_high: vmods_high,
+                    vmods_low: vmods_low,
                     pad0: [0; 2],
                 },
             }
@@ -2041,13 +2041,13 @@ impl SaLatchMods {
         unsafe { self.base.mask }
     }
     pub fn real_mods(&self) -> u8 {
-        unsafe { self.base.realMods }
+        unsafe { self.base.real_mods }
     }
     pub fn vmods_high(&self) -> u8 {
-        unsafe { self.base.vmodsHigh }
+        unsafe { self.base.vmods_high }
     }
     pub fn vmods_low(&self) -> u8 {
-        unsafe { self.base.vmodsLow }
+        unsafe { self.base.vmods_low }
     }
 }
 
@@ -2090,9 +2090,9 @@ impl SaLockMods {
                     type_: type_,
                     flags: flags,
                     mask: mask,
-                    realMods: real_mods,
-                    vmodsHigh: vmods_high,
-                    vmodsLow: vmods_low,
+                    real_mods: real_mods,
+                    vmods_high: vmods_high,
+                    vmods_low: vmods_low,
                     pad0: [0; 2],
                 },
             }
@@ -2108,13 +2108,13 @@ impl SaLockMods {
         unsafe { self.base.mask }
     }
     pub fn real_mods(&self) -> u8 {
-        unsafe { self.base.realMods }
+        unsafe { self.base.real_mods }
     }
     pub fn vmods_high(&self) -> u8 {
-        unsafe { self.base.vmodsHigh }
+        unsafe { self.base.vmods_high }
     }
     pub fn vmods_low(&self) -> u8 {
-        unsafe { self.base.vmodsLow }
+        unsafe { self.base.vmods_low }
     }
 }
 
@@ -2293,10 +2293,10 @@ impl SaMovePtr {
                 base: xcb_xkb_sa_move_ptr_t {
                     type_: type_,
                     flags: flags,
-                    xHigh: x_high,
-                    xLow: x_low,
-                    yHigh: y_high,
-                    yLow: y_low,
+                    x_high: x_high,
+                    x_low: x_low,
+                    y_high: y_high,
+                    y_low: y_low,
                     pad0: [0; 2],
                 },
             }
@@ -2309,16 +2309,16 @@ impl SaMovePtr {
         unsafe { self.base.flags }
     }
     pub fn x_high(&self) -> i8 {
-        unsafe { self.base.xHigh }
+        unsafe { self.base.x_high }
     }
     pub fn x_low(&self) -> u8 {
-        unsafe { self.base.xLow }
+        unsafe { self.base.x_low }
     }
     pub fn y_high(&self) -> i8 {
-        unsafe { self.base.yHigh }
+        unsafe { self.base.y_high }
     }
     pub fn y_low(&self) -> u8 {
-        unsafe { self.base.yLow }
+        unsafe { self.base.y_low }
     }
 }
 
@@ -2516,11 +2516,11 @@ impl SaIsoLock {
                     type_: type_,
                     flags: flags,
                     mask: mask,
-                    realMods: real_mods,
+                    real_mods: real_mods,
                     group: group,
                     affect: affect,
-                    vmodsHigh: vmods_high,
-                    vmodsLow: vmods_low,
+                    vmods_high: vmods_high,
+                    vmods_low: vmods_low,
                 },
             }
         }
@@ -2535,7 +2535,7 @@ impl SaIsoLock {
         unsafe { self.base.mask }
     }
     pub fn real_mods(&self) -> u8 {
-        unsafe { self.base.realMods }
+        unsafe { self.base.real_mods }
     }
     pub fn group(&self) -> i8 {
         unsafe { self.base.group }
@@ -2544,10 +2544,10 @@ impl SaIsoLock {
         unsafe { self.base.affect }
     }
     pub fn vmods_high(&self) -> u8 {
-        unsafe { self.base.vmodsHigh }
+        unsafe { self.base.vmods_high }
     }
     pub fn vmods_low(&self) -> u8 {
-        unsafe { self.base.vmodsLow }
+        unsafe { self.base.vmods_low }
     }
 }
 
@@ -2622,7 +2622,7 @@ impl SaSwitchScreen {
                 base: xcb_xkb_sa_switch_screen_t {
                     type_: type_,
                     flags: flags,
-                    newScreen: new_screen,
+                    new_screen: new_screen,
                     pad0: [0; 5],
                 },
             }
@@ -2635,7 +2635,7 @@ impl SaSwitchScreen {
         unsafe { self.base.flags }
     }
     pub fn new_screen(&self) -> i8 {
-        unsafe { self.base.newScreen }
+        unsafe { self.base.new_screen }
     }
 }
 
@@ -2670,8 +2670,8 @@ impl SaSetControls {
                 base: xcb_xkb_sa_set_controls_t {
                     type_: type_,
                     pad0: [0; 3],
-                    boolCtrlsHigh: bool_ctrls_high,
-                    boolCtrlsLow: bool_ctrls_low,
+                    bool_ctrls_high: bool_ctrls_high,
+                    bool_ctrls_low: bool_ctrls_low,
                     pad1: [0; 2],
                 },
             }
@@ -2681,10 +2681,10 @@ impl SaSetControls {
         unsafe { self.base.type_ }
     }
     pub fn bool_ctrls_high(&self) -> u8 {
-        unsafe { self.base.boolCtrlsHigh }
+        unsafe { self.base.bool_ctrls_high }
     }
     pub fn bool_ctrls_low(&self) -> u8 {
-        unsafe { self.base.boolCtrlsLow }
+        unsafe { self.base.bool_ctrls_low }
     }
 }
 
@@ -2719,8 +2719,8 @@ impl SaLockControls {
                 base: xcb_xkb_sa_lock_controls_t {
                     type_: type_,
                     pad0: [0; 3],
-                    boolCtrlsHigh: bool_ctrls_high,
-                    boolCtrlsLow: bool_ctrls_low,
+                    bool_ctrls_high: bool_ctrls_high,
+                    bool_ctrls_low: bool_ctrls_low,
                     pad1: [0; 2],
                 },
             }
@@ -2730,10 +2730,10 @@ impl SaLockControls {
         unsafe { self.base.type_ }
     }
     pub fn bool_ctrls_high(&self) -> u8 {
-        unsafe { self.base.boolCtrlsHigh }
+        unsafe { self.base.bool_ctrls_high }
     }
     pub fn bool_ctrls_low(&self) -> u8 {
-        unsafe { self.base.boolCtrlsLow }
+        unsafe { self.base.bool_ctrls_low }
     }
 }
 
@@ -2810,11 +2810,11 @@ impl SaRedirectKey {
                     type_: type_,
                     newkey: newkey,
                     mask: mask,
-                    realModifiers: real_modifiers,
-                    vmodsMaskHigh: vmods_mask_high,
-                    vmodsMaskLow: vmods_mask_low,
-                    vmodsHigh: vmods_high,
-                    vmodsLow: vmods_low,
+                    real_modifiers: real_modifiers,
+                    vmods_mask_high: vmods_mask_high,
+                    vmods_mask_low: vmods_mask_low,
+                    vmods_high: vmods_high,
+                    vmods_low: vmods_low,
                 },
             }
         }
@@ -2829,19 +2829,19 @@ impl SaRedirectKey {
         unsafe { self.base.mask }
     }
     pub fn real_modifiers(&self) -> u8 {
-        unsafe { self.base.realModifiers }
+        unsafe { self.base.real_modifiers }
     }
     pub fn vmods_mask_high(&self) -> u8 {
-        unsafe { self.base.vmodsMaskHigh }
+        unsafe { self.base.vmods_mask_high }
     }
     pub fn vmods_mask_low(&self) -> u8 {
-        unsafe { self.base.vmodsMaskLow }
+        unsafe { self.base.vmods_mask_low }
     }
     pub fn vmods_high(&self) -> u8 {
-        unsafe { self.base.vmodsHigh }
+        unsafe { self.base.vmods_high }
     }
     pub fn vmods_low(&self) -> u8 {
-        unsafe { self.base.vmodsLow }
+        unsafe { self.base.vmods_low }
     }
 }
 
@@ -3090,7 +3090,7 @@ impl<'a> SymInterpret<'a> {
         unsafe { (*self.ptr).match_ }
     }
     pub fn virtual_mod(&self) -> u8 {
-        unsafe { (*self.ptr).virtualMod }
+        unsafe { (*self.ptr).virtual_mod }
     }
     pub fn flags(&self) -> u8 {
         unsafe { (*self.ptr).flags }
@@ -3503,10 +3503,10 @@ impl UseExtensionReply {
         unsafe { (*self.ptr).supported != 0 }
     }
     pub fn server_major(&self) -> u16 {
-        unsafe { (*self.ptr).serverMajor }
+        unsafe { (*self.ptr).server_major }
     }
     pub fn server_minor(&self) -> u16 {
-        unsafe { (*self.ptr).serverMinor }
+        unsafe { (*self.ptr).server_minor }
     }
 }
 
@@ -3728,49 +3728,49 @@ pub type GetStateReply = base::Reply<xcb_xkb_get_state_reply_t>;
 
 impl GetStateReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn mods(&self) -> u8 {
         unsafe { (*self.ptr).mods }
     }
     pub fn base_mods(&self) -> u8 {
-        unsafe { (*self.ptr).baseMods }
+        unsafe { (*self.ptr).base_mods }
     }
     pub fn latched_mods(&self) -> u8 {
-        unsafe { (*self.ptr).latchedMods }
+        unsafe { (*self.ptr).latched_mods }
     }
     pub fn locked_mods(&self) -> u8 {
-        unsafe { (*self.ptr).lockedMods }
+        unsafe { (*self.ptr).locked_mods }
     }
     pub fn group(&self) -> u8 {
         unsafe { (*self.ptr).group }
     }
     pub fn locked_group(&self) -> u8 {
-        unsafe { (*self.ptr).lockedGroup }
+        unsafe { (*self.ptr).locked_group }
     }
     pub fn base_group(&self) -> i16 {
-        unsafe { (*self.ptr).baseGroup }
+        unsafe { (*self.ptr).base_group }
     }
     pub fn latched_group(&self) -> i16 {
-        unsafe { (*self.ptr).latchedGroup }
+        unsafe { (*self.ptr).latched_group }
     }
     pub fn compat_state(&self) -> u8 {
-        unsafe { (*self.ptr).compatState }
+        unsafe { (*self.ptr).compat_state }
     }
     pub fn grab_mods(&self) -> u8 {
-        unsafe { (*self.ptr).grabMods }
+        unsafe { (*self.ptr).grab_mods }
     }
     pub fn compat_grab_mods(&self) -> u8 {
-        unsafe { (*self.ptr).compatGrabMods }
+        unsafe { (*self.ptr).compat_grab_mods }
     }
     pub fn lookup_mods(&self) -> u8 {
-        unsafe { (*self.ptr).lookupMods }
+        unsafe { (*self.ptr).lookup_mods }
     }
     pub fn compat_lookup_mods(&self) -> u8 {
-        unsafe { (*self.ptr).compatLookupMods }
+        unsafe { (*self.ptr).compat_lookup_mods }
     }
     pub fn ptr_btn_state(&self) -> u16 {
-        unsafe { (*self.ptr).ptrBtnState }
+        unsafe { (*self.ptr).ptr_btn_state }
     }
 }
 
@@ -3906,85 +3906,85 @@ pub type GetControlsReply = base::Reply<xcb_xkb_get_controls_reply_t>;
 
 impl GetControlsReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn mouse_keys_dflt_btn(&self) -> u8 {
-        unsafe { (*self.ptr).mouseKeysDfltBtn }
+        unsafe { (*self.ptr).mouse_keys_dflt_btn }
     }
     pub fn num_groups(&self) -> u8 {
-        unsafe { (*self.ptr).numGroups }
+        unsafe { (*self.ptr).num_groups }
     }
     pub fn groups_wrap(&self) -> u8 {
-        unsafe { (*self.ptr).groupsWrap }
+        unsafe { (*self.ptr).groups_wrap }
     }
     pub fn internal_mods_mask(&self) -> u8 {
-        unsafe { (*self.ptr).internalModsMask }
+        unsafe { (*self.ptr).internal_mods_mask }
     }
     pub fn ignore_lock_mods_mask(&self) -> u8 {
-        unsafe { (*self.ptr).ignoreLockModsMask }
+        unsafe { (*self.ptr).ignore_lock_mods_mask }
     }
     pub fn internal_mods_real_mods(&self) -> u8 {
-        unsafe { (*self.ptr).internalModsRealMods }
+        unsafe { (*self.ptr).internal_mods_real_mods }
     }
     pub fn ignore_lock_mods_real_mods(&self) -> u8 {
-        unsafe { (*self.ptr).ignoreLockModsRealMods }
+        unsafe { (*self.ptr).ignore_lock_mods_real_mods }
     }
     pub fn internal_mods_vmods(&self) -> u16 {
-        unsafe { (*self.ptr).internalModsVmods }
+        unsafe { (*self.ptr).internal_mods_vmods }
     }
     pub fn ignore_lock_mods_vmods(&self) -> u16 {
-        unsafe { (*self.ptr).ignoreLockModsVmods }
+        unsafe { (*self.ptr).ignore_lock_mods_vmods }
     }
     pub fn repeat_delay(&self) -> u16 {
-        unsafe { (*self.ptr).repeatDelay }
+        unsafe { (*self.ptr).repeat_delay }
     }
     pub fn repeat_interval(&self) -> u16 {
-        unsafe { (*self.ptr).repeatInterval }
+        unsafe { (*self.ptr).repeat_interval }
     }
     pub fn slow_keys_delay(&self) -> u16 {
-        unsafe { (*self.ptr).slowKeysDelay }
+        unsafe { (*self.ptr).slow_keys_delay }
     }
     pub fn debounce_delay(&self) -> u16 {
-        unsafe { (*self.ptr).debounceDelay }
+        unsafe { (*self.ptr).debounce_delay }
     }
     pub fn mouse_keys_delay(&self) -> u16 {
-        unsafe { (*self.ptr).mouseKeysDelay }
+        unsafe { (*self.ptr).mouse_keys_delay }
     }
     pub fn mouse_keys_interval(&self) -> u16 {
-        unsafe { (*self.ptr).mouseKeysInterval }
+        unsafe { (*self.ptr).mouse_keys_interval }
     }
     pub fn mouse_keys_time_to_max(&self) -> u16 {
-        unsafe { (*self.ptr).mouseKeysTimeToMax }
+        unsafe { (*self.ptr).mouse_keys_time_to_max }
     }
     pub fn mouse_keys_max_speed(&self) -> u16 {
-        unsafe { (*self.ptr).mouseKeysMaxSpeed }
+        unsafe { (*self.ptr).mouse_keys_max_speed }
     }
     pub fn mouse_keys_curve(&self) -> i16 {
-        unsafe { (*self.ptr).mouseKeysCurve }
+        unsafe { (*self.ptr).mouse_keys_curve }
     }
     pub fn access_x_option(&self) -> u16 {
-        unsafe { (*self.ptr).accessXOption }
+        unsafe { (*self.ptr).access_x_option }
     }
     pub fn access_x_timeout(&self) -> u16 {
-        unsafe { (*self.ptr).accessXTimeout }
+        unsafe { (*self.ptr).access_x_timeout }
     }
     pub fn access_x_timeout_options_mask(&self) -> u16 {
-        unsafe { (*self.ptr).accessXTimeoutOptionsMask }
+        unsafe { (*self.ptr).access_x_timeout_options_mask }
     }
     pub fn access_x_timeout_options_values(&self) -> u16 {
-        unsafe { (*self.ptr).accessXTimeoutOptionsValues }
+        unsafe { (*self.ptr).access_x_timeout_options_values }
     }
     pub fn access_x_timeout_mask(&self) -> u32 {
-        unsafe { (*self.ptr).accessXTimeoutMask }
+        unsafe { (*self.ptr).access_x_timeout_mask }
     }
     pub fn access_x_timeout_values(&self) -> u32 {
-        unsafe { (*self.ptr).accessXTimeoutValues }
+        unsafe { (*self.ptr).access_x_timeout_values }
     }
     pub fn enabled_controls(&self) -> u32 {
-        unsafe { (*self.ptr).enabledControls }
+        unsafe { (*self.ptr).enabled_controls }
     }
     pub fn per_key_repeat(&self) -> &[u8] {
-        unsafe { &(*self.ptr).perKeyRepeat }
+        unsafe { &(*self.ptr).per_key_repeat }
     }
 }
 
@@ -4211,82 +4211,82 @@ pub type GetMapReply = base::Reply<xcb_xkb_get_map_reply_t>;
 
 impl GetMapReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn min_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).minKeyCode }
+        unsafe { (*self.ptr).min_key_code }
     }
     pub fn max_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).maxKeyCode }
+        unsafe { (*self.ptr).max_key_code }
     }
     pub fn present(&self) -> u16 {
         unsafe { (*self.ptr).present }
     }
     pub fn first_type(&self) -> u8 {
-        unsafe { (*self.ptr).firstType }
+        unsafe { (*self.ptr).first_type }
     }
     pub fn n_types(&self) -> u8 {
-        unsafe { (*self.ptr).nTypes }
+        unsafe { (*self.ptr).n_types }
     }
     pub fn total_types(&self) -> u8 {
-        unsafe { (*self.ptr).totalTypes }
+        unsafe { (*self.ptr).total_types }
     }
     pub fn first_key_sym(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKeySym }
+        unsafe { (*self.ptr).first_key_sym }
     }
     pub fn total_syms(&self) -> u16 {
-        unsafe { (*self.ptr).totalSyms }
+        unsafe { (*self.ptr).total_syms }
     }
     pub fn n_key_syms(&self) -> u8 {
-        unsafe { (*self.ptr).nKeySyms }
+        unsafe { (*self.ptr).n_key_syms }
     }
     pub fn first_key_action(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKeyAction }
+        unsafe { (*self.ptr).first_key_action }
     }
     pub fn total_actions(&self) -> u16 {
-        unsafe { (*self.ptr).totalActions }
+        unsafe { (*self.ptr).total_actions }
     }
     pub fn n_key_actions(&self) -> u8 {
-        unsafe { (*self.ptr).nKeyActions }
+        unsafe { (*self.ptr).n_key_actions }
     }
     pub fn first_key_behavior(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKeyBehavior }
+        unsafe { (*self.ptr).first_key_behavior }
     }
     pub fn n_key_behaviors(&self) -> u8 {
-        unsafe { (*self.ptr).nKeyBehaviors }
+        unsafe { (*self.ptr).n_key_behaviors }
     }
     pub fn total_key_behaviors(&self) -> u8 {
-        unsafe { (*self.ptr).totalKeyBehaviors }
+        unsafe { (*self.ptr).total_key_behaviors }
     }
     pub fn first_key_explicit(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKeyExplicit }
+        unsafe { (*self.ptr).first_key_explicit }
     }
     pub fn n_key_explicit(&self) -> u8 {
-        unsafe { (*self.ptr).nKeyExplicit }
+        unsafe { (*self.ptr).n_key_explicit }
     }
     pub fn total_key_explicit(&self) -> u8 {
-        unsafe { (*self.ptr).totalKeyExplicit }
+        unsafe { (*self.ptr).total_key_explicit }
     }
     pub fn first_mod_map_key(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstModMapKey }
+        unsafe { (*self.ptr).first_mod_map_key }
     }
     pub fn n_mod_map_keys(&self) -> u8 {
-        unsafe { (*self.ptr).nModMapKeys }
+        unsafe { (*self.ptr).n_mod_map_keys }
     }
     pub fn total_mod_map_keys(&self) -> u8 {
-        unsafe { (*self.ptr).totalModMapKeys }
+        unsafe { (*self.ptr).total_mod_map_keys }
     }
     pub fn first_v_mod_map_key(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstVModMapKey }
+        unsafe { (*self.ptr).first_v_mod_map_key }
     }
     pub fn n_v_mod_map_keys(&self) -> u8 {
-        unsafe { (*self.ptr).nVModMapKeys }
+        unsafe { (*self.ptr).n_v_mod_map_keys }
     }
     pub fn total_v_mod_map_keys(&self) -> u8 {
-        unsafe { (*self.ptr).totalVModMapKeys }
+        unsafe { (*self.ptr).total_v_mod_map_keys }
     }
     pub fn virtual_mods(&self) -> u16 {
-        unsafe { (*self.ptr).virtualMods }
+        unsafe { (*self.ptr).virtual_mods }
     }
 }
 
@@ -4583,19 +4583,19 @@ pub type GetCompatMapReply = base::Reply<xcb_xkb_get_compat_map_reply_t>;
 
 impl GetCompatMapReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn groups_rtrn(&self) -> u8 {
-        unsafe { (*self.ptr).groupsRtrn }
+        unsafe { (*self.ptr).groups_rtrn }
     }
     pub fn first_si_rtrn(&self) -> u16 {
-        unsafe { (*self.ptr).firstSIRtrn }
+        unsafe { (*self.ptr).first_si_rtrn }
     }
     pub fn n_si_rtrn(&self) -> u16 {
-        unsafe { (*self.ptr).nSIRtrn }
+        unsafe { (*self.ptr).n_si_rtrn }
     }
     pub fn n_total_si(&self) -> u16 {
-        unsafe { (*self.ptr).nTotalSI }
+        unsafe { (*self.ptr).n_total_si }
     }
     pub fn si_rtrn(&self) -> SymInterpretIterator {
         unsafe { xcb_xkb_get_compat_map_si_rtrn_iterator(self.ptr) }
@@ -4769,7 +4769,7 @@ pub type GetIndicatorStateReply = base::Reply<xcb_xkb_get_indicator_state_reply_
 
 impl GetIndicatorStateReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn state(&self) -> u32 {
         unsafe { (*self.ptr).state }
@@ -4854,16 +4854,16 @@ pub type GetIndicatorMapReply = base::Reply<xcb_xkb_get_indicator_map_reply_t>;
 
 impl GetIndicatorMapReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn which(&self) -> u32 {
         unsafe { (*self.ptr).which }
     }
     pub fn real_indicators(&self) -> u32 {
-        unsafe { (*self.ptr).realIndicators }
+        unsafe { (*self.ptr).real_indicators }
     }
     pub fn n_indicators(&self) -> u8 {
-        unsafe { (*self.ptr).nIndicators }
+        unsafe { (*self.ptr).n_indicators }
     }
     pub fn maps(&self) -> IndicatorMapIterator {
         unsafe { xcb_xkb_get_indicator_map_maps_iterator(self.ptr) }
@@ -5000,7 +5000,7 @@ pub type GetNamedIndicatorReply = base::Reply<xcb_xkb_get_named_indicator_reply_
 
 impl GetNamedIndicatorReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn indicator(&self) -> xproto::Atom {
         unsafe { (*self.ptr).indicator }
@@ -5012,7 +5012,7 @@ impl GetNamedIndicatorReply {
         unsafe { (*self.ptr).on != 0 }
     }
     pub fn real_indicator(&self) -> bool {
-        unsafe { (*self.ptr).realIndicator != 0 }
+        unsafe { (*self.ptr).real_indicator != 0 }
     }
     pub fn ndx(&self) -> u8 {
         unsafe { (*self.ptr).ndx }
@@ -5021,19 +5021,19 @@ impl GetNamedIndicatorReply {
         unsafe { (*self.ptr).map_flags }
     }
     pub fn map_which_groups(&self) -> u8 {
-        unsafe { (*self.ptr).map_whichGroups }
+        unsafe { (*self.ptr).map_which_groups }
     }
     pub fn map_groups(&self) -> u8 {
         unsafe { (*self.ptr).map_groups }
     }
     pub fn map_which_mods(&self) -> u8 {
-        unsafe { (*self.ptr).map_whichMods }
+        unsafe { (*self.ptr).map_which_mods }
     }
     pub fn map_mods(&self) -> u8 {
         unsafe { (*self.ptr).map_mods }
     }
     pub fn map_real_mods(&self) -> u8 {
-        unsafe { (*self.ptr).map_realMods }
+        unsafe { (*self.ptr).map_real_mods }
     }
     pub fn map_vmod(&self) -> u16 {
         unsafe { (*self.ptr).map_vmod }
@@ -5227,43 +5227,43 @@ pub type GetNamesReply = base::Reply<xcb_xkb_get_names_reply_t>;
 
 impl GetNamesReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn which(&self) -> u32 {
         unsafe { (*self.ptr).which }
     }
     pub fn min_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).minKeyCode }
+        unsafe { (*self.ptr).min_key_code }
     }
     pub fn max_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).maxKeyCode }
+        unsafe { (*self.ptr).max_key_code }
     }
     pub fn n_types(&self) -> u8 {
-        unsafe { (*self.ptr).nTypes }
+        unsafe { (*self.ptr).n_types }
     }
     pub fn group_names(&self) -> u8 {
-        unsafe { (*self.ptr).groupNames }
+        unsafe { (*self.ptr).group_names }
     }
     pub fn virtual_mods(&self) -> u16 {
-        unsafe { (*self.ptr).virtualMods }
+        unsafe { (*self.ptr).virtual_mods }
     }
     pub fn first_key(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKey }
+        unsafe { (*self.ptr).first_key }
     }
     pub fn n_keys(&self) -> u8 {
-        unsafe { (*self.ptr).nKeys }
+        unsafe { (*self.ptr).n_keys }
     }
     pub fn indicators(&self) -> u32 {
         unsafe { (*self.ptr).indicators }
     }
     pub fn n_radio_groups(&self) -> u8 {
-        unsafe { (*self.ptr).nRadioGroups }
+        unsafe { (*self.ptr).n_radio_groups }
     }
     pub fn n_key_aliases(&self) -> u8 {
-        unsafe { (*self.ptr).nKeyAliases }
+        unsafe { (*self.ptr).n_key_aliases }
     }
     pub fn n_kt_levels(&self) -> u16 {
-        unsafe { (*self.ptr).nKTLevels }
+        unsafe { (*self.ptr).n_kt_levels }
     }
 }
 
@@ -5448,7 +5448,7 @@ pub type PerClientFlagsReply = base::Reply<xcb_xkb_per_client_flags_reply_t>;
 
 impl PerClientFlagsReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn supported(&self) -> u32 {
         unsafe { (*self.ptr).supported }
@@ -5457,10 +5457,10 @@ impl PerClientFlagsReply {
         unsafe { (*self.ptr).value }
     }
     pub fn auto_ctrls(&self) -> u32 {
-        unsafe { (*self.ptr).autoCtrls }
+        unsafe { (*self.ptr).auto_ctrls }
     }
     pub fn auto_ctrls_values(&self) -> u32 {
-        unsafe { (*self.ptr).autoCtrlsValues }
+        unsafe { (*self.ptr).auto_ctrls_values }
     }
 }
 
@@ -5560,25 +5560,25 @@ pub type ListComponentsReply = base::Reply<xcb_xkb_list_components_reply_t>;
 
 impl ListComponentsReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn n_keymaps(&self) -> u16 {
-        unsafe { (*self.ptr).nKeymaps }
+        unsafe { (*self.ptr).n_keymaps }
     }
     pub fn n_keycodes(&self) -> u16 {
-        unsafe { (*self.ptr).nKeycodes }
+        unsafe { (*self.ptr).n_keycodes }
     }
     pub fn n_types(&self) -> u16 {
-        unsafe { (*self.ptr).nTypes }
+        unsafe { (*self.ptr).n_types }
     }
     pub fn n_compat_maps(&self) -> u16 {
-        unsafe { (*self.ptr).nCompatMaps }
+        unsafe { (*self.ptr).n_compat_maps }
     }
     pub fn n_symbols(&self) -> u16 {
-        unsafe { (*self.ptr).nSymbols }
+        unsafe { (*self.ptr).n_symbols }
     }
     pub fn n_geometries(&self) -> u16 {
-        unsafe { (*self.ptr).nGeometries }
+        unsafe { (*self.ptr).n_geometries }
     }
     pub fn extra(&self) -> u16 {
         unsafe { (*self.ptr).extra }
@@ -5688,19 +5688,19 @@ pub type GetKbdByNameReply = base::Reply<xcb_xkb_get_kbd_by_name_reply_t>;
 
 impl GetKbdByNameReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn min_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).minKeyCode }
+        unsafe { (*self.ptr).min_key_code }
     }
     pub fn max_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).maxKeyCode }
+        unsafe { (*self.ptr).max_key_code }
     }
     pub fn loaded(&self) -> bool {
         unsafe { (*self.ptr).loaded != 0 }
     }
     pub fn new_keyboard(&self) -> bool {
-        unsafe { (*self.ptr).newKeyboard != 0 }
+        unsafe { (*self.ptr).new_keyboard != 0 }
     }
     pub fn found(&self) -> u16 {
         unsafe { (*self.ptr).found }
@@ -5798,7 +5798,7 @@ pub type GetDeviceInfoReply = base::Reply<xcb_xkb_get_device_info_reply_t>;
 
 impl GetDeviceInfoReply {
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn present(&self) -> u16 {
         unsafe { (*self.ptr).present }
@@ -5810,37 +5810,37 @@ impl GetDeviceInfoReply {
         unsafe { (*self.ptr).unsupported }
     }
     pub fn n_device_led_f_bs(&self) -> u16 {
-        unsafe { (*self.ptr).nDeviceLedFBs }
+        unsafe { (*self.ptr).n_device_led_f_bs }
     }
     pub fn first_btn_wanted(&self) -> u8 {
-        unsafe { (*self.ptr).firstBtnWanted }
+        unsafe { (*self.ptr).first_btn_wanted }
     }
     pub fn n_btns_wanted(&self) -> u8 {
-        unsafe { (*self.ptr).nBtnsWanted }
+        unsafe { (*self.ptr).n_btns_wanted }
     }
     pub fn first_btn_rtrn(&self) -> u8 {
-        unsafe { (*self.ptr).firstBtnRtrn }
+        unsafe { (*self.ptr).first_btn_rtrn }
     }
     pub fn n_btns_rtrn(&self) -> u8 {
-        unsafe { (*self.ptr).nBtnsRtrn }
+        unsafe { (*self.ptr).n_btns_rtrn }
     }
     pub fn total_btns(&self) -> u8 {
-        unsafe { (*self.ptr).totalBtns }
+        unsafe { (*self.ptr).total_btns }
     }
     pub fn has_own_state(&self) -> bool {
-        unsafe { (*self.ptr).hasOwnState != 0 }
+        unsafe { (*self.ptr).has_own_state != 0 }
     }
     pub fn dflt_kbd_fb(&self) -> u16 {
-        unsafe { (*self.ptr).dfltKbdFB }
+        unsafe { (*self.ptr).dflt_kbd_fb }
     }
     pub fn dflt_led_fb(&self) -> u16 {
-        unsafe { (*self.ptr).dfltLedFB }
+        unsafe { (*self.ptr).dflt_led_fb }
     }
     pub fn dev_type(&self) -> xproto::Atom {
-        unsafe { (*self.ptr).devType }
+        unsafe { (*self.ptr).dev_type }
     }
     pub fn name_len(&self) -> u16 {
-        unsafe { (*self.ptr).nameLen }
+        unsafe { (*self.ptr).name_len }
     }
     pub fn name(&self) -> &[String8] {
         unsafe {
@@ -6026,16 +6026,16 @@ pub type SetDebuggingFlagsReply = base::Reply<xcb_xkb_set_debugging_flags_reply_
 
 impl SetDebuggingFlagsReply {
     pub fn current_flags(&self) -> u32 {
-        unsafe { (*self.ptr).currentFlags }
+        unsafe { (*self.ptr).current_flags }
     }
     pub fn current_ctrls(&self) -> u32 {
-        unsafe { (*self.ptr).currentCtrls }
+        unsafe { (*self.ptr).current_ctrls }
     }
     pub fn supported_flags(&self) -> u32 {
-        unsafe { (*self.ptr).supportedFlags }
+        unsafe { (*self.ptr).supported_flags }
     }
     pub fn supported_ctrls(&self) -> u32 {
-        unsafe { (*self.ptr).supportedCtrls }
+        unsafe { (*self.ptr).supported_ctrls }
     }
 }
 
@@ -6101,34 +6101,34 @@ pub type NewKeyboardNotifyEvent = base::Event<xcb_xkb_new_keyboard_notify_event_
 
 impl NewKeyboardNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn old_device_id(&self) -> u8 {
-        unsafe { (*self.ptr).oldDeviceID }
+        unsafe { (*self.ptr).old_device_id }
     }
     pub fn min_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).minKeyCode }
+        unsafe { (*self.ptr).min_key_code }
     }
     pub fn max_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).maxKeyCode }
+        unsafe { (*self.ptr).max_key_code }
     }
     pub fn old_min_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).oldMinKeyCode }
+        unsafe { (*self.ptr).old_min_key_code }
     }
     pub fn old_max_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).oldMaxKeyCode }
+        unsafe { (*self.ptr).old_max_key_code }
     }
     pub fn request_major(&self) -> u8 {
-        unsafe { (*self.ptr).requestMajor }
+        unsafe { (*self.ptr).request_major }
     }
     pub fn request_minor(&self) -> u8 {
-        unsafe { (*self.ptr).requestMinor }
+        unsafe { (*self.ptr).request_minor }
     }
     pub fn changed(&self) -> u16 {
         unsafe { (*self.ptr).changed }
@@ -6151,16 +6151,16 @@ impl NewKeyboardNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_new_keyboard_notify_event_t;
             (*raw).response_type = NEW_KEYBOARD_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
-            (*raw).oldDeviceID = old_device_id;
-            (*raw).minKeyCode = min_key_code;
-            (*raw).maxKeyCode = max_key_code;
-            (*raw).oldMinKeyCode = old_min_key_code;
-            (*raw).oldMaxKeyCode = old_max_key_code;
-            (*raw).requestMajor = request_major;
-            (*raw).requestMinor = request_minor;
+            (*raw).device_id = device_id;
+            (*raw).old_device_id = old_device_id;
+            (*raw).min_key_code = min_key_code;
+            (*raw).max_key_code = max_key_code;
+            (*raw).old_min_key_code = old_min_key_code;
+            (*raw).old_max_key_code = old_max_key_code;
+            (*raw).request_major = request_major;
+            (*raw).request_minor = request_minor;
             (*raw).changed = changed;
             NewKeyboardNotifyEvent { ptr: raw }
         }
@@ -6173,70 +6173,70 @@ pub type MapNotifyEvent = base::Event<xcb_xkb_map_notify_event_t>;
 
 impl MapNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn ptr_btn_actions(&self) -> u8 {
-        unsafe { (*self.ptr).ptrBtnActions }
+        unsafe { (*self.ptr).ptr_btn_actions }
     }
     pub fn changed(&self) -> u16 {
         unsafe { (*self.ptr).changed }
     }
     pub fn min_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).minKeyCode }
+        unsafe { (*self.ptr).min_key_code }
     }
     pub fn max_key_code(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).maxKeyCode }
+        unsafe { (*self.ptr).max_key_code }
     }
     pub fn first_type(&self) -> u8 {
-        unsafe { (*self.ptr).firstType }
+        unsafe { (*self.ptr).first_type }
     }
     pub fn n_types(&self) -> u8 {
-        unsafe { (*self.ptr).nTypes }
+        unsafe { (*self.ptr).n_types }
     }
     pub fn first_key_sym(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKeySym }
+        unsafe { (*self.ptr).first_key_sym }
     }
     pub fn n_key_syms(&self) -> u8 {
-        unsafe { (*self.ptr).nKeySyms }
+        unsafe { (*self.ptr).n_key_syms }
     }
     pub fn first_key_act(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKeyAct }
+        unsafe { (*self.ptr).first_key_act }
     }
     pub fn n_key_acts(&self) -> u8 {
-        unsafe { (*self.ptr).nKeyActs }
+        unsafe { (*self.ptr).n_key_acts }
     }
     pub fn first_key_behavior(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKeyBehavior }
+        unsafe { (*self.ptr).first_key_behavior }
     }
     pub fn n_key_behavior(&self) -> u8 {
-        unsafe { (*self.ptr).nKeyBehavior }
+        unsafe { (*self.ptr).n_key_behavior }
     }
     pub fn first_key_explicit(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKeyExplicit }
+        unsafe { (*self.ptr).first_key_explicit }
     }
     pub fn n_key_explicit(&self) -> u8 {
-        unsafe { (*self.ptr).nKeyExplicit }
+        unsafe { (*self.ptr).n_key_explicit }
     }
     pub fn first_mod_map_key(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstModMapKey }
+        unsafe { (*self.ptr).first_mod_map_key }
     }
     pub fn n_mod_map_keys(&self) -> u8 {
-        unsafe { (*self.ptr).nModMapKeys }
+        unsafe { (*self.ptr).n_mod_map_keys }
     }
     pub fn first_v_mod_map_key(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstVModMapKey }
+        unsafe { (*self.ptr).first_v_mod_map_key }
     }
     pub fn n_v_mod_map_keys(&self) -> u8 {
-        unsafe { (*self.ptr).nVModMapKeys }
+        unsafe { (*self.ptr).n_v_mod_map_keys }
     }
     pub fn virtual_mods(&self) -> u16 {
-        unsafe { (*self.ptr).virtualMods }
+        unsafe { (*self.ptr).virtual_mods }
     }
     /// Constructs a new MapNotifyEvent
     /// `response_type` will be set automatically to MAP_NOTIFY
@@ -6267,28 +6267,28 @@ impl MapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_map_notify_event_t;
             (*raw).response_type = MAP_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
-            (*raw).ptrBtnActions = ptr_btn_actions;
+            (*raw).device_id = device_id;
+            (*raw).ptr_btn_actions = ptr_btn_actions;
             (*raw).changed = changed;
-            (*raw).minKeyCode = min_key_code;
-            (*raw).maxKeyCode = max_key_code;
-            (*raw).firstType = first_type;
-            (*raw).nTypes = n_types;
-            (*raw).firstKeySym = first_key_sym;
-            (*raw).nKeySyms = n_key_syms;
-            (*raw).firstKeyAct = first_key_act;
-            (*raw).nKeyActs = n_key_acts;
-            (*raw).firstKeyBehavior = first_key_behavior;
-            (*raw).nKeyBehavior = n_key_behavior;
-            (*raw).firstKeyExplicit = first_key_explicit;
-            (*raw).nKeyExplicit = n_key_explicit;
-            (*raw).firstModMapKey = first_mod_map_key;
-            (*raw).nModMapKeys = n_mod_map_keys;
-            (*raw).firstVModMapKey = first_v_mod_map_key;
-            (*raw).nVModMapKeys = n_v_mod_map_keys;
-            (*raw).virtualMods = virtual_mods;
+            (*raw).min_key_code = min_key_code;
+            (*raw).max_key_code = max_key_code;
+            (*raw).first_type = first_type;
+            (*raw).n_types = n_types;
+            (*raw).first_key_sym = first_key_sym;
+            (*raw).n_key_syms = n_key_syms;
+            (*raw).first_key_act = first_key_act;
+            (*raw).n_key_acts = n_key_acts;
+            (*raw).first_key_behavior = first_key_behavior;
+            (*raw).n_key_behavior = n_key_behavior;
+            (*raw).first_key_explicit = first_key_explicit;
+            (*raw).n_key_explicit = n_key_explicit;
+            (*raw).first_mod_map_key = first_mod_map_key;
+            (*raw).n_mod_map_keys = n_mod_map_keys;
+            (*raw).first_v_mod_map_key = first_v_mod_map_key;
+            (*raw).n_v_mod_map_keys = n_v_mod_map_keys;
+            (*raw).virtual_mods = virtual_mods;
             MapNotifyEvent { ptr: raw }
         }
     }
@@ -6300,55 +6300,55 @@ pub type StateNotifyEvent = base::Event<xcb_xkb_state_notify_event_t>;
 
 impl StateNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn mods(&self) -> u8 {
         unsafe { (*self.ptr).mods }
     }
     pub fn base_mods(&self) -> u8 {
-        unsafe { (*self.ptr).baseMods }
+        unsafe { (*self.ptr).base_mods }
     }
     pub fn latched_mods(&self) -> u8 {
-        unsafe { (*self.ptr).latchedMods }
+        unsafe { (*self.ptr).latched_mods }
     }
     pub fn locked_mods(&self) -> u8 {
-        unsafe { (*self.ptr).lockedMods }
+        unsafe { (*self.ptr).locked_mods }
     }
     pub fn group(&self) -> u8 {
         unsafe { (*self.ptr).group }
     }
     pub fn base_group(&self) -> i16 {
-        unsafe { (*self.ptr).baseGroup }
+        unsafe { (*self.ptr).base_group }
     }
     pub fn latched_group(&self) -> i16 {
-        unsafe { (*self.ptr).latchedGroup }
+        unsafe { (*self.ptr).latched_group }
     }
     pub fn locked_group(&self) -> u8 {
-        unsafe { (*self.ptr).lockedGroup }
+        unsafe { (*self.ptr).locked_group }
     }
     pub fn compat_state(&self) -> u8 {
-        unsafe { (*self.ptr).compatState }
+        unsafe { (*self.ptr).compat_state }
     }
     pub fn grab_mods(&self) -> u8 {
-        unsafe { (*self.ptr).grabMods }
+        unsafe { (*self.ptr).grab_mods }
     }
     pub fn compat_grab_mods(&self) -> u8 {
-        unsafe { (*self.ptr).compatGrabMods }
+        unsafe { (*self.ptr).compat_grab_mods }
     }
     pub fn lookup_mods(&self) -> u8 {
-        unsafe { (*self.ptr).lookupMods }
+        unsafe { (*self.ptr).lookup_mods }
     }
     pub fn compat_loockup_mods(&self) -> u8 {
-        unsafe { (*self.ptr).compatLoockupMods }
+        unsafe { (*self.ptr).compat_loockup_mods }
     }
     pub fn ptr_btn_state(&self) -> u16 {
-        unsafe { (*self.ptr).ptrBtnState }
+        unsafe { (*self.ptr).ptr_btn_state }
     }
     pub fn changed(&self) -> u16 {
         unsafe { (*self.ptr).changed }
@@ -6357,13 +6357,13 @@ impl StateNotifyEvent {
         unsafe { (*self.ptr).keycode }
     }
     pub fn event_type(&self) -> u8 {
-        unsafe { (*self.ptr).eventType }
+        unsafe { (*self.ptr).event_type }
     }
     pub fn request_major(&self) -> u8 {
-        unsafe { (*self.ptr).requestMajor }
+        unsafe { (*self.ptr).request_major }
     }
     pub fn request_minor(&self) -> u8 {
-        unsafe { (*self.ptr).requestMinor }
+        unsafe { (*self.ptr).request_minor }
     }
     /// Constructs a new StateNotifyEvent
     /// `response_type` will be set automatically to STATE_NOTIFY
@@ -6394,28 +6394,28 @@ impl StateNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_state_notify_event_t;
             (*raw).response_type = STATE_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
+            (*raw).device_id = device_id;
             (*raw).mods = mods;
-            (*raw).baseMods = base_mods;
-            (*raw).latchedMods = latched_mods;
-            (*raw).lockedMods = locked_mods;
+            (*raw).base_mods = base_mods;
+            (*raw).latched_mods = latched_mods;
+            (*raw).locked_mods = locked_mods;
             (*raw).group = group;
-            (*raw).baseGroup = base_group;
-            (*raw).latchedGroup = latched_group;
-            (*raw).lockedGroup = locked_group;
-            (*raw).compatState = compat_state;
-            (*raw).grabMods = grab_mods;
-            (*raw).compatGrabMods = compat_grab_mods;
-            (*raw).lookupMods = lookup_mods;
-            (*raw).compatLoockupMods = compat_loockup_mods;
-            (*raw).ptrBtnState = ptr_btn_state;
+            (*raw).base_group = base_group;
+            (*raw).latched_group = latched_group;
+            (*raw).locked_group = locked_group;
+            (*raw).compat_state = compat_state;
+            (*raw).grab_mods = grab_mods;
+            (*raw).compat_grab_mods = compat_grab_mods;
+            (*raw).lookup_mods = lookup_mods;
+            (*raw).compat_loockup_mods = compat_loockup_mods;
+            (*raw).ptr_btn_state = ptr_btn_state;
             (*raw).changed = changed;
             (*raw).keycode = keycode;
-            (*raw).eventType = event_type;
-            (*raw).requestMajor = request_major;
-            (*raw).requestMinor = request_minor;
+            (*raw).event_type = event_type;
+            (*raw).request_major = request_major;
+            (*raw).request_minor = request_minor;
             StateNotifyEvent { ptr: raw }
         }
     }
@@ -6427,37 +6427,37 @@ pub type ControlsNotifyEvent = base::Event<xcb_xkb_controls_notify_event_t>;
 
 impl ControlsNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn num_groups(&self) -> u8 {
-        unsafe { (*self.ptr).numGroups }
+        unsafe { (*self.ptr).num_groups }
     }
     pub fn changed_controls(&self) -> u32 {
-        unsafe { (*self.ptr).changedControls }
+        unsafe { (*self.ptr).changed_controls }
     }
     pub fn enabled_controls(&self) -> u32 {
-        unsafe { (*self.ptr).enabledControls }
+        unsafe { (*self.ptr).enabled_controls }
     }
     pub fn enabled_control_changes(&self) -> u32 {
-        unsafe { (*self.ptr).enabledControlChanges }
+        unsafe { (*self.ptr).enabled_control_changes }
     }
     pub fn keycode(&self) -> xproto::Keycode {
         unsafe { (*self.ptr).keycode }
     }
     pub fn event_type(&self) -> u8 {
-        unsafe { (*self.ptr).eventType }
+        unsafe { (*self.ptr).event_type }
     }
     pub fn request_major(&self) -> u8 {
-        unsafe { (*self.ptr).requestMajor }
+        unsafe { (*self.ptr).request_major }
     }
     pub fn request_minor(&self) -> u8 {
-        unsafe { (*self.ptr).requestMinor }
+        unsafe { (*self.ptr).request_minor }
     }
     /// Constructs a new ControlsNotifyEvent
     /// `response_type` will be set automatically to CONTROLS_NOTIFY
@@ -6477,17 +6477,17 @@ impl ControlsNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_controls_notify_event_t;
             (*raw).response_type = CONTROLS_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
-            (*raw).numGroups = num_groups;
-            (*raw).changedControls = changed_controls;
-            (*raw).enabledControls = enabled_controls;
-            (*raw).enabledControlChanges = enabled_control_changes;
+            (*raw).device_id = device_id;
+            (*raw).num_groups = num_groups;
+            (*raw).changed_controls = changed_controls;
+            (*raw).enabled_controls = enabled_controls;
+            (*raw).enabled_control_changes = enabled_control_changes;
             (*raw).keycode = keycode;
-            (*raw).eventType = event_type;
-            (*raw).requestMajor = request_major;
-            (*raw).requestMinor = request_minor;
+            (*raw).event_type = event_type;
+            (*raw).request_major = request_major;
+            (*raw).request_minor = request_minor;
             ControlsNotifyEvent { ptr: raw }
         }
     }
@@ -6499,19 +6499,19 @@ pub type IndicatorStateNotifyEvent = base::Event<xcb_xkb_indicator_state_notify_
 
 impl IndicatorStateNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn state(&self) -> u32 {
         unsafe { (*self.ptr).state }
     }
     pub fn state_changed(&self) -> u32 {
-        unsafe { (*self.ptr).stateChanged }
+        unsafe { (*self.ptr).state_changed }
     }
     /// Constructs a new IndicatorStateNotifyEvent
     /// `response_type` will be set automatically to INDICATOR_STATE_NOTIFY
@@ -6525,11 +6525,11 @@ impl IndicatorStateNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_indicator_state_notify_event_t;
             (*raw).response_type = INDICATOR_STATE_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
+            (*raw).device_id = device_id;
             (*raw).state = state;
-            (*raw).stateChanged = state_changed;
+            (*raw).state_changed = state_changed;
             IndicatorStateNotifyEvent { ptr: raw }
         }
     }
@@ -6541,19 +6541,19 @@ pub type IndicatorMapNotifyEvent = base::Event<xcb_xkb_indicator_map_notify_even
 
 impl IndicatorMapNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn state(&self) -> u32 {
         unsafe { (*self.ptr).state }
     }
     pub fn map_changed(&self) -> u32 {
-        unsafe { (*self.ptr).mapChanged }
+        unsafe { (*self.ptr).map_changed }
     }
     /// Constructs a new IndicatorMapNotifyEvent
     /// `response_type` will be set automatically to INDICATOR_MAP_NOTIFY
@@ -6567,11 +6567,11 @@ impl IndicatorMapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_indicator_map_notify_event_t;
             (*raw).response_type = INDICATOR_MAP_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
+            (*raw).device_id = device_id;
             (*raw).state = state;
-            (*raw).mapChanged = map_changed;
+            (*raw).map_changed = map_changed;
             IndicatorMapNotifyEvent { ptr: raw }
         }
     }
@@ -6583,49 +6583,49 @@ pub type NamesNotifyEvent = base::Event<xcb_xkb_names_notify_event_t>;
 
 impl NamesNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn changed(&self) -> u16 {
         unsafe { (*self.ptr).changed }
     }
     pub fn first_type(&self) -> u8 {
-        unsafe { (*self.ptr).firstType }
+        unsafe { (*self.ptr).first_type }
     }
     pub fn n_types(&self) -> u8 {
-        unsafe { (*self.ptr).nTypes }
+        unsafe { (*self.ptr).n_types }
     }
     pub fn first_level_name(&self) -> u8 {
-        unsafe { (*self.ptr).firstLevelName }
+        unsafe { (*self.ptr).first_level_name }
     }
     pub fn n_level_names(&self) -> u8 {
-        unsafe { (*self.ptr).nLevelNames }
+        unsafe { (*self.ptr).n_level_names }
     }
     pub fn n_radio_groups(&self) -> u8 {
-        unsafe { (*self.ptr).nRadioGroups }
+        unsafe { (*self.ptr).n_radio_groups }
     }
     pub fn n_key_aliases(&self) -> u8 {
-        unsafe { (*self.ptr).nKeyAliases }
+        unsafe { (*self.ptr).n_key_aliases }
     }
     pub fn changed_group_names(&self) -> u8 {
-        unsafe { (*self.ptr).changedGroupNames }
+        unsafe { (*self.ptr).changed_group_names }
     }
     pub fn changed_virtual_mods(&self) -> u16 {
-        unsafe { (*self.ptr).changedVirtualMods }
+        unsafe { (*self.ptr).changed_virtual_mods }
     }
     pub fn first_key(&self) -> xproto::Keycode {
-        unsafe { (*self.ptr).firstKey }
+        unsafe { (*self.ptr).first_key }
     }
     pub fn n_keys(&self) -> u8 {
-        unsafe { (*self.ptr).nKeys }
+        unsafe { (*self.ptr).n_keys }
     }
     pub fn changed_indicators(&self) -> u32 {
-        unsafe { (*self.ptr).changedIndicators }
+        unsafe { (*self.ptr).changed_indicators }
     }
     /// Constructs a new NamesNotifyEvent
     /// `response_type` will be set automatically to NAMES_NOTIFY
@@ -6649,21 +6649,21 @@ impl NamesNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_names_notify_event_t;
             (*raw).response_type = NAMES_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
+            (*raw).device_id = device_id;
             (*raw).changed = changed;
-            (*raw).firstType = first_type;
-            (*raw).nTypes = n_types;
-            (*raw).firstLevelName = first_level_name;
-            (*raw).nLevelNames = n_level_names;
-            (*raw).nRadioGroups = n_radio_groups;
-            (*raw).nKeyAliases = n_key_aliases;
-            (*raw).changedGroupNames = changed_group_names;
-            (*raw).changedVirtualMods = changed_virtual_mods;
-            (*raw).firstKey = first_key;
-            (*raw).nKeys = n_keys;
-            (*raw).changedIndicators = changed_indicators;
+            (*raw).first_type = first_type;
+            (*raw).n_types = n_types;
+            (*raw).first_level_name = first_level_name;
+            (*raw).n_level_names = n_level_names;
+            (*raw).n_radio_groups = n_radio_groups;
+            (*raw).n_key_aliases = n_key_aliases;
+            (*raw).changed_group_names = changed_group_names;
+            (*raw).changed_virtual_mods = changed_virtual_mods;
+            (*raw).first_key = first_key;
+            (*raw).n_keys = n_keys;
+            (*raw).changed_indicators = changed_indicators;
             NamesNotifyEvent { ptr: raw }
         }
     }
@@ -6675,25 +6675,25 @@ pub type CompatMapNotifyEvent = base::Event<xcb_xkb_compat_map_notify_event_t>;
 
 impl CompatMapNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn changed_groups(&self) -> u8 {
-        unsafe { (*self.ptr).changedGroups }
+        unsafe { (*self.ptr).changed_groups }
     }
     pub fn first_si(&self) -> u16 {
-        unsafe { (*self.ptr).firstSI }
+        unsafe { (*self.ptr).first_si }
     }
     pub fn n_si(&self) -> u16 {
-        unsafe { (*self.ptr).nSI }
+        unsafe { (*self.ptr).n_si }
     }
     pub fn n_total_si(&self) -> u16 {
-        unsafe { (*self.ptr).nTotalSI }
+        unsafe { (*self.ptr).n_total_si }
     }
     /// Constructs a new CompatMapNotifyEvent
     /// `response_type` will be set automatically to COMPAT_MAP_NOTIFY
@@ -6709,13 +6709,13 @@ impl CompatMapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_compat_map_notify_event_t;
             (*raw).response_type = COMPAT_MAP_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
-            (*raw).changedGroups = changed_groups;
-            (*raw).firstSI = first_si;
-            (*raw).nSI = n_si;
-            (*raw).nTotalSI = n_total_si;
+            (*raw).device_id = device_id;
+            (*raw).changed_groups = changed_groups;
+            (*raw).first_si = first_si;
+            (*raw).n_si = n_si;
+            (*raw).n_total_si = n_total_si;
             CompatMapNotifyEvent { ptr: raw }
         }
     }
@@ -6727,19 +6727,19 @@ pub type BellNotifyEvent = base::Event<xcb_xkb_bell_notify_event_t>;
 
 impl BellNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn bell_class(&self) -> u8 {
-        unsafe { (*self.ptr).bellClass }
+        unsafe { (*self.ptr).bell_class }
     }
     pub fn bell_id(&self) -> u8 {
-        unsafe { (*self.ptr).bellID }
+        unsafe { (*self.ptr).bell_id }
     }
     pub fn percent(&self) -> u8 {
         unsafe { (*self.ptr).percent }
@@ -6757,7 +6757,7 @@ impl BellNotifyEvent {
         unsafe { (*self.ptr).window }
     }
     pub fn event_only(&self) -> bool {
-        unsafe { (*self.ptr).eventOnly != 0 }
+        unsafe { (*self.ptr).event_only != 0 }
     }
     /// Constructs a new BellNotifyEvent
     /// `response_type` will be set automatically to BELL_NOTIFY
@@ -6777,17 +6777,17 @@ impl BellNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_bell_notify_event_t;
             (*raw).response_type = BELL_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
-            (*raw).bellClass = bell_class;
-            (*raw).bellID = bell_id;
+            (*raw).device_id = device_id;
+            (*raw).bell_class = bell_class;
+            (*raw).bell_id = bell_id;
             (*raw).percent = percent;
             (*raw).pitch = pitch;
             (*raw).duration = duration;
             (*raw).name = name;
             (*raw).window = window;
-            (*raw).eventOnly = if event_only { 1 } else { 0 };
+            (*raw).event_only = if event_only { 1 } else { 0 };
             BellNotifyEvent { ptr: raw }
         }
     }
@@ -6799,13 +6799,13 @@ pub type ActionMessageEvent = base::Event<xcb_xkb_action_message_event_t>;
 
 impl ActionMessageEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn keycode(&self) -> xproto::Keycode {
         unsafe { (*self.ptr).keycode }
@@ -6814,7 +6814,7 @@ impl ActionMessageEvent {
         unsafe { (*self.ptr).press != 0 }
     }
     pub fn key_event_follows(&self) -> bool {
-        unsafe { (*self.ptr).keyEventFollows != 0 }
+        unsafe { (*self.ptr).key_event_follows != 0 }
     }
     pub fn mods(&self) -> u8 {
         unsafe { (*self.ptr).mods }
@@ -6841,12 +6841,12 @@ impl ActionMessageEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_action_message_event_t;
             (*raw).response_type = ACTION_MESSAGE;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
+            (*raw).device_id = device_id;
             (*raw).keycode = keycode;
             (*raw).press = if press { 1 } else { 0 };
-            (*raw).keyEventFollows = if key_event_follows { 1 } else { 0 };
+            (*raw).key_event_follows = if key_event_follows { 1 } else { 0 };
             (*raw).mods = mods;
             (*raw).group = group;
             (*raw).message = message;
@@ -6861,13 +6861,13 @@ pub type AccessXNotifyEvent = base::Event<xcb_xkb_access_x_notify_event_t>;
 
 impl AccessXNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn keycode(&self) -> xproto::Keycode {
         unsafe { (*self.ptr).keycode }
@@ -6876,10 +6876,10 @@ impl AccessXNotifyEvent {
         unsafe { (*self.ptr).detailt }
     }
     pub fn slow_keys_delay(&self) -> u16 {
-        unsafe { (*self.ptr).slowKeysDelay }
+        unsafe { (*self.ptr).slow_keys_delay }
     }
     pub fn debounce_delay(&self) -> u16 {
-        unsafe { (*self.ptr).debounceDelay }
+        unsafe { (*self.ptr).debounce_delay }
     }
     /// Constructs a new AccessXNotifyEvent
     /// `response_type` will be set automatically to ACCESS_X_NOTIFY
@@ -6895,13 +6895,13 @@ impl AccessXNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_access_x_notify_event_t;
             (*raw).response_type = ACCESS_X_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
+            (*raw).device_id = device_id;
             (*raw).keycode = keycode;
             (*raw).detailt = detailt;
-            (*raw).slowKeysDelay = slow_keys_delay;
-            (*raw).debounceDelay = debounce_delay;
+            (*raw).slow_keys_delay = slow_keys_delay;
+            (*raw).debounce_delay = debounce_delay;
             AccessXNotifyEvent { ptr: raw }
         }
     }
@@ -6913,34 +6913,34 @@ pub type ExtensionDeviceNotifyEvent = base::Event<xcb_xkb_extension_device_notif
 
 impl ExtensionDeviceNotifyEvent {
     pub fn xkb_type(&self) -> u8 {
-        unsafe { (*self.ptr).xkbType }
+        unsafe { (*self.ptr).xkb_type }
     }
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
     pub fn device_id(&self) -> u8 {
-        unsafe { (*self.ptr).deviceID }
+        unsafe { (*self.ptr).device_id }
     }
     pub fn reason(&self) -> u16 {
         unsafe { (*self.ptr).reason }
     }
     pub fn led_class(&self) -> u16 {
-        unsafe { (*self.ptr).ledClass }
+        unsafe { (*self.ptr).led_class }
     }
     pub fn led_id(&self) -> u16 {
-        unsafe { (*self.ptr).ledID }
+        unsafe { (*self.ptr).led_id }
     }
     pub fn leds_defined(&self) -> u32 {
-        unsafe { (*self.ptr).ledsDefined }
+        unsafe { (*self.ptr).leds_defined }
     }
     pub fn led_state(&self) -> u32 {
-        unsafe { (*self.ptr).ledState }
+        unsafe { (*self.ptr).led_state }
     }
     pub fn first_button(&self) -> u8 {
-        unsafe { (*self.ptr).firstButton }
+        unsafe { (*self.ptr).first_button }
     }
     pub fn n_buttons(&self) -> u8 {
-        unsafe { (*self.ptr).nButtons }
+        unsafe { (*self.ptr).n_buttons }
     }
     pub fn supported(&self) -> u16 {
         unsafe { (*self.ptr).supported }
@@ -6967,16 +6967,16 @@ impl ExtensionDeviceNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_extension_device_notify_event_t;
             (*raw).response_type = EXTENSION_DEVICE_NOTIFY;
-            (*raw).xkbType = xkb_type;
+            (*raw).xkb_type = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_id;
+            (*raw).device_id = device_id;
             (*raw).reason = reason;
-            (*raw).ledClass = led_class;
-            (*raw).ledID = led_id;
-            (*raw).ledsDefined = leds_defined;
-            (*raw).ledState = led_state;
-            (*raw).firstButton = first_button;
-            (*raw).nButtons = n_buttons;
+            (*raw).led_class = led_class;
+            (*raw).led_id = led_id;
+            (*raw).leds_defined = leds_defined;
+            (*raw).led_state = led_state;
+            (*raw).first_button = first_button;
+            (*raw).n_buttons = n_buttons;
             (*raw).supported = supported;
             (*raw).unsupported = unsupported;
             ExtensionDeviceNotifyEvent { ptr: raw }

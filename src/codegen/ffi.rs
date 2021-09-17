@@ -2,7 +2,7 @@ use std::io::{self, Write};
 
 use super::{
     capitalize, emit_doc_field, emit_doc_text, enum_suffix_exception, expr_fixed_length,
-    extract_module, has_fd, make_field, tit_dig_split, CodeGen, KEYWORDS,
+    extract_module, field_name, has_fd, make_field, tit_dig_split, CodeGen,
 };
 use crate::ast::{Doc, Expr, Reply, Struct, StructField, SwitchCase};
 
@@ -766,14 +766,6 @@ impl CodeGen {
 
         Ok((cookie_ffi_typ, ffi_reply_fn, ffi_reply_typ))
     }
-}
-
-pub fn field_name(name: &str) -> String {
-    let mut res = name.to_string();
-    if KEYWORDS.contains(&res.as_str()) {
-        res.push('_');
-    }
-    res
 }
 
 pub fn enum_item_name(xcb_mod_prefix: &str, name: &str, item: &str) -> String {

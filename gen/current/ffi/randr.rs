@@ -118,7 +118,7 @@ pub struct xcb_randr_screen_size_iterator_t {
 #[derive(Debug)]
 #[repr(C)]
 pub struct xcb_randr_refresh_rates_t {
-    pub nRates: u16,
+    pub n_rates: u16,
 }
 
 #[repr(C)]
@@ -177,7 +177,7 @@ pub struct xcb_randr_set_screen_config_request_t {
     pub window: xcb_window_t,
     pub timestamp: xcb_timestamp_t,
     pub config_timestamp: xcb_timestamp_t,
-    pub sizeID: u16,
+    pub size_id: u16,
     pub rotation: u16,
     pub rate: u16,
     pub pad0: [u8; 2],
@@ -252,11 +252,11 @@ pub struct xcb_randr_get_screen_info_reply_t {
     pub root: xcb_window_t,
     pub timestamp: xcb_timestamp_t,
     pub config_timestamp: xcb_timestamp_t,
-    pub nSizes: u16,
-    pub sizeID: u16,
+    pub n_sizes: u16,
+    pub size_id: u16,
     pub rotation: u16,
     pub rate: u16,
-    pub nInfo: u16,
+    pub n_info: u16,
     pub pad0: [u8; 2],
 }
 
@@ -1222,7 +1222,7 @@ pub struct xcb_randr_screen_change_notify_event_t {
     pub config_timestamp: xcb_timestamp_t,
     pub root: xcb_window_t,
     pub request_window: xcb_window_t,
-    pub sizeID: u16,
+    pub size_id: u16,
     pub subpixel_order: u16,
     pub width: u16,
     pub height: u16,
@@ -1382,7 +1382,7 @@ pub const XCB_RANDR_NOTIFY: u8 = 1;
 #[repr(C)]
 pub struct xcb_randr_notify_event_t {
     pub response_type: u8,
-    pub subCode: u8,
+    pub sub_code: u8,
     pub sequence: u16,
     pub u: xcb_randr_notify_data_t,
 }
@@ -1459,7 +1459,7 @@ extern "C" {
         window: xcb_window_t,
         timestamp: xcb_timestamp_t,
         config_timestamp: xcb_timestamp_t,
-        sizeID: u16,
+        size_id: u16,
         rotation: u16,
         rate: u16,
     ) -> xcb_randr_set_screen_config_cookie_t;
@@ -1469,7 +1469,7 @@ extern "C" {
         window: xcb_window_t,
         timestamp: xcb_timestamp_t,
         config_timestamp: xcb_timestamp_t,
-        sizeID: u16,
+        size_id: u16,
         rotation: u16,
         rate: u16,
     ) -> xcb_randr_set_screen_config_cookie_t;

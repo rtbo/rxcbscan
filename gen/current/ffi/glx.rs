@@ -643,7 +643,7 @@ pub struct xcb_glx_get_fb_configs_reply_t {
     pub pad0: u8,
     pub sequence: u16,
     pub length: u32,
-    pub num_FB_configs: u32,
+    pub num_fb_configs: u32,
     pub num_properties: u32,
     pub pad1: [u8; 16],
 }

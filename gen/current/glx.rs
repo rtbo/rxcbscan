@@ -1483,7 +1483,7 @@ pub type GetFbConfigsReply = base::Reply<xcb_glx_get_fb_configs_reply_t>;
 
 impl GetFbConfigsReply {
     pub fn num_fb_configs(&self) -> u32 {
-        unsafe { (*self.ptr).num_FB_configs }
+        unsafe { (*self.ptr).num_fb_configs }
     }
     pub fn num_properties(&self) -> u32 {
         unsafe { (*self.ptr).num_properties }

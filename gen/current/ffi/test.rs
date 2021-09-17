@@ -83,8 +83,8 @@ pub struct xcb_test_fake_input_request_t {
     pub time: u32,
     pub root: xcb_window_t,
     pub pad1: [u8; 8],
-    pub rootX: i16,
-    pub rootY: i16,
+    pub root_x: i16,
+    pub root_y: i16,
     pub pad2: [u8; 7],
     pub deviceid: u8,
 }
@@ -150,8 +150,8 @@ extern "C" {
         detail: u8,
         time: u32,
         root: xcb_window_t,
-        rootX: i16,
-        rootY: i16,
+        root_x: i16,
+        root_y: i16,
         deviceid: u8,
     ) -> xcb_void_cookie_t;
 
@@ -161,8 +161,8 @@ extern "C" {
         detail: u8,
         time: u32,
         root: xcb_window_t,
-        rootX: i16,
-        rootY: i16,
+        root_x: i16,
+        root_y: i16,
         deviceid: u8,
     ) -> xcb_void_cookie_t;
 

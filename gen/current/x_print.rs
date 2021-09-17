@@ -59,7 +59,7 @@ pub type Printer<'a> = base::StructPtr<'a, xcb_x_print_printer_t>;
 
 impl<'a> Printer<'a> {
     pub fn name_len(&self) -> u32 {
-        unsafe { (*self.ptr).nameLen }
+        unsafe { (*self.ptr).name_len }
     }
     pub fn name(&self) -> &[String8] {
         unsafe {
@@ -70,7 +70,7 @@ impl<'a> Printer<'a> {
         }
     }
     pub fn desc_len(&self) -> u32 {
-        unsafe { (*self.ptr).descLen }
+        unsafe { (*self.ptr).desc_len }
     }
     pub fn description(&self) -> &[String8] {
         unsafe {
@@ -222,7 +222,7 @@ pub type PrintGetPrinterListReply = base::Reply<xcb_x_print_print_get_printer_li
 
 impl PrintGetPrinterListReply {
     pub fn list_count(&self) -> u32 {
-        unsafe { (*self.ptr).listCount }
+        unsafe { (*self.ptr).list_count }
     }
     pub fn printers(&self) -> PrinterIterator {
         unsafe { xcb_x_print_print_get_printer_list_printers_iterator(self.ptr) }
@@ -792,7 +792,7 @@ impl PrintGetDocumentDataReply {
         unsafe { (*self.ptr).finished_flag }
     }
     pub fn data_len(&self) -> u32 {
-        unsafe { (*self.ptr).dataLen }
+        unsafe { (*self.ptr).data_len }
     }
     pub fn data(&self) -> &[u8] {
         unsafe {
@@ -1091,7 +1091,7 @@ pub type PrintGetAttributesReply = base::Reply<xcb_x_print_print_get_attributes_
 
 impl PrintGetAttributesReply {
     pub fn string_len(&self) -> u32 {
-        unsafe { (*self.ptr).stringLen }
+        unsafe { (*self.ptr).string_len }
     }
     pub fn attributes(&self) -> &[String8] {
         unsafe {
@@ -1188,7 +1188,7 @@ pub type PrintGetOneAttributesReply = base::Reply<xcb_x_print_print_get_one_attr
 
 impl PrintGetOneAttributesReply {
     pub fn value_len(&self) -> u32 {
-        unsafe { (*self.ptr).valueLen }
+        unsafe { (*self.ptr).value_len }
     }
     pub fn value(&self) -> &[String8] {
         unsafe {
@@ -1452,7 +1452,7 @@ pub type PrintQueryScreensReply = base::Reply<xcb_x_print_print_query_screens_re
 
 impl PrintQueryScreensReply {
     pub fn list_count(&self) -> u32 {
-        unsafe { (*self.ptr).listCount }
+        unsafe { (*self.ptr).list_count }
     }
     pub fn roots(&self) -> &[xproto::Window] {
         unsafe {

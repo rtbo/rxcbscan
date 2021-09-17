@@ -297,9 +297,9 @@ pub struct xcb_sync_set_counter_request_t {
 #[repr(C)]
 pub struct xcb_sync_create_alarm_value_list_t {
     pub counter: xcb_sync_counter_t,
-    pub valueType: u32,
+    pub value_type: u32,
     pub value: xcb_sync_int64_t,
-    pub testType: u32,
+    pub test_type: u32,
     pub delta: xcb_sync_int64_t,
     pub events: u32,
 }
@@ -320,9 +320,9 @@ pub struct xcb_sync_create_alarm_request_t {
 #[repr(C)]
 pub struct xcb_sync_change_alarm_value_list_t {
     pub counter: xcb_sync_counter_t,
-    pub valueType: u32,
+    pub value_type: u32,
     pub value: xcb_sync_int64_t,
-    pub testType: u32,
+    pub test_type: u32,
     pub delta: xcb_sync_int64_t,
     pub events: u32,
 }

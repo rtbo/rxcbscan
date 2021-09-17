@@ -170,7 +170,7 @@ pub type RefreshRates<'a> = base::StructPtr<'a, xcb_randr_refresh_rates_t>;
 
 impl<'a> RefreshRates<'a> {
     pub fn n_rates(&self) -> u16 {
-        unsafe { (*self.ptr).nRates }
+        unsafe { (*self.ptr).n_rates }
     }
     pub fn rates(&self) -> &[u16] {
         unsafe {
@@ -492,10 +492,10 @@ impl GetScreenInfoReply {
         unsafe { (*self.ptr).config_timestamp }
     }
     pub fn n_sizes(&self) -> u16 {
-        unsafe { (*self.ptr).nSizes }
+        unsafe { (*self.ptr).n_sizes }
     }
     pub fn size_id(&self) -> u16 {
-        unsafe { (*self.ptr).sizeID }
+        unsafe { (*self.ptr).size_id }
     }
     pub fn rotation(&self) -> u16 {
         unsafe { (*self.ptr).rotation }
@@ -504,7 +504,7 @@ impl GetScreenInfoReply {
         unsafe { (*self.ptr).rate }
     }
     pub fn n_info(&self) -> u16 {
-        unsafe { (*self.ptr).nInfo }
+        unsafe { (*self.ptr).n_info }
     }
     pub fn sizes(&self) -> ScreenSizeIterator {
         unsafe { xcb_randr_get_screen_info_sizes_iterator(self.ptr) }
@@ -3713,7 +3713,7 @@ impl ScreenChangeNotifyEvent {
         unsafe { (*self.ptr).request_window }
     }
     pub fn size_id(&self) -> u16 {
-        unsafe { (*self.ptr).sizeID }
+        unsafe { (*self.ptr).size_id }
     }
     pub fn subpixel_order(&self) -> u16 {
         unsafe { (*self.ptr).subpixel_order }
@@ -3753,7 +3753,7 @@ impl ScreenChangeNotifyEvent {
             (*raw).config_timestamp = config_timestamp;
             (*raw).root = root;
             (*raw).request_window = request_window;
-            (*raw).sizeID = size_id;
+            (*raw).size_id = size_id;
             (*raw).subpixel_order = subpixel_order;
             (*raw).width = width;
             (*raw).height = height;
@@ -4265,7 +4265,7 @@ pub type NotifyEvent = base::Event<xcb_randr_notify_event_t>;
 
 impl NotifyEvent {
     pub fn sub_code(&self) -> u8 {
-        unsafe { (*self.ptr).subCode }
+        unsafe { (*self.ptr).sub_code }
     }
     pub fn u<'a>(&'a self) -> &'a NotifyData {
         unsafe { &(*self.ptr).u }
@@ -4276,7 +4276,7 @@ impl NotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_randr_notify_event_t;
             (*raw).response_type = NOTIFY;
-            (*raw).subCode = sub_code;
+            (*raw).sub_code = sub_code;
             (*raw).u = u;
             NotifyEvent { ptr: raw }
         }
