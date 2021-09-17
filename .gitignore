@@ -1,5 +1,5 @@
 /target
-/gen/current
 /gen/*.nocmt
 /build__.rs
 *.pyc
+TODO
