@@ -4,8 +4,8 @@ use super::ffi;
 
 use super::{
     emit_doc_field, emit_doc_field_indent, emit_doc_text, enum_suffix_exception, expr_fixed_length,
-    extract_module, qualified_name, request_has_template, symbol, tit_cap, tit_split, CodeGen,
-    ListField,
+    extract_module, qualified_name, request_has_template, tit_cap, tit_split, CodeGen, ListField,
+    KEYWORDS,
 };
 use crate::ast::{Doc, OpCopy, Reply, Struct, StructField, SwitchCase};
 
@@ -74,7 +74,7 @@ impl CodeGen {
                     emit_doc_field(out, &stru.doc, &name)?;
 
                     let rs_name = field_name(name);
-                    let ffi_name = symbol(name);
+                    let ffi_name = ffi::field_name(name);
 
                     if !self.typ_unions.contains(typ) {
                         writeln!(out, "    pub fn {}(&self) -> {} {{", &rs_name, rs_typ,)?;
@@ -118,7 +118,7 @@ impl CodeGen {
                         continue;
                     }
                     let rs_name = field_name(name);
-                    let ffi_name = symbol(name);
+                    let ffi_name = ffi::field_name(name);
                     let is_simple = self.typ_is_simple(&typ);
                     let is_string = typ == "char";
                     let fixed_len = expr_fixed_length(len_expr);
@@ -226,7 +226,7 @@ impl CodeGen {
                 } => {
                     let rs_mask_typ = type_name(&mask_typ);
                     let rs_mask_name = field_name(&mask_name);
-                    let ffi_mask_name = symbol(&mask_name);
+                    let ffi_mask_name = ffi::field_name(&mask_name);
                     let rs_list_name = field_name(&list_name);
                     let len_fn = ffi::field_list_iterator_len_fn_name(
                         &self.xcb_mod_prefix,
@@ -337,7 +337,7 @@ impl CodeGen {
             for f in stru.fields.iter() {
                 match f {
                     StructField::Field { name, typ, .. } => {
-                        let ffi_name = symbol(name);
+                        let ffi_name = ffi::field_name(name);
                         let name = field_name(name);
                         let is_pod = self.typ_is_pod(&typ);
                         let is_simple = self.typ_is_simple(&typ);
@@ -575,7 +575,11 @@ impl CodeGen {
                     )?;
                     writeln!(out, "        unsafe {{")?;
                     writeln!(out, "            {} {{", &rs_typ)?;
-                    writeln!(out, "                data: std::mem::transmute({})", &rs_name)?;
+                    writeln!(
+                        out,
+                        "                data: std::mem::transmute({})",
+                        &rs_name
+                    )?;
                     writeln!(out, "            }}")?;
                     writeln!(out, "        }}")?;
                     writeln!(out, "    }}")?;
@@ -673,7 +677,12 @@ impl CodeGen {
                         continue;
                     }
                     let rs_typ = self.rs_use_type_name(&typ);
-                    writeln!(&mut self.rs_buf, "        {}: {},", field_name(name), &rs_typ)?;
+                    writeln!(
+                        &mut self.rs_buf,
+                        "        {}: {},",
+                        field_name(name),
+                        &rs_typ
+                    )?;
                 }
                 StructField::Pad(_, _) => {}
                 StructField::List {
@@ -741,7 +750,7 @@ impl CodeGen {
                         continue;
                     }
                     let rs_name = field_name(name);
-                    let name = symbol(&name);
+                    let ffi_name = ffi::field_name(&name);
 
                     let expr = if !self.typ_is_simple(&typ) && self.typ_is_pod(&typ) {
                         format!("{}.base", &rs_name)
@@ -751,23 +760,35 @@ impl CodeGen {
                         rs_name
                     };
 
-                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, expr)?;
+                    writeln!(
+                        &mut self.rs_buf,
+                        "            (*raw).{} = {};",
+                        ffi_name, expr
+                    )?;
                 }
                 StructField::List { name, .. } => {
                     let rs_name = field_name(name);
-                    let name = symbol(&name);
-                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, rs_name)?;
+                    let ffi_name = ffi::field_name(name);
+                    writeln!(
+                        &mut self.rs_buf,
+                        "            (*raw).{} = {};",
+                        ffi_name, rs_name
+                    )?;
                 }
                 StructField::ListNoLen { name, .. } => {
                     let len_name = name.clone() + "_len";
                     let rs_name = field_name(&name);
-                    let name = symbol(&name);
+                    let ffi_name = ffi::field_name(&name);
                     writeln!(
                         &mut self.rs_buf,
                         "            (*raw).{} = {};",
                         len_name, len_name
                     )?;
-                    writeln!(&mut self.rs_buf, "            (*raw).{} = {};", name, rs_name)?;
+                    writeln!(
+                        &mut self.rs_buf,
+                        "            (*raw).{} = {};",
+                        ffi_name, rs_name
+                    )?;
                 }
                 _ => {}
             }
@@ -902,7 +923,7 @@ impl CodeGen {
                     if let Some(name) = field_doc_name(&f) {
                         writeln!(out, "///")?;
                         writeln!(out, "///   - __{}__:", &name)?;
-                        emit_doc_field_indent(out, &doc, name, "       ")?;
+                        emit_doc_field_indent(out, &doc, &name, "       ")?;
                     }
                 }
             }
@@ -1269,20 +1290,19 @@ pub fn type_name(typ: &str) -> String {
     }
 }
 
-fn field_doc_name(f: &StructField) -> Option<&str> {
+fn field_doc_name(f: &StructField) -> Option<String> {
     match f {
-        StructField::Field { name, .. } => Some(symbol(name)),
-        StructField::List { name, .. } => Some(symbol(name)),
-        StructField::ListNoLen { name, .. } => Some(symbol(name)),
-        StructField::Fd(name) => Some(symbol(name)),
-        StructField::ValueParam { list_name, .. } => Some(symbol(list_name)),
+        StructField::Field { name, .. } => Some(field_name(name)),
+        StructField::List { name, .. } => Some(field_name(name)),
+        StructField::ListNoLen { name, .. } => Some(field_name(name)),
+        StructField::Fd(name) => Some(field_name(name)),
+        StructField::ValueParam { list_name, .. } => Some(field_name(list_name)),
         _ => None,
     }
 }
 
 fn field_name(name: &str) -> String {
     let is_high = |c: char| c.is_ascii_uppercase();
-    let keywords = ["type", "new", "match", "str"];
 
     let mut res = String::new();
 
@@ -1295,7 +1315,7 @@ fn field_name(name: &str) -> String {
         }
     }
 
-    if keywords.contains(&res.as_str()) {
+    if KEYWORDS.contains(&res.as_str()) {
         res.push('_');
     }
     res

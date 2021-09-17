@@ -2,7 +2,7 @@ use std::io::{self, Write};
 
 use super::{
     capitalize, emit_doc_field, emit_doc_text, enum_suffix_exception, expr_fixed_length,
-    extract_module, has_fd, make_field, symbol, tit_split, CodeGen,
+    extract_module, has_fd, make_field, tit_split, CodeGen, KEYWORDS,
 };
 use crate::ast::{Doc, Expr, Reply, Struct, StructField, SwitchCase};
 
@@ -462,7 +462,7 @@ impl CodeGen {
                     let typ = self.ffi_use_type_name(&typ);
                     let out = &mut self.ffi;
                     emit_doc_field(out, &doc, &name)?;
-                    writeln!(out, "    pub {}: {}{},", symbol(&name), ptr, typ,)?;
+                    writeln!(out, "    pub {}: {}{},", field_name(&name), ptr, typ,)?;
                     written_fields.push(name.as_str());
                 }
                 StructField::Pad(name, sz) => {
@@ -489,13 +489,13 @@ impl CodeGen {
                         let out = &mut self.ffi;
 
                         emit_doc_field(out, &doc, &name)?;
-                        writeln!(out, "    pub {}: [{}; {}],", symbol(&name), &typ, sz)?;
+                        writeln!(out, "    pub {}: [{}; {}],", field_name(&name), &typ, sz)?;
                     } else if is_switch {
                         let typ = self.ffi_use_type_name(&typ);
                         let out = &mut self.ffi;
 
                         emit_doc_field(out, &doc, &name)?;
-                        writeln!(out, "    pub {}: *mut {},", symbol(&name), &typ)?;
+                        writeln!(out, "    pub {}: *mut {},", field_name(&name), &typ)?;
                     }
                 }
                 StructField::ValueParam {
@@ -509,18 +509,18 @@ impl CodeGen {
                     let mask_typ = self.ffi_use_type_name(&mask_typ);
                     let out = &mut self.ffi;
                     emit_doc_field(out, &doc, &mask_name)?;
-                    writeln!(out, "    pub {}: {},", symbol(&mask_name), mask_typ,)?;
+                    writeln!(out, "    pub {}: {},", field_name(&mask_name), mask_typ,)?;
                 }
                 StructField::Switch(name, _, _) => {
                     if let Some(case_req_name) = case_req_name {
                         let typ = switch_struct_name(&self.xcb_mod_prefix, case_req_name, name);
                         let out = &mut self.ffi;
-                        writeln!(out, "    pub {}: {},", symbol(name), typ)?;
+                        writeln!(out, "    pub {}: {},", field_name(name), typ)?;
                     }
                 }
                 StructField::NamedCase(name, typ) => {
                     let out = &mut self.ffi;
-                    writeln!(out, "    pub {}: {},", symbol(&name), typ)?;
+                    writeln!(out, "    pub {}: {},", field_name(&name), typ)?;
                 }
                 _ => {}
             }
@@ -637,12 +637,12 @@ impl CodeGen {
             match f {
                 StructField::Field { name, typ, .. } => {
                     written_fields.push(name);
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     let typ = self.ffi_use_type_name(&typ);
                     writeln!(&mut self.ffi_buf, "        {}: {},", &name, &typ)?;
                 }
                 StructField::Fd(name) => {
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     writeln!(&mut self.ffi_buf, "        {}: i32,", &name)?;
                 }
                 StructField::ValueParam {
@@ -651,31 +651,31 @@ impl CodeGen {
                     list_name,
                 } => {
                     let mask_typ = self.ffi_use_type_name(&mask_typ);
-                    let list_name = symbol(list_name);
+                    let list_name = field_name(list_name);
 
                     let out = &mut self.ffi_buf;
                     if !written_fields.contains(&mask_name) {
-                        let mask_name = symbol(mask_name);
+                        let mask_name = field_name(mask_name);
                         writeln!(out, "        {}: {},", &mask_name, &mask_typ)?;
                     }
                     writeln!(out, "        {}: *const u32,", &list_name)?;
                 }
                 StructField::List { name, typ, .. } => {
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     let typ = self.ffi_use_type_name(&typ);
                     let out = &mut self.ffi_buf;
                     writeln!(out, "        {}: *const {},", &name, &typ)?;
                 }
                 StructField::ListNoLen { name, typ } => {
                     let len_name = name.clone() + "_len";
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     let typ = self.ffi_use_type_name(&typ);
                     let out = &mut self.ffi_buf;
                     writeln!(out, "        {}: u32,", &len_name)?;
                     writeln!(out, "        {}: *const {},", &name, &typ)?;
                 }
                 StructField::Switch(name, ..) => {
-                    let name = symbol(&name);
+                    let name = field_name(&name);
                     let typ = switch_struct_name(&self.xcb_mod_prefix, &req_name, &name);
                     writeln!(&mut self.ffi_buf, "        {}: *const {},", &name, &typ)?;
                 }
@@ -766,6 +766,14 @@ impl CodeGen {
 
         Ok((cookie_ffi_typ, ffi_reply_fn, ffi_reply_typ))
     }
+}
+
+pub fn field_name(name: &str) -> String {
+    let mut res = name.to_string();
+    if KEYWORDS.contains(&res.as_str()) {
+        res.push('_');
+    }
+    res
 }
 
 pub fn enum_item_name(xcb_mod_prefix: &str, name: &str, item: &str) -> String {
