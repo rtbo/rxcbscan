@@ -1302,23 +1302,48 @@ fn field_doc_name(f: &StructField) -> Option<String> {
 }
 
 fn field_name(name: &str) -> String {
+    if name.len() <= 1 {
+        return name.into();
+    }
+
     let is_high = |c: char| c.is_ascii_uppercase();
+    let is_low = |c: char| c.is_ascii_lowercase();
 
     let mut res = String::new();
+    let mut ch = name.chars();
+    let mut prev = ch.next().unwrap();
+    res.push(prev);
+    let mut c = ch.next().unwrap();
 
-    for c in name.chars() {
-        if is_high(c) {
-            res.push('_');
-            res.push(c.to_ascii_lowercase());
-        } else {
-            res.push(c);
+    for next in ch {
+        if is_low(prev) && is_high(c) || is_high(c) && is_low(next) {
+            if prev != '_' {
+                res.push('_');
+            }
         }
+        res.push(c.to_ascii_lowercase());
+        prev = c;
+        c = next;
     }
+    if is_low(prev) && is_high(c) && prev != '_' {
+        res.push('_');
+    }
+    res.push(c.to_ascii_lowercase());
 
     if KEYWORDS.contains(&res.as_str()) {
         res.push('_');
     }
+
     res
+}
+
+#[test]
+fn test_field_name() {
+    assert_eq!(field_name("groupMaps"), "group_maps");
+    assert_eq!(field_name("num_FB_configs"), "num_fb_configs");
+    assert_eq!(field_name("sizeID"), "size_id");
+    assert_eq!(field_name("new"), "new_");
+    assert_eq!(field_name("byte1"), "byte1");
 }
 
 pub fn enum_item_name(name: &str, item: &str) -> String {

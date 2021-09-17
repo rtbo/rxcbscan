@@ -728,16 +728,16 @@ impl GetDrawableInfoReply {
     pub fn drawable_table_stamp(&self) -> u32 {
         unsafe { (*self.ptr).drawable_table_stamp }
     }
-    pub fn drawable_origin__x(&self) -> i16 {
+    pub fn drawable_origin_x(&self) -> i16 {
         unsafe { (*self.ptr).drawable_origin_X }
     }
-    pub fn drawable_origin__y(&self) -> i16 {
+    pub fn drawable_origin_y(&self) -> i16 {
         unsafe { (*self.ptr).drawable_origin_Y }
     }
-    pub fn drawable_size__w(&self) -> i16 {
+    pub fn drawable_size_w(&self) -> i16 {
         unsafe { (*self.ptr).drawable_size_W }
     }
-    pub fn drawable_size__h(&self) -> i16 {
+    pub fn drawable_size_h(&self) -> i16 {
         unsafe { (*self.ptr).drawable_size_H }
     }
     pub fn num_clip_rects(&self) -> u32 {

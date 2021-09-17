@@ -1482,7 +1482,7 @@ impl<'a> GetFbConfigsCookie<'a> {
 pub type GetFbConfigsReply = base::Reply<xcb_glx_get_fb_configs_reply_t>;
 
 impl GetFbConfigsReply {
-    pub fn num__f_b_configs(&self) -> u32 {
+    pub fn num_fb_configs(&self) -> u32 {
         unsafe { (*self.ptr).num_FB_configs }
     }
     pub fn num_properties(&self) -> u32 {

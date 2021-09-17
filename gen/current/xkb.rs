@@ -1847,7 +1847,7 @@ impl<'a> DeviceLedInfo<'a> {
     pub fn led_class(&self) -> LedClassSpec {
         unsafe { (*self.ptr).ledClass }
     }
-    pub fn led_i_d(&self) -> IdSpec {
+    pub fn led_id(&self) -> IdSpec {
         unsafe { (*self.ptr).ledID }
     }
     pub fn names_present(&self) -> u32 {
@@ -3620,7 +3620,7 @@ pub fn bell<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     bell_class: BellClassSpec,
-    bell_i_d: IdSpec,
+    bell_id: IdSpec,
     percent: i8,
     force_sound: bool,
     event_only: bool,
@@ -3634,7 +3634,7 @@ pub fn bell<'a>(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             bell_class as xcb_xkb_bell_class_spec_t,
-            bell_i_d as xcb_xkb_id_spec_t,
+            bell_id as xcb_xkb_id_spec_t,
             percent as i8,
             force_sound as u8,
             event_only as u8,
@@ -3655,7 +3655,7 @@ pub fn bell_checked<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     bell_class: BellClassSpec,
-    bell_i_d: IdSpec,
+    bell_id: IdSpec,
     percent: i8,
     force_sound: bool,
     event_only: bool,
@@ -3669,7 +3669,7 @@ pub fn bell_checked<'a>(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             bell_class as xcb_xkb_bell_class_spec_t,
-            bell_i_d as xcb_xkb_id_spec_t,
+            bell_id as xcb_xkb_id_spec_t,
             percent as i8,
             force_sound as u8,
             event_only as u8,
@@ -3727,7 +3727,7 @@ impl<'a> GetStateCookie<'a> {
 pub type GetStateReply = base::Reply<xcb_xkb_get_state_reply_t>;
 
 impl GetStateReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn mods(&self) -> u8 {
@@ -3905,7 +3905,7 @@ impl<'a> GetControlsCookie<'a> {
 pub type GetControlsReply = base::Reply<xcb_xkb_get_controls_reply_t>;
 
 impl GetControlsReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn mouse_keys_dflt_btn(&self) -> u8 {
@@ -4210,7 +4210,7 @@ pub type GetMapMap<'a> = base::StructPtr<'a, xcb_xkb_get_map_map_t>;
 pub type GetMapReply = base::Reply<xcb_xkb_get_map_reply_t>;
 
 impl GetMapReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn min_key_code(&self) -> xproto::Keycode {
@@ -4582,19 +4582,19 @@ impl<'a> GetCompatMapCookie<'a> {
 pub type GetCompatMapReply = base::Reply<xcb_xkb_get_compat_map_reply_t>;
 
 impl GetCompatMapReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn groups_rtrn(&self) -> u8 {
         unsafe { (*self.ptr).groupsRtrn }
     }
-    pub fn first_s_i_rtrn(&self) -> u16 {
+    pub fn first_si_rtrn(&self) -> u16 {
         unsafe { (*self.ptr).firstSIRtrn }
     }
-    pub fn n_s_i_rtrn(&self) -> u16 {
+    pub fn n_si_rtrn(&self) -> u16 {
         unsafe { (*self.ptr).nSIRtrn }
     }
-    pub fn n_total_s_i(&self) -> u16 {
+    pub fn n_total_si(&self) -> u16 {
         unsafe { (*self.ptr).nTotalSI }
     }
     pub fn si_rtrn(&self) -> SymInterpretIterator {
@@ -4609,18 +4609,18 @@ pub fn get_compat_map<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     groups: u8,
-    get_all_s_i: bool,
-    first_s_i: u16,
-    n_s_i: u16,
+    get_all_si: bool,
+    first_si: u16,
+    n_si: u16,
 ) -> GetCompatMapCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_compat_map(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             groups as u8,
-            get_all_s_i as u8,
-            first_s_i as u16,
-            n_s_i as u16,
+            get_all_si as u8,
+            first_si as u16,
+            n_si as u16,
         );
         GetCompatMapCookie {
             cookie: cookie,
@@ -4634,18 +4634,18 @@ pub fn get_compat_map_unchecked<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     groups: u8,
-    get_all_s_i: bool,
-    first_s_i: u16,
-    n_s_i: u16,
+    get_all_si: bool,
+    first_si: u16,
+    n_si: u16,
 ) -> GetCompatMapCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_compat_map_unchecked(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             groups as u8,
-            get_all_s_i as u8,
-            first_s_i as u16,
-            n_s_i as u16,
+            get_all_si as u8,
+            first_si as u16,
+            n_si as u16,
         );
         GetCompatMapCookie {
             cookie: cookie,
@@ -4661,8 +4661,8 @@ pub fn set_compat_map<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     recompute_actions: bool,
-    truncate_s_i: bool,
-    first_s_i: u16,
+    truncate_si: bool,
+    first_si: u16,
     si: &[SymInterpret],
     group_maps: &[ModDef],
 ) -> base::VoidCookie<'a> {
@@ -4675,9 +4675,9 @@ pub fn set_compat_map<'a>(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             recompute_actions as u8,
-            truncate_s_i as u8,
+            truncate_si as u8,
             group_maps_len as u8,
-            first_s_i as u16,
+            first_si as u16,
             si_len as u16,
             si_ptr as *const xcb_xkb_sym_interpret_t,
             group_maps_ptr as *const xcb_xkb_mod_def_t,
@@ -4694,8 +4694,8 @@ pub fn set_compat_map_checked<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     recompute_actions: bool,
-    truncate_s_i: bool,
-    first_s_i: u16,
+    truncate_si: bool,
+    first_si: u16,
     si: &[SymInterpret],
     group_maps: &[ModDef],
 ) -> base::VoidCookie<'a> {
@@ -4708,9 +4708,9 @@ pub fn set_compat_map_checked<'a>(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             recompute_actions as u8,
-            truncate_s_i as u8,
+            truncate_si as u8,
             group_maps_len as u8,
-            first_s_i as u16,
+            first_si as u16,
             si_len as u16,
             si_ptr as *const xcb_xkb_sym_interpret_t,
             group_maps_ptr as *const xcb_xkb_mod_def_t,
@@ -4768,7 +4768,7 @@ impl<'a> GetIndicatorStateCookie<'a> {
 pub type GetIndicatorStateReply = base::Reply<xcb_xkb_get_indicator_state_reply_t>;
 
 impl GetIndicatorStateReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn state(&self) -> u32 {
@@ -4853,7 +4853,7 @@ impl<'a> GetIndicatorMapCookie<'a> {
 pub type GetIndicatorMapReply = base::Reply<xcb_xkb_get_indicator_map_reply_t>;
 
 impl GetIndicatorMapReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn which(&self) -> u32 {
@@ -4999,7 +4999,7 @@ impl<'a> GetNamedIndicatorCookie<'a> {
 pub type GetNamedIndicatorReply = base::Reply<xcb_xkb_get_named_indicator_reply_t>;
 
 impl GetNamedIndicatorReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn indicator(&self) -> xproto::Atom {
@@ -5050,7 +5050,7 @@ pub fn get_named_indicator<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     led_class: LedClassSpec,
-    led_i_d: IdSpec,
+    led_id: IdSpec,
     indicator: xproto::Atom,
 ) -> GetNamedIndicatorCookie<'a> {
     unsafe {
@@ -5058,7 +5058,7 @@ pub fn get_named_indicator<'a>(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             led_class as xcb_xkb_led_class_spec_t,
-            led_i_d as xcb_xkb_id_spec_t,
+            led_id as xcb_xkb_id_spec_t,
             indicator as xcb_atom_t,
         );
         GetNamedIndicatorCookie {
@@ -5073,7 +5073,7 @@ pub fn get_named_indicator_unchecked<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     led_class: LedClassSpec,
-    led_i_d: IdSpec,
+    led_id: IdSpec,
     indicator: xproto::Atom,
 ) -> GetNamedIndicatorCookie<'a> {
     unsafe {
@@ -5081,7 +5081,7 @@ pub fn get_named_indicator_unchecked<'a>(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             led_class as xcb_xkb_led_class_spec_t,
-            led_i_d as xcb_xkb_id_spec_t,
+            led_id as xcb_xkb_id_spec_t,
             indicator as xcb_atom_t,
         );
         GetNamedIndicatorCookie {
@@ -5098,7 +5098,7 @@ pub fn set_named_indicator<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     led_class: LedClassSpec,
-    led_i_d: IdSpec,
+    led_id: IdSpec,
     indicator: xproto::Atom,
     set_state: bool,
     on: bool,
@@ -5117,7 +5117,7 @@ pub fn set_named_indicator<'a>(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             led_class as xcb_xkb_led_class_spec_t,
-            led_i_d as xcb_xkb_id_spec_t,
+            led_id as xcb_xkb_id_spec_t,
             indicator as xcb_atom_t,
             set_state as u8,
             on as u8,
@@ -5143,7 +5143,7 @@ pub fn set_named_indicator_checked<'a>(
     c: &'a base::Connection,
     device_spec: DeviceSpec,
     led_class: LedClassSpec,
-    led_i_d: IdSpec,
+    led_id: IdSpec,
     indicator: xproto::Atom,
     set_state: bool,
     on: bool,
@@ -5162,7 +5162,7 @@ pub fn set_named_indicator_checked<'a>(
             c.get_raw_conn(),
             device_spec as xcb_xkb_device_spec_t,
             led_class as xcb_xkb_led_class_spec_t,
-            led_i_d as xcb_xkb_id_spec_t,
+            led_id as xcb_xkb_id_spec_t,
             indicator as xcb_atom_t,
             set_state as u8,
             on as u8,
@@ -5226,7 +5226,7 @@ pub type GetNamesValueList<'a> = base::StructPtr<'a, xcb_xkb_get_names_value_lis
 pub type GetNamesReply = base::Reply<xcb_xkb_get_names_reply_t>;
 
 impl GetNamesReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn which(&self) -> u32 {
@@ -5262,7 +5262,7 @@ impl GetNamesReply {
     pub fn n_key_aliases(&self) -> u8 {
         unsafe { (*self.ptr).nKeyAliases }
     }
-    pub fn n_k_t_levels(&self) -> u16 {
+    pub fn n_kt_levels(&self) -> u16 {
         unsafe { (*self.ptr).nKTLevels }
     }
 }
@@ -5315,15 +5315,15 @@ pub fn set_names<'a>(
     which: u32,
     first_type: u8,
     n_types: u8,
-    first_k_t_levelt: u8,
-    n_k_t_levels: u8,
+    first_kt_levelt: u8,
+    n_kt_levels: u8,
     indicators: u32,
     group_names: u8,
     n_radio_groups: u8,
     first_key: xproto::Keycode,
     n_keys: u8,
     n_key_aliases: u8,
-    total_k_t_level_names: u16,
+    total_kt_level_names: u16,
     values: std::option::Option<SetNamesValues>,
 ) -> base::VoidCookie<'a> {
     unsafe {
@@ -5338,15 +5338,15 @@ pub fn set_names<'a>(
             which as u32,
             first_type as u8,
             n_types as u8,
-            first_k_t_levelt as u8,
-            n_k_t_levels as u8,
+            first_kt_levelt as u8,
+            n_kt_levels as u8,
             indicators as u32,
             group_names as u8,
             n_radio_groups as u8,
             first_key as xcb_keycode_t,
             n_keys as u8,
             n_key_aliases as u8,
-            total_k_t_level_names as u16,
+            total_kt_level_names as u16,
             values_ptr,
         );
         base::VoidCookie {
@@ -5364,15 +5364,15 @@ pub fn set_names_checked<'a>(
     which: u32,
     first_type: u8,
     n_types: u8,
-    first_k_t_levelt: u8,
-    n_k_t_levels: u8,
+    first_kt_levelt: u8,
+    n_kt_levels: u8,
     indicators: u32,
     group_names: u8,
     n_radio_groups: u8,
     first_key: xproto::Keycode,
     n_keys: u8,
     n_key_aliases: u8,
-    total_k_t_level_names: u16,
+    total_kt_level_names: u16,
     values: std::option::Option<SetNamesValues>,
 ) -> base::VoidCookie<'a> {
     unsafe {
@@ -5387,15 +5387,15 @@ pub fn set_names_checked<'a>(
             which as u32,
             first_type as u8,
             n_types as u8,
-            first_k_t_levelt as u8,
-            n_k_t_levels as u8,
+            first_kt_levelt as u8,
+            n_kt_levels as u8,
             indicators as u32,
             group_names as u8,
             n_radio_groups as u8,
             first_key as xcb_keycode_t,
             n_keys as u8,
             n_key_aliases as u8,
-            total_k_t_level_names as u16,
+            total_kt_level_names as u16,
             values_ptr,
         );
         base::VoidCookie {
@@ -5447,7 +5447,7 @@ impl<'a> PerClientFlagsCookie<'a> {
 pub type PerClientFlagsReply = base::Reply<xcb_xkb_per_client_flags_reply_t>;
 
 impl PerClientFlagsReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn supported(&self) -> u32 {
@@ -5559,7 +5559,7 @@ impl<'a> ListComponentsCookie<'a> {
 pub type ListComponentsReply = base::Reply<xcb_xkb_list_components_reply_t>;
 
 impl ListComponentsReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn n_keymaps(&self) -> u16 {
@@ -5687,7 +5687,7 @@ pub type GetKbdByNameRepliesKeyNamesValueList<'a> =
 pub type GetKbdByNameReply = base::Reply<xcb_xkb_get_kbd_by_name_reply_t>;
 
 impl GetKbdByNameReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn min_key_code(&self) -> xproto::Keycode {
@@ -5797,7 +5797,7 @@ impl<'a> GetDeviceInfoCookie<'a> {
 pub type GetDeviceInfoReply = base::Reply<xcb_xkb_get_device_info_reply_t>;
 
 impl GetDeviceInfoReply {
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn present(&self) -> u16 {
@@ -5830,10 +5830,10 @@ impl GetDeviceInfoReply {
     pub fn has_own_state(&self) -> bool {
         unsafe { (*self.ptr).hasOwnState != 0 }
     }
-    pub fn dflt_kbd_f_b(&self) -> u16 {
+    pub fn dflt_kbd_fb(&self) -> u16 {
         unsafe { (*self.ptr).dfltKbdFB }
     }
-    pub fn dflt_led_f_b(&self) -> u16 {
+    pub fn dflt_led_fb(&self) -> u16 {
         unsafe { (*self.ptr).dfltLedFB }
     }
     pub fn dev_type(&self) -> xproto::Atom {
@@ -5866,7 +5866,7 @@ pub fn get_device_info<'a>(
     first_button: u8,
     n_buttons: u8,
     led_class: LedClassSpec,
-    led_i_d: IdSpec,
+    led_id: IdSpec,
 ) -> GetDeviceInfoCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_device_info(
@@ -5877,7 +5877,7 @@ pub fn get_device_info<'a>(
             first_button as u8,
             n_buttons as u8,
             led_class as xcb_xkb_led_class_spec_t,
-            led_i_d as xcb_xkb_id_spec_t,
+            led_id as xcb_xkb_id_spec_t,
         );
         GetDeviceInfoCookie {
             cookie: cookie,
@@ -5895,7 +5895,7 @@ pub fn get_device_info_unchecked<'a>(
     first_button: u8,
     n_buttons: u8,
     led_class: LedClassSpec,
-    led_i_d: IdSpec,
+    led_id: IdSpec,
 ) -> GetDeviceInfoCookie<'a> {
     unsafe {
         let cookie = xcb_xkb_get_device_info_unchecked(
@@ -5906,7 +5906,7 @@ pub fn get_device_info_unchecked<'a>(
             first_button as u8,
             n_buttons as u8,
             led_class as xcb_xkb_led_class_spec_t,
-            led_i_d as xcb_xkb_id_spec_t,
+            led_id as xcb_xkb_id_spec_t,
         );
         GetDeviceInfoCookie {
             cookie: cookie,
@@ -6106,10 +6106,10 @@ impl NewKeyboardNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
-    pub fn old_device_i_d(&self) -> u8 {
+    pub fn old_device_id(&self) -> u8 {
         unsafe { (*self.ptr).oldDeviceID }
     }
     pub fn min_key_code(&self) -> xproto::Keycode {
@@ -6138,8 +6138,8 @@ impl NewKeyboardNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
-        old_device_i_d: u8,
+        device_id: u8,
+        old_device_id: u8,
         min_key_code: xproto::Keycode,
         max_key_code: xproto::Keycode,
         old_min_key_code: xproto::Keycode,
@@ -6153,8 +6153,8 @@ impl NewKeyboardNotifyEvent {
             (*raw).response_type = NEW_KEYBOARD_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
-            (*raw).oldDeviceID = old_device_i_d;
+            (*raw).deviceID = device_id;
+            (*raw).oldDeviceID = old_device_id;
             (*raw).minKeyCode = min_key_code;
             (*raw).maxKeyCode = max_key_code;
             (*raw).oldMinKeyCode = old_min_key_code;
@@ -6178,7 +6178,7 @@ impl MapNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn ptr_btn_actions(&self) -> u8 {
@@ -6243,7 +6243,7 @@ impl MapNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         ptr_btn_actions: u8,
         changed: u16,
         min_key_code: xproto::Keycode,
@@ -6269,7 +6269,7 @@ impl MapNotifyEvent {
             (*raw).response_type = MAP_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).ptrBtnActions = ptr_btn_actions;
             (*raw).changed = changed;
             (*raw).minKeyCode = min_key_code;
@@ -6305,7 +6305,7 @@ impl StateNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn mods(&self) -> u8 {
@@ -6370,7 +6370,7 @@ impl StateNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         mods: u8,
         base_mods: u8,
         latched_mods: u8,
@@ -6396,7 +6396,7 @@ impl StateNotifyEvent {
             (*raw).response_type = STATE_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).mods = mods;
             (*raw).baseMods = base_mods;
             (*raw).latchedMods = latched_mods;
@@ -6432,7 +6432,7 @@ impl ControlsNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn num_groups(&self) -> u8 {
@@ -6464,7 +6464,7 @@ impl ControlsNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         num_groups: u8,
         changed_controls: u32,
         enabled_controls: u32,
@@ -6479,7 +6479,7 @@ impl ControlsNotifyEvent {
             (*raw).response_type = CONTROLS_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).numGroups = num_groups;
             (*raw).changedControls = changed_controls;
             (*raw).enabledControls = enabled_controls;
@@ -6504,7 +6504,7 @@ impl IndicatorStateNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn state(&self) -> u32 {
@@ -6518,7 +6518,7 @@ impl IndicatorStateNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         state: u32,
         state_changed: u32,
     ) -> IndicatorStateNotifyEvent {
@@ -6527,7 +6527,7 @@ impl IndicatorStateNotifyEvent {
             (*raw).response_type = INDICATOR_STATE_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).state = state;
             (*raw).stateChanged = state_changed;
             IndicatorStateNotifyEvent { ptr: raw }
@@ -6546,7 +6546,7 @@ impl IndicatorMapNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn state(&self) -> u32 {
@@ -6560,7 +6560,7 @@ impl IndicatorMapNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         state: u32,
         map_changed: u32,
     ) -> IndicatorMapNotifyEvent {
@@ -6569,7 +6569,7 @@ impl IndicatorMapNotifyEvent {
             (*raw).response_type = INDICATOR_MAP_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).state = state;
             (*raw).mapChanged = map_changed;
             IndicatorMapNotifyEvent { ptr: raw }
@@ -6588,7 +6588,7 @@ impl NamesNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn changed(&self) -> u16 {
@@ -6632,7 +6632,7 @@ impl NamesNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         changed: u16,
         first_type: u8,
         n_types: u8,
@@ -6651,7 +6651,7 @@ impl NamesNotifyEvent {
             (*raw).response_type = NAMES_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).changed = changed;
             (*raw).firstType = first_type;
             (*raw).nTypes = n_types;
@@ -6680,19 +6680,19 @@ impl CompatMapNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn changed_groups(&self) -> u8 {
         unsafe { (*self.ptr).changedGroups }
     }
-    pub fn first_s_i(&self) -> u16 {
+    pub fn first_si(&self) -> u16 {
         unsafe { (*self.ptr).firstSI }
     }
-    pub fn n_s_i(&self) -> u16 {
+    pub fn n_si(&self) -> u16 {
         unsafe { (*self.ptr).nSI }
     }
-    pub fn n_total_s_i(&self) -> u16 {
+    pub fn n_total_si(&self) -> u16 {
         unsafe { (*self.ptr).nTotalSI }
     }
     /// Constructs a new CompatMapNotifyEvent
@@ -6700,22 +6700,22 @@ impl CompatMapNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         changed_groups: u8,
-        first_s_i: u16,
-        n_s_i: u16,
-        n_total_s_i: u16,
+        first_si: u16,
+        n_si: u16,
+        n_total_si: u16,
     ) -> CompatMapNotifyEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_xkb_compat_map_notify_event_t;
             (*raw).response_type = COMPAT_MAP_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).changedGroups = changed_groups;
-            (*raw).firstSI = first_s_i;
-            (*raw).nSI = n_s_i;
-            (*raw).nTotalSI = n_total_s_i;
+            (*raw).firstSI = first_si;
+            (*raw).nSI = n_si;
+            (*raw).nTotalSI = n_total_si;
             CompatMapNotifyEvent { ptr: raw }
         }
     }
@@ -6732,13 +6732,13 @@ impl BellNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn bell_class(&self) -> u8 {
         unsafe { (*self.ptr).bellClass }
     }
-    pub fn bell_i_d(&self) -> u8 {
+    pub fn bell_id(&self) -> u8 {
         unsafe { (*self.ptr).bellID }
     }
     pub fn percent(&self) -> u8 {
@@ -6764,9 +6764,9 @@ impl BellNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         bell_class: u8,
-        bell_i_d: u8,
+        bell_id: u8,
         percent: u8,
         pitch: u16,
         duration: u16,
@@ -6779,9 +6779,9 @@ impl BellNotifyEvent {
             (*raw).response_type = BELL_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).bellClass = bell_class;
-            (*raw).bellID = bell_i_d;
+            (*raw).bellID = bell_id;
             (*raw).percent = percent;
             (*raw).pitch = pitch;
             (*raw).duration = duration;
@@ -6804,7 +6804,7 @@ impl ActionMessageEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn keycode(&self) -> xproto::Keycode {
@@ -6830,7 +6830,7 @@ impl ActionMessageEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         keycode: xproto::Keycode,
         press: bool,
         key_event_follows: bool,
@@ -6843,7 +6843,7 @@ impl ActionMessageEvent {
             (*raw).response_type = ACTION_MESSAGE;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).keycode = keycode;
             (*raw).press = if press { 1 } else { 0 };
             (*raw).keyEventFollows = if key_event_follows { 1 } else { 0 };
@@ -6866,7 +6866,7 @@ impl AccessXNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn keycode(&self) -> xproto::Keycode {
@@ -6886,7 +6886,7 @@ impl AccessXNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         keycode: xproto::Keycode,
         detailt: u16,
         slow_keys_delay: u16,
@@ -6897,7 +6897,7 @@ impl AccessXNotifyEvent {
             (*raw).response_type = ACCESS_X_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).keycode = keycode;
             (*raw).detailt = detailt;
             (*raw).slowKeysDelay = slow_keys_delay;
@@ -6918,7 +6918,7 @@ impl ExtensionDeviceNotifyEvent {
     pub fn time(&self) -> xproto::Timestamp {
         unsafe { (*self.ptr).time }
     }
-    pub fn device_i_d(&self) -> u8 {
+    pub fn device_id(&self) -> u8 {
         unsafe { (*self.ptr).deviceID }
     }
     pub fn reason(&self) -> u16 {
@@ -6927,7 +6927,7 @@ impl ExtensionDeviceNotifyEvent {
     pub fn led_class(&self) -> u16 {
         unsafe { (*self.ptr).ledClass }
     }
-    pub fn led_i_d(&self) -> u16 {
+    pub fn led_id(&self) -> u16 {
         unsafe { (*self.ptr).ledID }
     }
     pub fn leds_defined(&self) -> u32 {
@@ -6953,10 +6953,10 @@ impl ExtensionDeviceNotifyEvent {
     pub fn new(
         xkb_type: u8,
         time: xproto::Timestamp,
-        device_i_d: u8,
+        device_id: u8,
         reason: u16,
         led_class: u16,
-        led_i_d: u16,
+        led_id: u16,
         leds_defined: u32,
         led_state: u32,
         first_button: u8,
@@ -6969,10 +6969,10 @@ impl ExtensionDeviceNotifyEvent {
             (*raw).response_type = EXTENSION_DEVICE_NOTIFY;
             (*raw).xkbType = xkb_type;
             (*raw).time = time;
-            (*raw).deviceID = device_i_d;
+            (*raw).deviceID = device_id;
             (*raw).reason = reason;
             (*raw).ledClass = led_class;
-            (*raw).ledID = led_i_d;
+            (*raw).ledID = led_id;
             (*raw).ledsDefined = leds_defined;
             (*raw).ledState = led_state;
             (*raw).firstButton = first_button;

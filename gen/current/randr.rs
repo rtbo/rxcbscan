@@ -351,7 +351,7 @@ pub fn set_screen_config<'a>(
     window: xproto::Window,
     timestamp: xproto::Timestamp,
     config_timestamp: xproto::Timestamp,
-    size_i_d: u16,
+    size_id: u16,
     rotation: u16,
     rate: u16,
 ) -> SetScreenConfigCookie<'a> {
@@ -361,7 +361,7 @@ pub fn set_screen_config<'a>(
             window as xcb_window_t,
             timestamp as xcb_timestamp_t,
             config_timestamp as xcb_timestamp_t,
-            size_i_d as u16,
+            size_id as u16,
             rotation as u16,
             rate as u16,
         );
@@ -378,7 +378,7 @@ pub fn set_screen_config_unchecked<'a>(
     window: xproto::Window,
     timestamp: xproto::Timestamp,
     config_timestamp: xproto::Timestamp,
-    size_i_d: u16,
+    size_id: u16,
     rotation: u16,
     rate: u16,
 ) -> SetScreenConfigCookie<'a> {
@@ -388,7 +388,7 @@ pub fn set_screen_config_unchecked<'a>(
             window as xcb_window_t,
             timestamp as xcb_timestamp_t,
             config_timestamp as xcb_timestamp_t,
-            size_i_d as u16,
+            size_id as u16,
             rotation as u16,
             rate as u16,
         );
@@ -494,7 +494,7 @@ impl GetScreenInfoReply {
     pub fn n_sizes(&self) -> u16 {
         unsafe { (*self.ptr).nSizes }
     }
-    pub fn size_i_d(&self) -> u16 {
+    pub fn size_id(&self) -> u16 {
         unsafe { (*self.ptr).sizeID }
     }
     pub fn rotation(&self) -> u16 {
@@ -3712,7 +3712,7 @@ impl ScreenChangeNotifyEvent {
     pub fn request_window(&self) -> xproto::Window {
         unsafe { (*self.ptr).request_window }
     }
-    pub fn size_i_d(&self) -> u16 {
+    pub fn size_id(&self) -> u16 {
         unsafe { (*self.ptr).sizeID }
     }
     pub fn subpixel_order(&self) -> u16 {
@@ -3738,7 +3738,7 @@ impl ScreenChangeNotifyEvent {
         config_timestamp: xproto::Timestamp,
         root: xproto::Window,
         request_window: xproto::Window,
-        size_i_d: u16,
+        size_id: u16,
         subpixel_order: u16,
         width: u16,
         height: u16,
@@ -3753,7 +3753,7 @@ impl ScreenChangeNotifyEvent {
             (*raw).config_timestamp = config_timestamp;
             (*raw).root = root;
             (*raw).request_window = request_window;
-            (*raw).sizeID = size_i_d;
+            (*raw).sizeID = size_id;
             (*raw).subpixel_order = subpixel_order;
             (*raw).width = width;
             (*raw).height = height;
