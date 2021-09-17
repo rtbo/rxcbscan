@@ -2,7 +2,7 @@ use std::io::{self, Write};
 
 use super::{
     capitalize, emit_doc_field, emit_doc_text, enum_suffix_exception, expr_fixed_length,
-    extract_module, has_fd, make_field, tit_split, CodeGen, KEYWORDS,
+    extract_module, has_fd, make_field, tit_dig_split, CodeGen, KEYWORDS,
 };
 use crate::ast::{Doc, Expr, Reply, Struct, StructField, SwitchCase};
 
@@ -13,7 +13,7 @@ impl CodeGen {
 
     /// FFI type name
     pub fn ffi_decl_type_name(&self, typ: &str) -> String {
-        let typ = tit_split(typ).to_ascii_lowercase();
+        let typ = tit_dig_split(typ).to_ascii_lowercase();
         format!("xcb_{}{}_t", &self.xcb_mod_prefix, typ)
     }
 
@@ -37,7 +37,7 @@ impl CodeGen {
                 let (module, typ) = extract_module(&typ);
 
                 if let Some(module) = module {
-                    let typ = tit_split(typ).to_ascii_lowercase();
+                    let typ = tit_dig_split(typ).to_ascii_lowercase();
                     let mod_prefix = if module == "xproto" {
                         String::new()
                     } else {
@@ -59,7 +59,7 @@ impl CodeGen {
 
                         pref
                     };
-                    let typ = tit_split(typ).to_ascii_lowercase();
+                    let typ = tit_dig_split(typ).to_ascii_lowercase();
                     format!("xcb_{}{}_t", mod_prefix, typ)
                 }
             }
@@ -84,7 +84,7 @@ impl CodeGen {
         format!(
             "xcb_{}{}_iterator_t",
             &mod_prefix,
-            tit_split(typ).to_ascii_lowercase()
+            tit_dig_split(typ).to_ascii_lowercase()
         )
     }
 
@@ -123,7 +123,7 @@ impl CodeGen {
     }
 
     pub fn ffi_enum_type_name(&mut self, typ: &str) -> String {
-        let base = tit_split(typ).to_ascii_lowercase();
+        let base = tit_dig_split(typ).to_ascii_lowercase();
         let try1 = format!("xcb_{}{}_t", self.xcb_mod_prefix, base);
         if self.has_ffi_type(&try1) || enum_suffix_exception(&self.xcb_mod, &typ) {
             format!("xcb_{}{}_enum_t", self.xcb_mod_prefix, base)
@@ -780,8 +780,8 @@ pub fn enum_item_name(xcb_mod_prefix: &str, name: &str, item: &str) -> String {
     format!(
         "XCB_{}{}_{}",
         xcb_mod_prefix,
-        tit_split(name),
-        tit_split(item)
+        tit_dig_split(name),
+        tit_dig_split(item)
     )
     .to_ascii_uppercase()
 }
@@ -790,7 +790,7 @@ pub fn iterator_next_fn_name(xcb_mod_prefix: &str, typ: &str) -> String {
     format!(
         "xcb_{}{}_next",
         xcb_mod_prefix,
-        tit_split(typ).to_ascii_lowercase()
+        tit_dig_split(typ).to_ascii_lowercase()
     )
 }
 
@@ -798,7 +798,7 @@ pub fn iterator_end_fn_name(xcb_mod_prefix: &str, typ: &str) -> String {
     format!(
         "xcb_{}{}_end",
         xcb_mod_prefix,
-        tit_split(typ).to_ascii_lowercase()
+        tit_dig_split(typ).to_ascii_lowercase()
     )
 }
 
@@ -810,8 +810,8 @@ pub fn field_list_iterator_acc_fn_name(
     format!(
         "xcb_{}{}_{}",
         &xcb_mod_prefix,
-        tit_split(typ_name).to_ascii_lowercase(),
-        tit_split(field).to_ascii_lowercase()
+        tit_dig_split(typ_name).to_ascii_lowercase(),
+        tit_dig_split(field).to_ascii_lowercase()
     )
 }
 
@@ -823,8 +823,8 @@ pub fn field_list_iterator_len_fn_name(
     format!(
         "xcb_{}{}_{}_length",
         &xcb_mod_prefix,
-        tit_split(typ_name).to_ascii_lowercase(),
-        tit_split(field).to_ascii_lowercase()
+        tit_dig_split(typ_name).to_ascii_lowercase(),
+        tit_dig_split(field).to_ascii_lowercase()
     )
 }
 
@@ -836,8 +836,8 @@ pub fn field_list_iterator_end_fn_name(
     format!(
         "xcb_{}{}_{}_end",
         &xcb_mod_prefix,
-        tit_split(typ_name).to_ascii_lowercase(),
-        tit_split(field).to_ascii_lowercase()
+        tit_dig_split(typ_name).to_ascii_lowercase(),
+        tit_dig_split(field).to_ascii_lowercase()
     )
 }
 
@@ -845,8 +845,8 @@ pub fn field_list_iterator_it_fn_name(xcb_mod_prefix: &str, typ_name: &str, fiel
     format!(
         "xcb_{}{}_{}_iterator",
         &xcb_mod_prefix,
-        tit_split(typ_name).to_ascii_lowercase(),
-        tit_split(field).to_ascii_lowercase()
+        tit_dig_split(typ_name).to_ascii_lowercase(),
+        tit_dig_split(field).to_ascii_lowercase()
     )
 }
 
@@ -854,8 +854,8 @@ pub fn switch_struct_name(xcb_mod_prefix: &str, req_name: &str, switch_name: &st
     format!(
         "xcb_{}{}_{}_t",
         &xcb_mod_prefix,
-        tit_split(req_name).to_ascii_lowercase(),
-        tit_split(switch_name).to_ascii_lowercase()
+        tit_dig_split(req_name).to_ascii_lowercase(),
+        tit_dig_split(switch_name).to_ascii_lowercase()
     )
 }
 
@@ -863,8 +863,8 @@ pub fn switch_accessor_fn(xcb_mod_prefix: &str, req_name: &str, switch_name: &st
     format!(
         "xcb_{}{}_{}",
         &xcb_mod_prefix,
-        tit_split(req_name).to_ascii_lowercase(),
-        tit_split(switch_name).to_ascii_lowercase()
+        tit_dig_split(req_name).to_ascii_lowercase(),
+        tit_dig_split(switch_name).to_ascii_lowercase()
     )
 }
 
@@ -877,9 +877,9 @@ pub fn switch_named_case(
     format!(
         "_xcb_{}{}_{}__{}",
         &xcb_mod_prefix,
-        tit_split(req_name).to_ascii_lowercase(),
-        tit_split(switch_name),
-        tit_split(case_name)
+        tit_dig_split(req_name).to_ascii_lowercase(),
+        tit_dig_split(switch_name),
+        tit_dig_split(case_name)
     )
 }
 
@@ -887,7 +887,7 @@ pub fn request_fn_name(xcb_mod_prefix: &str, req_name: &str) -> String {
     format!(
         "xcb_{}{}",
         &xcb_mod_prefix,
-        tit_split(req_name).to_ascii_lowercase(),
+        tit_dig_split(req_name).to_ascii_lowercase(),
     )
 }
 
@@ -895,7 +895,7 @@ pub fn reply_fn_name(xcb_mod_prefix: &str, req_name: &str) -> String {
     format!(
         "xcb_{}{}_reply",
         &xcb_mod_prefix,
-        tit_split(req_name).to_ascii_lowercase(),
+        tit_dig_split(req_name).to_ascii_lowercase(),
     )
 }
 
@@ -903,7 +903,7 @@ pub fn reply_fds_fn_name(xcb_mod_prefix: &str, req_name: &str) -> String {
     format!(
         "xcb_{}{}_reply_fds",
         &xcb_mod_prefix,
-        tit_split(req_name).to_ascii_lowercase(),
+        tit_dig_split(req_name).to_ascii_lowercase(),
     )
 }
 
@@ -911,7 +911,7 @@ pub fn opcode_name(xcb_mod_prefix: &str, name: &str) -> String {
     format!(
         "XCB_{}{}",
         xcb_mod_prefix.to_ascii_uppercase(),
-        tit_split(&name).to_ascii_uppercase()
+        tit_dig_split(&name).to_ascii_uppercase()
     )
 }
 

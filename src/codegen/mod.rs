@@ -948,12 +948,14 @@ fn capitalize(s: &str) -> String {
 
 // insert a underscore before each uppercase/digit preceded or follwed by lowercase
 // do not apply to the first char
-fn tit_split(name: &str) -> String {
+fn tit_split<H>(name: &str, is_high: H) -> String
+where
+    H: Fn(char) -> bool,
+{
     if name.len() <= 1 {
         return name.into();
     }
 
-    let is_high = |c: char| c.is_ascii_uppercase() || c.is_ascii_digit();
     let is_low = |c: char| c.is_ascii_lowercase();
 
     let mut res = String::new();
@@ -978,12 +980,6 @@ fn tit_split(name: &str) -> String {
     res.push(c);
 
     res
-}
-
-#[test]
-fn test_tit_split() {
-    assert_eq!(tit_split("SomeString"), "Some_String");
-    assert_eq!(tit_split("WINDOW"), "WINDOW");
 }
 
 // capitalize each substring beginning by uppercase
@@ -1033,7 +1029,36 @@ fn test_tit_cap() {
     assert!(tit_cap("IDChoice") == "IdChoice");
 }
 
+fn tit_dig_split(name: &str) -> String {
+    tit_split(name, |c| c.is_ascii_uppercase() || c.is_ascii_digit())
+}
+
+#[test]
+fn test_tit_dig_split() {
+    assert_eq!(tit_dig_split("SomeString"), "Some_String");
+    assert_eq!(tit_dig_split("WINDOW"), "WINDOW");
+}
+
 const KEYWORDS: &[&str] = &["type", "str", "match", "new", "await"];
+
+fn field_name(name: &str) -> String {
+    let mut res = tit_split(name, |c| c.is_ascii_uppercase()).to_ascii_lowercase();
+
+    if KEYWORDS.contains(&res.as_str()) {
+        res.push('_');
+    }
+
+    res
+}
+
+#[test]
+fn test_field_name() {
+    assert_eq!(field_name("groupMaps"), "group_maps");
+    assert_eq!(field_name("num_FB_configs"), "num_fb_configs");
+    assert_eq!(field_name("sizeID"), "size_id");
+    assert_eq!(field_name("new"), "new_");
+    assert_eq!(field_name("byte1"), "byte1");
+}
 
 fn extract_module(typ: &str) -> (Option<&str>, &str) {
     let len = typ.len();

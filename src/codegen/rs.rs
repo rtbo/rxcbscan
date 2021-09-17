@@ -4,8 +4,8 @@ use super::ffi;
 
 use super::{
     emit_doc_field, emit_doc_field_indent, emit_doc_text, enum_suffix_exception, expr_fixed_length,
-    extract_module, qualified_name, request_has_template, tit_cap, tit_split, CodeGen, ListField,
-    KEYWORDS,
+    extract_module, field_name, qualified_name, request_has_template, tit_cap, tit_dig_split,
+    CodeGen, ListField, KEYWORDS,
 };
 use crate::ast::{Doc, OpCopy, Reply, Struct, StructField, SwitchCase};
 
@@ -1301,57 +1301,12 @@ fn field_doc_name(f: &StructField) -> Option<String> {
     }
 }
 
-fn field_name(name: &str) -> String {
-    if name.len() <= 1 {
-        return name.into();
-    }
-
-    let is_high = |c: char| c.is_ascii_uppercase();
-    let is_low = |c: char| c.is_ascii_lowercase();
-
-    let mut res = String::new();
-    let mut ch = name.chars();
-    let mut prev = ch.next().unwrap();
-    res.push(prev);
-    let mut c = ch.next().unwrap();
-
-    for next in ch {
-        if is_low(prev) && is_high(c) || is_high(c) && is_low(next) {
-            if prev != '_' {
-                res.push('_');
-            }
-        }
-        res.push(c.to_ascii_lowercase());
-        prev = c;
-        c = next;
-    }
-    if is_low(prev) && is_high(c) && prev != '_' {
-        res.push('_');
-    }
-    res.push(c.to_ascii_lowercase());
-
-    if KEYWORDS.contains(&res.as_str()) {
-        res.push('_');
-    }
-
-    res
-}
-
-#[test]
-fn test_field_name() {
-    assert_eq!(field_name("groupMaps"), "group_maps");
-    assert_eq!(field_name("num_FB_configs"), "num_fb_configs");
-    assert_eq!(field_name("sizeID"), "size_id");
-    assert_eq!(field_name("new"), "new_");
-    assert_eq!(field_name("byte1"), "byte1");
-}
-
 pub fn enum_item_name(name: &str, item: &str) -> String {
-    format!("{}_{}", tit_split(name), tit_split(item)).to_ascii_uppercase()
+    format!("{}_{}", tit_dig_split(name), tit_dig_split(item)).to_ascii_uppercase()
 }
 
 pub fn opname(name: &str) -> String {
-    tit_split(&name).to_ascii_uppercase()
+    tit_dig_split(&name).to_ascii_uppercase()
 }
 
 pub fn switch_type_name(req_name: &str, switch_name: &str) -> String {
@@ -1359,7 +1314,7 @@ pub fn switch_type_name(req_name: &str, switch_name: &str) -> String {
 }
 
 pub fn request_fn_name(name: &str) -> String {
-    let mut res = tit_split(&name).to_ascii_lowercase();
+    let mut res = tit_dig_split(&name).to_ascii_lowercase();
     if KEYWORDS.contains(&res.as_str()) {
         res.push('_');
     }
