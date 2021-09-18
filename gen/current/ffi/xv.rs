@@ -1,6 +1,3 @@
-// Generated automatically from xv.xml by rs_client.py version 0.9.0.
-// Do not edit!
-
 use ffi::base::*;
 use ffi::shm::*;
 use ffi::xproto::*;

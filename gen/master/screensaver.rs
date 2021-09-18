@@ -1,6 +1,3 @@
-// Generated automatically from screensaver.xml by rs_client.py version 0.9.0.
-// Do not edit!
-
 use base;
 use ffi::base::*;
 use ffi::screensaver::*;

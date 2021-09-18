@@ -1,6 +1,3 @@
-// Generated automatically from shm.xml by rs_client.py version 0.9.0.
-// Do not edit!
-
 use ffi::base::*;
 use ffi::xproto::*;
 use libc::{c_char, c_int, c_uint, c_void};

@@ -1,6 +1,3 @@
-// Generated automatically from genericevent.xml by rs_client.py version 0.9.0.
-// Do not edit!
-
 use ffi::base::*;
 use libc::{c_char, c_int, c_uint, c_void};
 use std;
