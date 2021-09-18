@@ -1,16 +1,20 @@
 #! /bin/bash
 
-mkdir -p ../rust-xcb/build
+mkdir -p ../rust-xcb/build/codegen
 
 for f in ../rust-xcb/build/*.rs; do
+    rm $f
+done
+for f in ../rust-xcb/build/codegen/*.rs; do
     rm $f
 done
 
 for f in src/*.rs; do
     cp $f ../rust-xcb/build
 done
-
-sed -i 's/\"src\"/\"build\"/g' ../rust-xcb/build/main.rs
+for f in src/codegen/*.rs; do
+    cp $f ../rust-xcb/build/codegen
+done
 
 MSG="$1"
 
