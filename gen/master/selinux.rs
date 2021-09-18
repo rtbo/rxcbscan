@@ -1,31 +1,28 @@
-// Generated automatically from xselinux.xml by rs_client.py version 0.9.0.
+// Generated automatically from selinux.xml by rs_client.py version 0.9.0.
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::selinux::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_selinux_id
-    }
+    unsafe { &mut xcb_selinux_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
 pub const MINOR_VERSION: u32 = 0;
 
-
-
 pub const QUERY_VERSION: u8 = 0;
 
 impl base::CookieSeq for xcb_selinux_query_version_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_selinux_query_version_cookie_t>;
@@ -33,21 +30,31 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_selinux_query_version_coo
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_selinux_query_version_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_query_version_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -56,83 +63,88 @@ pub type QueryVersionReply = base::Reply<xcb_selinux_query_version_reply_t>;
 
 impl QueryVersionReply {
     pub fn server_major(&self) -> u16 {
-        unsafe {
-            (*self.ptr).server_major
-        }
+        unsafe { (*self.ptr).server_major }
     }
     pub fn server_minor(&self) -> u16 {
-        unsafe {
-            (*self.ptr).server_minor
+        unsafe { (*self.ptr).server_minor }
+    }
+}
+
+pub fn query_version<'a>(
+    c: &'a base::Connection,
+    client_major: u8,
+    client_minor: u8,
+) -> QueryVersionCookie<'a> {
+    unsafe {
+        let cookie =
+            xcb_selinux_query_version(c.get_raw_conn(), client_major as u8, client_minor as u8);
+        QueryVersionCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn query_version<'a>(c           : &'a base::Connection,
-                         client_major: u8,
-                         client_minor: u8)
-        -> QueryVersionCookie<'a> {
+pub fn query_version_unchecked<'a>(
+    c: &'a base::Connection,
+    client_major: u8,
+    client_minor: u8,
+) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_query_version(c.get_raw_conn(),
-                                               client_major as u8,  // 0
-                                               client_minor as u8);  // 1
+        let cookie = xcb_selinux_query_version_unchecked(
+            c.get_raw_conn(),
+            client_major as u8,
+            client_minor as u8,
+        );
         QueryVersionCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn query_version_unchecked<'a>(c           : &'a base::Connection,
-                                   client_major: u8,
-                                   client_minor: u8)
-        -> QueryVersionCookie<'a> {
-    unsafe {
-        let cookie = xcb_selinux_query_version_unchecked(c.get_raw_conn(),
-                                                         client_major as u8,  // 0
-                                                         client_minor as u8);  // 1
-        QueryVersionCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const SET_DEVICE_CREATE_CONTEXT: u8 = 1;
 
-pub fn set_device_create_context<'a>(c      : &'a base::Connection,
-                                     context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_device_create_context<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_device_create_context(c.get_raw_conn(),
-                                                           context_len as u32,  // 0
-                                                           context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_device_create_context(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn set_device_create_context_checked<'a>(c      : &'a base::Connection,
-                                             context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_device_create_context_checked<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_device_create_context_checked(c.get_raw_conn(),
-                                                                   context_len as u32,  // 0
-                                                                   context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_device_create_context_checked(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -140,29 +152,42 @@ pub fn set_device_create_context_checked<'a>(c      : &'a base::Connection,
 pub const GET_DEVICE_CREATE_CONTEXT: u8 = 2;
 
 impl base::CookieSeq for xcb_selinux_get_device_create_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetDeviceCreateContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_device_create_context_cookie_t>;
+pub type GetDeviceCreateContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_device_create_context_cookie_t>;
 
 impl<'a> GetDeviceCreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetDeviceCreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDeviceCreateContextReply {
-                ptr: xcb_selinux_get_device_create_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_device_create_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -171,9 +196,7 @@ pub type GetDeviceCreateContextReply = base::Reply<xcb_selinux_get_device_create
 
 impl GetDeviceCreateContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -187,68 +210,74 @@ impl GetDeviceCreateContextReply {
     }
 }
 
-pub fn get_device_create_context<'a>(c: &'a base::Connection)
-        -> GetDeviceCreateContextCookie<'a> {
+pub fn get_device_create_context<'a>(c: &'a base::Connection) -> GetDeviceCreateContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_device_create_context(c.get_raw_conn());
         GetDeviceCreateContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_device_create_context_unchecked<'a>(c: &'a base::Connection)
-        -> GetDeviceCreateContextCookie<'a> {
+pub fn get_device_create_context_unchecked<'a>(
+    c: &'a base::Connection,
+) -> GetDeviceCreateContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_device_create_context_unchecked(c.get_raw_conn());
         GetDeviceCreateContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const SET_DEVICE_CONTEXT: u8 = 3;
 
-pub fn set_device_context<'a>(c      : &'a base::Connection,
-                              device : u32,
-                              context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_device_context<'a>(
+    c: &'a base::Connection,
+    device: u32,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_device_context(c.get_raw_conn(),
-                                                    device as u32,  // 0
-                                                    context_len as u32,  // 1
-                                                    context_ptr as *const c_char);  // 2
+        let cookie = xcb_selinux_set_device_context(
+            c.get_raw_conn(),
+            device as u32,
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn set_device_context_checked<'a>(c      : &'a base::Connection,
-                                      device : u32,
-                                      context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_device_context_checked<'a>(
+    c: &'a base::Connection,
+    device: u32,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_device_context_checked(c.get_raw_conn(),
-                                                            device as u32,  // 0
-                                                            context_len as u32,  // 1
-                                                            context_ptr as *const c_char);  // 2
+        let cookie = xcb_selinux_set_device_context_checked(
+            c.get_raw_conn(),
+            device as u32,
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -256,7 +285,9 @@ pub fn set_device_context_checked<'a>(c      : &'a base::Connection,
 pub const GET_DEVICE_CONTEXT: u8 = 4;
 
 impl base::CookieSeq for xcb_selinux_get_device_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetDeviceContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_device_context_cookie_t>;
@@ -264,21 +295,31 @@ pub type GetDeviceContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_device_co
 impl<'a> GetDeviceContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetDeviceContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDeviceContextReply {
-                ptr: xcb_selinux_get_device_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_device_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -287,9 +328,7 @@ pub type GetDeviceContextReply = base::Reply<xcb_selinux_get_device_context_repl
 
 impl GetDeviceContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -303,68 +342,71 @@ impl GetDeviceContextReply {
     }
 }
 
-pub fn get_device_context<'a>(c     : &'a base::Connection,
-                              device: u32)
-        -> GetDeviceContextCookie<'a> {
+pub fn get_device_context<'a>(c: &'a base::Connection, device: u32) -> GetDeviceContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_device_context(c.get_raw_conn(),
-                                                    device as u32);  // 0
+        let cookie = xcb_selinux_get_device_context(c.get_raw_conn(), device as u32);
         GetDeviceContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_device_context_unchecked<'a>(c     : &'a base::Connection,
-                                        device: u32)
-        -> GetDeviceContextCookie<'a> {
+pub fn get_device_context_unchecked<'a>(
+    c: &'a base::Connection,
+    device: u32,
+) -> GetDeviceContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_device_context_unchecked(c.get_raw_conn(),
-                                                              device as u32);  // 0
+        let cookie = xcb_selinux_get_device_context_unchecked(c.get_raw_conn(), device as u32);
         GetDeviceContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const SET_WINDOW_CREATE_CONTEXT: u8 = 5;
 
-pub fn set_window_create_context<'a>(c      : &'a base::Connection,
-                                     context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_window_create_context<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_window_create_context(c.get_raw_conn(),
-                                                           context_len as u32,  // 0
-                                                           context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_window_create_context(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn set_window_create_context_checked<'a>(c      : &'a base::Connection,
-                                             context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_window_create_context_checked<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_window_create_context_checked(c.get_raw_conn(),
-                                                                   context_len as u32,  // 0
-                                                                   context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_window_create_context_checked(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -372,29 +414,42 @@ pub fn set_window_create_context_checked<'a>(c      : &'a base::Connection,
 pub const GET_WINDOW_CREATE_CONTEXT: u8 = 6;
 
 impl base::CookieSeq for xcb_selinux_get_window_create_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetWindowCreateContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_window_create_context_cookie_t>;
+pub type GetWindowCreateContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_window_create_context_cookie_t>;
 
 impl<'a> GetWindowCreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetWindowCreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetWindowCreateContextReply {
-                ptr: xcb_selinux_get_window_create_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_window_create_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -403,9 +458,7 @@ pub type GetWindowCreateContextReply = base::Reply<xcb_selinux_get_window_create
 
 impl GetWindowCreateContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -419,26 +472,26 @@ impl GetWindowCreateContextReply {
     }
 }
 
-pub fn get_window_create_context<'a>(c: &'a base::Connection)
-        -> GetWindowCreateContextCookie<'a> {
+pub fn get_window_create_context<'a>(c: &'a base::Connection) -> GetWindowCreateContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_window_create_context(c.get_raw_conn());
         GetWindowCreateContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_window_create_context_unchecked<'a>(c: &'a base::Connection)
-        -> GetWindowCreateContextCookie<'a> {
+pub fn get_window_create_context_unchecked<'a>(
+    c: &'a base::Connection,
+) -> GetWindowCreateContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_window_create_context_unchecked(c.get_raw_conn());
         GetWindowCreateContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -446,7 +499,9 @@ pub fn get_window_create_context_unchecked<'a>(c: &'a base::Connection)
 pub const GET_WINDOW_CONTEXT: u8 = 7;
 
 impl base::CookieSeq for xcb_selinux_get_window_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetWindowContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_window_context_cookie_t>;
@@ -454,21 +509,31 @@ pub type GetWindowContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_window_co
 impl<'a> GetWindowContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetWindowContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetWindowContextReply {
-                ptr: xcb_selinux_get_window_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_window_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -477,9 +542,7 @@ pub type GetWindowContextReply = base::Reply<xcb_selinux_get_window_context_repl
 
 impl GetWindowContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -493,30 +556,31 @@ impl GetWindowContextReply {
     }
 }
 
-pub fn get_window_context<'a>(c     : &'a base::Connection,
-                              window: xproto::Window)
-        -> GetWindowContextCookie<'a> {
+pub fn get_window_context<'a>(
+    c: &'a base::Connection,
+    window: xproto::Window,
+) -> GetWindowContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_window_context(c.get_raw_conn(),
-                                                    window as xcb_window_t);  // 0
+        let cookie = xcb_selinux_get_window_context(c.get_raw_conn(), window as xcb_window_t);
         GetWindowContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_window_context_unchecked<'a>(c     : &'a base::Connection,
-                                        window: xproto::Window)
-        -> GetWindowContextCookie<'a> {
+pub fn get_window_context_unchecked<'a>(
+    c: &'a base::Connection,
+    window: xproto::Window,
+) -> GetWindowContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_window_context_unchecked(c.get_raw_conn(),
-                                                              window as xcb_window_t);  // 0
+        let cookie =
+            xcb_selinux_get_window_context_unchecked(c.get_raw_conn(), window as xcb_window_t);
         GetWindowContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -525,19 +589,13 @@ pub type ListItem<'a> = base::StructPtr<'a, xcb_selinux_list_item_t>;
 
 impl<'a> ListItem<'a> {
     pub fn name(&self) -> xproto::Atom {
-        unsafe {
-            (*self.ptr).name
-        }
+        unsafe { (*self.ptr).name }
     }
     pub fn object_context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).object_context_len
-        }
+        unsafe { (*self.ptr).object_context_len }
     }
     pub fn data_context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).data_context_len
-        }
+        unsafe { (*self.ptr).data_context_len }
     }
     pub fn object_context(&self) -> &str {
         unsafe {
@@ -566,8 +624,9 @@ pub type ListItemIterator<'a> = xcb_selinux_list_item_iterator_t<'a>;
 impl<'a> Iterator for ListItemIterator<'a> {
     type Item = ListItem<'a>;
     fn next(&mut self) -> std::option::Option<ListItem<'a>> {
-        if self.rem == 0 { None }
-        else {
+        if self.rem == 0 {
+            None
+        } else {
             unsafe {
                 let iter = self as *mut xcb_selinux_list_item_iterator_t;
                 let data = (*iter).data;
@@ -580,38 +639,44 @@ impl<'a> Iterator for ListItemIterator<'a> {
 
 pub const SET_PROPERTY_CREATE_CONTEXT: u8 = 8;
 
-pub fn set_property_create_context<'a>(c      : &'a base::Connection,
-                                       context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_property_create_context<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_property_create_context(c.get_raw_conn(),
-                                                             context_len as u32,  // 0
-                                                             context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_property_create_context(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn set_property_create_context_checked<'a>(c      : &'a base::Connection,
-                                               context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_property_create_context_checked<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_property_create_context_checked(c.get_raw_conn(),
-                                                                     context_len as u32,  // 0
-                                                                     context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_property_create_context_checked(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -619,40 +684,52 @@ pub fn set_property_create_context_checked<'a>(c      : &'a base::Connection,
 pub const GET_PROPERTY_CREATE_CONTEXT: u8 = 9;
 
 impl base::CookieSeq for xcb_selinux_get_property_create_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetPropertyCreateContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_property_create_context_cookie_t>;
+pub type GetPropertyCreateContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_property_create_context_cookie_t>;
 
 impl<'a> GetPropertyCreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetPropertyCreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPropertyCreateContextReply {
-                ptr: xcb_selinux_get_property_create_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_property_create_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
 
-pub type GetPropertyCreateContextReply = base::Reply<xcb_selinux_get_property_create_context_reply_t>;
+pub type GetPropertyCreateContextReply =
+    base::Reply<xcb_selinux_get_property_create_context_reply_t>;
 
 impl GetPropertyCreateContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -666,64 +743,72 @@ impl GetPropertyCreateContextReply {
     }
 }
 
-pub fn get_property_create_context<'a>(c: &'a base::Connection)
-        -> GetPropertyCreateContextCookie<'a> {
+pub fn get_property_create_context<'a>(
+    c: &'a base::Connection,
+) -> GetPropertyCreateContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_property_create_context(c.get_raw_conn());
         GetPropertyCreateContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_property_create_context_unchecked<'a>(c: &'a base::Connection)
-        -> GetPropertyCreateContextCookie<'a> {
+pub fn get_property_create_context_unchecked<'a>(
+    c: &'a base::Connection,
+) -> GetPropertyCreateContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_property_create_context_unchecked(c.get_raw_conn());
         GetPropertyCreateContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const SET_PROPERTY_USE_CONTEXT: u8 = 10;
 
-pub fn set_property_use_context<'a>(c      : &'a base::Connection,
-                                    context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_property_use_context<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_property_use_context(c.get_raw_conn(),
-                                                          context_len as u32,  // 0
-                                                          context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_property_use_context(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn set_property_use_context_checked<'a>(c      : &'a base::Connection,
-                                            context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_property_use_context_checked<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_property_use_context_checked(c.get_raw_conn(),
-                                                                  context_len as u32,  // 0
-                                                                  context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_property_use_context_checked(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -731,29 +816,42 @@ pub fn set_property_use_context_checked<'a>(c      : &'a base::Connection,
 pub const GET_PROPERTY_USE_CONTEXT: u8 = 11;
 
 impl base::CookieSeq for xcb_selinux_get_property_use_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetPropertyUseContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_property_use_context_cookie_t>;
+pub type GetPropertyUseContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_property_use_context_cookie_t>;
 
 impl<'a> GetPropertyUseContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetPropertyUseContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPropertyUseContextReply {
-                ptr: xcb_selinux_get_property_use_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_property_use_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -762,9 +860,7 @@ pub type GetPropertyUseContextReply = base::Reply<xcb_selinux_get_property_use_c
 
 impl GetPropertyUseContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -778,26 +874,26 @@ impl GetPropertyUseContextReply {
     }
 }
 
-pub fn get_property_use_context<'a>(c: &'a base::Connection)
-        -> GetPropertyUseContextCookie<'a> {
+pub fn get_property_use_context<'a>(c: &'a base::Connection) -> GetPropertyUseContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_property_use_context(c.get_raw_conn());
         GetPropertyUseContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_property_use_context_unchecked<'a>(c: &'a base::Connection)
-        -> GetPropertyUseContextCookie<'a> {
+pub fn get_property_use_context_unchecked<'a>(
+    c: &'a base::Connection,
+) -> GetPropertyUseContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_property_use_context_unchecked(c.get_raw_conn());
         GetPropertyUseContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -805,7 +901,9 @@ pub fn get_property_use_context_unchecked<'a>(c: &'a base::Connection)
 pub const GET_PROPERTY_CONTEXT: u8 = 12;
 
 impl base::CookieSeq for xcb_selinux_get_property_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetPropertyContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_property_context_cookie_t>;
@@ -813,21 +911,31 @@ pub type GetPropertyContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_propert
 impl<'a> GetPropertyContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetPropertyContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPropertyContextReply {
-                ptr: xcb_selinux_get_property_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_property_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -836,9 +944,7 @@ pub type GetPropertyContextReply = base::Reply<xcb_selinux_get_property_context_
 
 impl GetPropertyContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -852,34 +958,40 @@ impl GetPropertyContextReply {
     }
 }
 
-pub fn get_property_context<'a>(c       : &'a base::Connection,
-                                window  : xproto::Window,
-                                property: xproto::Atom)
-        -> GetPropertyContextCookie<'a> {
+pub fn get_property_context<'a>(
+    c: &'a base::Connection,
+    window: xproto::Window,
+    property: xproto::Atom,
+) -> GetPropertyContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_property_context(c.get_raw_conn(),
-                                                      window as xcb_window_t,  // 0
-                                                      property as xcb_atom_t);  // 1
+        let cookie = xcb_selinux_get_property_context(
+            c.get_raw_conn(),
+            window as xcb_window_t,
+            property as xcb_atom_t,
+        );
         GetPropertyContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_property_context_unchecked<'a>(c       : &'a base::Connection,
-                                          window  : xproto::Window,
-                                          property: xproto::Atom)
-        -> GetPropertyContextCookie<'a> {
+pub fn get_property_context_unchecked<'a>(
+    c: &'a base::Connection,
+    window: xproto::Window,
+    property: xproto::Atom,
+) -> GetPropertyContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_property_context_unchecked(c.get_raw_conn(),
-                                                                window as xcb_window_t,  // 0
-                                                                property as xcb_atom_t);  // 1
+        let cookie = xcb_selinux_get_property_context_unchecked(
+            c.get_raw_conn(),
+            window as xcb_window_t,
+            property as xcb_atom_t,
+        );
         GetPropertyContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -887,29 +999,42 @@ pub fn get_property_context_unchecked<'a>(c       : &'a base::Connection,
 pub const GET_PROPERTY_DATA_CONTEXT: u8 = 13;
 
 impl base::CookieSeq for xcb_selinux_get_property_data_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetPropertyDataContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_property_data_context_cookie_t>;
+pub type GetPropertyDataContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_property_data_context_cookie_t>;
 
 impl<'a> GetPropertyDataContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetPropertyDataContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPropertyDataContextReply {
-                ptr: xcb_selinux_get_property_data_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_property_data_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -918,9 +1043,7 @@ pub type GetPropertyDataContextReply = base::Reply<xcb_selinux_get_property_data
 
 impl GetPropertyDataContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -934,34 +1057,40 @@ impl GetPropertyDataContextReply {
     }
 }
 
-pub fn get_property_data_context<'a>(c       : &'a base::Connection,
-                                     window  : xproto::Window,
-                                     property: xproto::Atom)
-        -> GetPropertyDataContextCookie<'a> {
+pub fn get_property_data_context<'a>(
+    c: &'a base::Connection,
+    window: xproto::Window,
+    property: xproto::Atom,
+) -> GetPropertyDataContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_property_data_context(c.get_raw_conn(),
-                                                           window as xcb_window_t,  // 0
-                                                           property as xcb_atom_t);  // 1
+        let cookie = xcb_selinux_get_property_data_context(
+            c.get_raw_conn(),
+            window as xcb_window_t,
+            property as xcb_atom_t,
+        );
         GetPropertyDataContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_property_data_context_unchecked<'a>(c       : &'a base::Connection,
-                                               window  : xproto::Window,
-                                               property: xproto::Atom)
-        -> GetPropertyDataContextCookie<'a> {
+pub fn get_property_data_context_unchecked<'a>(
+    c: &'a base::Connection,
+    window: xproto::Window,
+    property: xproto::Atom,
+) -> GetPropertyDataContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_property_data_context_unchecked(c.get_raw_conn(),
-                                                                     window as xcb_window_t,  // 0
-                                                                     property as xcb_atom_t);  // 1
+        let cookie = xcb_selinux_get_property_data_context_unchecked(
+            c.get_raw_conn(),
+            window as xcb_window_t,
+            property as xcb_atom_t,
+        );
         GetPropertyDataContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -969,7 +1098,9 @@ pub fn get_property_data_context_unchecked<'a>(c       : &'a base::Connection,
 pub const LIST_PROPERTIES: u8 = 14;
 
 impl base::CookieSeq for xcb_selinux_list_properties_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type ListPropertiesCookie<'a> = base::Cookie<'a, xcb_selinux_list_properties_cookie_t>;
@@ -977,21 +1108,31 @@ pub type ListPropertiesCookie<'a> = base::Cookie<'a, xcb_selinux_list_properties
 impl<'a> ListPropertiesCookie<'a> {
     pub fn get_reply(self) -> Result<ListPropertiesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListPropertiesReply {
-                ptr: xcb_selinux_list_properties_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_list_properties_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1000,79 +1141,82 @@ pub type ListPropertiesReply = base::Reply<xcb_selinux_list_properties_reply_t>;
 
 impl ListPropertiesReply {
     pub fn properties_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).properties_len
-        }
+        unsafe { (*self.ptr).properties_len }
     }
     pub fn properties(&self) -> ListItemIterator {
-        unsafe {
-            xcb_selinux_list_properties_properties_iterator(self.ptr)
+        unsafe { xcb_selinux_list_properties_properties_iterator(self.ptr) }
+    }
+}
+
+pub fn list_properties<'a>(
+    c: &'a base::Connection,
+    window: xproto::Window,
+) -> ListPropertiesCookie<'a> {
+    unsafe {
+        let cookie = xcb_selinux_list_properties(c.get_raw_conn(), window as xcb_window_t);
+        ListPropertiesCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn list_properties<'a>(c     : &'a base::Connection,
-                           window: xproto::Window)
-        -> ListPropertiesCookie<'a> {
+pub fn list_properties_unchecked<'a>(
+    c: &'a base::Connection,
+    window: xproto::Window,
+) -> ListPropertiesCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_list_properties(c.get_raw_conn(),
-                                                 window as xcb_window_t);  // 0
+        let cookie =
+            xcb_selinux_list_properties_unchecked(c.get_raw_conn(), window as xcb_window_t);
         ListPropertiesCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn list_properties_unchecked<'a>(c     : &'a base::Connection,
-                                     window: xproto::Window)
-        -> ListPropertiesCookie<'a> {
-    unsafe {
-        let cookie = xcb_selinux_list_properties_unchecked(c.get_raw_conn(),
-                                                           window as xcb_window_t);  // 0
-        ListPropertiesCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const SET_SELECTION_CREATE_CONTEXT: u8 = 15;
 
-pub fn set_selection_create_context<'a>(c      : &'a base::Connection,
-                                        context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_selection_create_context<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_selection_create_context(c.get_raw_conn(),
-                                                              context_len as u32,  // 0
-                                                              context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_selection_create_context(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn set_selection_create_context_checked<'a>(c      : &'a base::Connection,
-                                                context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_selection_create_context_checked<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_selection_create_context_checked(c.get_raw_conn(),
-                                                                      context_len as u32,  // 0
-                                                                      context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_selection_create_context_checked(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -1080,40 +1224,52 @@ pub fn set_selection_create_context_checked<'a>(c      : &'a base::Connection,
 pub const GET_SELECTION_CREATE_CONTEXT: u8 = 16;
 
 impl base::CookieSeq for xcb_selinux_get_selection_create_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetSelectionCreateContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_selection_create_context_cookie_t>;
+pub type GetSelectionCreateContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_selection_create_context_cookie_t>;
 
 impl<'a> GetSelectionCreateContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetSelectionCreateContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSelectionCreateContextReply {
-                ptr: xcb_selinux_get_selection_create_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_selection_create_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
 
-pub type GetSelectionCreateContextReply = base::Reply<xcb_selinux_get_selection_create_context_reply_t>;
+pub type GetSelectionCreateContextReply =
+    base::Reply<xcb_selinux_get_selection_create_context_reply_t>;
 
 impl GetSelectionCreateContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -1127,64 +1283,72 @@ impl GetSelectionCreateContextReply {
     }
 }
 
-pub fn get_selection_create_context<'a>(c: &'a base::Connection)
-        -> GetSelectionCreateContextCookie<'a> {
+pub fn get_selection_create_context<'a>(
+    c: &'a base::Connection,
+) -> GetSelectionCreateContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_selection_create_context(c.get_raw_conn());
         GetSelectionCreateContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_selection_create_context_unchecked<'a>(c: &'a base::Connection)
-        -> GetSelectionCreateContextCookie<'a> {
+pub fn get_selection_create_context_unchecked<'a>(
+    c: &'a base::Connection,
+) -> GetSelectionCreateContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_selection_create_context_unchecked(c.get_raw_conn());
         GetSelectionCreateContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const SET_SELECTION_USE_CONTEXT: u8 = 17;
 
-pub fn set_selection_use_context<'a>(c      : &'a base::Connection,
-                                     context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_selection_use_context<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_selection_use_context(c.get_raw_conn(),
-                                                           context_len as u32,  // 0
-                                                           context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_selection_use_context(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn set_selection_use_context_checked<'a>(c      : &'a base::Connection,
-                                             context: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_selection_use_context_checked<'a>(
+    c: &'a base::Connection,
+    context: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let context = context.as_bytes();
         let context_len = context.len();
         let context_ptr = context.as_ptr();
-        let cookie = xcb_selinux_set_selection_use_context_checked(c.get_raw_conn(),
-                                                                   context_len as u32,  // 0
-                                                                   context_ptr as *const c_char);  // 1
+        let cookie = xcb_selinux_set_selection_use_context_checked(
+            c.get_raw_conn(),
+            context_len as u32,
+            context_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -1192,29 +1356,42 @@ pub fn set_selection_use_context_checked<'a>(c      : &'a base::Connection,
 pub const GET_SELECTION_USE_CONTEXT: u8 = 18;
 
 impl base::CookieSeq for xcb_selinux_get_selection_use_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetSelectionUseContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_selection_use_context_cookie_t>;
+pub type GetSelectionUseContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_selection_use_context_cookie_t>;
 
 impl<'a> GetSelectionUseContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetSelectionUseContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSelectionUseContextReply {
-                ptr: xcb_selinux_get_selection_use_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_selection_use_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1223,9 +1400,7 @@ pub type GetSelectionUseContextReply = base::Reply<xcb_selinux_get_selection_use
 
 impl GetSelectionUseContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -1239,26 +1414,26 @@ impl GetSelectionUseContextReply {
     }
 }
 
-pub fn get_selection_use_context<'a>(c: &'a base::Connection)
-        -> GetSelectionUseContextCookie<'a> {
+pub fn get_selection_use_context<'a>(c: &'a base::Connection) -> GetSelectionUseContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_selection_use_context(c.get_raw_conn());
         GetSelectionUseContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_selection_use_context_unchecked<'a>(c: &'a base::Connection)
-        -> GetSelectionUseContextCookie<'a> {
+pub fn get_selection_use_context_unchecked<'a>(
+    c: &'a base::Connection,
+) -> GetSelectionUseContextCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_get_selection_use_context_unchecked(c.get_raw_conn());
         GetSelectionUseContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -1266,29 +1441,42 @@ pub fn get_selection_use_context_unchecked<'a>(c: &'a base::Connection)
 pub const GET_SELECTION_CONTEXT: u8 = 19;
 
 impl base::CookieSeq for xcb_selinux_get_selection_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetSelectionContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_selection_context_cookie_t>;
+pub type GetSelectionContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_selection_context_cookie_t>;
 
 impl<'a> GetSelectionContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetSelectionContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSelectionContextReply {
-                ptr: xcb_selinux_get_selection_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_selection_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1297,9 +1485,7 @@ pub type GetSelectionContextReply = base::Reply<xcb_selinux_get_selection_contex
 
 impl GetSelectionContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -1313,30 +1499,31 @@ impl GetSelectionContextReply {
     }
 }
 
-pub fn get_selection_context<'a>(c        : &'a base::Connection,
-                                 selection: xproto::Atom)
-        -> GetSelectionContextCookie<'a> {
+pub fn get_selection_context<'a>(
+    c: &'a base::Connection,
+    selection: xproto::Atom,
+) -> GetSelectionContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_context(c.get_raw_conn(),
-                                                       selection as xcb_atom_t);  // 0
+        let cookie = xcb_selinux_get_selection_context(c.get_raw_conn(), selection as xcb_atom_t);
         GetSelectionContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_selection_context_unchecked<'a>(c        : &'a base::Connection,
-                                           selection: xproto::Atom)
-        -> GetSelectionContextCookie<'a> {
+pub fn get_selection_context_unchecked<'a>(
+    c: &'a base::Connection,
+    selection: xproto::Atom,
+) -> GetSelectionContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_context_unchecked(c.get_raw_conn(),
-                                                                 selection as xcb_atom_t);  // 0
+        let cookie =
+            xcb_selinux_get_selection_context_unchecked(c.get_raw_conn(), selection as xcb_atom_t);
         GetSelectionContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -1344,29 +1531,42 @@ pub fn get_selection_context_unchecked<'a>(c        : &'a base::Connection,
 pub const GET_SELECTION_DATA_CONTEXT: u8 = 20;
 
 impl base::CookieSeq for xcb_selinux_get_selection_data_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetSelectionDataContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_selection_data_context_cookie_t>;
+pub type GetSelectionDataContextCookie<'a> =
+    base::Cookie<'a, xcb_selinux_get_selection_data_context_cookie_t>;
 
 impl<'a> GetSelectionDataContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetSelectionDataContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSelectionDataContextReply {
-                ptr: xcb_selinux_get_selection_data_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_selection_data_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1375,9 +1575,7 @@ pub type GetSelectionDataContextReply = base::Reply<xcb_selinux_get_selection_da
 
 impl GetSelectionDataContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -1391,30 +1589,34 @@ impl GetSelectionDataContextReply {
     }
 }
 
-pub fn get_selection_data_context<'a>(c        : &'a base::Connection,
-                                      selection: xproto::Atom)
-        -> GetSelectionDataContextCookie<'a> {
+pub fn get_selection_data_context<'a>(
+    c: &'a base::Connection,
+    selection: xproto::Atom,
+) -> GetSelectionDataContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_data_context(c.get_raw_conn(),
-                                                            selection as xcb_atom_t);  // 0
+        let cookie =
+            xcb_selinux_get_selection_data_context(c.get_raw_conn(), selection as xcb_atom_t);
         GetSelectionDataContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_selection_data_context_unchecked<'a>(c        : &'a base::Connection,
-                                                selection: xproto::Atom)
-        -> GetSelectionDataContextCookie<'a> {
+pub fn get_selection_data_context_unchecked<'a>(
+    c: &'a base::Connection,
+    selection: xproto::Atom,
+) -> GetSelectionDataContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_selection_data_context_unchecked(c.get_raw_conn(),
-                                                                      selection as xcb_atom_t);  // 0
+        let cookie = xcb_selinux_get_selection_data_context_unchecked(
+            c.get_raw_conn(),
+            selection as xcb_atom_t,
+        );
         GetSelectionDataContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -1422,7 +1624,9 @@ pub fn get_selection_data_context_unchecked<'a>(c        : &'a base::Connection,
 pub const LIST_SELECTIONS: u8 = 21;
 
 impl base::CookieSeq for xcb_selinux_list_selections_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type ListSelectionsCookie<'a> = base::Cookie<'a, xcb_selinux_list_selections_cookie_t>;
@@ -1430,21 +1634,31 @@ pub type ListSelectionsCookie<'a> = base::Cookie<'a, xcb_selinux_list_selections
 impl<'a> ListSelectionsCookie<'a> {
     pub fn get_reply(self) -> Result<ListSelectionsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ListSelectionsReply {
-                ptr: xcb_selinux_list_selections_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_list_selections_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1453,37 +1667,31 @@ pub type ListSelectionsReply = base::Reply<xcb_selinux_list_selections_reply_t>;
 
 impl ListSelectionsReply {
     pub fn selections_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).selections_len
-        }
+        unsafe { (*self.ptr).selections_len }
     }
     pub fn selections(&self) -> ListItemIterator {
-        unsafe {
-            xcb_selinux_list_selections_selections_iterator(self.ptr)
-        }
+        unsafe { xcb_selinux_list_selections_selections_iterator(self.ptr) }
     }
 }
 
-pub fn list_selections<'a>(c: &'a base::Connection)
-        -> ListSelectionsCookie<'a> {
+pub fn list_selections<'a>(c: &'a base::Connection) -> ListSelectionsCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_list_selections(c.get_raw_conn());
         ListSelectionsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn list_selections_unchecked<'a>(c: &'a base::Connection)
-        -> ListSelectionsCookie<'a> {
+pub fn list_selections_unchecked<'a>(c: &'a base::Connection) -> ListSelectionsCookie<'a> {
     unsafe {
         let cookie = xcb_selinux_list_selections_unchecked(c.get_raw_conn());
         ListSelectionsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -1491,7 +1699,9 @@ pub fn list_selections_unchecked<'a>(c: &'a base::Connection)
 pub const GET_CLIENT_CONTEXT: u8 = 22;
 
 impl base::CookieSeq for xcb_selinux_get_client_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetClientContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_client_context_cookie_t>;
@@ -1499,21 +1709,31 @@ pub type GetClientContextCookie<'a> = base::Cookie<'a, xcb_selinux_get_client_co
 impl<'a> GetClientContextCookie<'a> {
     pub fn get_reply(self) -> Result<GetClientContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetClientContextReply {
-                ptr: xcb_selinux_get_client_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_selinux_get_client_context_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1522,9 +1742,7 @@ pub type GetClientContextReply = base::Reply<xcb_selinux_get_client_context_repl
 
 impl GetClientContextReply {
     pub fn context_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).context_len
-        }
+        unsafe { (*self.ptr).context_len }
     }
     pub fn context(&self) -> &str {
         unsafe {
@@ -1538,30 +1756,30 @@ impl GetClientContextReply {
     }
 }
 
-pub fn get_client_context<'a>(c       : &'a base::Connection,
-                              resource: u32)
-        -> GetClientContextCookie<'a> {
+pub fn get_client_context<'a>(
+    c: &'a base::Connection,
+    resource: u32,
+) -> GetClientContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_client_context(c.get_raw_conn(),
-                                                    resource as u32);  // 0
+        let cookie = xcb_selinux_get_client_context(c.get_raw_conn(), resource as u32);
         GetClientContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_client_context_unchecked<'a>(c       : &'a base::Connection,
-                                        resource: u32)
-        -> GetClientContextCookie<'a> {
+pub fn get_client_context_unchecked<'a>(
+    c: &'a base::Connection,
+    resource: u32,
+) -> GetClientContextCookie<'a> {
     unsafe {
-        let cookie = xcb_selinux_get_client_context_unchecked(c.get_raw_conn(),
-                                                              resource as u32);  // 0
+        let cookie = xcb_selinux_get_client_context_unchecked(c.get_raw_conn(), resource as u32);
         GetClientContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }

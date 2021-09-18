@@ -2,19 +2,16 @@
 // Do not edit!
 
 use base;
-use xproto;
 use ffi::base::*;
 use ffi::glx::*;
 use ffi::xproto::*;
 use libc::{self, c_char, c_int, c_uint, c_void};
 use std;
 use std::iter::Iterator;
-
+use xproto;
 
 pub fn id() -> &'static mut base::Extension {
-    unsafe {
-        &mut xcb_glx_id
-    }
+    unsafe { &mut xcb_glx_id }
 }
 
 pub const MAJOR_VERSION: u32 = 1;
@@ -41,102 +38,100 @@ pub type Bool32 = xcb_glx_bool32_t;
 pub type ContextTag = xcb_glx_context_tag_t;
 
 pub struct GenericError {
-    pub base: base::Error<xcb_glx_generic_error_t>
+    pub base: base::Error<xcb_glx_generic_error_t>,
 }
 
 pub struct BadContextError {
-    pub base: base::Error<xcb_glx_bad_context_error_t>
+    pub base: base::Error<xcb_glx_bad_context_error_t>,
 }
 
 pub struct BadContextStateError {
-    pub base: base::Error<xcb_glx_bad_context_state_error_t>
+    pub base: base::Error<xcb_glx_bad_context_state_error_t>,
 }
 
 pub struct BadDrawableError {
-    pub base: base::Error<xcb_glx_bad_drawable_error_t>
+    pub base: base::Error<xcb_glx_bad_drawable_error_t>,
 }
 
 pub struct BadPixmapError {
-    pub base: base::Error<xcb_glx_bad_pixmap_error_t>
+    pub base: base::Error<xcb_glx_bad_pixmap_error_t>,
 }
 
 pub struct BadContextTagError {
-    pub base: base::Error<xcb_glx_bad_context_tag_error_t>
+    pub base: base::Error<xcb_glx_bad_context_tag_error_t>,
 }
 
 pub struct BadCurrentWindowError {
-    pub base: base::Error<xcb_glx_bad_current_window_error_t>
+    pub base: base::Error<xcb_glx_bad_current_window_error_t>,
 }
 
 pub struct BadRenderRequestError {
-    pub base: base::Error<xcb_glx_bad_render_request_error_t>
+    pub base: base::Error<xcb_glx_bad_render_request_error_t>,
 }
 
 pub struct BadLargeRequestError {
-    pub base: base::Error<xcb_glx_bad_large_request_error_t>
+    pub base: base::Error<xcb_glx_bad_large_request_error_t>,
 }
 
 pub struct UnsupportedPrivateRequestError {
-    pub base: base::Error<xcb_glx_unsupported_private_request_error_t>
+    pub base: base::Error<xcb_glx_unsupported_private_request_error_t>,
 }
 
 pub struct BadFbConfigError {
-    pub base: base::Error<xcb_glx_bad_fb_config_error_t>
+    pub base: base::Error<xcb_glx_bad_fb_config_error_t>,
 }
 
 pub struct BadPbufferError {
-    pub base: base::Error<xcb_glx_bad_pbuffer_error_t>
+    pub base: base::Error<xcb_glx_bad_pbuffer_error_t>,
 }
 
 pub struct BadCurrentDrawableError {
-    pub base: base::Error<xcb_glx_bad_current_drawable_error_t>
+    pub base: base::Error<xcb_glx_bad_current_drawable_error_t>,
 }
 
 pub struct BadWindowError {
-    pub base: base::Error<xcb_glx_bad_window_error_t>
+    pub base: base::Error<xcb_glx_bad_window_error_t>,
 }
 
 pub struct GlxBadProfileArbError {
-    pub base: base::Error<xcb_glx_glx_bad_profile_arb_error_t>
+    pub base: base::Error<xcb_glx_glx_bad_profile_arb_error_t>,
 }
 
 pub type Pbcet = u32;
 pub const PBCET_DAMAGED: Pbcet = 0x8017;
-pub const PBCET_SAVED  : Pbcet = 0x8018;
+pub const PBCET_SAVED: Pbcet = 0x8018;
 
 pub type Pbcdt = u32;
-pub const PBCDT_WINDOW : Pbcdt = 0x8019;
+pub const PBCDT_WINDOW: Pbcdt = 0x8019;
 pub const PBCDT_PBUFFER: Pbcdt = 0x801a;
 
 pub type Gc = u32;
-pub const GC_GL_CURRENT_BIT        : Gc =     0x01;
-pub const GC_GL_POINT_BIT          : Gc =     0x02;
-pub const GC_GL_LINE_BIT           : Gc =     0x04;
-pub const GC_GL_POLYGON_BIT        : Gc =     0x08;
-pub const GC_GL_POLYGON_STIPPLE_BIT: Gc =     0x10;
-pub const GC_GL_PIXEL_MODE_BIT     : Gc =     0x20;
-pub const GC_GL_LIGHTING_BIT       : Gc =     0x40;
-pub const GC_GL_FOG_BIT            : Gc =     0x80;
-pub const GC_GL_DEPTH_BUFFER_BIT   : Gc =    0x100;
-pub const GC_GL_ACCUM_BUFFER_BIT   : Gc =    0x200;
-pub const GC_GL_STENCIL_BUFFER_BIT : Gc =    0x400;
-pub const GC_GL_VIEWPORT_BIT       : Gc =    0x800;
-pub const GC_GL_TRANSFORM_BIT      : Gc =   0x1000;
-pub const GC_GL_ENABLE_BIT         : Gc =   0x2000;
-pub const GC_GL_COLOR_BUFFER_BIT   : Gc =   0x4000;
-pub const GC_GL_HINT_BIT           : Gc =   0x8000;
-pub const GC_GL_EVAL_BIT           : Gc =  0x10000;
-pub const GC_GL_LIST_BIT           : Gc =  0x20000;
-pub const GC_GL_TEXTURE_BIT        : Gc =  0x40000;
-pub const GC_GL_SCISSOR_BIT        : Gc =  0x80000;
-pub const GC_GL_ALL_ATTRIB_BITS    : Gc = 0xffffff;
+pub const GC_GL_CURRENT_BIT: Gc = 0x01;
+pub const GC_GL_POINT_BIT: Gc = 0x02;
+pub const GC_GL_LINE_BIT: Gc = 0x04;
+pub const GC_GL_POLYGON_BIT: Gc = 0x08;
+pub const GC_GL_POLYGON_STIPPLE_BIT: Gc = 0x10;
+pub const GC_GL_PIXEL_MODE_BIT: Gc = 0x20;
+pub const GC_GL_LIGHTING_BIT: Gc = 0x40;
+pub const GC_GL_FOG_BIT: Gc = 0x80;
+pub const GC_GL_DEPTH_BUFFER_BIT: Gc = 0x100;
+pub const GC_GL_ACCUM_BUFFER_BIT: Gc = 0x200;
+pub const GC_GL_STENCIL_BUFFER_BIT: Gc = 0x400;
+pub const GC_GL_VIEWPORT_BIT: Gc = 0x800;
+pub const GC_GL_TRANSFORM_BIT: Gc = 0x1000;
+pub const GC_GL_ENABLE_BIT: Gc = 0x2000;
+pub const GC_GL_COLOR_BUFFER_BIT: Gc = 0x4000;
+pub const GC_GL_HINT_BIT: Gc = 0x8000;
+pub const GC_GL_EVAL_BIT: Gc = 0x10000;
+pub const GC_GL_LIST_BIT: Gc = 0x20000;
+pub const GC_GL_TEXTURE_BIT: Gc = 0x40000;
+pub const GC_GL_SCISSOR_BIT: Gc = 0x80000;
+pub const GC_GL_ALL_ATTRIB_BITS: Gc = 0xffffff;
 
 pub type Rm = u32;
-pub const RM_GL_RENDER  : Rm = 0x1c00;
+pub const RM_GL_RENDER: Rm = 0x1c00;
 pub const RM_GL_FEEDBACK: Rm = 0x1c01;
-pub const RM_GL_SELECT  : Rm = 0x1c02;
-
-
+pub const RM_GL_SELECT: Rm = 0x1c02;
 
 pub const GENERIC: i8 = -1;
 
@@ -174,68 +169,49 @@ pub type PbufferClobberEvent = base::Event<xcb_glx_pbuffer_clobber_event_t>;
 
 impl PbufferClobberEvent {
     pub fn event_type(&self) -> u16 {
-        unsafe {
-            (*self.ptr).event_type
-        }
+        unsafe { (*self.ptr).event_type }
     }
     pub fn draw_type(&self) -> u16 {
-        unsafe {
-            (*self.ptr).draw_type
-        }
+        unsafe { (*self.ptr).draw_type }
     }
     pub fn drawable(&self) -> Drawable {
-        unsafe {
-            (*self.ptr).drawable
-        }
+        unsafe { (*self.ptr).drawable }
     }
     pub fn b_mask(&self) -> u32 {
-        unsafe {
-            (*self.ptr).b_mask
-        }
+        unsafe { (*self.ptr).b_mask }
     }
     pub fn aux_buffer(&self) -> u16 {
-        unsafe {
-            (*self.ptr).aux_buffer
-        }
+        unsafe { (*self.ptr).aux_buffer }
     }
     pub fn x(&self) -> u16 {
-        unsafe {
-            (*self.ptr).x
-        }
+        unsafe { (*self.ptr).x }
     }
     pub fn y(&self) -> u16 {
-        unsafe {
-            (*self.ptr).y
-        }
+        unsafe { (*self.ptr).y }
     }
     pub fn width(&self) -> u16 {
-        unsafe {
-            (*self.ptr).width
-        }
+        unsafe { (*self.ptr).width }
     }
     pub fn height(&self) -> u16 {
-        unsafe {
-            (*self.ptr).height
-        }
+        unsafe { (*self.ptr).height }
     }
     pub fn count(&self) -> u16 {
-        unsafe {
-            (*self.ptr).count
-        }
+        unsafe { (*self.ptr).count }
     }
     /// Constructs a new PbufferClobberEvent
     /// `response_type` will be set automatically to PBUFFER_CLOBBER
-    pub fn new(event_type: u16,
-               draw_type: u16,
-               drawable: Drawable,
-               b_mask: u32,
-               aux_buffer: u16,
-               x: u16,
-               y: u16,
-               width: u16,
-               height: u16,
-               count: u16)
-            -> PbufferClobberEvent {
+    pub fn new(
+        event_type: u16,
+        draw_type: u16,
+        drawable: Drawable,
+        b_mask: u32,
+        aux_buffer: u16,
+        x: u16,
+        y: u16,
+        width: u16,
+        height: u16,
+        count: u16,
+    ) -> PbufferClobberEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_glx_pbuffer_clobber_event_t;
             (*raw).response_type = PBUFFER_CLOBBER;
@@ -249,9 +225,7 @@ impl PbufferClobberEvent {
             (*raw).width = width;
             (*raw).height = height;
             (*raw).count = count;
-            PbufferClobberEvent {
-                ptr: raw
-            }
+            PbufferClobberEvent { ptr: raw }
         }
     }
 }
@@ -262,50 +236,37 @@ pub type BufferSwapCompleteEvent = base::Event<xcb_glx_buffer_swap_complete_even
 
 impl BufferSwapCompleteEvent {
     pub fn event_type(&self) -> u16 {
-        unsafe {
-            (*self.ptr).event_type
-        }
+        unsafe { (*self.ptr).event_type }
     }
     pub fn drawable(&self) -> Drawable {
-        unsafe {
-            (*self.ptr).drawable
-        }
+        unsafe { (*self.ptr).drawable }
     }
     pub fn ust_hi(&self) -> u32 {
-        unsafe {
-            (*self.ptr).ust_hi
-        }
+        unsafe { (*self.ptr).ust_hi }
     }
     pub fn ust_lo(&self) -> u32 {
-        unsafe {
-            (*self.ptr).ust_lo
-        }
+        unsafe { (*self.ptr).ust_lo }
     }
     pub fn msc_hi(&self) -> u32 {
-        unsafe {
-            (*self.ptr).msc_hi
-        }
+        unsafe { (*self.ptr).msc_hi }
     }
     pub fn msc_lo(&self) -> u32 {
-        unsafe {
-            (*self.ptr).msc_lo
-        }
+        unsafe { (*self.ptr).msc_lo }
     }
     pub fn sbc(&self) -> u32 {
-        unsafe {
-            (*self.ptr).sbc
-        }
+        unsafe { (*self.ptr).sbc }
     }
     /// Constructs a new BufferSwapCompleteEvent
     /// `response_type` will be set automatically to BUFFER_SWAP_COMPLETE
-    pub fn new(event_type: u16,
-               drawable: Drawable,
-               ust_hi: u32,
-               ust_lo: u32,
-               msc_hi: u32,
-               msc_lo: u32,
-               sbc: u32)
-            -> BufferSwapCompleteEvent {
+    pub fn new(
+        event_type: u16,
+        drawable: Drawable,
+        ust_hi: u32,
+        ust_lo: u32,
+        msc_hi: u32,
+        msc_lo: u32,
+        sbc: u32,
+    ) -> BufferSwapCompleteEvent {
         unsafe {
             let raw = libc::malloc(32 as usize) as *mut xcb_glx_buffer_swap_complete_event_t;
             (*raw).response_type = BUFFER_SWAP_COMPLETE;
@@ -316,173 +277,187 @@ impl BufferSwapCompleteEvent {
             (*raw).msc_hi = msc_hi;
             (*raw).msc_lo = msc_lo;
             (*raw).sbc = sbc;
-            BufferSwapCompleteEvent {
-                ptr: raw
-            }
+            BufferSwapCompleteEvent { ptr: raw }
         }
     }
 }
 
 pub const RENDER: u8 = 1;
 
-pub fn render<'a>(c          : &'a base::Connection,
-                  context_tag: ContextTag,
-                  data       : &[u8])
-        -> base::VoidCookie<'a> {
+pub fn render<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    data: &[u8],
+) -> base::VoidCookie<'a> {
     unsafe {
         let data_len = data.len();
         let data_ptr = data.as_ptr();
-        let cookie = xcb_glx_render(c.get_raw_conn(),
-                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                    data_len as u32,  // 1
-                                    data_ptr as *const u8);  // 2
+        let cookie = xcb_glx_render(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            data_len as u32,
+            data_ptr as *const u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn render_checked<'a>(c          : &'a base::Connection,
-                          context_tag: ContextTag,
-                          data       : &[u8])
-        -> base::VoidCookie<'a> {
+pub fn render_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    data: &[u8],
+) -> base::VoidCookie<'a> {
     unsafe {
         let data_len = data.len();
         let data_ptr = data.as_ptr();
-        let cookie = xcb_glx_render_checked(c.get_raw_conn(),
-                                            context_tag as xcb_glx_context_tag_t,  // 0
-                                            data_len as u32,  // 1
-                                            data_ptr as *const u8);  // 2
+        let cookie = xcb_glx_render_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            data_len as u32,
+            data_ptr as *const u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const RENDER_LARGE: u8 = 2;
 
-pub fn render_large<'a>(c            : &'a base::Connection,
-                        context_tag  : ContextTag,
-                        request_num  : u16,
-                        request_total: u16,
-                        data         : &[u8])
-        -> base::VoidCookie<'a> {
+pub fn render_large<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    request_num: u16,
+    request_total: u16,
+    data: &[u8],
+) -> base::VoidCookie<'a> {
     unsafe {
         let data_len = data.len();
         let data_ptr = data.as_ptr();
-        let cookie = xcb_glx_render_large(c.get_raw_conn(),
-                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                          request_num as u16,  // 1
-                                          request_total as u16,  // 2
-                                          data_len as u32,  // 3
-                                          data_ptr as *const u8);  // 4
+        let cookie = xcb_glx_render_large(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            request_num as u16,
+            request_total as u16,
+            data_len as u32,
+            data_ptr as *const u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn render_large_checked<'a>(c            : &'a base::Connection,
-                                context_tag  : ContextTag,
-                                request_num  : u16,
-                                request_total: u16,
-                                data         : &[u8])
-        -> base::VoidCookie<'a> {
+pub fn render_large_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    request_num: u16,
+    request_total: u16,
+    data: &[u8],
+) -> base::VoidCookie<'a> {
     unsafe {
         let data_len = data.len();
         let data_ptr = data.as_ptr();
-        let cookie = xcb_glx_render_large_checked(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  request_num as u16,  // 1
-                                                  request_total as u16,  // 2
-                                                  data_len as u32,  // 3
-                                                  data_ptr as *const u8);  // 4
+        let cookie = xcb_glx_render_large_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            request_num as u16,
+            request_total as u16,
+            data_len as u32,
+            data_ptr as *const u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const CREATE_CONTEXT: u8 = 3;
 
-pub fn create_context<'a>(c         : &'a base::Connection,
-                          context   : Context,
-                          visual    : xproto::Visualid,
-                          screen    : u32,
-                          share_list: Context,
-                          is_direct : bool)
-        -> base::VoidCookie<'a> {
+pub fn create_context<'a>(
+    c: &'a base::Connection,
+    context: Context,
+    visual: xproto::Visualid,
+    screen: u32,
+    share_list: Context,
+    is_direct: bool,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_create_context(c.get_raw_conn(),
-                                            context as xcb_glx_context_t,  // 0
-                                            visual as xcb_visualid_t,  // 1
-                                            screen as u32,  // 2
-                                            share_list as xcb_glx_context_t,  // 3
-                                            is_direct as u8);  // 4
+        let cookie = xcb_glx_create_context(
+            c.get_raw_conn(),
+            context as xcb_glx_context_t,
+            visual as xcb_visualid_t,
+            screen as u32,
+            share_list as xcb_glx_context_t,
+            is_direct as u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn create_context_checked<'a>(c         : &'a base::Connection,
-                                  context   : Context,
-                                  visual    : xproto::Visualid,
-                                  screen    : u32,
-                                  share_list: Context,
-                                  is_direct : bool)
-        -> base::VoidCookie<'a> {
+pub fn create_context_checked<'a>(
+    c: &'a base::Connection,
+    context: Context,
+    visual: xproto::Visualid,
+    screen: u32,
+    share_list: Context,
+    is_direct: bool,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_create_context_checked(c.get_raw_conn(),
-                                                    context as xcb_glx_context_t,  // 0
-                                                    visual as xcb_visualid_t,  // 1
-                                                    screen as u32,  // 2
-                                                    share_list as xcb_glx_context_t,  // 3
-                                                    is_direct as u8);  // 4
+        let cookie = xcb_glx_create_context_checked(
+            c.get_raw_conn(),
+            context as xcb_glx_context_t,
+            visual as xcb_visualid_t,
+            screen as u32,
+            share_list as xcb_glx_context_t,
+            is_direct as u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const DESTROY_CONTEXT: u8 = 4;
 
-pub fn destroy_context<'a>(c      : &'a base::Connection,
-                           context: Context)
-        -> base::VoidCookie<'a> {
+pub fn destroy_context<'a>(c: &'a base::Connection, context: Context) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_context(c.get_raw_conn(),
-                                             context as xcb_glx_context_t);  // 0
+        let cookie = xcb_glx_destroy_context(c.get_raw_conn(), context as xcb_glx_context_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn destroy_context_checked<'a>(c      : &'a base::Connection,
-                                   context: Context)
-        -> base::VoidCookie<'a> {
+pub fn destroy_context_checked<'a>(
+    c: &'a base::Connection,
+    context: Context,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_context_checked(c.get_raw_conn(),
-                                                     context as xcb_glx_context_t);  // 0
+        let cookie =
+            xcb_glx_destroy_context_checked(c.get_raw_conn(), context as xcb_glx_context_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -490,7 +465,9 @@ pub fn destroy_context_checked<'a>(c      : &'a base::Connection,
 pub const MAKE_CURRENT: u8 = 5;
 
 impl base::CookieSeq for xcb_glx_make_current_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type MakeCurrentCookie<'a> = base::Cookie<'a, xcb_glx_make_current_cookie_t>;
@@ -498,21 +475,27 @@ pub type MakeCurrentCookie<'a> = base::Cookie<'a, xcb_glx_make_current_cookie_t>
 impl<'a> MakeCurrentCookie<'a> {
     pub fn get_reply(self) -> Result<MakeCurrentReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             MakeCurrentReply {
-                ptr: xcb_glx_make_current_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_make_current_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -521,44 +504,48 @@ pub type MakeCurrentReply = base::Reply<xcb_glx_make_current_reply_t>;
 
 impl MakeCurrentReply {
     pub fn context_tag(&self) -> ContextTag {
-        unsafe {
-            (*self.ptr).context_tag
+        unsafe { (*self.ptr).context_tag }
+    }
+}
+
+pub fn make_current<'a>(
+    c: &'a base::Connection,
+    drawable: Drawable,
+    context: Context,
+    old_context_tag: ContextTag,
+) -> MakeCurrentCookie<'a> {
+    unsafe {
+        let cookie = xcb_glx_make_current(
+            c.get_raw_conn(),
+            drawable as xcb_glx_drawable_t,
+            context as xcb_glx_context_t,
+            old_context_tag as xcb_glx_context_tag_t,
+        );
+        MakeCurrentCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn make_current<'a>(c              : &'a base::Connection,
-                        drawable       : Drawable,
-                        context        : Context,
-                        old_context_tag: ContextTag)
-        -> MakeCurrentCookie<'a> {
+pub fn make_current_unchecked<'a>(
+    c: &'a base::Connection,
+    drawable: Drawable,
+    context: Context,
+    old_context_tag: ContextTag,
+) -> MakeCurrentCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_make_current(c.get_raw_conn(),
-                                          drawable as xcb_glx_drawable_t,  // 0
-                                          context as xcb_glx_context_t,  // 1
-                                          old_context_tag as xcb_glx_context_tag_t);  // 2
+        let cookie = xcb_glx_make_current_unchecked(
+            c.get_raw_conn(),
+            drawable as xcb_glx_drawable_t,
+            context as xcb_glx_context_t,
+            old_context_tag as xcb_glx_context_tag_t,
+        );
         MakeCurrentCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn make_current_unchecked<'a>(c              : &'a base::Connection,
-                                  drawable       : Drawable,
-                                  context        : Context,
-                                  old_context_tag: ContextTag)
-        -> MakeCurrentCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_make_current_unchecked(c.get_raw_conn(),
-                                                    drawable as xcb_glx_drawable_t,  // 0
-                                                    context as xcb_glx_context_t,  // 1
-                                                    old_context_tag as xcb_glx_context_tag_t);  // 2
-        MakeCurrentCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -566,7 +553,9 @@ pub fn make_current_unchecked<'a>(c              : &'a base::Connection,
 pub const IS_DIRECT: u8 = 6;
 
 impl base::CookieSeq for xcb_glx_is_direct_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type IsDirectCookie<'a> = base::Cookie<'a, xcb_glx_is_direct_cookie_t>;
@@ -574,21 +563,27 @@ pub type IsDirectCookie<'a> = base::Cookie<'a, xcb_glx_is_direct_cookie_t>;
 impl<'a> IsDirectCookie<'a> {
     pub fn get_reply(self) -> Result<IsDirectReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             IsDirectReply {
-                ptr: xcb_glx_is_direct_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_is_direct_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -597,36 +592,28 @@ pub type IsDirectReply = base::Reply<xcb_glx_is_direct_reply_t>;
 
 impl IsDirectReply {
     pub fn is_direct(&self) -> bool {
-        unsafe {
-            (*self.ptr).is_direct != 0
+        unsafe { (*self.ptr).is_direct != 0 }
+    }
+}
+
+pub fn is_direct<'a>(c: &'a base::Connection, context: Context) -> IsDirectCookie<'a> {
+    unsafe {
+        let cookie = xcb_glx_is_direct(c.get_raw_conn(), context as xcb_glx_context_t);
+        IsDirectCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn is_direct<'a>(c      : &'a base::Connection,
-                     context: Context)
-        -> IsDirectCookie<'a> {
+pub fn is_direct_unchecked<'a>(c: &'a base::Connection, context: Context) -> IsDirectCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_is_direct(c.get_raw_conn(),
-                                       context as xcb_glx_context_t);  // 0
+        let cookie = xcb_glx_is_direct_unchecked(c.get_raw_conn(), context as xcb_glx_context_t);
         IsDirectCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn is_direct_unchecked<'a>(c      : &'a base::Connection,
-                               context: Context)
-        -> IsDirectCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_is_direct_unchecked(c.get_raw_conn(),
-                                                 context as xcb_glx_context_t);  // 0
-        IsDirectCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -634,7 +621,9 @@ pub fn is_direct_unchecked<'a>(c      : &'a base::Connection,
 pub const QUERY_VERSION: u8 = 7;
 
 impl base::CookieSeq for xcb_glx_query_version_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_glx_query_version_cookie_t>;
@@ -642,21 +631,27 @@ pub type QueryVersionCookie<'a> = base::Cookie<'a, xcb_glx_query_version_cookie_
 impl<'a> QueryVersionCookie<'a> {
     pub fn get_reply(self) -> Result<QueryVersionReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryVersionReply {
-                ptr: xcb_glx_query_version_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_query_version_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -665,269 +660,287 @@ pub type QueryVersionReply = base::Reply<xcb_glx_query_version_reply_t>;
 
 impl QueryVersionReply {
     pub fn major_version(&self) -> u32 {
-        unsafe {
-            (*self.ptr).major_version
-        }
+        unsafe { (*self.ptr).major_version }
     }
     pub fn minor_version(&self) -> u32 {
-        unsafe {
-            (*self.ptr).minor_version
+        unsafe { (*self.ptr).minor_version }
+    }
+}
+
+pub fn query_version<'a>(
+    c: &'a base::Connection,
+    major_version: u32,
+    minor_version: u32,
+) -> QueryVersionCookie<'a> {
+    unsafe {
+        let cookie =
+            xcb_glx_query_version(c.get_raw_conn(), major_version as u32, minor_version as u32);
+        QueryVersionCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn query_version<'a>(c            : &'a base::Connection,
-                         major_version: u32,
-                         minor_version: u32)
-        -> QueryVersionCookie<'a> {
+pub fn query_version_unchecked<'a>(
+    c: &'a base::Connection,
+    major_version: u32,
+    minor_version: u32,
+) -> QueryVersionCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_version(c.get_raw_conn(),
-                                           major_version as u32,  // 0
-                                           minor_version as u32);  // 1
+        let cookie = xcb_glx_query_version_unchecked(
+            c.get_raw_conn(),
+            major_version as u32,
+            minor_version as u32,
+        );
         QueryVersionCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn query_version_unchecked<'a>(c            : &'a base::Connection,
-                                   major_version: u32,
-                                   minor_version: u32)
-        -> QueryVersionCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_query_version_unchecked(c.get_raw_conn(),
-                                                     major_version as u32,  // 0
-                                                     minor_version as u32);  // 1
-        QueryVersionCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const WAIT_GL: u8 = 8;
 
-pub fn wait_gl<'a>(c          : &'a base::Connection,
-                   context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn wait_gl<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_wait_gl(c.get_raw_conn(),
-                                     context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie = xcb_glx_wait_gl(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn wait_gl_checked<'a>(c          : &'a base::Connection,
-                           context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn wait_gl_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_wait_gl_checked(c.get_raw_conn(),
-                                             context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie =
+            xcb_glx_wait_gl_checked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const WAIT_X: u8 = 9;
 
-pub fn wait_x<'a>(c          : &'a base::Connection,
-                  context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn wait_x<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_wait_x(c.get_raw_conn(),
-                                    context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie = xcb_glx_wait_x(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn wait_x_checked<'a>(c          : &'a base::Connection,
-                          context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn wait_x_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_wait_x_checked(c.get_raw_conn(),
-                                            context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie = xcb_glx_wait_x_checked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const COPY_CONTEXT: u8 = 10;
 
-pub fn copy_context<'a>(c              : &'a base::Connection,
-                        src            : Context,
-                        dest           : Context,
-                        mask           : u32,
-                        src_context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn copy_context<'a>(
+    c: &'a base::Connection,
+    src: Context,
+    dest: Context,
+    mask: u32,
+    src_context_tag: ContextTag,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_copy_context(c.get_raw_conn(),
-                                          src as xcb_glx_context_t,  // 0
-                                          dest as xcb_glx_context_t,  // 1
-                                          mask as u32,  // 2
-                                          src_context_tag as xcb_glx_context_tag_t);  // 3
+        let cookie = xcb_glx_copy_context(
+            c.get_raw_conn(),
+            src as xcb_glx_context_t,
+            dest as xcb_glx_context_t,
+            mask as u32,
+            src_context_tag as xcb_glx_context_tag_t,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn copy_context_checked<'a>(c              : &'a base::Connection,
-                                src            : Context,
-                                dest           : Context,
-                                mask           : u32,
-                                src_context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn copy_context_checked<'a>(
+    c: &'a base::Connection,
+    src: Context,
+    dest: Context,
+    mask: u32,
+    src_context_tag: ContextTag,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_copy_context_checked(c.get_raw_conn(),
-                                                  src as xcb_glx_context_t,  // 0
-                                                  dest as xcb_glx_context_t,  // 1
-                                                  mask as u32,  // 2
-                                                  src_context_tag as xcb_glx_context_tag_t);  // 3
+        let cookie = xcb_glx_copy_context_checked(
+            c.get_raw_conn(),
+            src as xcb_glx_context_t,
+            dest as xcb_glx_context_t,
+            mask as u32,
+            src_context_tag as xcb_glx_context_tag_t,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const SWAP_BUFFERS: u8 = 11;
 
-pub fn swap_buffers<'a>(c          : &'a base::Connection,
-                        context_tag: ContextTag,
-                        drawable   : Drawable)
-        -> base::VoidCookie<'a> {
+pub fn swap_buffers<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    drawable: Drawable,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_swap_buffers(c.get_raw_conn(),
-                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                          drawable as xcb_glx_drawable_t);  // 1
+        let cookie = xcb_glx_swap_buffers(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            drawable as xcb_glx_drawable_t,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn swap_buffers_checked<'a>(c          : &'a base::Connection,
-                                context_tag: ContextTag,
-                                drawable   : Drawable)
-        -> base::VoidCookie<'a> {
+pub fn swap_buffers_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    drawable: Drawable,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_swap_buffers_checked(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  drawable as xcb_glx_drawable_t);  // 1
+        let cookie = xcb_glx_swap_buffers_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            drawable as xcb_glx_drawable_t,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const USE_X_FONT: u8 = 12;
 
-pub fn use_x_font<'a>(c          : &'a base::Connection,
-                      context_tag: ContextTag,
-                      font       : xproto::Font,
-                      first      : u32,
-                      count      : u32,
-                      list_base  : u32)
-        -> base::VoidCookie<'a> {
+pub fn use_x_font<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    font: xproto::Font,
+    first: u32,
+    count: u32,
+    list_base: u32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_use_x_font(c.get_raw_conn(),
-                                        context_tag as xcb_glx_context_tag_t,  // 0
-                                        font as xcb_font_t,  // 1
-                                        first as u32,  // 2
-                                        count as u32,  // 3
-                                        list_base as u32);  // 4
+        let cookie = xcb_glx_use_x_font(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            font as xcb_font_t,
+            first as u32,
+            count as u32,
+            list_base as u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn use_x_font_checked<'a>(c          : &'a base::Connection,
-                              context_tag: ContextTag,
-                              font       : xproto::Font,
-                              first      : u32,
-                              count      : u32,
-                              list_base  : u32)
-        -> base::VoidCookie<'a> {
+pub fn use_x_font_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    font: xproto::Font,
+    first: u32,
+    count: u32,
+    list_base: u32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_use_x_font_checked(c.get_raw_conn(),
-                                                context_tag as xcb_glx_context_tag_t,  // 0
-                                                font as xcb_font_t,  // 1
-                                                first as u32,  // 2
-                                                count as u32,  // 3
-                                                list_base as u32);  // 4
+        let cookie = xcb_glx_use_x_font_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            font as xcb_font_t,
+            first as u32,
+            count as u32,
+            list_base as u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const CREATE_GLX_PIXMAP: u8 = 13;
 
-pub fn create_glx_pixmap<'a>(c         : &'a base::Connection,
-                             screen    : u32,
-                             visual    : xproto::Visualid,
-                             pixmap    : xproto::Pixmap,
-                             glx_pixmap: Pixmap)
-        -> base::VoidCookie<'a> {
+pub fn create_glx_pixmap<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    visual: xproto::Visualid,
+    pixmap: xproto::Pixmap,
+    glx_pixmap: Pixmap,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_create_glx_pixmap(c.get_raw_conn(),
-                                               screen as u32,  // 0
-                                               visual as xcb_visualid_t,  // 1
-                                               pixmap as xcb_pixmap_t,  // 2
-                                               glx_pixmap as xcb_glx_pixmap_t);  // 3
+        let cookie = xcb_glx_create_glx_pixmap(
+            c.get_raw_conn(),
+            screen as u32,
+            visual as xcb_visualid_t,
+            pixmap as xcb_pixmap_t,
+            glx_pixmap as xcb_glx_pixmap_t,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn create_glx_pixmap_checked<'a>(c         : &'a base::Connection,
-                                     screen    : u32,
-                                     visual    : xproto::Visualid,
-                                     pixmap    : xproto::Pixmap,
-                                     glx_pixmap: Pixmap)
-        -> base::VoidCookie<'a> {
+pub fn create_glx_pixmap_checked<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    visual: xproto::Visualid,
+    pixmap: xproto::Pixmap,
+    glx_pixmap: Pixmap,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_create_glx_pixmap_checked(c.get_raw_conn(),
-                                                       screen as u32,  // 0
-                                                       visual as xcb_visualid_t,  // 1
-                                                       pixmap as xcb_pixmap_t,  // 2
-                                                       glx_pixmap as xcb_glx_pixmap_t);  // 3
+        let cookie = xcb_glx_create_glx_pixmap_checked(
+            c.get_raw_conn(),
+            screen as u32,
+            visual as xcb_visualid_t,
+            pixmap as xcb_pixmap_t,
+            glx_pixmap as xcb_glx_pixmap_t,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -935,7 +948,9 @@ pub fn create_glx_pixmap_checked<'a>(c         : &'a base::Connection,
 pub const GET_VISUAL_CONFIGS: u8 = 14;
 
 impl base::CookieSeq for xcb_glx_get_visual_configs_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetVisualConfigsCookie<'a> = base::Cookie<'a, xcb_glx_get_visual_configs_cookie_t>;
@@ -943,21 +958,31 @@ pub type GetVisualConfigsCookie<'a> = base::Cookie<'a, xcb_glx_get_visual_config
 impl<'a> GetVisualConfigsCookie<'a> {
     pub fn get_reply(self) -> Result<GetVisualConfigsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetVisualConfigsReply {
-                ptr: xcb_glx_get_visual_configs_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_visual_configs_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -966,14 +991,10 @@ pub type GetVisualConfigsReply = base::Reply<xcb_glx_get_visual_configs_reply_t>
 
 impl GetVisualConfigsReply {
     pub fn num_visuals(&self) -> u32 {
-        unsafe {
-            (*self.ptr).num_visuals
-        }
+        unsafe { (*self.ptr).num_visuals }
     }
     pub fn num_properties(&self) -> u32 {
-        unsafe {
-            (*self.ptr).num_properties
-        }
+        unsafe { (*self.ptr).num_properties }
     }
     pub fn property_list(&self) -> &[u32] {
         unsafe {
@@ -985,104 +1006,105 @@ impl GetVisualConfigsReply {
     }
 }
 
-pub fn get_visual_configs<'a>(c     : &'a base::Connection,
-                              screen: u32)
-        -> GetVisualConfigsCookie<'a> {
+pub fn get_visual_configs<'a>(c: &'a base::Connection, screen: u32) -> GetVisualConfigsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_visual_configs(c.get_raw_conn(),
-                                                screen as u32);  // 0
+        let cookie = xcb_glx_get_visual_configs(c.get_raw_conn(), screen as u32);
         GetVisualConfigsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_visual_configs_unchecked<'a>(c     : &'a base::Connection,
-                                        screen: u32)
-        -> GetVisualConfigsCookie<'a> {
+pub fn get_visual_configs_unchecked<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+) -> GetVisualConfigsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_visual_configs_unchecked(c.get_raw_conn(),
-                                                          screen as u32);  // 0
+        let cookie = xcb_glx_get_visual_configs_unchecked(c.get_raw_conn(), screen as u32);
         GetVisualConfigsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const DESTROY_GLX_PIXMAP: u8 = 15;
 
-pub fn destroy_glx_pixmap<'a>(c         : &'a base::Connection,
-                              glx_pixmap: Pixmap)
-        -> base::VoidCookie<'a> {
+pub fn destroy_glx_pixmap<'a>(c: &'a base::Connection, glx_pixmap: Pixmap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_glx_pixmap(c.get_raw_conn(),
-                                                glx_pixmap as xcb_glx_pixmap_t);  // 0
+        let cookie = xcb_glx_destroy_glx_pixmap(c.get_raw_conn(), glx_pixmap as xcb_glx_pixmap_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn destroy_glx_pixmap_checked<'a>(c         : &'a base::Connection,
-                                      glx_pixmap: Pixmap)
-        -> base::VoidCookie<'a> {
+pub fn destroy_glx_pixmap_checked<'a>(
+    c: &'a base::Connection,
+    glx_pixmap: Pixmap,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_glx_pixmap_checked(c.get_raw_conn(),
-                                                        glx_pixmap as xcb_glx_pixmap_t);  // 0
+        let cookie =
+            xcb_glx_destroy_glx_pixmap_checked(c.get_raw_conn(), glx_pixmap as xcb_glx_pixmap_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const VENDOR_PRIVATE: u8 = 16;
 
-pub fn vendor_private<'a>(c          : &'a base::Connection,
-                          vendor_code: u32,
-                          context_tag: ContextTag,
-                          data       : &[u8])
-        -> base::VoidCookie<'a> {
+pub fn vendor_private<'a>(
+    c: &'a base::Connection,
+    vendor_code: u32,
+    context_tag: ContextTag,
+    data: &[u8],
+) -> base::VoidCookie<'a> {
     unsafe {
         let data_len = data.len();
         let data_ptr = data.as_ptr();
-        let cookie = xcb_glx_vendor_private(c.get_raw_conn(),
-                                            vendor_code as u32,  // 0
-                                            context_tag as xcb_glx_context_tag_t,  // 1
-                                            data_len as u32,  // 2
-                                            data_ptr as *const u8);  // 3
+        let cookie = xcb_glx_vendor_private(
+            c.get_raw_conn(),
+            vendor_code as u32,
+            context_tag as xcb_glx_context_tag_t,
+            data_len as u32,
+            data_ptr as *const u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn vendor_private_checked<'a>(c          : &'a base::Connection,
-                                  vendor_code: u32,
-                                  context_tag: ContextTag,
-                                  data       : &[u8])
-        -> base::VoidCookie<'a> {
+pub fn vendor_private_checked<'a>(
+    c: &'a base::Connection,
+    vendor_code: u32,
+    context_tag: ContextTag,
+    data: &[u8],
+) -> base::VoidCookie<'a> {
     unsafe {
         let data_len = data.len();
         let data_ptr = data.as_ptr();
-        let cookie = xcb_glx_vendor_private_checked(c.get_raw_conn(),
-                                                    vendor_code as u32,  // 0
-                                                    context_tag as xcb_glx_context_tag_t,  // 1
-                                                    data_len as u32,  // 2
-                                                    data_ptr as *const u8);  // 3
+        let cookie = xcb_glx_vendor_private_checked(
+            c.get_raw_conn(),
+            vendor_code as u32,
+            context_tag as xcb_glx_context_tag_t,
+            data_len as u32,
+            data_ptr as *const u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -1090,29 +1112,42 @@ pub fn vendor_private_checked<'a>(c          : &'a base::Connection,
 pub const VENDOR_PRIVATE_WITH_REPLY: u8 = 17;
 
 impl base::CookieSeq for xcb_glx_vendor_private_with_reply_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type VendorPrivateWithReplyCookie<'a> = base::Cookie<'a, xcb_glx_vendor_private_with_reply_cookie_t>;
+pub type VendorPrivateWithReplyCookie<'a> =
+    base::Cookie<'a, xcb_glx_vendor_private_with_reply_cookie_t>;
 
 impl<'a> VendorPrivateWithReplyCookie<'a> {
     pub fn get_reply(self) -> Result<VendorPrivateWithReplyReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             VendorPrivateWithReplyReply {
-                ptr: xcb_glx_vendor_private_with_reply_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_vendor_private_with_reply_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1121,14 +1156,10 @@ pub type VendorPrivateWithReplyReply = base::Reply<xcb_glx_vendor_private_with_r
 
 impl VendorPrivateWithReplyReply {
     pub fn retval(&self) -> u32 {
-        unsafe {
-            (*self.ptr).retval
-        }
+        unsafe { (*self.ptr).retval }
     }
     pub fn data1(&self) -> &[u8] {
-        unsafe {
-            &(*self.ptr).data1
-        }
+        unsafe { &(*self.ptr).data1 }
     }
     pub fn data2(&self) -> &[u8] {
         unsafe {
@@ -1140,44 +1171,50 @@ impl VendorPrivateWithReplyReply {
     }
 }
 
-pub fn vendor_private_with_reply<'a>(c          : &'a base::Connection,
-                                     vendor_code: u32,
-                                     context_tag: ContextTag,
-                                     data       : &[u8])
-        -> VendorPrivateWithReplyCookie<'a> {
+pub fn vendor_private_with_reply<'a>(
+    c: &'a base::Connection,
+    vendor_code: u32,
+    context_tag: ContextTag,
+    data: &[u8],
+) -> VendorPrivateWithReplyCookie<'a> {
     unsafe {
         let data_len = data.len();
         let data_ptr = data.as_ptr();
-        let cookie = xcb_glx_vendor_private_with_reply(c.get_raw_conn(),
-                                                       vendor_code as u32,  // 0
-                                                       context_tag as xcb_glx_context_tag_t,  // 1
-                                                       data_len as u32,  // 2
-                                                       data_ptr as *const u8);  // 3
+        let cookie = xcb_glx_vendor_private_with_reply(
+            c.get_raw_conn(),
+            vendor_code as u32,
+            context_tag as xcb_glx_context_tag_t,
+            data_len as u32,
+            data_ptr as *const u8,
+        );
         VendorPrivateWithReplyCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn vendor_private_with_reply_unchecked<'a>(c          : &'a base::Connection,
-                                               vendor_code: u32,
-                                               context_tag: ContextTag,
-                                               data       : &[u8])
-        -> VendorPrivateWithReplyCookie<'a> {
+pub fn vendor_private_with_reply_unchecked<'a>(
+    c: &'a base::Connection,
+    vendor_code: u32,
+    context_tag: ContextTag,
+    data: &[u8],
+) -> VendorPrivateWithReplyCookie<'a> {
     unsafe {
         let data_len = data.len();
         let data_ptr = data.as_ptr();
-        let cookie = xcb_glx_vendor_private_with_reply_unchecked(c.get_raw_conn(),
-                                                                 vendor_code as u32,  // 0
-                                                                 context_tag as xcb_glx_context_tag_t,  // 1
-                                                                 data_len as u32,  // 2
-                                                                 data_ptr as *const u8);  // 3
+        let cookie = xcb_glx_vendor_private_with_reply_unchecked(
+            c.get_raw_conn(),
+            vendor_code as u32,
+            context_tag as xcb_glx_context_tag_t,
+            data_len as u32,
+            data_ptr as *const u8,
+        );
         VendorPrivateWithReplyCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -1185,29 +1222,42 @@ pub fn vendor_private_with_reply_unchecked<'a>(c          : &'a base::Connection
 pub const QUERY_EXTENSIONS_STRING: u8 = 18;
 
 impl base::CookieSeq for xcb_glx_query_extensions_string_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type QueryExtensionsStringCookie<'a> = base::Cookie<'a, xcb_glx_query_extensions_string_cookie_t>;
+pub type QueryExtensionsStringCookie<'a> =
+    base::Cookie<'a, xcb_glx_query_extensions_string_cookie_t>;
 
 impl<'a> QueryExtensionsStringCookie<'a> {
     pub fn get_reply(self) -> Result<QueryExtensionsStringReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryExtensionsStringReply {
-                ptr: xcb_glx_query_extensions_string_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_query_extensions_string_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1216,36 +1266,34 @@ pub type QueryExtensionsStringReply = base::Reply<xcb_glx_query_extensions_strin
 
 impl QueryExtensionsStringReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
+        unsafe { (*self.ptr).n }
+    }
+}
+
+pub fn query_extensions_string<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+) -> QueryExtensionsStringCookie<'a> {
+    unsafe {
+        let cookie = xcb_glx_query_extensions_string(c.get_raw_conn(), screen as u32);
+        QueryExtensionsStringCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn query_extensions_string<'a>(c     : &'a base::Connection,
-                                   screen: u32)
-        -> QueryExtensionsStringCookie<'a> {
+pub fn query_extensions_string_unchecked<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+) -> QueryExtensionsStringCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_extensions_string(c.get_raw_conn(),
-                                                     screen as u32);  // 0
+        let cookie = xcb_glx_query_extensions_string_unchecked(c.get_raw_conn(), screen as u32);
         QueryExtensionsStringCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn query_extensions_string_unchecked<'a>(c     : &'a base::Connection,
-                                             screen: u32)
-        -> QueryExtensionsStringCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_query_extensions_string_unchecked(c.get_raw_conn(),
-                                                               screen as u32);  // 0
-        QueryExtensionsStringCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -1253,7 +1301,9 @@ pub fn query_extensions_string_unchecked<'a>(c     : &'a base::Connection,
 pub const QUERY_SERVER_STRING: u8 = 19;
 
 impl base::CookieSeq for xcb_glx_query_server_string_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type QueryServerStringCookie<'a> = base::Cookie<'a, xcb_glx_query_server_string_cookie_t>;
@@ -1261,21 +1311,31 @@ pub type QueryServerStringCookie<'a> = base::Cookie<'a, xcb_glx_query_server_str
 impl<'a> QueryServerStringCookie<'a> {
     pub fn get_reply(self) -> Result<QueryServerStringReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryServerStringReply {
-                ptr: xcb_glx_query_server_string_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_query_server_string_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1284,9 +1344,7 @@ pub type QueryServerStringReply = base::Reply<xcb_glx_query_server_string_reply_
 
 impl QueryServerStringReply {
     pub fn str_len(&self) -> u32 {
-        unsafe {
-            (*self.ptr).str_len
-        }
+        unsafe { (*self.ptr).str_len }
     }
     pub fn string(&self) -> &str {
         unsafe {
@@ -1300,80 +1358,85 @@ impl QueryServerStringReply {
     }
 }
 
-pub fn query_server_string<'a>(c     : &'a base::Connection,
-                               screen: u32,
-                               name  : u32)
-        -> QueryServerStringCookie<'a> {
+pub fn query_server_string<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    name: u32,
+) -> QueryServerStringCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_server_string(c.get_raw_conn(),
-                                                 screen as u32,  // 0
-                                                 name as u32);  // 1
+        let cookie = xcb_glx_query_server_string(c.get_raw_conn(), screen as u32, name as u32);
         QueryServerStringCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn query_server_string_unchecked<'a>(c     : &'a base::Connection,
-                                         screen: u32,
-                                         name  : u32)
-        -> QueryServerStringCookie<'a> {
+pub fn query_server_string_unchecked<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    name: u32,
+) -> QueryServerStringCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_server_string_unchecked(c.get_raw_conn(),
-                                                           screen as u32,  // 0
-                                                           name as u32);  // 1
+        let cookie =
+            xcb_glx_query_server_string_unchecked(c.get_raw_conn(), screen as u32, name as u32);
         QueryServerStringCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const CLIENT_INFO: u8 = 20;
 
-pub fn client_info<'a>(c            : &'a base::Connection,
-                       major_version: u32,
-                       minor_version: u32,
-                       string       : &str)
-        -> base::VoidCookie<'a> {
+pub fn client_info<'a>(
+    c: &'a base::Connection,
+    major_version: u32,
+    minor_version: u32,
+    string: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let string = string.as_bytes();
         let string_len = string.len();
         let string_ptr = string.as_ptr();
-        let cookie = xcb_glx_client_info(c.get_raw_conn(),
-                                         major_version as u32,  // 0
-                                         minor_version as u32,  // 1
-                                         string_len as u32,  // 2
-                                         string_ptr as *const c_char);  // 3
+        let cookie = xcb_glx_client_info(
+            c.get_raw_conn(),
+            major_version as u32,
+            minor_version as u32,
+            string_len as u32,
+            string_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn client_info_checked<'a>(c            : &'a base::Connection,
-                               major_version: u32,
-                               minor_version: u32,
-                               string       : &str)
-        -> base::VoidCookie<'a> {
+pub fn client_info_checked<'a>(
+    c: &'a base::Connection,
+    major_version: u32,
+    minor_version: u32,
+    string: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let string = string.as_bytes();
         let string_len = string.len();
         let string_ptr = string.as_ptr();
-        let cookie = xcb_glx_client_info_checked(c.get_raw_conn(),
-                                                 major_version as u32,  // 0
-                                                 minor_version as u32,  // 1
-                                                 string_len as u32,  // 2
-                                                 string_ptr as *const c_char);  // 3
+        let cookie = xcb_glx_client_info_checked(
+            c.get_raw_conn(),
+            major_version as u32,
+            minor_version as u32,
+            string_len as u32,
+            string_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -1381,7 +1444,9 @@ pub fn client_info_checked<'a>(c            : &'a base::Connection,
 pub const GET_FB_CONFIGS: u8 = 21;
 
 impl base::CookieSeq for xcb_glx_get_fb_configs_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetFbConfigsCookie<'a> = base::Cookie<'a, xcb_glx_get_fb_configs_cookie_t>;
@@ -1389,21 +1454,27 @@ pub type GetFbConfigsCookie<'a> = base::Cookie<'a, xcb_glx_get_fb_configs_cookie
 impl<'a> GetFbConfigsCookie<'a> {
     pub fn get_reply(self) -> Result<GetFbConfigsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetFbConfigsReply {
-                ptr: xcb_glx_get_fb_configs_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_fb_configs_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1411,15 +1482,11 @@ impl<'a> GetFbConfigsCookie<'a> {
 pub type GetFbConfigsReply = base::Reply<xcb_glx_get_fb_configs_reply_t>;
 
 impl GetFbConfigsReply {
-    pub fn num__f_b_configs(&self) -> u32 {
-        unsafe {
-            (*self.ptr).num_FB_configs
-        }
+    pub fn num_fb_configs(&self) -> u32 {
+        unsafe { (*self.ptr).num_fb_configs }
     }
     pub fn num_properties(&self) -> u32 {
-        unsafe {
-            (*self.ptr).num_properties
-        }
+        unsafe { (*self.ptr).num_properties }
     }
     pub fn property_list(&self) -> &[u32] {
         unsafe {
@@ -1431,162 +1498,169 @@ impl GetFbConfigsReply {
     }
 }
 
-pub fn get_fb_configs<'a>(c     : &'a base::Connection,
-                          screen: u32)
-        -> GetFbConfigsCookie<'a> {
+pub fn get_fb_configs<'a>(c: &'a base::Connection, screen: u32) -> GetFbConfigsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_fb_configs(c.get_raw_conn(),
-                                            screen as u32);  // 0
+        let cookie = xcb_glx_get_fb_configs(c.get_raw_conn(), screen as u32);
         GetFbConfigsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_fb_configs_unchecked<'a>(c     : &'a base::Connection,
-                                    screen: u32)
-        -> GetFbConfigsCookie<'a> {
+pub fn get_fb_configs_unchecked<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+) -> GetFbConfigsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_fb_configs_unchecked(c.get_raw_conn(),
-                                                      screen as u32);  // 0
+        let cookie = xcb_glx_get_fb_configs_unchecked(c.get_raw_conn(), screen as u32);
         GetFbConfigsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const CREATE_PIXMAP: u8 = 22;
 
-pub fn create_pixmap<'a>(c         : &'a base::Connection,
-                         screen    : u32,
-                         fbconfig  : Fbconfig,
-                         pixmap    : xproto::Pixmap,
-                         glx_pixmap: Pixmap,
-                         attribs   : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn create_pixmap<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    fbconfig: Fbconfig,
+    pixmap: xproto::Pixmap,
+    glx_pixmap: Pixmap,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_create_pixmap(c.get_raw_conn(),
-                                           screen as u32,  // 0
-                                           fbconfig as xcb_glx_fbconfig_t,  // 1
-                                           pixmap as xcb_pixmap_t,  // 2
-                                           glx_pixmap as xcb_glx_pixmap_t,  // 3
-                                           attribs_len as u32,  // 4
-                                           attribs_ptr as *const u32);  // 5
+        let cookie = xcb_glx_create_pixmap(
+            c.get_raw_conn(),
+            screen as u32,
+            fbconfig as xcb_glx_fbconfig_t,
+            pixmap as xcb_pixmap_t,
+            glx_pixmap as xcb_glx_pixmap_t,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn create_pixmap_checked<'a>(c         : &'a base::Connection,
-                                 screen    : u32,
-                                 fbconfig  : Fbconfig,
-                                 pixmap    : xproto::Pixmap,
-                                 glx_pixmap: Pixmap,
-                                 attribs   : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn create_pixmap_checked<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    fbconfig: Fbconfig,
+    pixmap: xproto::Pixmap,
+    glx_pixmap: Pixmap,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_create_pixmap_checked(c.get_raw_conn(),
-                                                   screen as u32,  // 0
-                                                   fbconfig as xcb_glx_fbconfig_t,  // 1
-                                                   pixmap as xcb_pixmap_t,  // 2
-                                                   glx_pixmap as xcb_glx_pixmap_t,  // 3
-                                                   attribs_len as u32,  // 4
-                                                   attribs_ptr as *const u32);  // 5
+        let cookie = xcb_glx_create_pixmap_checked(
+            c.get_raw_conn(),
+            screen as u32,
+            fbconfig as xcb_glx_fbconfig_t,
+            pixmap as xcb_pixmap_t,
+            glx_pixmap as xcb_glx_pixmap_t,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const DESTROY_PIXMAP: u8 = 23;
 
-pub fn destroy_pixmap<'a>(c         : &'a base::Connection,
-                          glx_pixmap: Pixmap)
-        -> base::VoidCookie<'a> {
+pub fn destroy_pixmap<'a>(c: &'a base::Connection, glx_pixmap: Pixmap) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_pixmap(c.get_raw_conn(),
-                                            glx_pixmap as xcb_glx_pixmap_t);  // 0
+        let cookie = xcb_glx_destroy_pixmap(c.get_raw_conn(), glx_pixmap as xcb_glx_pixmap_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn destroy_pixmap_checked<'a>(c         : &'a base::Connection,
-                                  glx_pixmap: Pixmap)
-        -> base::VoidCookie<'a> {
+pub fn destroy_pixmap_checked<'a>(
+    c: &'a base::Connection,
+    glx_pixmap: Pixmap,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_pixmap_checked(c.get_raw_conn(),
-                                                    glx_pixmap as xcb_glx_pixmap_t);  // 0
+        let cookie =
+            xcb_glx_destroy_pixmap_checked(c.get_raw_conn(), glx_pixmap as xcb_glx_pixmap_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const CREATE_NEW_CONTEXT: u8 = 24;
 
-pub fn create_new_context<'a>(c          : &'a base::Connection,
-                              context    : Context,
-                              fbconfig   : Fbconfig,
-                              screen     : u32,
-                              render_type: u32,
-                              share_list : Context,
-                              is_direct  : bool)
-        -> base::VoidCookie<'a> {
+pub fn create_new_context<'a>(
+    c: &'a base::Connection,
+    context: Context,
+    fbconfig: Fbconfig,
+    screen: u32,
+    render_type: u32,
+    share_list: Context,
+    is_direct: bool,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_create_new_context(c.get_raw_conn(),
-                                                context as xcb_glx_context_t,  // 0
-                                                fbconfig as xcb_glx_fbconfig_t,  // 1
-                                                screen as u32,  // 2
-                                                render_type as u32,  // 3
-                                                share_list as xcb_glx_context_t,  // 4
-                                                is_direct as u8);  // 5
+        let cookie = xcb_glx_create_new_context(
+            c.get_raw_conn(),
+            context as xcb_glx_context_t,
+            fbconfig as xcb_glx_fbconfig_t,
+            screen as u32,
+            render_type as u32,
+            share_list as xcb_glx_context_t,
+            is_direct as u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn create_new_context_checked<'a>(c          : &'a base::Connection,
-                                      context    : Context,
-                                      fbconfig   : Fbconfig,
-                                      screen     : u32,
-                                      render_type: u32,
-                                      share_list : Context,
-                                      is_direct  : bool)
-        -> base::VoidCookie<'a> {
+pub fn create_new_context_checked<'a>(
+    c: &'a base::Connection,
+    context: Context,
+    fbconfig: Fbconfig,
+    screen: u32,
+    render_type: u32,
+    share_list: Context,
+    is_direct: bool,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_create_new_context_checked(c.get_raw_conn(),
-                                                        context as xcb_glx_context_t,  // 0
-                                                        fbconfig as xcb_glx_fbconfig_t,  // 1
-                                                        screen as u32,  // 2
-                                                        render_type as u32,  // 3
-                                                        share_list as xcb_glx_context_t,  // 4
-                                                        is_direct as u8);  // 5
+        let cookie = xcb_glx_create_new_context_checked(
+            c.get_raw_conn(),
+            context as xcb_glx_context_t,
+            fbconfig as xcb_glx_fbconfig_t,
+            screen as u32,
+            render_type as u32,
+            share_list as xcb_glx_context_t,
+            is_direct as u8,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -1594,7 +1668,9 @@ pub fn create_new_context_checked<'a>(c          : &'a base::Connection,
 pub const QUERY_CONTEXT: u8 = 25;
 
 impl base::CookieSeq for xcb_glx_query_context_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type QueryContextCookie<'a> = base::Cookie<'a, xcb_glx_query_context_cookie_t>;
@@ -1602,21 +1678,27 @@ pub type QueryContextCookie<'a> = base::Cookie<'a, xcb_glx_query_context_cookie_
 impl<'a> QueryContextCookie<'a> {
     pub fn get_reply(self) -> Result<QueryContextReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             QueryContextReply {
-                ptr: xcb_glx_query_context_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_query_context_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1625,9 +1707,7 @@ pub type QueryContextReply = base::Reply<xcb_glx_query_context_reply_t>;
 
 impl QueryContextReply {
     pub fn num_attribs(&self) -> u32 {
-        unsafe {
-            (*self.ptr).num_attribs
-        }
+        unsafe { (*self.ptr).num_attribs }
     }
     pub fn attribs(&self) -> &[u32] {
         unsafe {
@@ -1639,30 +1719,28 @@ impl QueryContextReply {
     }
 }
 
-pub fn query_context<'a>(c      : &'a base::Connection,
-                         context: Context)
-        -> QueryContextCookie<'a> {
+pub fn query_context<'a>(c: &'a base::Connection, context: Context) -> QueryContextCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_context(c.get_raw_conn(),
-                                           context as xcb_glx_context_t);  // 0
+        let cookie = xcb_glx_query_context(c.get_raw_conn(), context as xcb_glx_context_t);
         QueryContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn query_context_unchecked<'a>(c      : &'a base::Connection,
-                                   context: Context)
-        -> QueryContextCookie<'a> {
+pub fn query_context_unchecked<'a>(
+    c: &'a base::Connection,
+    context: Context,
+) -> QueryContextCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_query_context_unchecked(c.get_raw_conn(),
-                                                     context as xcb_glx_context_t);  // 0
+        let cookie =
+            xcb_glx_query_context_unchecked(c.get_raw_conn(), context as xcb_glx_context_t);
         QueryContextCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -1670,7 +1748,9 @@ pub fn query_context_unchecked<'a>(c      : &'a base::Connection,
 pub const MAKE_CONTEXT_CURRENT: u8 = 26;
 
 impl base::CookieSeq for xcb_glx_make_context_current_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type MakeContextCurrentCookie<'a> = base::Cookie<'a, xcb_glx_make_context_current_cookie_t>;
@@ -1678,21 +1758,31 @@ pub type MakeContextCurrentCookie<'a> = base::Cookie<'a, xcb_glx_make_context_cu
 impl<'a> MakeContextCurrentCookie<'a> {
     pub fn get_reply(self) -> Result<MakeContextCurrentReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             MakeContextCurrentReply {
-                ptr: xcb_glx_make_context_current_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_make_context_current_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1701,126 +1791,134 @@ pub type MakeContextCurrentReply = base::Reply<xcb_glx_make_context_current_repl
 
 impl MakeContextCurrentReply {
     pub fn context_tag(&self) -> ContextTag {
-        unsafe {
-            (*self.ptr).context_tag
+        unsafe { (*self.ptr).context_tag }
+    }
+}
+
+pub fn make_context_current<'a>(
+    c: &'a base::Connection,
+    old_context_tag: ContextTag,
+    drawable: Drawable,
+    read_drawable: Drawable,
+    context: Context,
+) -> MakeContextCurrentCookie<'a> {
+    unsafe {
+        let cookie = xcb_glx_make_context_current(
+            c.get_raw_conn(),
+            old_context_tag as xcb_glx_context_tag_t,
+            drawable as xcb_glx_drawable_t,
+            read_drawable as xcb_glx_drawable_t,
+            context as xcb_glx_context_t,
+        );
+        MakeContextCurrentCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn make_context_current<'a>(c              : &'a base::Connection,
-                                old_context_tag: ContextTag,
-                                drawable       : Drawable,
-                                read_drawable  : Drawable,
-                                context        : Context)
-        -> MakeContextCurrentCookie<'a> {
+pub fn make_context_current_unchecked<'a>(
+    c: &'a base::Connection,
+    old_context_tag: ContextTag,
+    drawable: Drawable,
+    read_drawable: Drawable,
+    context: Context,
+) -> MakeContextCurrentCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_make_context_current(c.get_raw_conn(),
-                                                  old_context_tag as xcb_glx_context_tag_t,  // 0
-                                                  drawable as xcb_glx_drawable_t,  // 1
-                                                  read_drawable as xcb_glx_drawable_t,  // 2
-                                                  context as xcb_glx_context_t);  // 3
+        let cookie = xcb_glx_make_context_current_unchecked(
+            c.get_raw_conn(),
+            old_context_tag as xcb_glx_context_tag_t,
+            drawable as xcb_glx_drawable_t,
+            read_drawable as xcb_glx_drawable_t,
+            context as xcb_glx_context_t,
+        );
         MakeContextCurrentCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn make_context_current_unchecked<'a>(c              : &'a base::Connection,
-                                          old_context_tag: ContextTag,
-                                          drawable       : Drawable,
-                                          read_drawable  : Drawable,
-                                          context        : Context)
-        -> MakeContextCurrentCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_make_context_current_unchecked(c.get_raw_conn(),
-                                                            old_context_tag as xcb_glx_context_tag_t,  // 0
-                                                            drawable as xcb_glx_drawable_t,  // 1
-                                                            read_drawable as xcb_glx_drawable_t,  // 2
-                                                            context as xcb_glx_context_t);  // 3
-        MakeContextCurrentCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const CREATE_PBUFFER: u8 = 27;
 
-pub fn create_pbuffer<'a>(c       : &'a base::Connection,
-                          screen  : u32,
-                          fbconfig: Fbconfig,
-                          pbuffer : Pbuffer,
-                          attribs : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn create_pbuffer<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    fbconfig: Fbconfig,
+    pbuffer: Pbuffer,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_create_pbuffer(c.get_raw_conn(),
-                                            screen as u32,  // 0
-                                            fbconfig as xcb_glx_fbconfig_t,  // 1
-                                            pbuffer as xcb_glx_pbuffer_t,  // 2
-                                            attribs_len as u32,  // 3
-                                            attribs_ptr as *const u32);  // 4
+        let cookie = xcb_glx_create_pbuffer(
+            c.get_raw_conn(),
+            screen as u32,
+            fbconfig as xcb_glx_fbconfig_t,
+            pbuffer as xcb_glx_pbuffer_t,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn create_pbuffer_checked<'a>(c       : &'a base::Connection,
-                                  screen  : u32,
-                                  fbconfig: Fbconfig,
-                                  pbuffer : Pbuffer,
-                                  attribs : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn create_pbuffer_checked<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    fbconfig: Fbconfig,
+    pbuffer: Pbuffer,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_create_pbuffer_checked(c.get_raw_conn(),
-                                                    screen as u32,  // 0
-                                                    fbconfig as xcb_glx_fbconfig_t,  // 1
-                                                    pbuffer as xcb_glx_pbuffer_t,  // 2
-                                                    attribs_len as u32,  // 3
-                                                    attribs_ptr as *const u32);  // 4
+        let cookie = xcb_glx_create_pbuffer_checked(
+            c.get_raw_conn(),
+            screen as u32,
+            fbconfig as xcb_glx_fbconfig_t,
+            pbuffer as xcb_glx_pbuffer_t,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const DESTROY_PBUFFER: u8 = 28;
 
-pub fn destroy_pbuffer<'a>(c      : &'a base::Connection,
-                           pbuffer: Pbuffer)
-        -> base::VoidCookie<'a> {
+pub fn destroy_pbuffer<'a>(c: &'a base::Connection, pbuffer: Pbuffer) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_pbuffer(c.get_raw_conn(),
-                                             pbuffer as xcb_glx_pbuffer_t);  // 0
+        let cookie = xcb_glx_destroy_pbuffer(c.get_raw_conn(), pbuffer as xcb_glx_pbuffer_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn destroy_pbuffer_checked<'a>(c      : &'a base::Connection,
-                                   pbuffer: Pbuffer)
-        -> base::VoidCookie<'a> {
+pub fn destroy_pbuffer_checked<'a>(
+    c: &'a base::Connection,
+    pbuffer: Pbuffer,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_destroy_pbuffer_checked(c.get_raw_conn(),
-                                                     pbuffer as xcb_glx_pbuffer_t);  // 0
+        let cookie =
+            xcb_glx_destroy_pbuffer_checked(c.get_raw_conn(), pbuffer as xcb_glx_pbuffer_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -1828,29 +1926,42 @@ pub fn destroy_pbuffer_checked<'a>(c      : &'a base::Connection,
 pub const GET_DRAWABLE_ATTRIBUTES: u8 = 29;
 
 impl base::CookieSeq for xcb_glx_get_drawable_attributes_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetDrawableAttributesCookie<'a> = base::Cookie<'a, xcb_glx_get_drawable_attributes_cookie_t>;
+pub type GetDrawableAttributesCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_drawable_attributes_cookie_t>;
 
 impl<'a> GetDrawableAttributesCookie<'a> {
     pub fn get_reply(self) -> Result<GetDrawableAttributesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDrawableAttributesReply {
-                ptr: xcb_glx_get_drawable_attributes_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_drawable_attributes_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -1859,9 +1970,7 @@ pub type GetDrawableAttributesReply = base::Reply<xcb_glx_get_drawable_attribute
 
 impl GetDrawableAttributesReply {
     pub fn num_attribs(&self) -> u32 {
-        unsafe {
-            (*self.ptr).num_attribs
-        }
+        unsafe { (*self.ptr).num_attribs }
     }
     pub fn attribs(&self) -> &[u32] {
         unsafe {
@@ -1873,165 +1982,179 @@ impl GetDrawableAttributesReply {
     }
 }
 
-pub fn get_drawable_attributes<'a>(c       : &'a base::Connection,
-                                   drawable: Drawable)
-        -> GetDrawableAttributesCookie<'a> {
+pub fn get_drawable_attributes<'a>(
+    c: &'a base::Connection,
+    drawable: Drawable,
+) -> GetDrawableAttributesCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_drawable_attributes(c.get_raw_conn(),
-                                                     drawable as xcb_glx_drawable_t);  // 0
+        let cookie =
+            xcb_glx_get_drawable_attributes(c.get_raw_conn(), drawable as xcb_glx_drawable_t);
         GetDrawableAttributesCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_drawable_attributes_unchecked<'a>(c       : &'a base::Connection,
-                                             drawable: Drawable)
-        -> GetDrawableAttributesCookie<'a> {
+pub fn get_drawable_attributes_unchecked<'a>(
+    c: &'a base::Connection,
+    drawable: Drawable,
+) -> GetDrawableAttributesCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_drawable_attributes_unchecked(c.get_raw_conn(),
-                                                               drawable as xcb_glx_drawable_t);  // 0
+        let cookie = xcb_glx_get_drawable_attributes_unchecked(
+            c.get_raw_conn(),
+            drawable as xcb_glx_drawable_t,
+        );
         GetDrawableAttributesCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const CHANGE_DRAWABLE_ATTRIBUTES: u8 = 30;
 
-pub fn change_drawable_attributes<'a>(c       : &'a base::Connection,
-                                      drawable: Drawable,
-                                      attribs : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn change_drawable_attributes<'a>(
+    c: &'a base::Connection,
+    drawable: Drawable,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_change_drawable_attributes(c.get_raw_conn(),
-                                                        drawable as xcb_glx_drawable_t,  // 0
-                                                        attribs_len as u32,  // 1
-                                                        attribs_ptr as *const u32);  // 2
+        let cookie = xcb_glx_change_drawable_attributes(
+            c.get_raw_conn(),
+            drawable as xcb_glx_drawable_t,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn change_drawable_attributes_checked<'a>(c       : &'a base::Connection,
-                                              drawable: Drawable,
-                                              attribs : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn change_drawable_attributes_checked<'a>(
+    c: &'a base::Connection,
+    drawable: Drawable,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_change_drawable_attributes_checked(c.get_raw_conn(),
-                                                                drawable as xcb_glx_drawable_t,  // 0
-                                                                attribs_len as u32,  // 1
-                                                                attribs_ptr as *const u32);  // 2
+        let cookie = xcb_glx_change_drawable_attributes_checked(
+            c.get_raw_conn(),
+            drawable as xcb_glx_drawable_t,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const CREATE_WINDOW: u8 = 31;
 
-pub fn create_window<'a>(c         : &'a base::Connection,
-                         screen    : u32,
-                         fbconfig  : Fbconfig,
-                         window    : xproto::Window,
-                         glx_window: Window,
-                         attribs   : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn create_window<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    fbconfig: Fbconfig,
+    window: xproto::Window,
+    glx_window: Window,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_create_window(c.get_raw_conn(),
-                                           screen as u32,  // 0
-                                           fbconfig as xcb_glx_fbconfig_t,  // 1
-                                           window as xcb_window_t,  // 2
-                                           glx_window as xcb_glx_window_t,  // 3
-                                           attribs_len as u32,  // 4
-                                           attribs_ptr as *const u32);  // 5
+        let cookie = xcb_glx_create_window(
+            c.get_raw_conn(),
+            screen as u32,
+            fbconfig as xcb_glx_fbconfig_t,
+            window as xcb_window_t,
+            glx_window as xcb_glx_window_t,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn create_window_checked<'a>(c         : &'a base::Connection,
-                                 screen    : u32,
-                                 fbconfig  : Fbconfig,
-                                 window    : xproto::Window,
-                                 glx_window: Window,
-                                 attribs   : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn create_window_checked<'a>(
+    c: &'a base::Connection,
+    screen: u32,
+    fbconfig: Fbconfig,
+    window: xproto::Window,
+    glx_window: Window,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_create_window_checked(c.get_raw_conn(),
-                                                   screen as u32,  // 0
-                                                   fbconfig as xcb_glx_fbconfig_t,  // 1
-                                                   window as xcb_window_t,  // 2
-                                                   glx_window as xcb_glx_window_t,  // 3
-                                                   attribs_len as u32,  // 4
-                                                   attribs_ptr as *const u32);  // 5
+        let cookie = xcb_glx_create_window_checked(
+            c.get_raw_conn(),
+            screen as u32,
+            fbconfig as xcb_glx_fbconfig_t,
+            window as xcb_window_t,
+            glx_window as xcb_glx_window_t,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const DELETE_WINDOW: u8 = 32;
 
-pub fn delete_window<'a>(c        : &'a base::Connection,
-                         glxwindow: Window)
-        -> base::VoidCookie<'a> {
+pub fn delete_window<'a>(c: &'a base::Connection, glxwindow: Window) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_delete_window(c.get_raw_conn(),
-                                           glxwindow as xcb_glx_window_t);  // 0
+        let cookie = xcb_glx_delete_window(c.get_raw_conn(), glxwindow as xcb_glx_window_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn delete_window_checked<'a>(c        : &'a base::Connection,
-                                 glxwindow: Window)
-        -> base::VoidCookie<'a> {
+pub fn delete_window_checked<'a>(
+    c: &'a base::Connection,
+    glxwindow: Window,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_delete_window_checked(c.get_raw_conn(),
-                                                   glxwindow as xcb_glx_window_t);  // 0
+        let cookie = xcb_glx_delete_window_checked(c.get_raw_conn(), glxwindow as xcb_glx_window_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const SET_CLIENT_INFO_ARB: u8 = 33;
 
-pub fn set_client_info_arb<'a>(c                   : &'a base::Connection,
-                               major_version       : u32,
-                               minor_version       : u32,
-                               gl_versions         : &[u32],
-                               gl_extension_string : &str,
-                               glx_extension_string: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_client_info_arb<'a>(
+    c: &'a base::Connection,
+    major_version: u32,
+    minor_version: u32,
+    gl_versions: &[u32],
+    gl_extension_string: &str,
+    glx_extension_string: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let gl_versions_len = gl_versions.len();
         let gl_versions_ptr = gl_versions.as_ptr();
@@ -2041,30 +2164,33 @@ pub fn set_client_info_arb<'a>(c                   : &'a base::Connection,
         let glx_extension_string = glx_extension_string.as_bytes();
         let glx_extension_string_len = glx_extension_string.len();
         let glx_extension_string_ptr = glx_extension_string.as_ptr();
-        let cookie = xcb_glx_set_client_info_arb(c.get_raw_conn(),
-                                                 major_version as u32,  // 0
-                                                 minor_version as u32,  // 1
-                                                 gl_versions_len as u32,  // 2
-                                                 gl_extension_string_len as u32,  // 3
-                                                 glx_extension_string_len as u32,  // 4
-                                                 gl_versions_ptr as *const u32,  // 5
-                                                 gl_extension_string_ptr as *const c_char,  // 6
-                                                 glx_extension_string_ptr as *const c_char);  // 7
+        let cookie = xcb_glx_set_client_info_arb(
+            c.get_raw_conn(),
+            major_version as u32,
+            minor_version as u32,
+            gl_versions_len as u32,
+            gl_extension_string_len as u32,
+            glx_extension_string_len as u32,
+            gl_versions_ptr as *const u32,
+            gl_extension_string_ptr as *const c_char,
+            glx_extension_string_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn set_client_info_arb_checked<'a>(c                   : &'a base::Connection,
-                                       major_version       : u32,
-                                       minor_version       : u32,
-                                       gl_versions         : &[u32],
-                                       gl_extension_string : &str,
-                                       glx_extension_string: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_client_info_arb_checked<'a>(
+    c: &'a base::Connection,
+    major_version: u32,
+    minor_version: u32,
+    gl_versions: &[u32],
+    gl_extension_string: &str,
+    glx_extension_string: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let gl_versions_len = gl_versions.len();
         let gl_versions_ptr = gl_versions.as_ptr();
@@ -2074,88 +2200,97 @@ pub fn set_client_info_arb_checked<'a>(c                   : &'a base::Connectio
         let glx_extension_string = glx_extension_string.as_bytes();
         let glx_extension_string_len = glx_extension_string.len();
         let glx_extension_string_ptr = glx_extension_string.as_ptr();
-        let cookie = xcb_glx_set_client_info_arb_checked(c.get_raw_conn(),
-                                                         major_version as u32,  // 0
-                                                         minor_version as u32,  // 1
-                                                         gl_versions_len as u32,  // 2
-                                                         gl_extension_string_len as u32,  // 3
-                                                         glx_extension_string_len as u32,  // 4
-                                                         gl_versions_ptr as *const u32,  // 5
-                                                         gl_extension_string_ptr as *const c_char,  // 6
-                                                         glx_extension_string_ptr as *const c_char);  // 7
+        let cookie = xcb_glx_set_client_info_arb_checked(
+            c.get_raw_conn(),
+            major_version as u32,
+            minor_version as u32,
+            gl_versions_len as u32,
+            gl_extension_string_len as u32,
+            glx_extension_string_len as u32,
+            gl_versions_ptr as *const u32,
+            gl_extension_string_ptr as *const c_char,
+            glx_extension_string_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const CREATE_CONTEXT_ATTRIBS_ARB: u8 = 34;
 
-pub fn create_context_attribs_arb<'a>(c         : &'a base::Connection,
-                                      context   : Context,
-                                      fbconfig  : Fbconfig,
-                                      screen    : u32,
-                                      share_list: Context,
-                                      is_direct : bool,
-                                      attribs   : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn create_context_attribs_arb<'a>(
+    c: &'a base::Connection,
+    context: Context,
+    fbconfig: Fbconfig,
+    screen: u32,
+    share_list: Context,
+    is_direct: bool,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_create_context_attribs_arb(c.get_raw_conn(),
-                                                        context as xcb_glx_context_t,  // 0
-                                                        fbconfig as xcb_glx_fbconfig_t,  // 1
-                                                        screen as u32,  // 2
-                                                        share_list as xcb_glx_context_t,  // 3
-                                                        is_direct as u8,  // 4
-                                                        attribs_len as u32,  // 5
-                                                        attribs_ptr as *const u32);  // 6
+        let cookie = xcb_glx_create_context_attribs_arb(
+            c.get_raw_conn(),
+            context as xcb_glx_context_t,
+            fbconfig as xcb_glx_fbconfig_t,
+            screen as u32,
+            share_list as xcb_glx_context_t,
+            is_direct as u8,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn create_context_attribs_arb_checked<'a>(c         : &'a base::Connection,
-                                              context   : Context,
-                                              fbconfig  : Fbconfig,
-                                              screen    : u32,
-                                              share_list: Context,
-                                              is_direct : bool,
-                                              attribs   : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn create_context_attribs_arb_checked<'a>(
+    c: &'a base::Connection,
+    context: Context,
+    fbconfig: Fbconfig,
+    screen: u32,
+    share_list: Context,
+    is_direct: bool,
+    attribs: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let attribs_len = attribs.len();
         let attribs_ptr = attribs.as_ptr();
-        let cookie = xcb_glx_create_context_attribs_arb_checked(c.get_raw_conn(),
-                                                                context as xcb_glx_context_t,  // 0
-                                                                fbconfig as xcb_glx_fbconfig_t,  // 1
-                                                                screen as u32,  // 2
-                                                                share_list as xcb_glx_context_t,  // 3
-                                                                is_direct as u8,  // 4
-                                                                attribs_len as u32,  // 5
-                                                                attribs_ptr as *const u32);  // 6
+        let cookie = xcb_glx_create_context_attribs_arb_checked(
+            c.get_raw_conn(),
+            context as xcb_glx_context_t,
+            fbconfig as xcb_glx_fbconfig_t,
+            screen as u32,
+            share_list as xcb_glx_context_t,
+            is_direct as u8,
+            attribs_len as u32,
+            attribs_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const SET_CLIENT_INFO_2ARB: u8 = 35;
 
-pub fn set_client_info_2arb<'a>(c                   : &'a base::Connection,
-                                major_version       : u32,
-                                minor_version       : u32,
-                                gl_versions         : &[u32],
-                                gl_extension_string : &str,
-                                glx_extension_string: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_client_info_2arb<'a>(
+    c: &'a base::Connection,
+    major_version: u32,
+    minor_version: u32,
+    gl_versions: &[u32],
+    gl_extension_string: &str,
+    glx_extension_string: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let gl_versions_len = gl_versions.len();
         let gl_versions_ptr = gl_versions.as_ptr();
@@ -2165,30 +2300,33 @@ pub fn set_client_info_2arb<'a>(c                   : &'a base::Connection,
         let glx_extension_string = glx_extension_string.as_bytes();
         let glx_extension_string_len = glx_extension_string.len();
         let glx_extension_string_ptr = glx_extension_string.as_ptr();
-        let cookie = xcb_glx_set_client_info_2arb(c.get_raw_conn(),
-                                                  major_version as u32,  // 0
-                                                  minor_version as u32,  // 1
-                                                  gl_versions_len as u32,  // 2
-                                                  gl_extension_string_len as u32,  // 3
-                                                  glx_extension_string_len as u32,  // 4
-                                                  gl_versions_ptr as *const u32,  // 5
-                                                  gl_extension_string_ptr as *const c_char,  // 6
-                                                  glx_extension_string_ptr as *const c_char);  // 7
+        let cookie = xcb_glx_set_client_info_2arb(
+            c.get_raw_conn(),
+            major_version as u32,
+            minor_version as u32,
+            gl_versions_len as u32,
+            gl_extension_string_len as u32,
+            glx_extension_string_len as u32,
+            gl_versions_ptr as *const u32,
+            gl_extension_string_ptr as *const c_char,
+            glx_extension_string_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn set_client_info_2arb_checked<'a>(c                   : &'a base::Connection,
-                                        major_version       : u32,
-                                        minor_version       : u32,
-                                        gl_versions         : &[u32],
-                                        gl_extension_string : &str,
-                                        glx_extension_string: &str)
-        -> base::VoidCookie<'a> {
+pub fn set_client_info_2arb_checked<'a>(
+    c: &'a base::Connection,
+    major_version: u32,
+    minor_version: u32,
+    gl_versions: &[u32],
+    gl_extension_string: &str,
+    glx_extension_string: &str,
+) -> base::VoidCookie<'a> {
     unsafe {
         let gl_versions_len = gl_versions.len();
         let gl_versions_ptr = gl_versions.as_ptr();
@@ -2198,125 +2336,137 @@ pub fn set_client_info_2arb_checked<'a>(c                   : &'a base::Connecti
         let glx_extension_string = glx_extension_string.as_bytes();
         let glx_extension_string_len = glx_extension_string.len();
         let glx_extension_string_ptr = glx_extension_string.as_ptr();
-        let cookie = xcb_glx_set_client_info_2arb_checked(c.get_raw_conn(),
-                                                          major_version as u32,  // 0
-                                                          minor_version as u32,  // 1
-                                                          gl_versions_len as u32,  // 2
-                                                          gl_extension_string_len as u32,  // 3
-                                                          glx_extension_string_len as u32,  // 4
-                                                          gl_versions_ptr as *const u32,  // 5
-                                                          gl_extension_string_ptr as *const c_char,  // 6
-                                                          glx_extension_string_ptr as *const c_char);  // 7
+        let cookie = xcb_glx_set_client_info_2arb_checked(
+            c.get_raw_conn(),
+            major_version as u32,
+            minor_version as u32,
+            gl_versions_len as u32,
+            gl_extension_string_len as u32,
+            glx_extension_string_len as u32,
+            gl_versions_ptr as *const u32,
+            gl_extension_string_ptr as *const c_char,
+            glx_extension_string_ptr as *const c_char,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const NEW_LIST: u8 = 101;
 
-pub fn new_list<'a>(c          : &'a base::Connection,
-                    context_tag: ContextTag,
-                    list       : u32,
-                    mode       : u32)
-        -> base::VoidCookie<'a> {
+pub fn new_list<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    list: u32,
+    mode: u32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_new_list(c.get_raw_conn(),
-                                      context_tag as xcb_glx_context_tag_t,  // 0
-                                      list as u32,  // 1
-                                      mode as u32);  // 2
+        let cookie = xcb_glx_new_list(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            list as u32,
+            mode as u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn new_list_checked<'a>(c          : &'a base::Connection,
-                            context_tag: ContextTag,
-                            list       : u32,
-                            mode       : u32)
-        -> base::VoidCookie<'a> {
+pub fn new_list_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    list: u32,
+    mode: u32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_new_list_checked(c.get_raw_conn(),
-                                              context_tag as xcb_glx_context_tag_t,  // 0
-                                              list as u32,  // 1
-                                              mode as u32);  // 2
+        let cookie = xcb_glx_new_list_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            list as u32,
+            mode as u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const END_LIST: u8 = 102;
 
-pub fn end_list<'a>(c          : &'a base::Connection,
-                    context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn end_list<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_end_list(c.get_raw_conn(),
-                                      context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie = xcb_glx_end_list(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn end_list_checked<'a>(c          : &'a base::Connection,
-                            context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn end_list_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_end_list_checked(c.get_raw_conn(),
-                                              context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie =
+            xcb_glx_end_list_checked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const DELETE_LISTS: u8 = 103;
 
-pub fn delete_lists<'a>(c          : &'a base::Connection,
-                        context_tag: ContextTag,
-                        list       : u32,
-                        range      : i32)
-        -> base::VoidCookie<'a> {
+pub fn delete_lists<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    list: u32,
+    range: i32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_delete_lists(c.get_raw_conn(),
-                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                          list as u32,  // 1
-                                          range as i32);  // 2
+        let cookie = xcb_glx_delete_lists(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            list as u32,
+            range as i32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn delete_lists_checked<'a>(c          : &'a base::Connection,
-                                context_tag: ContextTag,
-                                list       : u32,
-                                range      : i32)
-        -> base::VoidCookie<'a> {
+pub fn delete_lists_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    list: u32,
+    range: i32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_delete_lists_checked(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  list as u32,  // 1
-                                                  range as i32);  // 2
+        let cookie = xcb_glx_delete_lists_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            list as u32,
+            range as i32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -2324,7 +2474,9 @@ pub fn delete_lists_checked<'a>(c          : &'a base::Connection,
 pub const GEN_LISTS: u8 = 104;
 
 impl base::CookieSeq for xcb_glx_gen_lists_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GenListsCookie<'a> = base::Cookie<'a, xcb_glx_gen_lists_cookie_t>;
@@ -2332,21 +2484,27 @@ pub type GenListsCookie<'a> = base::Cookie<'a, xcb_glx_gen_lists_cookie_t>;
 impl<'a> GenListsCookie<'a> {
     pub fn get_reply(self) -> Result<GenListsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GenListsReply {
-                ptr: xcb_glx_gen_lists_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_gen_lists_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -2355,112 +2513,128 @@ pub type GenListsReply = base::Reply<xcb_glx_gen_lists_reply_t>;
 
 impl GenListsReply {
     pub fn ret_val(&self) -> u32 {
-        unsafe {
-            (*self.ptr).ret_val
+        unsafe { (*self.ptr).ret_val }
+    }
+}
+
+pub fn gen_lists<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    range: i32,
+) -> GenListsCookie<'a> {
+    unsafe {
+        let cookie = xcb_glx_gen_lists(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            range as i32,
+        );
+        GenListsCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn gen_lists<'a>(c          : &'a base::Connection,
-                     context_tag: ContextTag,
-                     range      : i32)
-        -> GenListsCookie<'a> {
+pub fn gen_lists_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    range: i32,
+) -> GenListsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_gen_lists(c.get_raw_conn(),
-                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                       range as i32);  // 1
+        let cookie = xcb_glx_gen_lists_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            range as i32,
+        );
         GenListsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn gen_lists_unchecked<'a>(c          : &'a base::Connection,
-                               context_tag: ContextTag,
-                               range      : i32)
-        -> GenListsCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_gen_lists_unchecked(c.get_raw_conn(),
-                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                 range as i32);  // 1
-        GenListsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const FEEDBACK_BUFFER: u8 = 105;
 
-pub fn feedback_buffer<'a>(c          : &'a base::Connection,
-                           context_tag: ContextTag,
-                           size       : i32,
-                           type_      : i32)
-        -> base::VoidCookie<'a> {
+pub fn feedback_buffer<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    size: i32,
+    type_: i32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_feedback_buffer(c.get_raw_conn(),
-                                             context_tag as xcb_glx_context_tag_t,  // 0
-                                             size as i32,  // 1
-                                             type_ as i32);  // 2
+        let cookie = xcb_glx_feedback_buffer(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            size as i32,
+            type_ as i32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn feedback_buffer_checked<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   size       : i32,
-                                   type_      : i32)
-        -> base::VoidCookie<'a> {
+pub fn feedback_buffer_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    size: i32,
+    type_: i32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_feedback_buffer_checked(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     size as i32,  // 1
-                                                     type_ as i32);  // 2
+        let cookie = xcb_glx_feedback_buffer_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            size as i32,
+            type_ as i32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const SELECT_BUFFER: u8 = 106;
 
-pub fn select_buffer<'a>(c          : &'a base::Connection,
-                         context_tag: ContextTag,
-                         size       : i32)
-        -> base::VoidCookie<'a> {
+pub fn select_buffer<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    size: i32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_select_buffer(c.get_raw_conn(),
-                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                           size as i32);  // 1
+        let cookie = xcb_glx_select_buffer(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            size as i32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn select_buffer_checked<'a>(c          : &'a base::Connection,
-                                 context_tag: ContextTag,
-                                 size       : i32)
-        -> base::VoidCookie<'a> {
+pub fn select_buffer_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    size: i32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_select_buffer_checked(c.get_raw_conn(),
-                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                   size as i32);  // 1
+        let cookie = xcb_glx_select_buffer_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            size as i32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -2468,7 +2642,9 @@ pub fn select_buffer_checked<'a>(c          : &'a base::Connection,
 pub const RENDER_MODE: u8 = 107;
 
 impl base::CookieSeq for xcb_glx_render_mode_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type RenderModeCookie<'a> = base::Cookie<'a, xcb_glx_render_mode_cookie_t>;
@@ -2476,21 +2652,27 @@ pub type RenderModeCookie<'a> = base::Cookie<'a, xcb_glx_render_mode_cookie_t>;
 impl<'a> RenderModeCookie<'a> {
     pub fn get_reply(self) -> Result<RenderModeReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             RenderModeReply {
-                ptr: xcb_glx_render_mode_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_render_mode_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -2499,19 +2681,13 @@ pub type RenderModeReply = base::Reply<xcb_glx_render_mode_reply_t>;
 
 impl RenderModeReply {
     pub fn ret_val(&self) -> u32 {
-        unsafe {
-            (*self.ptr).ret_val
-        }
+        unsafe { (*self.ptr).ret_val }
     }
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn new_mode(&self) -> u32 {
-        unsafe {
-            (*self.ptr).new_mode
-        }
+        unsafe { (*self.ptr).new_mode }
     }
     pub fn data(&self) -> &[u32] {
         unsafe {
@@ -2523,34 +2699,40 @@ impl RenderModeReply {
     }
 }
 
-pub fn render_mode<'a>(c          : &'a base::Connection,
-                       context_tag: ContextTag,
-                       mode       : u32)
-        -> RenderModeCookie<'a> {
+pub fn render_mode<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    mode: u32,
+) -> RenderModeCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_render_mode(c.get_raw_conn(),
-                                         context_tag as xcb_glx_context_tag_t,  // 0
-                                         mode as u32);  // 1
+        let cookie = xcb_glx_render_mode(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            mode as u32,
+        );
         RenderModeCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn render_mode_unchecked<'a>(c          : &'a base::Connection,
-                                 context_tag: ContextTag,
-                                 mode       : u32)
-        -> RenderModeCookie<'a> {
+pub fn render_mode_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    mode: u32,
+) -> RenderModeCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_render_mode_unchecked(c.get_raw_conn(),
-                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                   mode as u32);  // 1
+        let cookie = xcb_glx_render_mode_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            mode as u32,
+        );
         RenderModeCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -2558,7 +2740,9 @@ pub fn render_mode_unchecked<'a>(c          : &'a base::Connection,
 pub const FINISH: u8 = 108;
 
 impl base::CookieSeq for xcb_glx_finish_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type FinishCookie<'a> = base::Cookie<'a, xcb_glx_finish_cookie_t>;
@@ -2566,130 +2750,142 @@ pub type FinishCookie<'a> = base::Cookie<'a, xcb_glx_finish_cookie_t>;
 impl<'a> FinishCookie<'a> {
     pub fn get_reply(self) -> Result<FinishReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             FinishReply {
-                ptr: xcb_glx_finish_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_finish_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
 
 pub type FinishReply = base::Reply<xcb_glx_finish_reply_t>;
 
-impl FinishReply {
-}
+impl FinishReply {}
 
-pub fn finish<'a>(c          : &'a base::Connection,
-                  context_tag: ContextTag)
-        -> FinishCookie<'a> {
+pub fn finish<'a>(c: &'a base::Connection, context_tag: ContextTag) -> FinishCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_finish(c.get_raw_conn(),
-                                    context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie = xcb_glx_finish(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         FinishCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn finish_unchecked<'a>(c          : &'a base::Connection,
-                            context_tag: ContextTag)
-        -> FinishCookie<'a> {
+pub fn finish_unchecked<'a>(c: &'a base::Connection, context_tag: ContextTag) -> FinishCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_finish_unchecked(c.get_raw_conn(),
-                                              context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie =
+            xcb_glx_finish_unchecked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         FinishCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const PIXEL_STOREF: u8 = 109;
 
-pub fn pixel_storef<'a>(c          : &'a base::Connection,
-                        context_tag: ContextTag,
-                        pname      : u32,
-                        datum      : Float32)
-        -> base::VoidCookie<'a> {
+pub fn pixel_storef<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+    datum: Float32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_pixel_storef(c.get_raw_conn(),
-                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                          pname as u32,  // 1
-                                          datum as xcb_glx_float32_t);  // 2
+        let cookie = xcb_glx_pixel_storef(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+            datum as xcb_glx_float32_t,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn pixel_storef_checked<'a>(c          : &'a base::Connection,
-                                context_tag: ContextTag,
-                                pname      : u32,
-                                datum      : Float32)
-        -> base::VoidCookie<'a> {
+pub fn pixel_storef_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+    datum: Float32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_pixel_storef_checked(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  pname as u32,  // 1
-                                                  datum as xcb_glx_float32_t);  // 2
+        let cookie = xcb_glx_pixel_storef_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+            datum as xcb_glx_float32_t,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
 pub const PIXEL_STOREI: u8 = 110;
 
-pub fn pixel_storei<'a>(c          : &'a base::Connection,
-                        context_tag: ContextTag,
-                        pname      : u32,
-                        datum      : i32)
-        -> base::VoidCookie<'a> {
+pub fn pixel_storei<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+    datum: i32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_pixel_storei(c.get_raw_conn(),
-                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                          pname as u32,  // 1
-                                          datum as i32);  // 2
+        let cookie = xcb_glx_pixel_storei(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+            datum as i32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn pixel_storei_checked<'a>(c          : &'a base::Connection,
-                                context_tag: ContextTag,
-                                pname      : u32,
-                                datum      : i32)
-        -> base::VoidCookie<'a> {
+pub fn pixel_storei_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+    datum: i32,
+) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_pixel_storei_checked(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  pname as u32,  // 1
-                                                  datum as i32);  // 2
+        let cookie = xcb_glx_pixel_storei_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+            datum as i32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -2697,7 +2893,9 @@ pub fn pixel_storei_checked<'a>(c          : &'a base::Connection,
 pub const READ_PIXELS: u8 = 111;
 
 impl base::CookieSeq for xcb_glx_read_pixels_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type ReadPixelsCookie<'a> = base::Cookie<'a, xcb_glx_read_pixels_cookie_t>;
@@ -2705,21 +2903,27 @@ pub type ReadPixelsCookie<'a> = base::Cookie<'a, xcb_glx_read_pixels_cookie_t>;
 impl<'a> ReadPixelsCookie<'a> {
     pub fn get_reply(self) -> Result<ReadPixelsReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             ReadPixelsReply {
-                ptr: xcb_glx_read_pixels_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_read_pixels_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -2737,62 +2941,68 @@ impl ReadPixelsReply {
     }
 }
 
-pub fn read_pixels<'a>(c          : &'a base::Connection,
-                       context_tag: ContextTag,
-                       x          : i32,
-                       y          : i32,
-                       width      : i32,
-                       height     : i32,
-                       format     : u32,
-                       type_      : u32,
-                       swap_bytes : bool,
-                       lsb_first  : bool)
-        -> ReadPixelsCookie<'a> {
+pub fn read_pixels<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    x: i32,
+    y: i32,
+    width: i32,
+    height: i32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+    lsb_first: bool,
+) -> ReadPixelsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_read_pixels(c.get_raw_conn(),
-                                         context_tag as xcb_glx_context_tag_t,  // 0
-                                         x as i32,  // 1
-                                         y as i32,  // 2
-                                         width as i32,  // 3
-                                         height as i32,  // 4
-                                         format as u32,  // 5
-                                         type_ as u32,  // 6
-                                         swap_bytes as u8,  // 7
-                                         lsb_first as u8);  // 8
+        let cookie = xcb_glx_read_pixels(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            x as i32,
+            y as i32,
+            width as i32,
+            height as i32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+            lsb_first as u8,
+        );
         ReadPixelsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn read_pixels_unchecked<'a>(c          : &'a base::Connection,
-                                 context_tag: ContextTag,
-                                 x          : i32,
-                                 y          : i32,
-                                 width      : i32,
-                                 height     : i32,
-                                 format     : u32,
-                                 type_      : u32,
-                                 swap_bytes : bool,
-                                 lsb_first  : bool)
-        -> ReadPixelsCookie<'a> {
+pub fn read_pixels_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    x: i32,
+    y: i32,
+    width: i32,
+    height: i32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+    lsb_first: bool,
+) -> ReadPixelsCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_read_pixels_unchecked(c.get_raw_conn(),
-                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                   x as i32,  // 1
-                                                   y as i32,  // 2
-                                                   width as i32,  // 3
-                                                   height as i32,  // 4
-                                                   format as u32,  // 5
-                                                   type_ as u32,  // 6
-                                                   swap_bytes as u8,  // 7
-                                                   lsb_first as u8);  // 8
+        let cookie = xcb_glx_read_pixels_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            x as i32,
+            y as i32,
+            width as i32,
+            height as i32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+            lsb_first as u8,
+        );
         ReadPixelsCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -2800,7 +3010,9 @@ pub fn read_pixels_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_BOOLEANV: u8 = 112;
 
 impl base::CookieSeq for xcb_glx_get_booleanv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetBooleanvCookie<'a> = base::Cookie<'a, xcb_glx_get_booleanv_cookie_t>;
@@ -2808,21 +3020,27 @@ pub type GetBooleanvCookie<'a> = base::Cookie<'a, xcb_glx_get_booleanv_cookie_t>
 impl<'a> GetBooleanvCookie<'a> {
     pub fn get_reply(self) -> Result<GetBooleanvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetBooleanvReply {
-                ptr: xcb_glx_get_booleanv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_booleanv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -2831,14 +3049,10 @@ pub type GetBooleanvReply = base::Reply<xcb_glx_get_booleanv_reply_t>;
 
 impl GetBooleanvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> bool {
-        unsafe {
-            (*self.ptr).datum != 0
-        }
+        unsafe { (*self.ptr).datum != 0 }
     }
     pub fn data(&self) -> Vec<bool> {
         unsafe {
@@ -2846,39 +3060,48 @@ impl GetBooleanvReply {
             let len = xcb_glx_get_booleanv_data_length(field) as usize;
             let data = xcb_glx_get_booleanv_data(field);
             let slice = std::slice::from_raw_parts(data, len);
-            slice.iter().map(|el| if *el == 0 {false} else{true}).collect()
+            slice
+                .iter()
+                .map(|el| if *el == 0 { false } else { true })
+                .collect()
         }
     }
 }
 
-pub fn get_booleanv<'a>(c          : &'a base::Connection,
-                        context_tag: ContextTag,
-                        pname      : i32)
-        -> GetBooleanvCookie<'a> {
+pub fn get_booleanv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: i32,
+) -> GetBooleanvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_booleanv(c.get_raw_conn(),
-                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                          pname as i32);  // 1
+        let cookie = xcb_glx_get_booleanv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as i32,
+        );
         GetBooleanvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_booleanv_unchecked<'a>(c          : &'a base::Connection,
-                                  context_tag: ContextTag,
-                                  pname      : i32)
-        -> GetBooleanvCookie<'a> {
+pub fn get_booleanv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: i32,
+) -> GetBooleanvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_booleanv_unchecked(c.get_raw_conn(),
-                                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                                    pname as i32);  // 1
+        let cookie = xcb_glx_get_booleanv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as i32,
+        );
         GetBooleanvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -2886,7 +3109,9 @@ pub fn get_booleanv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_CLIP_PLANE: u8 = 113;
 
 impl base::CookieSeq for xcb_glx_get_clip_plane_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetClipPlaneCookie<'a> = base::Cookie<'a, xcb_glx_get_clip_plane_cookie_t>;
@@ -2894,21 +3119,27 @@ pub type GetClipPlaneCookie<'a> = base::Cookie<'a, xcb_glx_get_clip_plane_cookie
 impl<'a> GetClipPlaneCookie<'a> {
     pub fn get_reply(self) -> Result<GetClipPlaneReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetClipPlaneReply {
-                ptr: xcb_glx_get_clip_plane_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_clip_plane_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -2926,34 +3157,40 @@ impl GetClipPlaneReply {
     }
 }
 
-pub fn get_clip_plane<'a>(c          : &'a base::Connection,
-                          context_tag: ContextTag,
-                          plane      : i32)
-        -> GetClipPlaneCookie<'a> {
+pub fn get_clip_plane<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    plane: i32,
+) -> GetClipPlaneCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_clip_plane(c.get_raw_conn(),
-                                            context_tag as xcb_glx_context_tag_t,  // 0
-                                            plane as i32);  // 1
+        let cookie = xcb_glx_get_clip_plane(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            plane as i32,
+        );
         GetClipPlaneCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_clip_plane_unchecked<'a>(c          : &'a base::Connection,
-                                    context_tag: ContextTag,
-                                    plane      : i32)
-        -> GetClipPlaneCookie<'a> {
+pub fn get_clip_plane_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    plane: i32,
+) -> GetClipPlaneCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_clip_plane_unchecked(c.get_raw_conn(),
-                                                      context_tag as xcb_glx_context_tag_t,  // 0
-                                                      plane as i32);  // 1
+        let cookie = xcb_glx_get_clip_plane_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            plane as i32,
+        );
         GetClipPlaneCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -2961,7 +3198,9 @@ pub fn get_clip_plane_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_DOUBLEV: u8 = 114;
 
 impl base::CookieSeq for xcb_glx_get_doublev_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetDoublevCookie<'a> = base::Cookie<'a, xcb_glx_get_doublev_cookie_t>;
@@ -2969,21 +3208,27 @@ pub type GetDoublevCookie<'a> = base::Cookie<'a, xcb_glx_get_doublev_cookie_t>;
 impl<'a> GetDoublevCookie<'a> {
     pub fn get_reply(self) -> Result<GetDoublevReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetDoublevReply {
-                ptr: xcb_glx_get_doublev_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_doublev_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -2992,14 +3237,10 @@ pub type GetDoublevReply = base::Reply<xcb_glx_get_doublev_reply_t>;
 
 impl GetDoublevReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float64 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float64] {
         unsafe {
@@ -3011,34 +3252,40 @@ impl GetDoublevReply {
     }
 }
 
-pub fn get_doublev<'a>(c          : &'a base::Connection,
-                       context_tag: ContextTag,
-                       pname      : u32)
-        -> GetDoublevCookie<'a> {
+pub fn get_doublev<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+) -> GetDoublevCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_doublev(c.get_raw_conn(),
-                                         context_tag as xcb_glx_context_tag_t,  // 0
-                                         pname as u32);  // 1
+        let cookie = xcb_glx_get_doublev(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+        );
         GetDoublevCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_doublev_unchecked<'a>(c          : &'a base::Connection,
-                                 context_tag: ContextTag,
-                                 pname      : u32)
-        -> GetDoublevCookie<'a> {
+pub fn get_doublev_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+) -> GetDoublevCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_doublev_unchecked(c.get_raw_conn(),
-                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                   pname as u32);  // 1
+        let cookie = xcb_glx_get_doublev_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+        );
         GetDoublevCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3046,7 +3293,9 @@ pub fn get_doublev_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_ERROR: u8 = 115;
 
 impl base::CookieSeq for xcb_glx_get_error_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetErrorCookie<'a> = base::Cookie<'a, xcb_glx_get_error_cookie_t>;
@@ -3054,21 +3303,27 @@ pub type GetErrorCookie<'a> = base::Cookie<'a, xcb_glx_get_error_cookie_t>;
 impl<'a> GetErrorCookie<'a> {
     pub fn get_reply(self) -> Result<GetErrorReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetErrorReply {
-                ptr: xcb_glx_get_error_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_error_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3077,36 +3332,32 @@ pub type GetErrorReply = base::Reply<xcb_glx_get_error_reply_t>;
 
 impl GetErrorReply {
     pub fn error(&self) -> i32 {
-        unsafe {
-            (*self.ptr).error
+        unsafe { (*self.ptr).error }
+    }
+}
+
+pub fn get_error<'a>(c: &'a base::Connection, context_tag: ContextTag) -> GetErrorCookie<'a> {
+    unsafe {
+        let cookie = xcb_glx_get_error(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
+        GetErrorCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_error<'a>(c          : &'a base::Connection,
-                     context_tag: ContextTag)
-        -> GetErrorCookie<'a> {
+pub fn get_error_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+) -> GetErrorCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_error(c.get_raw_conn(),
-                                       context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie =
+            xcb_glx_get_error_unchecked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         GetErrorCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn get_error_unchecked<'a>(c          : &'a base::Connection,
-                               context_tag: ContextTag)
-        -> GetErrorCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_get_error_unchecked(c.get_raw_conn(),
-                                                 context_tag as xcb_glx_context_tag_t);  // 0
-        GetErrorCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3114,7 +3365,9 @@ pub fn get_error_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_FLOATV: u8 = 116;
 
 impl base::CookieSeq for xcb_glx_get_floatv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetFloatvCookie<'a> = base::Cookie<'a, xcb_glx_get_floatv_cookie_t>;
@@ -3122,21 +3375,27 @@ pub type GetFloatvCookie<'a> = base::Cookie<'a, xcb_glx_get_floatv_cookie_t>;
 impl<'a> GetFloatvCookie<'a> {
     pub fn get_reply(self) -> Result<GetFloatvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetFloatvReply {
-                ptr: xcb_glx_get_floatv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_floatv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3145,14 +3404,10 @@ pub type GetFloatvReply = base::Reply<xcb_glx_get_floatv_reply_t>;
 
 impl GetFloatvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -3164,34 +3419,40 @@ impl GetFloatvReply {
     }
 }
 
-pub fn get_floatv<'a>(c          : &'a base::Connection,
-                      context_tag: ContextTag,
-                      pname      : u32)
-        -> GetFloatvCookie<'a> {
+pub fn get_floatv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+) -> GetFloatvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_floatv(c.get_raw_conn(),
-                                        context_tag as xcb_glx_context_tag_t,  // 0
-                                        pname as u32);  // 1
+        let cookie = xcb_glx_get_floatv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+        );
         GetFloatvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_floatv_unchecked<'a>(c          : &'a base::Connection,
-                                context_tag: ContextTag,
-                                pname      : u32)
-        -> GetFloatvCookie<'a> {
+pub fn get_floatv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+) -> GetFloatvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_floatv_unchecked(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  pname as u32);  // 1
+        let cookie = xcb_glx_get_floatv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+        );
         GetFloatvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3199,7 +3460,9 @@ pub fn get_floatv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_INTEGERV: u8 = 117;
 
 impl base::CookieSeq for xcb_glx_get_integerv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetIntegervCookie<'a> = base::Cookie<'a, xcb_glx_get_integerv_cookie_t>;
@@ -3207,21 +3470,27 @@ pub type GetIntegervCookie<'a> = base::Cookie<'a, xcb_glx_get_integerv_cookie_t>
 impl<'a> GetIntegervCookie<'a> {
     pub fn get_reply(self) -> Result<GetIntegervReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetIntegervReply {
-                ptr: xcb_glx_get_integerv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_integerv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3230,14 +3499,10 @@ pub type GetIntegervReply = base::Reply<xcb_glx_get_integerv_reply_t>;
 
 impl GetIntegervReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -3249,34 +3514,40 @@ impl GetIntegervReply {
     }
 }
 
-pub fn get_integerv<'a>(c          : &'a base::Connection,
-                        context_tag: ContextTag,
-                        pname      : u32)
-        -> GetIntegervCookie<'a> {
+pub fn get_integerv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+) -> GetIntegervCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_integerv(c.get_raw_conn(),
-                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                          pname as u32);  // 1
+        let cookie = xcb_glx_get_integerv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+        );
         GetIntegervCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_integerv_unchecked<'a>(c          : &'a base::Connection,
-                                  context_tag: ContextTag,
-                                  pname      : u32)
-        -> GetIntegervCookie<'a> {
+pub fn get_integerv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    pname: u32,
+) -> GetIntegervCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_integerv_unchecked(c.get_raw_conn(),
-                                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                                    pname as u32);  // 1
+        let cookie = xcb_glx_get_integerv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            pname as u32,
+        );
         GetIntegervCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3284,7 +3555,9 @@ pub fn get_integerv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_LIGHTFV: u8 = 118;
 
 impl base::CookieSeq for xcb_glx_get_lightfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetLightfvCookie<'a> = base::Cookie<'a, xcb_glx_get_lightfv_cookie_t>;
@@ -3292,21 +3565,27 @@ pub type GetLightfvCookie<'a> = base::Cookie<'a, xcb_glx_get_lightfv_cookie_t>;
 impl<'a> GetLightfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetLightfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetLightfvReply {
-                ptr: xcb_glx_get_lightfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_lightfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3315,14 +3594,10 @@ pub type GetLightfvReply = base::Reply<xcb_glx_get_lightfv_reply_t>;
 
 impl GetLightfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -3334,38 +3609,44 @@ impl GetLightfvReply {
     }
 }
 
-pub fn get_lightfv<'a>(c          : &'a base::Connection,
-                       context_tag: ContextTag,
-                       light      : u32,
-                       pname      : u32)
-        -> GetLightfvCookie<'a> {
+pub fn get_lightfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    light: u32,
+    pname: u32,
+) -> GetLightfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_lightfv(c.get_raw_conn(),
-                                         context_tag as xcb_glx_context_tag_t,  // 0
-                                         light as u32,  // 1
-                                         pname as u32);  // 2
+        let cookie = xcb_glx_get_lightfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            light as u32,
+            pname as u32,
+        );
         GetLightfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_lightfv_unchecked<'a>(c          : &'a base::Connection,
-                                 context_tag: ContextTag,
-                                 light      : u32,
-                                 pname      : u32)
-        -> GetLightfvCookie<'a> {
+pub fn get_lightfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    light: u32,
+    pname: u32,
+) -> GetLightfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_lightfv_unchecked(c.get_raw_conn(),
-                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                   light as u32,  // 1
-                                                   pname as u32);  // 2
+        let cookie = xcb_glx_get_lightfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            light as u32,
+            pname as u32,
+        );
         GetLightfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3373,7 +3654,9 @@ pub fn get_lightfv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_LIGHTIV: u8 = 119;
 
 impl base::CookieSeq for xcb_glx_get_lightiv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetLightivCookie<'a> = base::Cookie<'a, xcb_glx_get_lightiv_cookie_t>;
@@ -3381,21 +3664,27 @@ pub type GetLightivCookie<'a> = base::Cookie<'a, xcb_glx_get_lightiv_cookie_t>;
 impl<'a> GetLightivCookie<'a> {
     pub fn get_reply(self) -> Result<GetLightivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetLightivReply {
-                ptr: xcb_glx_get_lightiv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_lightiv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3404,14 +3693,10 @@ pub type GetLightivReply = base::Reply<xcb_glx_get_lightiv_reply_t>;
 
 impl GetLightivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -3423,38 +3708,44 @@ impl GetLightivReply {
     }
 }
 
-pub fn get_lightiv<'a>(c          : &'a base::Connection,
-                       context_tag: ContextTag,
-                       light      : u32,
-                       pname      : u32)
-        -> GetLightivCookie<'a> {
+pub fn get_lightiv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    light: u32,
+    pname: u32,
+) -> GetLightivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_lightiv(c.get_raw_conn(),
-                                         context_tag as xcb_glx_context_tag_t,  // 0
-                                         light as u32,  // 1
-                                         pname as u32);  // 2
+        let cookie = xcb_glx_get_lightiv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            light as u32,
+            pname as u32,
+        );
         GetLightivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_lightiv_unchecked<'a>(c          : &'a base::Connection,
-                                 context_tag: ContextTag,
-                                 light      : u32,
-                                 pname      : u32)
-        -> GetLightivCookie<'a> {
+pub fn get_lightiv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    light: u32,
+    pname: u32,
+) -> GetLightivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_lightiv_unchecked(c.get_raw_conn(),
-                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                   light as u32,  // 1
-                                                   pname as u32);  // 2
+        let cookie = xcb_glx_get_lightiv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            light as u32,
+            pname as u32,
+        );
         GetLightivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3462,7 +3753,9 @@ pub fn get_lightiv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_MAPDV: u8 = 120;
 
 impl base::CookieSeq for xcb_glx_get_mapdv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetMapdvCookie<'a> = base::Cookie<'a, xcb_glx_get_mapdv_cookie_t>;
@@ -3470,21 +3763,27 @@ pub type GetMapdvCookie<'a> = base::Cookie<'a, xcb_glx_get_mapdv_cookie_t>;
 impl<'a> GetMapdvCookie<'a> {
     pub fn get_reply(self) -> Result<GetMapdvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMapdvReply {
-                ptr: xcb_glx_get_mapdv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_mapdv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3493,14 +3792,10 @@ pub type GetMapdvReply = base::Reply<xcb_glx_get_mapdv_reply_t>;
 
 impl GetMapdvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float64 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float64] {
         unsafe {
@@ -3512,38 +3807,44 @@ impl GetMapdvReply {
     }
 }
 
-pub fn get_mapdv<'a>(c          : &'a base::Connection,
-                     context_tag: ContextTag,
-                     target     : u32,
-                     query      : u32)
-        -> GetMapdvCookie<'a> {
+pub fn get_mapdv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    query: u32,
+) -> GetMapdvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_mapdv(c.get_raw_conn(),
-                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                       target as u32,  // 1
-                                       query as u32);  // 2
+        let cookie = xcb_glx_get_mapdv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            query as u32,
+        );
         GetMapdvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_mapdv_unchecked<'a>(c          : &'a base::Connection,
-                               context_tag: ContextTag,
-                               target     : u32,
-                               query      : u32)
-        -> GetMapdvCookie<'a> {
+pub fn get_mapdv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    query: u32,
+) -> GetMapdvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_mapdv_unchecked(c.get_raw_conn(),
-                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                 target as u32,  // 1
-                                                 query as u32);  // 2
+        let cookie = xcb_glx_get_mapdv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            query as u32,
+        );
         GetMapdvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3551,7 +3852,9 @@ pub fn get_mapdv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_MAPFV: u8 = 121;
 
 impl base::CookieSeq for xcb_glx_get_mapfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetMapfvCookie<'a> = base::Cookie<'a, xcb_glx_get_mapfv_cookie_t>;
@@ -3559,21 +3862,27 @@ pub type GetMapfvCookie<'a> = base::Cookie<'a, xcb_glx_get_mapfv_cookie_t>;
 impl<'a> GetMapfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetMapfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMapfvReply {
-                ptr: xcb_glx_get_mapfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_mapfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3582,14 +3891,10 @@ pub type GetMapfvReply = base::Reply<xcb_glx_get_mapfv_reply_t>;
 
 impl GetMapfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -3601,38 +3906,44 @@ impl GetMapfvReply {
     }
 }
 
-pub fn get_mapfv<'a>(c          : &'a base::Connection,
-                     context_tag: ContextTag,
-                     target     : u32,
-                     query      : u32)
-        -> GetMapfvCookie<'a> {
+pub fn get_mapfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    query: u32,
+) -> GetMapfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_mapfv(c.get_raw_conn(),
-                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                       target as u32,  // 1
-                                       query as u32);  // 2
+        let cookie = xcb_glx_get_mapfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            query as u32,
+        );
         GetMapfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_mapfv_unchecked<'a>(c          : &'a base::Connection,
-                               context_tag: ContextTag,
-                               target     : u32,
-                               query      : u32)
-        -> GetMapfvCookie<'a> {
+pub fn get_mapfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    query: u32,
+) -> GetMapfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_mapfv_unchecked(c.get_raw_conn(),
-                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                 target as u32,  // 1
-                                                 query as u32);  // 2
+        let cookie = xcb_glx_get_mapfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            query as u32,
+        );
         GetMapfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3640,7 +3951,9 @@ pub fn get_mapfv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_MAPIV: u8 = 122;
 
 impl base::CookieSeq for xcb_glx_get_mapiv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetMapivCookie<'a> = base::Cookie<'a, xcb_glx_get_mapiv_cookie_t>;
@@ -3648,21 +3961,27 @@ pub type GetMapivCookie<'a> = base::Cookie<'a, xcb_glx_get_mapiv_cookie_t>;
 impl<'a> GetMapivCookie<'a> {
     pub fn get_reply(self) -> Result<GetMapivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMapivReply {
-                ptr: xcb_glx_get_mapiv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_mapiv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3671,14 +3990,10 @@ pub type GetMapivReply = base::Reply<xcb_glx_get_mapiv_reply_t>;
 
 impl GetMapivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -3690,38 +4005,44 @@ impl GetMapivReply {
     }
 }
 
-pub fn get_mapiv<'a>(c          : &'a base::Connection,
-                     context_tag: ContextTag,
-                     target     : u32,
-                     query      : u32)
-        -> GetMapivCookie<'a> {
+pub fn get_mapiv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    query: u32,
+) -> GetMapivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_mapiv(c.get_raw_conn(),
-                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                       target as u32,  // 1
-                                       query as u32);  // 2
+        let cookie = xcb_glx_get_mapiv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            query as u32,
+        );
         GetMapivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_mapiv_unchecked<'a>(c          : &'a base::Connection,
-                               context_tag: ContextTag,
-                               target     : u32,
-                               query      : u32)
-        -> GetMapivCookie<'a> {
+pub fn get_mapiv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    query: u32,
+) -> GetMapivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_mapiv_unchecked(c.get_raw_conn(),
-                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                 target as u32,  // 1
-                                                 query as u32);  // 2
+        let cookie = xcb_glx_get_mapiv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            query as u32,
+        );
         GetMapivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3729,7 +4050,9 @@ pub fn get_mapiv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_MATERIALFV: u8 = 123;
 
 impl base::CookieSeq for xcb_glx_get_materialfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetMaterialfvCookie<'a> = base::Cookie<'a, xcb_glx_get_materialfv_cookie_t>;
@@ -3737,21 +4060,27 @@ pub type GetMaterialfvCookie<'a> = base::Cookie<'a, xcb_glx_get_materialfv_cooki
 impl<'a> GetMaterialfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetMaterialfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMaterialfvReply {
-                ptr: xcb_glx_get_materialfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_materialfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3760,14 +4089,10 @@ pub type GetMaterialfvReply = base::Reply<xcb_glx_get_materialfv_reply_t>;
 
 impl GetMaterialfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -3779,38 +4104,44 @@ impl GetMaterialfvReply {
     }
 }
 
-pub fn get_materialfv<'a>(c          : &'a base::Connection,
-                          context_tag: ContextTag,
-                          face       : u32,
-                          pname      : u32)
-        -> GetMaterialfvCookie<'a> {
+pub fn get_materialfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    face: u32,
+    pname: u32,
+) -> GetMaterialfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_materialfv(c.get_raw_conn(),
-                                            context_tag as xcb_glx_context_tag_t,  // 0
-                                            face as u32,  // 1
-                                            pname as u32);  // 2
+        let cookie = xcb_glx_get_materialfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            face as u32,
+            pname as u32,
+        );
         GetMaterialfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_materialfv_unchecked<'a>(c          : &'a base::Connection,
-                                    context_tag: ContextTag,
-                                    face       : u32,
-                                    pname      : u32)
-        -> GetMaterialfvCookie<'a> {
+pub fn get_materialfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    face: u32,
+    pname: u32,
+) -> GetMaterialfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_materialfv_unchecked(c.get_raw_conn(),
-                                                      context_tag as xcb_glx_context_tag_t,  // 0
-                                                      face as u32,  // 1
-                                                      pname as u32);  // 2
+        let cookie = xcb_glx_get_materialfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            face as u32,
+            pname as u32,
+        );
         GetMaterialfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3818,7 +4149,9 @@ pub fn get_materialfv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_MATERIALIV: u8 = 124;
 
 impl base::CookieSeq for xcb_glx_get_materialiv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetMaterialivCookie<'a> = base::Cookie<'a, xcb_glx_get_materialiv_cookie_t>;
@@ -3826,21 +4159,27 @@ pub type GetMaterialivCookie<'a> = base::Cookie<'a, xcb_glx_get_materialiv_cooki
 impl<'a> GetMaterialivCookie<'a> {
     pub fn get_reply(self) -> Result<GetMaterialivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMaterialivReply {
-                ptr: xcb_glx_get_materialiv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_materialiv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3849,14 +4188,10 @@ pub type GetMaterialivReply = base::Reply<xcb_glx_get_materialiv_reply_t>;
 
 impl GetMaterialivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -3868,38 +4203,44 @@ impl GetMaterialivReply {
     }
 }
 
-pub fn get_materialiv<'a>(c          : &'a base::Connection,
-                          context_tag: ContextTag,
-                          face       : u32,
-                          pname      : u32)
-        -> GetMaterialivCookie<'a> {
+pub fn get_materialiv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    face: u32,
+    pname: u32,
+) -> GetMaterialivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_materialiv(c.get_raw_conn(),
-                                            context_tag as xcb_glx_context_tag_t,  // 0
-                                            face as u32,  // 1
-                                            pname as u32);  // 2
+        let cookie = xcb_glx_get_materialiv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            face as u32,
+            pname as u32,
+        );
         GetMaterialivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_materialiv_unchecked<'a>(c          : &'a base::Connection,
-                                    context_tag: ContextTag,
-                                    face       : u32,
-                                    pname      : u32)
-        -> GetMaterialivCookie<'a> {
+pub fn get_materialiv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    face: u32,
+    pname: u32,
+) -> GetMaterialivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_materialiv_unchecked(c.get_raw_conn(),
-                                                      context_tag as xcb_glx_context_tag_t,  // 0
-                                                      face as u32,  // 1
-                                                      pname as u32);  // 2
+        let cookie = xcb_glx_get_materialiv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            face as u32,
+            pname as u32,
+        );
         GetMaterialivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3907,7 +4248,9 @@ pub fn get_materialiv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_PIXEL_MAPFV: u8 = 125;
 
 impl base::CookieSeq for xcb_glx_get_pixel_mapfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetPixelMapfvCookie<'a> = base::Cookie<'a, xcb_glx_get_pixel_mapfv_cookie_t>;
@@ -3915,21 +4258,27 @@ pub type GetPixelMapfvCookie<'a> = base::Cookie<'a, xcb_glx_get_pixel_mapfv_cook
 impl<'a> GetPixelMapfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetPixelMapfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPixelMapfvReply {
-                ptr: xcb_glx_get_pixel_mapfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_pixel_mapfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -3938,14 +4287,10 @@ pub type GetPixelMapfvReply = base::Reply<xcb_glx_get_pixel_mapfv_reply_t>;
 
 impl GetPixelMapfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -3957,34 +4302,40 @@ impl GetPixelMapfvReply {
     }
 }
 
-pub fn get_pixel_mapfv<'a>(c          : &'a base::Connection,
-                           context_tag: ContextTag,
-                           map        : u32)
-        -> GetPixelMapfvCookie<'a> {
+pub fn get_pixel_mapfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    map: u32,
+) -> GetPixelMapfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_pixel_mapfv(c.get_raw_conn(),
-                                             context_tag as xcb_glx_context_tag_t,  // 0
-                                             map as u32);  // 1
+        let cookie = xcb_glx_get_pixel_mapfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            map as u32,
+        );
         GetPixelMapfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_pixel_mapfv_unchecked<'a>(c          : &'a base::Connection,
-                                     context_tag: ContextTag,
-                                     map        : u32)
-        -> GetPixelMapfvCookie<'a> {
+pub fn get_pixel_mapfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    map: u32,
+) -> GetPixelMapfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_pixel_mapfv_unchecked(c.get_raw_conn(),
-                                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                                       map as u32);  // 1
+        let cookie = xcb_glx_get_pixel_mapfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            map as u32,
+        );
         GetPixelMapfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -3992,7 +4343,9 @@ pub fn get_pixel_mapfv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_PIXEL_MAPUIV: u8 = 126;
 
 impl base::CookieSeq for xcb_glx_get_pixel_mapuiv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetPixelMapuivCookie<'a> = base::Cookie<'a, xcb_glx_get_pixel_mapuiv_cookie_t>;
@@ -4000,21 +4353,27 @@ pub type GetPixelMapuivCookie<'a> = base::Cookie<'a, xcb_glx_get_pixel_mapuiv_co
 impl<'a> GetPixelMapuivCookie<'a> {
     pub fn get_reply(self) -> Result<GetPixelMapuivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPixelMapuivReply {
-                ptr: xcb_glx_get_pixel_mapuiv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_pixel_mapuiv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4023,14 +4382,10 @@ pub type GetPixelMapuivReply = base::Reply<xcb_glx_get_pixel_mapuiv_reply_t>;
 
 impl GetPixelMapuivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> u32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[u32] {
         unsafe {
@@ -4042,34 +4397,40 @@ impl GetPixelMapuivReply {
     }
 }
 
-pub fn get_pixel_mapuiv<'a>(c          : &'a base::Connection,
-                            context_tag: ContextTag,
-                            map        : u32)
-        -> GetPixelMapuivCookie<'a> {
+pub fn get_pixel_mapuiv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    map: u32,
+) -> GetPixelMapuivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_pixel_mapuiv(c.get_raw_conn(),
-                                              context_tag as xcb_glx_context_tag_t,  // 0
-                                              map as u32);  // 1
+        let cookie = xcb_glx_get_pixel_mapuiv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            map as u32,
+        );
         GetPixelMapuivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_pixel_mapuiv_unchecked<'a>(c          : &'a base::Connection,
-                                      context_tag: ContextTag,
-                                      map        : u32)
-        -> GetPixelMapuivCookie<'a> {
+pub fn get_pixel_mapuiv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    map: u32,
+) -> GetPixelMapuivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_pixel_mapuiv_unchecked(c.get_raw_conn(),
-                                                        context_tag as xcb_glx_context_tag_t,  // 0
-                                                        map as u32);  // 1
+        let cookie = xcb_glx_get_pixel_mapuiv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            map as u32,
+        );
         GetPixelMapuivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4077,7 +4438,9 @@ pub fn get_pixel_mapuiv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_PIXEL_MAPUSV: u8 = 127;
 
 impl base::CookieSeq for xcb_glx_get_pixel_mapusv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetPixelMapusvCookie<'a> = base::Cookie<'a, xcb_glx_get_pixel_mapusv_cookie_t>;
@@ -4085,21 +4448,27 @@ pub type GetPixelMapusvCookie<'a> = base::Cookie<'a, xcb_glx_get_pixel_mapusv_co
 impl<'a> GetPixelMapusvCookie<'a> {
     pub fn get_reply(self) -> Result<GetPixelMapusvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPixelMapusvReply {
-                ptr: xcb_glx_get_pixel_mapusv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_pixel_mapusv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4108,14 +4477,10 @@ pub type GetPixelMapusvReply = base::Reply<xcb_glx_get_pixel_mapusv_reply_t>;
 
 impl GetPixelMapusvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> u16 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[u16] {
         unsafe {
@@ -4127,34 +4492,40 @@ impl GetPixelMapusvReply {
     }
 }
 
-pub fn get_pixel_mapusv<'a>(c          : &'a base::Connection,
-                            context_tag: ContextTag,
-                            map        : u32)
-        -> GetPixelMapusvCookie<'a> {
+pub fn get_pixel_mapusv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    map: u32,
+) -> GetPixelMapusvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_pixel_mapusv(c.get_raw_conn(),
-                                              context_tag as xcb_glx_context_tag_t,  // 0
-                                              map as u32);  // 1
+        let cookie = xcb_glx_get_pixel_mapusv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            map as u32,
+        );
         GetPixelMapusvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_pixel_mapusv_unchecked<'a>(c          : &'a base::Connection,
-                                      context_tag: ContextTag,
-                                      map        : u32)
-        -> GetPixelMapusvCookie<'a> {
+pub fn get_pixel_mapusv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    map: u32,
+) -> GetPixelMapusvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_pixel_mapusv_unchecked(c.get_raw_conn(),
-                                                        context_tag as xcb_glx_context_tag_t,  // 0
-                                                        map as u32);  // 1
+        let cookie = xcb_glx_get_pixel_mapusv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            map as u32,
+        );
         GetPixelMapusvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4162,7 +4533,9 @@ pub fn get_pixel_mapusv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_POLYGON_STIPPLE: u8 = 128;
 
 impl base::CookieSeq for xcb_glx_get_polygon_stipple_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetPolygonStippleCookie<'a> = base::Cookie<'a, xcb_glx_get_polygon_stipple_cookie_t>;
@@ -4170,21 +4543,31 @@ pub type GetPolygonStippleCookie<'a> = base::Cookie<'a, xcb_glx_get_polygon_stip
 impl<'a> GetPolygonStippleCookie<'a> {
     pub fn get_reply(self) -> Result<GetPolygonStippleReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetPolygonStippleReply {
-                ptr: xcb_glx_get_polygon_stipple_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_polygon_stipple_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4202,34 +4585,40 @@ impl GetPolygonStippleReply {
     }
 }
 
-pub fn get_polygon_stipple<'a>(c          : &'a base::Connection,
-                               context_tag: ContextTag,
-                               lsb_first  : bool)
-        -> GetPolygonStippleCookie<'a> {
+pub fn get_polygon_stipple<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    lsb_first: bool,
+) -> GetPolygonStippleCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_polygon_stipple(c.get_raw_conn(),
-                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                 lsb_first as u8);  // 1
+        let cookie = xcb_glx_get_polygon_stipple(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            lsb_first as u8,
+        );
         GetPolygonStippleCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_polygon_stipple_unchecked<'a>(c          : &'a base::Connection,
-                                         context_tag: ContextTag,
-                                         lsb_first  : bool)
-        -> GetPolygonStippleCookie<'a> {
+pub fn get_polygon_stipple_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    lsb_first: bool,
+) -> GetPolygonStippleCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_polygon_stipple_unchecked(c.get_raw_conn(),
-                                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                                           lsb_first as u8);  // 1
+        let cookie = xcb_glx_get_polygon_stipple_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            lsb_first as u8,
+        );
         GetPolygonStippleCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4237,7 +4626,9 @@ pub fn get_polygon_stipple_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_STRING: u8 = 129;
 
 impl base::CookieSeq for xcb_glx_get_string_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetStringCookie<'a> = base::Cookie<'a, xcb_glx_get_string_cookie_t>;
@@ -4245,21 +4636,27 @@ pub type GetStringCookie<'a> = base::Cookie<'a, xcb_glx_get_string_cookie_t>;
 impl<'a> GetStringCookie<'a> {
     pub fn get_reply(self) -> Result<GetStringReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetStringReply {
-                ptr: xcb_glx_get_string_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_string_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4268,9 +4665,7 @@ pub type GetStringReply = base::Reply<xcb_glx_get_string_reply_t>;
 
 impl GetStringReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn string(&self) -> &str {
         unsafe {
@@ -4284,34 +4679,40 @@ impl GetStringReply {
     }
 }
 
-pub fn get_string<'a>(c          : &'a base::Connection,
-                      context_tag: ContextTag,
-                      name       : u32)
-        -> GetStringCookie<'a> {
+pub fn get_string<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    name: u32,
+) -> GetStringCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_string(c.get_raw_conn(),
-                                        context_tag as xcb_glx_context_tag_t,  // 0
-                                        name as u32);  // 1
+        let cookie = xcb_glx_get_string(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            name as u32,
+        );
         GetStringCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_string_unchecked<'a>(c          : &'a base::Connection,
-                                context_tag: ContextTag,
-                                name       : u32)
-        -> GetStringCookie<'a> {
+pub fn get_string_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    name: u32,
+) -> GetStringCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_string_unchecked(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  name as u32);  // 1
+        let cookie = xcb_glx_get_string_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            name as u32,
+        );
         GetStringCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4319,7 +4720,9 @@ pub fn get_string_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_TEX_ENVFV: u8 = 130;
 
 impl base::CookieSeq for xcb_glx_get_tex_envfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetTexEnvfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_envfv_cookie_t>;
@@ -4327,21 +4730,27 @@ pub type GetTexEnvfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_envfv_cookie_t
 impl<'a> GetTexEnvfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexEnvfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexEnvfvReply {
-                ptr: xcb_glx_get_tex_envfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_envfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4350,14 +4759,10 @@ pub type GetTexEnvfvReply = base::Reply<xcb_glx_get_tex_envfv_reply_t>;
 
 impl GetTexEnvfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -4369,38 +4774,44 @@ impl GetTexEnvfvReply {
     }
 }
 
-pub fn get_tex_envfv<'a>(c          : &'a base::Connection,
-                         context_tag: ContextTag,
-                         target     : u32,
-                         pname      : u32)
-        -> GetTexEnvfvCookie<'a> {
+pub fn get_tex_envfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetTexEnvfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_envfv(c.get_raw_conn(),
-                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                           target as u32,  // 1
-                                           pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_envfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetTexEnvfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_envfv_unchecked<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   target     : u32,
-                                   pname      : u32)
-        -> GetTexEnvfvCookie<'a> {
+pub fn get_tex_envfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetTexEnvfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_envfv_unchecked(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     target as u32,  // 1
-                                                     pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_envfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetTexEnvfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4408,7 +4819,9 @@ pub fn get_tex_envfv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_TEX_ENVIV: u8 = 131;
 
 impl base::CookieSeq for xcb_glx_get_tex_enviv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetTexEnvivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_enviv_cookie_t>;
@@ -4416,21 +4829,27 @@ pub type GetTexEnvivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_enviv_cookie_t
 impl<'a> GetTexEnvivCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexEnvivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexEnvivReply {
-                ptr: xcb_glx_get_tex_enviv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_enviv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4439,14 +4858,10 @@ pub type GetTexEnvivReply = base::Reply<xcb_glx_get_tex_enviv_reply_t>;
 
 impl GetTexEnvivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -4458,38 +4873,44 @@ impl GetTexEnvivReply {
     }
 }
 
-pub fn get_tex_enviv<'a>(c          : &'a base::Connection,
-                         context_tag: ContextTag,
-                         target     : u32,
-                         pname      : u32)
-        -> GetTexEnvivCookie<'a> {
+pub fn get_tex_enviv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetTexEnvivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_enviv(c.get_raw_conn(),
-                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                           target as u32,  // 1
-                                           pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_enviv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetTexEnvivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_enviv_unchecked<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   target     : u32,
-                                   pname      : u32)
-        -> GetTexEnvivCookie<'a> {
+pub fn get_tex_enviv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetTexEnvivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_enviv_unchecked(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     target as u32,  // 1
-                                                     pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_enviv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetTexEnvivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4497,7 +4918,9 @@ pub fn get_tex_enviv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_TEX_GENDV: u8 = 132;
 
 impl base::CookieSeq for xcb_glx_get_tex_gendv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetTexGendvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_gendv_cookie_t>;
@@ -4505,21 +4928,27 @@ pub type GetTexGendvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_gendv_cookie_t
 impl<'a> GetTexGendvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexGendvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexGendvReply {
-                ptr: xcb_glx_get_tex_gendv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_gendv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4528,14 +4957,10 @@ pub type GetTexGendvReply = base::Reply<xcb_glx_get_tex_gendv_reply_t>;
 
 impl GetTexGendvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float64 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float64] {
         unsafe {
@@ -4547,38 +4972,44 @@ impl GetTexGendvReply {
     }
 }
 
-pub fn get_tex_gendv<'a>(c          : &'a base::Connection,
-                         context_tag: ContextTag,
-                         coord      : u32,
-                         pname      : u32)
-        -> GetTexGendvCookie<'a> {
+pub fn get_tex_gendv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    coord: u32,
+    pname: u32,
+) -> GetTexGendvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_gendv(c.get_raw_conn(),
-                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                           coord as u32,  // 1
-                                           pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_gendv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            coord as u32,
+            pname as u32,
+        );
         GetTexGendvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_gendv_unchecked<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   coord      : u32,
-                                   pname      : u32)
-        -> GetTexGendvCookie<'a> {
+pub fn get_tex_gendv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    coord: u32,
+    pname: u32,
+) -> GetTexGendvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_gendv_unchecked(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     coord as u32,  // 1
-                                                     pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_gendv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            coord as u32,
+            pname as u32,
+        );
         GetTexGendvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4586,7 +5017,9 @@ pub fn get_tex_gendv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_TEX_GENFV: u8 = 133;
 
 impl base::CookieSeq for xcb_glx_get_tex_genfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetTexGenfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_genfv_cookie_t>;
@@ -4594,21 +5027,27 @@ pub type GetTexGenfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_genfv_cookie_t
 impl<'a> GetTexGenfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexGenfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexGenfvReply {
-                ptr: xcb_glx_get_tex_genfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_genfv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4617,14 +5056,10 @@ pub type GetTexGenfvReply = base::Reply<xcb_glx_get_tex_genfv_reply_t>;
 
 impl GetTexGenfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -4636,38 +5071,44 @@ impl GetTexGenfvReply {
     }
 }
 
-pub fn get_tex_genfv<'a>(c          : &'a base::Connection,
-                         context_tag: ContextTag,
-                         coord      : u32,
-                         pname      : u32)
-        -> GetTexGenfvCookie<'a> {
+pub fn get_tex_genfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    coord: u32,
+    pname: u32,
+) -> GetTexGenfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_genfv(c.get_raw_conn(),
-                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                           coord as u32,  // 1
-                                           pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_genfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            coord as u32,
+            pname as u32,
+        );
         GetTexGenfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_genfv_unchecked<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   coord      : u32,
-                                   pname      : u32)
-        -> GetTexGenfvCookie<'a> {
+pub fn get_tex_genfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    coord: u32,
+    pname: u32,
+) -> GetTexGenfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_genfv_unchecked(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     coord as u32,  // 1
-                                                     pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_genfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            coord as u32,
+            pname as u32,
+        );
         GetTexGenfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4675,7 +5116,9 @@ pub fn get_tex_genfv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_TEX_GENIV: u8 = 134;
 
 impl base::CookieSeq for xcb_glx_get_tex_geniv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetTexGenivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_geniv_cookie_t>;
@@ -4683,21 +5126,27 @@ pub type GetTexGenivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_geniv_cookie_t
 impl<'a> GetTexGenivCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexGenivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexGenivReply {
-                ptr: xcb_glx_get_tex_geniv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_geniv_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4706,14 +5155,10 @@ pub type GetTexGenivReply = base::Reply<xcb_glx_get_tex_geniv_reply_t>;
 
 impl GetTexGenivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -4725,38 +5170,44 @@ impl GetTexGenivReply {
     }
 }
 
-pub fn get_tex_geniv<'a>(c          : &'a base::Connection,
-                         context_tag: ContextTag,
-                         coord      : u32,
-                         pname      : u32)
-        -> GetTexGenivCookie<'a> {
+pub fn get_tex_geniv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    coord: u32,
+    pname: u32,
+) -> GetTexGenivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_geniv(c.get_raw_conn(),
-                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                           coord as u32,  // 1
-                                           pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_geniv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            coord as u32,
+            pname as u32,
+        );
         GetTexGenivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_geniv_unchecked<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   coord      : u32,
-                                   pname      : u32)
-        -> GetTexGenivCookie<'a> {
+pub fn get_tex_geniv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    coord: u32,
+    pname: u32,
+) -> GetTexGenivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_geniv_unchecked(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     coord as u32,  // 1
-                                                     pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_geniv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            coord as u32,
+            pname as u32,
+        );
         GetTexGenivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4764,7 +5215,9 @@ pub fn get_tex_geniv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_TEX_IMAGE: u8 = 135;
 
 impl base::CookieSeq for xcb_glx_get_tex_image_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetTexImageCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_image_cookie_t>;
@@ -4772,21 +5225,27 @@ pub type GetTexImageCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_image_cookie_t
 impl<'a> GetTexImageCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexImageReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexImageReply {
-                ptr: xcb_glx_get_tex_image_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_image_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4795,19 +5254,13 @@ pub type GetTexImageReply = base::Reply<xcb_glx_get_tex_image_reply_t>;
 
 impl GetTexImageReply {
     pub fn width(&self) -> i32 {
-        unsafe {
-            (*self.ptr).width
-        }
+        unsafe { (*self.ptr).width }
     }
     pub fn height(&self) -> i32 {
-        unsafe {
-            (*self.ptr).height
-        }
+        unsafe { (*self.ptr).height }
     }
     pub fn depth(&self) -> i32 {
-        unsafe {
-            (*self.ptr).depth
-        }
+        unsafe { (*self.ptr).depth }
     }
     pub fn data(&self) -> &[u8] {
         unsafe {
@@ -4819,50 +5272,56 @@ impl GetTexImageReply {
     }
 }
 
-pub fn get_tex_image<'a>(c          : &'a base::Connection,
-                         context_tag: ContextTag,
-                         target     : u32,
-                         level      : i32,
-                         format     : u32,
-                         type_      : u32,
-                         swap_bytes : bool)
-        -> GetTexImageCookie<'a> {
+pub fn get_tex_image<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    level: i32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+) -> GetTexImageCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_image(c.get_raw_conn(),
-                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                           target as u32,  // 1
-                                           level as i32,  // 2
-                                           format as u32,  // 3
-                                           type_ as u32,  // 4
-                                           swap_bytes as u8);  // 5
+        let cookie = xcb_glx_get_tex_image(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            level as i32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+        );
         GetTexImageCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_image_unchecked<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   target     : u32,
-                                   level      : i32,
-                                   format     : u32,
-                                   type_      : u32,
-                                   swap_bytes : bool)
-        -> GetTexImageCookie<'a> {
+pub fn get_tex_image_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    level: i32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+) -> GetTexImageCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_image_unchecked(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     target as u32,  // 1
-                                                     level as i32,  // 2
-                                                     format as u32,  // 3
-                                                     type_ as u32,  // 4
-                                                     swap_bytes as u8);  // 5
+        let cookie = xcb_glx_get_tex_image_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            level as i32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+        );
         GetTexImageCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4870,7 +5329,9 @@ pub fn get_tex_image_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_TEX_PARAMETERFV: u8 = 136;
 
 impl base::CookieSeq for xcb_glx_get_tex_parameterfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetTexParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_parameterfv_cookie_t>;
@@ -4878,21 +5339,31 @@ pub type GetTexParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_paramete
 impl<'a> GetTexParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexParameterfvReply {
-                ptr: xcb_glx_get_tex_parameterfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_parameterfv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4901,14 +5372,10 @@ pub type GetTexParameterfvReply = base::Reply<xcb_glx_get_tex_parameterfv_reply_
 
 impl GetTexParameterfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -4920,38 +5387,44 @@ impl GetTexParameterfvReply {
     }
 }
 
-pub fn get_tex_parameterfv<'a>(c          : &'a base::Connection,
-                               context_tag: ContextTag,
-                               target     : u32,
-                               pname      : u32)
-        -> GetTexParameterfvCookie<'a> {
+pub fn get_tex_parameterfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetTexParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_parameterfv(c.get_raw_conn(),
-                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                 target as u32,  // 1
-                                                 pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_parameterfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetTexParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_parameterfv_unchecked<'a>(c          : &'a base::Connection,
-                                         context_tag: ContextTag,
-                                         target     : u32,
-                                         pname      : u32)
-        -> GetTexParameterfvCookie<'a> {
+pub fn get_tex_parameterfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetTexParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_parameterfv_unchecked(c.get_raw_conn(),
-                                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                                           target as u32,  // 1
-                                                           pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_parameterfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetTexParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -4959,7 +5432,9 @@ pub fn get_tex_parameterfv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_TEX_PARAMETERIV: u8 = 137;
 
 impl base::CookieSeq for xcb_glx_get_tex_parameteriv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetTexParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_parameteriv_cookie_t>;
@@ -4967,21 +5442,31 @@ pub type GetTexParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_paramete
 impl<'a> GetTexParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexParameterivReply {
-                ptr: xcb_glx_get_tex_parameteriv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_parameteriv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -4990,14 +5475,10 @@ pub type GetTexParameterivReply = base::Reply<xcb_glx_get_tex_parameteriv_reply_
 
 impl GetTexParameterivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -5009,38 +5490,44 @@ impl GetTexParameterivReply {
     }
 }
 
-pub fn get_tex_parameteriv<'a>(c          : &'a base::Connection,
-                               context_tag: ContextTag,
-                               target     : u32,
-                               pname      : u32)
-        -> GetTexParameterivCookie<'a> {
+pub fn get_tex_parameteriv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetTexParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_parameteriv(c.get_raw_conn(),
-                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                 target as u32,  // 1
-                                                 pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_parameteriv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetTexParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_parameteriv_unchecked<'a>(c          : &'a base::Connection,
-                                         context_tag: ContextTag,
-                                         target     : u32,
-                                         pname      : u32)
-        -> GetTexParameterivCookie<'a> {
+pub fn get_tex_parameteriv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetTexParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_parameteriv_unchecked(c.get_raw_conn(),
-                                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                                           target as u32,  // 1
-                                                           pname as u32);  // 2
+        let cookie = xcb_glx_get_tex_parameteriv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetTexParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -5048,29 +5535,42 @@ pub fn get_tex_parameteriv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_TEX_LEVEL_PARAMETERFV: u8 = 138;
 
 impl base::CookieSeq for xcb_glx_get_tex_level_parameterfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetTexLevelParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_level_parameterfv_cookie_t>;
+pub type GetTexLevelParameterfvCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_tex_level_parameterfv_cookie_t>;
 
 impl<'a> GetTexLevelParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexLevelParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexLevelParameterfvReply {
-                ptr: xcb_glx_get_tex_level_parameterfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_level_parameterfv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5079,14 +5579,10 @@ pub type GetTexLevelParameterfvReply = base::Reply<xcb_glx_get_tex_level_paramet
 
 impl GetTexLevelParameterfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -5098,42 +5594,48 @@ impl GetTexLevelParameterfvReply {
     }
 }
 
-pub fn get_tex_level_parameterfv<'a>(c          : &'a base::Connection,
-                                     context_tag: ContextTag,
-                                     target     : u32,
-                                     level      : i32,
-                                     pname      : u32)
-        -> GetTexLevelParameterfvCookie<'a> {
+pub fn get_tex_level_parameterfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    level: i32,
+    pname: u32,
+) -> GetTexLevelParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_level_parameterfv(c.get_raw_conn(),
-                                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                                       target as u32,  // 1
-                                                       level as i32,  // 2
-                                                       pname as u32);  // 3
+        let cookie = xcb_glx_get_tex_level_parameterfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            level as i32,
+            pname as u32,
+        );
         GetTexLevelParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_level_parameterfv_unchecked<'a>(c          : &'a base::Connection,
-                                               context_tag: ContextTag,
-                                               target     : u32,
-                                               level      : i32,
-                                               pname      : u32)
-        -> GetTexLevelParameterfvCookie<'a> {
+pub fn get_tex_level_parameterfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    level: i32,
+    pname: u32,
+) -> GetTexLevelParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_level_parameterfv_unchecked(c.get_raw_conn(),
-                                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                                 target as u32,  // 1
-                                                                 level as i32,  // 2
-                                                                 pname as u32);  // 3
+        let cookie = xcb_glx_get_tex_level_parameterfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            level as i32,
+            pname as u32,
+        );
         GetTexLevelParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -5141,29 +5643,42 @@ pub fn get_tex_level_parameterfv_unchecked<'a>(c          : &'a base::Connection
 pub const GET_TEX_LEVEL_PARAMETERIV: u8 = 139;
 
 impl base::CookieSeq for xcb_glx_get_tex_level_parameteriv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetTexLevelParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_tex_level_parameteriv_cookie_t>;
+pub type GetTexLevelParameterivCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_tex_level_parameteriv_cookie_t>;
 
 impl<'a> GetTexLevelParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetTexLevelParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetTexLevelParameterivReply {
-                ptr: xcb_glx_get_tex_level_parameteriv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_tex_level_parameteriv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5172,14 +5687,10 @@ pub type GetTexLevelParameterivReply = base::Reply<xcb_glx_get_tex_level_paramet
 
 impl GetTexLevelParameterivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -5191,42 +5702,48 @@ impl GetTexLevelParameterivReply {
     }
 }
 
-pub fn get_tex_level_parameteriv<'a>(c          : &'a base::Connection,
-                                     context_tag: ContextTag,
-                                     target     : u32,
-                                     level      : i32,
-                                     pname      : u32)
-        -> GetTexLevelParameterivCookie<'a> {
+pub fn get_tex_level_parameteriv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    level: i32,
+    pname: u32,
+) -> GetTexLevelParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_level_parameteriv(c.get_raw_conn(),
-                                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                                       target as u32,  // 1
-                                                       level as i32,  // 2
-                                                       pname as u32);  // 3
+        let cookie = xcb_glx_get_tex_level_parameteriv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            level as i32,
+            pname as u32,
+        );
         GetTexLevelParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_tex_level_parameteriv_unchecked<'a>(c          : &'a base::Connection,
-                                               context_tag: ContextTag,
-                                               target     : u32,
-                                               level      : i32,
-                                               pname      : u32)
-        -> GetTexLevelParameterivCookie<'a> {
+pub fn get_tex_level_parameteriv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    level: i32,
+    pname: u32,
+) -> GetTexLevelParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_tex_level_parameteriv_unchecked(c.get_raw_conn(),
-                                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                                 target as u32,  // 1
-                                                                 level as i32,  // 2
-                                                                 pname as u32);  // 3
+        let cookie = xcb_glx_get_tex_level_parameteriv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            level as i32,
+            pname as u32,
+        );
         GetTexLevelParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -5234,7 +5751,9 @@ pub fn get_tex_level_parameteriv_unchecked<'a>(c          : &'a base::Connection
 pub const IS_LIST: u8 = 141;
 
 impl base::CookieSeq for xcb_glx_is_list_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type IsListCookie<'a> = base::Cookie<'a, xcb_glx_is_list_cookie_t>;
@@ -5242,21 +5761,27 @@ pub type IsListCookie<'a> = base::Cookie<'a, xcb_glx_is_list_cookie_t>;
 impl<'a> IsListCookie<'a> {
     pub fn get_reply(self) -> Result<IsListReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             IsListReply {
-                ptr: xcb_glx_is_list_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_is_list_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5265,70 +5790,68 @@ pub type IsListReply = base::Reply<xcb_glx_is_list_reply_t>;
 
 impl IsListReply {
     pub fn ret_val(&self) -> Bool32 {
-        unsafe {
-            (*self.ptr).ret_val
+        unsafe { (*self.ptr).ret_val }
+    }
+}
+
+pub fn is_list<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    list: u32,
+) -> IsListCookie<'a> {
+    unsafe {
+        let cookie = xcb_glx_is_list(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            list as u32,
+        );
+        IsListCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn is_list<'a>(c          : &'a base::Connection,
-                   context_tag: ContextTag,
-                   list       : u32)
-        -> IsListCookie<'a> {
+pub fn is_list_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    list: u32,
+) -> IsListCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_is_list(c.get_raw_conn(),
-                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                     list as u32);  // 1
+        let cookie = xcb_glx_is_list_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            list as u32,
+        );
         IsListCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn is_list_unchecked<'a>(c          : &'a base::Connection,
-                             context_tag: ContextTag,
-                             list       : u32)
-        -> IsListCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_is_list_unchecked(c.get_raw_conn(),
-                                               context_tag as xcb_glx_context_tag_t,  // 0
-                                               list as u32);  // 1
-        IsListCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const FLUSH: u8 = 142;
 
-pub fn flush<'a>(c          : &'a base::Connection,
-                 context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn flush<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_flush(c.get_raw_conn(),
-                                   context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie = xcb_glx_flush(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn flush_checked<'a>(c          : &'a base::Connection,
-                         context_tag: ContextTag)
-        -> base::VoidCookie<'a> {
+pub fn flush_checked<'a>(c: &'a base::Connection, context_tag: ContextTag) -> base::VoidCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_flush_checked(c.get_raw_conn(),
-                                           context_tag as xcb_glx_context_tag_t);  // 0
+        let cookie = xcb_glx_flush_checked(c.get_raw_conn(), context_tag as xcb_glx_context_tag_t);
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -5336,7 +5859,9 @@ pub fn flush_checked<'a>(c          : &'a base::Connection,
 pub const ARE_TEXTURES_RESIDENT: u8 = 143;
 
 impl base::CookieSeq for xcb_glx_are_textures_resident_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type AreTexturesResidentCookie<'a> = base::Cookie<'a, xcb_glx_are_textures_resident_cookie_t>;
@@ -5344,21 +5869,31 @@ pub type AreTexturesResidentCookie<'a> = base::Cookie<'a, xcb_glx_are_textures_r
 impl<'a> AreTexturesResidentCookie<'a> {
     pub fn get_reply(self) -> Result<AreTexturesResidentReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             AreTexturesResidentReply {
-                ptr: xcb_glx_are_textures_resident_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_are_textures_resident_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5367,9 +5902,7 @@ pub type AreTexturesResidentReply = base::Reply<xcb_glx_are_textures_resident_re
 
 impl AreTexturesResidentReply {
     pub fn ret_val(&self) -> Bool32 {
-        unsafe {
-            (*self.ptr).ret_val
-        }
+        unsafe { (*self.ptr).ret_val }
     }
     pub fn data(&self) -> Vec<bool> {
         unsafe {
@@ -5377,85 +5910,100 @@ impl AreTexturesResidentReply {
             let len = xcb_glx_are_textures_resident_data_length(field) as usize;
             let data = xcb_glx_are_textures_resident_data(field);
             let slice = std::slice::from_raw_parts(data, len);
-            slice.iter().map(|el| if *el == 0 {false} else{true}).collect()
+            slice
+                .iter()
+                .map(|el| if *el == 0 { false } else { true })
+                .collect()
         }
     }
 }
 
-pub fn are_textures_resident<'a>(c          : &'a base::Connection,
-                                 context_tag: ContextTag,
-                                 textures   : &[u32])
-        -> AreTexturesResidentCookie<'a> {
+pub fn are_textures_resident<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    textures: &[u32],
+) -> AreTexturesResidentCookie<'a> {
     unsafe {
         let textures_len = textures.len();
         let textures_ptr = textures.as_ptr();
-        let cookie = xcb_glx_are_textures_resident(c.get_raw_conn(),
-                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                   textures_len as i32,  // 1
-                                                   textures_ptr as *const u32);  // 2
+        let cookie = xcb_glx_are_textures_resident(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            textures_len as i32,
+            textures_ptr as *const u32,
+        );
         AreTexturesResidentCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn are_textures_resident_unchecked<'a>(c          : &'a base::Connection,
-                                           context_tag: ContextTag,
-                                           textures   : &[u32])
-        -> AreTexturesResidentCookie<'a> {
+pub fn are_textures_resident_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    textures: &[u32],
+) -> AreTexturesResidentCookie<'a> {
     unsafe {
         let textures_len = textures.len();
         let textures_ptr = textures.as_ptr();
-        let cookie = xcb_glx_are_textures_resident_unchecked(c.get_raw_conn(),
-                                                             context_tag as xcb_glx_context_tag_t,  // 0
-                                                             textures_len as i32,  // 1
-                                                             textures_ptr as *const u32);  // 2
+        let cookie = xcb_glx_are_textures_resident_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            textures_len as i32,
+            textures_ptr as *const u32,
+        );
         AreTexturesResidentCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const DELETE_TEXTURES: u8 = 144;
 
-pub fn delete_textures<'a>(c          : &'a base::Connection,
-                           context_tag: ContextTag,
-                           textures   : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn delete_textures<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    textures: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let textures_len = textures.len();
         let textures_ptr = textures.as_ptr();
-        let cookie = xcb_glx_delete_textures(c.get_raw_conn(),
-                                             context_tag as xcb_glx_context_tag_t,  // 0
-                                             textures_len as i32,  // 1
-                                             textures_ptr as *const u32);  // 2
+        let cookie = xcb_glx_delete_textures(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            textures_len as i32,
+            textures_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn delete_textures_checked<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   textures   : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn delete_textures_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    textures: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let textures_len = textures.len();
         let textures_ptr = textures.as_ptr();
-        let cookie = xcb_glx_delete_textures_checked(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     textures_len as i32,  // 1
-                                                     textures_ptr as *const u32);  // 2
+        let cookie = xcb_glx_delete_textures_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            textures_len as i32,
+            textures_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -5463,7 +6011,9 @@ pub fn delete_textures_checked<'a>(c          : &'a base::Connection,
 pub const GEN_TEXTURES: u8 = 145;
 
 impl base::CookieSeq for xcb_glx_gen_textures_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GenTexturesCookie<'a> = base::Cookie<'a, xcb_glx_gen_textures_cookie_t>;
@@ -5471,21 +6021,27 @@ pub type GenTexturesCookie<'a> = base::Cookie<'a, xcb_glx_gen_textures_cookie_t>
 impl<'a> GenTexturesCookie<'a> {
     pub fn get_reply(self) -> Result<GenTexturesReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GenTexturesReply {
-                ptr: xcb_glx_gen_textures_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_gen_textures_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5503,34 +6059,40 @@ impl GenTexturesReply {
     }
 }
 
-pub fn gen_textures<'a>(c          : &'a base::Connection,
-                        context_tag: ContextTag,
-                        n          : i32)
-        -> GenTexturesCookie<'a> {
+pub fn gen_textures<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    n: i32,
+) -> GenTexturesCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_gen_textures(c.get_raw_conn(),
-                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                          n as i32);  // 1
+        let cookie = xcb_glx_gen_textures(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            n as i32,
+        );
         GenTexturesCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn gen_textures_unchecked<'a>(c          : &'a base::Connection,
-                                  context_tag: ContextTag,
-                                  n          : i32)
-        -> GenTexturesCookie<'a> {
+pub fn gen_textures_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    n: i32,
+) -> GenTexturesCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_gen_textures_unchecked(c.get_raw_conn(),
-                                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                                    n as i32);  // 1
+        let cookie = xcb_glx_gen_textures_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            n as i32,
+        );
         GenTexturesCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -5538,7 +6100,9 @@ pub fn gen_textures_unchecked<'a>(c          : &'a base::Connection,
 pub const IS_TEXTURE: u8 = 146;
 
 impl base::CookieSeq for xcb_glx_is_texture_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type IsTextureCookie<'a> = base::Cookie<'a, xcb_glx_is_texture_cookie_t>;
@@ -5546,21 +6110,27 @@ pub type IsTextureCookie<'a> = base::Cookie<'a, xcb_glx_is_texture_cookie_t>;
 impl<'a> IsTextureCookie<'a> {
     pub fn get_reply(self) -> Result<IsTextureReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             IsTextureReply {
-                ptr: xcb_glx_is_texture_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_is_texture_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5569,40 +6139,44 @@ pub type IsTextureReply = base::Reply<xcb_glx_is_texture_reply_t>;
 
 impl IsTextureReply {
     pub fn ret_val(&self) -> Bool32 {
-        unsafe {
-            (*self.ptr).ret_val
+        unsafe { (*self.ptr).ret_val }
+    }
+}
+
+pub fn is_texture<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    texture: u32,
+) -> IsTextureCookie<'a> {
+    unsafe {
+        let cookie = xcb_glx_is_texture(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            texture as u32,
+        );
+        IsTextureCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn is_texture<'a>(c          : &'a base::Connection,
-                      context_tag: ContextTag,
-                      texture    : u32)
-        -> IsTextureCookie<'a> {
+pub fn is_texture_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    texture: u32,
+) -> IsTextureCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_is_texture(c.get_raw_conn(),
-                                        context_tag as xcb_glx_context_tag_t,  // 0
-                                        texture as u32);  // 1
+        let cookie = xcb_glx_is_texture_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            texture as u32,
+        );
         IsTextureCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn is_texture_unchecked<'a>(c          : &'a base::Connection,
-                                context_tag: ContextTag,
-                                texture    : u32)
-        -> IsTextureCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_is_texture_unchecked(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  texture as u32);  // 1
-        IsTextureCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -5610,7 +6184,9 @@ pub fn is_texture_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_COLOR_TABLE: u8 = 147;
 
 impl base::CookieSeq for xcb_glx_get_color_table_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetColorTableCookie<'a> = base::Cookie<'a, xcb_glx_get_color_table_cookie_t>;
@@ -5618,21 +6194,27 @@ pub type GetColorTableCookie<'a> = base::Cookie<'a, xcb_glx_get_color_table_cook
 impl<'a> GetColorTableCookie<'a> {
     pub fn get_reply(self) -> Result<GetColorTableReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetColorTableReply {
-                ptr: xcb_glx_get_color_table_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_color_table_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5641,9 +6223,7 @@ pub type GetColorTableReply = base::Reply<xcb_glx_get_color_table_reply_t>;
 
 impl GetColorTableReply {
     pub fn width(&self) -> i32 {
-        unsafe {
-            (*self.ptr).width
-        }
+        unsafe { (*self.ptr).width }
     }
     pub fn data(&self) -> &[u8] {
         unsafe {
@@ -5655,46 +6235,52 @@ impl GetColorTableReply {
     }
 }
 
-pub fn get_color_table<'a>(c          : &'a base::Connection,
-                           context_tag: ContextTag,
-                           target     : u32,
-                           format     : u32,
-                           type_      : u32,
-                           swap_bytes : bool)
-        -> GetColorTableCookie<'a> {
+pub fn get_color_table<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+) -> GetColorTableCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_color_table(c.get_raw_conn(),
-                                             context_tag as xcb_glx_context_tag_t,  // 0
-                                             target as u32,  // 1
-                                             format as u32,  // 2
-                                             type_ as u32,  // 3
-                                             swap_bytes as u8);  // 4
+        let cookie = xcb_glx_get_color_table(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+        );
         GetColorTableCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_color_table_unchecked<'a>(c          : &'a base::Connection,
-                                     context_tag: ContextTag,
-                                     target     : u32,
-                                     format     : u32,
-                                     type_      : u32,
-                                     swap_bytes : bool)
-        -> GetColorTableCookie<'a> {
+pub fn get_color_table_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+) -> GetColorTableCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_color_table_unchecked(c.get_raw_conn(),
-                                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                                       target as u32,  // 1
-                                                       format as u32,  // 2
-                                                       type_ as u32,  // 3
-                                                       swap_bytes as u8);  // 4
+        let cookie = xcb_glx_get_color_table_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+        );
         GetColorTableCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -5702,29 +6288,42 @@ pub fn get_color_table_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_COLOR_TABLE_PARAMETERFV: u8 = 148;
 
 impl base::CookieSeq for xcb_glx_get_color_table_parameterfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetColorTableParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_color_table_parameterfv_cookie_t>;
+pub type GetColorTableParameterfvCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_color_table_parameterfv_cookie_t>;
 
 impl<'a> GetColorTableParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetColorTableParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetColorTableParameterfvReply {
-                ptr: xcb_glx_get_color_table_parameterfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_color_table_parameterfv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5733,14 +6332,10 @@ pub type GetColorTableParameterfvReply = base::Reply<xcb_glx_get_color_table_par
 
 impl GetColorTableParameterfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -5752,38 +6347,44 @@ impl GetColorTableParameterfvReply {
     }
 }
 
-pub fn get_color_table_parameterfv<'a>(c          : &'a base::Connection,
-                                       context_tag: ContextTag,
-                                       target     : u32,
-                                       pname      : u32)
-        -> GetColorTableParameterfvCookie<'a> {
+pub fn get_color_table_parameterfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetColorTableParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_color_table_parameterfv(c.get_raw_conn(),
-                                                         context_tag as xcb_glx_context_tag_t,  // 0
-                                                         target as u32,  // 1
-                                                         pname as u32);  // 2
+        let cookie = xcb_glx_get_color_table_parameterfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetColorTableParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_color_table_parameterfv_unchecked<'a>(c          : &'a base::Connection,
-                                                 context_tag: ContextTag,
-                                                 target     : u32,
-                                                 pname      : u32)
-        -> GetColorTableParameterfvCookie<'a> {
+pub fn get_color_table_parameterfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetColorTableParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_color_table_parameterfv_unchecked(c.get_raw_conn(),
-                                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                                   target as u32,  // 1
-                                                                   pname as u32);  // 2
+        let cookie = xcb_glx_get_color_table_parameterfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetColorTableParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -5791,29 +6392,42 @@ pub fn get_color_table_parameterfv_unchecked<'a>(c          : &'a base::Connecti
 pub const GET_COLOR_TABLE_PARAMETERIV: u8 = 149;
 
 impl base::CookieSeq for xcb_glx_get_color_table_parameteriv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetColorTableParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_color_table_parameteriv_cookie_t>;
+pub type GetColorTableParameterivCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_color_table_parameteriv_cookie_t>;
 
 impl<'a> GetColorTableParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetColorTableParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetColorTableParameterivReply {
-                ptr: xcb_glx_get_color_table_parameteriv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_color_table_parameteriv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5822,14 +6436,10 @@ pub type GetColorTableParameterivReply = base::Reply<xcb_glx_get_color_table_par
 
 impl GetColorTableParameterivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -5841,38 +6451,44 @@ impl GetColorTableParameterivReply {
     }
 }
 
-pub fn get_color_table_parameteriv<'a>(c          : &'a base::Connection,
-                                       context_tag: ContextTag,
-                                       target     : u32,
-                                       pname      : u32)
-        -> GetColorTableParameterivCookie<'a> {
+pub fn get_color_table_parameteriv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetColorTableParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_color_table_parameteriv(c.get_raw_conn(),
-                                                         context_tag as xcb_glx_context_tag_t,  // 0
-                                                         target as u32,  // 1
-                                                         pname as u32);  // 2
+        let cookie = xcb_glx_get_color_table_parameteriv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetColorTableParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_color_table_parameteriv_unchecked<'a>(c          : &'a base::Connection,
-                                                 context_tag: ContextTag,
-                                                 target     : u32,
-                                                 pname      : u32)
-        -> GetColorTableParameterivCookie<'a> {
+pub fn get_color_table_parameteriv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetColorTableParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_color_table_parameteriv_unchecked(c.get_raw_conn(),
-                                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                                   target as u32,  // 1
-                                                                   pname as u32);  // 2
+        let cookie = xcb_glx_get_color_table_parameteriv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetColorTableParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -5880,7 +6496,9 @@ pub fn get_color_table_parameteriv_unchecked<'a>(c          : &'a base::Connecti
 pub const GET_CONVOLUTION_FILTER: u8 = 150;
 
 impl base::CookieSeq for xcb_glx_get_convolution_filter_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetConvolutionFilterCookie<'a> = base::Cookie<'a, xcb_glx_get_convolution_filter_cookie_t>;
@@ -5888,21 +6506,31 @@ pub type GetConvolutionFilterCookie<'a> = base::Cookie<'a, xcb_glx_get_convoluti
 impl<'a> GetConvolutionFilterCookie<'a> {
     pub fn get_reply(self) -> Result<GetConvolutionFilterReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetConvolutionFilterReply {
-                ptr: xcb_glx_get_convolution_filter_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_convolution_filter_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -5911,14 +6539,10 @@ pub type GetConvolutionFilterReply = base::Reply<xcb_glx_get_convolution_filter_
 
 impl GetConvolutionFilterReply {
     pub fn width(&self) -> i32 {
-        unsafe {
-            (*self.ptr).width
-        }
+        unsafe { (*self.ptr).width }
     }
     pub fn height(&self) -> i32 {
-        unsafe {
-            (*self.ptr).height
-        }
+        unsafe { (*self.ptr).height }
     }
     pub fn data(&self) -> &[u8] {
         unsafe {
@@ -5930,46 +6554,52 @@ impl GetConvolutionFilterReply {
     }
 }
 
-pub fn get_convolution_filter<'a>(c          : &'a base::Connection,
-                                  context_tag: ContextTag,
-                                  target     : u32,
-                                  format     : u32,
-                                  type_      : u32,
-                                  swap_bytes : bool)
-        -> GetConvolutionFilterCookie<'a> {
+pub fn get_convolution_filter<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+) -> GetConvolutionFilterCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_convolution_filter(c.get_raw_conn(),
-                                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                                    target as u32,  // 1
-                                                    format as u32,  // 2
-                                                    type_ as u32,  // 3
-                                                    swap_bytes as u8);  // 4
+        let cookie = xcb_glx_get_convolution_filter(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+        );
         GetConvolutionFilterCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_convolution_filter_unchecked<'a>(c          : &'a base::Connection,
-                                            context_tag: ContextTag,
-                                            target     : u32,
-                                            format     : u32,
-                                            type_      : u32,
-                                            swap_bytes : bool)
-        -> GetConvolutionFilterCookie<'a> {
+pub fn get_convolution_filter_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+) -> GetConvolutionFilterCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_convolution_filter_unchecked(c.get_raw_conn(),
-                                                              context_tag as xcb_glx_context_tag_t,  // 0
-                                                              target as u32,  // 1
-                                                              format as u32,  // 2
-                                                              type_ as u32,  // 3
-                                                              swap_bytes as u8);  // 4
+        let cookie = xcb_glx_get_convolution_filter_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+        );
         GetConvolutionFilterCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -5977,29 +6607,42 @@ pub fn get_convolution_filter_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_CONVOLUTION_PARAMETERFV: u8 = 151;
 
 impl base::CookieSeq for xcb_glx_get_convolution_parameterfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetConvolutionParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_convolution_parameterfv_cookie_t>;
+pub type GetConvolutionParameterfvCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_convolution_parameterfv_cookie_t>;
 
 impl<'a> GetConvolutionParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetConvolutionParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetConvolutionParameterfvReply {
-                ptr: xcb_glx_get_convolution_parameterfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_convolution_parameterfv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6008,14 +6651,10 @@ pub type GetConvolutionParameterfvReply = base::Reply<xcb_glx_get_convolution_pa
 
 impl GetConvolutionParameterfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -6027,38 +6666,44 @@ impl GetConvolutionParameterfvReply {
     }
 }
 
-pub fn get_convolution_parameterfv<'a>(c          : &'a base::Connection,
-                                       context_tag: ContextTag,
-                                       target     : u32,
-                                       pname      : u32)
-        -> GetConvolutionParameterfvCookie<'a> {
+pub fn get_convolution_parameterfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetConvolutionParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_convolution_parameterfv(c.get_raw_conn(),
-                                                         context_tag as xcb_glx_context_tag_t,  // 0
-                                                         target as u32,  // 1
-                                                         pname as u32);  // 2
+        let cookie = xcb_glx_get_convolution_parameterfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetConvolutionParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_convolution_parameterfv_unchecked<'a>(c          : &'a base::Connection,
-                                                 context_tag: ContextTag,
-                                                 target     : u32,
-                                                 pname      : u32)
-        -> GetConvolutionParameterfvCookie<'a> {
+pub fn get_convolution_parameterfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetConvolutionParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_convolution_parameterfv_unchecked(c.get_raw_conn(),
-                                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                                   target as u32,  // 1
-                                                                   pname as u32);  // 2
+        let cookie = xcb_glx_get_convolution_parameterfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetConvolutionParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6066,29 +6711,42 @@ pub fn get_convolution_parameterfv_unchecked<'a>(c          : &'a base::Connecti
 pub const GET_CONVOLUTION_PARAMETERIV: u8 = 152;
 
 impl base::CookieSeq for xcb_glx_get_convolution_parameteriv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetConvolutionParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_convolution_parameteriv_cookie_t>;
+pub type GetConvolutionParameterivCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_convolution_parameteriv_cookie_t>;
 
 impl<'a> GetConvolutionParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetConvolutionParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetConvolutionParameterivReply {
-                ptr: xcb_glx_get_convolution_parameteriv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_convolution_parameteriv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6097,14 +6755,10 @@ pub type GetConvolutionParameterivReply = base::Reply<xcb_glx_get_convolution_pa
 
 impl GetConvolutionParameterivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -6116,38 +6770,44 @@ impl GetConvolutionParameterivReply {
     }
 }
 
-pub fn get_convolution_parameteriv<'a>(c          : &'a base::Connection,
-                                       context_tag: ContextTag,
-                                       target     : u32,
-                                       pname      : u32)
-        -> GetConvolutionParameterivCookie<'a> {
+pub fn get_convolution_parameteriv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetConvolutionParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_convolution_parameteriv(c.get_raw_conn(),
-                                                         context_tag as xcb_glx_context_tag_t,  // 0
-                                                         target as u32,  // 1
-                                                         pname as u32);  // 2
+        let cookie = xcb_glx_get_convolution_parameteriv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetConvolutionParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_convolution_parameteriv_unchecked<'a>(c          : &'a base::Connection,
-                                                 context_tag: ContextTag,
-                                                 target     : u32,
-                                                 pname      : u32)
-        -> GetConvolutionParameterivCookie<'a> {
+pub fn get_convolution_parameteriv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetConvolutionParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_convolution_parameteriv_unchecked(c.get_raw_conn(),
-                                                                   context_tag as xcb_glx_context_tag_t,  // 0
-                                                                   target as u32,  // 1
-                                                                   pname as u32);  // 2
+        let cookie = xcb_glx_get_convolution_parameteriv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetConvolutionParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6155,7 +6815,9 @@ pub fn get_convolution_parameteriv_unchecked<'a>(c          : &'a base::Connecti
 pub const GET_SEPARABLE_FILTER: u8 = 153;
 
 impl base::CookieSeq for xcb_glx_get_separable_filter_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetSeparableFilterCookie<'a> = base::Cookie<'a, xcb_glx_get_separable_filter_cookie_t>;
@@ -6163,21 +6825,31 @@ pub type GetSeparableFilterCookie<'a> = base::Cookie<'a, xcb_glx_get_separable_f
 impl<'a> GetSeparableFilterCookie<'a> {
     pub fn get_reply(self) -> Result<GetSeparableFilterReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetSeparableFilterReply {
-                ptr: xcb_glx_get_separable_filter_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_separable_filter_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6186,14 +6858,10 @@ pub type GetSeparableFilterReply = base::Reply<xcb_glx_get_separable_filter_repl
 
 impl GetSeparableFilterReply {
     pub fn row_w(&self) -> i32 {
-        unsafe {
-            (*self.ptr).row_w
-        }
+        unsafe { (*self.ptr).row_w }
     }
     pub fn col_h(&self) -> i32 {
-        unsafe {
-            (*self.ptr).col_h
-        }
+        unsafe { (*self.ptr).col_h }
     }
     pub fn rows_and_cols(&self) -> &[u8] {
         unsafe {
@@ -6205,46 +6873,52 @@ impl GetSeparableFilterReply {
     }
 }
 
-pub fn get_separable_filter<'a>(c          : &'a base::Connection,
-                                context_tag: ContextTag,
-                                target     : u32,
-                                format     : u32,
-                                type_      : u32,
-                                swap_bytes : bool)
-        -> GetSeparableFilterCookie<'a> {
+pub fn get_separable_filter<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+) -> GetSeparableFilterCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_separable_filter(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  target as u32,  // 1
-                                                  format as u32,  // 2
-                                                  type_ as u32,  // 3
-                                                  swap_bytes as u8);  // 4
+        let cookie = xcb_glx_get_separable_filter(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+        );
         GetSeparableFilterCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_separable_filter_unchecked<'a>(c          : &'a base::Connection,
-                                          context_tag: ContextTag,
-                                          target     : u32,
-                                          format     : u32,
-                                          type_      : u32,
-                                          swap_bytes : bool)
-        -> GetSeparableFilterCookie<'a> {
+pub fn get_separable_filter_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+) -> GetSeparableFilterCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_separable_filter_unchecked(c.get_raw_conn(),
-                                                            context_tag as xcb_glx_context_tag_t,  // 0
-                                                            target as u32,  // 1
-                                                            format as u32,  // 2
-                                                            type_ as u32,  // 3
-                                                            swap_bytes as u8);  // 4
+        let cookie = xcb_glx_get_separable_filter_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+        );
         GetSeparableFilterCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6252,7 +6926,9 @@ pub fn get_separable_filter_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_HISTOGRAM: u8 = 154;
 
 impl base::CookieSeq for xcb_glx_get_histogram_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetHistogramCookie<'a> = base::Cookie<'a, xcb_glx_get_histogram_cookie_t>;
@@ -6260,21 +6936,27 @@ pub type GetHistogramCookie<'a> = base::Cookie<'a, xcb_glx_get_histogram_cookie_
 impl<'a> GetHistogramCookie<'a> {
     pub fn get_reply(self) -> Result<GetHistogramReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetHistogramReply {
-                ptr: xcb_glx_get_histogram_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_histogram_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6283,9 +6965,7 @@ pub type GetHistogramReply = base::Reply<xcb_glx_get_histogram_reply_t>;
 
 impl GetHistogramReply {
     pub fn width(&self) -> i32 {
-        unsafe {
-            (*self.ptr).width
-        }
+        unsafe { (*self.ptr).width }
     }
     pub fn data(&self) -> &[u8] {
         unsafe {
@@ -6297,50 +6977,56 @@ impl GetHistogramReply {
     }
 }
 
-pub fn get_histogram<'a>(c          : &'a base::Connection,
-                         context_tag: ContextTag,
-                         target     : u32,
-                         format     : u32,
-                         type_      : u32,
-                         swap_bytes : bool,
-                         reset      : bool)
-        -> GetHistogramCookie<'a> {
+pub fn get_histogram<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+    reset: bool,
+) -> GetHistogramCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_histogram(c.get_raw_conn(),
-                                           context_tag as xcb_glx_context_tag_t,  // 0
-                                           target as u32,  // 1
-                                           format as u32,  // 2
-                                           type_ as u32,  // 3
-                                           swap_bytes as u8,  // 4
-                                           reset as u8);  // 5
+        let cookie = xcb_glx_get_histogram(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+            reset as u8,
+        );
         GetHistogramCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_histogram_unchecked<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   target     : u32,
-                                   format     : u32,
-                                   type_      : u32,
-                                   swap_bytes : bool,
-                                   reset      : bool)
-        -> GetHistogramCookie<'a> {
+pub fn get_histogram_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+    reset: bool,
+) -> GetHistogramCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_histogram_unchecked(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     target as u32,  // 1
-                                                     format as u32,  // 2
-                                                     type_ as u32,  // 3
-                                                     swap_bytes as u8,  // 4
-                                                     reset as u8);  // 5
+        let cookie = xcb_glx_get_histogram_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+            reset as u8,
+        );
         GetHistogramCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6348,29 +7034,42 @@ pub fn get_histogram_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_HISTOGRAM_PARAMETERFV: u8 = 155;
 
 impl base::CookieSeq for xcb_glx_get_histogram_parameterfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetHistogramParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_histogram_parameterfv_cookie_t>;
+pub type GetHistogramParameterfvCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_histogram_parameterfv_cookie_t>;
 
 impl<'a> GetHistogramParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetHistogramParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetHistogramParameterfvReply {
-                ptr: xcb_glx_get_histogram_parameterfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_histogram_parameterfv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6379,14 +7078,10 @@ pub type GetHistogramParameterfvReply = base::Reply<xcb_glx_get_histogram_parame
 
 impl GetHistogramParameterfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -6398,38 +7093,44 @@ impl GetHistogramParameterfvReply {
     }
 }
 
-pub fn get_histogram_parameterfv<'a>(c          : &'a base::Connection,
-                                     context_tag: ContextTag,
-                                     target     : u32,
-                                     pname      : u32)
-        -> GetHistogramParameterfvCookie<'a> {
+pub fn get_histogram_parameterfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetHistogramParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_histogram_parameterfv(c.get_raw_conn(),
-                                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                                       target as u32,  // 1
-                                                       pname as u32);  // 2
+        let cookie = xcb_glx_get_histogram_parameterfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetHistogramParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_histogram_parameterfv_unchecked<'a>(c          : &'a base::Connection,
-                                               context_tag: ContextTag,
-                                               target     : u32,
-                                               pname      : u32)
-        -> GetHistogramParameterfvCookie<'a> {
+pub fn get_histogram_parameterfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetHistogramParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_histogram_parameterfv_unchecked(c.get_raw_conn(),
-                                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                                 target as u32,  // 1
-                                                                 pname as u32);  // 2
+        let cookie = xcb_glx_get_histogram_parameterfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetHistogramParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6437,29 +7138,42 @@ pub fn get_histogram_parameterfv_unchecked<'a>(c          : &'a base::Connection
 pub const GET_HISTOGRAM_PARAMETERIV: u8 = 156;
 
 impl base::CookieSeq for xcb_glx_get_histogram_parameteriv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetHistogramParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_histogram_parameteriv_cookie_t>;
+pub type GetHistogramParameterivCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_histogram_parameteriv_cookie_t>;
 
 impl<'a> GetHistogramParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetHistogramParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetHistogramParameterivReply {
-                ptr: xcb_glx_get_histogram_parameteriv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_histogram_parameteriv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6468,14 +7182,10 @@ pub type GetHistogramParameterivReply = base::Reply<xcb_glx_get_histogram_parame
 
 impl GetHistogramParameterivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -6487,38 +7197,44 @@ impl GetHistogramParameterivReply {
     }
 }
 
-pub fn get_histogram_parameteriv<'a>(c          : &'a base::Connection,
-                                     context_tag: ContextTag,
-                                     target     : u32,
-                                     pname      : u32)
-        -> GetHistogramParameterivCookie<'a> {
+pub fn get_histogram_parameteriv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetHistogramParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_histogram_parameteriv(c.get_raw_conn(),
-                                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                                       target as u32,  // 1
-                                                       pname as u32);  // 2
+        let cookie = xcb_glx_get_histogram_parameteriv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetHistogramParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_histogram_parameteriv_unchecked<'a>(c          : &'a base::Connection,
-                                               context_tag: ContextTag,
-                                               target     : u32,
-                                               pname      : u32)
-        -> GetHistogramParameterivCookie<'a> {
+pub fn get_histogram_parameteriv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetHistogramParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_histogram_parameteriv_unchecked(c.get_raw_conn(),
-                                                                 context_tag as xcb_glx_context_tag_t,  // 0
-                                                                 target as u32,  // 1
-                                                                 pname as u32);  // 2
+        let cookie = xcb_glx_get_histogram_parameteriv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetHistogramParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6526,7 +7242,9 @@ pub fn get_histogram_parameteriv_unchecked<'a>(c          : &'a base::Connection
 pub const GET_MINMAX: u8 = 157;
 
 impl base::CookieSeq for xcb_glx_get_minmax_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetMinmaxCookie<'a> = base::Cookie<'a, xcb_glx_get_minmax_cookie_t>;
@@ -6534,21 +7252,27 @@ pub type GetMinmaxCookie<'a> = base::Cookie<'a, xcb_glx_get_minmax_cookie_t>;
 impl<'a> GetMinmaxCookie<'a> {
     pub fn get_reply(self) -> Result<GetMinmaxReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMinmaxReply {
-                ptr: xcb_glx_get_minmax_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_minmax_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6566,50 +7290,56 @@ impl GetMinmaxReply {
     }
 }
 
-pub fn get_minmax<'a>(c          : &'a base::Connection,
-                      context_tag: ContextTag,
-                      target     : u32,
-                      format     : u32,
-                      type_      : u32,
-                      swap_bytes : bool,
-                      reset      : bool)
-        -> GetMinmaxCookie<'a> {
+pub fn get_minmax<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+    reset: bool,
+) -> GetMinmaxCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_minmax(c.get_raw_conn(),
-                                        context_tag as xcb_glx_context_tag_t,  // 0
-                                        target as u32,  // 1
-                                        format as u32,  // 2
-                                        type_ as u32,  // 3
-                                        swap_bytes as u8,  // 4
-                                        reset as u8);  // 5
+        let cookie = xcb_glx_get_minmax(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+            reset as u8,
+        );
         GetMinmaxCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_minmax_unchecked<'a>(c          : &'a base::Connection,
-                                context_tag: ContextTag,
-                                target     : u32,
-                                format     : u32,
-                                type_      : u32,
-                                swap_bytes : bool,
-                                reset      : bool)
-        -> GetMinmaxCookie<'a> {
+pub fn get_minmax_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    format: u32,
+    type_: u32,
+    swap_bytes: bool,
+    reset: bool,
+) -> GetMinmaxCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_minmax_unchecked(c.get_raw_conn(),
-                                                  context_tag as xcb_glx_context_tag_t,  // 0
-                                                  target as u32,  // 1
-                                                  format as u32,  // 2
-                                                  type_ as u32,  // 3
-                                                  swap_bytes as u8,  // 4
-                                                  reset as u8);  // 5
+        let cookie = xcb_glx_get_minmax_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            format as u32,
+            type_ as u32,
+            swap_bytes as u8,
+            reset as u8,
+        );
         GetMinmaxCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6617,7 +7347,9 @@ pub fn get_minmax_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_MINMAX_PARAMETERFV: u8 = 158;
 
 impl base::CookieSeq for xcb_glx_get_minmax_parameterfv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetMinmaxParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_minmax_parameterfv_cookie_t>;
@@ -6625,21 +7357,31 @@ pub type GetMinmaxParameterfvCookie<'a> = base::Cookie<'a, xcb_glx_get_minmax_pa
 impl<'a> GetMinmaxParameterfvCookie<'a> {
     pub fn get_reply(self) -> Result<GetMinmaxParameterfvReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMinmaxParameterfvReply {
-                ptr: xcb_glx_get_minmax_parameterfv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_minmax_parameterfv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6648,14 +7390,10 @@ pub type GetMinmaxParameterfvReply = base::Reply<xcb_glx_get_minmax_parameterfv_
 
 impl GetMinmaxParameterfvReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> Float32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[Float32] {
         unsafe {
@@ -6667,38 +7405,44 @@ impl GetMinmaxParameterfvReply {
     }
 }
 
-pub fn get_minmax_parameterfv<'a>(c          : &'a base::Connection,
-                                  context_tag: ContextTag,
-                                  target     : u32,
-                                  pname      : u32)
-        -> GetMinmaxParameterfvCookie<'a> {
+pub fn get_minmax_parameterfv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetMinmaxParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_minmax_parameterfv(c.get_raw_conn(),
-                                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                                    target as u32,  // 1
-                                                    pname as u32);  // 2
+        let cookie = xcb_glx_get_minmax_parameterfv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetMinmaxParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_minmax_parameterfv_unchecked<'a>(c          : &'a base::Connection,
-                                            context_tag: ContextTag,
-                                            target     : u32,
-                                            pname      : u32)
-        -> GetMinmaxParameterfvCookie<'a> {
+pub fn get_minmax_parameterfv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetMinmaxParameterfvCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_minmax_parameterfv_unchecked(c.get_raw_conn(),
-                                                              context_tag as xcb_glx_context_tag_t,  // 0
-                                                              target as u32,  // 1
-                                                              pname as u32);  // 2
+        let cookie = xcb_glx_get_minmax_parameterfv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetMinmaxParameterfvCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6706,7 +7450,9 @@ pub fn get_minmax_parameterfv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_MINMAX_PARAMETERIV: u8 = 159;
 
 impl base::CookieSeq for xcb_glx_get_minmax_parameteriv_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetMinmaxParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_minmax_parameteriv_cookie_t>;
@@ -6714,21 +7460,31 @@ pub type GetMinmaxParameterivCookie<'a> = base::Cookie<'a, xcb_glx_get_minmax_pa
 impl<'a> GetMinmaxParameterivCookie<'a> {
     pub fn get_reply(self) -> Result<GetMinmaxParameterivReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetMinmaxParameterivReply {
-                ptr: xcb_glx_get_minmax_parameteriv_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_minmax_parameteriv_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6737,14 +7493,10 @@ pub type GetMinmaxParameterivReply = base::Reply<xcb_glx_get_minmax_parameteriv_
 
 impl GetMinmaxParameterivReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -6756,38 +7508,44 @@ impl GetMinmaxParameterivReply {
     }
 }
 
-pub fn get_minmax_parameteriv<'a>(c          : &'a base::Connection,
-                                  context_tag: ContextTag,
-                                  target     : u32,
-                                  pname      : u32)
-        -> GetMinmaxParameterivCookie<'a> {
+pub fn get_minmax_parameteriv<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetMinmaxParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_minmax_parameteriv(c.get_raw_conn(),
-                                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                                    target as u32,  // 1
-                                                    pname as u32);  // 2
+        let cookie = xcb_glx_get_minmax_parameteriv(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetMinmaxParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_minmax_parameteriv_unchecked<'a>(c          : &'a base::Connection,
-                                            context_tag: ContextTag,
-                                            target     : u32,
-                                            pname      : u32)
-        -> GetMinmaxParameterivCookie<'a> {
+pub fn get_minmax_parameteriv_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetMinmaxParameterivCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_minmax_parameteriv_unchecked(c.get_raw_conn(),
-                                                              context_tag as xcb_glx_context_tag_t,  // 0
-                                                              target as u32,  // 1
-                                                              pname as u32);  // 2
+        let cookie = xcb_glx_get_minmax_parameteriv_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetMinmaxParameterivCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6795,29 +7553,42 @@ pub fn get_minmax_parameteriv_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_COMPRESSED_TEX_IMAGE_ARB: u8 = 160;
 
 impl base::CookieSeq for xcb_glx_get_compressed_tex_image_arb_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetCompressedTexImageArbCookie<'a> = base::Cookie<'a, xcb_glx_get_compressed_tex_image_arb_cookie_t>;
+pub type GetCompressedTexImageArbCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_compressed_tex_image_arb_cookie_t>;
 
 impl<'a> GetCompressedTexImageArbCookie<'a> {
     pub fn get_reply(self) -> Result<GetCompressedTexImageArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetCompressedTexImageArbReply {
-                ptr: xcb_glx_get_compressed_tex_image_arb_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_compressed_tex_image_arb_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6826,9 +7597,7 @@ pub type GetCompressedTexImageArbReply = base::Reply<xcb_glx_get_compressed_tex_
 
 impl GetCompressedTexImageArbReply {
     pub fn size(&self) -> i32 {
-        unsafe {
-            (*self.ptr).size
-        }
+        unsafe { (*self.ptr).size }
     }
     pub fn data(&self) -> &[u8] {
         unsafe {
@@ -6840,78 +7609,90 @@ impl GetCompressedTexImageArbReply {
     }
 }
 
-pub fn get_compressed_tex_image_arb<'a>(c          : &'a base::Connection,
-                                        context_tag: ContextTag,
-                                        target     : u32,
-                                        level      : i32)
-        -> GetCompressedTexImageArbCookie<'a> {
+pub fn get_compressed_tex_image_arb<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    level: i32,
+) -> GetCompressedTexImageArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_compressed_tex_image_arb(c.get_raw_conn(),
-                                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                                          target as u32,  // 1
-                                                          level as i32);  // 2
+        let cookie = xcb_glx_get_compressed_tex_image_arb(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            level as i32,
+        );
         GetCompressedTexImageArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_compressed_tex_image_arb_unchecked<'a>(c          : &'a base::Connection,
-                                                  context_tag: ContextTag,
-                                                  target     : u32,
-                                                  level      : i32)
-        -> GetCompressedTexImageArbCookie<'a> {
+pub fn get_compressed_tex_image_arb_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    level: i32,
+) -> GetCompressedTexImageArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_compressed_tex_image_arb_unchecked(c.get_raw_conn(),
-                                                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                                                    target as u32,  // 1
-                                                                    level as i32);  // 2
+        let cookie = xcb_glx_get_compressed_tex_image_arb_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            level as i32,
+        );
         GetCompressedTexImageArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
 pub const DELETE_QUERIES_ARB: u8 = 161;
 
-pub fn delete_queries_arb<'a>(c          : &'a base::Connection,
-                              context_tag: ContextTag,
-                              ids        : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn delete_queries_arb<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    ids: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let ids_len = ids.len();
         let ids_ptr = ids.as_ptr();
-        let cookie = xcb_glx_delete_queries_arb(c.get_raw_conn(),
-                                                context_tag as xcb_glx_context_tag_t,  // 0
-                                                ids_len as i32,  // 1
-                                                ids_ptr as *const u32);  // 2
+        let cookie = xcb_glx_delete_queries_arb(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            ids_len as i32,
+            ids_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
 
-pub fn delete_queries_arb_checked<'a>(c          : &'a base::Connection,
-                                      context_tag: ContextTag,
-                                      ids        : &[u32])
-        -> base::VoidCookie<'a> {
+pub fn delete_queries_arb_checked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    ids: &[u32],
+) -> base::VoidCookie<'a> {
     unsafe {
         let ids_len = ids.len();
         let ids_ptr = ids.as_ptr();
-        let cookie = xcb_glx_delete_queries_arb_checked(c.get_raw_conn(),
-                                                        context_tag as xcb_glx_context_tag_t,  // 0
-                                                        ids_len as i32,  // 1
-                                                        ids_ptr as *const u32);  // 2
+        let cookie = xcb_glx_delete_queries_arb_checked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            ids_len as i32,
+            ids_ptr as *const u32,
+        );
         base::VoidCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
@@ -6919,7 +7700,9 @@ pub fn delete_queries_arb_checked<'a>(c          : &'a base::Connection,
 pub const GEN_QUERIES_ARB: u8 = 162;
 
 impl base::CookieSeq for xcb_glx_gen_queries_arb_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GenQueriesArbCookie<'a> = base::Cookie<'a, xcb_glx_gen_queries_arb_cookie_t>;
@@ -6927,21 +7710,27 @@ pub type GenQueriesArbCookie<'a> = base::Cookie<'a, xcb_glx_gen_queries_arb_cook
 impl<'a> GenQueriesArbCookie<'a> {
     pub fn get_reply(self) -> Result<GenQueriesArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GenQueriesArbReply {
-                ptr: xcb_glx_gen_queries_arb_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_gen_queries_arb_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -6959,34 +7748,40 @@ impl GenQueriesArbReply {
     }
 }
 
-pub fn gen_queries_arb<'a>(c          : &'a base::Connection,
-                           context_tag: ContextTag,
-                           n          : i32)
-        -> GenQueriesArbCookie<'a> {
+pub fn gen_queries_arb<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    n: i32,
+) -> GenQueriesArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_gen_queries_arb(c.get_raw_conn(),
-                                             context_tag as xcb_glx_context_tag_t,  // 0
-                                             n as i32);  // 1
+        let cookie = xcb_glx_gen_queries_arb(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            n as i32,
+        );
         GenQueriesArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn gen_queries_arb_unchecked<'a>(c          : &'a base::Connection,
-                                     context_tag: ContextTag,
-                                     n          : i32)
-        -> GenQueriesArbCookie<'a> {
+pub fn gen_queries_arb_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    n: i32,
+) -> GenQueriesArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_gen_queries_arb_unchecked(c.get_raw_conn(),
-                                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                                       n as i32);  // 1
+        let cookie = xcb_glx_gen_queries_arb_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            n as i32,
+        );
         GenQueriesArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -6994,7 +7789,9 @@ pub fn gen_queries_arb_unchecked<'a>(c          : &'a base::Connection,
 pub const IS_QUERY_ARB: u8 = 163;
 
 impl base::CookieSeq for xcb_glx_is_query_arb_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type IsQueryArbCookie<'a> = base::Cookie<'a, xcb_glx_is_query_arb_cookie_t>;
@@ -7002,21 +7799,27 @@ pub type IsQueryArbCookie<'a> = base::Cookie<'a, xcb_glx_is_query_arb_cookie_t>;
 impl<'a> IsQueryArbCookie<'a> {
     pub fn get_reply(self) -> Result<IsQueryArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             IsQueryArbReply {
-                ptr: xcb_glx_is_query_arb_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_is_query_arb_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -7025,40 +7828,44 @@ pub type IsQueryArbReply = base::Reply<xcb_glx_is_query_arb_reply_t>;
 
 impl IsQueryArbReply {
     pub fn ret_val(&self) -> Bool32 {
-        unsafe {
-            (*self.ptr).ret_val
+        unsafe { (*self.ptr).ret_val }
+    }
+}
+
+pub fn is_query_arb<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    id: u32,
+) -> IsQueryArbCookie<'a> {
+    unsafe {
+        let cookie = xcb_glx_is_query_arb(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            id as u32,
+        );
+        IsQueryArbCookie {
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn is_query_arb<'a>(c          : &'a base::Connection,
-                        context_tag: ContextTag,
-                        id         : u32)
-        -> IsQueryArbCookie<'a> {
+pub fn is_query_arb_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    id: u32,
+) -> IsQueryArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_is_query_arb(c.get_raw_conn(),
-                                          context_tag as xcb_glx_context_tag_t,  // 0
-                                          id as u32);  // 1
+        let cookie = xcb_glx_is_query_arb_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            id as u32,
+        );
         IsQueryArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
-        }
-    }
-}
-
-pub fn is_query_arb_unchecked<'a>(c          : &'a base::Connection,
-                                  context_tag: ContextTag,
-                                  id         : u32)
-        -> IsQueryArbCookie<'a> {
-    unsafe {
-        let cookie = xcb_glx_is_query_arb_unchecked(c.get_raw_conn(),
-                                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                                    id as u32);  // 1
-        IsQueryArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -7066,7 +7873,9 @@ pub fn is_query_arb_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_QUERYIV_ARB: u8 = 164;
 
 impl base::CookieSeq for xcb_glx_get_queryiv_arb_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetQueryivArbCookie<'a> = base::Cookie<'a, xcb_glx_get_queryiv_arb_cookie_t>;
@@ -7074,21 +7883,27 @@ pub type GetQueryivArbCookie<'a> = base::Cookie<'a, xcb_glx_get_queryiv_arb_cook
 impl<'a> GetQueryivArbCookie<'a> {
     pub fn get_reply(self) -> Result<GetQueryivArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetQueryivArbReply {
-                ptr: xcb_glx_get_queryiv_arb_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_queryiv_arb_reply(self.conn.get_raw_conn(), self.cookie, err_ptr),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -7097,14 +7912,10 @@ pub type GetQueryivArbReply = base::Reply<xcb_glx_get_queryiv_arb_reply_t>;
 
 impl GetQueryivArbReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -7116,38 +7927,44 @@ impl GetQueryivArbReply {
     }
 }
 
-pub fn get_queryiv_arb<'a>(c          : &'a base::Connection,
-                           context_tag: ContextTag,
-                           target     : u32,
-                           pname      : u32)
-        -> GetQueryivArbCookie<'a> {
+pub fn get_queryiv_arb<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetQueryivArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_queryiv_arb(c.get_raw_conn(),
-                                             context_tag as xcb_glx_context_tag_t,  // 0
-                                             target as u32,  // 1
-                                             pname as u32);  // 2
+        let cookie = xcb_glx_get_queryiv_arb(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetQueryivArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_queryiv_arb_unchecked<'a>(c          : &'a base::Connection,
-                                     context_tag: ContextTag,
-                                     target     : u32,
-                                     pname      : u32)
-        -> GetQueryivArbCookie<'a> {
+pub fn get_queryiv_arb_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    target: u32,
+    pname: u32,
+) -> GetQueryivArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_queryiv_arb_unchecked(c.get_raw_conn(),
-                                                       context_tag as xcb_glx_context_tag_t,  // 0
-                                                       target as u32,  // 1
-                                                       pname as u32);  // 2
+        let cookie = xcb_glx_get_queryiv_arb_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            target as u32,
+            pname as u32,
+        );
         GetQueryivArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -7155,7 +7972,9 @@ pub fn get_queryiv_arb_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_QUERY_OBJECTIV_ARB: u8 = 165;
 
 impl base::CookieSeq for xcb_glx_get_query_objectiv_arb_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
 pub type GetQueryObjectivArbCookie<'a> = base::Cookie<'a, xcb_glx_get_query_objectiv_arb_cookie_t>;
@@ -7163,21 +7982,31 @@ pub type GetQueryObjectivArbCookie<'a> = base::Cookie<'a, xcb_glx_get_query_obje
 impl<'a> GetQueryObjectivArbCookie<'a> {
     pub fn get_reply(self) -> Result<GetQueryObjectivArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetQueryObjectivArbReply {
-                ptr: xcb_glx_get_query_objectiv_arb_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_query_objectiv_arb_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -7186,14 +8015,10 @@ pub type GetQueryObjectivArbReply = base::Reply<xcb_glx_get_query_objectiv_arb_r
 
 impl GetQueryObjectivArbReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> i32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[i32] {
         unsafe {
@@ -7205,38 +8030,44 @@ impl GetQueryObjectivArbReply {
     }
 }
 
-pub fn get_query_objectiv_arb<'a>(c          : &'a base::Connection,
-                                  context_tag: ContextTag,
-                                  id         : u32,
-                                  pname      : u32)
-        -> GetQueryObjectivArbCookie<'a> {
+pub fn get_query_objectiv_arb<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    id: u32,
+    pname: u32,
+) -> GetQueryObjectivArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_query_objectiv_arb(c.get_raw_conn(),
-                                                    context_tag as xcb_glx_context_tag_t,  // 0
-                                                    id as u32,  // 1
-                                                    pname as u32);  // 2
+        let cookie = xcb_glx_get_query_objectiv_arb(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            id as u32,
+            pname as u32,
+        );
         GetQueryObjectivArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_query_objectiv_arb_unchecked<'a>(c          : &'a base::Connection,
-                                            context_tag: ContextTag,
-                                            id         : u32,
-                                            pname      : u32)
-        -> GetQueryObjectivArbCookie<'a> {
+pub fn get_query_objectiv_arb_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    id: u32,
+    pname: u32,
+) -> GetQueryObjectivArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_query_objectiv_arb_unchecked(c.get_raw_conn(),
-                                                              context_tag as xcb_glx_context_tag_t,  // 0
-                                                              id as u32,  // 1
-                                                              pname as u32);  // 2
+        let cookie = xcb_glx_get_query_objectiv_arb_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            id as u32,
+            pname as u32,
+        );
         GetQueryObjectivArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
@@ -7244,29 +8075,42 @@ pub fn get_query_objectiv_arb_unchecked<'a>(c          : &'a base::Connection,
 pub const GET_QUERY_OBJECTUIV_ARB: u8 = 166;
 
 impl base::CookieSeq for xcb_glx_get_query_objectuiv_arb_cookie_t {
-    fn sequence(&self) -> c_uint { self.sequence }
+    fn sequence(&self) -> c_uint {
+        self.sequence
+    }
 }
 
-pub type GetQueryObjectuivArbCookie<'a> = base::Cookie<'a, xcb_glx_get_query_objectuiv_arb_cookie_t>;
+pub type GetQueryObjectuivArbCookie<'a> =
+    base::Cookie<'a, xcb_glx_get_query_objectuiv_arb_cookie_t>;
 
 impl<'a> GetQueryObjectuivArbCookie<'a> {
     pub fn get_reply(self) -> Result<GetQueryObjectuivArbReply, base::ReplyError> {
         let mut err: *mut xcb_generic_error_t = std::ptr::null_mut();
-        let err_ptr = if self.checked {&mut err} else {std::ptr::null_mut()};
+        let err_ptr = if self.checked {
+            &mut err
+        } else {
+            std::ptr::null_mut()
+        };
         let reply = unsafe {
             GetQueryObjectuivArbReply {
-                ptr: xcb_glx_get_query_objectuiv_arb_reply (self.conn.get_raw_conn(), self.cookie, err_ptr)
+                ptr: xcb_glx_get_query_objectuiv_arb_reply(
+                    self.conn.get_raw_conn(),
+                    self.cookie,
+                    err_ptr,
+                ),
             }
         };
         let checked = self.checked;
-        std::mem::forget(self); // won't call discard on cookie
+        std::mem::forget(self);
 
         match (reply.ptr.is_null(), err.is_null(), checked) {
-            (false, _, false) => Ok (reply),
-            (false, true, true) => Ok (reply),
-            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError { ptr: err })),
+            (false, _, false) => Ok(reply),
+            (false, true, true) => Ok(reply),
+            (true, false, _) => Err(base::ReplyError::GenericError(base::GenericError {
+                ptr: err,
+            })),
             (true, true, _) => Err(base::ReplyError::NullResponse),
-            (r, e, c) => unreachable!("{:?}", (r, e, c))
+            (r, e, c) => unreachable!("{:?}", (r, e, c)),
         }
     }
 }
@@ -7275,14 +8119,10 @@ pub type GetQueryObjectuivArbReply = base::Reply<xcb_glx_get_query_objectuiv_arb
 
 impl GetQueryObjectuivArbReply {
     pub fn n(&self) -> u32 {
-        unsafe {
-            (*self.ptr).n
-        }
+        unsafe { (*self.ptr).n }
     }
     pub fn datum(&self) -> u32 {
-        unsafe {
-            (*self.ptr).datum
-        }
+        unsafe { (*self.ptr).datum }
     }
     pub fn data(&self) -> &[u32] {
         unsafe {
@@ -7294,38 +8134,44 @@ impl GetQueryObjectuivArbReply {
     }
 }
 
-pub fn get_query_objectuiv_arb<'a>(c          : &'a base::Connection,
-                                   context_tag: ContextTag,
-                                   id         : u32,
-                                   pname      : u32)
-        -> GetQueryObjectuivArbCookie<'a> {
+pub fn get_query_objectuiv_arb<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    id: u32,
+    pname: u32,
+) -> GetQueryObjectuivArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_query_objectuiv_arb(c.get_raw_conn(),
-                                                     context_tag as xcb_glx_context_tag_t,  // 0
-                                                     id as u32,  // 1
-                                                     pname as u32);  // 2
+        let cookie = xcb_glx_get_query_objectuiv_arb(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            id as u32,
+            pname as u32,
+        );
         GetQueryObjectuivArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: true
+            cookie: cookie,
+            conn: c,
+            checked: true,
         }
     }
 }
 
-pub fn get_query_objectuiv_arb_unchecked<'a>(c          : &'a base::Connection,
-                                             context_tag: ContextTag,
-                                             id         : u32,
-                                             pname      : u32)
-        -> GetQueryObjectuivArbCookie<'a> {
+pub fn get_query_objectuiv_arb_unchecked<'a>(
+    c: &'a base::Connection,
+    context_tag: ContextTag,
+    id: u32,
+    pname: u32,
+) -> GetQueryObjectuivArbCookie<'a> {
     unsafe {
-        let cookie = xcb_glx_get_query_objectuiv_arb_unchecked(c.get_raw_conn(),
-                                                               context_tag as xcb_glx_context_tag_t,  // 0
-                                                               id as u32,  // 1
-                                                               pname as u32);  // 2
+        let cookie = xcb_glx_get_query_objectuiv_arb_unchecked(
+            c.get_raw_conn(),
+            context_tag as xcb_glx_context_tag_t,
+            id as u32,
+            pname as u32,
+        );
         GetQueryObjectuivArbCookie {
-            cookie:  cookie,
-            conn:    c,
-            checked: false
+            cookie: cookie,
+            conn: c,
+            checked: false,
         }
     }
 }
